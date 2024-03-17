@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sylvain L. - Portfolio</title>
+    <meta content="text/html" charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/mobile.css"/>
+    <link rel="icon" href="images/portfolio.png?height=800"/>
+    <script src="js/script.js"></script>
+  </head>
+  <body>
+    <div id="top">
+      <div class="textTop"><a href="/">SYLVAIN LAMBERT</a></div>
+      <span class="topMenus">
+        <a href="projets">Projets</a>
+        <a href="services">Services</a>
+        <a href="about">À propos</a>
+        <a href="contact">Contact</a>
+        <a href="https://github.com/20syldev">Github</a>
+        <a href="https://linkedin.com/in/sylvainlmb">LinkedIn</a>
+      </span>
+      <hr class="textBar">
+    </div>
+    
+    <div id="header">
+      <div class="textHeader">Bonjour, je suis <span onmouseover="big(event)" onmouseout="normal(event)">Sylvain</span>.</div>
+        <div class="textSub">
+          Développeur et Web Designer amateur. 
+          J'<span onmouseover="showSubTxt(1)" onmouseout="normalTxt(1)" id="txtChange1">imagine</span>, 
+          je <span onmouseover="showSubTxt(2)" onmouseout="normalTxt(2)" id="txtChange2">créé</span>, 
+          je <span onmouseover="showSubTxt(3)" onmouseout="normalTxt(3)" id="txtChange3">publie</span>.
+          <br>
+          <i id="info">Essayez d'interagir avec les mots ci-dessus pour en savoir plus sur moi !</i>
+          <span id="headerTxt1" style="opacity: 0; position: absolute;">Je commence par conceptualiser le site sur Canva, simplement l'interface de la page principale, puis je passe sur Visual Studio Code.</span>
+          <span id="headerTxt2" style="opacity: 0; position: absolute;">J'utilise HTML, CSS et Js seulement car je ne fais que des pages statiques pour l'instant. J'utilise <i>un peu</i> PHP mais je ne suis pas le meilleur...</span>
+          <span id="headerTxt3" style="opacity: 0; position: absolute;">Depuis 2023, j'utilise Github Pages pour héberger mes sites rapidement, puis je redirige la page vers mon domaine !</span>
+        </div>
+    </div>
+
+    <div class="image">
+      <button id="codeBtn" tabindex="-1">
+        <pre>
+          <span style="color: #5d823f">/* Présentation */</span>
+          <span style="color: #b9ab69">#profil</span> <span style="color: #ffd700">{</span>
+            <span style="color: #7cc8e1">description</span>: <span style="color: #99634a">"Dev", "Designer"</span>;
+            <span style="color: #7cc8e1">rigueur</span>: <span style="color: #85a678">100%</span>
+          <span style="color: #ffd700">}</span>
+
+          <span style="color: #b9ab69">#formations</span> <span style="color: #ffd700">{</span>
+            <span style="color: #7cc8e1">école</span>: <span style="color: #99634a">"Lycée Jean Monnet"</span>;
+            <span style="color: #7cc8e1">année</span>: <span style="color: #85a678">85%</span>
+          <span style="color: #ffd700">}</span>
+
+          <span style="color: #b9ab69">#contact</span> <span style="color: #ffd700">{</span>
+            <span style="color: #7cc8e1">mail</span>: <span style="color: #99634a">"contact@sylvain.pro"</span>;
+            <span style="color: #7cc8e1">gmail</span>: <span style="color: #99634a">"contact.sylvainl@gmail.com"</span>
+          <span style="color: #ffd700">}</span>
+        </pre>
+      </button>
+    </div>
+
+    <button id="btnProj" tabindex="-1">
+        <span><a id="nolink" href="projets">Mes projets</a></span>
+        <img src="../images/file.png" alt="" class="file">
+        <img src="../images/shine.png" alt="" class="star1">
+        <img src="../images/shine.png" alt="" class="star2">
+    </button>
+  </body>
+</html>
