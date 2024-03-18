@@ -1,16 +1,16 @@
 @font-face {
   font-family: "Raleway-Bold";
-  src: url('./Raleway-Bold.ttf') format('opentype');
+  src: url('https://sylvain.pro/css/Raleway-Bold.ttf') format('truetype');
 }
 
 @font-face {
   font-family: "Raleway-Regular";
-  src: url('./Raleway-Regular.ttf') format('opentype');
+  src: url('https://sylvain.pro/css/Raleway-Regular.ttf') format('truetype');
 }
 
 @font-face {
   font-family: "Raleway-SemiBold";
-  src: url('./Raleway-SemiBold.ttf') format('opentype');
+  src: url('https://sylvain.pro/css/Raleway-SemiBold.ttf') format('truetype');
 }
 
 body {
