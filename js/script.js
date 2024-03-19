@@ -3,7 +3,26 @@ document.addEventListener('DOMContentLoaded', function() {
     if (localStorage.getItem('italique') !== 'true') {
       document.getElementById('info').style.visibility = 'visible';
     }
-  });
+
+    // Pourcentage entre 2 dates
+    var start = new Date(2023, 8, 1);
+    var end = new Date(2024, 5, 31, 23, 59, 59);
+    var today = new Date();
+
+    if (today < start) {
+        document.getElementById('pourcentage').innerHTML = "0%";
+    
+    } 
+    if (today > end) {
+        document.getElementById('pourcentage').innerHTML = "100%";  
+    } 
+    else {
+        var startEnd = end - start;
+        var startToday = today - start;
+        var pourcent = Math.round((startToday / startEnd) * 100);
+        document.getElementById('pourcentage').innerHTML = pourcent + "%";
+    }
+});
 
 // Fait un zoom de texte
 function big(event) {
