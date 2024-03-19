@@ -24,7 +24,7 @@ body {
 #top div {
   color: #ffffff;
   font-family: "Raleway-SemiBold";
-  font-size: 1.5em;
+  font-size: 1.55vw;
   position: absolute;
 }
 /* Barre sous le titre en haut à gauche */
@@ -58,11 +58,11 @@ body {
   right: 3%;
   color: #ffffff;
   font-family: "Raleway-Regular";
-  font-size: 1em;
+  font-size: 1.2vw;
 }
 /* Couleur des liens des menus */
 .topMenus a {
-  margin-left: 58px;
+  margin-left: 4vw;
   text-decoration: none;
   color: #888888;
 }
@@ -75,22 +75,22 @@ body {
 /* Encadré à gauche de la page */
 #header div {
   font-family: "Raleway-SemiBold";
-  font-size: 2.5em;
-  margin-top: 200px;
+  font-size: 3vw;
+  margin-top: 30vh;
 }
 
 /* Texte sous l'encadré à gauche de la page */
 #header .textSub {
   color: #9f9f9f;
   font-family: "Raleway-Regular";
-  font-size: 18px;
-  margin-top: 25px;
+  font-size: 1.4vw;
+  margin-top: 4vh;
 }
 .textSub span {
   margin-top: 0.7em;
   margin-left: 0;
-  max-width: 650px;
-  line-height: 1.3em;
+  max-width: 50vw;
+  line-height: 3.2vh;
 }
 
 /* Code de présentation à droite de la page */
@@ -103,17 +103,16 @@ body {
   box-sizing: border-box;
   position: fixed;
   text-align: left;
-  font-size: 25px;
-  width: 550px;
-  right: 0;
-  margin-top: -250px;
-  margin-right: 2%;
+  font-size: 2em;
+  width: 600px;
+  top: 0;
+  right: 3%;
+  margin-top: 20vh;
   transition: 0.5s;
 }
 /* Mise en page */
 .image pre {
   margin-left: -4.5em;
-  margin-bottom: 0;
 }
 
 /* Bouton "Mes projets" sous l'encadré + déco */
@@ -129,7 +128,6 @@ body {
   padding: 15px;
   width: 130px;
   cursor: pointer;
-  margin-top: 2em;
   position: relative;
   display: flex;
   padding-left: 22px;
