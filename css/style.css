@@ -103,11 +103,11 @@ body {
   box-sizing: border-box;
   position: fixed;
   text-align: left;
-  font-size: 2em;
-  width: 600px;
+  font-size: 1.8em;
+  width: 26cap;
   top: 0;
   right: 3%;
-  margin-top: 20vh;
+  margin-top: 15vh;
   transition: 0.5s;
 }
 /* Mise en page */
@@ -130,6 +130,7 @@ body {
   cursor: pointer;
   position: relative;
   display: flex;
+  margin-top: 4vh;
   padding-left: 22px;
   transition: 0.5s;
 }
