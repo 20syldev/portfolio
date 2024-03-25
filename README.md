@@ -2,7 +2,7 @@
   <a href="https://sylvain.pro"><img src="https://sylvain.pro/images/portfolio.png" alt="Logo" width="25%" height="auto"></a>
 
 # Portfolio - 20syl
-  [![Badge1](https://img.shields.io/badge/Site%20:-v1.0.2-6479ee?labelColor=23272A)](https://sylvain.pro)
+  [![Badge1](https://img.shields.io/badge/Site%20:-v1.0.3-6479ee?labelColor=23272A)](https://sylvain.pro)
 
 </div>
 
