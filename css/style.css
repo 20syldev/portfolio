@@ -31,18 +31,18 @@ body {
 #top hr {
   width: 0px;
   position: relative;
-  top: 2.5em;
+  top: 5vh;
   margin-left: 0;
-  border: 3px solid #5679d1;
+  border: 2px solid #5679d1;
   border-radius: 100px;
   opacity: 0;
   transition: 3s;
   transition-delay: 2s;
 }
-/* Anomation quand la souris passe sur la barre */  
+/* Animation quand la souris passe sur la barre */  
 #top:hover hr {
   opacity: 1;
-  width: 210px;
+  width: 13.5vw;
   transition: 0.5s;
 }
 
