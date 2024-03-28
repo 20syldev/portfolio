@@ -11,4 +11,4 @@
 ## Présentation ~~très~~ rapide
 > [!NOTE]
 > Ce dépôt Github est utilisé pour héberger mon portfolio personnel, pour les entreprises, les recruteurs...  
-> Soyez libre de regarder et copier mon code source, en respectant la [licence](https://github.com/20syldev/portfolio/?tab=MIT-1-ov-file) bien sûr !
+> Soyez libre de regarder et copier mon code source, en respectant la [licence](https://github.com/20syldev/portfolio/?tab=BSD-3-Clause-1-ov-file) bien sûr !
