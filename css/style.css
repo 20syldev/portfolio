@@ -29,11 +29,11 @@ body {
 }
 /* Barre sous le titre en haut à gauche */
 #top hr {
-  width: 0px;
+  width: 0;
   position: relative;
   top: 5vh;
   margin-left: 0;
-  border: 2px solid #5679d1;
+  border: 0.3vh solid #5679d1;
   border-radius: 100px;
   opacity: 0;
   transition: 3s;
@@ -41,8 +41,8 @@ body {
 }
 /* Animation quand la souris passe sur la barre */  
 #top:hover hr {
+  width: 13.8vw;
   opacity: 1;
-  width: 13.5vw;
   transition: 0.5s;
 }
 
@@ -99,20 +99,21 @@ body {
   background: #1b1e27;
   color: #ffffff;
   border: none;
-  border-radius: 25px;
+  border-radius: 1.8vw;
   box-sizing: border-box;
   position: fixed;
   text-align: left;
-  font-size: 1.8em;
-  width: 26cap;
+  font-size: 1.75vw;
+  width: 39vw;
+  height: 72vh;
   top: 0;
   right: 3%;
-  margin-top: 15vh;
+  margin-top: 16vh;
   transition: 0.5s;
 }
 /* Mise en page */
 .image pre {
-  margin-left: -4.5em;
+  margin-left: -8vw;
 }
 
 /* Bouton "Mes projets" sous l'encadré + déco */
@@ -124,39 +125,39 @@ body {
   border-radius: 100px;
   box-sizing: border-box;
   font-family: "Raleway-SemiBold";
-  font-size: 16px;
-  padding: 15px;
-  width: 130px;
+  font-size: 1vw;
+  padding: 2vh;
+  width: 8.5vw;
   cursor: pointer;
   position: relative;
   display: flex;
   margin-top: 4vh;
-  padding-left: 22px;
+  padding-left: 1.5vw;
   transition: 0.5s;
 }
 #btnProj .file {
-  width: 15px;
+  width: 1vw;
   height: auto;
   filter: invert(100%);
-  margin-left: 10px;
+  margin-left: 0.5vw;
   opacity: 0;
   transition: opacity 0.5s;
 }
 #btnProj .star1 {
-  width: 15px;
+  width: 1vw;
   height: auto;
   filter: invert(100%);
-  margin-top: -20px;
-  margin-left: -20px;
+  margin-top: -1.5vw;
+  margin-left: -1vw;
   opacity: 0;
   transition: 0.2s;
 }
 #btnProj .star2 {
-  width: 20px;
+  width: 1.2vw;
   height: auto;
   filter: invert(100%);
-  margin-top: 23px;
-  margin-left: 0px;
+  margin-top: 1.5vw;
+  margin-left: 0;
   position: absolute;
   opacity: 0;
   transition: 0.2s;
@@ -169,8 +170,8 @@ body {
 
 /* Animations quand la souris passe sur le bouton */
 #btnProj:hover {
-  padding-left: 30px;
-  width: 165px;
+  padding-left: 2vw;
+  width: 10.7vw;
   transition: 0.5s;
 }
 #btnProj:hover .file {
@@ -179,15 +180,15 @@ body {
 }
 #btnProj:hover .star1 {
   rotate: 70deg;
-  margin-top: -20px;
-  margin-left: 0px;
+  margin-top: -1.3vw;
+  margin-left: 0;
   opacity: 1;
   transition: 1.5s;
 }
 #btnProj:hover .star2 {
-  rotate: 60deg;
-  margin-top: 23px;
-  margin-left: -23px;
+  rotate: -110deg;
+  margin-top: 1.5vw;
+  margin-left: -1.5vw;
   opacity: 1;
   transition: 1.5s;
 }
