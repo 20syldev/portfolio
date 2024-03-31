@@ -20,8 +20,20 @@ body {
   margin-top: 3%;
 }
 
+/* Cacher le texte pour éviter le chevauchement */
+#hideTxt {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20vh;
+  background: #111214;
+  z-index: 0;
+}
+
 /* Titre page en haut à gauche */
 #top div {
+  user-select: none;
   color: #ffffff;
   font-family: "Raleway-SemiBold";
   font-size: 1.55vw;
@@ -54,6 +66,7 @@ body {
 
 /* Menus en haut à droite */
 .topMenus {
+  user-select: none;
   position: absolute;
   right: 3%;
   color: #ffffff;
@@ -207,11 +220,27 @@ body {
   font-size: 0.8em;
 }
 
+/* Icônes /projets */
+.icons {
+  user-select: none;
+  width: 1.5vw;
+  height: auto;
+  margin-right: 1vw;
+}
+
+/* Bannière sous les projets */
+.banner {
+  user-select: none;
+  width: 20vw;
+  height: auto;
+  border-radius: 1vw;
+  margin-top: 1vh;
+}
+
 /* Barre de scroll latérale */
 ::-webkit-scrollbar {
-  margin-left: 50%;
-  height: 5px;
-  width: 8px;
+  height: 1vh;
+  width: 0.5vw;
   background-color: #111214;
   overflow-y: auto;
   overflow-x: hidden;
@@ -221,7 +250,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background-color: #353739;
-  border-radius: 3px;
+  border-radius: 10vw;
 }
 
 ::-webkit-scrollbar-thumb:hover {
