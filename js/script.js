@@ -58,14 +58,14 @@ function showSubTxt(text) {
 }
 
 // Reset l'affichage du sous-titre
-function normalTxt(num) {
-    document.getElementById('txtChange' + num).style.textDecoration = 'none';
-    document.getElementById('txtChange' + num).style.fontSize = '1em';
-    document.getElementById('txtChange' + num).style.padding = '0';
-    document.getElementById('txtChange' + num).style.transition = '0.5s';
+function normalSubTxt(text) {
+    document.getElementById('txtChange' + text).style.textDecoration = 'none';
+    document.getElementById('txtChange' + text).style.fontSize = '1em';
+    document.getElementById('txtChange' + text).style.padding = '0';
+    document.getElementById('txtChange' + text).style.transition = '0.5s';
 
-    document.getElementById('headerTxt' + num).style.opacity = '0';
-    document.getElementById('headerTxt' + num).style.transition = '0.5s';
+    document.getElementById('headerTxt' + text).style.opacity = '0';
+    document.getElementById('headerTxt' + text).style.transition = '0.5s';
 
     document.getElementById('btnProj').style.marginTop = '2em';
     document.getElementById('btnProj').style.transitionDelay = '0.4s';
@@ -73,4 +73,35 @@ function normalTxt(num) {
     setTimeout(function() {
         document.getElementById('btnProj').style.transitionDelay = '0s';
     });
+}
+
+// Astérisque quand on passe la souris sur un mot
+function showAstTxt(text) {
+    document.getElementById('charAst').style.textDecoration = 'none';
+    document.getElementById('charAst').style.fontSize = '1.25em';
+    document.getElementById('charAst').style.paddingRight = '1vw';
+    document.getElementById('charAst').style.transition = '0.5s';
+
+    document.getElementById('ast' + text).style.textDecoration = 'underline';
+    document.getElementById('ast' + text).style.fontSize = '1.25em';
+    document.getElementById('ast' + text).style.paddingLeft = '0.5vw';
+    document.getElementById('ast' + text).style.transition = '0.5s';
+
+    document.getElementById('infoAst' + text).style.opacity = '1';
+    document.getElementById('infoAst' + text).style.transition = '0.5s';
+}
+
+// Reset l'affichage de l'astérisque
+function normalAstTxt(text) {
+    document.getElementById('charAst').style.textDecoration = 'none';
+    document.getElementById('charAst').style.fontSize = '1em';
+    document.getElementById('charAst').style.transition = '0.5s';
+
+    document.getElementById('ast' + text).style.textDecoration = 'none';
+    document.getElementById('ast' + text).style.fontSize = '1em';
+    document.getElementById('ast' + text).style.padding = '0';
+    document.getElementById('ast' + text).style.transition = '0.5s';
+
+    document.getElementById('infoAst' + text).style.opacity = '0';
+    document.getElementById('infoAst' + text).style.transition = '0.5s';
 }
