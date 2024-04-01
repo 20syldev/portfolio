@@ -10,19 +10,33 @@ document.addEventListener('DOMContentLoaded', function() {
     var today = new Date();
 
     if (today < start) {
-        document.getElementById('pourcentage').innerHTML = "0%";
+        document.getElementById('pourcentage').innerHTML = '0%';
     
     } 
     if (today > end) {
-        document.getElementById('pourcentage').innerHTML = "100%";  
+        document.getElementById('pourcentage').innerHTML = '100%';  
     } 
     else {
         var startEnd = end - start;
         var startToday = today - start;
         var pourcent = Math.round((startToday / startEnd) * 100);
-        document.getElementById('pourcentage').innerHTML = pourcent + "%";
+        document.getElementById('pourcentage').innerHTML = pourcent + '%';
     }
 });
+
+// Affichage de la barre (/projets)
+window.onscroll = updateBar;
+function updateBar() {
+    if (window.scrollY >= window.innerHeight * 0.17) {
+        document.getElementById('bar').style.width = '100%';
+        document.getElementById('bar').style.opacity = '1';
+        document.getElementById('bar').style.transition = '1s';
+    } else {
+        document.getElementById('bar').style.width = '0';
+        document.getElementById('bar').style.opacity = '0';
+        document.getElementById('bar').style.transition = '0.5s';
+    }
+}
 
 // Fait un zoom de texte
 function big(event) {
