@@ -10,22 +10,37 @@
       body {
         font-family: "Raleway-Bold";
       }
-      .top {
+      #top {
         text-align: center;
-        margin-top: 250px;
-        font-size: 30px;
-        line-height: 35px;
+        margin-top: 30vh;
+        font-size: 2vw;
+        line-height: 5vh;
       }
-      .bottom {
+      #middle {
         text-align: center;
-        margin-top: 50px;
-        font-size: 40px;
+        margin-top: 10vh;
+        font-size: 3vw;
       }
-      .link {
+      #bottom {
+        color: #555555;
+        font-family: 'Raleway-SemiBold';
+        font-size: 1vw;
+        margin-bottom: 2vh;
+        text-align: center;
+      }
+      #bottom a {
+        color: #555555;
+        text-decoration: none;
+      }
+      #bottom a:hover {
+        color: #777777;
+        text-decoration: underline;
+      }
+      #link {
         color: #9db4ff;
         text-decoration: none transparent;
       }
-      .link:hover {
+      #link:hover {
         color: #6e8ffc;
         text-decoration: underline;
         transition: text-decoration 1s ease;
@@ -33,13 +48,19 @@
     </style>
   </head>
   <body>
-    <div class="top">
+    <div id="top">
       <span style="font-size: 1.5em;">Oh, la page que vous recherchez n'existe pas...</span><br>
-      <span>Si la page est sensée exister mais qu'elle ne fonctionne pas, contactez moi<br> <a class="link" href="mailto:contact.sylvainl@gmail.com">contact.sylvainl@gmail.com</a>.</span>
+      <span>Si la page est sensée exister mais qu'elle ne fonctionne pas, contactez moi<br> <a id="link" href="mailto:contact.sylvainl@gmail.com">contact.sylvainl@gmail.com</a>.</span>
     </div>
 
-    <div class="bottom">
-      <a class="link" href="/">Retourner à l'accueil</a>
+    <div id="middle">
+      <a id="link" href="/">Retourner à l'accueil</a>
+    </div>
+    
+    <div id="bottom">
+      <div class="titleBottom" style="margin-top: 31vh;">
+        <a href="https://sylvain.pro">sylvain.pro</a> © 2024. Tous droits réservés.
+      </div>
     </div>
   </body>
 </html>
