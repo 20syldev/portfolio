@@ -60,7 +60,7 @@ body {
   transition: 3s;
   transition-delay: 2s;
 }
-/* Animation quand la souris passe sur la barre */  
+/* Animation quand la souris passe sur la barre */
 #top:hover hr {
   width: 13.8vw;
   opacity: 1;
@@ -116,7 +116,7 @@ body {
 }
 
 /* Code de présentation à droite de la page */
-.image button {
+#image button {
   user-select: none;
   background: #1b1e27;
   color: #ffffff;
@@ -134,7 +134,7 @@ body {
   transition: 0.5s;
 }
 /* Mise en page */
-.image pre {
+#image pre {
   margin-left: -8vw;
 }
 
@@ -236,6 +236,15 @@ body {
   width: 1.5vw;
   height: auto;
   margin-right: 1vw;
+  transition: 1s;
+  transition-delay: 0.1s;
+}
+/* Souris sur les icônes */
+.icons:hover {
+  width: 3vw;
+  height: auto;
+  transition: 1s;
+  margin-top: 2vh;
 }
 
 /* Bannière sous les projets */
@@ -245,14 +254,22 @@ body {
   height: auto;
   border-radius: 1vw;
   margin-top: 1vh;
+  transition: 1s;
+}
+/* Souris sur la bannière */
+.banner:hover {
+  width: 50vw;
+  height: auto;
+  transition: 1s;
 }
 
 /* Texte sous les bannières */
 #header .bannerText {
-  color: #ffffff;
+  color: #cccccc;
   font-family: "Raleway-Regular";
   font-size: 1.4vw;
   margin-top: 3vh;
+  line-height: 3.8vh;
 }
 
 /* Bas de page */
