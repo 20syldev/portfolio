@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sylvain L. - Projets</title>
+    <meta content="text/html" charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/mobile.css" media="handheld, only screen and (max-device-width: 480px)"/>
+    <link rel="icon" href="images/portfolio.png"/>
+    <script src="js/script.js"></script>
+  </head>
+  <body>
+    <div id="bar"></div>
+    <div id="hideTxt"></div>
+
+    <div id="top">
+      <div class="textTop" style="position: fixed; top: 6.2vh;"><a href="/">SYLVAIN LAMBERT</a></div>
+      <span class="topMenus" style="position: fixed; top: 6.2vh;">
+        <a href="/">Retourner à l'accueil</a>
+      </span>
+      <hr class="textBar" style="position: fixed; top: 10vh;">
+    </div>
+    
+    <div id="header">
+      <div class="titleHead" style="position: sticky; top: 13vh;">Mes projets</div>
+
+      <div class="titleHeader" style="margin-top: 8vh; font-size: 2vw;">
+        <a href="https://coopbot.xyz"><img class="banner" src="images/coopbotbanner.png"></a>
+        <br>
+        <a href="https://coopbot.xyz"><img class="icons" src="images/coopbot.png"></a>Coop - Un bot Discord multitâches
+        
+        <div class="bannerText">
+          C'est le projet dont je suis le plus fier, un projet qui rassemble la plupart de mes compétences.
+          J'ai crée autour de ce projet, 2 autres, que vous pouvez découvrir ci-dessous.
+          Pendant le développement ce bot, ajouté à Discord en 2021, j'ai pu découvrir de nouveaux langages de programmation.
+          Je me suis alors spécialisé en Javascript, Node.Js et Discord.Js.
+          <br><br>
+          C'est aussi un projet utile, qui est utilisé par une trentaine de serveurs, et plus de 200 000 utilisateurs. 
+          Il contient plus de 60 commandes, avec des fonctionnalités d'animations, de gestion et de modération. Actuellement en version 1.5.0, le bot est peu mis à jour, mais avec le temps, ça reviendra !
+          
+        </div>
+      </div>
+
+      <div class="titleHeader" style="margin-top: 8vh; font-size: 2vw;">
+        <a href="https://github.com/20syldev/coop-status"><img class="banner" src="images/coopstatusbanner.png"></a>
+        <br>
+        <a href="https://github.com/20syldev/coop-status"><img class="icons" src="images/coopstatus.png"></a>Coop Status - Un aide pour le serveur support 
+        
+        <div class="bannerText">
+          Mon second projet, un bot de statut, il me permet de créer des automatisations sur mon serveur support.
+          <br>
+          Je l'ai codé en Discord.js, et séparé du bot principal, pour un meilleur temps de réponse, car le code est plus optimisé, donc plus rapide.
+          <br><br>
+          J'ai ajouté à ce bot des fonctions comme, la détection de rôle, de statut personnalisé, je peux ajouter automatiquement un rôle si certaines conditions sont remplies. 
+          Une fonctionnalité de mail, avec une commande utilisable seulement en messages privés, qui permet de contacter les modérateurs du serveur en direct sans passer par un autre service !
+          <br><br>
+          Ce bot m'a permi de m'améliorer dans l'hébergement stable et rapide, avec des outils comme Render, UptimeRobot.
+        </div>
+      </div>
+
+      <div class="titleHeader" style="margin-top: 8vh; font-size: 2vw;">
+        <a href="https://github.com/20syldev/api"><img class="banner" src="images/apibanner.png"></a>
+        <br>
+        <a href="https://api.coopbot.xyz"><img class="icons" src="images/api.png"></a>Coop API - L'API utilisée par le bot
+        <br>
+        
+        <div class="bannerText">
+          Ma première API, qui est entièrement publique, utilisant Flask, Pillow et Gunicorn. Codé en python, elle m'a permis de développer mes compétences en Python, et en Node.Js.
+          Il y a seulement 1 endpoint (/captcha) pour l'instant mais je n'hésiterai à en ajouter dès que j'aurai le temps !
+          <br><br>
+          Le code source est disponible sur le dépôt Github, tout comme le bot Coop et Coop Status !
+        </div>
+      </div>
+
+      <div class="titleHeader" style="margin-top: 8vh; font-size: 2vw;">
+        <a href="https://github.com/20syldev/nitrogen"><img class="banner" src="images/nitrogenbanner.png"></a>
+        <br>
+        <a href="https://github.com/20syldev/nitrogen"><img class="icons" src="images/nitrogen.png"></a>NitroGen - Générateur de cadeau <span id="ast1" onmouseover="showAstTxt(1)" onmouseout="normalAstTxt(1)">Discord</span><span id="charAst">*</span>
+        <span id="infoAst1" style="color: #333333; opacity: 0; font-size: 1.5vw;">Le bot génère seulement une suite de caractères aléatoires.</span>
+        
+        <div class="bannerText">
+          Un autre bot que j'ai créé en début d'année 2024, pour simplement générer des codes Nitro. Vous avez juste à envoyer un message au bot pour qu'il vous envoie un code, qui souvent, ne fonctionne pas.
+          Mais j'ai quand même essayé ! 
+          <br><br>
+          Ce bot m'a permis de découvrir les mathématiques en Javascript et l'hébergement facile sur Render.
+        </div>
+      </div>
+    </div>
+
+    <div id="bottom">
+      <div class="titleBottom" style="margin-top: 10vh;">
+        <a href="https://sylvain.pro">sylvain.pro</a> © 2024. Tous droits réservés.
+      </div>
+    </div>
+  </body>
+</html>  
