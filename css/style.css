@@ -247,6 +247,14 @@ body {
   margin-top: 1vh;
 }
 
+/* Texte sous les bannières */
+#header .bannerText {
+  color: #ffffff;
+  font-family: "Raleway-Regular";
+  font-size: 1.4vw;
+  margin-top: 3vh;
+}
+
 /* Bas de page */
 #bottom {
   color: #555555;
