@@ -8,10 +8,9 @@
 
 ---
 
-## Présentation ~~très~~ rapide
-> [!NOTE]
-> Ce dépôt Github est utilisé pour héberger mon portfolio personnel, pour les entreprises, les recruteurs...  
-> Soyez libre de regarder et copier mon code source, en respectant la [licence](https://github.com/20syldev/portfolio/?tab=BSD-3-Clause-1-ov-file) bien sûr !
+## Présentation rapide
+Ce dépôt Github est utilisé pour héberger mon portfolio personnel, pour les entreprises, les recruteurs...  
+Soyez libre de regarder et copier mon code source, en respectant la [licence](https://github.com/20syldev/portfolio/?tab=BSD-3-Clause-1-ov-file) bien sûr !
 
 > [!IMPORTANT]
-> Les pages /contact et /about sont en cours de création mais ça arrive très vite !
+> La page **`/about`** est toujours en cours de création mais ça arrive très vite !
