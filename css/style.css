@@ -237,7 +237,7 @@ body {
   height: auto;
   margin-right: 1vw;
   transition: 1s;
-  transition-delay: 0.1s;
+  transition-delay: 0.2s;
 }
 /* Souris sur les icônes */
 .icons:hover {
