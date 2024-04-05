@@ -316,13 +316,6 @@ body {
   transition: 1s;
   transition-delay: 0.2s;
 }
-/* Souris sur les icônes */
-.icons:hover {
-  width: 3vw;
-  height: auto;
-  transition: 1s;
-  margin-top: 2vh;
-}
 
 /* Bannière sous les projets */
 .banner {
