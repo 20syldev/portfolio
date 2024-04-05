@@ -106,7 +106,7 @@ body {
   margin-top: 30vh;
 }
 
-/* Texte sous l'encadré à gauche de la page */
+/* Texte classique du site */
 #header .textSub {
   color: #9f9f9f;
   font-family: 'Raleway-Regular';
@@ -119,6 +119,17 @@ body {
   max-width: 50vw;
   line-height: 3.2vh;
 }
+.textSub a {
+  color: #9f9f9f;
+  font-family: 'Raleway-Regular';
+  font-size: 4vh; 
+  text-decoration: none;
+  line-height: 8vh;
+}
+.textSub a:hover {
+  color: #aaaaaa;
+  text-decoration: underline;
+}
 
 /* Texte sous les bannières */
 #header .bannerText {
@@ -127,19 +138,6 @@ body {
   font-size: 1.4vw;
   margin-top: 3vh;
   line-height: 3.8vh;
-}
-
-/* Texte page de contact */
-#header .textInfo a {
-  color: #9f9f9f;
-  font-family: 'Raleway-Regular';
-  font-size: 4vh; 
-  text-decoration: none;
-  line-height: 8vh;
-}
-#header .textInfo a:hover {
-  color: #aaaaaa;
-  text-decoration: underline;
 }
 
 /* Bas de page */
