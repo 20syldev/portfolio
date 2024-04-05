@@ -1,16 +1,21 @@
 @font-face {
-  font-family: "Raleway-Bold";
+  font-family: 'Raleway-Bold';
   src: url('./Raleway-Bold.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: "Raleway-Regular";
+  font-family: 'Raleway-Regular';
   src: url('./Raleway-Regular.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: "Raleway-SemiBold";
+  font-family: 'Raleway-SemiBold';
   src: url('./Raleway-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Lato-Regular';
+  src: url('./Lato-Regular.ttf') format('truetype');
 }
 
 body {
@@ -44,7 +49,7 @@ body {
 #top div {
   user-select: none;
   color: #ffffff;
-  font-family: "Raleway-SemiBold";
+  font-family: 'Raleway-SemiBold';
   font-size: 1.55vw;
   position: absolute;
 }
@@ -79,7 +84,7 @@ body {
   position: absolute;
   right: 3%;
   color: #ffffff;
-  font-family: "Raleway-Regular";
+  font-family: 'Raleway-Regular';
   font-size: 1.2vw;
 }
 /* Couleur des liens des menus */
@@ -96,7 +101,7 @@ body {
 
 /* Encadré à gauche de la page */
 #header div {
-  font-family: "Raleway-SemiBold";
+  font-family: 'Raleway-SemiBold';
   font-size: 3vw;
   margin-top: 30vh;
 }
@@ -104,7 +109,7 @@ body {
 /* Texte sous l'encadré à gauche de la page */
 #header .textSub {
   color: #9f9f9f;
-  font-family: "Raleway-Regular";
+  font-family: 'Raleway-Regular';
   font-size: 1.4vw;
   margin-top: 4vh;
 }
@@ -118,7 +123,7 @@ body {
 /* Texte sous les bannières */
 #header .bannerText {
   color: #cccccc;
-  font-family: "Raleway-Regular";
+  font-family: 'Raleway-Regular';
   font-size: 1.4vw;
   margin-top: 3vh;
   line-height: 3.8vh;
@@ -186,7 +191,7 @@ body {
   border: none;
   border-radius: 100px;
   box-sizing: border-box;
-  font-family: "Raleway-SemiBold";
+  font-family: 'Raleway-SemiBold';
   font-size: 1vw;
   padding: 2vh;
   width: 8.5vw;
@@ -268,6 +273,38 @@ body {
   position: absolute;
   visibility: hidden;
   font-size: 0.8em;
+}
+
+/* Version du repository */
+#preRelease {
+  user-select: none;
+  position: absolute;
+  background-color: #111214;
+  color: #d29922;
+  font-family: 'Lato-Regular';
+  font-size: 1.2vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  margin-top: 0.6vh;
+  margin-left: 1.2vw;
+  border-radius: 100px;
+  border: 0.4vh solid #9e6a03;
+  z-index: -1;
+}
+#latestRelease {
+  user-select: none;
+  position: absolute;
+  background-color: #111214;
+  color: #3fb950;
+  font-family: 'Lato-Regular';
+  font-size: 1.2vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  margin-top: 0.6vh;
+  margin-left: 1.2vw;
+  border-radius: 100px;
+  border: 0.4vh solid #238636;
+  z-index: -1;
 }
 
 /* Icônes /projets */
