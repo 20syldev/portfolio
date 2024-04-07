@@ -20,6 +20,7 @@
     color: #ffffff;
     margin-left: 2%;
     margin-top: 3%;
+    overflow: hidden;
   }
 
   /* Titre page en haut à gauche */
