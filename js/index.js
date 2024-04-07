@@ -1,5 +1,5 @@
-// Afficher ou non le texte italique
 document.addEventListener('DOMContentLoaded', function() {
+    // Afficher ou non le texte italique
     if (localStorage.getItem('italique') !== 'true') {
       document.getElementById('info').style.visibility = 'visible';
     }
@@ -35,20 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
     catch (error) {
     }
 });
-
-// Affichage de la barre (/projets)
-window.onscroll = updateBar;
-function updateBar() {
-    if (window.scrollY >= window.innerHeight * 0.17) {
-        document.getElementById('bar').style.width = '100%';
-        document.getElementById('bar').style.opacity = '1';
-        document.getElementById('bar').style.transition = '1s';
-    } else {
-        document.getElementById('bar').style.width = '0';
-        document.getElementById('bar').style.opacity = '0';
-        document.getElementById('bar').style.transition = '0.5s';
-    }
-}
 
 // Fait un zoom de texte
 function big(event) {
@@ -105,14 +91,4 @@ function normalSubTxt(text) {
     setTimeout(function() {
         document.getElementById('btnProj').style.transitionDelay = '0s';
     });
-}
-
-// Phrase cachée dans /about
-function showTxt() {
-    document.getElementById('txtHidden').innerHTML = ' (sauf les maths)'
-}
-
-// Reset l'affichage du sous-titre
-function normalTxt() {
-    document.getElementById('txtHidden').innerHTML = ''
 }
