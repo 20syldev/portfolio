@@ -263,7 +263,7 @@
 }
 
 /* CSS Mobile (Index) */
-@media (max-width: 1080px) and (orientation: portrait) {
+@media (max-width: 1080px) {
   @font-face {
     font-family: 'Raleway-Bold';
     src: url('./Raleway-Bold.ttf') format('truetype');
