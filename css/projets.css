@@ -330,10 +330,12 @@
   }
   #latestRelease {
     user-select: none;
+    position: absolute;
     background-color: #111214;
     color: #3fb950;
     font-family: 'Lato-Regular';
     font-size: 1.8vw;
+    margin-top: 0.6vh;
     margin-left: 1.5vw;
     border-radius: 100px;
     border: 3px solid #238636;
