@@ -112,7 +112,7 @@
   #header .bannerText {
     color: #cccccc;
     font-family: 'Raleway-Regular';
-    font-size: 1.4vw;
+    font-size: 1vw;
     margin-top: 3vh;
     line-height: 3.8vh;
   }
@@ -120,9 +120,8 @@
   #bottom {
     color: #555555;
     font-family: 'Raleway-SemiBold';
-    font-size: 1vw;
+    font-size: 2vw;
     margin-top: 8vh; 
-    margin-left: 40vw;
     margin-bottom: 2.2vh;
   }
   #bottom a {
