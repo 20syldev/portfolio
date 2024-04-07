@@ -1,4 +1,4 @@
-/* CSS Desktop (Contact) */
+/* CSS Desktop (404) */
 @media (min-width: 1080px) {
   @font-face {
     font-family: 'Raleway-Bold';
@@ -60,7 +60,7 @@
   }
 }
 
-/* CSS Mobile (Contact) */
+/* CSS Mobile (404) */
 @media (max-width: 1080px) {
   @font-face {
     font-family: 'Raleway-Bold';
