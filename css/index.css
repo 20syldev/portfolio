@@ -332,8 +332,8 @@
     position: absolute;
     color: #555555;
     font-family: 'Raleway-SemiBold';
-    font-size: 2vw;
-    margin-left: 30%;
+    font-size: 3vw;
+    margin-left: 22.5vw;
     bottom: 2vh;
   }
   #bottom a {
@@ -365,7 +365,7 @@
     transition: 0.5s;
   }
   #image pre {
-    margin-left: -190px;
+    margin-left: -18vw;
   }
 
   #btnProj {
