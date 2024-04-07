@@ -2,7 +2,7 @@
   <a href="https://sylvain.pro"><img src="https://sylvain.pro/images/portfolio.png" alt="Logo" width="25%" height="auto"></a>
 
 # Portfolio - 20syl
-  [![Badge1](https://img.shields.io/badge/Site%20:-v1.3.0-6479ee?labelColor=23272A)](https://sylvain.pro)
+  [![Badge1](https://img.shields.io/badge/Site%20:-v1.3.1-6479ee?labelColor=23272A)](https://sylvain.pro)
 
 </div>
 
@@ -13,4 +13,4 @@ Ce dépôt Github est utilisé pour héberger mon portfolio personnel, pour les 
 Soyez libre de regarder et copier mon code source, en respectant la [licence](https://github.com/20syldev/portfolio/?tab=BSD-3-Clause-1-ov-file) bien sûr !
 
 > [!IMPORTANT]
-> La page **`/about`** est toujours en cours de création mais ça arrive très vite !
+> La version mobile est en cours de création, ça arrive dans pas longtemps !
