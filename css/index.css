@@ -512,7 +512,7 @@
     box-sizing: border-box;
     position: absolute;
     text-align: left;
-    font-size: 40px;
+    font-size: 1.85vh;
     width: 90%;
     height: fit-content;
     left: 5%;
