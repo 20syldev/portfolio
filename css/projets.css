@@ -231,7 +231,6 @@
   body {
     background-color: #111214 !important;
     color: #ffffff;
-    margin-left: 2%;
     margin-top: 5%;
   }
 
@@ -302,11 +301,11 @@
   }
 
   #bottom {
+    position: relative;
     color: #555555;
     font-family: 'Raleway-SemiBold';
-    font-size: 3vw;
-    margin-top: 8vh;
-    margin-left: 22.5%;
+    font-size: 2vw;
+    margin-left: 30%;
     bottom: 2vh;
   }
   #bottom a {
@@ -320,10 +319,12 @@
 
   #preRelease {
     user-select: none;
+    position: absolute;
     background-color: #111214;
     color: #d29922;
     font-family: 'Lato-Regular';
     font-size: 1.8vw;
+    margin-top: 0.6vh;
     margin-left: 1.5vw;
     border-radius: 100px;
     border: 3px solid #9e6a03;
