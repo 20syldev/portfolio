@@ -36,6 +36,7 @@ body {
   z-index: 0;
 }
 
+/* Barre sous ce div */
 #bar {
   position: fixed; 
   opacity: 0;
