@@ -182,7 +182,7 @@
   #header .textSub {
     color: #9f9f9f;
     font-family: 'Raleway-Regular';
-    font-size: 1.8vh;
+    font-size: 1.2vh;
     margin-top: 2vh;
     line-height: 2.5vh;
     margin-left: 2%;
@@ -200,7 +200,7 @@
     color: #555555;
     font-family: 'Raleway-SemiBold';
     font-size: 3vw;
-    margin-left: 22.5%;
+    margin-left: 22vw;
     bottom: 2vh;
   }
   #bottom a {
