@@ -102,7 +102,7 @@
     color: #555555;
     font-family: 'Raleway-SemiBold';
     font-size: 1vw;
-    margin-top: 8vh; 
+    margin-top: 9vh; 
     margin-left: 40vw;
     margin-bottom: 2.2vh;
   }
@@ -215,9 +215,9 @@
     position: absolute;
     color: #555555;
     font-family: 'Raleway-SemiBold';
-    font-size: 3vw;
-    margin-left: 22vw;
-    bottom: 2vh;
+    font-size: 2vw;
+    margin-left: 30vw;
+    bottom: 2.2vh;
   }
   #bottom a {
     color: #555555;
