@@ -94,7 +94,7 @@
     color: #555555;
     font-family: 'Raleway-SemiBold';
     font-size: 1vw;
-    margin-top: 17.8vh; 
+    margin-top: 17.6vh; 
     margin-left: 40vw;
     margin-bottom: 2.2vh;
   }
@@ -148,6 +148,7 @@
     background-color: #111214 !important;
     color: #ffffff;
     margin-top: 5%;
+    overflow-y: auto;
   }
 
   #top .textTop {
@@ -172,11 +173,12 @@
   }
 
   #header .title {
-    position: relative;
+    position: sticky;
     font-family: 'Raleway-SemiBold';
     font-size: 3vh;
     text-align: center;
     margin-top: 5vh;
+    top: 1vh;
   }
 
   #header .textSub {
@@ -184,14 +186,11 @@
     font-family: 'Raleway-Regular';
     font-size: 1.2vh;
     margin-top: 2vh;
-    line-height: 2.5vh;
     margin-left: 2%;
     margin-right: 2%;
+    line-height: 2.5vh;
   }
-  .textSub a {
-    color: #9f9f9f;
-    font-family: 'Raleway-Regular';
-    font-size: 1.8vh;
+  #header .textSub a {
     text-decoration: underline;
   }
 
@@ -199,9 +198,9 @@
     position: absolute;
     color: #555555;
     font-family: 'Raleway-SemiBold';
-    font-size: 3vw;
-    margin-left: 22vw;
-    bottom: 2vh;
+    font-size: 2vw;
+    margin-left: 30vw;
+    bottom: 2.2vh;
   }
   #bottom a {
     color: #555555;
