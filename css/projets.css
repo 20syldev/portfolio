@@ -120,8 +120,9 @@
   #bottom {
     color: #555555;
     font-family: 'Raleway-SemiBold';
-    font-size: 2vw;
+    font-size: 1vw;
     margin-top: 8vh; 
+    margin-left: 40vw;
     margin-bottom: 2.2vh;
   }
   #bottom a {
@@ -142,7 +143,6 @@
     font-size: 1.2vw;
     padding-left: 1vw;
     padding-right: 1vw;
-    margin-top: 0.6vh;
     margin-left: 1.2vw;
     border-radius: 100px;
     border: 0.4vh solid #9e6a03;
@@ -280,21 +280,21 @@
     font-family: 'Raleway-SemiBold';
     font-size: 3vh;
     text-align: center;
-    margin-top: 3vh;
+    margin-top: 5vh;
     top: 1vh;
   }
 
   #header .textHeader {
     color: #ffffff;
     font-family: 'Raleway-Regular';
-    font-size: 2vh;
+    font-size: 2.2vh;
     margin-top: 2vh;
   }
   
   #header .bannerText {
     color: #cccccc;
     font-family: 'Raleway-Regular';
-    font-size: 2.8vw;
+    font-size: 2vw;
     margin-top: 3vh;
     line-height: 2vh;
   }
@@ -303,9 +303,9 @@
     position: relative;
     color: #555555;
     font-family: 'Raleway-SemiBold';
-    font-size: 3vw;
-    margin-left: 22vw;
-    bottom: 2vh;
+    font-size: 2vw;
+    margin-left: 30vw;
+    bottom: 2.2vh;
   }
   #bottom a {
     color: #555555;
@@ -318,24 +318,22 @@
 
   #preRelease {
     user-select: none;
-    position: absolute;
+    position: sticky;
     background-color: #111214;
     color: #d29922;
     font-family: 'Lato-Regular';
     font-size: 1.8vw;
-    margin-top: 0.6vh;
     margin-left: 1.5vw;
     border-radius: 100px;
     border: 3px solid #9e6a03;
   }
   #latestRelease {
     user-select: none;
-    position: absolute;
+    position: sticky;
     background-color: #111214;
     color: #3fb950;
     font-family: 'Lato-Regular';
     font-size: 1.8vw;
-    margin-top: 0.6vh;
     margin-left: 1.5vw;
     border-radius: 100px;
     border: 3px solid #238636;
