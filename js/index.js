@@ -63,6 +63,9 @@ function showSubTxt(text) {
     
     document.getElementById('info').style.visibility = 'hidden';
 
+    document.getElementById('bottom').style.marginTop = '-6vh';
+    document.getElementById('bottom').style.transition = '0.6s';
+
     document.getElementById('btnProj').style.marginTop = '10vh';
     document.getElementById('btnProj').style.transition = '0.6s';
     
@@ -81,6 +84,9 @@ function normalSubTxt(text) {
 
     document.getElementById('headerTxt' + text).style.opacity = '0';
     document.getElementById('headerTxt' + text).style.transition = '0.5s';
+
+    document.getElementById('bottom').style.marginTop = '';
+    document.getElementById('bottom').style.transitionDelay = '0.4s';
 
     document.getElementById('btnProj').style.marginTop = '';
     document.getElementById('btnProj').style.transitionDelay = '0.4s';
