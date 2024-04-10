@@ -294,6 +294,10 @@
     color: #888888;
   }
 
+  #top .textBar {
+    display: none;
+  }
+
   #header .title {
     position: relative;
     font-family: 'Raleway-SemiBold';
@@ -309,9 +313,6 @@
     text-align: center;
     font-size: 2.5vw;
     margin-top: 2vh;
-  }
-  #header .textSub a {
-    text-decoration: underline;
   }
   #header .textSub span {
     margin-top: 2vh;
