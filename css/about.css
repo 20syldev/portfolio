@@ -148,7 +148,6 @@
     background-color: #111214 !important;
     color: #ffffff;
     margin-top: 5%;
-    overflow-y: auto;
   }
 
   #top .textTop {
@@ -173,18 +172,17 @@
   }
 
   #header .title {
-    position: sticky;
+    position: relative;
     font-family: 'Raleway-SemiBold';
     font-size: 3vh;
     text-align: center;
     margin-top: 5vh;
-    top: 1vh;
   }
 
   #header .textSub {
     color: #9f9f9f;
     font-family: 'Raleway-Regular';
-    font-size: 1.2vh;
+    font-size: 2vh;
     margin-top: 2vh;
     margin-left: 2%;
     margin-right: 2%;
@@ -198,9 +196,9 @@
     position: absolute;
     color: #555555;
     font-family: 'Raleway-SemiBold';
-    font-size: 2vw;
-    margin-left: 30vw;
-    bottom: 2.2vh;
+    font-size: 3vw;
+    margin-left: 22vw;
+    bottom: 2vh;
   }
   #bottom a {
     color: #555555;
