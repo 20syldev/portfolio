@@ -69,10 +69,12 @@ function showSubTxt(text) {
     document.getElementById('btnProj').style.marginTop = '10vh';
     document.getElementById('btnProj').style.transition = '0.6s';
     
-    document.getElementById('codeBtn').style.marginTop = '15vh';
-    document.getElementById('codeBtn').style.transition = '0.4s';
-
     localStorage.setItem('italique', 'true')
+
+    if (window.innerWidth <= 1080) {
+        document.getElementById('codeBtn').style.marginTop = '15vh';
+        document.getElementById('codeBtn').style.transition = '0.4s';
+    }
 }
 
 // Reset l'affichage du sous-titre
