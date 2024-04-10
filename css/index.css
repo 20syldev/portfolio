@@ -152,6 +152,46 @@
     padding-left: 1.5vw;
     transition: 0.5s;
   }
+
+  #btnProj:before {
+    content: "";
+    background: linear-gradient(
+      45deg,
+      #629cf4,
+      #2c67f2,
+      #2c7bf2
+    );
+    position: absolute;
+    background-size: 400%;
+    border-radius: 100px;
+    top: -2px;
+    left: -2px;
+    z-index: -1;
+    opacity: 0;
+    animation: btnProj 20s linear infinite;
+    transition: opacity 0.3s ease-in-out;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+  }
+
+  @keyframes btnProj {
+    0% {
+      background-position: 0 0;
+    }
+    50% {
+      background-position: 400% 0;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  }
+
+
+  #btnProj:hover:before {
+    opacity: 1;
+  }
+
   #btnProj .file {
     width: 1vw;
     height: auto;
