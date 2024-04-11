@@ -354,7 +354,7 @@
 
   .banner {
     user-select: none;
-    width: 95%;
+    width: 100%;
     height: auto;
     border-radius: 2vw;
   }
