@@ -3,7 +3,7 @@
 
 # Portfolio - 20syl
   [![Badge1](https://img.shields.io/badge/Site%20:-v1.3.9-6479ee?labelColor=23272A)](https://sylvain.pro)
-  [![Badge2](https://img.shields.io/badge/Mobile%20Testing%20:-v0.7-ee6464?labelColor=23272A)](https://sylvain.pro)
+  [![Badge2](https://img.shields.io/badge/Mobile%20Testing%20:-v0.8-ee6464?labelColor=23272A)](https://sylvain.pro)
 
 </div>
 
