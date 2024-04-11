@@ -23,6 +23,7 @@
   body {
     background-color: #111214 !important;
     color: #ffffff;
+    font-family: 'Raleway-SemiBold';
     margin-left: 2%;
     margin-top: 3%;
   }
@@ -122,8 +123,8 @@
     font-family: 'Raleway-SemiBold';
     font-size: 1vw;
     margin-top: 8vh; 
-    margin-left: 40vw;
-    margin-bottom: 2.2vh;
+    margin-left: 39vw;
+    margin-bottom: 2.25vh;
   }
   #bottom a {
     color: #555555;
@@ -304,7 +305,7 @@
     position: relative;
     color: #555555;
     font-family: 'Raleway-SemiBold';
-    font-size: 2vw;
+    font-size: 1vw;
     margin-left: 22vw;
     bottom: 2vh;
   }
