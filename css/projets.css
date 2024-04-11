@@ -296,7 +296,7 @@
   #header .bannerText {
     color: #cccccc;
     font-family: 'Raleway-Regular';
-    font-size: 30px;
+    font-size: 15px;
     margin-top: 3vh;
     line-height: 2vh;
   }
@@ -306,6 +306,7 @@
     color: #555555;
     font-family: 'Raleway-SemiBold';
     font-size: 1vw;
+    margin-top: 5vh;
     margin-left: 22vw;
     bottom: 2vh;
   }
@@ -324,7 +325,7 @@
     background-color: #111214;
     color: #d29922;
     font-family: 'Lato-Regular';
-    font-size: 1.8vw;
+    font-size: 20px;
     margin-top: 0.7vh;
     margin-left: 2vw;
     border-radius: 100px;
@@ -336,7 +337,7 @@
     background-color: #111214;
     color: #3fb950;
     font-family: 'Lato-Regular';
-    font-size: 1.8vw;
+    font-size: 20px;
     margin-top: 0.7vh;
     margin-left: 2vw;
     border-radius: 100px;
