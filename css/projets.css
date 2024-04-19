@@ -118,6 +118,13 @@
     line-height: 3.8vh;
   }
 
+  #header a {
+    color: #cccccc;
+  }
+  #header a:hover {
+    color: #dddddd;
+  }
+
   #bottom {
     color: #555555;
     font-family: 'Raleway-SemiBold';
@@ -133,37 +140,6 @@
   #bottom a:hover {
     color: #777777;
     text-decoration: underline;
-  }
-
-  #preRelease {
-    user-select: none;
-    position: absolute;
-    background-color: #111214;
-    color: #d29922;
-    font-family: 'Lato-Regular';
-    font-size: 1.2vw;
-    padding-left: 1vw;
-    padding-right: 1vw;
-    margin-top: 0.5vh;
-    margin-left: 1.2vw;
-    border-radius: 100px;
-    border: 0.4vh solid #9e6a03;
-    z-index: -1;
-  }
-  #latestRelease {
-    user-select: none;
-    position: absolute;
-    background-color: #111214;
-    color: #3fb950;
-    font-family: 'Lato-Regular';
-    font-size: 1.2vw;
-    padding-left: 1vw;
-    padding-right: 1vw;
-    margin-top: 0.5vh;
-    margin-left: 1.2vw;
-    border-radius: 100px;
-    border: 0.4vh solid #238636;
-    z-index: -1;
   }
 
   .icons {
@@ -185,6 +161,38 @@
     width: 50vw;
     height: auto;
     transition: 1s;
+  }
+
+  #latestRelease {
+    user-select: none;
+    position: absolute;
+    background-color: #111214;
+    color: #3fb950;
+    font-family: 'Lato-Regular';
+    font-size: 1.2vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    margin-top: 0.5vh;
+    margin-left: 1.2vw;
+    border-radius: 100px;
+    border: 0.4vh solid #238636;
+    z-index: -1;
+  }
+
+  #preRelease {
+    user-select: none;
+    position: absolute;
+    background-color: #111214;
+    color: #d29922;
+    font-family: 'Lato-Regular';
+    font-size: 1.2vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    margin-top: 0.5vh;
+    margin-left: 1.2vw;
+    border-radius: 100px;
+    border: 0.4vh solid #9e6a03;
+    z-index: -1;
   }
 
   ::-webkit-scrollbar {
@@ -301,6 +309,10 @@
     line-height: 2vh;
   }
 
+  #header a {
+    color: #cccccc;
+  }
+
   #bottom {
     position: relative;
     color: #555555;
@@ -320,31 +332,6 @@
     text-decoration: underline;
   }
 
-  #preRelease {
-    user-select: none;
-    position: absolute;
-    background-color: #111214;
-    color: #d29922;
-    font-family: 'Lato-Regular';
-    font-size: 20px;
-    margin-top: 0.7vh;
-    margin-left: 2vw;
-    border-radius: 100px;
-    border: 3px solid #9e6a03;
-  }
-  #latestRelease {
-    user-select: none;
-    position: absolute;
-    background-color: #111214;
-    color: #3fb950;
-    font-family: 'Lato-Regular';
-    font-size: 20px;
-    margin-top: 0.7vh;
-    margin-left: 2vw;
-    border-radius: 100px;
-    border: 3px solid #238636;
-  }
-
   .icons {
     user-select: none;
     width: 3vw;
@@ -357,6 +344,32 @@
     width: 100%;
     height: auto;
     border-radius: 2vw;
+  }
+
+  #latestRelease {
+    user-select: none;
+    position: absolute;
+    background-color: #111214;
+    color: #3fb950;
+    font-family: 'Lato-Regular';
+    font-size: 20px;
+    margin-top: 0.7vh;
+    margin-left: 2vw;
+    border-radius: 100px;
+    border: 3px solid #238636;
+  }
+  
+  #preRelease {
+    user-select: none;
+    position: absolute;
+    background-color: #111214;
+    color: #d29922;
+    font-family: 'Lato-Regular';
+    font-size: 20px;
+    margin-top: 0.7vh;
+    margin-left: 2vw;
+    border-radius: 100px;
+    border: 3px solid #9e6a03;
   }
 
   ::-webkit-scrollbar {
