@@ -1,5 +1,6 @@
 /* CSS Desktop (404) */
 @media (min-width: 1080px) {
+  /* Importer les polices */
   @font-face {
     font-family: 'Raleway-Bold';
     src: url('./Raleway-Bold.ttf') format('truetype');
@@ -22,17 +23,23 @@
     margin-left: 2%;
     overflow: hidden;
   }
+
+  /* Texte en haut de la page */
   #top {
     margin-top: 30vh;
     font-size: 2vw;
     line-height: 5vh;
     text-align: center;
   }
+
+  /* Texte au centre de la page */
   #middle {
     margin-top: 10vh;
     font-size: 3vw;
     text-align: center;
   }
+
+  /* Texte en bas de la page + lien */
   #bottom {
     color: #555555;
     font-size: 1vw;
@@ -48,6 +55,8 @@
     color: #777777;
     text-decoration: underline;
   }
+
+  /* Lien de la page & Animation */
   #link {
     color: #9db4ff;
     text-decoration: none transparent;
@@ -61,6 +70,7 @@
 
 /* CSS Mobile (404) */
 @media (max-width: 1080px) {
+  /* Importer les polices */
   @font-face {
     font-family: 'Raleway-Bold';
     src: url('./Raleway-Bold.ttf') format('truetype');
@@ -84,6 +94,8 @@
     margin-left: 1%;
     margin-right: 1%;
   }
+  
+  /* Texte en haut de la page */
   #top {
     margin-top: 20vh;
     font-size: 6vw;
@@ -91,12 +103,14 @@
     text-align: center;
   }
   
+  /* Texte au centre de la page */
   #middle {
     margin-top: 10vh;
     font-size: 8vw;
     text-align: center;
   }
 
+  /* Texte en bas de la page + lien */
   #bottom {
     position: absolute;
     color: #555555;
@@ -113,6 +127,7 @@
     text-decoration: underline;
   }
 
+  /* Lien de la page & Animation */
   #link {
     color: #9db4ff;
     text-decoration: none transparent;
