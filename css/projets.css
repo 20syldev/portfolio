@@ -1,5 +1,6 @@
 /* CSS Desktop (Projets) */
 @media (min-width: 1080px) {
+  /* Importer les polices */
   @font-face {
     font-family: 'Raleway-Bold';
     src: url('./Raleway-Bold.ttf') format('truetype');
@@ -28,6 +29,7 @@
     margin-top: 3%;
   }
 
+  /* Barre qui sépare le titre du texte */
   #bar {
     position: fixed; 
     opacity: 0;
@@ -37,6 +39,7 @@
     border-bottom: solid #ffffff;
   }
 
+  /* Cacher le texte sous le titre */
   #hideTxt {
     position: fixed;
     top: 0;
@@ -47,6 +50,7 @@
     z-index: 0;
   }
 
+  /* Titre en haut à gauche de la page */
   #top .textTop {
     user-select: none;
     position: fixed; 
@@ -60,6 +64,7 @@
     color: #ffffff;
   }
 
+  /* Lien en haut à droite de la page */
   #top .topMenus {
     user-select: none;
     position: fixed;
@@ -79,6 +84,7 @@
     color: #aaaaaa;
   }
 
+  /* Barre sous le titre en haut à gauche de la page */
   #top .textBar {
     position: fixed;
     width: 0;
@@ -96,6 +102,7 @@
     transition: 0.5s;
   }
 
+  /* Titre du texte de la page */
   #header .title {
     position: sticky; 
     font-family: 'Raleway-SemiBold';
@@ -103,6 +110,8 @@
     margin-top: 23vh;
     top: 13vh;
   }
+  
+  /* Texte de la page */
   #header .textHeader {
     color: #ffffff;
     font-family: 'Raleway-SemiBold';
@@ -110,6 +119,7 @@
     margin-top: 8vh;
   }
   
+  /* Texte sous les bannières */
   #header .bannerText {
     color: #cccccc;
     font-family: 'Raleway-Regular';
@@ -118,6 +128,7 @@
     line-height: 3.8vh;
   }
 
+  /* Liens de la pages + animation */
   #header a {
     color: #cccccc;
   }
@@ -125,6 +136,7 @@
     color: #dddddd;
   }
 
+  /* Texte du bas de la page */
   #bottom {
     color: #555555;
     font-family: 'Raleway-SemiBold';
@@ -142,6 +154,7 @@
     text-decoration: underline;
   }
 
+  /* Icônes */
   .icons {
     user-select: none;
     width: 1.5vw;
@@ -149,6 +162,7 @@
     margin-right: 1vw;
   }
 
+  /* Bannières */
   .banner {
     user-select: none;
     width: 46.8vw;
@@ -163,6 +177,7 @@
     transition: 1s;
   }
 
+  /* Badge de dernière sortie */
   #latestRelease {
     user-select: none;
     position: absolute;
@@ -179,6 +194,7 @@
     z-index: -1;
   }
 
+  /* Badge de pré-release */
   #preRelease {
     user-select: none;
     position: absolute;
@@ -195,6 +211,7 @@
     z-index: -1;
   }
 
+  /* Barre de scroll */
   ::-webkit-scrollbar {
     height: 1vh;
     width: 0.5vw;
@@ -217,6 +234,7 @@
 
 /* CSS Mobile (Projets) */
 @media (max-width: 1080px) {
+  /* Importer les polices */
   @font-face {
     font-family: 'Raleway-Bold';
     src: url('./Raleway-Bold.ttf') format('truetype');
@@ -243,6 +261,7 @@
     margin-top: 5%;
   }
 
+  /* Barre qui sépare le titre du texte */
   #bar {
     position: fixed; 
     opacity: 0;
@@ -252,6 +271,7 @@
     border-bottom: solid #ffffff;
   }
 
+  /* Cacher le texte sous le titre */
   #hideTxt {
     position: fixed;
     top: 0;
@@ -262,6 +282,7 @@
     z-index: 0;
   }
   
+  /* Titre en haut à gauche de la page */
   #top .textTop {
     user-select: none;
     position: relative;
@@ -277,14 +298,17 @@
     color: #ffffff;
   }
 
+  /* Lien en haut à droite de la page */
   #top .topMenus {
     display: none;
   }
 
+  /* Barre sous le titre en haut à gauche de la page */
   #top .textBar {
     display: none;
   }
   
+  /* Titre du texte de la page */
   #header .title {
     position: sticky;
     font-family: 'Raleway-SemiBold';
@@ -294,6 +318,7 @@
     top: 1vh;
   }
 
+  /* Texte de la page */
   #header .textHeader {
     color: #ffffff;
     font-family: 'Raleway-Regular';
@@ -301,6 +326,7 @@
     margin-top: 2vh;
   }
   
+  /* Texte sous les bannières */
   #header .bannerText {
     color: #cccccc;
     font-family: 'Raleway-Regular';
@@ -309,10 +335,12 @@
     line-height: 2vh;
   }
 
+  /* Liens de la pages */
   #header a {
     color: #cccccc;
   }
 
+  /* Texte du bas de la page */
   #bottom {
     position: relative;
     color: #555555;
@@ -332,6 +360,7 @@
     text-decoration: underline;
   }
 
+  /* Icônes */
   .icons {
     user-select: none;
     width: 3vw;
@@ -339,6 +368,7 @@
     margin-right: 1vw;
   }
 
+  /* Bannières */
   .banner {
     user-select: none;
     width: 100%;
@@ -346,6 +376,7 @@
     border-radius: 2vw;
   }
 
+  /* Badge de dernière sortie */
   #latestRelease {
     user-select: none;
     position: absolute;
@@ -359,6 +390,7 @@
     border: 3px solid #238636;
   }
   
+  /* Badge de pré-release */
   #preRelease {
     user-select: none;
     position: absolute;
@@ -372,6 +404,7 @@
     border: 3px solid #9e6a03;
   }
 
+  /* Barre de scroll */
   ::-webkit-scrollbar {
     height: 1vh;
     width: 0.5vw;
