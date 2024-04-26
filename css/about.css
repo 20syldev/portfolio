@@ -1,5 +1,6 @@
 /* CSS Desktop (About) */
 @media (min-width: 1080px) {
+  /* Importer les polices */
   @font-face {
     font-family: 'Raleway-Bold';
     src: url('./Raleway-Bold.ttf') format('truetype');
@@ -22,6 +23,7 @@
     margin-top: 3%;
   }
 
+  /* Titre en haut à gauche de la page */
   #top .textTop {
     user-select: none;
     position: absolute;
@@ -34,6 +36,7 @@
     color: #ffffff;
   }
 
+  /* Lien en haut à droite de la page */
   #top .topMenus {
     user-select: none;
     position: absolute;
@@ -52,6 +55,7 @@
     color: #aaaaaa;
   }
 
+  /* Barre sous le titre en haut à gauche de la page */
   #top .textBar {
     position: relative;
     width: 0;
@@ -69,12 +73,14 @@
     transition: 0.5s;
   }
 
+  /* Titre du texte de la page */
   #header .title {
     font-family: 'Raleway-SemiBold';
     font-size: 3vw;
     margin-top: 16.5vh;
   }
 
+  /* Texte de la page */
   #header .textSub {
     color: #9f9f9f;
     font-family: 'Raleway-Regular';
@@ -90,6 +96,7 @@
     text-decoration: underline;
   }
 
+  /* Texte du bas de la page */
   #bottom {
     color: #555555;
     font-family: 'Raleway-SemiBold';
@@ -107,6 +114,7 @@
     text-decoration: underline;
   }
 
+  /* Barre de scroll */
   ::-webkit-scrollbar {
     height: 1vh;
     width: 0.5vw;
@@ -129,6 +137,7 @@
 
 /* CSS Mobile (About) */
 @media (max-width: 1080px) {
+  /* Importer les polices */
   @font-face {
     font-family: 'Raleway-Bold';
     src: url('./Raleway-Bold.ttf') format('truetype');
@@ -151,6 +160,7 @@
     overflow: auto;
   }
 
+  /* Titre en haut à gauche de la page */
   #top .textTop {
     user-select: none;
     position: relative;
@@ -164,14 +174,17 @@
     color: #ffffff;
   }
 
+  /* Lien en haut à droite de la page */
   #top .topMenus {
     display: none;
   }
 
+  /* Barre sous le titre en haut à gauche de la page */
   #top .textBar {
     display: none;
   }
 
+  /* Titre du texte de la page */
   #header .title {
     position: relative;
     font-family: 'Raleway-SemiBold';
@@ -180,6 +193,7 @@
     margin-top: 5vh;
   }
 
+  /* Texte de la page */
   #header .textSub {
     color: #9f9f9f;
     font-family: 'Raleway-Regular';
@@ -194,6 +208,7 @@
     text-decoration: underline;
   }
 
+  /* Texte du bas de la page */
   #bottom {
     position: absolute;
     color: #555555;
@@ -211,6 +226,7 @@
     text-decoration: underline;
   }
 
+  /* Barre de scroll */
   ::-webkit-scrollbar {
     height: 1vh;
     width: 0.5vw;
