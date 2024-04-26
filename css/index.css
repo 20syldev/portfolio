@@ -1,5 +1,6 @@
 /* CSS Desktop (Index) */
 @media (min-width: 1080px) {
+  /* Importer les polices */
   @font-face {
     font-family: 'Raleway-Bold';
     src: url('./Raleway-Bold.ttf') format('truetype');
@@ -23,6 +24,7 @@
     overflow: hidden;
   }
 
+  /* Titre en haut à gauche de la page */
   #top .textTop {
     user-select: none;
     position: absolute;
@@ -35,6 +37,7 @@
     color: #ffffff;
   }
 
+  /* Lien en haut à droite de la page */
   #top .topMenus {
     user-select: none;
     position: absolute;
@@ -53,6 +56,7 @@
     color: #aaaaaa;
   }
 
+  /* Barre sous le titre en haut à gauche de la page */
   #top .textBar {
     position: relative;
     width: 0;
@@ -70,12 +74,14 @@
     transition: 0.5s;
   }
 
+  /* Titre du texte de la page */
   #header .title {
     font-family: 'Raleway-SemiBold';
     font-size: 3vw;
     margin-top: 30vh;
   }
 
+  /* Texte de la page */
   #header .textSub {
     color: #9f9f9f;
     font-family: 'Raleway-Regular';
@@ -96,6 +102,7 @@
     line-height: 3.2vh;
   }
 
+  /* Texte du bas de la page */
   #bottom {
     color: #555555;
     font-family: 'Raleway-SemiBold';
@@ -112,6 +119,7 @@
     text-decoration: underline;
   }
 
+  /* Encadré d'information de profil */
   #image button {
     user-select: none;
     background: #1b1e27;
@@ -133,6 +141,7 @@
     margin-left: -8vw;
   }
 
+  /* Bouton "Mes projets" */
   #btnProj {
     user-select: none;
     background: #5679d1;
@@ -153,6 +162,7 @@
     transition: 0.5s;
   }
 
+  /* Animation du bouton */
   #btnProj:before {
     content: "";
     background: linear-gradient(
@@ -174,7 +184,11 @@
     width: calc(100% + 4px);
     height: calc(100% + 4px);
   }
+  #btnProj:hover:before {
+    opacity: 1;
+  }
 
+  /* Animation */
   @keyframes btnProj {
     0% {
       background-position: 0 0;
@@ -187,11 +201,7 @@
     }
   }
 
-
-  #btnProj:hover:before {
-    opacity: 1;
-  }
-
+  /* Styles des images */
   #btnProj .file {
     width: 1vw;
     height: auto;
@@ -224,6 +234,7 @@
     white-space: nowrap;
   }
 
+  /* Animations des images */
   #btnProj:hover {
     padding-left: 2vw;
     width: 10.7vw;
@@ -248,11 +259,13 @@
     transition: 1.5s;
   }
 
+  /* Fixer le style des liens */
   #nolink {
     text-decoration: none;
     color: #ffffff;
   }
 
+  /* Texte informatif */
   #info {
     color: #333333;
     position: absolute;
@@ -260,6 +273,7 @@
     font-size: 0.8em;
   }
 
+  /* Barre de scroll */
   ::-webkit-scrollbar {
     height: 1vh;
     width: 0.5vw;
@@ -282,6 +296,7 @@
 
 /* CSS Mobile (Index) */
 @media (max-width: 1080px) {
+  /* Importer les polices */
   @font-face {
     font-family: 'Raleway-Bold';
     src: url('./Raleway-Bold.ttf') format('truetype');
@@ -304,6 +319,7 @@
     overflow: hidden;
   }
 
+  /* Titre en haut à gauche de la page */
   #top .textTop {
     user-select: none;
     position: relative;
@@ -317,6 +333,7 @@
     color: #ffffff;
   }
 
+  /* Lien en haut à droite de la page */
   #top .topMenus {
     user-select: none;
     position: absolute;
@@ -334,10 +351,12 @@
     color: #888888;
   }
 
+  /* Barre sous le titre en haut à gauche de la page */
   #top .textBar {
     display: none;
   }
 
+  /* Titre du texte de la page */
   #header .title {
     position: relative;
     font-family: 'Raleway-SemiBold';
@@ -347,6 +366,7 @@
     line-height: 2vh;
   }
 
+  /* Texte de la page */
   #header .textSub {
     color: #9f9f9f;
     font-family: 'Raleway-Regular';
@@ -364,6 +384,7 @@
     text-align: center;
   }
 
+  /* Texte du bas de la page */
   #bottom {
     position: absolute;
     color: #555555;
@@ -381,6 +402,7 @@
     text-decoration: underline;
   }
 
+  /* Encadré d'information de profil */
   #image button {
     user-select: none;
     position: relative;
@@ -404,6 +426,7 @@
     margin-left: -18vw;
   }
 
+  /* Bouton "Mes projets" */
   #btnProj {
     user-select: none;
     position: relative;
@@ -424,6 +447,7 @@
     max-width: fit-content;
   }
 
+  /* Styles des images */
   .file {
     display: none;
   }
@@ -434,11 +458,13 @@
     display: none;
   }
 
+  /* Fixer le style des liens */
   #nolink {
     text-decoration: none;
     color: #ffffff;
   }
 
+  /* Texte informatif */
   #info {
     color: #333333;
     position: absolute;
@@ -446,6 +472,7 @@
     font-size: 0.8em;
   }
 
+  /* Barre de scroll */
   ::-webkit-scrollbar {
     height: 1vh;
     width: 0.5vw;
