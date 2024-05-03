@@ -466,10 +466,7 @@
 
   /* Texte informatif */
   #info {
-    color: #333333;
-    position: absolute;
-    visibility: hidden;
-    font-size: 0.8em;
+    display: none;
   }
 
   /* Barre de scroll */
