@@ -377,7 +377,7 @@
   }
 
   /* Badge de dernière sortie */
-  #latestRelease {
+  .latestRelease {
     user-select: none;
     position: absolute;
     background-color: #111214;
@@ -391,7 +391,7 @@
   }
   
   /* Badge de pré-release */
-  #preRelease {
+  .preRelease {
     user-select: none;
     position: absolute;
     background-color: #111214;
