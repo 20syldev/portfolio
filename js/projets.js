@@ -12,6 +12,7 @@ function updateBar() {
     }
 }
 
+// Récupérer les versions des projets
 document.addEventListener('DOMContentLoaded', function() {    
     fetch('https://api.sylvain.pro/fr/versions')
     .then(response => response.json())
