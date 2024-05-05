@@ -23,14 +23,13 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('coop-status').innerHTML = data.coop_status;
         document.getElementById('coop-api').innerHTML = data.coop_api;
         document.getElementById('nitrogen').innerHTML = data.nitrogen;
-    });
 
-    setInterval(function() {
+        // Cacher le loader dès que les données sont chargées
         document.getElementById("loader").style.zIndex = '-1';
         document.getElementById("loader").style.opacity = '0';
         document.getElementById("loader").style.transition = '0.5s';
         document.getElementById("loader-wrapper").style.zIndex = '-1';
         document.getElementById("loader-wrapper").style.opacity = '0';
         document.getElementById("loader-wrapper").style.transition = '0.5s';
-      }, 1800)
+    });
 });
