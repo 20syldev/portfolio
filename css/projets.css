@@ -218,7 +218,7 @@
     height: 30px;
     position: relative;
     border: 4px solid #ffffff;
-    animation: loader 2s ease;
+    animation: loader 2s infinite ease;
   }
   #loader-wrapper {
     width: 100%;
@@ -237,7 +237,7 @@
     display: inline-block;
     width: 100%;
     background-color: #ffffff;
-    animation: loader-inner 2s ease-in;
+    animation: loader-inner 2s infinite ease-in;
   }
   @keyframes loader {
     0% { transform: rotate(0deg);}
