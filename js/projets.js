@@ -12,8 +12,11 @@ function updateBar() {
     }
 }
 
-// Récupérer les versions des projets & icône de chargement
-document.addEventListener('DOMContentLoaded', function() {    
+document.addEventListener('DOMContentLoaded', function() {
+    // Bloquer le scrolling au chargement
+    document.body.style.overflow = 'hidden';
+
+    // Récupérer les versions des projets
     fetch('https://api.sylvain.pro/fr/versions')
     .then(response => response.json())
     .then(data => {
@@ -23,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('coop-status').innerHTML = data.coop_status;
         document.getElementById('coop-api').innerHTML = data.coop_api;
         document.getElementById('nitrogen').innerHTML = data.nitrogen;
-
+        
         // Cacher le loader dès que les données sont chargées
         document.getElementById("loader").style.zIndex = '-1';
         document.getElementById("loader").style.opacity = '0';
@@ -31,5 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("loader-wrapper").style.zIndex = '-1';
         document.getElementById("loader-wrapper").style.opacity = '0';
         document.getElementById("loader-wrapper").style.transition = '0.5s';
+        document.body.style.overflow = 'auto';
+        window.scroll({ top: 0, behavior: 'instant' });
     });
 });
