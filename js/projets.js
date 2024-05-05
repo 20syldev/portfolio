@@ -12,7 +12,7 @@ function updateBar() {
     }
 }
 
-// Récupérer les versions des projets
+// Récupérer les versions des projets & icône de chargement
 document.addEventListener('DOMContentLoaded', function() {    
     fetch('https://api.sylvain.pro/fr/versions')
     .then(response => response.json())
@@ -24,4 +24,13 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('coop-api').innerHTML = data.coop_api;
         document.getElementById('nitrogen').innerHTML = data.nitrogen;
     });
+
+    setInterval(function() {
+        document.getElementById("loader").style.zIndex = '-1';
+        document.getElementById("loader").style.opacity = '0';
+        document.getElementById("loader").style.transition = '0.5s';
+        document.getElementById("loader-wrapper").style.zIndex = '-1';
+        document.getElementById("loader-wrapper").style.opacity = '0';
+        document.getElementById("loader-wrapper").style.transition = '0.5s';
+      }, 1800)
 });
