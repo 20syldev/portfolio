@@ -69,9 +69,6 @@ function showSubTxt(text) {
     
     document.getElementById('info').style.visibility = 'hidden';
 
-    document.getElementById('bottom').style.marginTop = '-6vh';
-    document.getElementById('bottom').style.transition = '0.6s';
-
     localStorage.setItem('italique', 'true')
 
     if (window.innerWidth <= 1080) {
@@ -84,6 +81,9 @@ function showSubTxt(text) {
     else {
         document.getElementById('btnProj').style.marginTop = '12vh';
         document.getElementById('btnProj').style.transition = '0.6s';
+
+        document.getElementById('bottom').style.marginTop = '-8vh';
+        document.getElementById('bottom').style.transition = '0.6s';
     }
 }
 
