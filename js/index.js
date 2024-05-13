@@ -40,14 +40,20 @@ document.addEventListener('DOMContentLoaded', function() {
 function big(event) {
     event.target.style.fontSize = '1.4em';
     event.target.style.textDecoration = 'underline';
-    event.target.style.transition = '1s';
+    event.target.style.transition = '0.7s';
+    
+    document.getElementById('bottom').style.marginTop = '-1.4em';
+    document.getElementById('bottom').style.transition = '0.7s';
 }
 
 // Reset le texte
 function normal(event) {
     event.target.style.fontSize = '';
     event.target.style.textDecoration = '';
-    event.target.style.transition = '1s';
+    event.target.style.transition = '0.5s';
+    
+    document.getElementById('bottom').style.marginTop = '';
+    document.getElementById('bottom').style.transition = '0.5s';
 }
 
 // Paragraphe sous le sous-titre, et déplacement du bouton
@@ -66,14 +72,18 @@ function showSubTxt(text) {
     document.getElementById('bottom').style.marginTop = '-6vh';
     document.getElementById('bottom').style.transition = '0.6s';
 
-    document.getElementById('btnProj').style.marginTop = '10vh';
-    document.getElementById('btnProj').style.transition = '0.6s';
-    
     localStorage.setItem('italique', 'true')
 
     if (window.innerWidth <= 1080) {
         document.getElementById('codeBtn').style.marginTop = '15vh';
         document.getElementById('codeBtn').style.transition = '0.4s';
+
+        document.getElementById('btnProj').style.marginTop = '8vh';
+        document.getElementById('btnProj').style.transition = '0.6s';
+    }
+    else {
+        document.getElementById('btnProj').style.marginTop = '12vh';
+        document.getElementById('btnProj').style.transition = '0.6s';
     }
 }
 
