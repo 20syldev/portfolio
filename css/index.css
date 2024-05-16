@@ -1,5 +1,5 @@
 /* CSS Desktop (Index) */
-@media (min-width: 1080px) {
+@media only screen and (min-width: 1080px) {
   /* Importer les polices */
   @font-face {
     font-family: 'Raleway-Bold';
@@ -295,7 +295,7 @@
 }
 
 /* CSS Mobile (Index) */
-@media (max-width: 1080px) {
+@media only screen and (max-width: 1080px) {
   /* Importer les polices */
   @font-face {
     font-family: 'Raleway-Bold';
