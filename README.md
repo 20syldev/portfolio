@@ -1,7 +1,7 @@
 <div align="center">
   <a href="https://sylvain.pro"><img src="https://sylvain.pro/images/portfolio.png" alt="Logo" width="25%" height="auto"></a>
 
-# Portfolio - 20syl
+# Portfolio - Sylvain
   [![Version](https://img.shields.io/badge/Site%20:-v1.4.7-6479ee?labelColor=23272A)](https://github.com/20syldev/portfolio/releases/latest)
 </div>
 
