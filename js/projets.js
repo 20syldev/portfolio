@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(response => response.json())
     .then(data => {
         document.getElementById('api').innerHTML = data.api;
-        document.getElementById('coop-api').innerHTML = data.coop_api;
         document.getElementById('coopbot').innerHTML = data.doc_coopbot;
         document.getElementById('coop-status').innerHTML = data.coop_status;
         document.getElementById('database').innerHTML = data.database;
