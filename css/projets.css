@@ -215,8 +215,8 @@
   #loader {
     position: absolute;
     display: inline-block;
-    width: 30px;
-    height: 30px;
+    width: 4.25vh;
+    height: 4.25vh;
     border: 4px solid #ffffff;
     animation: loader 2s infinite ease;
   }
@@ -238,6 +238,10 @@
     background-color: #ffffff;
     width: 100%;
     animation: loader-inner 2s infinite ease-in;
+  }
+  /* Texte lors du chargement */
+  #loaderText {
+    margin-top: 20vh;
   }
   @keyframes loader {
     0% { transform: rotate(0deg);}
@@ -476,6 +480,10 @@
     background-color: #ffffff;
     width: 100%;
     animation: loader-inner 2s infinite ease-in;
+  }
+  /* Texte lors du chargement */
+  #loaderText {
+    margin-top: 2vh;
   }
   @keyframes loader {
     0% { transform: rotate(0deg);}
