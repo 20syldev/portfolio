@@ -1,18 +1,26 @@
-// Affichage de la barre
-window.onscroll = updateBar;
-function updateBar() {
-    if (window.scrollY >= window.innerHeight * 0.1) {
-        document.getElementById('bar').style.width = '100%';
-        document.getElementById('bar').style.opacity = '1';
-        document.getElementById('bar').style.transition = '1s';
-    } else {
-        document.getElementById('bar').style.width = '0';
-        document.getElementById('bar').style.opacity = '0';
-        document.getElementById('bar').style.transition = '0.5s';
-    }
-}
-
+// Chargement de la page
 document.addEventListener('DOMContentLoaded', function() {
+    // Animation du texte de chargement
+    let phrases = ['Connexion à la base', 'Chargement des versions', 'C\'est presque terminé', 'Une petite seconde'];
+    let loadTime = 30000;
+    let changeIntervals = [0.12, 0.50, 0.78, 1];
+    let i = 0, d = 0;
+
+    changeIntervals.forEach((interval, j) => {
+        setTimeout(() => {
+            i = j + 1;
+            if (i >= phrases.length) {
+                i = 1;
+            }
+        }, interval * loadTime);
+    });
+
+    loading = setInterval(() => {
+        d = (d + 1) % 4;
+        let loader = phrases[i] + (i !== 2 && i !== 3 ? '.'.repeat(d) : '');
+        document.getElementById('loaderText').innerHTML = loader;
+    }, 500);
+
     // Bloquer le scrolling au chargement
     document.body.style.overflow = 'hidden';
 
@@ -31,7 +39,9 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch('https://api.sylvain.pro/fr/infos')
         .then(response => response.json())
         .then(data => {
+            clearInterval(loading);
             document.getElementById('endpoints').innerHTML = data.endpoints;
+            document.getElementById('loaderText').innerHTML = 'Terminé !';
         })
         .finally(() => {
             // Cacher le loader dès que les données sont chargées
@@ -46,3 +56,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Affichage de la barre
+window.onscroll = updateBar;
+function updateBar() {
+    if (window.scrollY >= window.innerHeight * 0.1) {
+        document.getElementById('bar').style.width = '100%';
+        document.getElementById('bar').style.opacity = '1';
+        document.getElementById('bar').style.transition = '1s';
+    } else {
+        document.getElementById('bar').style.width = '0';
+        document.getElementById('bar').style.opacity = '0';
+        document.getElementById('bar').style.transition = '0.5s';
+    }
+}
