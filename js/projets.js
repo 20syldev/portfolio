@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Animation du texte de chargement
     let phrases = ['Connexion à la base', 'Récupération des données', 'Chargement des versions', 'Ça arrive', 'C\'est presque terminé', 'Une petite seconde'];
-    let loadTime = 60000;
+    let loadTime = 90000;
     let changeIntervals = [0.127, 0.2, 0.3, 0.5, 0.7, 0.85];
     let i = 0, d = 0;
 
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     loading = setInterval(() => {
         d = (d + 1) % 4;
-        let loader = phrases[i] + (i !== 4 && i !== 5 ? '.'.repeat(d) : '');
+        let loader = phrases[i] + (i !== 3 && i !== 4 && i !== 5 ? '.'.repeat(d) : '');
         document.getElementById('loaderText').innerHTML = loader;
     }, 500);
 
