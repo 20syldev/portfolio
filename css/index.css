@@ -341,9 +341,9 @@
     font-family: 'Raleway-Regular';
     font-size: 1.4vh;
     margin-top: 2vw;
-    left: 5%;
-    right: 5%;
-    max-width: fit-content;
+    width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
   }
   .topMenus a {
     margin-left: 6vw;
@@ -435,17 +435,19 @@
     border: none;
     border-radius: 100px;
     font-family: 'Raleway-SemiBold';
-    font-size: 25px;
-    padding: 16px;
-    padding-left: 30px;
-    padding-right: 30px;
-    width: 200px;
-    height: 60px;
+    font-size: 3vw;
+    padding: 1vh;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    width: 15vh;
+    height: 8vw;
     margin-top: 2vh;
-    left: 40%;
+    left: 50%;
+    transform: translateX(-50%);
     transition: 0.5s;
     max-width: fit-content;
   }
+
 
   /* Styles des images */
   .file {
