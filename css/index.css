@@ -341,7 +341,7 @@
     font-family: 'Raleway-Regular';
     font-size: 1.4vh;
     margin-top: 2vw;
-    width: 80%;
+    width: 100%;
     left: 50%;
     transform: translateX(-50%);
   }
