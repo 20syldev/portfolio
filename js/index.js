@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Pourcentage entre 2 dates (année scolaire)
-    var start = new Date(2023, 8, 1);
-    var end = new Date(2024, 5, 31, 23, 59, 59);
+    var start = new Date(2024, 8, 1);
+    var end = new Date(2026, 5, 30, 23, 59, 59);
     var today = new Date();
 
     try {
@@ -23,14 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
             var pourcent = Math.round((startToday / startEnd) * 100);
             document.getElementById('pourcentage').innerHTML = pourcent + '%';
         }
-    }
-    catch (error) {
-    }
-
-    // Temps entre 2 dates
-    try {
-        var resultat = Math.round((new Date() - new Date(2018, 7, 19)) / 31536000000);
-        document.getElementById('startDev').innerHTML = resultat;
     }
     catch (error) {
     }
