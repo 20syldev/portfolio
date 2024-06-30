@@ -7,10 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Pourcentage entre 2 dates (année scolaire)
     var start = new Date(2024, 8, 1);
     var end = new Date(2026, 5, 30, 23, 59, 59);
-    var today = new Date();
 
     try {
-        if (today < start) {
+        if (new Date() < start) {
             document.getElementById('pourcentage').innerHTML = '0%';
         
         } 
@@ -19,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } 
         else {
             var startEnd = end - start;
-            var startToday = today - start;
+            var startToday = new Date() - start;
             var pourcent = Math.round((startToday / startEnd) * 100);
             document.getElementById('pourcentage').innerHTML = pourcent + '%';
         }
