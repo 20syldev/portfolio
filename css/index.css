@@ -129,16 +129,16 @@
     box-sizing: border-box;
     position: fixed;
     text-align: left;
-    font-size: 1.75vw;
+    font-size: 2em;
     width: 39vw;
-    height: 72vh;
+    height: 78vh;
     top: 0;
     right: 3%;
     margin-top: 16vh;
     transition: 0.5s;
   }
   #image pre {
-    margin-left: -8vw;
+    margin-left: -7vw;
   }
 
   /* Bouton "Mes projets" */
