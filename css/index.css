@@ -33,9 +33,10 @@
 
 /* Afficher les cases sur PC */
 .profil, .skills, .profession {
+    height: 320px;
     min-width: 380px;
     min-height: 320px;
-    height: 380px;
+    overflow: hidden;
 }
 
 /* Bordure et texte de chaque case */
@@ -95,10 +96,6 @@
         height: 380px;
         overflow: hidden;
     }
-    .skills {
-        height: 320px;
-        overflow: hidden;
-    }
     .profession {
         height: 380px;
         overflow: hidden;
@@ -141,10 +138,6 @@
     /* Afficher les cases sur Mobile */
     .profil {
         height: 380px;
-        overflow: hidden;
-    }
-    .skills {
-        height: 320px;
         overflow: hidden;
     }
     .profession {
