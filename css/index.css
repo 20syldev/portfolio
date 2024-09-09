@@ -32,7 +32,7 @@
 }
 
 /* Afficher les cases sur PC */
-.profil, .skills, .profession {
+.profile, .skills, .profession {
     height: 320px;
     min-width: 380px;
     min-height: 320px;
@@ -92,7 +92,7 @@
     }
 
     /* Afficher les cases sur Mobile */
-    .profil {
+    .profile {
         height: 380px;
         overflow: hidden;
     }
@@ -136,7 +136,7 @@
     }
 
     /* Afficher les cases sur Mobile */
-    .profil {
+    .profile {
         height: 380px;
         overflow: hidden;
     }
