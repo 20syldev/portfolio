@@ -1,84 +1,482 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:site_name" content="Sylvain Lambert"/>
-    <title>Sylvain L. - Portfolio</title>
-    <!-- Liens vers le CSS, le JS et l'icône -->
-    <link rel="stylesheet" type="text/css" href="css/index.css"/>
-    <link rel="icon" href="images/portfolio.png"/>
-    <script src="js/index.js"></script>
-  </head>
-  <body>
-    
-    <!-- Titre en haut de page, liens vers les pages -->
-    <div id="top">
-      <div class="textTop"><a href="/">SYLVAIN LAMBERT</a></div>
-      <span class="topMenus">
-        <a href="projets">Projets</a>
-        <a href="about">À propos</a>
-        <a href="contact">Contact</a>
-        <a href="https://github.com/20syldev" target="_blank">Github</a>
-        <a href="https://linkedin.com/in/sylvainlmb" target="_blank">LinkedIn</a>
-      </span>
-      <hr class="textBar">
-    </div>
-    
-    <!-- Texte de la page -->
-    <div id="header">
-      <div class="title">Bonjour, je suis <span onmouseover="big(event)" onmouseout="normal(event)">Sylvain</span>.</div>
-        <div class="textSub">
-          Développeur et Web Designer amateur.
-          J'<span onmouseover="showSubTxt(1)" onmouseout="normalSubTxt(1)" id="txtChange1">imagine</span>, 
-          je <span onmouseover="showSubTxt(2)" onmouseout="normalSubTxt(2)" id="txtChange2">créé</span>, 
-          je <span onmouseover="showSubTxt(3)" onmouseout="normalSubTxt(3)" id="txtChange3">publie</span>.
-          <br>
-          <i id="info">Essayez d'interagir avec les mots ci-dessus pour en savoir plus sur moi !</i>
-          <span id="headerTxt1" style="opacity: 0; position: absolute;">Je commence par conceptualiser le site sur papier, simplement l'interface de la page principale, puis je passe sur Visual Studio Code.</span>
-          <span id="headerTxt2" style="opacity: 0; position: absolute;">J'utilise HTML, CSS et Js seulement car je ne fais que des pages statiques pour l'instant. J'utilise <i>un peu</i> Python mais je ne suis pas le meilleur...</span>
-          <span id="headerTxt3" style="opacity: 0; position: absolute;">Depuis 2023, j'utilise Github Pages pour héberger mes sites rapidement, puis j'achète un domaine personnalisé !</span>
-        </div>
-    </div>
-
-    <!-- Encadré de profil à droite -->
-    <div id="image">
-      <button id="codeBtn" tabindex="-1">
-        <pre>
-          <span style="color: #5d823f">/* Présentation */</span>
-          <span style="color: #b9ab69">#profil</span> <span style="color: #ffd700">{</span>
-            <span style="color: #7cc8e1">description</span>: <span style="color: #99634a">"Dev", "Designer"</span>;
-            <span style="color: #7cc8e1">rigueur</span>: <span style="color: #85a678">100%</span>;
-          <span style="color: #ffd700">}</span>
-
-          <span style="color: #b9ab69">#formation</span> <span style="color: #ffd700">{</span>
-            <span style="color: #7cc8e1">école</span>: <span style="color: #99634a">"Ensitech"</span>;
-            <span style="color: #7cc8e1">progession</span>: <span style="color: #85a678"><span id="pourcentage"></span></span>;
-          <span style="color: #ffd700">}</span>
-
-          <span style="color: #b9ab69">#contact</span> <span style="color: #ffd700">{</span>
-            <span style="color: #7cc8e1">mail</span>: <span style="color: #99634a">"contact@sylvain.pro"</span>;
-            <span style="color: #7cc8e1">discord</span>: <span style="color: #99634a">"@20syl_"</span>;
-          <span style="color: #ffd700">}</span>
-        </pre>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta property="og:site_name" content="Sylvain L. - Accueil">
+  <title>Sylvain L. - Accueil</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"/>
+  <link rel="stylesheet" href="css/index.css"/>
+  <link rel="icon" href="images/logo.png">
+</head>
+<body>
+  <!-- Barre d'annonce -->
+  <div id="announcement" class="notification is-secondary is-size-6 p-2" style="position: fixed; top: 10px; left: 10px; max-width: 400px; z-index: 1000;">
+    <div class="is-flex is-align-items-center">
+      <p class="mr-3"><span class="tag is-link pr-2"><strong>NEW</strong></span> <span id="text-announcement"></span></p>
+      <button style="cursor: pointer;" onclick="hideNotification();">
+        <i class="fas fa-times"></i>
       </button>
     </div>
+  </div>
 
-    <!-- Bouton "Mes projets" sous le texte -->
-    <a id="nolink" href="projets">
-      <button id="btnProj" tabindex="-1">
-          <span>Mes projets</span>
-          <img src="images/file.png" class="file">
-          <img src="images/shine.png" class="star1">
-          <img src="images/shine.png" class="star2">
-      </button>
-    </a>
-
-    <!-- Texte en bas de page -->
-    <div id="bottom">
-      <div class="titleBottom">
-        <a href="https://sylvain.pro">sylvain.pro</a> © 2024. Tous droits réservés.
+  <!-- À propos -->
+  <section class="section mt-5">
+    <!-- Titre -->
+    <div class="section-heading mb-3">
+      <h3 class="title is-2 mb-1">Sylvain L.</h3>
+      <h4 class="subtitle is-5">Développeur & Web Designer</h4>
+      <div class="container">
+        <p>
+          Je développe de tout, mais principalement des sites Internets et des APIs.<br>
+          J'expérimente beaucoup, surtout du côté back-end chez <a href="https://zenetys.com">Zenetys</a>.
+        </p>
       </div>
     </div>
-  </body>
+
+    <!-- Stats -->
+    <section class="section">
+      <nav class="level">
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">OS</p>
+            <p class="title" id="stats1">...</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Front-End</p>
+            <p class="title" id="stats2">...</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Back-End</p>
+            <p class="title" id="stats3">...</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Occupé</p>
+            <p class="title" id="stats4">...</p>
+          </div>
+        </div>
+      </nav>
+    </section>
+
+    <!-- Cases de présentation -->
+    <div class="columns">
+      
+      <!-- Profil -->
+      <div class="column">
+        <div class="card profile">
+          <div class="card-content">
+            <h3 class="title is-4">Profil</h3>
+
+            <div class="content">
+              <table class="table-profile">
+                <tr>
+                  <th colspan="1"></th>
+                  <th colspan="2"></th>
+                </tr>
+                <tr>
+                  <td>Formation :</td>
+                  <td>Ensitech & Zenetys</td>
+                </tr>
+                <tr>
+                  <td>Diplôme :</td>
+                  <td>BTS SIO SLAM (2 ans)</td>
+                </tr>
+                <tr>
+                  <td>Email :</td>
+                  <td>contact@sylvain.pro</td>
+                </tr>
+              </table>
+            </div>
+            <div class="buttons is-centered">
+              <a href="https://github.com/20syldev" class="button is-link">GitHub</a>
+              <a href="https://linkedin.com/in/sylvainlmb" class="button is-link">LinkedIn</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Compétences -->
+      <div class="column">
+        <div class="card skills">
+          <div class="card-content skills-content">
+            <h3 class="title is-4">Compétences</h3>
+            <div class="content">
+
+              <article class="media">
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong>HTML5/CSS3</strong>
+                      <br>
+                      <progress class="progress is-link" value="95" max="100"></progress>
+                    </p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="media">
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong>JavaScript</strong>
+                      <br>
+                      <progress class="progress is-link" value="90" max="100"></progress>
+                    </p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="media">
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong>Vue.js</strong>
+                      <br>
+                      <progress class="progress is-link" value="55" max="100"></progress>
+                    </p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="media">
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong>Node.js</strong>
+                      <br>
+                      <progress class="progress is-link" value="70" max="100"></progress>
+                    </p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="media">
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong>CLI</strong>
+                      <br>
+                      <progress class="progress is-link" value="80" max="100"></progress>
+                    </p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="media">
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong>Databases</strong>
+                      <br>
+                      <progress class="progress is-link" value="60" max="100"></progress>
+                    </p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+
+        <!-- Profession -->
+        <div class="card profession">
+          <div class="card-content">
+            <h3 class="title is-4">Profession</h3>
+
+            <div class="content">
+              <table class="table-profile">
+                <tr>
+                  <th colspan="1"></th>
+                  <th colspan="2"></th>
+                </tr>
+                <tr>
+                  <td>Dénomination :</td>
+                  <td>Développeur Web Front-End</td>
+                </tr>
+                <tr>
+                  <td>Service en ligne :</td>
+                  <td>GemSync.xyz</td>
+                </tr>
+                <tr>
+                  <td>Email Pro :</td>
+                  <td>contact@gemsync.xyz</td>
+                </tr>
+              </table>
+            </div>
+            <div class="buttons is-centered">
+              <a href="https://gemsync.xyz" class="button is-link">Site Web</a>
+              <a href="https://github.com/gemsync" class="button is-link">GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <!--
+  <section class="section">
+    <div class="section-heading">
+      <h3 class="title is-2">Services</h3>
+      <h4 class="subtitle is-5">Que puis-je faire pour vous ?</h4>
+    </div>
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <div class="box">
+            <div class="content">
+              <h4 class="title is-5">Développement Front End</h4>
+              Développer le Front End en utilisant les derniers standards avec HTML5/CSS3 avec des fonctionnalités supplémentaires 
+              en utilisant JavaScript et Vue.js.
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="box">
+            <div class="content">
+              <h4 class="title is-5">Développement Back End</h4>
+              Développer des applications/services back-end en utilisant Node.js ou ASP .NET et des bases de données SQL server ou Mongo DB.            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  -->
+
+  <!-- Projets -->
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <h3 class="title is-2">Mes projets</h3>
+        <h4 class="subtitle is-5">Voici tous mes derniers travaux</h4>
+      </div>
+      <br>
+
+      <div class="container projects-container">
+        <div class="columns">
+          <!-- Colonne de gauche -->
+          <div class="column is-4">
+
+            <!-- GemSync -->
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  <span>GemSync</span>
+                  <span class="is-pulled-right ml-2">
+                    <a href="https://github.com/20syldev/gemsync/releases/latest">
+                      <span class="tag is-link" id="gemsync">...</span>
+                    </a>
+                    <span class="tag is-default">PC</span>
+                    <span class="tag is-default">Mobile</span>
+                  </span>
+                </p>
+              </header>
+              <div class="card-content">
+                <figure class="image">
+                  <img src="images/gemsync.png" alt="Admin template screenshot">
+                </figure>
+              </div>
+              <footer class="card-footer">
+                <a href="https://gemsync.xyz" class="card-footer-item">Site Web</a>
+                <a href="https://github.com/20syldev/gemsync" class="card-footer-item">GitHub</a>
+              </footer>
+            </div>
+            
+            <!-- Database -->
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  <span>Database</span>
+                  <span class="is-pulled-right ml-2">
+                    <a href="https://github.com/20syldev/database/releases/latest">
+                      <span class="tag is-link" id="database">...</span>
+                    </a>
+                    <span class="tag is-default">PC</span>
+                    <span class="tag is-default">Mobile</span>
+                  </span>
+                </p>
+              </header>
+              <div class="card-content">
+                <figure class="image">
+                  <img src="images/database.png" alt="Cards template screenshot">
+                </figure>
+              </div>
+              <footer class="card-footer">  
+                <a href="https://database.sylvain.pro" class="card-footer-item">Site Web</a>
+                <a href="https://github.com/20syldev/database" class="card-footer-item">GitHub</a>
+              </footer>
+            </div>
+          </div>
+          
+          <!-- Colonne du centre -->
+          <div class="column is-4">
+
+            <!-- GitSite -->
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  <span>GitSite</span>
+                  <span class="is-pulled-right ml-2">
+                    <a href="https://github.com/20syldev/gitsite/releases/latest">
+                      <span class="tag is-link" id="gitsite">...</span>
+                    </a>
+                    <span class="tag is-default">PC</span>
+                  </span>
+                </p>
+              </header>
+              <div class="card-content">
+                <figure class="image">
+                  <img src="images/gitsite.png" alt="Band template screenshot">
+                </figure>
+              </div>
+              <footer class="card-footer">
+                <a href="https://gitsite.dev" class="card-footer-item">Site Web</a>
+                <a href="https://github.com/20syldev/gitsite" class="card-footer-item">GitHub</a>
+              </footer>
+            </div>
+
+            <!-- Coop -->
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  <span>Coop</span>
+                  <span class="is-pulled-right ml-2">
+                    <a href="https://github.com/20syldev/doc-coopbot/releases/latest">
+                      <span class="tag is-link" id="doc-coopbot">...</span>
+                    </a>
+                    <span class="tag is-default">PC</span>
+                    <span class="tag is-default">Mobile</span>
+                  </span>
+                </p>
+              </header>
+              <div class="card-content">
+                <figure class="image">
+                  <img src="images/coop.png" alt="Cheatsheet template screenshot">
+                </figure>
+              </div>
+              <footer class="card-footer">
+                <a href="https://coopbot.xyz" class="card-footer-item">Site Web</a>
+                <a href="https://github.com/20syldev/doc-coopbot" class="card-footer-item">GitHub</a>
+              </footer>
+            </div>
+
+            <!-- NitroGen -->
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  <span>NitroGen</span>
+                  <span class="is-pulled-right ml-2">
+                    <a href="https://github.com/20syldev/nitrogen/releases/latest">
+                      <span class="tag is-link" id="nitrogen">...</span>
+                    </a>
+                    <span class="tag is-default">Discord</span>
+                  </span>
+                </p>
+              </header>
+              <div class="card-content">
+                <figure class="image">
+                  <img src="images/nitrogen.png" alt="Hero template screenshot">
+                </figure>
+              </div>
+              <footer class="card-footer">
+                <a href="https://sylvain.pro/nitrogen" class="card-footer-item">Site Web</a>
+                <a href="https://github.com/20syldev/nitrogen" class="card-footer-item">GitHub</a>
+              </footer>
+            </div>
+          </div>
+
+          <!-- Colonne de droite -->
+          <div class="column is-4">
+
+            <!-- API -->
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  <span>API</span>
+                  <span class="is-pulled-right ml-2">
+                    <a href="https://github.com/20syldev/api/releases/latest">
+                      <span class="tag is-link" id="api">...</span>
+                    </a>
+                    <span class="tag is-default">PC</span>
+                    <span class="tag is-default">Mobile</span>
+                  </span>
+                </p>
+              </header>
+              <div class="card-content">
+                <figure class="image">
+                  <img src="images/api.png" alt="Blog template screenshot">
+                </figure>
+              </div>
+              <footer class="card-footer">
+                <a href="https://api.sylvain.pro" class="card-footer-item">Site Web</a>
+                <a href="https://github.com/20syldev/api" class="card-footer-item">GitHub</a>
+              </footer>
+            </div>
+
+            <!-- Coop Status -->
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  <span>Coop Status</span>
+                  <span class="is-pulled-right ml-2">
+                    <a href="https://github.com/20syldev/coop-status/releases/latest">
+                      <span class="tag is-link" id="coop-status">...</span>
+                    </a>
+                    <span class="tag is-default">PC</span>
+                    <span class="tag is-default">Mobile</span>
+                  </span>
+                </p>
+              </header>
+              <div class="card-content">
+                <figure class="image">
+                  <img src="images/coop-status.png" alt="Cover template screenshot">
+                </figure>
+              </div>
+              <footer class="card-footer">
+                <a href="https://coopbot.xyz/discord" class="card-footer-item">Site Web</a>
+                <a href="https://github.com/20syldev/coop-status" class="card-footer-item">GitHub</a>
+              </footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CV -->
+  <section class="section">
+    <div class="section-heading">
+      <h3 class="title is-2">CV</h3>
+      <h4 class="subtitle is-5">En savoir plus sur mon expérience globale</h4>
+      <a href="files/CV Ensitech - Sylvain L..pdf" class="button is-link is-medium" download>
+        <span class="icon">
+          <i class="fas fa-file-alt"></i>
+        </span>
+        <span>Télécharger</span>
+      </a>
+    </div>
+  </section>  
+
+  <!-- Bas de page -->
+  <div class="has-text-centered p-4">
+    <p>
+      <strong><a href="/">sylvain.pro</a> &copy; 2024. Tous droits réservés.</strong>
+    </p>
+  </div>
+
+  <!-- Charger le Js -->
+  <script type="text/javascript" src="js/index.js"></script>
+  <script type="module" src="js/stats.js"></script>
+  <script type="module" src="js/versions.js"></script>
+  <script type="module" src="js/notifications.js"></script>
+</body>
 </html>
