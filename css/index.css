@@ -1,493 +1,182 @@
-/* CSS Desktop (Index) */
-@media only screen and (min-width: 1080px) {
-  /* Importer les polices */
-  @font-face {
-    font-family: 'Raleway-Bold';
-    src: url('./Raleway-Bold.ttf') format('truetype');
-  }
-  
-  @font-face {
-    font-family: 'Raleway-Regular';
-    src: url('./Raleway-Regular.ttf') format('truetype');
-  }
-  
-  @font-face {
-    font-family: 'Raleway-SemiBold';
-    src: url('./Raleway-SemiBold.ttf') format('truetype');
-  }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-  body {
-    background-color: #111214 !important;
-    color: #ffffff;
-    margin-left: 2%;
-    margin-top: 3%;
-    overflow: hidden;
-  }
-
-  /* Titre en haut à gauche de la page */
-  #top .textTop {
-    user-select: none;
-    position: absolute;
-    color: #ffffff;
-    font-family: 'Raleway-SemiBold';
-    font-size: 1.55vw;
-  }
-  #top .textTop a {
-    text-decoration: none;
-    color: #ffffff;
-  }
-
-  /* Lien en haut à droite de la page */
-  #top .topMenus {
-    user-select: none;
-    position: absolute;
-    right: 3%;
-    color: #ffffff;
-    font-family: 'Raleway-Regular';
-    font-size: 1.2vw;
-  }
-  #top .topMenus a {
-    margin-left: 4vw;
-    text-decoration: none;
-    color: #888888;
-  }
-  #top .topMenus a:hover {
-    text-decoration: underline;
-    color: #aaaaaa;
-  }
-
-  /* Barre sous le titre en haut à gauche de la page */
-  #top .textBar {
-    position: relative;
-    width: 0;
-    opacity: 0;
-    margin-left: 0;
-    top: 5vh;
-    border: 0.3vh solid #5679d1;
-    border-radius: 100px;
-    transition: 3s;
-    transition-delay: 2s;
-  }
-  #top:hover .textBar {
-    width: 13.8vw;
-    opacity: 1;
-    transition: 0.5s;
-  }
-
-  /* Titre du texte de la page */
-  #header .title {
-    font-family: 'Raleway-SemiBold';
-    font-size: 3vw;
-    margin-top: 30vh;
-  }
-
-  /* Texte de la page */
-  #header .textSub {
-    color: #9f9f9f;
-    font-family: 'Raleway-Regular';
-    font-size: 1.4vw;
-    margin-top: 4vh;
-  }
-  #header .textSub a {
-    text-decoration: none;
-  }
-  #header .textSub a:hover {
-    color: #aaaaaa;
-    text-decoration: underline;
-  }
-  #header .textSub span {
-    margin-top: 0.7em;
-    margin-left: 0;
-    max-width: 50vw;
-    line-height: 3.2vh;
-  }
-
-  /* Texte du bas de la page */
-  #bottom {
-    color: #555555;
-    font-family: 'Raleway-SemiBold';
-    font-size: 1vw;
-    margin-left: 39vw;
-    margin-bottom: 2vh;
-  }
-  #bottom a {
-    color: #555555;
-    text-decoration: none;
-  }
-  #bottom a:hover {
-    color: #777777;
-    text-decoration: underline;
-  }
-
-  /* Encadré d'information de profil */
-  #image button {
-    user-select: none;
-    background: #1b1e27;
-    color: #ffffff;
-    border: none;
-    border-radius: 1.8vw;
-    box-sizing: border-box;
-    position: fixed;
-    text-align: left;
-    font-size: 1.75vw;
-    width: 39vw;
-    height: 72vh;
-    top: 0;
-    right: 3%;
-    margin-top: 16vh;
-    transition: 0.5s;
-  }
-  #image pre {
-    margin-left: -8vw;
-  }
-
-  /* Bouton "Mes projets" */
-  #btnProj {
-    user-select: none;
-    background: #5679d1;
-    color: #ffffff;
-    border: none;
-    border-radius: 100px;
-    box-sizing: border-box;
-    font-family: 'Raleway-SemiBold';
-    font-size: 1vw;
-    padding: 2vh;
-    width: 8.5vw;
-    cursor: pointer;
-    position: relative;
-    display: flex;
-    margin-top: 4vh;
-    margin-bottom: 33.55vh;
-    padding-left: 1.5vw;
-    transition: 0.5s;
-  }
-
-  /* Animation du bouton */
-  #btnProj:before {
-    content: "";
-    background: linear-gradient(
-      45deg,
-      #629cf4,
-      #2c67f2,
-      #2c7bf2
-    );
-    position: absolute;
-    background-size: 400%;
-    border-radius: 100px;
-    top: -2px;
-    left: -2px;
-    z-index: -1;
-    opacity: 0;
-    animation: btnProj 20s linear infinite;
-    transition: opacity 0.3s ease-in-out;
-    filter: blur(5px);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-  }
-  #btnProj:hover:before {
-    opacity: 1;
-  }
-
-  /* Animation */
-  @keyframes btnProj {
-    0% {
-      background-position: 0 0;
-    }
-    50% {
-      background-position: 400% 0;
-    }
-    100% {
-      background-position: 0 0;
-    }
-  }
-
-  /* Styles des images */
-  #btnProj .file {
-    width: 1vw;
-    height: auto;
-    filter: invert(100%);
-    margin-left: 0.5vw;
-    opacity: 0;
-    transition: opacity 0.5s;
-  }
-  #btnProj .star1 {
-    width: 1vw;
-    height: auto;
-    filter: invert(100%);
-    margin-top: -1.5vw;
-    margin-left: -1vw;
-    opacity: 0;
-    transition: 0.2s;
-  }
-  #btnProj .star2 {
-    width: 1.2vw;
-    height: auto;
-    filter: invert(100%);
-    margin-top: 1.5vw;
-    margin-left: 0;
-    position: absolute;
-    opacity: 0;
-    transition: 0.2s;
-  }
-
-  #btnProj span {
-    white-space: nowrap;
-  }
-
-  /* Animations des images */
-  #btnProj:hover {
-    padding-left: 2vw;
-    width: 10.7vw;
-    transition: 0.5s;
-  }
-  #btnProj:hover .file {
-    opacity: 1;
-    transition: 0.5s;
-  }
-  #btnProj:hover .star1 {
-    rotate: 70deg;
-    margin-top: -1.3vw;
-    margin-left: 0;
-    opacity: 1;
-    transition: 1.5s;
-  }
-  #btnProj:hover .star2 {
-    rotate: -110deg;
-    margin-top: 1.5vw;
-    margin-left: -1.5vw;
-    opacity: 1;
-    transition: 1.5s;
-  }
-
-  /* Fixer le style des liens */
-  #nolink {
-    text-decoration: none;
-    color: #ffffff;
-  }
-
-  /* Texte informatif */
-  #info {
-    color: #333333;
-    position: absolute;
-    visibility: hidden;
-    font-size: 0.8em;
-  }
-
-  /* Barre de scroll */
-  ::-webkit-scrollbar {
-    height: 1vh;
-    width: 0.5vw;
-    background-color: #111214;
-    overflow-y: auto;
-    overflow-x: hidden;
-    position: relative;
-    padding: 10px 10px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: #353739;
-    border-radius: 10vw;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: #474d54;
-  }
+* {
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
 }
 
-/* CSS Mobile (Index) */
-@media only screen and (max-width: 1080px) {
-  /* Importer les polices */
-  @font-face {
-    font-family: 'Raleway-Bold';
-    src: url('./Raleway-Bold.ttf') format('truetype');
-  }
-  
-  @font-face {
-    font-family: 'Raleway-Regular';
-    src: url('./Raleway-Regular.ttf') format('truetype');
-  }
-  
-  @font-face {
-    font-family: 'Raleway-SemiBold';
-    src: url('./Raleway-SemiBold.ttf') format('truetype');
-  }
-  
-  body {
-    background-color: #111214 !important;
-    color: #ffffff;
-    margin-top: 5%;
-    overflow: hidden;
-  }
+/* Notifications au chargement*/
+.notification {
+    transform: translateX(-150%);
+    transition: none;
+}
+.notification.slide-in {
+    transform: translateX(0);
+    transition: transform 0.8s ease-in-out;
+}
+.notification.slide-out {
+    transform: translateX(-150%);
+    transition: transform 0.8s ease-in-out;
+}
 
-  /* Titre en haut à gauche de la page */
-  #top .textTop {
-    user-select: none;
-    position: relative;
-    color: #ffffff;
-    font-family: 'Raleway-SemiBold';
-    font-size: 1.8vh;
+/* Titre des sections */
+.section-heading {
     text-align: center;
-  }
-  #top .textTop a {
-    text-decoration: none;
-    color: #ffffff;
-  }
+    margin-top: 1em;
+    margin-bottom: 4em;
+}
 
-  /* Lien en haut à droite de la page */
-  #top .topMenus {
-    user-select: none;
-    position: absolute;
-    color: #ffffff;
-    font-family: 'Raleway-Regular';
-    font-size: 1.4vh;
-    margin-top: 2vw;
-    width: 90%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  .topMenus a {
-    margin-left: 6vw;
-    text-decoration: none;
-    color: #888888;
-  }
-
-  /* Barre sous le titre en haut à gauche de la page */
-  #top .textBar {
-    display: none;
-  }
-
-  /* Titre du texte de la page */
-  #header .title {
-    position: relative;
-    font-family: 'Raleway-SemiBold';
-    font-size: 3vh;
+/* Aligner le texte de chaque case */
+.card-content h3 {
     text-align: center;
-    margin-top: 10vh;
-    line-height: 2vh;
-  }
+}
 
-  /* Texte de la page */
-  #header .textSub {
-    color: #9f9f9f;
-    font-family: 'Raleway-Regular';
-    text-align: center;
-    font-size: 2.5vw;
-    margin-top: 2vh;
-  }
-  #header .textSub span {
-    margin-top: 2vh;
-    font-size: 2.7vw;
-    left: 2%;
-    right: 2%;
-    max-width: fit-content;
-    line-height: 1.6vh;
-    text-align: center;
-  }
+/* Afficher les cases sur PC */
+.profil, .skills, .profession {
+    min-width: 380px;
+    min-height: 320px;
+    height: 380px;
+}
 
-  /* Texte du bas de la page */
-  #bottom {
-    position: absolute;
-    color: #555555;
-    font-family: 'Raleway-SemiBold';
-    font-size: 3vw;
-    margin-left: 22vw;
-    bottom: 2vh;
-  }
-  #bottom a {
-    color: #555555;
-    text-decoration: none;
-  }
-  #bottom a:hover {
-    color: #777777;
-    text-decoration: underline;
-  }
+/* Bordure et texte de chaque case */
+.table-profile td,
+  th {
+    border: none !important;
+}
+.table-profile td:first-of-type {
+    font-weight: bold;
+}
 
-  /* Encadré d'information de profil */
-  #image button {
-    user-select: none;
-    position: relative;
-    background: #1b1e27;
-    color: #ffffff;
-    border: none;
-    border-radius: 20px;
-    box-sizing: border-box;
-    position: absolute;
-    text-align: left;
-    font-size: 1.80vh;
-    width: 90%;
-    height: fit-content;
-    left: 5%;
-    right: 5%;
-    top: auto;
-    margin-top: 7vh;
-    transition: 0.5s;
-  }
-  #image pre {
-    margin-left: -18vw;
-  }
+/* Affichage des cases des compétences */
+.skills-content .media {
+    margin: 0 !important;
+    padding: 4px !important;
+    border: 0 !important;
+}
+.skills-content .progress {
+    height: 4px !important;
+}
 
-  /* Bouton "Mes projets" */
-  #btnProj {
-    user-select: none;
-    position: relative;
-    background: #5679d1;
-    color: #ffffff;
-    border: none;
-    border-radius: 100px;
-    font-family: 'Raleway-SemiBold';
-    font-size: 3vw;
-    padding: 1vh;
-    padding-left: 5vw;
-    padding-right: 5vw;
-    width: 30vh;
-    height: 8vw;
-    margin-top: 2vh;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: 0.5s;
-    max-width: fit-content;
-  }
+/* Style des tags */
+.custom-tags {
+    text-align: center !important;
+    display: block;
+}
 
+/* Style des projets */
+.projects-container .card {
+    margin-bottom: 2em;
+}
+.projects-container img {
+    border-radius: 15px;
+}
 
-  /* Styles des images */
-  .file {
+/* Cacher la barre de scroll */
+::-webkit-scrollbar {
     display: none;
-  }
-  .star1 {
-    display: none;
-  }
-  .star2 {
-    display: none;
-  }
+}
 
-  /* Fixer le style des liens */
-  #nolink {
-    text-decoration: none;
-    color: #ffffff;
-  }
+/* Mobile */
+@media (max-width: 991px) {
+    /* Titre des sections */
+    .section-heading {
+        text-align: center;
+        margin-top: 1em;
+        margin-bottom: 4em;
+    }
 
-  /* Texte informatif */
-  #info {
-    display: none;
-  }
+    /* Aligner le texte de chaque case */
+    .card-content h3 {
+        text-align: center;
+    }
 
-  /* Barre de scroll */
-  ::-webkit-scrollbar {
-    height: 1vh;
-    width: 0.5vw;
-    background-color: #111214;
-    overflow-y: auto;
-    overflow-x: hidden;
-    position: relative;
-    padding: 10px 10px;
-  }
+    /* Afficher les cases sur Mobile */
+    .profil {
+        height: 380px;
+        overflow: hidden;
+    }
+    .skills {
+        height: 320px;
+        overflow: hidden;
+    }
+    .profession {
+        height: 380px;
+        overflow: hidden;
+    }
 
-  ::-webkit-scrollbar-thumb {
-    background-color: #353739;
-    border-radius: 10vw;
-  }
+    /* Bordure et texte de chaque case */
+    .table-profile td,
+    th {
+        border: none !important;
+        display: flex;
+        margin-top: -15px;
+    }
+    .table-profile td:first-of-type {
+        font-weight: bold;
+        margin-top: 5px;
+    }
 
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: #474d54;
-  }
+    /* Affichage des cases des compétences */
+    .skills-content .media {
+        margin: 0 !important;
+        padding: 4px !important;
+        border: 0 !important;
+    }
+    .skills-content .progress {
+        height: 4px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Titre des sections */
+    .section-heading {
+        margin-bottom: 1em;
+    }
+
+    /* Aligner le texte de chaque case */
+    .card-content h3 {
+        text-align: center;
+    }
+
+    /* Afficher les cases sur Mobile */
+    .profil {
+        height: 380px;
+        overflow: hidden;
+    }
+    .skills {
+        height: 320px;
+        overflow: hidden;
+    }
+    .profession {
+        height: 380px;
+        overflow: hidden;
+    }
+
+    /* Bordure et texte de chaque case */
+    .table-profile td,
+    th {
+        border: none !important;
+        display: flex;
+        margin-top: -15px;
+    }
+    .table-profile td:first-of-type {
+        font-weight: bold;
+        margin-top: 5px;
+    }
+
+    /* Affichage des cases des compétences */
+    .skills-content .media {
+        margin: 0 !important;
+        padding: 4px !important;
+        border: 0 !important;
+    }
+    .skills-content .progress {
+        height: 4px !important;
+    }
+
+    /* Style des tags */
+    .custom-tags {
+        text-align: center !important;
+        display: block;
+    }
 }
