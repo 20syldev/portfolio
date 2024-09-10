@@ -79,6 +79,10 @@
 
 /* Mobile */
 @media (max-width: 991px) {
+    * {
+        overflow: hidden;
+    }
+
     /* Titre des sections */
     .section-heading {
         text-align: center;
@@ -122,9 +126,17 @@
     .skills-content .progress {
         height: 4px !important;
     }
+
+    .bottom {
+        font-size: 0.8em;
+    }
 }
 
 @media (max-width: 600px) {
+    * {
+        overflow: hidden;
+    }
+
     /* Titre des sections */
     .section-heading {
         margin-bottom: 1em;
@@ -167,9 +179,7 @@
         height: 4px !important;
     }
 
-    /* Style des tags */
-    .custom-tags {
-        text-align: center !important;
-        display: block;
+    .bottom {
+        font-size: 0.8em;
     }
 }
