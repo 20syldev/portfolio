@@ -33,9 +33,9 @@
 
 /* Afficher les cases sur PC */
 .profile, .skills, .profession {
-    height: 320px;
+    height: fit-content;
     min-width: 380px;
-    min-height: 320px;
+    min-height: 380px;
     overflow: hidden;
 }
 
