@@ -35,7 +35,7 @@
 .profile, .skills, .profession {
     height: fit-content;
     min-width: 380px;
-    min-height: 380px;
+    min-height: 320px;
     overflow: hidden;
 }
 
