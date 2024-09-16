@@ -3,7 +3,7 @@ window.addEventListener('load', function() {
     // Barres de progression
     document.querySelectorAll('.progress').forEach(function(progressBar) {
         let max = progressBar.getAttribute('value');
-        let duration = 3000;
+        let duration = 4000;
 
         progressBar.value = 0;
 
