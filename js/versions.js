@@ -27,6 +27,8 @@ async function load() {
         document.getElementById('doc-coopbot').innerHTML = docSnap.data().doc_coopbot;
         document.getElementById('coop-status').innerHTML = docSnap.data().coop_status;
         document.getElementById('nitrogen').innerHTML = docSnap.data().nitrogen;
+        document.getElementById('portfolio').innerHTML = docSnap.data().portfolio;
+        document.getElementById('zpki').innerHTML = docSnap.data().zpki;
     }
 }
 load();
