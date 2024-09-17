@@ -20,20 +20,20 @@ window.addEventListener('load', function() {
     });
 
     // Notification au chargement
-    const announcement = document.getElementById('announcement');
+    const notif = document.getElementById('notif');
     setTimeout(function() {
-        announcement.classList.add('slide-in');
+        notif.classList.add('slide-in');
     }, 1000);
 
     setTimeout(function() {
-        announcement.classList.remove('slide-in');
-        announcement.classList.add('slide-out');
+        notif.classList.remove('slide-in');
+        notif.classList.add('slide-out');
     }, 6000);
 });
 
 // Forcer la disparition de la notification
 function hideNotification() {
-    const notification = document.getElementById('announcement');
+    const notification = document.getElementById('notif');
     notification.classList.add('slide-out');
     setTimeout(() => notification.style.display = 'none', 1000);
   }
