@@ -21,9 +21,9 @@ async function load() {
     const docSnap = await getDoc(notifications);
     if (docSnap.exists()) {
         if (docSnap.data().active === true) {
-            document.getElementById('text-announcement').innerHTML = docSnap.data().text;
+            document.getElementById('text-notif').innerHTML = docSnap.data().text;
         } else {
-            document.getElementById('announcement').style.display = 'none';
+            document.getElementById('notif').style.display = 'none';
         }
     }
 }
