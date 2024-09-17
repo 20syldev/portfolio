@@ -5,10 +5,14 @@
     scroll-behavior: smooth;
 }
 
-/* Notifications au chargement*/
+/* Notification au chargement*/
 .notification {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    max-width: 400px;
     transform: translateX(-150%);
-    transition: none;
+    z-index: 999;
 }
 .notification.slide-in {
     transform: translateX(0);
