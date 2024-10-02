@@ -41,15 +41,40 @@
     min-width: 380px;
     min-height: 320px;
     overflow: hidden;
+    border: 2px solid #00000000;
+    border-radius: 20px;
+    box-shadow: 5px 5px 0 #111;
+    transition: 0.5s;
+}
+.profile:hover, .skills:hover, .profession:hover {
+    border: 2px solid #111;
+    border-radius: 20px;
+    box-shadow: 5px 5px 0 #111;
 }
 
 /* Bordure et texte de chaque case */
 .table-profile td,
-  th {
+th {
     border: none !important;
 }
 .table-profile td:first-of-type {
     font-weight: bold;
+}
+.table-profile tr:first-child:hover {
+    background: none;
+}
+.table-profile tr:hover td {
+    background: #ffffff11;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+.table-profile tr:hover td:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.table-profile tr:hover td:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 /* Affichage des cases des compétences */
@@ -57,6 +82,11 @@
     margin: 0 !important;
     padding: 4px !important;
     border: 0 !important;
+    transition: 0.5s;
+}
+.skills-content .media:hover {
+    background: #ffffff11;
+    border-radius: 10px;
 }
 .skills-content .progress {
     height: 4px !important;
