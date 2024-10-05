@@ -20,15 +20,15 @@ const versions = doc(db, 'sylvain', 'versions');
 async function load() {
     const docSnap = await getDoc(versions);
     if (docSnap.exists()) {
-        document.getElementById('gemsync').innerHTML = docSnap.data().gemsync;
-        document.getElementById('gitsite').innerHTML = docSnap.data().gitsite;
         document.getElementById('api').innerHTML = docSnap.data().api;
+        document.getElementById('coop-status').innerHTML = docSnap.data().coop_status;
         document.getElementById('database').innerHTML = docSnap.data().database;
         document.getElementById('doc-coopbot').innerHTML = docSnap.data().doc_coopbot;
-        document.getElementById('coop-status').innerHTML = docSnap.data().coop_status;
+        document.getElementById('gemsync').innerHTML = docSnap.data().gemsync;
+        document.getElementById('gitsite').innerHTML = docSnap.data().gitsite;
         document.getElementById('nitrogen').innerHTML = docSnap.data().nitrogen;
         document.getElementById('portfolio').innerHTML = docSnap.data().portfolio;
-        document.getElementById('zpki').innerHTML = docSnap.data().zpki;
+        document.getElementById('wrkit').innerHTML = docSnap.data().wrkit;
     }
 }
 load();
