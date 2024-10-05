@@ -104,22 +104,22 @@
     transition: 0.5s;
 }
 .button::before {
-    top: -10px;
-    left: -12px;
+    top: -6px;
+    left: -9px;
     background-image: url('../images/sparkles.svg');
 }
 .button::after {
-    bottom: -8px;
+    bottom: -12px;
     right: -10px;
     background-image: url('../images/sparkles.svg');
 }
-.button:hover::after {
-    opacity: 1;
-    transform: scale(0.8) rotate(220deg);
-}
 .button:hover::before {
     opacity: 1;
-    transform: scale(1) rotate(190deg);
+    transform: scale(1) rotate(120deg);
+}
+.button:hover::after {
+    opacity: 1;
+    transform: scale(0.8) rotate(190deg);
 }
 
 /* Affichage des cases des compétences */
