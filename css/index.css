@@ -37,24 +37,26 @@
 
 /* Afficher les cases sur PC */
 .profile, .skills, .profession {
+    user-select: none;
     height: fit-content;
     min-width: 380px;
     min-height: 320px;
     overflow: hidden;
-    border: 2px solid #00000000;
+    border: 2px solid #111;
     border-radius: 20px;
-    box-shadow: 5px 5px 0 #111;
     transition: 0.5s;
 }
 .profile:hover, .skills:hover, .profession:hover {
-    border: 2px solid #111;
-    border-radius: 20px;
     box-shadow: 5px 5px 0 #111;
+    transform: translate(-3px, -3px);
+}
+.profile:active, .skills:active, .profession:active {
+    box-shadow: none;
+    transform: translate(3px, 3px);
 }
 
 /* Bordure et texte de chaque case */
-.table-profile td,
-th {
+.table-profile td, th {
     border: none !important;
 }
 .table-profile td:first-of-type {
@@ -75,6 +77,49 @@ th {
 .table-profile tr:hover td:last-child {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+}
+
+/* Animations des boutons */
+.button {
+    background: #333;
+    transition: 0.5s;
+}
+.button:hover {
+    box-shadow: 3px 3px 0 #444;
+    transform: translate(-3px, -3px);
+}
+.button:active {
+    box-shadow: none;
+    transform: translate(2px, 2px);
+}
+/* Ajout des étoiles */
+.button::before, .button::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    background-size: cover;
+    transform: scale(-0.5) rotate(0deg);
+    transition: 0.5s;
+}
+.button::before {
+    top: -10px;
+    left: -12px;
+    background-image: url('../images/sparkles.svg');
+}
+.button::after {
+    bottom: -8px;
+    right: -10px;
+    background-image: url('../images/sparkles.svg');
+}
+.button:hover::after {
+    opacity: 1;
+    transform: scale(0.8) rotate(220deg);
+}
+.button:hover::before {
+    opacity: 1;
+    transform: scale(1) rotate(190deg);
 }
 
 /* Affichage des cases des compétences */
@@ -99,11 +144,49 @@ th {
 }
 
 /* Style des projets */
-.projects-container .card {
-    margin-bottom: 2em;
-}
 .projects-container img {
+    user-select: none;
+    border: 2px solid #00000000;
     border-radius: 15px;
+    transition: 0.5s;
+}
+.projects-container img:hover {
+    border: 2px solid #fff;
+}
+.projects-container .card {
+    border: 2px solid #00000000;
+    margin-bottom: 2em;
+    transition: 0.5s;
+}
+.projects-container .card:hover {
+    border: 2px solid #fff;
+    box-shadow: 5px 5px 0 #eee;
+    transform: translate(-3px, -3px);
+}
+.projects-container .card:active {
+    box-shadow: none;
+    transform: translate(3px, 3px);
+}
+
+/* Style des boutons des projets */
+.card-footer a {
+    border: 2px solid #00000000;
+    transition: 0.5s;
+    font-weight: 500;
+}
+.card-footer a:hover {
+    border: 2px solid #eee;
+    border-radius: 10px;
+    box-shadow: 0 2px 0 #fff;
+    transform: translateY(-2px);
+}
+.card-footer a:active {
+    box-shadow: none;
+    transform: translate(0);
+}
+
+.description a:hover, .bottom a:hover {
+    text-decoration: underline;
 }
 
 /* Cacher la barre de scroll */
@@ -112,7 +195,7 @@ th {
 }
 
 /* Mobile */
-@media (max-width: 991px) {
+@media (max-width: 1278px) {
     * {
         overflow: hidden;
     }
@@ -124,41 +207,22 @@ th {
         margin-bottom: 4em;
     }
 
+    /* Display différent sur tablette */
+    .columns.about {
+        display: inline;
+    }
+
     /* Aligner le texte de chaque case */
     .card-content h3 {
         text-align: center;
     }
 
-    /* Afficher les cases sur Mobile */
-    .profile {
-        height: 380px;
-        overflow: hidden;
+    /* Animations des boutons */
+    .button {
+        margin-top: 20px;
     }
-    .profession {
-        height: 380px;
-        overflow: hidden;
-    }
-
-    /* Bordure et texte de chaque case */
-    .table-profile td,
-    th {
-        border: none !important;
-        display: flex;
-        margin-top: -15px;
-    }
-    .table-profile td:first-of-type {
-        font-weight: bold;
-        margin-top: 5px;
-    }
-
-    /* Affichage des cases des compétences */
-    .skills-content .media {
-        margin: 0 !important;
-        padding: 4px !important;
-        border: 0 !important;
-    }
-    .skills-content .progress {
-        height: 4px !important;
+    .button::before, .button::after {
+        background-image: none;
     }
 
     .bottom {
@@ -181,19 +245,8 @@ th {
         text-align: center;
     }
 
-    /* Afficher les cases sur Mobile */
-    .profile {
-        height: 380px;
-        overflow: hidden;
-    }
-    .profession {
-        height: 380px;
-        overflow: hidden;
-    }
-
     /* Bordure et texte de chaque case */
-    .table-profile td,
-    th {
+    .table-profile td, th {
         border: none !important;
         display: flex;
         margin-top: -15px;
@@ -201,16 +254,6 @@ th {
     .table-profile td:first-of-type {
         font-weight: bold;
         margin-top: 5px;
-    }
-
-    /* Affichage des cases des compétences */
-    .skills-content .media {
-        margin: 0 !important;
-        padding: 4px !important;
-        border: 0 !important;
-    }
-    .skills-content .progress {
-        height: 4px !important;
     }
 
     .bottom {
