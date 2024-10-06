@@ -137,12 +137,6 @@
     height: 4px !important;
 }
 
-/* Style des tags */
-.custom-tags {
-    text-align: center !important;
-    display: block;
-}
-
 /* Style des projets */
 .projects-container img {
     user-select: none;
@@ -196,27 +190,31 @@
 
 /* Mobile */
 @media (max-width: 1278px) {
-    * {
-        overflow: hidden;
-    }
-
-    /* Titre des sections */
-    .section-heading {
-        text-align: center;
-        margin-top: 1em;
-        margin-bottom: 4em;
-    }
-
-    /* Display différent sur tablette */
+    /* Affichage des colonnes */
     .columns.about {
         display: inline;
     }
 
-    /* Aligner le texte de chaque case */
-    .card-content h3 {
-        text-align: center;
+    /* Affichage des stats */
+    .level {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto auto;
+        gap: 20px;
     }
 
+    /* Style des tags */
+    .card-header-title {
+        overflow-x: scroll;
+        white-space: nowrap;
+    }
+
+    /* Style des boutons des projets */
+    .card-footer a:hover, .card-footer a:active {
+        border: 2px solid #00000000;
+        transform: none;
+    }
+    
     /* Animations des boutons */
     .button {
         margin-top: 20px;
@@ -225,37 +223,37 @@
         background-image: none;
     }
 
+    /* Affichage du copyright */
     .bottom {
         font-size: 0.8em;
     }
 }
 
 @media (max-width: 600px) {
-    * {
-        overflow: hidden;
-    }
-
     /* Titre des sections */
     .section-heading {
         margin-bottom: 1em;
     }
 
-    /* Aligner le texte de chaque case */
-    .card-content h3 {
-        text-align: center;
+    /* Affichage des stats */
+    .level {
+        display: block;
+    }
+    .level-item {
+        margin-bottom: 20px;
     }
 
-    /* Bordure et texte de chaque case */
-    .table-profile td, th {
-        border: none !important;
-        display: flex;
-        margin-top: -15px;
-    }
-    .table-profile td:first-of-type {
-        font-weight: bold;
-        margin-top: 5px;
+    /* Affichage des cases */
+    .profile, .skills, .profession {
+        min-width: auto;
     }
 
+    /* Adapter le texte */
+    .table-profile td {
+        display: inline-block;
+    }
+
+    /* Affichage du copyright */
     .bottom {
         font-size: 0.8em;
     }
