@@ -164,21 +164,25 @@
 
 /* Style des boutons des projets */
 .card-footer a {
-    border: 2px solid #00000000;
     transition: 0.5s;
     font-weight: 500;
 }
 .card-footer a:hover {
-    border: 2px solid #eee;
-    border-radius: 10px;
-    box-shadow: 0 2px 0 #fff;
     transform: translateY(-2px);
 }
 .card-footer a:active {
-    box-shadow: none;
     transform: translate(0);
 }
 
+/* Tags */
+.tag {
+    transition: 0.5s;
+}
+.tag:hover {
+    filter: invert(10%) brightness(120%);
+}
+
+/* Styles des liens au survol */
 .description a:hover, .bottom a:hover {
     text-decoration: underline;
 }
