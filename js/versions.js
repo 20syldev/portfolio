@@ -1,34 +1,14 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js';
-import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js';
-
-// Configuration Firebase
-const firebaseConfig = {
-    apiKey: "AIzaSyBeg4QPPuM9xghL1HwNiXEDbryyilpGmC8",
-    authDomain: "api-20syl.firebaseapp.com",
-    projectId: "api-20syl",
-    storageBucket: "api-20syl.appspot.com",
-    messagingSenderId: "18523544518",
-    appId: "1:18523544518:web:3c18c082bef03cce92b0c7"
-};
-
-// Initialiser Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const versions = doc(db, 'sylvain', 'versions');
-
-// Fonction pour récupérer les données
-async function load() {
-    const docSnap = await getDoc(versions);
-    if (docSnap.exists()) {
-        document.getElementById('api').innerHTML = docSnap.data().api;
-        document.getElementById('coop-status').innerHTML = docSnap.data().coop_status;
-        document.getElementById('database').innerHTML = docSnap.data().database;
-        document.getElementById('doc-coopbot').innerHTML = docSnap.data().doc_coopbot;
-        document.getElementById('gemsync').innerHTML = docSnap.data().gemsync;
-        document.getElementById('gitsite').innerHTML = docSnap.data().gitsite;
-        document.getElementById('nitrogen').innerHTML = docSnap.data().nitrogen;
-        document.getElementById('portfolio').innerHTML = docSnap.data().portfolio;
-        document.getElementById('wrkit').innerHTML = docSnap.data().wrkit;
-    }
-}
-load();
+// Récupérer les versions de mes projets
+fetch('https://api.sylvain.pro/fr/versions')
+.then(response => response.json())
+.then(data => {
+    document.getElementById('api').innerHTML = data.api;
+    document.getElementById('coop-status').innerHTML = data.coop_status;
+    document.getElementById('database').innerHTML = data.database;
+    document.getElementById('doc-coopbot').innerHTML = data.doc_coopbot;
+    document.getElementById('gemsync').innerHTML = data.gemsync;
+    document.getElementById('gitsite').innerHTML = data.gitsite;
+    document.getElementById('nitrogen').innerHTML = data.nitrogen;
+    document.getElementById('portfolio').innerHTML = data.portfolio;
+    document.getElementById('wrkit').innerHTML = data.wrkit;
+});
