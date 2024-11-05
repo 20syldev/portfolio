@@ -1,5 +1,24 @@
 // Au chargement
-window.addEventListener('load', function() {    
+window.addEventListener('load', function() {
+    // Infos au survol
+    document.querySelectorAll('.pause').forEach(function(pause) {
+        pause.addEventListener('mouseover', function() {
+            pause.innerHTML = '<i class="fa-solid fa-pause icon mr-1"></i> Projet en pause';
+        });
+        pause.addEventListener('mouseout', function() {
+            pause.innerHTML = '<i class="fa-solid fa-pause icon"></i>';
+        });
+    });
+
+    document.querySelectorAll('.wip').forEach(function(wip) {
+        wip.addEventListener('mouseover', function() {
+            wip.innerHTML = 'Work In Progress';
+        });
+        wip.addEventListener('mouseout', function() {
+            wip.innerHTML = 'WIP';
+        });
+    });
+
     // Barres de progression
     document.querySelectorAll('.progress').forEach(function(progressBar) {
         let max = progressBar.getAttribute('value');
