@@ -162,6 +162,12 @@
     transform: translate(3px, 3px);
 }
 
+/* Affichage des tags */
+.card-header-title {
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
 /* Style des boutons des projets */
 .card-footer a {
     transition: 0.5s;
@@ -214,12 +220,6 @@
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: auto auto;
         gap: 20px;
-    }
-
-    /* Style des tags */
-    .card-header-title {
-        overflow-x: scroll;
-        white-space: nowrap;
     }
 
     /* Style des boutons des projets */
