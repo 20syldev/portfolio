@@ -1,550 +1,556 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta property="og:site_name" content="Sylvain L. - Accueil">
-  <title>Sylvain L. - Accueil</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"/>
-  <link rel="stylesheet" href="css/index.css"/>
-  <link rel="icon" href="images/logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta property="og:site_name" content="Sylvain L. - Accueil">
+    <title>Sylvain L. - Accueil</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="icon" href="images/logo.png">
 </head>
 <body>
-  <!-- Notification -->
-  <div id="notif" class="notification p-2">
-    <div class="is-flex is-align-items-center">
-      <p class="mr-3"><span id="text-notif">...</span></p>
-      <button style="cursor: pointer;" onclick="hideNotification();">
-        <i class="fas fa-times"></i>
-      </button>
+    <!-- Notification -->
+    <div id="notif" class="notification p-2">
+        <div class="is-flex is-align-items-center">
+            <p class="mr-3"><span id="text-notif">...</span></p>
+            <button style="cursor: pointer;" onclick="hideNotification();">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
     </div>
-  </div>
-  
-  <!-- À propos -->
-  <section class="section">
-    <!-- Titre -->
-    <div class="section-heading mb-3">
-      <h3 class="title is-2 mb-1">Sylvain L.</h3>
-      <h4 class="subtitle is-5">Développeur & Web Designer</h4>
-      <div class="container description">
-        <p>
-          Je développe de tout, mais principalement des sites Internets et des APIs.<br>
-          J'expérimente beaucoup, surtout du côté back-end chez <a href="https://zenetys.com" target="_blank">Zenetys</a>.
-        </p>
-      </div>
-    </div>
-
-    <!-- Stats -->
+    
+    <!-- À propos -->
     <section class="section">
-      <nav class="level">
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">OS</p>
-            <p class="title" id="stats1">...</p>
-          </div>
+        <!-- Titre -->
+        <div class="section-heading mb-3">
+            <h3 class="title is-2 mb-1">Sylvain L.</h3>
+            <h4 class="subtitle is-5">Développeur & Web Designer</h4>
+            <div class="container description">
+                <p>
+                    Je développe de tout, mais principalement des sites Internets et des APIs.<br>
+                    J'expérimente beaucoup, surtout du côté back-end chez <a href="https://zenetys.com" target="_blank">Zenetys</a>.
+                </p>
+            </div>
         </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Front-End</p>
-            <p class="title" id="stats2">...</p>
-          </div>
+
+        <!-- Stats -->
+        <section class="section">
+            <nav class="level">
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">OS</p>
+                        <p class="title" id="stats1">...</p>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Front-End</p>
+                        <p class="title" id="stats2">...</p>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Back-End</p>
+                        <p class="title" id="stats3">...</p>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Occupé</p>
+                        <p class="title" id="stats4">...</p>
+                    </div>
+                </div>
+            </nav>
+        </section>
+
+        <!-- Cases de présentation -->
+        <div class="columns about">
+            
+            <!-- Profil -->
+            <div class="column">
+                <div class="card profile">
+                    <div class="card-content">
+                    <h3 class="title is-4">Profil</h3>
+
+                    <div class="content">
+                        <table class="table-profile">
+                        <tr>
+                            <th colspan="1"></th>
+                            <th colspan="2"></th>
+                        </tr>
+                        <tr>
+                            <td>Formation :</td>
+                            <td>Ensitech & Zenetys</td>
+                        </tr>
+                        <tr>
+                            <td>Diplôme :</td>
+                            <td>BTS SIO SLAM (2 ans)</td>
+                        </tr>
+                        <tr>
+                            <td>Email :</td>
+                            <td>contact@sylvain.pro</td>
+                        </tr>
+                        </table>
+                    </div>
+                        <div class="buttons is-centered">
+                            <a href="https://github.com/20syldev" target="_blank" class="button is-link"><i class="fa-brands fa-github mr-1 icon"></i> GitHub</a>
+                            <a href="https://linkedin.com/in/sylvainlmb" target="_blank" class="button is-link"><i class="fa-brands fa-linkedin mr-1 icon"></i> LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Compétences -->
+            <div class="column">
+                <div class="card skills">
+                    <div class="card-content skills-content">
+                        <h3 class="title is-4">Compétences</h3>
+                        <div class="content">
+
+                            <article class="media">
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p>
+                                            <strong>Node.js</strong>
+                                            <br>
+                                            <progress class="progress is-link" value="80" max="100"></progress>
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="media">
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p>
+                                            <strong>JavaScript</strong>
+                                            <br>
+                                            <progress class="progress is-link" value="90" max="100"></progress>
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="media">
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p>
+                                            <strong>HTML5/CSS3</strong>
+                                            <br>
+                                            <progress class="progress is-link" value="95" max="100"></progress>
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="media">
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p>
+                                            <strong>Shell</strong>
+                                            <br>
+                                            <progress class="progress is-link" value="70" max="100"></progress>
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="media">
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p>
+                                            <strong>CLI</strong>
+                                            <br>
+                                            <progress class="progress is-link" value="75" max="100"></progress>
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="media">
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p>
+                                            <strong>Databases</strong>
+                                            <br>
+                                            <progress class="progress is-link" value="60" max="100"></progress>
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profession -->
+            <div class="column">
+                <div class="card profession">
+                    <div class="card-content">
+                        <h3 class="title is-4">Profession</h3>
+
+                        <div class="content">
+                            <table class="table-profile">
+                                <tr>
+                                    <th colspan="1"></th>
+                                    <th colspan="2"></th>
+                                </tr>
+                                <tr>
+                                    <td>Dénomination :</td>
+                                    <td>Développeur Web</td>
+                                </tr>
+                                <tr>
+                                    <td>Niveau :</td>
+                                    <td>Intermédiaire</td>
+                                </tr>
+                                <tr>
+                                    <td>Email Pro :</td>
+                                    <td>dev@sylvain.pro</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="buttons is-centered">
+                            <a href="https://g.dev/20syl" target="_blank" class="button is-link"><i class="fa-brands fa-google mr-1 icon"></i> Google Developer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Back-End</p>
-            <p class="title" id="stats3">...</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Occupé</p>
-            <p class="title" id="stats4">...</p>
-          </div>
-        </div>
-      </nav>
     </section>
 
-    <!-- Cases de présentation -->
-    <div class="columns about">
-      
-      <!-- Profil -->
-      <div class="column">
-        <div class="card profile">
-          <div class="card-content">
-            <h3 class="title is-4">Profil</h3>
-
-            <div class="content">
-              <table class="table-profile">
-                <tr>
-                  <th colspan="1"></th>
-                  <th colspan="2"></th>
-                </tr>
-                <tr>
-                  <td>Formation :</td>
-                  <td>Ensitech & Zenetys</td>
-                </tr>
-                <tr>
-                  <td>Diplôme :</td>
-                  <td>BTS SIO SLAM (2 ans)</td>
-                </tr>
-                <tr>
-                  <td>Email :</td>
-                  <td>contact@sylvain.pro</td>
-                </tr>
-              </table>
-            </div>
-            <div class="buttons is-centered">
-              <a href="https://github.com/20syldev" target="_blank" class="button is-link"><i class="fa-brands fa-github mr-1 icon"></i> GitHub</a>
-              <a href="https://linkedin.com/in/sylvainlmb" target="_blank" class="button is-link"><i class="fa-brands fa-linkedin mr-1 icon"></i> LinkedIn</a>
-            </div>
-          </div>
+    <!-- Services -->
+    <!--
+    <section class="section">
+        <div class="section-heading">
+            <h3 class="title is-2">Services</h3>
+            <h4 class="subtitle is-5">Que puis-je faire pour vous ?</h4>
         </div>
-      </div>
-      
-      <!-- Compétences -->
-      <div class="column">
-        <div class="card skills">
-          <div class="card-content skills-content">
-            <h3 class="title is-4">Compétences</h3>
-            <div class="content">
-
-              <article class="media">
-                <div class="media-content">
-                  <div class="content">
-                    <p>
-                      <strong>Node.js</strong>
-                      <br>
-                      <progress class="progress is-link" value="80" max="100"></progress>
-                    </p>
-                  </div>
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+                    <div class="box">
+                        <div class="content">
+                            <h4 class="title is-5">Développement Front End</h4>
+                            Développer le Front End en utilisant les derniers standards avec HTML5/CSS3 avec des fonctionnalités supplémentaires 
+                            en utilisant JavaScript et Vue.js.
+                        </div>
+                    </div>
                 </div>
-              </article>
-
-              <article class="media">
-                <div class="media-content">
-                  <div class="content">
-                    <p>
-                      <strong>JavaScript</strong>
-                      <br>
-                      <progress class="progress is-link" value="90" max="100"></progress>
-                    </p>
-                  </div>
+                <div class="column">
+                    <div class="box">
+                        <div class="content">
+                            <h4 class="title is-5">Développement Back End</h4>
+                            Développer des applications/services back-end en utilisant Node.js ou ASP .NET et des bases de données SQL server ou Mongo DB.
+                        </div>
+                    </div>
                 </div>
-              </article>
-
-              <article class="media">
-                <div class="media-content">
-                  <div class="content">
-                    <p>
-                      <strong>HTML5/CSS3</strong>
-                      <br>
-                      <progress class="progress is-link" value="95" max="100"></progress>
-                    </p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="media">
-                <div class="media-content">
-                  <div class="content">
-                    <p>
-                      <strong>Shell</strong>
-                      <br>
-                      <progress class="progress is-link" value="70" max="100"></progress>
-                    </p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="media">
-                <div class="media-content">
-                  <div class="content">
-                    <p>
-                      <strong>CLI</strong>
-                      <br>
-                      <progress class="progress is-link" value="75" max="100"></progress>
-                    </p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="media">
-                <div class="media-content">
-                  <div class="content">
-                    <p>
-                      <strong>Databases</strong>
-                      <br>
-                      <progress class="progress is-link" value="60" max="100"></progress>
-                    </p>
-                  </div>
-                </div>
-              </article>
             </div>
-          </div>
         </div>
-      </div>
+    </section>
+    -->
 
-      <!-- Profession -->
-      <div class="column">
-        <div class="card profession">
-          <div class="card-content">
-            <h3 class="title is-4">Profession</h3>
+    <!-- Projets -->
+    <section class="section">
+        <div class="container">
+            <div class="section-heading">
+                <h3 class="title is-2">Mes projets</h3>
+                <h4 class="subtitle is-5">Voici tous mes derniers travaux</h4>
+            </div>
 
-            <div class="content">
-              <table class="table-profile">
-                <tr>
-                  <th colspan="1"></th>
-                  <th colspan="2"></th>
-                </tr>
-                <tr>
-                  <td>Dénomination :</td>
-                  <td>Développeur Web</td>
-                </tr>
-                <tr>
-                  <td>Niveau :</td>
-                  <td>Intermédiaire</td>
-                </tr>
-                <tr>
-                  <td>Email Pro :</td>
-                  <td>dev@sylvain.pro</td>
-                </tr>
-              </table>
+            <br>
+
+            <div class="container projects-container">
+                <div class="columns">
+
+                    <!-- Colonne de gauche -->
+                    <div class="column is-4">
+
+                        <!-- GemSync -->
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <span>GemSync</span>
+                                    <span class="is-pulled-right ml-2">
+                                        <a href="https://github.com/20syldev/GemSync/releases/latest">
+                                            <span class="tag is-link" id="gemsync">...</span>
+                                        </a>
+                                        <span class="tag is-default">HTML/CSS/JS</span>
+                                        <span class="tag is-default">PC</span>
+                                        <span class="tag is-default">Mobile</span>
+                                    </span>
+                                    <i class="fa-solid fa-circle-check ml-2 mt-0" style="color: #48c78e;"></i>
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <figure class="image">
+                                    <img src="images/gemsync.png">
+                                </figure>
+                            </div>
+                            <footer class="card-footer">
+                                <a href="https://github.com/20syldev/GemSync" class="card-footer-item"><i class="fa-brands fa-github icon"></i></a>
+                                <a href="https://github.com/20syldev/GemSync#readme" class="card-footer-item"><i class="fa-solid fa-book icon"></i></a>
+                                <a href="https://gemsync.xyz/store" target="_blank" class="card-footer-item"><i class="fa-solid fa-cart-shopping icon"></i></a>
+                                <a href="https://gemsync.xyz" target="_blank" class="card-footer-item"><i class="fa-solid fa-arrow-up-right-from-square icon"></i></a>
+                            </footer>
+                        </div>
+
+                        <!-- GitSite -->
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <span>GitSite</span>
+                                    <span class="is-pulled-right ml-2">
+                                        <a href="https://github.com/20syldev/GitSite/releases/latest">
+                                            <span class="tag is-link" id="gitsite">...</span>
+                                        </a>
+                                        <span class="tag is-default">HTML/CSS/JS</span>
+                                        <span class="tag is-default">PC</span>
+                                    </span>
+                                    <i class="fa-solid fa-circle-check ml-2 mt-0" style="color: #48c78e;"></i>
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <figure class="image">
+                                    <img src="images/gitsite.png">
+                                </figure>
+                            </div>
+                            <footer class="card-footer">
+                                <a href="https://github.com/20syldev/GitSite" class="card-footer-item"><i class="fa-brands fa-github icon"></i></a>
+                                <a href="https://github.com/20syldev/GitSite#readme" class="card-footer-item"><i class="fa-solid fa-book icon"></i></a>
+                                <a href="https://gitsite.dev/pricing" target="_blank" class="card-footer-item"><i class="fa-solid fa-cart-shopping icon"></i></a>
+                                <a href="https://gitsite.dev" target="_blank" class="card-footer-item"><i class="fa-solid fa-arrow-up-right-from-square icon"></i></a>
+                            </footer>
+                        </div>
+
+                        <!-- Portfolio -->
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <span>Portfolio</span>
+                                    <span class="is-pulled-right ml-2">
+                                        <a href="https://github.com/20syldev/portfolio/releases/latest">
+                                            <span class="tag is-link" id="portfolio">...</span>
+                                        </a>
+                                        <span class="tag is-default">HTML/CSS/JS</span>
+                                        <span class="tag is-default">PC</span>
+                                        <span class="tag is-default">Mobile</span>
+                                    </span>
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <figure class="image">
+                                    <img src="images/sylvain.png">
+                                </figure>
+                            </div>
+                            <footer class="card-footer">
+                                <a href="https://github.com/20syldev/portfolio" class="card-footer-item"><i class="fa-brands fa-github icon"></i></a>
+                                <a href="https://github.com/20syldev/portfolio#readme" class="card-footer-item"><i class="fa-solid fa-book icon"></i></a>
+                                <a href="https://sylvain.pro" target="_blank" class="card-footer-item"><i class="fa-solid fa-arrow-up-right-from-square icon"></i></a>
+                            </footer>
+                        </div>
+                    </div>
+                    
+                    <!-- Colonne du centre -->
+                    <div class="column is-4">
+
+                        <!-- API -->
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <span>API</span>
+                                    <span class="is-pulled-right ml-2">
+                                        <a href="https://github.com/20syldev/api/releases/latest">
+                                            <span class="tag is-link" id="api">...</span>
+                                        </a>
+                                        <span class="tag is-danger wip">WIP</span>
+                                        <span class="tag is-default">Node.js</span>
+                                        <span class="tag is-default">PC</span>
+                                        <span class="tag is-default">Mobile</span>
+                                    </span>
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <figure class="image">
+                                    <img src="images/api.png">
+                                </figure>
+                            </div>
+                            <footer class="card-footer">
+                                <a href="https://github.com/20syldev/api" class="card-footer-item"><i class="fa-brands fa-github icon"></i></a>
+                                <a href="https://docs.sylvain.pro" class="card-footer-item"><i class="fa-solid fa-book icon"></i></a>
+                                <a href="https://api.sylvain.pro" target="_blank" class="card-footer-item"><i class="fa-solid fa-arrow-up-right-from-square icon"></i></a>
+                            </footer>
+                        </div>
+
+                        <!-- Coop -->
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <span>Coop</span>
+                                    <span class="is-pulled-right ml-2">
+                                        <a href="https://github.com/20syldev/doc-coopbot/releases/latest">
+                                            <span class="tag is-link" id="doc-coopbot">...</span>
+                                        </a>
+                                        <span class="tag is-warning pause"><i class="fa-solid fa-pause icon"></i></span>
+                                        <span class="tag is-default">Discord.js</span>
+                                    </span>
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <figure class="image">
+                                    <img src="images/coop.png">
+                                </figure>
+                            </div>
+                            <footer class="card-footer">
+                                <a href="https://github.com/20syldev/doc-coopbot" class="card-footer-item"><i class="fa-brands fa-github icon"></i></a>
+                                <a href="https://github.com/20syldev/doc-coopbot#readme" class="card-footer-item"><i class="fa-solid fa-book icon"></i></a>
+                                <a href="https://coopbot.xyz/store" target="_blank" class="card-footer-item"><i class="fa-solid fa-cart-shopping icon"></i></a>
+                                <a href="https://coopbot.xyz" target="_blank" class="card-footer-item"><i class="fa-solid fa-arrow-up-right-from-square icon"></i></a>
+                            </footer>
+                        </div>
+
+                        <!-- Coop Status -->
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <span>Coop Status</span>
+                                    <span class="is-pulled-right ml-2">
+                                        <a href="https://github.com/20syldev/coop-status/releases/latest">
+                                            <span class="tag is-link" id="coop-status">...</span>
+                                        </a>
+                                        <span class="tag is-default">Discord.js</span>
+                                    </span>
+                                    <i class="fa-solid fa-circle-check ml-2 mt-0" style="color: #48c78e;"></i>
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <figure class="image">
+                                    <img src="images/coop-status.png">
+                                </figure>
+                            </div>
+                            <footer class="card-footer">
+                                <a href="https://github.com/20syldev/coop-status" class="card-footer-item"><i class="fa-brands fa-github icon"></i></a>
+                                <a href="https://github.com/20syldev/coop-status#readme" class="card-footer-item"><i class="fa-solid fa-book icon"></i></a>
+                                <a href="https://coopbot.xyz/status" target="_blank" class="card-footer-item"><i class="fa-solid fa-chart-simple icon"></i></a>
+                                <a href="https://coopbot.xyz/discord" target="_blank" class="card-footer-item"><i class="fa-brands fa-discord icon"></i></a>
+                            </footer>
+                        </div>
+                    </div>
+
+                    <!-- Colonne de droite -->
+                    <div class="column is-4">
+                      
+                        <!-- Database -->
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <span>Database</span>
+                                    <span class="is-pulled-right ml-2">
+                                        <a href="https://github.com/20syldev/database/releases/latest">
+                                            <span class="tag is-link" id="database">...</span>
+                                        </a>
+                                        <span class="tag is-default">HTML/CSS/JS</span>
+                                        <span class="tag is-default">PC</span>
+                                        <span class="tag is-default">Mobile</span>
+                                    </span>
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <figure class="image">
+                                    <img src="images/database.png">
+                                </figure>
+                            </div>
+                            <footer class="card-footer">  
+                                <a href="https://github.com/20syldev/database" class="card-footer-item"><i class="fa-brands fa-github icon"></i></a>
+                                <a href="https://github.com/20syldev/database#readme" class="card-footer-item"><i class="fa-solid fa-book icon"></i></a>
+                                <a href="https://database.sylvain.pro" target="_blank" class="card-footer-item"><i class="fa-solid fa-arrow-up-right-from-square icon"></i></a>
+                            </footer>
+                        </div>
+
+                        <!-- WrkIT -->
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <span>WrkIT</span>
+                                    <span class="is-pulled-right ml-2">
+                                        <a href="https://github.com/20syldev/WrkIT/releases/latest">
+                                            <span class="tag is-link" id="wrkit">...</span>
+                                        </a>
+                                        <span class="tag is-danger wip">WIP</span>
+                                        <span class="tag is-default">Discord.js</span>
+                                    </span>
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <figure class="image">
+                                    <img src="images/wrkit.png">
+                                </figure>
+                            </div>
+                            <footer class="card-footer">
+                                <a href="https://github.com/20syldev/WrkIT" class="card-footer-item"><i class="fa-brands fa-github icon"></i></a>
+                                <a href="https://github.com/20syldev/WrkIT#readme" class="card-footer-item"><i class="fa-solid fa-book icon"></i></a>
+                                <a href="https://discord.com/users/1290258568226017300" target="_blank" class="card-footer-item"><i class="fa-brands fa-discord icon"></i></a>
+                            </footer>
+                        </div>
+
+                        <!-- NitroGen -->
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <span>NitroGen</span>
+                                    <span class="is-pulled-right ml-2">
+                                        <a href="https://github.com/20syldev/NitroGen/releases/latest">
+                                            <span class="tag is-link" id="nitrogen">...</span>
+                                        </a>
+                                        <span class="tag is-default">Discord.js</span>
+                                    </span>
+                                    <i class="fa-solid fa-circle-check ml-2 mt-0" style="color: #48c78e;"></i>
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <figure class="image">
+                                    <img src="images/nitrogen.png">
+                                </figure>
+                            </div>
+                            <footer class="card-footer">
+                                <a href="https://github.com/20syldev/NitroGen" class="card-footer-item"><i class="fa-brands fa-github icon"></i></a>
+                                <a href="https://github.com/20syldev/NitroGen#readme" class="card-footer-item"><i class="fa-solid fa-book icon"></i></a>
+                                <a href="https://sylvain.pro/nitrogen" target="_blank" class="card-footer-item"><i class="fa-brands fa-discord icon"></i></a>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="buttons is-centered">
-              <a href="https://g.dev/20syl" target="_blank" class="button is-link"><i class="fa-brands fa-google mr-1 icon"></i> Google Developer</a>
-            </div>
-          </div>
         </div>
-      </div>
+    </section>
+
+    <!-- CV -->
+    <section class="section">
+        <div class="section-heading">
+            <h3 class="title is-2">CV</h3>
+            <h4 class="subtitle is-5">En savoir plus sur mon expérience globale</h4>
+            <a href="files/CV Ensitech - Sylvain L..pdf" class="button is-link is-medium" download>
+                <span class="icon">
+                    <i class="fa-solid fa-file-lines"></i>
+                </span>
+              <span>Télécharger</span>
+            </a>
+        </div>
+    </section>  
+
+    <!-- Bas de page -->
+    <div class="has-text-centered p-4 bottom">
+        <p><strong>
+            <a href="/">sylvain.pro</a> &copy; 2024. Tous droits réservés.
+        </strong></p>
     </div>
-  </section>
 
-  <!-- Services -->
-  <!--
-  <section class="section">
-    <div class="section-heading">
-      <h3 class="title is-2">Services</h3>
-      <h4 class="subtitle is-5">Que puis-je faire pour vous ?</h4>
-    </div>
-    <div class="container">
-      <div class="columns">
-        <div class="column">
-          <div class="box">
-            <div class="content">
-              <h4 class="title is-5">Développement Front End</h4>
-              Développer le Front End en utilisant les derniers standards avec HTML5/CSS3 avec des fonctionnalités supplémentaires 
-              en utilisant JavaScript et Vue.js.
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          <div class="box">
-            <div class="content">
-              <h4 class="title is-5">Développement Back End</h4>
-              Développer des applications/services back-end en utilisant Node.js ou ASP .NET et des bases de données SQL server ou Mongo DB.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  -->
-
-  <!-- Projets -->
-  <section class="section">
-    <div class="container">
-      <div class="section-heading">
-        <h3 class="title is-2">Mes projets</h3>
-        <h4 class="subtitle is-5">Voici tous mes derniers travaux</h4>
-      </div>
-      <br>
-
-      <div class="container projects-container">
-        <div class="columns">
-
-          <!-- Colonne de gauche -->
-          <div class="column is-4">
-
-            <!-- GemSync -->
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title">
-                  <span>GemSync</span>
-                  <span class="is-pulled-right ml-2">
-                    <a href="https://github.com/20syldev/GemSync/releases/latest">
-                      <span class="tag is-link" id="gemsync">...</span>
-                    </a>
-                    <span class="tag is-default">PC</span>
-                    <span class="tag is-default">Mobile</span>
-                  </span>
-                  <i class="fa-solid fa-circle-check ml-2 mt-0" style="color: #48c78e;"></i>
-                </p>
-              </header>
-              <div class="card-content">
-                <figure class="image">
-                  <img src="images/gemsync.png">
-                </figure>
-              </div>
-              <footer class="card-footer">
-                <a href="https://github.com/20syldev/GemSync" class="card-footer-item"><i class="fa-brands fa-github icon"></i></a>
-                <a href="https://github.com/20syldev/GemSync#readme" class="card-footer-item"><i class="fa-solid fa-book icon"></i></a>
-                <a href="https://gemsync.xyz/store" target="_blank" class="card-footer-item"><i class="fa-solid fa-cart-shopping icon"></i></a>
-                <a href="https://gemsync.xyz" target="_blank" class="card-footer-item"><i class="fa-solid fa-arrow-up-right-from-square icon"></i></a>
-              </footer>
-            </div>
-
-            <!-- GitSite -->
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title">
-                  <span>GitSite</span>
-                  <span class="is-pulled-right ml-2">
-                    <a href="https://github.com/20syldev/GitSite/releases/latest">
-                      <span class="tag is-link" id="gitsite">...</span>
-                    </a>
-                    <span class="tag is-default">PC</span>
-                  </span>
-                  <i class="fa-solid fa-circle-check ml-2 mt-0" style="color: #48c78e;"></i>
-                </p>
-              </header>
-              <div class="card-content">
-                <figure class="image">
-                  <img src="images/gitsite.png">
-                </figure>
-              </div>
-              <footer class="card-footer">
-                <a href="https://github.com/20syldev/GitSite" class="card-footer-item"><i class="fa-brands fa-github icon"></i></a>
-                <a href="https://github.com/20syldev/GitSite#readme" class="card-footer-item"><i class="fa-solid fa-book icon"></i></a>
-                <a href="https://gitsite.dev/pricing" target="_blank" class="card-footer-item"><i class="fa-solid fa-cart-shopping icon"></i></a>
-                <a href="https://gitsite.dev" target="_blank" class="card-footer-item"><i class="fa-solid fa-arrow-up-right-from-square icon"></i></a>
-              </footer>
-            </div>
-
-            <!-- Portfolio -->
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title">
-                  <span>Portfolio</span>
-                  <span class="is-pulled-right ml-2">
-                    <a href="https://github.com/20syldev/portfolio/releases/latest">
-                      <span class="tag is-link" id="portfolio">...</span>
-                    </a>
-                    <span class="tag is-default">PC</span>
-                    <span class="tag is-default">Mobile</span>
-                  </span>
-                </p>
-              </header>
-              <div class="card-content">
-                <figure class="image">
-                  <img src="images/sylvain.png">
-                </figure>
-              </div>
-              <footer class="card-footer">
-                <a href="https://github.com/20syldev/portfolio" class="card-footer-item"><i class="fa-brands fa-github icon"></i></a>
-                <a href="https://github.com/20syldev/portfolio#readme" class="card-footer-item"><i class="fa-solid fa-book icon"></i></a>
-                <a href="https://sylvain.pro" target="_blank" class="card-footer-item"><i class="fa-solid fa-arrow-up-right-from-square icon"></i></a>
-              </footer>
-            </div>
-          </div>
-          
-          <!-- Colonne du centre -->
-          <div class="column is-4">
-
-            <!-- API -->
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title">
-                  <span>API</span>
-                  <span class="is-pulled-right ml-2">
-                    <a href="https://github.com/20syldev/api/releases/latest">
-                      <span class="tag is-link" id="api">...</span>
-                    </a>
-                    <span class="tag is-danger">WIP</span>
-                    <span class="tag is-default">PC</span>
-                    <span class="tag is-default">Mobile</span>
-                  </span>
-                </p>
-              </header>
-              <div class="card-content">
-                <figure class="image">
-                  <img src="images/api.png">
-                </figure>
-              </div>
-              <footer class="card-footer">
-                <a href="https://github.com/20syldev/api" class="card-footer-item"><i class="fa-brands fa-github icon"></i></a>
-                <a href="https://github.com/20syldev/api#readme" class="card-footer-item"><i class="fa-solid fa-book icon"></i></a>
-                <a href="https://api.sylvain.pro" target="_blank" class="card-footer-item"><i class="fa-solid fa-arrow-up-right-from-square icon"></i></a>
-              </footer>
-            </div>
-
-            <!-- Coop -->
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title">
-                  <span>Coop</span>
-                  <span class="is-pulled-right ml-2">
-                    <a href="https://github.com/20syldev/doc-coopbot/releases/latest">
-                      <span class="tag is-link" id="doc-coopbot">...</span>
-                    </a>
-                    <span class="tag is-warning pause"><i class="fa-solid fa-pause icon"></i></span>
-                    <span class="tag is-default">Discord</span>
-                  </span>
-                </p>
-              </header>
-              <div class="card-content">
-                <figure class="image">
-                  <img src="images/coop.png">
-                </figure>
-              </div>
-              <footer class="card-footer">
-                <a href="https://github.com/20syldev/doc-coopbot" class="card-footer-item"><i class="fa-brands fa-github icon"></i></a>
-                <a href="https://github.com/20syldev/doc-coopbot#readme" class="card-footer-item"><i class="fa-solid fa-book icon"></i></a>
-                <a href="https://coopbot.xyz/store" target="_blank" class="card-footer-item"><i class="fa-solid fa-cart-shopping icon"></i></a>
-                <a href="https://coopbot.xyz" target="_blank" class="card-footer-item"><i class="fa-solid fa-arrow-up-right-from-square icon"></i></a>
-              </footer>
-            </div>
-
-            <!-- Coop Status -->
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title">
-                  <span>Coop Status</span>
-                  <span class="is-pulled-right ml-2">
-                    <a href="https://github.com/20syldev/coop-status/releases/latest">
-                      <span class="tag is-link" id="coop-status">...</span>
-                    </a>
-                    <span class="tag is-default">Discord</span>
-                  </span>
-                  <i class="fa-solid fa-circle-check ml-2 mt-0" style="color: #48c78e;"></i>
-                </p>
-              </header>
-              <div class="card-content">
-                <figure class="image">
-                  <img src="images/coop-status.png">
-                </figure>
-              </div>
-              <footer class="card-footer">
-                <a href="https://github.com/20syldev/coop-status" class="card-footer-item"><i class="fa-brands fa-github icon"></i></a>
-                <a href="https://github.com/20syldev/coop-status#readme" class="card-footer-item"><i class="fa-solid fa-book icon"></i></a>
-                <a href="https://coopbot.xyz/status" target="_blank" class="card-footer-item"><i class="fa-solid fa-chart-simple icon"></i></a>
-                <a href="https://coopbot.xyz/discord" target="_blank" class="card-footer-item"><i class="fa-brands fa-discord icon"></i></a>
-              </footer>
-            </div>
-          </div>
-
-          <!-- Colonne de droite -->
-          <div class="column is-4">
-            
-            <!-- Database -->
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title">
-                  <span>Database</span>
-                  <span class="is-pulled-right ml-2">
-                    <a href="https://github.com/20syldev/database/releases/latest">
-                      <span class="tag is-link" id="database">...</span>
-                    </a>
-                    <span class="tag is-default">PC</span>
-                    <span class="tag is-default">Mobile</span>
-                  </span>
-                </p>
-              </header>
-              <div class="card-content">
-                <figure class="image">
-                  <img src="images/database.png">
-                </figure>
-              </div>
-              <footer class="card-footer">  
-                <a href="https://github.com/20syldev/database" class="card-footer-item"><i class="fa-brands fa-github icon"></i></a>
-                <a href="https://github.com/20syldev/database#readme" class="card-footer-item"><i class="fa-solid fa-book icon"></i></a>
-                <a href="https://database.sylvain.pro" target="_blank" class="card-footer-item"><i class="fa-solid fa-arrow-up-right-from-square icon"></i></a>
-              </footer>
-            </div>
-
-            <!-- WrkIT -->
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title">
-                  <span>WrkIT</span>
-                  <span class="is-pulled-right ml-2">
-                    <a href="https://github.com/20syldev/WrkIT/releases/latest">
-                      <span class="tag is-link" id="wrkit">...</span>
-                    </a>
-                    <span class="tag is-danger wip">WIP</span>
-                    <span class="tag is-default">Discord</span>
-                  </span>
-                </p>
-              </header>
-              <div class="card-content">
-                <figure class="image">
-                  <img src="images/wrkit.png">
-                </figure>
-              </div>
-              <footer class="card-footer">
-                <a href="https://github.com/20syldev/WrkIT" class="card-footer-item"><i class="fa-brands fa-github icon"></i></a>
-                <a href="https://github.com/20syldev/WrkIT#readme" class="card-footer-item"><i class="fa-solid fa-book icon"></i></a>
-                <a href="https://discord.com/users/1290258568226017300" target="_blank" class="card-footer-item"><i class="fa-brands fa-discord icon"></i></a>
-              </footer>
-            </div>
-
-            <!-- NitroGen -->
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title">
-                  <span>NitroGen</span>
-                  <span class="is-pulled-right ml-2">
-                    <a href="https://github.com/20syldev/NitroGen/releases/latest">
-                      <span class="tag is-link" id="nitrogen">...</span>
-                    </a>
-                    <span class="tag is-default">Discord</span>
-                  </span>
-                  <i class="fa-solid fa-circle-check ml-2 mt-0" style="color: #48c78e;"></i>
-                </p>
-              </header>
-              <div class="card-content">
-                <figure class="image">
-                  <img src="images/nitrogen.png">
-                </figure>
-              </div>
-              <footer class="card-footer">
-                <a href="https://github.com/20syldev/NitroGen" class="card-footer-item"><i class="fa-brands fa-github icon"></i></a>
-                <a href="https://github.com/20syldev/NitroGen#readme" class="card-footer-item"><i class="fa-solid fa-book icon"></i></a>
-                <a href="https://sylvain.pro/nitrogen" target="_blank" class="card-footer-item"><i class="fa-brands fa-discord icon"></i></a>
-              </footer>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CV -->
-  <section class="section">
-    <div class="section-heading">
-      <h3 class="title is-2">CV</h3>
-      <h4 class="subtitle is-5">En savoir plus sur mon expérience globale</h4>
-      <a href="files/CV Ensitech - Sylvain L..pdf" class="button is-link is-medium" download>
-        <span class="icon">
-          <i class="fa-solid fa-file-lines"></i>
-        </span>
-        <span>Télécharger</span>
-      </a>
-    </div>
-  </section>  
-
-  <!-- Bas de page -->
-  <div class="has-text-centered p-4 bottom">
-    <p>
-      <strong><a href="/">sylvain.pro</a> &copy; 2024. Tous droits réservés.</strong>
-    </p>
-  </div>
-
-  <!-- Charger le Js -->
-  <script type="text/javascript" src="js/index.js"></script>
-  <script type="module" src="js/stats.js"></script>
-  <script type="module" src="js/versions.js"></script>
-  <script type="module" src="js/notification.js"></script>
+    <!-- Charger le Js -->
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="module" src="js/stats.js"></script>
+    <script type="module" src="js/versions.js"></script>
+    <script type="module" src="js/notification.js"></script>
 </body>
 </html>
