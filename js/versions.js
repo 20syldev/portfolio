@@ -1,5 +1,5 @@
 // Récupérer les versions de mes projets
-fetch('https://api.sylvain.pro/fr/versions')
+fetch('https://api.sylvain.pro/v1/versions')
 .then(response => response.json())
 .then(data => {
     document.getElementById('api').innerHTML = data.api;
