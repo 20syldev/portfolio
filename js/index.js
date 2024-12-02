@@ -42,12 +42,12 @@ window.addEventListener('load', function() {
     const notif = document.getElementById('notif');
     setTimeout(function() {
         notif.classList.add('slide-in');
-    }, 1000);
+    }, 3000);
 
     setTimeout(function() {
         notif.classList.remove('slide-in');
         notif.classList.add('slide-out');
-    }, 6000);
+    }, 8000);
 });
 
 // Forcer la disparition de la notification
