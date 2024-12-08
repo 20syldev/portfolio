@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+
+/* Tableau */
+.evaluation-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.evaluation-table td, .evaluation-table th {
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.evaluation-table td {
+    position: relative;
+}
+.evaluation-table th {
+    background: #4a90e2;
+    color: white;
+    font-weight: bold;
+}
+.evaluation-table th:first-child {
+    border-top-left-radius: 20px;
+}
+.evaluation-table th:last-child {
+    border-top-right-radius: 20px;
+}
+.evaluation-table img {
+    margin-left: 35px;
+}
+
+/* Icônes */
+.icon {
+    width: 1.5em;
+    height: 1.5em;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Bas de page */
+.bottom {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+}
+
+/* Cacher la barre de scroll */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Mobile */
+@media (max-width: 1400px), (max-width: 600px) {
+    .evaluation-table,
+    .evaluation-table thead,
+    .evaluation-table tbody,
+    .evaluation-table th,
+    .evaluation-table td,
+    .evaluation-table tr {
+        display: block;
+    }
+    .evaluation-table thead:first-child {
+        display: none;
+    }
+    .evaluation-table tr td:first-child::before {
+        content: none;
+    }
+    .evaluation-table td:first-child {
+        border-radius: 20px 20px 0 0;
+    }
+    .evaluation-table td:last-child {
+        border-radius: 0 0 20px 20px;
+    }
+    .evaluation-table tr {
+        text-align: center;
+        margin-bottom: 10px;
+        padding: 10px 10px 20px 10px;
+        border-radius: 30px;
+    }
+    .evaluation-table td {
+        border: 1px solid #ddd;
+    }
+    .evaluation-table td::before {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        color: #5195e2;
+        transform: translateY(-50%);
+        content: attr(data-label);
+        font-weight: bold;
+    }
+    .evaluation-table img {
+        margin-left: 80%;
+    }
+
+    /* Bas de page */
+    .bottom {
+        position: relative;
+        text-align: center;
+        font-size: 0.8em;
+    }
+}
