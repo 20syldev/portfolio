@@ -29,7 +29,7 @@ async function load() {
 
     if (versions.exists()) {
         const data = versions.data();
-        ['api', 'coop_status', 'database', 'doc_coopbot', 'gemsync', 'gitsite', 'nitrogen', 'portfolio', 'python_api', 'wrkit'].forEach(id => {
+        ['api', 'coop_status', 'database', 'doc_coopbot', 'docs', 'flowers', 'gemsync', 'gitsite', 'nitrogen', 'portfolio', 'python_api', 'terminal', 'wrkit'].forEach(id => {
             document.getElementById(id).innerHTML = data[id];
         });
     }
