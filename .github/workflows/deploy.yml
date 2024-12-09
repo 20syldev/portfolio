@@ -1,8 +1,8 @@
-name: Deploy Portfolio
+name: Deploy sylvain.pro
 
 on:
   push:
-    branches: ["main"]
+    branches: ["master"]
 
   workflow_dispatch:
 
