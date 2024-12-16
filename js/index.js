@@ -10,6 +10,15 @@ window.addEventListener('load', function() {
         });
     });
 
+    document.querySelectorAll('.old').forEach(function(pause) {
+        pause.addEventListener('mouseover', function() {
+            pause.innerHTML = '<i class="fa-solid fa-file-arrow-down icon mr-1"></i> Projet archivé';
+        });
+        pause.addEventListener('mouseout', function() {
+            pause.innerHTML = '<i class="fa-solid fa-file-arrow-down icon"></i>';
+        });
+    });
+
     document.querySelectorAll('.wip').forEach(function(wip) {
         wip.addEventListener('mouseover', function() {
             wip.innerHTML = 'Work In Progress';
