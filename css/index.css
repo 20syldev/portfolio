@@ -229,9 +229,6 @@
     }
     
     /* Animations des boutons */
-    .button {
-        margin-top: 20px;
-    }
     .button::before, .button::after {
         background-image: none;
     }
