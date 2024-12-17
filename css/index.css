@@ -227,12 +227,6 @@
         gap: 20px;
     }
 
-    /* Boutons des projets */
-    .card-footer a:hover, .card-footer a:active {
-        border: 2px solid #00000000;
-        transform: none;
-    }
-    
     /* Boutons */
     .button::before, .button::after {
         background-image: none;
