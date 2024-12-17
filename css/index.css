@@ -209,12 +209,12 @@
 
 /* Mobile */
 @media (max-width: 1278px) {
-    /* Affichage des colonnes */
+    /* Colonnes */
     .columns.about {
         display: inline;
     }
 
-    /* Affichage des stats */
+    /* Stats */
     .level {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -222,18 +222,18 @@
         gap: 20px;
     }
 
-    /* Style des boutons des projets */
+    /* Boutons des projets */
     .card-footer a:hover, .card-footer a:active {
         border: 2px solid #00000000;
         transform: none;
     }
     
-    /* Animations des boutons */
+    /* Boutons */
     .button::before, .button::after {
         background-image: none;
     }
 
-    /* Affichage du copyright */
+    /* Copyright */
     .bottom {
         font-size: 0.8em;
     }
@@ -245,7 +245,7 @@
         margin-bottom: 1em;
     }
 
-    /* Affichage des stats */
+    /* Stats */
     .level {
         display: block;
     }
@@ -253,7 +253,7 @@
         margin-bottom: 20px;
     }
 
-    /* Affichage des cases */
+    /* Cases des projets */
     .profile, .skills, .profession {
         min-width: auto;
     }
@@ -263,8 +263,4 @@
         display: inline-block;
     }
 
-    /* Affichage du copyright */
-    .bottom {
-        font-size: 0.8em;
-    }
 }
