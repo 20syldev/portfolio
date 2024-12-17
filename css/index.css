@@ -67,9 +67,8 @@
     background: none;
 }
 .table-profile tr:hover td {
-    background: #ffffff11;
+    background: #00000008;
     border-radius: 10px;
-    transition: 0.5s;
 }
 .table-profile tr:hover td:first-child {
     border-top-right-radius: 0;
@@ -131,7 +130,7 @@
     transition: 0.5s;
 }
 .skills-content .media:hover {
-    background: #ffffff11;
+    background: #00000008;
     border-radius: 10px;
 }
 .skills-content .progress {
@@ -278,4 +277,10 @@
     .info {
         font-size: 12px;
     }
+}
+
+/* Dark mode colors */
+@media (prefers-color-scheme: dark) {
+    .table-profile tr:hover td { background: #ffffff08; }
+    .skills-content .media:hover { background: #ffffff08; }
 }
