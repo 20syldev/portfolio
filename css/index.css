@@ -58,6 +58,7 @@
 /* Bordure et texte de chaque case */
 .table-profile td, th {
     border: none !important;
+    transition: 0.5s;
 }
 .table-profile td:first-of-type {
     font-weight: bold;
