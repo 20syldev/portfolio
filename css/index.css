@@ -186,8 +186,6 @@
 .tag {
     transition: 0.5s;
 }
-.tag:hover {
-    filter: invert(10%) brightness(120%);
 }
 
 /* Icônes */
