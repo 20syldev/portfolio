@@ -1,30 +1,24 @@
 // Au chargement
 window.addEventListener('load', function() {
-    // Infos au survol
-    document.querySelectorAll('.pause').forEach(function(pause) {
-        pause.addEventListener('mouseover', function() {
+    // Tag projet en pause
+    document.querySelectorAll('.pause').forEach(pause => {
+        const initial = pause.innerHTML;
+        pause.addEventListener('mouseover', () => {
             pause.innerHTML = '<i class="fa-solid fa-pause icon mr-1"></i> Projet en pause';
         });
-        pause.addEventListener('mouseout', function() {
-            pause.innerHTML = '<i class="fa-solid fa-pause icon"></i>';
+        pause.addEventListener('mouseout', () => {
+            pause.innerHTML = initial;
         });
     });
 
-    document.querySelectorAll('.old').forEach(function(pause) {
-        pause.addEventListener('mouseover', function() {
-            pause.innerHTML = '<i class="fa-solid fa-file-arrow-down icon mr-1"></i> Projet archivé';
+    // Tag projet archivé
+    document.querySelectorAll('.old').forEach(archive => {
+        const initial = archive.innerHTML;
+        archive.addEventListener('mouseover', () => {
+            archive.innerHTML = '<i class="fa-solid fa-file-arrow-down icon mr-1"></i> Projet archivé';
         });
-        pause.addEventListener('mouseout', function() {
-            pause.innerHTML = '<i class="fa-solid fa-file-arrow-down icon"></i>';
-        });
-    });
-
-    document.querySelectorAll('.wip').forEach(function(wip) {
-        wip.addEventListener('mouseover', function() {
-            wip.innerHTML = 'Work In Progress';
-        });
-        wip.addEventListener('mouseout', function() {
-            wip.innerHTML = 'WIP';
+        archive.addEventListener('mouseout', () => {
+            archive.innerHTML = initial;
         });
     });
 
@@ -64,4 +58,4 @@ function hideNotification() {
     const notification = document.getElementById('notif');
     notification.classList.add('slide-out');
     setTimeout(() => notification.style.display = 'none', 1000);
-  }
+}
