@@ -153,6 +153,7 @@
     transition: 0.5s;
 }
 .projects-container .card:hover {
+    cursor: pointer;
     border: 2px solid #fff;
     box-shadow: 5px 5px 0 #eee;
     transform: translate(-3px, -3px);
@@ -164,6 +165,7 @@
 
 /* Affichage des tags */
 .card-header-title {
+    user-select: none;
     overflow-x: scroll;
     white-space: nowrap;
 }
