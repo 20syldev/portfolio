@@ -186,6 +186,11 @@
 .tag {
     transition: 0.5s;
 }
+.info {
+    position: absolute;
+    top: -10px;
+    right: -15px;
+    font-weight: bold;
 }
 
 /* Icônes */
@@ -233,6 +238,11 @@
         background-image: none;
     }
 
+    /* Tag */
+    .info {
+        font-size: 10px;
+    }
+
     /* Copyright */
     .bottom {
         font-size: 0.8em;
@@ -263,4 +273,8 @@
         display: inline-block;
     }
 
+    /* Tag */
+    .info {
+        font-size: 12px;
+    }
 }
