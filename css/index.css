@@ -35,7 +35,7 @@
     text-align: center;
 }
 
-/* Afficher les cases sur PC */
+/* Cases du profil et des compétences */
 .profile, .skills, .profession {
     user-select: none;
     height: fit-content;
@@ -55,7 +55,7 @@
     transform: translate(3px, 3px);
 }
 
-/* Bordure et texte de chaque case */
+/* Tableau du profil et des compétences */
 .table-profile td, th {
     border: none !important;
     transition: 0.5s;
@@ -79,7 +79,7 @@
     border-bottom-left-radius: 0;
 }
 
-/* Animations des boutons */
+/* Survol et clic des boutons */
 .button {
     background: #333;
     transition: 0.5s;
@@ -92,7 +92,7 @@
     box-shadow: none;
     transform: translate(2px, 2px);
 }
-/* Ajout des étoiles */
+/* Étoiles sur les boutons */
 .button::before, .button::after {
     content: '';
     position: absolute;
@@ -122,7 +122,7 @@
     transform: scale(0.8) rotate(190deg);
 }
 
-/* Affichage des cases des compétences */
+/* Barres de progression */
 .skills-content .media {
     margin: 0 !important;
     padding: 4px !important;
@@ -137,7 +137,7 @@
     height: 4px !important;
 }
 
-/* Style des projets */
+/* Cases des projets */
 .projects-container img {
     user-select: none;
     border: 2px solid #00000000;
@@ -163,14 +163,14 @@
     transform: translate(3px, 3px);
 }
 
-/* Affichage des tags */
+/* Titre des projets */
 .card-header-title {
     user-select: none;
     overflow-x: scroll;
     white-space: nowrap;
 }
 
-/* Style des boutons des projets */
+/* Boutons des projets */
 .card-footer a {
     transition: 0.5s;
     font-weight: 500;
@@ -205,7 +205,7 @@
     transition: 0.5s ease;
 }
 
-/* Styles des liens au survol */
+/* Liens au survol */
 .description a:hover, .bottom a:hover {
     text-decoration: underline;
 }
@@ -215,7 +215,7 @@
     display: none;
 }
 
-/* Mobile */
+/* Tablette */
 @media (max-width: 1278px) {
     /* Colonnes */
     .columns.about {
@@ -230,7 +230,7 @@
         gap: 20px;
     }
 
-    /* Boutons */
+    /* Boutons sans étoiles */
     .button::before, .button::after {
         background-image: none;
     }
@@ -246,6 +246,7 @@
     }
 }
 
+/* Mobile */
 @media (max-width: 600px) {
     /* Titre des sections */
     .section-heading {
@@ -260,12 +261,12 @@
         margin-bottom: 20px;
     }
 
-    /* Cases des projets */
+    /* Cases du profil et des compétences */
     .profile, .skills, .profession {
         min-width: auto;
     }
 
-    /* Adapter le texte */
+    /* Tableau du profil */
     .table-profile td {
         display: inline-block;
     }
@@ -276,7 +277,7 @@
     }
 }
 
-/* Dark mode colors */
+/* Mode sombre */
 @media (prefers-color-scheme: dark) {
     .table-profile tr:hover td { background: #ffffff08; }
     .skills-content .media:hover { background: #ffffff08; }
