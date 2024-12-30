@@ -1,3 +1,5 @@
+let menuToggled = false;
+
 // Au chargement
 window.addEventListener('load', function() {
     // Tag projet en pause
@@ -59,3 +61,19 @@ function hideNotification() {
     notification.classList.add('slide-out');
     setTimeout(() => notification.style.display = 'none', 1000);
 }
+
+// Afficher ou cacher le menu
+function toggleMenu() {
+    menuToggled = !menuToggled;
+    document.getElementById('sidebar').classList.toggle('is-visible', menuToggled);
+    document.getElementById('menu-btn').classList.toggle('is-visible', menuToggled);
+}
+
+// Gestion du menu
+['click', 'touchstart'].forEach(event => {
+    document.body.addEventListener(event, (e) => {
+        if (!e.target.closest('#sidebar') && !e.target.closest('#menu-btn') && menuToggled) {
+            toggleMenu();
+        }
+    });
+});
