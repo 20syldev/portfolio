@@ -23,6 +23,43 @@
     transition: transform 0.8s ease-in-out;
 }
 
+/* Bouton pour ouvrir le menu */
+#menu-btn {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 15px 25px;
+    background: none;
+    border: none;
+    z-index: 1001;
+    transition: 1s ease-in-out;
+}
+#menu-btn:hover {
+    filter: invert(25%);
+}
+#menu-btn.is-visible {
+    transform: translateX(-200px) rotate(180deg);
+}
+
+/* Menu */
+#sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 250px;
+    background: #fafafa;
+    z-index: 1000;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: 1s ease-in-out;
+    padding: 15px;
+}
+#sidebar.is-visible {
+    box-shadow: -2px 0 5px #00000022;
+    transform: translateX(0);
+}
+
 /* Titre des sections */
 .section-heading {
     text-align: center;
@@ -279,6 +316,8 @@
 
 /* Mode sombre */
 @media (prefers-color-scheme: dark) {
-    .table-profile tr:hover td { background: #ffffff08; }
+    #sidebar { background: #111; }
+    #sidebar.is-visible { box-shadow: -2px 0 5px #00000044; }
+    .table-profile tr:hover td { background: #ffffff88; }
     .skills-content .media:hover { background: #ffffff08; }
 }
