@@ -9,6 +9,26 @@ async function load() {
             if (el) el.innerHTML = stats[i];
         });
 
+        // Afficher les projets récents / mis à jour dans le menu
+        [['new-projects', new_projects], ['updated-projects', updated_projects]].forEach(([id, projects]) => {
+            const sectionTitle = document.querySelector(`#${id}`).previousElementSibling;
+            const section = document.getElementById(id);
+        
+            if (projects.length > 0) {
+                projects.forEach(project => {
+                    const li = document.createElement('li');
+                    const formattedProject = project === 'api' ? project.toUpperCase() : project.charAt(0).toUpperCase() + project.slice(1);
+                    li.innerHTML = `<a href="#${project}">${formattedProject}</a>`;
+                    section.appendChild(li);
+                });
+                sectionTitle.style.display = '';
+                section.style.display = '';
+            } else {
+                sectionTitle.style.display = 'none';
+                section.style.display = 'none';
+            }
+        });
+
         // Afficher les versions
         Object.entries(versions).forEach(([id, value]) => {
             const el = document.getElementById(id + '-version');
