@@ -11,15 +11,15 @@ async function load() {
 
         // Afficher les versions
         Object.entries(versions).forEach(([id, value]) => {
-            const el = document.getElementById(id);
+            const el = document.getElementById(id + '-version');
             if (el) el.innerHTML = value;
         });
 
         // Afficher / masquer la notification
         const notif = document.getElementById('notif');
-        if (notif) notif.style.display = active === "true" ? '' : 'none';
+        if (notif) notif.style.display = active === 'true' ? '' : 'none';
 
-        if (active === "true") {
+        if (active === 'true') {
             const text = document.getElementById('text-notif');
             if (text) text.innerHTML = notif_tag;
         }
@@ -27,7 +27,7 @@ async function load() {
         // Gère les badges "NEW" et "UPDATED"
         const changeTag = (projects, label) => {
             projects.forEach(project => {
-                const badge = document.getElementById(`${project}-tag`);
+                const badge = document.getElementById(project);
                 if (badge) {
                     badge.innerHTML = label;
                     badge.style.display = '';
