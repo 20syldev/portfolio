@@ -318,6 +318,6 @@
 @media (prefers-color-scheme: dark) {
     #sidebar { background: #111; }
     #sidebar.is-visible { box-shadow: -2px 0 5px #00000044; }
-    .table-profile tr:hover td { background: #ffffff88; }
+    .table-profile tr:hover td { background: #ffffff08; }
     .skills-content .media:hover { background: #ffffff08; }
 }
