@@ -83,14 +83,11 @@ window.addEventListener('load', () => {
     }, 8000);
 });
 
-// Fermeture du menu (desktop)
-document.body.addEventListener('click', (e) => {
-    if (!e.target.closest('#sidebar') && !e.target.closest('#menu-btn') && menuToggled) {
-        toggleMenu();
-    }
-});
-
-// Fermeture du menu (mobile)
-document.body.addEventListener('touchmove', () => {
-    if (menuToggled) toggleMenu();
+// Fermeture du menu
+['click', 'touchmove'].forEach(event => {
+    document.body.addEventListener(event, (e) => {
+        if (!e.target.closest('#sidebar') && !e.target.closest('#menu-btn') && menuToggled) {
+            toggleMenu();
+        }
+    });
 });
