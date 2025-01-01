@@ -26,9 +26,8 @@
 /* Bouton pour ouvrir le menu */
 #menu-btn {
     position: fixed;
-    bottom: 0;
-    right: 0;
-    padding: 15px 25px;
+    bottom: 15px;
+    right: 25px;
     background: none;
     border: none;
     z-index: 1001;
@@ -53,7 +52,7 @@
     overflow-y: auto;
     transform: translateX(100%);
     transition: 1s ease-in-out;
-    padding: 15px;
+    padding: 15px 15px 50px 15px;
 }
 #sidebar.is-visible {
     box-shadow: -2px 0 5px #00000022;
