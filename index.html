@@ -54,10 +54,11 @@
                 <li><a href="https://flowers.sylvain.pro">Flowers - LogCenter</a></li>
             </ul>
 
-            <p class="menu-label">Newsletter</p>
-            <ul class="menu-list">
-                <li><a>Bientôt disponible</a></li>
-            </ul>
+            <p class="menu-label">Poser une question</p>
+            <div>
+                <input type="text" class="question" id="question" placeholder="Quelle est la version de ..." onkeydown="if(event.key === 'Enter') handleQuestion();">
+                <p class="response" id="response" style="display: none;"></p>
+            </div>
         </aside>
     </div>
 
