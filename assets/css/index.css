@@ -1,0 +1,350 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+
+/* Notification au chargement*/
+.notification {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    max-width: 400px;
+    transform: translateX(-150%);
+    z-index: 999;
+}
+.notification.slide-in {
+    transform: translateX(0);
+    transition: transform 0.8s ease-in-out;
+}
+.notification.slide-out {
+    transform: translateX(-150%);
+    transition: transform 0.8s ease-in-out;
+}
+
+/* Bouton pour ouvrir le menu */
+#menu-btn {
+    position: fixed;
+    bottom: 15px;
+    right: 25px;
+    background: none;
+    border: none;
+    z-index: 1001;
+    transition: 1s ease-in-out;
+}
+#menu-btn:hover {
+    filter: invert(25%);
+}
+#menu-btn.is-visible {
+    transform: translateX(-200px) rotate(180deg);
+}
+
+/* Menu */
+#sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 250px;
+    background: #fafafa;
+    z-index: 1000;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: 1s ease-in-out;
+    padding: 15px 15px 50px 15px;
+}
+#sidebar.is-visible {
+    box-shadow: -2px 0 5px #00000022;
+    transform: translateX(0);
+}
+
+/* Question / Response */
+.question, .response {
+    background: #fff;
+    color: #404654;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    width: 100%;
+    height: 25px;
+    padding: 15px 10px;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    transition: 0.5s;
+}
+.question::placeholder {
+    color: #404654aa;
+    font-family: 'Poppins', sans-serif;
+}
+.response {
+    height: auto;
+    margin-top: 10px;
+}
+.response .tag {
+    font-weight: bold;
+}
+
+/* Titre des sections */
+.section-heading {
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 4em;
+}
+
+/* Aligner le texte de chaque case */
+.card-content h3 {
+    text-align: center;
+}
+
+/* Cases du profil et des compétences */
+.profile, .skills, .profession {
+    user-select: none;
+    height: fit-content;
+    min-width: 380px;
+    min-height: 320px;
+    overflow: hidden;
+    border: 2px solid #111;
+    border-radius: 20px;
+    transition: 0.5s;
+}
+.profile:hover, .skills:hover, .profession:hover {
+    box-shadow: 5px 5px 0 #111;
+    transform: translate(-3px, -3px);
+}
+.profile:active, .skills:active, .profession:active {
+    box-shadow: none;
+    transform: translate(3px, 3px);
+}
+
+/* Tableau du profil et des compétences */
+.table-profile td, th {
+    border: none !important;
+    transition: 0.5s;
+}
+.table-profile td:first-of-type {
+    font-weight: bold;
+}
+.table-profile tr:first-child:hover {
+    background: none;
+}
+.table-profile tr:hover td {
+    background: #00000008;
+    border-radius: 10px;
+}
+.table-profile tr:hover td:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.table-profile tr:hover td:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* Survol et clic des boutons */
+.button {
+    background: #333;
+    transition: 0.5s;
+}
+.button:hover {
+    box-shadow: 3px 3px 0 #444;
+    transform: translate(-3px, -3px);
+}
+.button:active {
+    box-shadow: none;
+    transform: translate(2px, 2px);
+}
+/* Étoiles sur les boutons */
+.button::before, .button::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    background-size: cover;
+    transform: scale(-0.5) rotate(0deg);
+    transition: 0.5s;
+}
+.button::before {
+    top: -6px;
+    left: -9px;
+    background-image: url('../icons/sparkles.svg');
+}
+.button::after {
+    bottom: -12px;
+    right: -10px;
+    background-image: url('../icons/sparkles.svg');
+}
+.button:hover::before {
+    opacity: 1;
+    transform: scale(1) rotate(120deg);
+}
+.button:hover::after {
+    opacity: 1;
+    transform: scale(0.8) rotate(190deg);
+}
+
+/* Barres de progression */
+.skills-content .media {
+    margin: 0 !important;
+    padding: 4px !important;
+    border: 0 !important;
+    transition: 0.5s;
+}
+.skills-content .media:hover {
+    background: #00000008;
+    border-radius: 10px;
+}
+.skills-content .progress {
+    height: 4px !important;
+}
+
+/* Cases des projets */
+.projects-container img {
+    user-select: none;
+    border: 2px solid #00000000;
+    border-radius: 15px;
+    transition: 0.5s;
+}
+.projects-container img:hover {
+    border: 2px solid #fff;
+}
+.projects-container .card {
+    border: 2px solid #00000000;
+    margin-bottom: 2em;
+    transition: 0.5s;
+}
+.projects-container .card:hover {
+    cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 5px 5px 0 #eee;
+    transform: translate(-3px, -3px);
+}
+.projects-container .card:active {
+    box-shadow: none;
+    transform: translate(3px, 3px);
+}
+
+/* Titre des projets */
+.card-header-title {
+    user-select: none;
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
+/* Boutons des projets */
+.card-footer a {
+    transition: 0.5s;
+    font-weight: 500;
+}
+.card-footer a:hover {
+    transform: translateY(-2px);
+}
+.card-footer a:active {
+    transform: translate(0);
+}
+
+/* Tags */
+.tag {
+    transition: 0.5s;
+}
+.tag:hover {
+    filter: invert(3%) brightness(100%);
+}
+.info {
+    position: absolute;
+    top: -10px;
+    right: -15px;
+    font-weight: bold;
+}
+
+/* Icônes */
+.icon {
+    width: 1em;
+    height: 1em;
+    margin-top: -0.07em;
+    pointer-events: none;
+    transition: 0.5s ease;
+}
+
+/* Liens au survol */
+.description a:hover, .bottom a:hover {
+    text-decoration: underline;
+}
+
+/* Cacher la barre de scroll */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Tablette */
+@media (max-width: 1278px) {
+    /* Colonnes */
+    .columns.about {
+        display: inline;
+    }
+
+    /* Stats */
+    .level {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto auto;
+        gap: 20px;
+    }
+
+    /* Boutons sans étoiles */
+    .button::before, .button::after {
+        background-image: none;
+    }
+
+    /* Tag */
+    .info {
+        font-size: 10px;
+    }
+
+    /* Copyright */
+    .bottom {
+        font-size: 0.8em;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    /* Titre des sections */
+    .section-heading {
+        margin-bottom: 1em;
+    }
+
+    /* Stats */
+    .level {
+        display: block;
+    }
+    .level-item {
+        margin-bottom: 20px;
+    }
+
+    /* Cases du profil et des compétences */
+    .profile, .skills, .profession {
+        min-width: auto;
+    }
+
+    /* Tableau du profil */
+    .table-profile td {
+        display: inline-block;
+    }
+
+    /* Tag */
+    .info {
+        font-size: 12px;
+    }
+}
+
+/* Mode sombre */
+@media (prefers-color-scheme: dark) {
+    #sidebar { background: #111; }
+    #sidebar.is-visible { box-shadow: -2px 0 5px #00000044; }
+    .question, .response { background: #14161a; color: #abb1bf; }
+    .question::placeholder { color: #555c6e; }
+    .table-profile tr:hover td { background: #ffffff08; }
+    .skills-content .media:hover { background: #ffffff08; }
+}
