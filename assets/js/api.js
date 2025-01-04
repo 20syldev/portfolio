@@ -7,6 +7,7 @@ async function fetchData() {
         load();
     } catch (e) { console.error('Erreur:', e); }
 }
+fetchData();
 
 // Gestion des questions
 function handleQuestion() {
@@ -56,15 +57,23 @@ function handleQuestion() {
     responseElement.innerHTML = result;
 }
 
+// Charger les données de l'API
 function load() {
     if (!apiData) return;
 
     const { versions, updated_projects, new_projects, stats, notif_tag, active } = apiData;
-
-    // Afficher les informations
-    ['stats1', 'stats2', 'stats3', 'stats4'].forEach((id, i) => {
-        const el = document.getElementById(id);
-        if (el) el.innerHTML = stats[i];
+    const titles = [
+        { title: "Projets", stats: "projects" },
+        { title: "Contributions aujourd'hui", stats: "today" },
+        { title: "Contributions ce mois-ci", stats: "this_month" },
+        { title: "Contributions l'année dernière", stats: "last_year" }
+    ];
+    let i = 0;
+    
+    // Afficher les versions
+    Object.entries(versions).forEach(([id, value]) => {
+        const el = document.getElementById(id + '-version');
+        if (el) el.innerHTML = value;
     });
 
     // Afficher les projets récents / mis à jour dans le menu
@@ -76,21 +85,26 @@ function load() {
                 li.innerHTML = `<a href='#${project}'>${project.charAt(0).toUpperCase() + project.slice(1)}</a>`;
                 section.appendChild(li);
             });
-        } else {
-            section.style.display = 'none';
+        } else section.style.display = 'none';
+    });
+
+    // Afficher les informations
+    ['stats1', 'stats2', 'stats3'].forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = stats[Object.keys(stats)[i]];
+    });
+
+    // Statistiques n°4 (dynamique)
+    const updateStats4 = () => {
+        const title = document.getElementById('stats4Title');
+        const stats4 = document.getElementById('stats4');
+
+        if (stats4 && title) {
+            title.innerHTML = titles[i].title;
+            stats4.innerHTML = stats[titles[i].stats];
         }
-    });
-
-    // Afficher les versions
-    Object.entries(versions).forEach(([id, value]) => {
-        const el = document.getElementById(id + '-version');
-        if (el) el.innerHTML = value;
-    });
-
-    // Notification
-    const notif = document.getElementById('notif');
-    notif.style.display = active === 'true' ? '' : 'none';
-    if (active === 'true') document.getElementById('text-notif').innerHTML = notif_tag;
+        i = (i + 1) % titles.length;
+    };
 
     // Badges NEW / UPDATED
     const changeTag = (projects, label) => {
@@ -103,7 +117,13 @@ function load() {
         });
     };
 
+    // Afficher la notification ou non
+    document.getElementById('notif').style.display = active === 'true' ? '' : 'none';
+    if (active === 'true') document.getElementById('text-notif').innerHTML = notif_tag;
+
+    // Mettre à jour les badges et les statistiques
     changeTag(updated_projects, 'UPDATED');
     changeTag(new_projects, 'NEW');
+    setInterval(updateStats4, 5000);
+    updateStats4();
 }
-fetchData();
