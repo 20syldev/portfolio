@@ -97,6 +97,11 @@
     text-align: center;
 }
 
+/* Statistiques */
+.level-item {
+    width: 25%;
+}
+
 /* Cases du profil et des compétences */
 .profile, .skills, .profession {
     user-select: none;
@@ -290,6 +295,9 @@
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: auto auto;
         gap: 20px;
+    }
+    .level-item {
+        width: 100%;
     }
 
     /* Boutons sans étoiles */
