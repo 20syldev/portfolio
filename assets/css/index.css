@@ -54,7 +54,7 @@
 }
 
 /* Bouton pour ouvrir le menu */
-#menu-btn {
+.menu-btn {
     position: fixed;
     bottom: 15px;
     right: 25px;
@@ -63,15 +63,15 @@
     z-index: 1001;
     transition: 1s ease-in-out;
 }
-#menu-btn:hover {
     filter: invert(25%);
+.menu-btn:hover {
 }
-#menu-btn.is-visible {
+.menu-btn.is-visible {
     transform: translateX(-200px) rotate(180deg);
 }
 
 /* Menu */
-#sidebar {
+.side-menu {
     position: fixed;
     top: 0;
     right: 0;
@@ -84,8 +84,8 @@
     transition: 1s ease-in-out;
     padding: 15px 15px 50px 15px;
 }
-#sidebar.is-visible {
     box-shadow: -2px 0 5px #00000022;
+.side-menu.is-visible {
     transform: translateX(0);
 }
 
