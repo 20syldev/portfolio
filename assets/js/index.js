@@ -1,4 +1,6 @@
-let menuToggled = false;
+let menuToggled = false, currentTheme = 0, notifTimeout;
+const notification = document.querySelector('.notification');
+const modes = ['auto', 'light', 'dark'];
 
 /**
  * Fonctions
@@ -40,13 +42,19 @@ function hideNotification() {
 // Affiche/masque le menu
 function toggleMenu() {
     menuToggled = !menuToggled;
-    document.getElementById('sidebar').classList.toggle('is-visible', menuToggled);
-    document.getElementById('menu-btn').classList.toggle('is-visible', menuToggled);
-}
+    document.querySelectorAll('.side-menu, .menu-btn, .switch-btn').forEach(el => 
+        el.classList.toggle('is-visible', menuToggled)
+    );
+};
 
 /**
  * Événements
  */
+// Définir le thème pour le site
+const setTheme = (mode) => {
+    const theme = mode === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : mode;
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', mode);
 
 // Initialisation et événements
 window.addEventListener('load', () => {
@@ -54,6 +62,29 @@ window.addEventListener('load', () => {
 
     // Mise à jour des liens actifs au scroll
     document.addEventListener('scroll', updateMenu);
+    const themeNotif = document.querySelector('.theme-notif');
+    themeNotif.textContent = { light: 'Mode clair', dark: 'Mode sombre', auto: 'Automatique' }[mode];
+    themeNotif.classList.remove('show', 'hide');
+    void themeNotif.offsetWidth;
+    themeNotif.classList.add('show');
+    clearTimeout(notifTimeout);
+    notifTimeout = setTimeout(() => themeNotif.classList.add('hide'), 3000);
+};
+
+// Appliquer le thème enregistré ou celui par défaut
+const applySavedTheme = () => {
+    const theme = localStorage.getItem('theme') || 'auto';
+    setTheme(theme);
+    currentTheme = modes.indexOf(theme);
+};
+
+// Changer de thème automatiquement
+const autoSwitch = () => {
+    const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
+    const setCurrentTheme = () => setTheme(darkMode.matches ? 'dark' : 'light');
+    if (localStorage.getItem('theme') === 'auto') setCurrentTheme();
+    darkMode.addEventListener('change', setCurrentTheme);
+};
     updateMenu();
 
     // Effet hover pour les projets en pause/archivés
@@ -86,8 +117,12 @@ window.addEventListener('load', () => {
 // Fermeture du menu
 ['click', 'touchmove'].forEach(event => {
     document.body.addEventListener(event, (e) => {
-        if (!e.target.closest('#sidebar') && !e.target.closest('#menu-btn') && menuToggled) {
-            toggleMenu();
-        }
+        if (!e.target.closest('.side-menu, .menu-btn, .switch-btn') && menuToggled) toggleMenu();
     });
+});
+
+// Bouton de changement de thème
+document.querySelector('.switch-btn').addEventListener('click', () => {
+    currentTheme = (currentTheme + 1) % modes.length;
+    setTheme(modes[currentTheme]);
 });
