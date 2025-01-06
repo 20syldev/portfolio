@@ -2,66 +2,56 @@ let menuToggled = false, currentTheme = 0, notifTimeout;
 const notification = document.querySelector('.notification');
 const modes = ['auto', 'light', 'dark'];
 
-/**
- * Fonctions
- */
-
-// Met à jour les liens actifs en fonction du scroll
-function updateMenu() {
+// Mettre à jour la navigation du menu
+const updateMenu = () => {
     const sections = ['skills', 'projects', 'cv'];
-    let activeId = window.scrollY === 0 ? 'about' : (window.innerHeight + window.scrollY >= document.body.scrollHeight ? 'cv' : sections.find(id => {
-        const rect = document.getElementById(id).getBoundingClientRect();
-        return rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2;
-    }));
-
-    document.querySelectorAll('.menu-list a').forEach(link =>
+    let activeId = window.scrollY === 0 
+        ? 'about' 
+        : (window.innerHeight + window.scrollY >= document.body.scrollHeight 
+        ? 'cv' 
+        : sections.find(id => {
+            const rect = document.getElementById(id).getBoundingClientRect();
+            return rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2;
+        })
+    );
+    document.querySelectorAll('.menu-list a').forEach(link => 
         link.classList.toggle('is-active', link.getAttribute('href') === `#${activeId}`)
     );
-}
+};
 
-// Applique l'effet hover sur les éléments de projet
-function showTag(selector, text, iconClass) {
-    document.querySelectorAll(selector).forEach(element => {
-        const initial = element.innerHTML;
-        element.addEventListener('mouseover', () => {
-            element.innerHTML = `<i class="${iconClass} icon mr-1"></i> ${text}`;
-        });
-        element.addEventListener('mouseout', () => {
-            element.innerHTML = initial;
-        });
+// Afficher les tags interactifs en entier
+const showTag = (selector, text, iconClass) => {
+    document.querySelectorAll(selector).forEach(el => {
+        const initial = el.innerHTML;
+        el.addEventListener('mouseover', () => el.innerHTML = `<i class="${iconClass} icon mr-1"></i> ${text}`);
+        el.addEventListener('mouseout', () => el.innerHTML = initial);
     });
-}
+};
 
-// Cache la notification
-function hideNotification() {
-    const notification = document.getElementById('notif');
+// Cache une notification avec une animation
+const hideNotification = () => {
     notification.classList.add('slide-out');
     setTimeout(() => notification.style.display = 'none', 1000);
-}
+};
 
-// Affiche/masque le menu
-function toggleMenu() {
+// Ouvre ou ferme le menu latéral
+const toggleMenu = () => {
     menuToggled = !menuToggled;
     document.querySelectorAll('.side-menu, .menu-btn, .switch-btn').forEach(el => 
         el.classList.toggle('is-visible', menuToggled)
     );
 };
 
-/**
- * Événements
- */
 // Définir le thème pour le site
 const setTheme = (mode) => {
     const theme = mode === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : mode;
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', mode);
 
-// Initialisation et événements
-window.addEventListener('load', () => {
-    const notif = document.getElementById('notif');
+    const icon = document.querySelector('.switch-btn i') || document.createElement('i');
+    if (!icon.parentElement) document.querySelector('.switch-btn').appendChild(icon);
+    icon.className = { light: 'fa-solid fa-sun', dark: 'fa-solid fa-moon', auto: 'fa-solid fa-wand-magic-sparkles' }[mode];
 
-    // Mise à jour des liens actifs au scroll
-    document.addEventListener('scroll', updateMenu);
     const themeNotif = document.querySelector('.theme-notif');
     themeNotif.textContent = { light: 'Mode clair', dark: 'Mode sombre', auto: 'Automatique' }[mode];
     themeNotif.classList.remove('show', 'hide');
@@ -85,9 +75,15 @@ const autoSwitch = () => {
     if (localStorage.getItem('theme') === 'auto') setCurrentTheme();
     darkMode.addEventListener('change', setCurrentTheme);
 };
-    updateMenu();
 
-    // Effet hover pour les projets en pause/archivés
+// Au chargement de la page
+window.addEventListener('load', () => {
+    applySavedTheme();
+    autoSwitch();
+    updateMenu();
+    document.addEventListener('scroll', updateMenu);
+
+    // Affichage des tags interactifs
     showTag('.pause', 'Projet en pause', 'fa-solid fa-pause');
     showTag('.old', 'Projet archivé', 'fa-solid fa-file-arrow-down');
 
@@ -102,19 +98,15 @@ const autoSwitch = () => {
             progressBar.value = max * (0.5 * (1 - Math.cos(Math.PI * progress)));
             if (progress < 1) requestAnimationFrame(t => animate(t, startTime));
         }
-
         setTimeout(() => requestAnimationFrame(t => animate(t, t)), 500);
     });
 
-    // Animation de la notification
-    setTimeout(() => notif.classList.add('slide-in'), 3000);
-    setTimeout(() => {
-        notif.classList.remove('slide-in');
-        notif.classList.add('slide-out');
-    }, 8000);
+    // Notifications au chargement
+    setTimeout(() => notification.classList.add('slide-in'), 3000);
+    setTimeout(() => notification.classList.replace('slide-in', 'slide-out'), 8000);
 });
 
-// Fermeture du menu
+// Fermeture du menu en cliquant en dehors
 ['click', 'touchmove'].forEach(event => {
     document.body.addEventListener(event, (e) => {
         if (!e.target.closest('.side-menu, .menu-btn, .switch-btn') && menuToggled) toggleMenu();
