@@ -124,8 +124,8 @@ function load() {
     };
 
     // Afficher la notification ou non
-    document.getElementById('notif').style.display = active === 'true' ? '' : 'none';
-    if (active === 'true') document.getElementById('text-notif').innerHTML = notif_tag;
+    document.querySelector('.notification').style.display = active === 'true' ? '' : 'none';
+    if (active === 'true') document.querySelector('.text-notif').innerHTML = notif_tag;
 
     // Mettre à jour les badges et les statistiques
     changeTag(updated_projects, 'UPDATED');
