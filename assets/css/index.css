@@ -84,6 +84,7 @@ a {
     border: none;
     border-radius: 100%;
     z-index: 1001;
+    transition: 1s ease-in-out;
 }
 .switch-btn:hover {
     filter: brightness(150%);
