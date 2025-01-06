@@ -12,22 +12,28 @@
 </head>
 <body>
     <!-- Notification -->
-    <div class="notification p-2" id="notif">
+    <div class="notification p-2">
         <div class="is-flex is-align-items-center">
-            <p class="mr-3"><span id="text-notif">...</span></p>
+            <p class="mr-3"><span class="text-notif">...</span></p>
             <button style="cursor: pointer;" onclick="hideNotification();">
                 <i class="fa-solid fa-times"></i>
             </button>
         </div>
     </div>
 
+    <!-- Notification de changement de thème -->
+    <div class="theme-notif"></div>
+
     <!-- Bouton pour ouvrir le menu -->
-    <button id="menu-btn" onclick="toggleMenu()">
+    <button class="menu-btn" onclick="toggleMenu()">
         <i class="fa-solid fa-caret-left"></i>
     </button>
 
+    <!-- Bouton pour changer de thème -->
+    <button class="switch-btn"></button>
+
     <!-- Menu -->
-    <div class="menu" id="sidebar">
+    <div class="side-menu">
         <aside class="menu">
             <p class="menu-label">Navigation</p>
             <ul class="menu-list">
@@ -56,7 +62,7 @@
 
             <p class="menu-label">Poser une question</p>
             <div>
-                <input type="text" class="question" id="question" placeholder="Quelle est la version de ..." onkeydown="if(event.key === 'Enter') handleQuestion();">
+                <input type="text" class="question" id="question" placeholder="Quelle est la version de..." onkeydown="if(event.key === 'Enter') handleQuestion();">
                 <p class="response" id="response" style="display: none;"></p>
             </div>
         </aside>
