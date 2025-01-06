@@ -26,7 +26,7 @@ function handleQuestion() {
 
     // Mots-clés
     const keywords = {
-        version: ['version', 'verssion', 'verison', 'ver', 'versions', 'projets', 'projet'],
+        version: ['versions', 'version', 'verssion', 'verison', 'ver', 'projets', 'projet'],
         projets: ['nouveaux projets', 'novueaux projets', 'recent', 'recents', 'projets recents', 'derniers projets', 'new', 'new projects'],
         mis_a_jour: ['mis a jour', 'mise a jour', 'maj', 'projets mis a jour', 'update', 'updated', 'updated projects'],
         salut: ['salut', 'hey', 'yo', 'bonjour'],
@@ -39,15 +39,21 @@ function handleQuestion() {
     else if (keywords.fais_quoi.some(k => question.includes(k))) result = 'Je suis un assistant pour vous aider à obtenir des informations sur les projets de Sylvain.';
     else if (keywords.qui_es_tu.some(k => question.includes(k))) result = 'Je suis une intelligence artificielle pour vous aider à obtenir des informations sur les projets de Sylvain.';
     else if (keywords.version.some(k => question.includes(k))) {
-        const project = question.replace(/l?'|de|la|du/g, '').split('version')[1]?.trim();
-        if (project) result = apiData.versions[project] ? `Projet '${project}' : <span class="tag is-hoverable">${apiData.versions[project]}</span>` : `Projet '${project}' introuvable.`;
-        else { result = 'De quel projet voulez-vous afficher la version ?'; wait = true; questionInput.placeholder = 'Entrez un nom de projet'; }
-    }    
+        let found = keywords.version.find(k => question.includes(k));
+        let project = question.replace(/\b(l?'|de|la|du|des|le)\b/g, '').split(found)[1]?.trim();
+        if (project) result = apiData.versions[project] ? `Projet '${project}' : <span class="tag is-hoverable">${apiData.versions[project]}</span>` : `Projet '${project.charAt(0).toUpperCase() + project.slice(1)}' introuvable.`;
+        else { 
+            questionInput.placeholder = 'Entrez un nom de projet';
+            result = 'De quel projet voulez-vous afficher la version ?';
+            wait = true;
+        }
+    }
     else if (keywords.projets.some(k => question.includes(k))) result = `Projets récents : '${apiData.new_projects.join('\', \'')}'.`;
     else if (keywords.mis_a_jour.some(k => question.includes(k))) result = `Projets mis à jour : '${apiData.updated_projects.join('\', \'')}'.`;
     else if (wait) {
-        const project = question.trim();
-        result = apiData.versions[project] ? `Projet '${project}' : <span class="tag is-hoverable">${apiData.versions[project]}</span>` : `Projet '${project}' introuvable.`;
+        questionInput.placeholder = 'Quelle est la version de...';
+        project = question.trim();
+        result = apiData.versions[project] ? `Projet '${project.charAt(0).toUpperCase() + project.slice(1)}' : <span class="tag is-hoverable">${apiData.versions[project]}</span>` : `Projet '${project}' introuvable.`;
         wait = false;
     }
 
