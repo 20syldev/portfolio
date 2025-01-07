@@ -378,6 +378,15 @@ a {
 
 /* Tablette */
 @media (max-width: 1278px) {
+    /* Notification avec background */
+    .theme-notif {
+        background: var(--hover-background);
+        color: var(--projects-color);
+        bottom: 10px;
+        padding: 5px 10px;
+        border-radius: 100px;
+    }
+
     /* Colonnes */
     .columns.about {
         display: inline;
