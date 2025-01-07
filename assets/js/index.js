@@ -5,16 +5,12 @@ const modes = ['auto', 'light', 'dark'];
 // Mettre à jour la navigation du menu
 const updateMenu = () => {
     const sections = ['skills', 'projects', 'cv'];
-    let activeId = window.scrollY === 0 
-        ? 'about' 
-        : (window.innerHeight + window.scrollY >= document.body.scrollHeight 
-        ? 'cv' 
-        : sections.find(id => {
-            const rect = document.getElementById(id).getBoundingClientRect();
-            return rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2;
-        })
-    );
-    document.querySelectorAll('.menu-list a').forEach(link => 
+    let activeId = window.scrollY === 0 ? 'about' : sections.find(id => {
+        const rect = document.getElementById(id).getBoundingClientRect();
+        return rect.top <= window.innerHeight / 8 && rect.bottom >= window.innerHeight / 8;
+    });
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight) activeId = 'cv';
+    document.querySelectorAll('.menu-list a').forEach(link =>
         link.classList.toggle('is-active', link.getAttribute('href') === `#${activeId}`)
     );
 };
