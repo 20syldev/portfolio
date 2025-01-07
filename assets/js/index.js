@@ -4,7 +4,7 @@ const modes = ['auto', 'light', 'dark'];
 
 // Mettre à jour la navigation du menu
 const updateMenu = () => {
-    const sections = ['skills', 'projects', 'cv'];
+    const sections = ['skills', 'projets', 'cv'];
     let activeId = window.scrollY === 0 ? 'about' : sections.find(id => {
         const rect = document.getElementById(id).getBoundingClientRect();
         return rect.top <= window.innerHeight / 8 && rect.bottom >= window.innerHeight / 8;
