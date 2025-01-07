@@ -41,6 +41,14 @@ window.addEventListener('load', () => {
     autoSwitch();
 });
 
+// Synchroniser les thèmes sur tous les onglets
+window.addEventListener('storage', (event) => {
+    if (event.key === 'theme' && event.newValue) {
+        setTheme(event.newValue);
+        currentTheme = modes.indexOf(event.newValue);
+    }
+});
+
 // Bouton de changement de thème
 document.querySelector('.switch-btn').addEventListener('click', () => {
     currentTheme = (currentTheme + 1) % modes.length;
