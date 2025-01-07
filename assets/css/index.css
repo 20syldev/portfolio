@@ -5,6 +5,8 @@
     --background: #fff;
     --side-menu-background: #fafafa;
     --side-menu-shadow: #00000022;
+    --menu-list-background: #444;
+    --menu-list-active: #2942ff;
     --hover-background: #00000008;
     --button-background: #333;
     --button-color: #fff;
@@ -20,6 +22,8 @@
     --background: #111;
     --side-menu-background: #050505;
     --side-menu-shadow: #00000044;
+    --menu-list-background: #abb1bf;
+    --menu-list-active: #2942ff;
     --hover-background: #ffffff08;
     --button-background: #333;
     --button-color: #fff;
@@ -126,11 +130,24 @@ a {
     box-shadow: -2px 0 5px var(--side-menu-shadow);
     transform: translateX(0);
 }
+.menu-list a {
+    background: var(--background);
+    color: var(--menu-list-background);
+    opacity: 0.9;
+}
+.menu-list .is-active {
+    background: var(--menu-list-active);
+    color: var(--button-color);
+    transition: 0.5s;
+}
+.menu-list .is-active:hover {
+    opacity: 1;
+}
 
 /* Question / Response */
 .question, .response {
-    background: var(--q-r-background);
-    color: var(--q-r-color);
+    background: var(--background);
+    color: var(--menu-list-background);
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
     width: 100%;
