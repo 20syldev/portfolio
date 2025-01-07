@@ -86,7 +86,7 @@ a {
     left: 25px;
     background: none;
     border: none;
-    border-radius: 100%;
+    border-radius: 100px;
     z-index: 1001;
     transition: 1s ease-in-out;
 }
@@ -133,14 +133,18 @@ a {
 .menu-list a {
     background: var(--background);
     color: var(--menu-list-background);
-    opacity: 0.9;
+    transition: 0.5s;
+}
+.menu-list a:hover {
+    background: var(--hover-background);
 }
 .menu-list .is-active {
     background: var(--menu-list-active);
     color: var(--button-color);
-    transition: 0.5s;
+    opacity: 0.9;
 }
 .menu-list .is-active:hover {
+    background: var(--menu-list-active);
     opacity: 1;
 }
 
