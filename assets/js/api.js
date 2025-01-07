@@ -41,7 +41,7 @@ function handleQuestion() {
     else if (keywords.version.some(k => question.includes(k))) {
         let found = keywords.version.find(k => question.includes(k));
         let project = question.replace(/\b(l?'|de|la|du|des|le)\b/g, '').split(found)[1]?.trim();
-        if (project) result = apiData.versions[project] ? `Projet '${project}' : <span class="tag is-hoverable">${apiData.versions[project]}</span>` : `Projet '${project.charAt(0).toUpperCase() + project.slice(1)}' introuvable.`;
+        if (project) result = apiData.versions[project] ? `Projet '${project}' : <a href="https://github.com/20syldev/${project}/releases/latest"><span class="tag is-hoverable">${apiData.versions[project]}</span></a>` : `Projet '${project.charAt(0).toUpperCase() + project.slice(1)}' introuvable.`;
         else { 
             questionInput.placeholder = 'Entrez un nom de projet';
             result = 'De quel projet voulez-vous afficher la version ?';
@@ -75,7 +75,7 @@ function load() {
         { title: "Contributions l'année dernière", stats: "last_year" }
     ];
     let i = 0;
-    
+
     // Afficher les versions
     Object.entries(versions).forEach(([id, value]) => {
         const el = document.getElementById(id + '-version');
