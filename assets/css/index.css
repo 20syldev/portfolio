@@ -314,10 +314,12 @@ a {
 .card img {
     user-select: none;
     border-radius: 15px;
+    border: 2px solid transparent;
     transition: 0.5s;
 }
-.card a:focus {
-    outline: none;
+.card img:hover {
+    border-radius: 20px;
+    border: 2px solid var(--projects-color);
 }
 /* Titre des projets */
 .card-header-title {
