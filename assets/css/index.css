@@ -15,6 +15,7 @@
     --menu-chat-bg: #fff;
     --menu-chat-color: #444;
     --menu-chat-placeholder-color: #444444aa;
+    --icon-sparkles: url('../icons/sparkles-light.svg');
 }
 
 /* Mode sombre */
@@ -32,6 +33,7 @@
     --menu-chat-bg: #14161a;
     --menu-chat-color: #aaa;
     --menu-chat-placeholder-color: #666666aa;
+    --icon-sparkles: url('../icons/sparkles-dark.svg');
 }
 
 * {
@@ -264,12 +266,12 @@ a {
 .button::before {
     top: -6px;
     left: -9px;
-    background-image: url('../icons/sparkles.svg');
+    background-image: var(--icon-sparkles);
 }
 .button::after {
     bottom: -12px;
     right: -10px;
-    background-image: url('../icons/sparkles.svg');
+    background-image: var(--icon-sparkles);
 }
 .button:hover::before {
     opacity: 1;
