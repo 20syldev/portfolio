@@ -40,6 +40,11 @@
     font-family: 'Poppins', sans-serif;
     scroll-behavior: smooth;
 }
+  
+body {
+    position: relative;
+    min-height: 100vh;
+}
 
 a {
     border-radius: 2px;
@@ -371,6 +376,12 @@ a {
 /* Liens au survol */
 .description a:hover, .bottom a:hover {
     text-decoration: underline;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 2px;
+    width: 100%;
 }
 
 /* Cacher la barre de scroll */
