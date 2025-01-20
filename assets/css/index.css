@@ -375,10 +375,11 @@ a {
 
 /* Style des messages du chat */
 .chat td {
-    max-width: 500px;
     word-wrap: break-word;
     white-space: normal;
 }
+.chat td:nth-child(1), .chat td:nth-child(3) { width: 20%; }
+.chat td:nth-child(2) { width: 60%; max-width: 500px;}
 
 /* Liens au survol */
 .description a:hover, .bottom a:hover {
@@ -433,11 +434,6 @@ a {
         font-size: 10px;
     }
 
-    /* Messages du chat */
-    .chat td {
-        max-width: 300px;
-    }
-
     /* Copyright */
     .bottom {
         font-size: 0.8em;
@@ -475,9 +471,7 @@ a {
     }
 
     /* Messages du chat */
-    .chat td {
-        max-width: 200px;
-    }
+    .chat td:nth-child(2) { padding-left: 45px; }
 }
 
 /* Animations de la notification */
