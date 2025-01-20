@@ -154,7 +154,7 @@ async function load() {
         const data = res.ok ? await res.json() : [];
         const previousHeight = chatList.scrollHeight;
 
-        if (Array.isArray(data)) {
+        if (Array.isArray(data) && data.length !== 0) {
             chatList.innerHTML = data.map(msg => `
                 <tr>
                     <td>${msg.username}</td>
@@ -162,7 +162,7 @@ async function load() {
                     <td class="has-text-right">${formatDate(msg.timestamp)}</td>
                 </tr>
             `).join('');
-        }
+        } else chatList.innerHTML = '<tr><td rowspan="3">Aucun message pour le moment.</td></tr>';
 
         if (chatContainer.scrollHeight > previousHeight) chatContainer.scrollTop = chatContainer.scrollHeight;
     };
@@ -185,7 +185,7 @@ async function load() {
 
     // Raccourci CTRL+Enter
     document.getElementById('message').addEventListener('keydown', e => {
-        if (e.ctrlKey && e.key === 'Enter') {
+        if (e.ctrlKey && e.key === 'Enter' && usernameInput.value) {
             e.preventDefault();
             document.getElementById('chatForm').dispatchEvent(new Event('submit'));
         }
