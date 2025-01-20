@@ -76,10 +76,14 @@ function handleQuestion() {
 }
 
 // Charger les données de l'API
-function load() {
+async function load() {
     if (!apiData) return;
 
     const { versions, updated_projects, new_projects, stats, notif_tag, active } = apiData;
+    const chatContainer = document.getElementById('chatContainer');
+    const chatList = document.getElementById('chatList');
+    const messageInput = document.getElementById('message');
+    const usernameInput = document.getElementById('username');
     const titles = [
         { title: "Projets", stats: "projects" },
         { title: "Contributions aujourd'hui", stats: "today" },
@@ -135,13 +139,63 @@ function load() {
         });
     };
 
+    // Afficher proprement la date
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp);
+        return new Intl.DateTimeFormat('fr-FR', {
+            hour: 'numeric',
+            minute: 'numeric',
+        }).format(date);
+    };
+
+    // Récupérer les informations stockées
+    const fetchMessages = async () => {
+        const res = await fetch('https://api.sylvain.pro/v1/chat');
+        const data = res.ok ? await res.json() : [];
+        const previousHeight = chatList.scrollHeight;
+
+        if (Array.isArray(data)) {
+            chatList.innerHTML = data.map(msg => `
+                <tr>
+                    <td>${msg.username}</td>
+                    <td>${msg.message.replace(/\n/g, '<br>')}</td>
+                    <td class="has-text-right">${formatDate(msg.timestamp)}</td>
+                </tr>
+            `).join('');
+        }
+
+        if (chatContainer.scrollHeight > previousHeight) chatContainer.scrollTop = chatContainer.scrollHeight;
+    };
+
     // Afficher la notification ou non
     document.querySelector('.notification').style.display = active === 'true' ? '' : 'none';
     if (active === 'true') document.querySelector('.text-notif').innerHTML = notif_tag;
 
+    // Stocker les données dans l'API
+    document.getElementById('chatForm').addEventListener('submit', async e => {
+        e.preventDefault();
+        await fetch('https://api.sylvain.pro/v1/chat', { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify({ username: usernameInput.value, message: messageInput.value })
+        });
+        messageInput.value = '';
+        fetchMessages();
+    });
+
+    // Raccourci CTRL+Enter
+    document.getElementById('message').addEventListener('keydown', e => {
+        if (e.ctrlKey && e.key === 'Enter') {
+            e.preventDefault();
+            document.getElementById('chatForm').dispatchEvent(new Event('submit'));
+        }
+    });
+
     // Mettre à jour les badges et les statistiques
     changeTag(updated_projects, 'UPDATED');
     changeTag(new_projects, 'NEW');
+    setInterval(fetchMessages, 1000);
     setInterval(updateStats4, 5000);
+    fetchMessages();
     updateStats4();
 }
