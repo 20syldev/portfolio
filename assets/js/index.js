@@ -3,12 +3,12 @@ const notification = document.querySelector('.notification');
 
 // Mettre à jour la navigation du menu
 const updateMenu = () => {
-    const sections = ['skills', 'projets', 'cv'];
+    const sections = ['skills', 'projets', 'chat', 'cv'];
     let activeId = window.scrollY === 0 ? 'about' : sections.find(id => {
         const rect = document.getElementById(id).getBoundingClientRect();
         return rect.top <= window.innerHeight / 8 && rect.bottom >= window.innerHeight / 8;
     });
-    if (window.innerHeight + window.scrollY >= document.body.scrollHeight) activeId = 'cv';
+    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 5) activeId = 'cv';
     document.querySelectorAll('.menu-list a').forEach(link =>
         link.classList.toggle('is-active', link.getAttribute('href') === `#${activeId}`)
     );
