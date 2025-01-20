@@ -373,6 +373,13 @@ a {
     transition: 0.5s ease;
 }
 
+/* Style des messages du chat */
+.chat td {
+    max-width: 500px;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
 /* Liens au survol */
 .description a:hover, .bottom a:hover {
     text-decoration: underline;
@@ -426,6 +433,11 @@ a {
         font-size: 10px;
     }
 
+    /* Messages du chat */
+    .chat td {
+        max-width: 300px;
+    }
+
     /* Copyright */
     .bottom {
         font-size: 0.8em;
@@ -460,6 +472,11 @@ a {
     /* Tag */
     .info {
         font-size: 12px;
+    }
+
+    /* Messages du chat */
+    .chat td {
+        max-width: 200px;
     }
 }
 
