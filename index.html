@@ -49,6 +49,7 @@
                         <ul id="updated-projects"></ul>
                     </ul>
                 </li>
+                <li><a href="#chat">Chat en ligne</a></li>
                 <li><a href="#cv">CV</a></li>
             </ul>
             <p class="menu-label">Poser une question</p>
@@ -730,6 +731,58 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Online chat -->
+    <section class="section" id="chat">
+        <div class="section-heading mb-5">
+            <h3 class="title is-2">Chat en ligne</h3>
+        </div>
+
+        <div class="container">
+            <div class="box">
+                <form id="chatForm">
+                    <div class="field">
+                        <label class="label">Nom d'utilisateur</label>
+                        <div class="control">
+                            <input class="input" type="text" id="username" placeholder="Entrez votre nom d'utilisateur" required maxlength="10">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Message</label>
+                        <div class="control">
+                            <textarea class="textarea" id="message" placeholder="Entrez votre message" required maxlength="200"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="control">
+                        <button class="button is-primary" type="submit">Envoyer</button>
+                    </div>
+                </form>
+            </div>
+            <table class="table is-fullwidth">
+                <thead>
+                    <tr>
+                        <th colspan="3" class="has-text-centered title is-5">Discussion globale</th>
+                    </tr>
+                    <tr>
+                        <th>Utilisateur</th>
+                        <th>Message</th>
+                        <th class="has-text-right"></th>
+                    </tr>
+                </thead>
+            </table>
+            <div id="chatContainer" style="max-height: 200px; overflow-y: auto;">
+                <table class="table is-fullwidth">
+                    <tbody class="chat" id="chatList">
+                        <tr>
+                            <td rowspan="3">Aucun message pour le moment.</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
