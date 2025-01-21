@@ -150,16 +150,28 @@ async function load() {
         }).format(date);
     };
 
-    // Transformer les liens en images ou cliquables
+    // Markdown & liens cliquables
     const transformMessage = (message) => {
         const escapeHTML = str => str.replace(/[&<>"']/g, char => ({
             '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
         }[char]));
-    
+
         const urlRegex = /(https?:\/\/[^\s]+)/g;
-        return escapeHTML(message).replace(urlRegex, url => 
-            /\.(jpg|jpeg|png|gif)$/i.test(url) ? `<img src="${url}" style="max-width: 100px;">` : `<a href="${url}" target="_blank">${escapeHTML(url)}</a>`
-        );
+        const markdownRegex = /\*\*(.*?)\*\*/g;
+        const italicRegex = /\*(.*?)\*/g;
+        const underlineRegex = /_(.*?)_/g;
+        const strikethroughRegex = /~~(.*?)~~/g;
+
+        return escapeHTML(message)
+            .replace(urlRegex, url => 
+                /\.(jpg|jpeg|png|gif)$/i.test(url) 
+                    ? `<img src="${url}" style="max-width: 100px;">` 
+                    : `<a href="${url}" target="_blank">${escapeHTML(url)}</a>`
+            )
+            .replace(markdownRegex, (match, p1) => `<strong>${p1}</strong>`)
+            .replace(italicRegex, (match, p1) => `<em>${p1}</em>`)
+            .replace(underlineRegex, (match, p1) => `<u>${p1}</u>`)
+            .replace(strikethroughRegex, (match, p1) => `<del>${p1}</del>`);
     };
 
     // Récupérer les informations stockées
