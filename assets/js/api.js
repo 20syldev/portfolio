@@ -1,4 +1,4 @@
-let apiData = null, wait = false;
+let apiData = null, wait = false, lastMessages = [];
 
 // Récupérer les données de l'API
 async function fetchData() {
@@ -155,14 +155,20 @@ async function load() {
         const previousHeight = chatList.scrollHeight;
 
         if (Array.isArray(data) && data.length !== 0) {
-            chatList.innerHTML = data.map(msg => `
-                <tr>
-                    <td>${msg.username}</td>
-                    <td>${msg.message.replace(/\n/g, '<br>')}</td>
-                    <td class="has-text-right">${formatDate(msg.timestamp)}</td>
-                </tr>
-            `).join('');
-        } else chatList.innerHTML = '<tr><td rowspan="3">Aucun message pour le moment.</td></tr>';
+            if (JSON.stringify(data) !== JSON.stringify(lastMessages)) {
+                chatList.innerHTML = data.map(msg => `
+                    <tr>
+                        <td>${msg.username}</td>
+                        <td>${msg.message.replace(/\n/g, '<br>')}</td>
+                        <td class="has-text-right">${formatDate(msg.timestamp)}</td>
+                    </tr>
+                `).join('');
+                lastMessages = data;
+            }
+        } else if (lastMessages.length !== 0) {
+            chatList.innerHTML = '<tr><td rowspan="3">Aucun message pour le moment.</td></tr>';
+            lastMessages = [];
+        }
 
         if (chatContainer.scrollHeight > previousHeight) chatContainer.scrollTop = chatContainer.scrollHeight;
     };
