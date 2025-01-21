@@ -382,7 +382,7 @@ a {
 .chat td:nth-child(2) { width: 60%; max-width: 500px;}
 
 /* Liens au survol */
-.description a:hover, .bottom a:hover {
+.description a:hover, .bottom a:hover, .chat a:hover {
     text-decoration: underline;
 }
 
