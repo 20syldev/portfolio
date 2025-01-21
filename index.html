@@ -749,6 +749,7 @@
                         <label class="label">Nom d'utilisateur</label>
                         <div class="control">
                             <input class="input" type="text" id="username" placeholder="Entrez votre nom d'utilisateur" required maxlength="10">
+                            <p class="help is-danger is-hidden" id="usernameError">Ce nom d'utilisateur est déjà utilisé.</p>
                         </div>
                     </div>
 
@@ -761,7 +762,7 @@
                     </div>
 
                     <div class="control">
-                        <button class="button is-primary" type="submit" id="submitBtn">Envoyer</button>
+                        <button class="button is-primary" type="submit">Envoyer</button>
                     </div>
                 </form>
             </div>
