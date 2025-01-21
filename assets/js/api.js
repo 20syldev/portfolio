@@ -81,9 +81,11 @@ async function load() {
 
     const { versions, updated_projects, new_projects, stats, notif_tag, active } = apiData;
     const chatContainer = document.getElementById('chatContainer');
+    const charCounter = document.getElementById('charCounter');
     const chatList = document.getElementById('chatList');
     const messageInput = document.getElementById('message');
     const usernameInput = document.getElementById('username');
+    const maxChars = 500;
     const titles = [
         { title: "Projets", stats: "projects" },
         { title: "Contributions aujourd'hui", stats: "today" },
@@ -168,19 +170,27 @@ async function load() {
 
         if (Array.isArray(data) && data.length) {
             if (JSON.stringify(data) !== JSON.stringify(lastMessages)) {
-                chatList.innerHTML = data.map(msg => {
-                    const newMsg = transformMessage(msg.message.replace(/\s+/g, ' ').trim());
-                    return newMsg ? `
-                        <tr>
-                            <td>${msg.username}</td>
-                            <td>${newMsg}</td>
-                            <td class="has-text-right">${formatDate(msg.timestamp)}</td>
-                        </tr>
-                    ` : '';
-                }).join('');
+                let lastUsername = '';
+                let groupedMessages = [];
+
+                data.forEach(({ username, message, timestamp }) => {
+                    const msg = transformMessage(message.replace(/\s+/g, ' ').trim());
+                    if (!msg) return;
+                    if (username === lastUsername) groupedMessages[groupedMessages.length - 1].messages.push(msg);
+                    else groupedMessages.push({ username, messages: [msg], timestamp });
+                    lastUsername = username;
+                });
+
+                chatList.innerHTML = groupedMessages.map(({ username, messages, timestamp }) => `
+                    <tr>
+                        <td>${username}</td>
+                        <td>${messages.map(m => `<div style="margin-bottom: 2px;">${m}</div>`).join('')}</td>
+                        <td class="has-text-right">${formatDate(timestamp)}</td>
+                    </tr>
+                `).join('');
                 lastMessages = data;
             }
-        } else if (lastMessages.length) {
+        } else {
             chatList.innerHTML = '<tr><td rowspan="3">Aucun message pour le moment.</td></tr>';
             lastMessages = [];
         }
@@ -195,12 +205,17 @@ async function load() {
     // Stocker les données dans l'API
     document.getElementById('chatForm').addEventListener('submit', async e => {
         e.preventDefault();
+        if (messageInput.value.length > maxChars) return;
+
         await fetch('https://api.sylvain.pro/v1/chat', { 
             method: 'POST', 
             headers: { 'Content-Type': 'application/json' }, 
             body: JSON.stringify({ username: usernameInput.value, message: messageInput.value })
         });
+
         messageInput.value = '';
+        charCounter.textContent = `${maxChars}`;
+        charCounter.style.color = '#4a4a4a';
         fetchMessages();
     });
 
@@ -218,6 +233,17 @@ async function load() {
         if (lines.length > 10) {
             messageInput.value = lines.slice(0, 10).join('\n');
         }
+    });
+
+    messageInput.addEventListener('input', () => {
+        const lines = messageInput.value.split('\n');
+        const remaining = maxChars - messageInput.value.length;
+
+        charCounter.textContent = `${remaining}`;
+        charCounter.style.color = remaining <= 10 ? '#ff4444' : '#4a4a4a';
+        document.getElementById('sumbitBtn').disabled = remaining < 0;
+
+        if (lines.length > 10) messageInput.value = lines.slice(0, 10).join('\n');
     });
 
     // Mettre à jour les badges et les statistiques
