@@ -184,10 +184,18 @@ async function load() {
     });
 
     // Raccourci CTRL+Enter
-    document.getElementById('message').addEventListener('keydown', e => {
+    messageInput.addEventListener('keydown', e => {
         if (e.ctrlKey && e.key === 'Enter' && usernameInput.value) {
             e.preventDefault();
             document.getElementById('chatForm').dispatchEvent(new Event('submit'));
+        }
+    });
+
+    // Limiter le message à 10 lignes maximum
+    messageInput.addEventListener('input', () => {
+        const lines = messageInput.value.split('\n');
+        if (lines.length > 10) {
+            messageInput.value = lines.slice(0, 10).join('\n');
         }
     });
 
