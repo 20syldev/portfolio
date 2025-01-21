@@ -148,24 +148,39 @@ async function load() {
         }).format(date);
     };
 
+    // Transformer les liens en images ou cliquables
+    const transformMessage = (message) => {
+        const escapeHTML = str => str.replace(/[&<>"']/g, char => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[char]));
+    
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        return escapeHTML(message).replace(urlRegex, url => 
+            /\.(jpg|jpeg|png|gif)$/i.test(url) ? `<img src="${url}" style="max-width: 100px;">` : `<a href="${url}" target="_blank">${escapeHTML(url)}</a>`
+        );
+    };
+
     // Récupérer les informations stockées
     const fetchMessages = async () => {
         const res = await fetch('https://api.sylvain.pro/v1/chat');
         const data = res.ok ? await res.json() : [];
         const previousHeight = chatList.scrollHeight;
 
-        if (Array.isArray(data) && data.length !== 0) {
+        if (Array.isArray(data) && data.length) {
             if (JSON.stringify(data) !== JSON.stringify(lastMessages)) {
-                chatList.innerHTML = data.map(msg => `
-                    <tr>
-                        <td>${msg.username}</td>
-                        <td>${msg.message.replace(/\s+/g, ' ').trim() || ''}</td>
-                        <td class="has-text-right">${formatDate(msg.timestamp)}</td>
-                    </tr>
-                `).join('');
+                chatList.innerHTML = data.map(msg => {
+                    const newMsg = transformMessage(msg.message.replace(/\s+/g, ' ').trim());
+                    return newMsg ? `
+                        <tr>
+                            <td>${msg.username}</td>
+                            <td>${newMsg}</td>
+                            <td class="has-text-right">${formatDate(msg.timestamp)}</td>
+                        </tr>
+                    ` : '';
+                }).join('');
                 lastMessages = data;
             }
-        } else if (lastMessages.length !== 0) {
+        } else if (lastMessages.length) {
             chatList.innerHTML = '<tr><td rowspan="3">Aucun message pour le moment.</td></tr>';
             lastMessages = [];
         }
