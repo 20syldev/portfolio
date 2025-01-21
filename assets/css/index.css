@@ -15,7 +15,9 @@
     --menu-chat-bg: #fff;
     --menu-chat-color: #444;
     --menu-chat-placeholder-color: #444444aa;
+    --input-border-focus: #4258ff;
     --icon-sparkles: url('../icons/sparkles-light.svg');
+    --error: #ff4444;
 }
 
 /* Mode sombre */
@@ -33,7 +35,9 @@
     --menu-chat-bg: #14161a;
     --menu-chat-color: #aaa;
     --menu-chat-placeholder-color: #666666aa;
+    --input-border-focus: #4258ff;
     --icon-sparkles: url('../icons/sparkles-dark.svg');
+    --error: #ff6666;
 }
 
 * {
@@ -380,6 +384,24 @@ a {
 }
 .chat td:nth-child(1), .chat td:nth-child(3) { width: 20%; }
 .chat td:nth-child(2) { width: 60%; max-width: 500px;}
+
+/* Auto remplissage des inputs */
+input:-webkit-autofill {
+    caret-color: var(--bg-invert) !important;
+    border: 0.6px solid var(--input-border-focus) !important;
+    box-shadow: 0 0 0px 1000px var(--menu-chat-bg) inset, 0 0 5px 1px var(--input-border-focus) !important;
+    -webkit-text-fill-color: var(--bg-invert) !important;
+}
+input:-webkit-autofill.input-error {
+    border: 0.6px solid var(--error) !important;
+    box-shadow: 0 0 0px 1000px var(--menu-chat-bg) inset !important;
+}
+
+/* Erreur input */
+.input-error {
+    border: 1px solid var(--error);
+    background: var(--bg);
+}
 
 /* Compteur de caractères */
 .counter {
