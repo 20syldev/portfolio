@@ -754,13 +754,14 @@
 
                     <div class="field">
                         <label class="label">Message</label>
-                        <div class="control">
-                            <textarea class="textarea" id="message" placeholder="Entrez votre message" required maxlength="500"></textarea>
+                        <div class="control" style="position: relative;">
+                            <textarea class="textarea" id="message" placeholder="Entrez votre message" required></textarea>
+                            <span class="counter" id="charCounter">500</span>
                         </div>
                     </div>
 
                     <div class="control">
-                        <button class="button is-primary" type="submit">Envoyer</button>
+                        <button class="button is-primary" type="submit" id="submitBtn">Envoyer</button>
                     </div>
                 </form>
             </div>
