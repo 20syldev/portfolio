@@ -159,7 +159,7 @@ async function load() {
                 chatList.innerHTML = data.map(msg => `
                     <tr>
                         <td>${msg.username}</td>
-                        <td>${msg.message.replace(/\n/g, '<br>')}</td>
+                        <td>${msg.message.replace(/\s+/g, ' ').trim() || ''}</td>
                         <td class="has-text-right">${formatDate(msg.timestamp)}</td>
                     </tr>
                 `).join('');
