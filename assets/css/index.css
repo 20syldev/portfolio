@@ -381,6 +381,15 @@ a {
 .chat td:nth-child(1), .chat td:nth-child(3) { width: 20%; }
 .chat td:nth-child(2) { width: 60%; max-width: 500px;}
 
+/* Compteur de caractères */
+.counter {
+    position: absolute;
+    bottom: 8px;
+    right: 12px;
+    font-size: 14px;
+    color: var(--bg-invert);
+}
+
 /* Liens au survol */
 .description a:hover, .bottom a:hover, .chat a:hover {
     text-decoration: underline;
