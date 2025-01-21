@@ -94,6 +94,13 @@ async function load() {
     ];
     let i = 0;
 
+    // Générer un ID de session ou récupérer celui existant
+    const session = localStorage.getItem('session') || (() => {
+        const id = crypto.randomUUID();
+        localStorage.setItem('session', id);
+        return id;
+    })();
+
     // Afficher les versions
     Object.entries(versions).forEach(([id, value]) => {
         const el = document.getElementById(id + '-version');
@@ -217,18 +224,40 @@ async function load() {
     // Stocker les données dans l'API
     document.getElementById('chatForm').addEventListener('submit', async e => {
         e.preventDefault();
+
+        const username = usernameInput.value.trim();
+        const message = messageInput.value.trim();
+        const usernameError = document.getElementById('usernameError');
+
+        if (!username || !message) return;
         if (messageInput.value.length > maxChars) return;
 
-        await fetch('https://api.sylvain.pro/v1/chat', { 
-            method: 'POST', 
-            headers: { 'Content-Type': 'application/json' }, 
-            body: JSON.stringify({ username: usernameInput.value, message: messageInput.value })
-        });
+        try {
+            const response = await fetch('https://api.sylvain.pro/v1/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username,
+                    message,
+                    session
+                }),
+            });
 
-        messageInput.value = '';
-        charCounter.textContent = `${maxChars}`;
-        charCounter.style.color = '#4a4a4a';
-        fetchMessages();
+            const result = await response.json();
+
+            if (result.error == 'Session ID mismatch') {
+                usernameInput.classList.add('input-error');
+                usernameError.classList.remove('is-hidden');
+            } else {
+                usernameInput.readOnly = true;
+                usernameInput.classList.remove('input-error');
+                usernameError.classList.add('is-hidden');
+                messageInput.value = '';
+                fetchMessages();
+            }
+        } catch (error) { console.error('Erreur réseau ou serveur :', error); }
     });
 
     // Raccourci CTRL+Enter
@@ -239,21 +268,13 @@ async function load() {
         }
     });
 
-    // Limiter le message à 10 lignes maximum
-    messageInput.addEventListener('input', () => {
-        const lines = messageInput.value.split('\n');
-        if (lines.length > 10) {
-            messageInput.value = lines.slice(0, 10).join('\n');
-        }
-    });
-
+    // Limiter à 10 lignes maximum et 500 caractères
     messageInput.addEventListener('input', () => {
         const lines = messageInput.value.split('\n');
         const remaining = maxChars - messageInput.value.length;
 
         charCounter.textContent = `${remaining}`;
-        charCounter.style.color = remaining <= 10 ? '#ff4444' : '#4a4a4a';
-        document.getElementById('sumbitBtn').disabled = remaining < 0;
+        charCounter.style.color = remaining <= 10 ? 'var(--error)' : '';
 
         if (lines.length > 10) messageInput.value = lines.slice(0, 10).join('\n');
     });
