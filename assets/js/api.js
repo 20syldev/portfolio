@@ -37,7 +37,7 @@ function handleQuestion() {
     // Réponses
     if (keywords.salut.some(k => question.includes(k))) result = 'Salut !';
     else if (keywords.fais_quoi.some(k => question.includes(k))) result = 'Je suis un assistant pour vous aider à obtenir des informations sur les projets de Sylvain.';
-    else if (keywords.qui_es_tu.some(k => question.includes(k))) result = 'Je suis une intelligence artificielle pour vous aider à obtenir des informations sur les projets de Sylvain.';
+    else if (keywords.qui_es_tu.some(k => question.includes(k))) result = 'Moi c\'est Bep, je suis un mini chatbot créé par Sylvain.';
     else if (keywords.projets.some(k => question.includes(k))) {
         result = `Nouveaux projets : ${apiData.new_projects.map(project => 
             `<a href="https://github.com/20syldev/${project}#readme"><span class="tag is-hoverable">${project}</span></a>`
