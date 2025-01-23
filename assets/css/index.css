@@ -17,6 +17,7 @@
     --menu-chat-placeholder-color: #444444aa;
     --input-border-focus: #4258ff;
     --icon-sparkles: url('../icons/sparkles-light.svg');
+    --check: #21da86;
     --error: #ff4444;
 }
 
@@ -37,6 +38,7 @@
     --menu-chat-placeholder-color: #666666aa;
     --input-border-focus: #4258ff;
     --icon-sparkles: url('../icons/sparkles-dark.svg');
+    --check: #30ca85;
     --error: #ff6666;
 }
 
@@ -368,6 +370,14 @@ a {
     font-weight: bold;
 }
 
+/* Définir des largeurs */
+.w-20 {
+    width: 20%;
+}
+.w-60 {
+    width: 60%;
+}
+
 /* Icônes */
 .icon {
     width: 1em;
@@ -376,8 +386,15 @@ a {
     pointer-events: none;
     transition: 0.5s ease;
 }
+.fa-circle-check {
+    color: var(--check);
+}
 
 /* Style des messages du chat */
+.chat-container {
+    max-height: 200px; 
+    overflow-y: auto;
+}
 .chat td {
     word-wrap: break-word;
     white-space: normal;
