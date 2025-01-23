@@ -15,7 +15,7 @@
     <div class="notification p-2">
         <div class="is-flex is-align-items-center">
             <p class="mr-3"><span class="text-notif">...</span></p>
-            <button style="cursor: pointer;" onclick="hideNotification();">
+            <button onclick="hideNotification();">
                 <i class="fa-solid fa-times"></i>
             </button>
         </div>
@@ -55,7 +55,7 @@
             <p class="menu-label">Poser une question</p>
             <div>
                 <input type="text" class="question" id="question" placeholder="Quelle est la version de..." onkeydown="if(event.key === 'Enter') handleQuestion();">
-                <p class="response" id="response" style="display: none;"></p>
+                <p class="response is-hidden" id="response"></p>
             </div>
         </aside>
     </div>
@@ -271,7 +271,7 @@
 
                         <!-- API -->
                         <div class="card">
-                            <span class="tag is-link info" id="api" style="display: none;"></span>
+                            <span class="tag is-link info is-hidden" id="api"></span>
                             <header class="card-header">
                                 <p class="card-header-title">
                                     <span>API</span>
@@ -299,7 +299,7 @@
 
                         <!-- Logs -->
                         <div class="card">
-                            <span class="tag is-link info" id="logs" style="display: none;"></span>
+                            <span class="tag is-link info is-hidden" id="logs"></span>
                             <header class="card-header">
                                 <p class="card-header-title">
                                     <span>Logs</span>
@@ -327,7 +327,7 @@
 
                         <!-- Flowers -->
                         <div class="card">
-                            <span class="tag is-link info" id="flowers" style="display: none;"></span>
+                            <span class="tag is-link info is-hidden" id="flowers"></span>
                             <header class="card-header">
                                 <p class="card-header-title">
                                     <span>Flowers</span>
@@ -355,7 +355,7 @@
 
                         <!-- Terminal -->
                         <div class="card">
-                            <span class="tag is-link info" id="terminal" style="display: none;"></span>
+                            <span class="tag is-link info is-hidden" id="terminal"></span>
                             <header class="card-header">
                                 <p class="card-header-title">
                                     <span>Terminal</span>
@@ -367,7 +367,7 @@
                                         <span class="tag">PC</span>
                                         <span class="tag">Mobile</span>
                                     </span>
-                                    <i class="fa-solid fa-circle-check ml-2 mt-0" style="color: #48c78e;"></i>
+                                    <i class="fa-solid fa-circle-check ml-2 mt-0"></i>
                                 </p>
                             </header>
                             <div class="card-content">
@@ -384,7 +384,7 @@
 
                         <!-- Portfolio -->
                         <div class="card">
-                            <span class="tag is-link info" id="portfolio" style="display: none;"></span>
+                            <span class="tag is-link info is-hidden" id="portfolio"></span>
                             <header class="card-header">
                                 <p class="card-header-title">
                                     <span>Portfolio</span>
@@ -416,7 +416,7 @@
 
                         <!-- Docs -->
                         <div class="card">
-                            <span class="tag is-link info" id="docs" style="display: none;"></span>
+                            <span class="tag is-link info is-hidden" id="docs"></span>
                             <header class="card-header">
                                 <p class="card-header-title">
                                     <span>Docs</span>
@@ -428,7 +428,7 @@
                                         <span class="tag">PC</span>
                                         <span class="tag">Mobile</span>
                                     </span>
-                                    <i class="fa-solid fa-circle-check ml-2 mt-0" style="color: #48c78e;"></i>
+                                    <i class="fa-solid fa-circle-check ml-2 mt-0"></i>
                                 </p>
                             </header>
                             <div class="card-content">
@@ -445,7 +445,7 @@
 
                         <!-- Digit -->
                         <div class="card">
-                            <span class="tag is-link info" id="digit" style="display: none;"></span>
+                            <span class="tag is-link info is-hidden" id="digit"></span>
                             <header class="card-header">
                                 <p class="card-header-title">
                                     <span>Digit</span>
@@ -457,7 +457,7 @@
                                         <span class="tag">PC</span>
                                         <span class="tag">Mobile</span>
                                     </span>
-                                    <i class="fa-solid fa-circle-check ml-2 mt-0" style="color: #48c78e;"></i>
+                                    <i class="fa-solid fa-circle-check ml-2 mt-0"></i>
                                 </p>
                             </header>
                             <div class="card-content">
@@ -474,7 +474,7 @@
 
                         <!-- Readme -->
                         <div class="card">
-                            <span class="tag is-link info" id="readme" style="display: none;"></span>
+                            <span class="tag is-link info is-hidden" id="readme"></span>
                             <header class="card-header">
                                 <p class="card-header-title">
                                     <span>Readme</span>
@@ -486,7 +486,7 @@
                                         <span class="tag">PC</span>
                                         <span class="tag">Mobile</span>
                                     </span>
-                                    <i class="fa-solid fa-circle-check ml-2 mt-0" style="color: #48c78e;"></i>
+                                    <i class="fa-solid fa-circle-check ml-2 mt-0"></i>
                                 </p>
                             </header>
                             <div class="card-content">
@@ -503,7 +503,7 @@
 
                         <!-- Donut -->
                         <div class="card">
-                            <span class="tag is-link info" id="donut" style="display: none;"></span>
+                            <span class="tag is-link info is-hidden" id="donut"></span>
                             <header class="card-header">
                                 <p class="card-header-title">
                                     <span>Donut</span>
@@ -515,7 +515,7 @@
                                         <span class="tag">PC</span>
                                         <span class="tag">Mobile</span>
                                     </span>
-                                    <i class="fa-solid fa-circle-check ml-2 mt-0" style="color: #48c78e;"></i>
+                                    <i class="fa-solid fa-circle-check ml-2 mt-0"></i>
                                 </p>
                             </header>
                             <div class="card-content">
@@ -532,7 +532,7 @@
 
                         <!-- WrkIT -->
                         <div class="card">
-                            <span class="tag is-link info" id="wrkit" style="display: none;"></span>
+                            <span class="tag is-link info is-hidden" id="wrkit"></span>
                             <header class="card-header">
                                 <p class="card-header-title">
                                     <span>WrkIT</span>
@@ -559,7 +559,7 @@
 
                         <!-- Old Database -->
                         <div class="card">
-                            <span class="tag is-link info" id="old_database" style="display: none;"></span>
+                            <span class="tag is-link info is-hidden" id="old_database"></span>
                             <header class="card-header">
                                 <p class="card-header-title">
                                     <span>Database</span>
@@ -591,7 +591,7 @@
 
                         <!-- GemSync -->
                         <div class="card">
-                            <span class="tag is-link info" id="gemsync" style="display: none;"></span>
+                            <span class="tag is-link info is-hidden" id="gemsync"></span>
                             <header class="card-header">
                                 <p class="card-header-title">
                                     <span>GemSync</span>
@@ -603,7 +603,7 @@
                                         <span class="tag">PC</span>
                                         <span class="tag">Mobile</span>
                                     </span>
-                                    <i class="fa-solid fa-circle-check ml-2 mt-0" style="color: #48c78e;"></i>
+                                    <i class="fa-solid fa-circle-check ml-2 mt-0"></i>
                                 </p>
                             </header>
                             <div class="card-content">
@@ -621,7 +621,7 @@
 
                         <!-- GitSite -->
                         <div class="card">
-                            <span class="tag is-link info" id="gitsite" style="display: none;"></span>
+                            <span class="tag is-link info is-hidden" id="gitsite"></span>
                             <header class="card-header">
                                 <p class="card-header-title">
                                     <span>GitSite</span>
@@ -632,7 +632,7 @@
                                         <span class="tag">HTML/CSS/JS</span>
                                         <span class="tag">PC</span>
                                     </span>
-                                    <i class="fa-solid fa-circle-check ml-2 mt-0" style="color: #48c78e;"></i>
+                                    <i class="fa-solid fa-circle-check ml-2 mt-0"></i>
                                 </p>
                             </header>
                             <div class="card-content">
@@ -650,7 +650,7 @@
 
                         <!-- Coop -->
                         <div class="card">
-                            <span class="tag is-link info" id="doc_coopbot" style="display: none;"></span>
+                            <span class="tag is-link info is-hidden" id="doc_coopbot"></span>
                             <header class="card-header">
                                 <p class="card-header-title">
                                     <span>Coop</span>
@@ -678,7 +678,7 @@
 
                         <!-- Coop Status -->
                         <div class="card">
-                            <span class="tag is-link info" id="coop_status" style="display: none;"></span>
+                            <span class="tag is-link info is-hidden" id="coop_status"></span>
                             <header class="card-header">
                                 <p class="card-header-title">
                                     <span>Coop Status</span>
@@ -706,7 +706,7 @@
 
                         <!-- NitroGen -->
                         <div class="card">
-                            <span class="tag is-link info" id="nitrogen" style="display: none;"></span>
+                            <span class="tag is-link info is-hidden" id="nitrogen"></span>
                             <header class="card-header">
                                 <p class="card-header-title">
                                     <span>NitroGen</span>
@@ -755,7 +755,7 @@
 
                     <div class="field">
                         <label class="label">Message</label>
-                        <div class="control" style="position: relative;">
+                        <div class="control">
                             <textarea class="textarea" id="message" placeholder="Entrez votre message" required></textarea>
                             <span class="counter" id="charCounter">500</span>
                         </div>
@@ -772,13 +772,13 @@
                         <th colspan="3" class="has-text-centered title is-5">Discussion globale</th>
                     </tr>
                     <tr>
-                        <th style="width: 20%;">Utilisateur</th>
-                        <th style="width: 60%;">Message</th>
+                        <th class="w-20">Utilisateur</th>
+                        <th class="w-60">Message</th>
                         <th class="has-text-right"></th>
                     </tr>
                 </thead>
             </table>
-            <div id="chatContainer" style="max-height: 200px; overflow-y: auto;">
+            <div class="chat-container" id="chatContainer">
                 <table class="table is-fullwidth">
                     <tbody class="chat" id="chatList"></tbody>
                 </table>
