@@ -71,7 +71,7 @@ function handleQuestion() {
 
     // Afficher la réponse
     questionInput.value = '';
-    responseElement.style.display = 'block';
+    responseElement.classList.remove('is-hidden');
     responseElement.innerHTML = result;
 }
 
@@ -116,7 +116,7 @@ async function load() {
                 li.innerHTML = `<a href='#${project}'>${project.charAt(0).toUpperCase() + project.slice(1)}</a>`;
                 section.appendChild(li);
             });
-        } else section.style.display = 'none';
+        } else section.classList.add('is-hidden');
     });
 
     // Afficher les informations
@@ -143,7 +143,7 @@ async function load() {
             const badge = document.getElementById(project);
             if (badge) {
                 badge.innerHTML = label;
-                badge.style.display = '';
+                badge.classList.remove('is-hidden');
             }
         });
     };
