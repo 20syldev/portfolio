@@ -255,6 +255,7 @@ async function load() {
                 usernameInput.classList.remove('input-error');
                 usernameError.classList.add('is-hidden');
                 messageInput.value = '';
+                charCounter.textContent = maxChars;
                 fetchMessages();
             }
         } catch (error) { console.error('Erreur réseau ou serveur :', error); }
