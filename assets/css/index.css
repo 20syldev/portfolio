@@ -505,6 +505,11 @@ input:-webkit-autofill.input-error {
         font-size: 10px;
     }
 
+    /* Notifications du chat */
+    .field.is-grouped {
+        display: none;
+    }
+
     /* Copyright */
     .bottom {
         font-size: 0.8em;
