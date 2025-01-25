@@ -427,14 +427,16 @@ input[type="radio"] {
 
 /* Auto remplissage des inputs */
 input:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px var(--menu-chat-bg) inset !important;
     caret-color: var(--bg-invert) !important;
-    border: 0.6px solid var(--input-border-focus) !important;
-    box-shadow: 0 0 0px 1000px var(--menu-chat-bg) inset, 0 0 5px 1px var(--input-border-focus) !important;
     -webkit-text-fill-color: var(--bg-invert) !important;
 }
+input:-webkit-autofill:focus {
+    box-shadow: 0 0 0px 1000px var(--menu-chat-bg) inset, 0 0 5px 1px var(--input-border-focus) !important;
+}
 input:-webkit-autofill.input-error {
-    border: 0.6px solid var(--error) !important;
     box-shadow: 0 0 0px 1000px var(--menu-chat-bg) inset !important;
+    border: 0.6px solid var(--error) !important;
 }
 
 /* Erreur input */
