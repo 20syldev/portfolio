@@ -402,6 +402,29 @@ a {
 .chat td:nth-child(1), .chat td:nth-child(3) { width: 20%; }
 .chat td:nth-child(2) { width: 60%; max-width: 500px;}
 
+/* Coche et radio */
+input[type="checkbox"],
+input[type="radio"] {
+    display: inline-block;
+    vertical-align: middle;
+    appearance: none;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    margin: 0 5px 2.7px 0;
+    border: 2px solid var(--menu-list-bg);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
+    background: var(--menu-list-bg);
+    border-color: var(--menu-list-bg);
+}
+input[type="radio"] {
+    border-radius: 100%;
+}
+
 /* Auto remplissage des inputs */
 input:-webkit-autofill {
     caret-color: var(--bg-invert) !important;
