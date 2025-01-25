@@ -1,4 +1,6 @@
-let apiData = null, wait = false, lastMessages = [];
+let apiData = null,  wait = false, userMessage = false, lastMessages = [];
+let notifEnabled = localStorage.getItem('notifEnabled') === 'true';
+let notifMode = localStorage.getItem('notifMode') || 'classic';
 
 // Récupérer les données de l'API
 async function fetchData() {
@@ -80,12 +82,22 @@ async function load() {
     if (!apiData) return;
 
     const { versions, updated_projects, new_projects, stats, notif_tag, active } = apiData;
+
+    // Notifications de chat
+    const radioClassic = document.querySelector('input[name="priority"][value="classic"]');
+    const radioCompact = document.querySelector('input[name="priority"][value="compact"]');
+    const activateNotifications = document.getElementById('activateNotifications');
+
+    // Chat
     const chatContainer = document.getElementById('chatContainer');
     const charCounter = document.getElementById('charCounter');
+    const chatForm = document.getElementById('chatForm');
     const chatList = document.getElementById('chatList');
     const messageInput = document.getElementById('message');
     const usernameInput = document.getElementById('username');
     const maxChars = 500;
+
+    // Titres des statistiques
     const titles = [
         { title: "Projets", stats: "projects" },
         { title: "Contributions aujourd'hui", stats: "today" },
@@ -148,6 +160,21 @@ async function load() {
         });
     };
 
+    // Afficher une notification de chat
+    const showNotification = (title, message) => {
+        if (notifEnabled && Notification.permission === 'granted') {
+            const options = {
+                body: message,
+                icon: notifMode === 'classic' ? '/assets/images/logo.png' : '',
+                silent: notifMode === 'classic' ? true : false,
+                vibrate: notifMode === 'classic' ? [100, 100, 100] : null,
+            };
+            const notif = new Notification(title, options);
+            notif.onclick = () => (window.focus(), notif.close());
+            setTimeout(() => notif.close(), 5000);
+        }
+    };
+
     // Afficher proprement la date
     const formatDate = (timestamp) => {
         const date = new Date(timestamp);
@@ -200,6 +227,7 @@ async function load() {
                     lastUsername = username;
                 });
 
+                chatContainer.style.height = '300px';
                 chatList.innerHTML = groupedMessages.map(({ username, messages, timestamp }) => `
                     <tr>
                         <td>${username}</td>
@@ -207,9 +235,23 @@ async function load() {
                         <td class="has-text-right">${formatDate(timestamp)}</td>
                     </tr>
                 `).join('');
+
+                if (lastMessages.length < data.length && !userMessage && lastMessages.length > 0) {
+                    const { username, message } = data[data.length - 1];
+                    const titles = [
+                        `${username} vient d'envoyer un message`,
+                        `${username} a envoyé un message`,
+                        `Nouveau message de ${username}`,
+                    ];
+                    if (username !== usernameInput.value) {
+                        showNotification(titles[Math.floor(Math.random() * titles.length)], message);
+                    }
+                }
+
                 lastMessages = data;
             }
         } else {
+            chatContainer.style.height = '40px';
             chatList.innerHTML = '<tr><td rowspan="3">Aucun message pour le moment.</td></tr>';
             lastMessages = [];
         }
@@ -221,8 +263,21 @@ async function load() {
     document.querySelector('.notification').style.display = active === 'true' ? '' : 'none';
     if (active === 'true') document.querySelector('.text-notif').innerHTML = notif_tag;
 
+    // Demander la permission pour les notifications
+    activateNotifications.addEventListener('change', async () => {
+        if (activateNotifications.checked) {
+            const permission = await Notification.requestPermission();
+            if (permission === 'granted') notifEnabled = true;
+            else {
+                activateNotifications.checked = false;
+                notifEnabled = false;
+            }
+        } else notifEnabled = false;
+        localStorage.setItem('notifEnabled', notifEnabled);
+    });
+
     // Stocker les données dans l'API
-    document.getElementById('chatForm').addEventListener('submit', async e => {
+    chatForm.addEventListener('submit', async e => {
         e.preventDefault();
 
         const username = usernameInput.value.trim();
@@ -233,6 +288,7 @@ async function load() {
         if (messageInput.value.length > maxChars) return;
 
         try {
+            userMessage = true;
             const response = await fetch('https://api.sylvain.pro/v1/chat', {
                 method: 'POST',
                 headers: {
@@ -258,14 +314,15 @@ async function load() {
                 charCounter.textContent = maxChars;
                 fetchMessages();
             }
-        } catch (error) { console.error('Erreur réseau ou serveur :', error); }
+        } catch (error) { console.error('Erreur réseau ou serveur :', error);
+        } finally { userMessage = false; }
     });
 
     // Raccourci CTRL+Enter
     messageInput.addEventListener('keydown', e => {
         if (e.ctrlKey && e.key === 'Enter' && usernameInput.value) {
             e.preventDefault();
-            document.getElementById('chatForm').dispatchEvent(new Event('submit'));
+            chatForm.dispatchEvent(new Event('submit'));
         }
     });
 
@@ -279,6 +336,29 @@ async function load() {
 
         if (lines.length > 10) messageInput.value = lines.slice(0, 10).join('\n');
     });
+
+    // Changer le mode de notification pour classique
+    radioClassic.addEventListener('change', () => {
+        if (radioClassic.checked) {
+            notifMode = 'classic';
+            localStorage.setItem('notifMode', 'classic');
+        }
+    });
+
+    // Changer le mode de notification pour compact
+    radioCompact.addEventListener('change', () => {
+        if (radioCompact.checked) {
+            notifMode = 'compact';
+            localStorage.setItem('notifMode', 'compact');
+        }
+    });
+
+    // Cocher ou non au chargement
+    activateNotifications.checked = notifEnabled;
+
+    // Sélectionner le mode de notification au chargement
+    if (notifMode === 'compact') radioCompact.checked = true;
+    else radioClassic.checked = true;
 
     // Mettre à jour les badges et les statistiques
     changeTag(updated_projects, 'UPDATED');
