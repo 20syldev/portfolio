@@ -761,8 +761,27 @@
                         </div>
                     </div>
 
-                    <div class="control">
-                        <button class="button is-primary" type="submit">Envoyer</button>
+                    <div class="field is-flex is-justify-content-space-between is-align-items-center">
+                        <div class="control">
+                            <button class="button is-primary" type="submit">Envoyer</button>
+                        </div>
+                        <div class="field is-grouped">
+                            <div class="control mr-4">
+                                <label class="checkbox">
+                                    <input type="checkbox" id="activateNotifications"> Notifications
+                                </label>
+                            </div>
+                            <div class="control">
+                                <label class="radio">
+                                    <input type="radio" name="priority" value="classic" checked> Classique
+                                </label>
+                            </div>
+                            <div class="control">
+                                <label class="radio">
+                                    <input type="radio" name="priority" value="compact"> Compact
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
