@@ -74,14 +74,22 @@ a {
     transition: transform 0.8s ease-in-out;
 }
 
-/* Notification au changement de thème */
-.theme-notif {
-    display: none; 
+/* Éléments de bas de page */
+.theme-notif, .switch-btn, .menu-btn, .home-btn {
     position: fixed;
     bottom: 15px;
+    color: var(--menu-list-bg);
+    z-index: 1001;
+}
+.switch-btn:hover, .menu-btn:hover, .home-btn:hover {
+    filter: brightness(150%);
+}
+
+/* Notification au changement de thème */
+.theme-notif {
+    display: none;
     left: 60px;
     font-size: 14px;
-    z-index: 1001;
     opacity: 0;
 }
 .theme-notif.show {
@@ -92,34 +100,22 @@ a {
     animation: bounceOut 0.6s ease-in forwards;
 }
 
-/* Bouton pour changer de thème */
+/* Changer de thème */
 .switch-btn {
-    position: fixed;
-    bottom: 15px;
     left: 25px;
     background: none;
     border: none;
     border-radius: 100px;
-    z-index: 1001;
     transition: 1s ease-in-out;
 }
-.switch-btn:hover {
-    filter: brightness(150%);
-}
 
-/* Bouton pour ouvrir le menu */
-.menu-btn {
-    position: fixed;
-    bottom: 15px;
+/* Ouvrir le menu ou retourner à l'accueil */
+.menu-btn, .home-btn {
     right: 25px;
     background: none;
     border: none;
     border-radius: 100px;
-    z-index: 1001;
     transition: 1s ease-in-out;
-}
-.menu-btn:hover {
-    filter: brightness(150%);
 }
 .menu-btn.is-visible {
     transform: translateX(-200px) rotate(180deg);
