@@ -56,6 +56,10 @@ a {
     border-radius: 2px;
 }
 
+pre {
+    border-radius: 10px;
+}
+
 /* Notification au chargement*/
 .notification {
     position: fixed;
