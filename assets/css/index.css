@@ -263,6 +263,10 @@ pre {
     box-shadow: none;
     transform: translate(2px, 2px);
 }
+.button.disabled {
+    pointer-events: none;
+    opacity: 0.2;
+}
 /* Étoiles sur les boutons */
 .button::before, .button::after {
     content: '';
