@@ -165,9 +165,7 @@ async function load() {
         if (notifEnabled && Notification.permission === 'granted') {
             const options = {
                 body: message,
-                icon: notifMode === 'classic' ? '/assets/images/logo.png' : '',
-                silent: notifMode === 'classic' ? true : false,
-                vibrate: notifMode === 'classic' ? [100, 100, 100] : null,
+                icon: notifMode === 'classic' ? '/assets/images/logo.png' : ''
             };
             const notif = new Notification(title, options);
             notif.onclick = () => (window.focus(), notif.close());
