@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Sylvain L. - Veille Technologique</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"/>
+    <link rel="stylesheet" href="assets/css/index.css"/>
+    <link rel="icon shortcut" href="assets/images/logo.png"/>
+</head>
+<body>
+    <!-- Notification de changement de thème -->
+    <div class="theme-notif"></div>
+
+    <!-- Bouton pour changer de thème -->
+    <button class="switch-btn"></button>
+
+    <!-- À propos -->
+    <section class="section" id="about">
+        <div class="section-heading mb-0">
+            <h3 class="title is-2 mb-1">Veille Technologique</h3>
+            <h4 class="subtitle is-5">Actualités sur React 18</h4>
+            <div class="container description">
+                <p>
+                    Cette année, j'ai décidé de faire une veille technologique pour suivre les dernières actualités de React, un framework JavaScript pour la création de sites web interactifs.<br>
+                    Il s'agit d'une veille qui sera mise à jour régulièrement pour refléter les dernières évolutions de ce framework.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- React 18 -->
+    <section class="section" id="projets">
+        <div class="container">
+            <div class="card">
+                <span class="tag is-link info" id="version">React 18</span>
+                <div class="box">
+                    <div class="content description">
+                        <h4 class="title is-4">À propos de React</h4>
+                        <p>
+                            React est un framework JavaScript pour la création de sites web interactifs. Créé par Facebook en 2011, il est utilisé par des millions de développeurs dans le monde entier pour construire des interfaces utilisateur dynamiques et performantes.
+                        </p>
+
+                        <h4 class="title is-4 mt-6">Les nouveautés de React 18</h4>
+                        <ul>
+                            <li><strong>Concurrent Rendering :</strong> Une nouvelle architecture permettant de rendre des parties de l'interface utilisateur de manière non bloquante, ce qui améliore la réactivité.</li>
+                            <li><strong>Suspense amélioré :</strong> Une gestion optimisée des chargements de données, notamment pour les requêtes asynchrones.</li>
+                            <li><strong>Automatic Batching :</strong> Les mises à jour d'état regroupées automatiquement, réduisant les rendus inutiles et améliorant les performances globales.</li>
+                            <li><strong>Transitions :</strong> Une API pour gérer les changements d'état visuels et les interactions utilisateur de manière fluide.</li>
+                            <li><strong>Améliorations des hooks :</strong> Une meilleure gestion des hooks comme `useId`, utile pour les applications avec un rendu côté serveur.</li>
+                        </ul>
+
+                        <h4 class="title is-4 mt-6">Comparaison avec d'autres frameworks JS</h4>
+                        <p>
+                            React 18 se distingue par sa flexibilité et son écosystème robuste. Voici une comparaison rapide avec d'autres frameworks populaires :
+                        </p>
+                        <ul>
+                            <li><strong>Vue.js :</strong> Plus axé sur la simplicité et la réactivité, idéal pour les projets de petite à moyenne envergure.</li>
+                            <li><strong>Angular :</strong> Un framework complet avec une approche "tout-en-un", souvent préféré pour les grandes applications complexes.</li>
+                            <li><strong>Svelte :</strong> Très performant, sans virtual DOM, mais avec un écosystème plus restreint par rapport à React.</li>
+                        </ul>
+
+                        <h4 class="title is-4 mt-6">Pourquoi migrer vers React 18 ?</h4>
+                        <p>
+                            React 18 introduit des améliorations majeures en termes de performance, de gestion des états complexes et de compatibilité avec les outils modernes. Sa prise en charge des nouvelles fonctionnalités comme le rendu concurrent et Suspense le place à la pointe des frameworks JavaScript.
+                        </p>
+
+                        <h4 class="title is-4 mt-6">Tendances et avenir des frameworks JS</h4>
+                        <p>
+                            Avec l'émergence de nouveaux outils comme Svelte et SolidJS, et l'évolution continue des frameworks établis comme Vue.js et Angular, le paysage des frameworks JavaScript continue de se diversifier. React 18 reste un choix de premier plan grâce à sa grande communauté et à son écosystème étendu.
+                        </p>
+                        <p>
+                            Les tendances futures incluent une meilleure prise en charge des applications hybrides, des performances accrues et une intégration plus fluide avec les outils DevOps et CI/CD.
+                        </p>
+
+                        <h4 class="title is-4 mt-6">Ressources utiles</h4>
+                        <ul>
+                            <li><a href="https://react.dev" target="_blank">Documentation officielle de React</a></li>
+                            <li><a href="https://react.dev/blog/2022/03/29/react-v18" target="_blank">Annonce officielle de React 18</a></li>
+                            <li><a href="https://www.youtube.com/playlist?list=PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3" target="_blank">Tutoriels vidéos sur React 18</a></li>
+                            <li><a href="https://dev.to/" target="_blank">Articles et blogs techniques</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bas de page -->
+    <div class="has-text-centered p-4 bottom">
+        <p><strong>
+            <a href="/">sylvain.pro</a> &copy; 2024. Tous droits réservés.
+        </strong></p>
+    </div>
+
+    <!-- Charger le Js -->
+    <script type="text/javascript" src="assets/js/theme.js"></script>
+</body>
+</html>
