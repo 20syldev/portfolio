@@ -3,7 +3,7 @@ const notification = document.querySelector('.notification');
 
 // Mettre à jour la navigation du menu
 const updateMenu = () => {
-    const sections = ['skills', 'projets', 'chat', 'cv'];
+    const sections = ['skills', 'projets', 'global-chat', 'cv'];
     let activeId = window.scrollY === 0 ? 'about' : sections.find(id => {
         const rect = document.getElementById(id).getBoundingClientRect();
         return rect.top <= window.innerHeight / 8 && rect.bottom >= window.innerHeight / 8;
