@@ -1,4 +1,4 @@
-let apiData = null,  wait = false;
+let apiData = null, wait = false;
 
 // Récupérer les données de l'API
 async function fetchData() {
@@ -80,8 +80,7 @@ function load() {
     if (!apiData) return;
 
     const { versions, updated_projects, new_projects, stats, notif_tag, active } = apiData;
-
-    // Titres des statistiques
+    const notification = document.querySelector('.notification');
     const titles = [
         { title: "Projets", stats: "projects" },
         { title: "Contributions aujourd'hui", stats: "today" },
@@ -138,8 +137,11 @@ function load() {
     };
 
     // Afficher la notification ou non
-    document.querySelector('.notification').style.display = active === 'true' ? '' : 'none';
-    if (active === 'true') document.querySelector('.text-notif').innerHTML = notif_tag;
+    if (active === 'true') {
+        document.querySelector('.text-notif').innerHTML = notif_tag;
+        setTimeout(() => notification.classList.add('slide-in'), 3000);
+        setTimeout(() => notification.classList.replace('slide-in', 'slide-out'), 8000);
+    } else notification.style.display = 'none';
 
     // Mettre à jour les badges et les statistiques
     changeTag(updated_projects, 'UPDATED');
