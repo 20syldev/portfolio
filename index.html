@@ -812,7 +812,7 @@
                     <div class="field">
                         <label class="label">Nom d'utilisateur</label>
                         <div class="control">
-                            <input class="input" type="text" id="username" placeholder="Entrez votre nom d'utilisateur" required maxlength="10">
+                            <input type="text" class="input" id="username" placeholder="Entrez votre nom d'utilisateur" required maxlength="10">
                             <p class="help is-danger is-hidden" id="usernameError">Ce nom d'utilisateur est déjà utilisé.</p>
                         </div>
                     </div>
@@ -827,7 +827,8 @@
 
                     <div class="field is-flex is-justify-content-space-between is-align-items-center">
                         <div class="control">
-                            <button class="button is-primary mr-2" type="submit">Envoyer</button><a href="https://chat.sylvain.pro/new" class="button is-primary disabled">Créer un chat</a>
+                            <button type="submit" class="button is-primary mr-2">Envoyer</button>
+                            <button type="button" class="button is-primary" id="switchChat">...</a>
                         </div>
                         <div class="field is-grouped">
                             <div class="control mr-4">
