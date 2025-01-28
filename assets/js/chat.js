@@ -1,7 +1,16 @@
-let userMessage = false, lastMessages = [];
+let token, userMessage = false, lastMessages = [];
 let notifEnabled = localStorage.getItem('notifEnabled') === 'true';
 let notifMode = localStorage.getItem('notifMode') || 'classic';
+let chatMode = localStorage.getItem('chatMode') || 'global';
 let username = localStorage.getItem('username') || '';
+
+// Tokens
+const tokenTitle = document.getElementById('tokenTitle');
+const tokenInput = document.getElementById('token');
+const tokenError = document.getElementById('tokenError');
+const tokenSuccess = document.getElementById('tokenSuccess');
+const resetToken = document.getElementById('resetToken');
+const connectPrivate = document.getElementById('connectPrivate');
 
 // Notifications de chat
 const radioClassic = document.querySelector('input[name="priority"][value="classic"]');
@@ -16,6 +25,7 @@ const chatList = document.getElementById('chatList');
 const messageInput = document.getElementById('message');
 const usernameInput = document.getElementById('username');
 const usernameError = document.getElementById('usernameError');
+const switchChat = document.getElementById('switchChat');
 const maxChars = 500;
 
 // Générer un ID de session ou récupérer celui existant
@@ -73,7 +83,13 @@ const transformMessage = (message) => {
 
 // Récupérer les informations stockées
 const fetchMessages = async () => {
-    const res = await fetch('https://api.sylvain.pro/v1/chat');
+    const res = await fetch(`https://api.sylvain.pro/v1/chat${chatMode === 'private' ? '/private' : ''}`, {
+        method: chatMode === 'private' ? 'POST' : 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: chatMode === 'private' ? JSON.stringify({ token }) : undefined
+    });
     const data = res.ok ? await res.json() : [];
     const previousHeight = chatList.scrollHeight;
 
@@ -89,6 +105,14 @@ const fetchMessages = async () => {
                 else groupedMessages.push({ username, messages: [msg], timestamp });
                 lastUsername = username;
             });
+
+            if (chatMode === 'private') {
+                tokenInput.classList.add('input-success');
+                tokenInput.classList.remove('input-error');
+                tokenError.classList.add('is-hidden');
+                tokenSuccess.classList.remove('is-hidden');
+                tokenSuccess.textContent = 'Vous êtes en ligne !'
+            }
 
             chatContainer.style.overflowY = 'none';
             chatContainer.style.maxHeight = '300px';
@@ -117,10 +141,24 @@ const fetchMessages = async () => {
 
             lastMessages = data;
         }
-    } else {
+    } else if (data.error.includes('token')) {
+        if (chatMode === 'private' && tokenInput.value && token) {
+            tokenInput.classList.remove('input-success');
+            tokenInput.classList.add('input-error');
+            tokenSuccess.classList.add('is-hidden');
+            tokenError.classList.remove('is-hidden');
+            tokenError.textContent = 'Ce chat n\'est pas disponible, mais vous pouvez le créer en envoyant le premier message.'
+        }
+
         chatContainer.style.height = '40px';
-        chatList.innerHTML = '<tr><td rowspan="3">Aucun message pour le moment.</td></tr>';
+        chatList.innerHTML = '<tr><td rowspan="3">Vous n\'êtes connecté à aucun chat.</td></tr>';
         lastMessages = [];
+    } else {
+        if (chatList.innerHTML === '' || data.error.includes('stored')) {
+            chatContainer.style.height = '40px';
+            chatList.innerHTML = '<tr><td rowspan="3">Aucun message pour le moment.</td></tr>';
+            lastMessages = [];
+        }
     }
 
     if (chatContainer.scrollHeight > previousHeight) chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -148,6 +186,10 @@ chatForm.addEventListener('submit', async e => {
 
     if (!username || !message) return;
     if (messageInput.value.length > maxChars) return;
+    if (tokenInput) {
+        tokenInput.type = 'password';
+        token = tokenInput.value.trim() || null;
+    }
 
     try {
         userMessage = true;
