@@ -229,6 +229,26 @@ radioCompact.addEventListener('change', () => {
 // Cocher ou non au chargement
 activateNotifications.checked = notifEnabled;
 
+if (tokenInput && resetToken && connectPrivate) {
+    // Regenerate a new token
+    resetToken.addEventListener('click', () => {
+        tokenInput.value = crypto.randomUUID();
+        tokenInput.type = 'text';
+        tokenInput.classList.remove('input-success');
+        tokenInput.classList.add('input-error');
+        tokenSuccess.classList.add('is-hidden');
+        tokenError.classList.remove('is-hidden');
+        tokenError.textContent = 'Copiez cette clé mainenant ! Elle ne sera plus visible après la connexion !';
+    });
+
+    // Connect to private chat
+    connectPrivate.addEventListener('click', () => {
+        if (tokenInput.value) token = tokenInput.value;
+        tokenError.classList.add('is-hidden');
+        fetchMessages();
+    });
+}
+
 // If session active, display name in input & activate readonly
 if (username) usernameInput.value = username, usernameInput.readOnly = true;
 
