@@ -225,7 +225,7 @@ async function load() {
                     lastUsername = username;
                 });
 
-                chatContainer.style.height = `${Math.min(data.length * 37, 300)}px`;
+            chatContainer.style.maxHeight = '300px';
                 chatList.innerHTML = groupedMessages.map(({ username, messages, timestamp }) => `
                     <tr>
                         <td>${username}</td>
