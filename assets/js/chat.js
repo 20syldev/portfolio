@@ -1,6 +1,7 @@
 let userMessage = false, lastMessages = [];
 let notifEnabled = localStorage.getItem('notifEnabled') === 'true';
 let notifMode = localStorage.getItem('notifMode') || 'classic';
+let username = localStorage.getItem('username') || '';
 
 // Notifications de chat
 const radioClassic = document.querySelector('input[name="priority"][value="classic"]');
@@ -161,9 +162,11 @@ chatForm.addEventListener('submit', async e => {
         const result = await response.json();
 
         if (result.error == 'Session ID mismatch') {
+            localStorage.setItem('username', null);
             usernameInput.classList.add('input-error');
             usernameError.classList.remove('is-hidden');
         } else {
+            localStorage.setItem('username', username);
             usernameInput.readOnly = true;
             usernameInput.classList.remove('input-error');
             usernameError.classList.add('is-hidden');
@@ -212,6 +215,9 @@ radioCompact.addEventListener('change', () => {
 
 // Cocher ou non au chargement
 activateNotifications.checked = notifEnabled;
+
+// If session active, display name in input & activate readonly
+if (username) usernameInput.value = username, usernameInput.readOnly = true;
 
 // Sélectionner le mode de notification au chargement
 if (notifMode === 'compact') radioCompact.checked = true;
