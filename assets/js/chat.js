@@ -18,6 +18,7 @@ const radioCompact = document.querySelector('input[name="priority"][value="compa
 const activateNotifications = document.getElementById('activateNotifications');
 
 // Chat
+const discussion = document.getElementById('discussion');
 const chatContainer = document.getElementById('chatContainer');
 const charCounter = document.getElementById('charCounter');
 const chatForm = document.getElementById('chatForm');
@@ -245,6 +246,7 @@ messageInput.addEventListener('input', () => {
 
 const checkInputs = () => {
     switchChat.innerHTML = `<i class="fa-solid fa-${chatMode === 'private' ? 'earth-americas' : 'lock'} mr-2"></i>${chatMode === 'private' ? 'Chat global' : 'Chats privés'}`;
+    discussion.textContent = chatMode === 'private' ? 'Discussion privée' : 'Discussion globale';
     [tokenTitle, tokenInput, resetToken, connectPrivate, tokenError, tokenSuccess].forEach(el => el.classList.toggle('is-hidden', chatMode !== 'private'));
 };
 
