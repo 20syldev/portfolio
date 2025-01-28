@@ -147,7 +147,7 @@ chatForm.addEventListener('submit', async e => {
 
     try {
         userMessage = true;
-        const response = await fetch('https://api.sylvain.pro/v1/chat', {
+        const res = await fetch('https://api.sylvain.pro/v1/chat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -158,8 +158,7 @@ chatForm.addEventListener('submit', async e => {
                 session
             }),
         });
-
-        const result = await response.json();
+        const result = await res.json();
 
         if (result.error == 'Session ID mismatch') {
             localStorage.setItem('username', null);
