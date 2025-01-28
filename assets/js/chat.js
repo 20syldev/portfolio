@@ -90,7 +90,11 @@ const fetchMessages = async () => {
                 lastUsername = username;
             });
 
+            chatContainer.style.overflowY = 'none';
             chatContainer.style.maxHeight = '300px';
+            chatContainer.style.height = 'auto';
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
             chatList.innerHTML = groupedMessages.map(({ username, messages, timestamp }) => `
                 <tr>
                     <td>${username}</td>
