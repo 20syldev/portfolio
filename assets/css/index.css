@@ -444,6 +444,12 @@ input:-webkit-autofill.input-error {
     border: 0.6px solid var(--error) !important;
 }
 
+/* Succès input */
+.input-success {
+    border: 1px solid var(--check);
+    background: var(--bg);
+}
+
 /* Erreur input */
 .input-error {
     border: 1px solid var(--error);
