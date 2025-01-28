@@ -159,7 +159,8 @@ chatForm.addEventListener('submit', async e => {
             body: JSON.stringify({
                 username,
                 message,
-                session
+                session,
+                token
             }),
         });
         const result = await res.json();
