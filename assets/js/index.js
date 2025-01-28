@@ -1,5 +1,4 @@
 let menuToggled = false;
-const notification = document.querySelector('.notification');
 
 // Mettre à jour la navigation du menu
 const updateMenu = () => {
@@ -25,6 +24,7 @@ const showTag = (selector, text, iconClass) => {
 
 // Cache une notification avec une animation
 const hideNotification = () => {
+    const notification = document.querySelector('.notification');
     notification.classList.add('slide-out');
     setTimeout(() => notification.style.display = 'none', 1000);
 };
@@ -59,10 +59,6 @@ window.addEventListener('load', () => {
         }
         setTimeout(() => requestAnimationFrame(t => animate(t, t)), 500);
     });
-
-    // Notifications au chargement
-    setTimeout(() => notification.classList.add('slide-in'), 3000);
-    setTimeout(() => notification.classList.replace('slide-in', 'slide-out'), 8000);
 });
 
 // Fermeture du menu en cliquant en dehors
