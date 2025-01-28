@@ -15,6 +15,7 @@ const chatForm = document.getElementById('chatForm');
 const chatList = document.getElementById('chatList');
 const messageInput = document.getElementById('message');
 const usernameInput = document.getElementById('username');
+const usernameError = document.getElementById('usernameError');
 const maxChars = 500;
 
 // Générer un ID de session ou récupérer celui existant
@@ -140,7 +141,6 @@ chatForm.addEventListener('submit', async e => {
 
     const username = usernameInput.value.trim();
     const message = messageInput.value.trim();
-    const usernameError = document.getElementById('usernameError');
 
     if (!username || !message) return;
     if (messageInput.value.length > maxChars) return;
