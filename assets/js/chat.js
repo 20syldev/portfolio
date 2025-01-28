@@ -197,6 +197,19 @@ messageInput.addEventListener('input', () => {
     if (lines.length > 10) messageInput.value = lines.slice(0, 10).join('\n');
 });
 
+const checkInputs = () => {
+    switchChat.innerHTML = `<i class="fa-solid fa-${chatMode === 'private' ? 'earth-americas' : 'lock'} mr-2"></i>${chatMode === 'private' ? 'Chat global' : 'Chats privés'}`;
+    [tokenTitle, tokenInput, resetToken, connectPrivate, tokenError, tokenSuccess].forEach(el => el.classList.toggle('is-hidden', chatMode !== 'private'));
+};
+
+// Switch between global & private chat
+switchChat.addEventListener('click', () => {
+    chatMode = chatMode === 'private' ? 'global' : 'private';
+    localStorage.setItem('chatMode', chatMode);
+    checkInputs();
+    fetchMessages();
+});
+
 // Changer le mode de notification pour classique
 radioClassic.addEventListener('change', () => {
     if (radioClassic.checked) {
@@ -223,7 +236,7 @@ if (username) usernameInput.value = username, usernameInput.readOnly = true;
 if (notifMode === 'compact') radioCompact.checked = true;
 else radioClassic.checked = true;
 
-
 // Mettre à jour le chat
 setInterval(fetchMessages, 1000);
 fetchMessages();
+checkInputs();
