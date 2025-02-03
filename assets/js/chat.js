@@ -254,6 +254,7 @@ const checkInputs = () => {
 switchChat.addEventListener('click', () => {
     chatMode = chatMode === 'private' ? 'global' : 'private';
     localStorage.setItem('chatMode', chatMode);
+    tokenInput.value = '';
     checkInputs();
     fetchMessages();
 });
