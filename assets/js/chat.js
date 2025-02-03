@@ -296,6 +296,8 @@ radioCompact.addEventListener('change', () => {
 // Cocher ou non au chargement
 activateNotifications.checked = notifEnabled;
 
+// Activer ou non l'obligation de remplir
+tokenInput.required = chatMode === 'private' ? true : false;
 
 // If session active, display name in input & activate readonly
 if (username) usernameInput.value = username, usernameInput.readOnly = true;
