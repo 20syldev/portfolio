@@ -197,6 +197,7 @@ chatForm.addEventListener('submit', async (e) => {
     if (tokenInput) {
         tokenInput.type = 'password';
         token = tokenInput.value.trim() || null;
+        localStorage.setItem('token', token);
     }
 
     try {
@@ -274,7 +275,10 @@ resetToken.addEventListener('click', () => {
 
 // Connect to private chat
 connectPrivate.addEventListener('click', () => {
-    if (tokenInput.value) token = tokenInput.value;
+    if (tokenInput.value) {
+        token = tokenInput.value;
+        localStorage.setItem('token', token);
+    }
     tokenError.classList.add('is-hidden');
     fetchMessages();
 });
@@ -303,6 +307,9 @@ tokenInput.required = chatMode === 'private' ? true : false;
 
 // If session active, display name in input & activate readonly
 if (username) usernameInput.value = username, usernameInput.readOnly = true;
+
+// If token in localStorage, display in input
+if (token) tokenInput.value = token;
 
 // Sélectionner le mode de notification au chargement
 if (notifMode === 'compact') radioCompact.checked = true;
