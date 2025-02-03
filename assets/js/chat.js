@@ -189,16 +189,13 @@ activateNotifications.addEventListener('change', async () => {
 chatForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const username = usernameInput.value.trim();
+    username = usernameInput.value.trim();
     const message = messageInput.value.trim();
+    const sendToken = tokenInput && chatMode === 'private' ? tokenInput.value : null;
 
     if (!username || !message) return;
     if (messageInput.value.length > maxChars) return;
-    if (tokenInput) {
-        tokenInput.type = 'password';
-        token = tokenInput.value.trim() || null;
-        localStorage.setItem('token', token);
-    }
+    if (tokenInput) tokenInput.type = 'password', localStorage.setItem('token', tokenInput.value);
 
     try {
         userMessage = true;
@@ -211,7 +208,7 @@ chatForm.addEventListener('submit', async (e) => {
                 username,
                 message,
                 session,
-                token
+                token: sendToken,
             }),
         });
         const result = await res.json();
