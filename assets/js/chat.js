@@ -259,6 +259,24 @@ switchChat.addEventListener('click', () => {
     fetchMessages();
 });
 
+// Regenerate a new token
+resetToken.addEventListener('click', () => {
+    tokenInput.value = crypto.randomUUID();
+    tokenInput.type = 'text';
+    tokenInput.classList.remove('input-success');
+    tokenInput.classList.add('input-error');
+    tokenSuccess.classList.add('is-hidden');
+    tokenError.classList.remove('is-hidden');
+    tokenError.textContent = 'Copiez cette clé mainenant ! Elle ne sera plus visible après la connexion !';
+});
+
+// Connect to private chat
+connectPrivate.addEventListener('click', () => {
+    if (tokenInput.value) token = tokenInput.value;
+    tokenError.classList.add('is-hidden');
+    fetchMessages();
+});
+
 // Changer le mode de notification pour classique
 radioClassic.addEventListener('change', () => {
     if (radioClassic.checked) {
