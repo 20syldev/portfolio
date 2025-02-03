@@ -58,6 +58,12 @@ const formatDate = (timestamp) => {
     }).format(date);
 };
 
+const checkInputs = () => {
+    switchChat.innerHTML = `<i class="fa-solid fa-${chatMode === 'private' ? 'earth-americas' : 'lock'} mr-2"></i>${chatMode === 'private' ? 'Chat global' : 'Chats privés'}`;
+    discussion.textContent = chatMode === 'private' ? 'Discussion privée' : 'Discussion globale';
+    [tokenTitle, tokenInput, resetToken, connectPrivate, tokenError, tokenSuccess].forEach(el => el.classList.toggle('is-hidden', chatMode !== 'private'));
+};
+
 // Markdown & liens cliquables
 const transformMessage = (message) => {
     const escapeHTML = str => str.replace(/[&<>"']/g, char => ({
@@ -179,7 +185,7 @@ activateNotifications.addEventListener('change', async () => {
 });
 
 // Stocker les données dans l'API
-chatForm.addEventListener('submit', async e => {
+chatForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const username = usernameInput.value.trim();
@@ -244,12 +250,6 @@ messageInput.addEventListener('input', () => {
     if (lines.length > 10) messageInput.value = lines.slice(0, 10).join('\n');
 });
 
-const checkInputs = () => {
-    switchChat.innerHTML = `<i class="fa-solid fa-${chatMode === 'private' ? 'earth-americas' : 'lock'} mr-2"></i>${chatMode === 'private' ? 'Chat global' : 'Chats privés'}`;
-    discussion.textContent = chatMode === 'private' ? 'Discussion privée' : 'Discussion globale';
-    [tokenTitle, tokenInput, resetToken, connectPrivate, tokenError, tokenSuccess].forEach(el => el.classList.toggle('is-hidden', chatMode !== 'private'));
-};
-
 // Switch between global & private chat
 switchChat.addEventListener('click', () => {
     chatMode = chatMode === 'private' ? 'global' : 'private';
@@ -278,25 +278,6 @@ radioCompact.addEventListener('change', () => {
 // Cocher ou non au chargement
 activateNotifications.checked = notifEnabled;
 
-if (tokenInput && resetToken && connectPrivate) {
-    // Regenerate a new token
-    resetToken.addEventListener('click', () => {
-        tokenInput.value = crypto.randomUUID();
-        tokenInput.type = 'text';
-        tokenInput.classList.remove('input-success');
-        tokenInput.classList.add('input-error');
-        tokenSuccess.classList.add('is-hidden');
-        tokenError.classList.remove('is-hidden');
-        tokenError.textContent = 'Copiez cette clé mainenant ! Elle ne sera plus visible après la connexion !';
-    });
-
-    // Connect to private chat
-    connectPrivate.addEventListener('click', () => {
-        if (tokenInput.value) token = tokenInput.value;
-        tokenError.classList.add('is-hidden');
-        fetchMessages();
-    });
-}
 
 // If session active, display name in input & activate readonly
 if (username) usernameInput.value = username, usernameInput.readOnly = true;
