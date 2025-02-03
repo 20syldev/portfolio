@@ -1,8 +1,9 @@
-let token, userMessage = false, lastMessages = [];
+let userMessage = false, lastMessages = [];
 let notifEnabled = localStorage.getItem('notifEnabled') === 'true';
 let notifMode = localStorage.getItem('notifMode') || 'classic';
 let chatMode = localStorage.getItem('chatMode') || 'global';
 let username = localStorage.getItem('username') || '';
+let token = localStorage.getItem('token') || '';
 
 // Tokens
 const tokenTitle = document.getElementById('tokenTitle');
