@@ -96,7 +96,7 @@ const fetchMessages = async () => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: chatMode === 'private' ? JSON.stringify({ token }) : undefined
+        body: chatMode === 'private' ? JSON.stringify({ username, token }) : undefined
     });
     const data = res.ok ? await res.json() : [];
     const previousHeight = chatList.scrollHeight;
