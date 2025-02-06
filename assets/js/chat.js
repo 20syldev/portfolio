@@ -214,7 +214,7 @@ chatForm.addEventListener('submit', async (e) => {
         const result = await res.json();
 
         if (result.error == 'Session ID mismatch') {
-            localStorage.setItem('username', null);
+            localStorage.setItem('username', '');
             usernameInput.classList.add('input-error');
             usernameError.classList.remove('is-hidden');
         } else {
