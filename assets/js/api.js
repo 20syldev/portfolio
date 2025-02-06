@@ -40,19 +40,19 @@ function handleQuestion() {
     else if (keywords.qui_es_tu.some(k => question.includes(k))) result = 'Moi c\'est Bep, je suis un mini chatbot créé par Sylvain.';
     else if (keywords.projets.some(k => question.includes(k))) {
         result = `Nouveaux projets : ${apiData.new_projects.map(project => 
-            `<a href="https://github.com/20syldev/${project}#readme"><span class="tag is-hoverable">${project}</span></a>`
+            `<a href='https://github.com/20syldev/${project}#readme'><span class='tag is-hoverable'>${project}</span></a>`
         ).join(', ')}`;
     }
     else if (keywords.mis_a_jour.some(k => question.includes(k))) {
         result = `Projets mis à jour : ${apiData.updated_projects.map(project => 
-            `<a href="https://github.com/20syldev/${project}/releases/latest"><span class="tag is-hoverable">${project}</span></a>`
+            `<a href='https://github.com/20syldev/${project}/releases/latest'><span class='tag is-hoverable'>${project}</span></a>`
         ).join(', ')}`;
     }
     else if (keywords.version.some(k => question.includes(k))) {
         let found = keywords.version.find(k => question.includes(k));
         let project = question.replace(/\b(l?'|de|la|du|des|le)\b/g, '').split(found)[1]?.trim().replace(/\s.*$/, '');;
         if (project) result = apiData.versions[project] 
-            ? `Projet '${project.charAt(0).toUpperCase() + project.slice(1)}' : <a href="https://github.com/20syldev/${project}/releases/latest"><span class="tag is-hoverable">${apiData.versions[project]}</span></a>`
+            ? `Projet '${project.charAt(0).toUpperCase() + project.slice(1)}' : <a href='https://github.com/20syldev/${project}/releases/latest'><span class='tag is-hoverable'>${apiData.versions[project]}</span></a>`
             : `Projet '${project.charAt(0).toUpperCase() + project.slice(1)}' introuvable.`;
         else { 
             questionInput.placeholder = 'Entrez un nom de projet';
@@ -64,7 +64,7 @@ function handleQuestion() {
         questionInput.placeholder = 'Quelle est la version de...';
         project = question.trim().replace(/\s.*$/, '');;
         result = apiData.versions[project] 
-            ? `Projet '${project.charAt(0).toUpperCase() + project.slice(1)}' : <a href="https://github.com/20syldev/${project}/releases/latest"><span class="tag is-hoverable">${apiData.versions[project]}</span></a>`
+            ? `Projet '${project.charAt(0).toUpperCase() + project.slice(1)}' : <a href='https://github.com/20syldev/${project}/releases/latest'><span class='tag is-hoverable'>${apiData.versions[project]}</span></a>`
             : `Projet '${project.charAt(0).toUpperCase() + project.slice(1)}' introuvable.`;
         wait = false;
     }
@@ -82,10 +82,10 @@ function load() {
     const { versions, updated_projects, new_projects, stats, notif_tag, active } = apiData;
     const notification = document.querySelector('.notification');
     const titles = [
-        { title: "Projets", stats: "projects" },
-        { title: "Contributions aujourd'hui", stats: "today" },
-        { title: "Contributions ce mois-ci", stats: "this_month" },
-        { title: "Contributions l'année dernière", stats: "last_year" }
+        { title: 'Projets', stats: 'projects' },
+        { title: 'Contributions aujourd\'hui', stats: 'today' },
+        { title: 'Contributions ce mois-ci', stats: 'this_month' },
+        { title: 'Contributions l\'année dernière', stats: 'last_year' }
     ];
     let i = 0;
 
@@ -120,7 +120,9 @@ function load() {
 
         if (stats4 && title) {
             title.innerHTML = titles[i].title;
-            stats4.innerHTML = stats[titles[i].stats];
+            stats4.innerHTML = titles[i].stats === 'projects'
+                ? stats[titles[i].stats]
+                : `<a href='https://github.com/20syldev?tab=overview&from=2025-01-01#sr-footer-heading' style='color: var(--bg-invert)'>${stats[titles[i].stats]}</a>`;
         }
         i = (i + 1) % titles.length;
     };
