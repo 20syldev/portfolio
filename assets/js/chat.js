@@ -195,7 +195,11 @@ chatForm.addEventListener('submit', async (e) => {
 
     if (!username || !message) return;
     if (messageInput.value.length > maxChars) return;
-    if (tokenInput) tokenInput.type = 'password', localStorage.setItem('token', tokenInput.value);
+    if (tokenInput) {
+        token = tokenInput.value;
+        tokenInput.type = 'password';
+        localStorage.setItem('token', tokenInput.value);
+    }
 
     try {
         userMessage = true;
