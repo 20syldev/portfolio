@@ -162,7 +162,7 @@ const fetchMessages = async () => {
         chatList.innerHTML = '<tr><td rowspan="3">Vous n\'êtes connecté à aucun chat.</td></tr>';
         lastMessages = [];
     } else {
-        if (chatList.innerHTML === '' || data.error.includes('stored')) {
+        if (chatList.innerHTML === '' || chatList.querySelector('.has-text-centered') || data.error.includes('stored')) {
             chatContainer.style.height = '40px';
             chatList.innerHTML = '<tr><td rowspan="3">Aucun message pour le moment.</td></tr>';
             lastMessages = [];
