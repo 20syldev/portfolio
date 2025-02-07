@@ -155,7 +155,9 @@ const fetchMessages = async () => {
             tokenInput.classList.add('input-error');
             tokenSuccess.classList.add('is-hidden');
             tokenError.classList.remove('is-hidden');
-            tokenError.textContent = 'Ce chat n\'est pas disponible, mais vous pouvez le créer en envoyant le premier message.'
+            tokenError.textContent = 'Ce chat n\'est pas disponible, mais vous pouvez le créer en envoyant le premier message.';
+            usernameInput.classList.remove('input-error');
+            usernameError.classList.add('is-hidden');
         }
 
         chatContainer.style.height = '40px';
@@ -278,17 +280,29 @@ resetToken.addEventListener('click', () => {
 
 // Connect to private chat
 connectPrivate.addEventListener('click', () => {
-    if (tokenInput.value) {
+    if (tokenInput.value && usernameInput.value) {
         token = tokenInput.value;
+        username = usernameInput.value;
         localStorage.setItem('token', token);
+        localStorage.setItem('username', username);
+        usernameInput.readOnly = true;
+        usernameInput.classList.remove('input-error');
+        usernameError.classList.add('is-hidden');
+    } else if (tokenInput.value === '') {
+        tokenInput.classList.add('input-error');
+        tokenInput.classList.remove('input-success');
+        tokenError.classList.remove('is-hidden');
+        tokenError.textContent = 'Veuillez entrer une clé pour vous connecter.';
+        tokenSuccess.classList.add('is-hidden');
+    } else {
+        usernameInput.classList.add('input-error');
+        usernameError.classList.remove('is-hidden');
+        usernameError.textContent = 'Veuillez entrer un nom d\'utilisateur pour vous connecter.';
+        tokenInput.classList.remove('input-success');
+        tokenInput.classList.remove('input-error');
+        tokenSuccess.classList.add('is-hidden');
+        tokenError.classList.add('is-hidden');
     }
-    tokenInput.classList.remove('input-success');
-    tokenInput.classList.remove('input-error');
-    tokenSuccess.classList.add('is-hidden');
-    tokenError.classList.add('is-hidden');
-    usernameInput.classList.add('input-error');
-    usernameError.classList.remove('is-hidden');
-    usernameError.textContent = 'Veuillez entrer un nom d\'utilisateur pour vous connecter.';
     fetchMessages();
 });
 
