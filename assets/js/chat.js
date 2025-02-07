@@ -282,7 +282,13 @@ connectPrivate.addEventListener('click', () => {
         token = tokenInput.value;
         localStorage.setItem('token', token);
     }
+    tokenInput.classList.remove('input-success');
+    tokenInput.classList.remove('input-error');
+    tokenSuccess.classList.add('is-hidden');
     tokenError.classList.add('is-hidden');
+    usernameInput.classList.add('input-error');
+    usernameError.classList.remove('is-hidden');
+    usernameError.textContent = 'Veuillez entrer un nom d\'utilisateur pour vous connecter.';
     fetchMessages();
 });
 
