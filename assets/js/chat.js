@@ -257,6 +257,7 @@ messageInput.addEventListener('input', () => {
 switchChat.addEventListener('click', () => {
     chatMode = chatMode === 'private' ? 'global' : 'private';
     localStorage.setItem('chatMode', chatMode);
+    localStorage.setItem('token', token);
     tokenInput.value = chatMode === 'private' ? token : '';
     tokenInput.required = chatMode === 'private' ? true : false;
     chatList.innerHTML = '';
