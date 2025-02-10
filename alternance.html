@@ -43,17 +43,19 @@
             </div>
             <div class="column">
                 <div class="card">
-                    <span class="tag is-link info" id="drawio-plugin">En cours</span>
+                    <a href="https://github.com/20syldev/drawio-ext" target="_blank"><span class="tag is-link info" id="drawio-plugin">En développement</span></a>
                     <div class="box">
                         <div class="content description">
                             <h4 class="title is-4">Draw.io Plugin pour YaNA</h4>
                             <p>
-                                Ce plugin améliore l'usage de <a href="https://app.diagrams.net" target="_blank">Draw.io</a> pour visualiser et gérer des infrastructures réseau à l'aide des données de <a href="https://tools.zenetys.com/#/App/YaNA" target="_blank">YaNA</a>.
+                                Ce plugin améliore l'usage de <a href="https://app.diagrams.net" target="_blank">Draw.io</a> pour visualiser et gérer des infrastructures réseau à l'aide des données de <a href="https://tools.zenetys.com/#/App/YaNA" target="_blank">YaNA</a> et <a href="https://tools.zenetys.com/#/App/Kompot" target="_blank">Kompot</a>.
                             </p>
                             <h5 class="title is-5 mt-6">Fonctionnalités principales</h5>
                             <ul>
                                 <li><strong>Chargement initial</strong> : Création automatique de schémas à partir des équipements réseau et liens disponibles.</li>
-                                <li><strong>Mise à jour dynamique</strong> : Ajout des nouveaux équipements et liens tout en conservant les positions manuelles déjà définies.</li>
+                                <li><strong>Statut en temps réel</strong> : Mise à jour des informations réseau en fonction des données de YaNA. Les éléments changent de couleur en fonction de leur statut.</li>
+                                <li><strong>Édition</strong> : Ajout, suppression et modification des équipements réseau et liens tout en conservant les positions manuelles déjà définies.</li>
+                                <li><strong>Enregistrement</strong> : Sauvegarde des modifications apportées au schéma automatiquement ou manuellement.</li>
                                 <li><strong>Réinitialisation</strong> : Nettoyage et rechargement des données pour un nouveau départ.</li>
                             </ul>
                             <h5 class="title is-5 mt-6">Gestion simplifiée</h5>
@@ -66,11 +68,20 @@
                                 <li>Afficher les VLANs associés aux interfaces réseau.</li>
                                 <li>Donner un style distinctif aux liens en fonction de la vitesse et du mode duplex.</li>
                             </ul>
+                            <h5 class="title is-5 mt-6">Défis relevés</h5>
+                            <p>
+                                Le développement du plugin Draw.io a été un défi technique :
+                            </p>
+                            <ul>
+                                <li>Compréhension des données de YaNA et de Draw.io pour une intégration rapide.</li>
+                                <li>Création d'un système de mise à jour en temps réel pour les éléments réseau, à l'aide d'un plugin <code>live.js</code>.</li>
+                                <li>Optimisation des performances pour un chargement rapide des schémas, même avec des centaines d'éléments.</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
                 <div class="card">
-                    <a href="https://tools.zenetys.com/zpki" target="_blank"><span class="tag is-link info" id="zpki">V1.1</span></a>
+                    <a href="https://tools.zenetys.com/zpki" target="_blank"><span class="tag is-link info" id="zpki">...</span></a>
                     <div class="box">
                         <div class="content">
                             <h4 class="title is-4">ZPKI - Refonte de l'outil de gestion de certificats</h4>
@@ -128,5 +139,10 @@
 
     <!-- Charger le Js -->
     <script type="text/javascript" src="assets/js/theme.js"></script>
+
+    <script>
+        fetch('https://api.sylvain.pro/v1/website').then(r => r.json())
+        .then(d => document.getElementById('zpki').textContent = d.versions.zpki);
+    </script>
 </body>
 </html>
