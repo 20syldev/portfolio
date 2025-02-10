@@ -483,6 +483,16 @@ input:-webkit-autofill.input-error {
 
 /* Tablette */
 @media (max-width: 1278px) {
+    /* Section veille */
+    section#veille {
+        padding: 15px;
+    }
+
+    /* Listes */
+    li {
+        margin-left: -5px;
+    }
+
     /* Notification avec background */
     .theme-notif {
         background: var(--bg-invert);
