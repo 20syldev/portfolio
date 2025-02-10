@@ -506,6 +506,12 @@ input:-webkit-autofill.input-error {
     .columns.about {
         display: inline;
     }
+    .columns.about .column {
+        padding: 0;
+    }
+    .columns.about .column .card {
+        margin: 0;
+    }
 
     /* Stats */
     .level {
