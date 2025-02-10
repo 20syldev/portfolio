@@ -550,7 +550,7 @@ input:-webkit-autofill.input-error {
     }
 
     /* Stats */
-    .level {
+    .level-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: auto auto;
@@ -600,7 +600,7 @@ input:-webkit-autofill.input-error {
     }
 
     /* Stats */
-    .level {
+    .level-grid {
         display: block;
     }
     .level-item {
