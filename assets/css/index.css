@@ -624,6 +624,9 @@ input:-webkit-autofill.input-error {
     .badge-item {
         width: 40px;
     }
+    .badge-item::before {
+        display: none;
+    }
 
     /* Tag */
     .info {
