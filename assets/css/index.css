@@ -543,7 +543,7 @@ input:-webkit-autofill.input-error {
         display: inline;
     }
     .columns.about .column {
-        padding: 0;
+        padding: 20px 0;
     }
     .columns.about .column .card {
         margin: 0;
