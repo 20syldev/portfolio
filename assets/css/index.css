@@ -531,6 +531,7 @@ input:-webkit-autofill.input-error {
 
     /* Tag */
     .info {
+        right: -10px;
         font-size: 10px;
     }
 
