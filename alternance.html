@@ -142,8 +142,10 @@
 
     <script>
         fetch('https://api.sylvain.pro/v2/website').then(r => r.json())
-        .then(d => document.getElementById('zpki').textContent = d.versions.zpki)
-        .then(d => document.getElementById('drawio-plugin').textContent = d.versions.drawio_plugin);
+        .then(d => {
+            document.getElementById('zpki').textContent = d.versions.zpki;
+            document.getElementById('drawio_plugin').textContent = d.versions.drawio_plugin;
+        });
     </script>
 </body>
 </html>
