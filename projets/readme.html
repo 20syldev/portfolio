@@ -72,7 +72,7 @@
     <!-- Charger le Js -->
     <script type="text/javascript" src="../assets/js/theme.js"></script>
     <script>
-        fetch('https://api.sylvain.pro/v1/website').then(r => r.json())
+        fetch('https://api.sylvain.pro/v2/website').then(r => r.json())
         .then(d => document.getElementById('version').textContent = d.versions.readme);
     </script>
 </body>
