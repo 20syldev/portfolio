@@ -43,7 +43,7 @@
             </div>
             <div class="column">
                 <div class="card">
-                    <a href="https://github.com/20syldev/drawio-ext" target="_blank"><span class="tag is-link info" id="drawio-plugin">En développement</span></a>
+                    <a href="https://github.com/20syldev/drawio-ext" target="_blank"><span class="tag is-link info" id="drawio_plugin">...</span></a>
                     <div class="box">
                         <div class="content description">
                             <h4 class="title is-4">Draw.io Plugin pour YaNA</h4>
@@ -142,7 +142,8 @@
 
     <script>
         fetch('https://api.sylvain.pro/v1/website').then(r => r.json())
-        .then(d => document.getElementById('zpki').textContent = d.versions.zpki);
+        .then(d => document.getElementById('zpki').textContent = d.versions.zpki)
+        .then(d => document.getElementById('drawio-plugin').textContent = d.versions.drawio_plugin);
     </script>
 </body>
 </html>
