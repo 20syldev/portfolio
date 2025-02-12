@@ -3,7 +3,7 @@ let apiData = null, wait = false;
 // Récupérer les données de l'API
 async function fetchData() {
     try {
-        apiData = await fetch('https://api.sylvain.pro/v1/website').then(res => res.json());
+        apiData = await fetch('https://api.sylvain.pro/v2/website').then(res => res.json());
         load();
     } catch (e) { console.error('Erreur:', e); }
 }
