@@ -379,6 +379,11 @@ pre {
     border: 2px solid var(--bg-invert);
 }
 /* Titre des projets */
+.card-header {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0 5px 10px 0 var(--hover-bg);
+}
 .card-header-title {
     user-select: none;
     overflow-x: scroll;
