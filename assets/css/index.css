@@ -529,7 +529,7 @@ input:-webkit-autofill.input-error {
 /* Tablette */
 @media (max-width: 1278px) {
     /* Section veille */
-    section#veille {
+    section.veille {
         padding: 15px;
     }
 
