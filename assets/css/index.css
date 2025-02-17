@@ -616,6 +616,11 @@ input:-webkit-autofill.input-error {
         margin-bottom: 20px;
     }
 
+    /* Padding des cases */
+    .card-content:not(.skills-content) {
+        padding: 20px 10px;
+    }
+
     /* Cases du profil et des compétences */
     .profile, .skills, .profession {
         min-width: auto;
