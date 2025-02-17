@@ -2,12 +2,12 @@ let menuToggled = false;
 
 // Mettre à jour la navigation du menu
 const updateMenu = () => {
-    const sections = ['skills', 'projets', 'global-chat', 'cv'];
+    const sections = ['skills', 'projets', 'global-chat', 'badges'];
     let activeId = window.scrollY === 0 ? 'about' : sections.find(id => {
         const rect = document.getElementById(id).getBoundingClientRect();
         return rect.top <= window.innerHeight / 8 && rect.bottom >= window.innerHeight / 8;
     });
-    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 5) activeId = 'cv';
+    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 5) activeId = 'badges';
     document.querySelectorAll('.menu-list a').forEach(link =>
         link.classList.toggle('is-active', link.getAttribute('href') === `#${activeId}`)
     );
