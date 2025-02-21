@@ -2,7 +2,7 @@ let menuToggled = false;
 
 // Mettre à jour la navigation du menu
 const updateMenu = () => {
-    const sections = ['skills', 'projets', 'global-chat', 'badges'];
+    const sections = ['skills', 'projets', 'badges', 'cv'];
     let activeId = window.scrollY === 0 ? 'about' : sections.find(id => {
         const rect = document.getElementById(id).getBoundingClientRect();
         return rect.top <= window.innerHeight / 8 && rect.bottom >= window.innerHeight / 8;
