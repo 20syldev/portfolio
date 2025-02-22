@@ -2,15 +2,17 @@ let menuToggled = false;
 
 // Mettre à jour la navigation du menu
 const updateMenu = () => {
-    const sections = ['skills', 'projets', 'global-chat', 'badges'];
+    const sections = ['skills', 'projets', 'badges'];
     let activeId = window.scrollY === 0 ? 'about' : sections.find(id => {
         const rect = document.getElementById(id).getBoundingClientRect();
         return rect.top <= window.innerHeight / 8 && rect.bottom >= window.innerHeight / 8;
     });
     if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 5) activeId = 'badges';
-    document.querySelectorAll('.menu-list a').forEach(link =>
-        link.classList.toggle('is-active', link.getAttribute('href') === `#${activeId}`)
-    );
+    else if (!activeId) activeId = sections[0];
+    document.querySelectorAll('.menu-list a').forEach(link => {
+        const targetId = link.getAttribute('onclick')?.match(/#(\w+)/)?.[1];
+        link.classList.toggle('is-active', targetId === activeId && activeId);
+    });
 };
 
 // Afficher les tags interactifs en entier
