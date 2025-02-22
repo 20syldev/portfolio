@@ -27,7 +27,7 @@ async function load() {
         if (projects.length) {
             projects.forEach(project => {
                 const li = document.createElement('li');
-                li.innerHTML = `<a href='#${project}'>${project.charAt(0).toUpperCase() + project.slice(1)}</a>`;
+                li.innerHTML = `<a onclick="window.location.href='#${project}'">${project.charAt(0).toUpperCase() + project.slice(1)}</a>`;
                 section.appendChild(li);
             });
         } else section.classList.add('is-hidden');
@@ -48,7 +48,7 @@ async function load() {
             title.innerHTML = titles[i].title;
             stats4.innerHTML = titles[i].stats === 'projects'
                 ? stats[titles[i].stats]
-                : `<a href='https://github.com/20syldev?tab=overview&from=2025-01-01#sr-footer-heading' style='color: var(--bg-invert)'>${stats[titles[i].stats]}</a>`;
+                : `<a onclick="window.open('https:/\/github.com/20syldev?tab=overview&from=2025-01-01#sr-footer-heading')" style="color: var(--bg-invert)">${stats[titles[i].stats]}</a>`;
         }
         i = (i + 1) % titles.length;
     };
