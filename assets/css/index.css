@@ -189,6 +189,14 @@ pre {
     font-weight: bold;
 }
 
+/* Texte qui rebondit */
+.bounce span {
+    opacity: 0;
+    display: inline-block;
+    transform: translateY(0);
+    animation: illuminate 10s infinite, bounce 0.5s ease forwards;
+}
+
 /* Titre des sections */
 .section-heading {
     text-align: center;
@@ -680,4 +688,15 @@ input:-webkit-autofill.input-error {
         transform: translateY(100%);
         opacity: 0;
     }
+}
+
+/* Animation du texte qui rebondit */
+@keyframes illuminate {
+    0%, 100% { opacity: 0; }
+    20%, 40%, 60%, 80% { opacity: 1; }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
 }
