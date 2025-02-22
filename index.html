@@ -885,88 +885,6 @@
         </div>
     </section>
 
-    <!-- Chat en ligne -->
-    <section class="section" id="global-chat">
-        <div class="section-heading mb-5">
-            <h3 class="title is-2">Chat en ligne</h3>
-        </div>
-
-        <div class="container">
-            <div class="box">
-                <span class="tag is-link info">NEW</span>
-                <form id="chatForm">
-                    <div class="field">
-                        <label class="label" id="tokenTitle">Connectez-vous à un chat privé</label>
-                        <div class="control is-flex">
-                            <input type="password" class="input mr-2" id="token" placeholder="Entrez votre clé privée" required>
-                            <button type="button" class="button is-primary mr-2" id="resetToken"><i class="fa-solid fa-rotate"></i></button>
-                            <button type="button" class="button is-primary" id="connectPrivate"><i class="fa-solid fa-link"></i></button>
-                        </div>
-                        <p class="help is-danger is-hidden" id="tokenError"></p>
-                        <p class="help is-success is-hidden" id="tokenSuccess"></p>
-                    </div>
-
-                    <div class="field">
-                        <label class="label">Nom d'utilisateur</label>
-                        <div class="control">
-                            <input type="text" class="input" id="username" placeholder="Entrez votre nom d'utilisateur" required maxlength="10">
-                            <p class="help is-danger is-hidden" id="usernameError">Ce nom d'utilisateur est déjà utilisé.</p>
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <label class="label">Message</label>
-                        <div class="control">
-                            <textarea class="textarea" id="message" placeholder="Entrez votre message" required></textarea>
-                            <span class="counter" id="charCounter">500</span>
-                        </div>
-                    </div>
-
-                    <div class="field is-flex is-justify-content-space-between is-align-items-center">
-                        <div class="control">
-                            <button type="submit" class="button is-primary mr-2">Envoyer</button>
-                            <button type="button" class="button is-primary" id="switchChat">...</a>
-                        </div>
-                        <div class="field is-grouped">
-                            <div class="control mr-4">
-                                <label class="checkbox">
-                                    <input type="checkbox" id="activateNotifications"> Notifications
-                                </label>
-                            </div>
-                            <div class="control">
-                                <label class="radio">
-                                    <input type="radio" name="priority" value="classic" checked> Classique
-                                </label>
-                            </div>
-                            <div class="control">
-                                <label class="radio">
-                                    <input type="radio" name="priority" value="compact"> Compact
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <table class="table is-fullwidth">
-                <thead>
-                    <tr>
-                        <th colspan="3" class="has-text-centered title is-5" id="discussion">Discussion globale<hr></th>
-                    </tr>
-                    <tr>
-                        <th class="w-20">Utilisateur</th>
-                        <th class="w-60">Message</th>
-                        <th class="has-text-right"></th>
-                    </tr>
-                </thead>
-            </table>
-            <div class="chat-container" id="chatContainer">
-                <table class="table is-fullwidth">
-                    <tbody class="chat" id="chatList"><th class="has-text-centered">...</th></tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
     <!-- Badges Google -->
     <section class="section" id="badges">
         <nav class="level badge-grid">
@@ -1020,7 +938,6 @@
     <!-- Charger le Js -->
     <script type="text/javascript" src="assets/js/index.js"></script>
     <script type="text/javascript" src="assets/js/theme.js"></script>
-    <script type="text/javascript" src="assets/js/chat.js"></script>
     <script type="text/javascript" src="assets/js/api.js"></script>
 </body>
 </html>
