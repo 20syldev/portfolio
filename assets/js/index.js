@@ -37,8 +37,16 @@ const toggleMenu = () => {
     );
 };
 
+// Anime le texte d'un élément
+const animateText = () => {
+    document.querySelectorAll('.bounce').forEach(el => el.innerHTML = [...el.textContent].map((char, index) =>
+        char === ' ' ? ' ' : `<span style="animation-delay:${index * 0.1}s">${char}</span>`
+    ).join(''));
+};
+
 // Au chargement de la page
 window.addEventListener('load', () => {
+    animateText();
     updateMenu();
     document.addEventListener('scroll', updateMenu);
 
