@@ -39,6 +39,9 @@ const toggleMenu = () => {
     );
 };
 
+// Télécharge un fichier depuis une URL
+const downloadFile = file => Object.assign(document.createElement('a'), { href: file, download: '' }).click();
+
 // Anime le texte d'un élément
 const animateText = () => {
     document.querySelectorAll('.bounce').forEach(el => el.innerHTML = [...el.textContent].map((char, index) =>
