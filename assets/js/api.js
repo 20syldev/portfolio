@@ -47,8 +47,8 @@ async function load() {
         if (stats4 && title) {
             title.innerHTML = titles[i].title;
             stats4.innerHTML = titles[i].stats === 'projects'
-                ? stats[titles[i].stats]
-                : `<a onclick="window.open('https:/\/github.com/20syldev?tab=overview&from=2025-01-01#sr-footer-heading')" style="color: var(--bg-invert)">${stats[titles[i].stats]}</a>`;
+                ? `<a onclick="window.location.href='#projets'" style="color: var(--bg-invert)">${stats[titles[i].stats]}</a>`
+                : `<a onclick="window.open('https:/\/github.com/20syldev')" style="color: var(--bg-invert)">${stats[titles[i].stats]}</a>`;
         }
         i = (i + 1) % titles.length;
     };
