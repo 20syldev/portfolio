@@ -42,11 +42,26 @@ const toggleMenu = () => {
 // Télécharge un fichier depuis une URL
 const downloadFile = file => Object.assign(document.createElement('a'), { href: file, download: '' }).click();
 
+// Réinitialise l'animation du texte
+const reset = (s, i) => {
+    s.style.animation = 'none';
+    s.offsetWidth;
+    s.style.animation = `illuminate 7s infinite ease ${i * 0.1}s, bounce 0.5s ease ${i * 0.1}s forwards`;
+};
+
 // Anime le texte d'un élément
 const animateText = () => {
-    document.querySelectorAll('.bounce').forEach(el => el.innerHTML = [...el.textContent].map((char, index) =>
-        char === ' ' ? ' ' : `<span style="animation-delay:${index * 0.1}s">${char}</span>`
-    ).join(''));
+    document.querySelectorAll('.bounce').forEach(el => {
+        el.innerHTML = [...el.textContent].map((c, i) => 
+            c === ' ' ? ' ' : `<span style="animation-delay:${i * 0.1}s">${c}</span>`
+        ).join('');
+
+        el.querySelectorAll('span').forEach((s, i) => {
+            s.addEventListener('mouseover', () => reset(s, i));
+            s.addEventListener('touchmove', () => reset(s, i));
+            reset(s, i);
+        });
+    });
 };
 
 // Au chargement de la page
