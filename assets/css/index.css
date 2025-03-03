@@ -166,10 +166,6 @@ pre {
     opacity: 0;
     display: inline-block;
     transform: translateY(0);
-    animation: illuminate 10s infinite, bounce 0.5s ease forwards;
-}
-.bounce span:hover {
-    animation: inherit;
 }
 
 /* Titre des sections */
