@@ -49,11 +49,18 @@ const reset = (s, i) => {
     s.style.animation = `illuminate 7s infinite ease ${i * 0.1}s, bounce 0.5s ease ${i * 0.1}s forwards`;
 };
 
+// Échappe une chaîne de caractères
+const escapeHTML = (str) => {
+    const div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+};
+
 // Anime le texte d'un élément
 const animateText = () => {
     document.querySelectorAll('.bounce').forEach(el => {
         el.innerHTML = [...el.textContent].map((c, i) => 
-            c === ' ' ? ' ' : `<span style="animation-delay:${i * 0.1}s">${c}</span>`
+            c === ' ' ? ' ' : `<span style="animation-delay:${i * 0.1}s">${escapeHTML(c)}</span>`
         ).join('');
 
         el.querySelectorAll('span').forEach((s, i) => {
