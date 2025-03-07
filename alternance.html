@@ -34,7 +34,7 @@
         </div>
     </section>
 
-    <!-- Projets en cours -->
+    <!-- Projets -->
     <section class="section" id="projets">
         <div class="container">
             <div class="section-heading mt-0">
@@ -42,6 +42,8 @@
                 <h4 class="subtitle is-5">Développement d'interfaces et plugins</h4>
             </div>
             <div class="column">
+
+                <!-- Plugin Draw.io -->
                 <div class="card">
                     <a href="https://github.com/20syldev/drawio-ext" target="_blank"><span class="tag is-link info" id="drawio_plugin">...</span></a>
                     <div class="box">
@@ -50,36 +52,41 @@
                             <p>
                                 Ce plugin améliore l'usage de <a href="https://app.diagrams.net" target="_blank">Draw.io</a> pour visualiser et gérer des infrastructures réseau à l'aide des données de <a href="https://tools.zenetys.com/#/App/YaNA" target="_blank">YaNA</a> et <a href="https://tools.zenetys.com/#/App/Kompot" target="_blank">Kompot</a>.
                             </p>
+
                             <h5 class="title is-5 mt-6">Fonctionnalités principales</h5>
                             <ul>
-                                <li><strong>Chargement initial</strong> : Création automatique de schémas à partir des équipements réseau et liens disponibles.</li>
-                                <li><strong>Statut en temps réel</strong> : Mise à jour des informations réseau en fonction des données de YaNA. Les éléments changent de couleur en fonction de leur statut.</li>
-                                <li><strong>Édition</strong> : Ajout, suppression et modification des équipements réseau et liens tout en conservant les positions manuelles déjà définies.</li>
-                                <li><strong>Enregistrement</strong> : Sauvegarde des modifications apportées au schéma automatiquement ou manuellement.</li>
-                                <li><strong>Réinitialisation</strong> : Nettoyage et rechargement des données pour un nouveau départ.</li>
+                                <li><strong>Création automatique</strong> de schémas à partir des équipements réseau et liens disponibles.</li>
+                                <li>Mise à jour des informations réseau <strong>en fonction des données</strong> de YaNA. Les éléments changent de couleur en fonction de leur statut.</li>
+                                <li>Ajout, suppression et <strong>modification</strong> des équipements réseau et liens tout en conservant les positions manuelles déjà définies.</li>
+                                <li><strong>Sauvegarde</strong> des modifications apportées au schéma automatiquement ou manuellement.</li>
+                                <li>Nettoyage et <strong>rechargement</strong> des données pour un nouveau départ.</li>
                             </ul>
+
                             <h5 class="title is-5 mt-6">Gestion simplifiée</h5>
                             <p>
                                 Le plugin utilise les données de YaNA pour :
                             </p>
                             <ul>
-                                <li>Ajouter des switchs et leurs informations clés (nom, IP).</li>
-                                <li>Tracer automatiquement les connexions réseau et annoter les liens avec les noms de ports.</li>
-                                <li>Afficher les VLANs associés aux interfaces réseau.</li>
-                                <li>Donner un style distinctif aux liens en fonction de la vitesse et du mode duplex.</li>
+                                <li><strong>Ajouter</strong> des switchs et leurs informations clés (nom, IP).</li>
+                                <li>Tracer <strong>automatiquement</strong> les connexions réseau et <strong>annoter</strong> les liens avec les noms de ports.</li>
+                                <li>Afficher les <strong>VLANs</strong> associés aux interfaces réseau.</li>
+                                <li>Donner un style <strong>distinctif</strong> aux liens en fonction de la vitesse et du mode duplex.</li>
                             </ul>
+
                             <h5 class="title is-5 mt-6">Défis relevés</h5>
                             <p>
                                 Le développement du plugin Draw.io a été un défi technique :
                             </p>
                             <ul>
-                                <li>Compréhension des données de YaNA et de Draw.io pour une intégration rapide.</li>
-                                <li>Création d'un système de mise à jour en temps réel pour les éléments réseau, à l'aide d'un plugin <code>live.js</code>.</li>
-                                <li>Optimisation des performances pour un chargement rapide des schémas, même avec des centaines d'éléments.</li>
+                                <li><strong>Compréhension</strong> des données de YaNA et de Draw.io pour une <strong>intégration</strong> rapide.</li>
+                                <li>Création d'un système de mise à jour en <strong>temps réel</strong> pour les éléments réseau, à l'aide d'un plugin <code>live.js</code>.</li>
+                                <li><strong>Optimisation</strong> des performances pour un chargement <strong>rapide</strong> des schémas, même avec des centaines d'éléments.</li>
                             </ul>
                         </div>
                     </div>
                 </div>
+
+                <!-- Projet ZPKI -->
                 <div class="card">
                     <a href="https://tools.zenetys.com/zpki" target="_blank"><span class="tag is-link info" id="zpki">...</span></a>
                     <div class="box">
@@ -88,44 +95,49 @@
                             <p>
                                 En début d'année 2024, j'ai entrepris la refonte complète de l'interface utilisateur pour <a href="https://tools.zenetys.com/zpki" target="_blank">ZPKI</a>, un outil de gestion de certificats <strong>OpenSSL</strong>, utilisé chez Zenetys. Initialement prévue comme une simple refonte d'interface en utilisant le code existant en Vue.js, la complexité m'a conduit à recréer entièrement l'application en deux mois, combinant des compétences en bash, HTML, CSS et JavaScript.
                             </p>
+
                             <h5 class="title is-5 mt-6">Fonctionnalités principales</h5>
                             <ul>
-                                <li>Création et gestion d'autorités de certification (CA) et de certificats.</li>
-                                <li>Actions avancées : mise à jour, révocation, désactivation des certificats...</li>
-                                <li>Visualisation des certificats avec des informations détaillées sur le statut, les dates, les téléchargements associés...</li>
+                                <li>Création et <strong>gestion</strong> d'autorités de certification (CA) et de <strong>certificats</strong>.</li>
+                                <li><strong>Actions</strong> avancées : mise à jour, révocation, désactivation des certificats...</li>
+                                <li>Visualisation des certificats avec des <strong>informations détaillées</strong> sur le statut, les dates, les téléchargements associés...</li>
                             </ul>
+
                             <h5 class="title is-5 mt-6">L'interface utilisateur</h5>
                             <p>
                                 Développée avec <strong>Bootstrap 5.3.3</strong>, elle offre une expérience utilisateur intuitive :
                             </p>
                             <ul>
-                                <li>Recherche avancée dans les tableaux (par mots-clés, tags ou via l'URL).</li>
-                                <li>Gestion multi-CA avec changement facile d'autorité de certification.</li>
-                                <li>Actions sécurisées grâce à un système de passphrase pour le verrouillage de l'interface.</li>
-                                <li>Modal interactif pour la création de certificats et consultation des détails.</li>
-                                <li>Support multilingue (Français, Anglais, Espagnol, Allemand).</li>
+                                <li><strong>Recherche</strong> avancée dans les tableaux (par mots-clés, tags ou via l'URL).</li>
+                                <li>Gestion multi-CA avec <strong>changement</strong> facile d'autorité de certification.</li>
+                                <li>Actions <strong>sécurisées</strong> grâce à un système de passphrase pour le verrouillage de l'interface.</li>
+                                <li>Modal <strong>interactif</strong> pour la création de certificats et consultation des détails.</li>
+                                <li>Support <strong>multilingue</strong> (Français, Anglais).</li>
                             </ul>
+
                             <h5 class="title is-5 mt-6">API et sécurité</h5>
                             <p>
                                 Développée en <strong>Node.js</strong>, l'API assure des interactions fluides et sécurisées :
                             </p>
                             <ul>
-                                <li>Requêtes POST/GET robustes pour gérer les données ZPKI.</li>
-                                <li>Validation des entrées et double vérification via l'interface.</li>
-                                <li>Exploitation des modules <code>spawn</code> et <code>exec</code> pour exécuter les commandes en bash avec des sécurités renforcées.</li>
+                                <li>Requêtes <strong>POST/GET</strong> robustes pour gérer les données ZPKI.</li>
+                                <li><strong>Validation</strong> des entrées et double vérification via l'interface.</li>
+                                <li>Exploitation des modules <code>spawn</code> et <code>exec</code> pour exécuter les commandes en <strong>bash</strong> avec des sécurités renforcées.</li>
                             </ul>
+
                             <h5 class="title is-5 mt-6">Défis relevés</h5>
                             <p>
                                 La refonte de ZPKI a été un défi enrichissant :
                             </p>
                             <ul>
-                                <li>Apprentissage du shell bash et compréhension des scripts existants.</li>
-                                <li>Création d'une API stable avec des réponses claires et sécurisées.</li>
-                                <li>Gestion des affichages dynamiques et interactions complexes en JavaScript.</li>
+                                <li>Apprentissage du <strong>shell bash</strong> et compréhension des scripts existants.</li>
+                                <li>Création d'une <strong>API</strong> stable avec des réponses claires et sécurisées.</li>
+                                <li>Gestion des affichages <strong>dynamiques</strong> et interactions complexes en JavaScript.</li>
                             </ul>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
