@@ -43,6 +43,42 @@
             </div>
             <div class="column">
 
+                <!-- LogVault -->
+                <div class="card">
+                    <a href="https://zenetys.com/zlab/logcenter" target="_blank"><span class="tag is-link info" id="logvault">...</span></a>
+                    <div class="box">
+                        <div class="content description">
+                            <h4 class="title is-4">LogVault - Service hébergé de sécurisation et gestion de Logs</h4>
+                            <p>
+                                LogVault est un service de sécurisation et de gestion de <strong>logs</strong>, développé par Zenetys.
+                                J'ai été impliqué dans le développement de l'interface utilisateur, en utilisant <strong>Vue.js</strong>.
+                                J'ai entièrement développé le site web, disponible sur <a href="https://logvault.io" target="_blank">logvault.io</a>.
+                                Aussi, j'ai amélioré la page d'<strong>authentification</strong>, disponible sur <a href="https://auth.logvault.io" target="_blank">auth.logvault.io</a>.
+                            </p>
+
+                            <h5 class="title is-5 mt-6">Qu'est ce que LogVault ?</h5>
+                            <p>
+                                LogVault est un service de sécurisation et de gestion de logs, développé par <a href="https://zenetys.com">Zenetys</a>.
+                                Il permet de <strong>centraliser</strong>, sécuriser et analyser les logs de vos applications et infrastructures.
+                            </p>
+                            <p>
+                                LogVault est doté d'une interface web <strong>intuitive</strong>, permettant de visualiser les logs en <strong>temps réel</strong>, de les analyser, via des graphiques par exemple.
+                                Le service est également capable de <strong>rechercher</strong> certains logs antérieurs, de les <strong>télécharger</strong> et bien plus encore.
+                            </p>
+
+                            <h5 class="title is-5 mt-6">Une interface utilisateur moderne</h5>
+                            <p>
+                                L'interface utilisateur de LogVault est développée en <strong>Vue.js</strong>.
+                                Cela m'a permis de découvrir et d'utiliser les <strong>composants</strong> de Vue.js, et d'apprendre à les manipuler.
+                            </p>
+                            <p>
+                                Le site web lui, est aidé de Tailwind CSS pour un design <strong>moderne</strong>.
+                                Il possède un mode clair et sombre automatique en fonction des <strong>préférences</strong> de l'utilisateur et est adapté pour <strong>tous les appareils</strong>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Projet ZPKI -->
                 <div class="card">
                     <a href="https://tools.zenetys.com/zpki" target="_blank"><span class="tag is-link info" id="zpki">...</span></a>
@@ -156,6 +192,7 @@
         fetch('https://api.sylvain.pro/latest/website').then(r => r.json())
         .then(d => {
             document.getElementById('zpki').textContent = d.versions.zpki;
+            document.getElementById('logvault').textContent = d.versions.logvault;
             document.getElementById('drawio_plugin').textContent = d.versions.drawio_plugin;
         });
     </script>
