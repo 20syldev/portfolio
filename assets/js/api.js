@@ -8,7 +8,7 @@ async function load() {
     const { versions, patched_projects, updated_projects, new_projects, stats, notif_tag, active } = data;
     const notification = document.querySelector('.notification');
     const titles = [
-        { title: 'Projets', stats: 'projects' },
+        { title: 'Heures de code', stats: 'projects' },
         { title: 'Contributions aujourd\'hui', stats: 'today' },
         { title: 'Contributions ce mois-ci', stats: 'this_month' },
         { title: 'Contributions l\'année dernière', stats: 'last_year' }
