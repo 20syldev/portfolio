@@ -5,7 +5,7 @@ async function load() {
     if (!data) return console.error('Impossible de charger les données de l\'API !');
 
     // Récupérer les données
-    const { versions, updated_projects, new_projects, stats, notif_tag, active } = data;
+    const { versions, patched_projects, updated_projects, new_projects, stats, notif_tag, active } = data;
     const notification = document.querySelector('.notification');
     const titles = [
         { title: 'Projets', stats: 'projects' },
@@ -22,7 +22,9 @@ async function load() {
     });
 
     // Afficher les projets récents / mis à jour dans le menu
-    [['new-projects', new_projects], ['updated-projects', updated_projects]].forEach(([id, projects]) => {
+    [['new-projects', new_projects],
+    ['patched-projects', patched_projects],
+    ['updated-projects', updated_projects]].forEach(([id, projects]) => {
         const section = document.getElementById(id);
         if (projects.length) {
             projects.forEach(project => {
@@ -53,7 +55,7 @@ async function load() {
         i = (i + 1) % titles.length;
     };
 
-    // Badges NEW / UPDATED
+    // Badges PATCH / NEW / UPDATE
     const changeTag = (projects, label) => {
         projects.forEach(project => {
             const badge = document.getElementById(project);
@@ -72,7 +74,8 @@ async function load() {
     } else notification.style.display = 'none';
 
     // Mettre à jour les badges et les statistiques
-    changeTag(updated_projects, 'UPDATED');
+    changeTag(updated_projects, 'UPDATE');
+    changeTag(patched_projects, 'PATCH');
     changeTag(new_projects, 'NEW');
     setInterval(updateStats4, 5000);
     updateStats4();
