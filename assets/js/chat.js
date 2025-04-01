@@ -78,9 +78,9 @@ const transformMessage = (message) => {
     const strikethroughRegex = /~~(.*?)~~/g;
 
     return escapeHTML(message)
-        .replace(urlRegex, url => 
-            /\.(jpg|jpeg|png|gif)$/i.test(url) 
-                ? `<img src="${url}" style="max-width: 100px;">` 
+        .replace(urlRegex, url =>
+            /\.(jpg|jpeg|png|gif)$/i.test(url)
+                ? `<img src="${url}" style="max-width: 100px;">`
                 : `<a href="${url}" target="_blank">${escapeHTML(url)}</a>`
         )
         .replace(markdownRegex, (match, p1) => `<strong>${p1}</strong>`)

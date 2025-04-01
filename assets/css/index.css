@@ -46,7 +46,7 @@
     font-family: 'Poppins', sans-serif;
     scroll-behavior: smooth;
 }
-  
+
 body {
     position: relative;
     min-height: 100vh;
@@ -485,7 +485,7 @@ pre {
         border-radius: 50px;
         padding: 10px 15px;
         margin: 0;
-    }      
+    }
     .badge-item {
         width: 60px;
     }
@@ -545,7 +545,7 @@ pre {
     /* Badges Google */
     .badge-grid {
         overflow-y: scroll;
-    }      
+    }
     .badge-item {
         width: 40px;
     }

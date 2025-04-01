@@ -30,7 +30,7 @@ const applySavedTheme = () => {
 // Changer de thème automatiquement
 const autoSwitch = () => {
     const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
-    const updateTheme = () => localStorage.getItem('theme') === 'auto' && 
+    const updateTheme = () => localStorage.getItem('theme') === 'auto' &&
         document.documentElement.setAttribute('data-theme', darkMode.matches ? 'dark' : 'light');
     darkMode.addEventListener('change', updateTheme);
 };
