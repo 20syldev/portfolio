@@ -34,7 +34,7 @@ const hideNotification = () => {
 // Ouvre ou ferme le menu latéral
 const toggleMenu = () => {
     menuToggled = !menuToggled;
-    document.querySelectorAll('.side-menu, .menu-btn, .switch-btn').forEach(el => 
+    document.querySelectorAll('.side-menu, .menu-btn, .switch-btn').forEach(el =>
         el.classList.toggle('is-visible', menuToggled)
     );
 };
@@ -59,7 +59,7 @@ const escapeHTML = (str) => {
 // Anime le texte d'un élément
 const animateText = () => {
     document.querySelectorAll('.bounce').forEach(el => {
-        el.innerHTML = [...el.textContent].map((c, i) => 
+        el.innerHTML = [...el.textContent].map((c, i) =>
             c === ' ' ? ' ' : `<span style="animation-delay:${i * 0.1}s">${escapeHTML(c)}</span>`
         ).join('');
 

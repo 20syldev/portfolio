@@ -8,7 +8,7 @@
 ---
 
 ## Présentation rapide
-Voici le **code source** de mon site web portfolio **[sylvain.pro](https://sylvain.pro)**.  
+Voici le **code source** de mon site web portfolio **[sylvain.pro](https://sylvain.pro)**.
 
 Le design du site est réalisé à l'aide de **Bulma CSS** et du **CSS** personnalisé. Il est également "**responsive**", c'est-à-dire qu'il s'adapte à **toutes** les tailles d'écran !
 
