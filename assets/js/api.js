@@ -21,6 +21,12 @@ async function load() {
         if (el) el.innerHTML = value;
     });
 
+    // Afficher les informations
+    Object.keys(stats).slice(0, 3).forEach((key, i) => {
+        const el = document.getElementById(`stats${i + 1}`);
+        if (el) el.innerHTML = stats[key];
+    });
+
     // Afficher les projets récents / mis à jour dans le menu
     [['new-projects', new_projects],
     ['patched-projects', patched_projects],
@@ -33,12 +39,6 @@ async function load() {
                 section.appendChild(li);
             });
         } else section.classList.add('is-hidden');
-    });
-
-    // Afficher les informations
-    ['stats1', 'stats2', 'stats3'].forEach((id, i) => {
-        const el = document.getElementById(id);
-        if (el) el.innerHTML = stats[Object.keys(stats)[i]];
     });
 
     // Statistiques n°4 (dynamique)
