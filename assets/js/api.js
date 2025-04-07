@@ -28,17 +28,19 @@ async function load() {
     });
 
     // Afficher les projets récents / mis à jour dans le menu
-    [['new-projects', new_projects],
-    ['patched-projects', patched_projects],
-    ['updated-projects', updated_projects]].forEach(([id, projects]) => {
-        const section = document.getElementById(id);
-        if (projects.length) {
-            projects.forEach(project => {
-                const li = document.createElement('li');
-                li.innerHTML = `<a onclick="window.location.href='#${project}'">${project.charAt(0).toUpperCase() + project.slice(1)}</a>`;
-                section.appendChild(li);
-            });
-        } else section.classList.add('is-hidden');
+    [['new', new_projects],
+    ['patched', patched_projects],
+    ['updated', updated_projects]].forEach(([id, projects]) => {
+        const filtered = projects.filter(p => p && p !== 'undefined')
+        const section = document.getElementById(id + '-projects');
+        const wrapper = document.getElementById(id)
+        if (filtered.length) {
+            filtered.forEach(project => {
+                const li = document.createElement('li')
+                li.innerHTML = `<a onclick="window.location.href='#${project}'">${project.charAt(0).toUpperCase() + project.slice(1)}</a>`
+                section.appendChild(li)
+            })
+        } else wrapper.style.display = 'none'
     });
 
     // Statistiques n°4 (dynamique)
