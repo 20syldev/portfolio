@@ -379,6 +379,10 @@ pre {
 }
 .fa-circle-check {
     color: var(--check);
+    transition: 0.5s ease;
+}
+.fa-circle-check:hover {
+    filter: brightness(90%);
 }
 
 /* Badges Google */
