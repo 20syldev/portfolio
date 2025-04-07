@@ -42,14 +42,20 @@
                 <li>
                     <a onclick="window.location.href='#projets'">Projets</a>
                     <ul class="menu-list" id="menu-list">
-                        <p class="menu-label">Nouveaux</p>
-                        <ul id="new-projects"></ul>
+                        <div id="new">
+                            <p class="menu-label">Nouveaux</p>
+                            <ul id="new-projects"></ul>
+                        </div>
 
-                        <p class="menu-label">Mis à jour</p>
-                        <ul id="updated-projects"></ul>
+                        <div id="updated">
+                            <p class="menu-label">Mis à jour</p>
+                            <ul id="updated-projects"></ul>
+                        </div>
 
-                        <p class="menu-label">Patch NPM</p>
-                        <ul id="patched-projects"></ul>
+                        <div id="patched">
+                            <p class="menu-label">Patch NPM</p>
+                            <ul id="patched-projects"></ul>
+                        </div>
                     </ul>
                 </li>
                 <li><a onclick="window.location.href='#badges'">Badges et CV</a></li>
