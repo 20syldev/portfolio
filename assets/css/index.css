@@ -462,6 +462,13 @@ pre {
         border-radius: 100px;
     }
 
+    /* Zone de clic plus grande */
+    .switch-btn {
+        left: 5px;
+        bottom: 0;
+        padding: 15px 20px;
+    }
+
     /* Colonnes */
     .columns.about {
         display: inline;
