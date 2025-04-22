@@ -7,6 +7,7 @@ async function load() {
     // Récupérer les données
     const { versions, patched_projects, updated_projects, new_projects, stats, notif_tag, active } = data;
     const notification = document.querySelector('.notification');
+    const menuList = document.getElementById('menu-list');
     const titles = [
         { title: 'Heures de code', stats: '4' },
         { title: 'Contributions aujourd\'hui', stats: 'today' },
@@ -40,7 +41,9 @@ async function load() {
                 li.innerHTML = `<a onclick="window.location.href='#${project}'">${project.charAt(0).toUpperCase() + project.slice(1)}</a>`
                 section.appendChild(li)
             })
-        } else wrapper.style.display = 'none'
+        }
+        else if (!filtered.length) menuList.style.display = 'none';
+        else wrapper.style.display = 'none';
     });
 
     // Statistiques n°4 (dynamique)
