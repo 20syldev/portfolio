@@ -43,6 +43,52 @@
             </div>
             <div class="column">
 
+                <!-- Lyah -->
+                <div class="card">
+                    <span class="tag is-link info" id="lyah">...</span>
+                    <div class="box">
+                        <div class="content description">
+                            <h4 class="title is-4">Lyah - Application de chat collaboratif</h4>
+                            <p>
+                                Lyah est une application de chat collaboratif commencée en Mars 2025.
+                                J'ai designé et développé l'interface utilisateur, en utilisant <strong>HTML, CSS et Js</strong>.
+                                L'API est développée en <strong>Node.js</strong>, et utilise un système de <strong>WebSocket</strong> pour la communication en temps réel.
+                                La base de données est gérée par <strong>PostgreSQL</strong>, et j'ai participé à la configuration du serveur web.
+                            </p>
+
+                            <h5 class="title is-5 mt-6">L'interface de chat</h5>
+                            <p>
+                                L'interface est assez <strong>simple</strong>, intuitive et <strong>moderne</strong>.
+                                Elle inclut un menu latéral rétractable, permettant de naviguer entre les différentes conversations, et de créer de nouvelles conversations.
+                                Vous pouvez également créer des <strong>groupes de discussion</strong>, et ajouter des membres à ces groupes.
+                                Et surtout, vous pouvez poser une question à l'un des 3 <strong>modèles d'IA</strong> disponibles, et obtenir une réponse en <strong>temps réel</strong>.
+                            </p>
+
+                            <h5 class="title is-5 mt-6">Les modèles d'IA</h5>
+                            <p>
+                                Lyah utilise 3 modèles d'IA différents, chacun ayant ses propres <strong>spécificités</strong>.
+                                Le premier modèle est un modèle externe rapide, qui peut répondre à des questions générales.
+                                Le deuxième modèle est un modèle interne, qui est plus lent, mais qui peut répondre à des questions <strong>plus précises</strong>.
+                                Le troisième modèle est notre modèle interne avancé, pouvant utiliser <strong>nos APIs internes</strong> pour répondre à des questions plus complexes sur <strong>nos infrastructures</strong>.
+                            </p>
+
+                            <h5 class="title is-5 mt-6">Le système de WebSocket</h5>
+                            <p>
+                                Le système de <strong>WebSocket</strong> est utilisé pour la communication en temps réel entre le <strong>client et le serveur</strong>.
+                                Cela permet d'envoyer et de recevoir des messages <strong>instantanément</strong>, sans avoir à recharger la page.
+                                Cela permet également de gérer les notifications en temps réel, lorsque vous recevez un <strong>nouveau message</strong> dans une conversation.
+                            </p>
+
+                            <h5 class="title is-5 mt-6">L'API</h5>
+                            <p>
+                                L'API est développée en Node.js, et utilise un système de WebSocket pour la communication en temps réel.
+                                Elle gère également l'<strong>authentification</strong> des utilisateurs, et la <strong>gestion des conversations</strong>.
+                                La base de données est gérée par PostgreSQL, et j'ai participé à la <strong>configuration</strong> du serveur web.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- LogVault -->
                 <div class="card">
                     <a href="https://zenetys.com/zlab/logcenter" target="_blank"><span class="tag is-link info" id="logvault">...</span></a>
@@ -192,6 +238,7 @@
         fetch('https://api.sylvain.pro/latest/website').then(r => r.json())
         .then(d => {
             document.getElementById('zpki').textContent = d.versions.zpki;
+            document.getElementById('lyah').textContent = d.versions.lyah;
             document.getElementById('logvault').textContent = d.versions.logvault;
             document.getElementById('drawio_plugin').textContent = d.versions.drawio_plugin;
         });
