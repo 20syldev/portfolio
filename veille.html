@@ -24,187 +24,632 @@
     <section class="section" id="about">
         <div class="section-heading mb-0">
             <h3 class="title is-2 mb-1">Veille Technologique</h3>
-            <h4 class="subtitle is-5">Actualités sur React 18</h4>
+            <h4 class="subtitle is-5">Actualités sur Node.js</h4>
             <div class="container description">
                 <p>
-                    Cette année, j'ai décidé de faire une veille technologique pour suivre les dernières actualités de React, un framework JavaScript pour la création de sites web interactifs.<br>
-                    Il s'agit d'une veille qui sera mise à jour régulièrement pour refléter les dernières évolutions de ce framework.
+                    Cette année, j'ai décidé de faire une veille technologique pour suivre les dernières actualités de Node.js, un environnement d'exécution JavaScript côté serveur.<br>
+                    Il s'agit d'une veille qui sera mise à jour régulièrement pour refléter les dernières évolutions de cette technologie essentielle au développement web moderne.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- React 18 -->
+    <!-- Node.js -->
     <section class="section veille" id="veille">
         <div class="container">
+            <span class="tag is-link info">Node.js</span>
             <div class="card">
-                <span class="tag is-link info">React 18</span>
                 <div class="box">
                     <div class="content description">
-                        <h4 class="title is-4">À propos de React</h4>
+                        <h4 class="title is-4">À propos de Node.js</h4>
                         <p>
-                            React est un framework JavaScript pour la création de sites web interactifs. Créé par Facebook en 2011, il est utilisé par des millions de développeurs dans le monde entier pour construire des interfaces utilisateur dynamiques et performantes.
+                            Node.js est un environnement d'exécution JavaScript côté serveur, open-source et multi-plateforme. Créé par Ryan Dahl en 2009, il est construit sur le moteur JavaScript V8 de Chrome et permet d'exécuter du code JavaScript en dehors d'un navigateur web. Node.js révolutionne le développement backend en utilisant un modèle non bloquant et orienté événements.
                         </p>
 
-                        <h4 class="title is-4 mt-6">Nouveautés de React 18</h4>
+                        <h4 class="title is-4 mt-6">Dernières versions et nouveautés</h4>
                         <ul>
-                            <li><strong>Concurrent Rendering :</strong> Une nouvelle architecture permettant de rendre des parties de l'interface utilisateur de manière non bloquante, ce qui améliore la réactivité.</li>
-                            <li><strong>Suspense amélioré :</strong> Une gestion optimisée des chargements de données, notamment pour les requêtes asynchrones.</li>
-                            <li><strong>Automatic Batching :</strong> Les mises à jour d'état regroupées automatiquement, réduisant les rendus inutiles et améliorant les performances globales.</li>
-                            <li><strong>Transitions :</strong> Une API pour gérer les changements d'état visuels et les interactions utilisateur de manière fluide.</li>
-                            <li><strong>Améliorations des hooks :</strong> Une meilleure gestion des hooks comme `useId`, utile pour les applications avec un rendu côté serveur.</li>
-                            <li><strong>Server Components :</strong> Une nouvelle fonctionnalité permettant de rendre des composants côté serveur, améliorant ainsi les performances et la sécurité.</li>
-                            <li><strong>Streaming SSR :</strong> Le rendu côté serveur en streaming pour une livraison plus rapide des pages web.</li>
+                            <li><strong>Node.js 22 (Current) :</strong> Apporte des améliorations significatives de performances, le support complet pour les modules WebAssembly System Interface (WASI), et une meilleure gestion des permissions pour renforcer la sécurité des applications.</li>
+                            <li><strong>Node.js 20 (LTS) :</strong> Introduit le système de permissions expérimental, une amélioration du système d'import d'URL, et une prise en charge améliorée des modules ESM (ECMAScript Modules).</li>
+                            <li><strong>Single Executable Applications :</strong> Capacité à compiler des applications Node.js en un seul fichier exécutable, facilitant la distribution et le déploiement.</li>
+                            <li><strong>Import Attributes :</strong> Syntaxe améliorée pour les importations avec support pour les assertions et les attributs, simplifiant la gestion des différents formats d'importation.</li>
+                            <li><strong>Performance Web Hooks :</strong> Implémentation des API de performance similaires à celles des navigateurs, permettant un meilleur profilage des applications.</li>
+                            <li><strong>WebSocket intégré :</strong> Support natif pour WebSocket, éliminant le besoin de bibliothèques tierces pour les communications en temps réel.</li>
+                            <li><strong>URL Imports :</strong> Possibilité d'importer directement des modules depuis des URLs, facilitant la consommation de packages distants sans installation préalable.</li>
                         </ul>
 
-                        <h4 class="title is-4 mt-6">Comparaison avec d'autres frameworks JS</h4>
+                        <h4 class="title is-4 mt-6">Node.js comparé aux autres environnements serveur</h4>
                         <p>
-                            React 18 se distingue par sa flexibilité et son écosystème robuste. Voici une comparaison rapide avec d'autres frameworks populaires :
+                            Node.js se distingue par son modèle d'événements non bloquant et sa capacité à traiter de multiples connexions simultanées efficacement. Voici une comparaison avec d'autres technologies serveur populaires :
                         </p>
                         <ul>
-                            <li><strong>Vue.js :</strong> Plus axé sur la simplicité et la réactivité, idéal pour les projets de petite à moyenne envergure. Vue.js offre une courbe d'apprentissage douce et une intégration facile avec d'autres bibliothèques ou projets existants.</li>
-                            <li><strong>Angular :</strong> Un framework complet avec une approche "tout-en-un", souvent préféré pour les grandes applications complexes. Angular propose une structure solide, des outils de développement intégrés et une forte orientation vers les applications d'entreprise.</li>
-                            <li><strong>Svelte :</strong> Très performant, sans virtual DOM, mais avec un écosystème plus restreint par rapport à React. Svelte compile les composants en code JavaScript optimisé, offrant des performances élevées et une taille de bundle réduite.</li>
-                            <li><strong>SolidJS :</strong> Un nouveau framework qui promet des performances élevées avec une approche réactive fine-grain. SolidJS se concentre sur la réactivité et l'efficacité, en utilisant des techniques de compilation avancées pour minimiser les mises à jour du DOM.</li>
+                            <li><strong>Deno :</strong> Créé aussi par Ryan Dahl, Deno est une alternative moderne à Node.js qui met l'accent sur la sécurité et les fonctionnalités modernes de JavaScript. Il inclut des fonctions de sécurité par défaut et utilise un système de permissions explicites, contrairement à Node.js qui nécessite des configurations supplémentaires pour sécuriser l'environnement.</li>
+                            <li><strong>PHP :</strong> Langage de script conçu spécifiquement pour le développement web, PHP est plus ancien que Node.js et possède un vaste écosystème. Cependant, il utilise un modèle de traitement synchrone traditionnel, ce qui peut limiter ses performances sous forte charge comparé au modèle non bloquant de Node.js.</li>
+                            <li><strong>Ruby on Rails :</strong> Framework web écrit en Ruby, il est axé sur la convention plutôt que la configuration, offrant une productivité élevée. Bien qu'il ne soit pas aussi rapide que Node.js pour les opérations I/O intensives, il offre une structure robuste pour le développement rapide d'applications.</li>
+                            <li><strong>Django (Python) :</strong> Framework complet avec une approche "batteries included" qui privilégie la facilité de développement. Python offre une syntaxe claire, mais Django n'exploite pas nativement l'approche événementielle et non bloquante qui fait la force de Node.js.</li>
+                            <li><strong>ASP.NET Core :</strong> Framework Microsoft qui offre d'excellentes performances avec le support de l'asynchronicité, mais nécessite généralement plus de ressources système que Node.js pour des performances équivalentes dans certains cas d'utilisation.</li>
                         </ul>
 
-                        <h4 class="title is-4 mt-6">Pourquoi migrer vers React 18 ?</h4>
+                        <h4 class="title is-4 mt-6">Pourquoi utiliser Node.js en 2024 ?</h4>
                         <p>
-                            React 18 introduit des améliorations majeures en termes de performance, de gestion des états complexes et de compatibilité avec les outils modernes. Sa prise en charge des nouvelles fonctionnalités comme le rendu concurrent et Suspense le place à la pointe des frameworks JavaScript.
+                            Node.js continue d'évoluer et de s'améliorer, offrant de nombreux avantages pour les développeurs et les entreprises. Son écosystème riche, sa flexibilité et ses performances en font un choix privilégié pour de nombreux types de projets.
                         </p>
                         <p>
-                            Les avantages de migrer vers React 18 incluent :
+                            Les principaux avantages de Node.js incluent :
                         </p>
                         <ul>
-                            <li>Amélioration des performances grâce au rendu concurrent, permettant une meilleure réactivité de l'interface utilisateur.</li>
-                            <li>Meilleure gestion des chargements de données avec Suspense, facilitant le développement d'applications asynchrones.</li>
-                            <li>Réduction des rendus inutiles grâce à l'Automatic Batching, optimisant les mises à jour d'état.</li>
-                            <li>API de transitions pour des interactions utilisateur plus fluides, améliorant l'expérience utilisateur.</li>
-                            <li>Compatibilité accrue avec les outils modernes et les nouvelles fonctionnalités de JavaScript, comme les Server Components et le Streaming SSR.</li>
+                            <li><strong>JavaScript unifié :</strong> Utilisez le même langage pour le frontend et le backend, permettant aux développeurs de travailler plus efficacement sur l'ensemble de la pile technologique.</li>
+                            <li><strong>I/O non bloquant :</strong> Architecture événementielle qui permet de gérer de nombreuses connexions simultanées sans bloquer le thread principal, idéal pour les applications en temps réel.</li>
+                            <li><strong>NPM (Node Package Manager) :</strong> Le plus grand écosystème de bibliothèques open-source au monde, offrant des solutions pour presque tous les besoins de développement.</li>
+                            <li><strong>Microservices :</strong> Parfaitement adapté à l'architecture microservices grâce à sa légèreté et à sa capacité à démarrer rapidement.</li>
+                            <li><strong>Performances :</strong> Excellente vitesse d'exécution grâce au moteur V8 de Google, particulièrement efficace pour les applications nécessitant de nombreuses opérations d'entrée/sortie.</li>
+                            <li><strong>Communauté active :</strong> Large communauté de développeurs et d'entreprises contribuant à l'amélioration continue de Node.js et de son écosystème.</li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <!-- Étude de React 18 -->
+            <!-- Écosystème et frameworks -->
+            <span class="tag is-link info">Écosystème</span>
             <div class="card">
-                <span class="tag is-link info">Étude</span>
                 <div class="box">
                     <div class="content description">
-                        <h4 class="title is-4">Configuration de base de React 18</h4>
+                        <h4 class="title is-4">L'écosystème Node.js en 2024</h4>
                         <p>
-                            Pour configurer un projet React 18, suivez ces étapes :
-                        </p>
-                        <h5 class="title is-5">1. Installer Node.js et npm</h5>
-                        <p>
-                            Assurez-vous d'avoir Node.js et npm installés sur votre machine.
-                            Vous pouvez les télécharger depuis <a href="https://nodejs.org" target="_blank">nodejs.org</a>.
+                            L'écosystème Node.js est l'un des plus riches et des plus dynamiques du paysage technologique actuel. Examinons les principaux frameworks et outils qui façonnent le développement avec Node.js aujourd'hui.
                         </p>
 
-                        <h5 class="title is-5">2. Créer un nouveau projet React</h5>
-                        <pre>
-npx create-react-app my-app
-cd my-app</pre>
+                        <h5 class="title is-5 mt-4">Frameworks backend populaires</h5>
+                        <ul>
+                            <li><strong>Express.js :</strong> Le framework le plus utilisé pour Node.js, minimaliste mais extrêmement flexible. Il reste un choix de premier plan pour développer des API REST et des applications web grâce à sa simplicité et sa robustesse éprouvée.</li>
+                            <li><strong>Nest.js :</strong> Framework progressif inspiré d'Angular, il gagne rapidement en popularité pour le développement d'applications d'entreprise grâce à son architecture modulaire, son support pour TypeScript, et ses fonctionnalités avancées comme l'injection de dépendances.</li>
+                            <li><strong>Fastify :</strong> Alternative moderne à Express.js qui met l'accent sur les performances et la faible empreinte mémoire. Fastify peut être jusqu'à deux fois plus rapide qu'Express dans certains scénarios.</li>
+                            <li><strong>Hapi.js :</strong> Framework robuste pour la création d'API et de services, avec un accent sur la configuration déclarative plutôt que le code.</li>
+                            <li><strong>Koa.js :</strong> Créé par l'équipe d'Express, Koa offre une approche plus légère et moderne avec un meilleur support des fonctionnalités async/await.</li>
+                        </ul>
 
-                        <h5 class="title is-5">3. Mettre à jour vers React 18</h5>
-                        <pre>
-npm install react@18 react-dom@18</pre>
+                        <h5 class="title is-5 mt-4">Frameworks fullstack</h5>
+                        <ul>
+                            <li><strong>Next.js :</strong> Framework React qui permet le rendu côté serveur (SSR) et la génération de sites statiques (SSG), avec une adoption massive dans l'industrie. La version 14 introduit de nouvelles optimisations de performances et une meilleure expérience de développement.</li>
+                            <li><strong>Nuxt.js :</strong> L'équivalent de Next.js pour Vue.js, permettant de créer des applications Vue avec rendu côté serveur et génération statique.</li>
+                            <li><strong>Remix :</strong> Nouveau concurrent qui met l'accent sur les modèles mentaux web natifs et les performances utilisateur, avec un système de chargement de données intelligent.</li>
+                            <li><strong>Meteor :</strong> Plateforme complète pour développer des applications web en temps réel avec synchronisation de données automatique entre client et serveur.</li>
+                            <li><strong>AdonisJS :</strong> Framework fullstack inspiré de Laravel (PHP), offrant une expérience de développement structurée avec ORM intégré, authentification, et autres fonctionnalités.</li>
+                        </ul>
 
-                        <h5 class="title is-5">4. Modifier l'entrée principale</h5>
-                        <pre>
-// filepath: src/index.js
-import { createRoot } from 'react-dom/client';
-import App from './App';
+                        <h5 class="title is-5 mt-4">Bases de données et ORM</h5>
+                        <ul>
+                            <li><strong>Mongoose :</strong> ODM (Object Document Mapper) pour MongoDB, facilitant l'interaction avec la base de données NoSQL la plus populaire dans l'écosystème Node.js.</li>
+                            <li><strong>Prisma :</strong> ORM moderne de nouvelle génération qui gagne rapidement du terrain grâce à sa sécurité de type, son excellent DX (Developer Experience) et sa compatibilité avec plusieurs bases de données.</li>
+                            <li><strong>TypeORM :</strong> ORM avancé avec support pour TypeScript et plusieurs bases de données SQL et NoSQL.</li>
+                            <li><strong>Sequelize :</strong> ORM mature pour bases de données SQL comme PostgreSQL, MySQL, SQLite et autres.</li>
+                            <li><strong>Knex.js :</strong> Constructeur de requêtes SQL flexible qui sert souvent de base à d'autres ORM.</li>
+                        </ul>
 
-const container = document.getElementById('root');
-const root = createRoot(container);
-root.render(&lt;App /&gt;);</pre>
+                        <h5 class="title is-5 mt-4">Outils de test et qualité du code</h5>
+                        <ul>
+                            <li><strong>Jest :</strong> Framework de test complet développé par Facebook, offrant des fonctionnalités comme le mocking, la couverture de code et l'isolation des tests.</li>
+                            <li><strong>Vitest :</strong> Alternative moderne à Jest avec une meilleure intégration pour les projets utilisant Vite, offrant des performances nettement supérieures.</li>
+                            <li><strong>Mocha :</strong> Framework de test flexible qui permet d'utiliser différentes bibliothèques d'assertions comme Chai.</li>
+                            <li><strong>ESLint :</strong> Outil d'analyse statique pour identifier les problèmes dans le code JavaScript.</li>
+                            <li><strong>TypeScript :</strong> Surensemble de JavaScript qui ajoute le typage statique, améliorant considérablement la qualité et la maintenabilité du code dans les projets Node.js.</li>
+                        </ul>
                     </div>
-
                 </div>
             </div>
 
             <!-- Exemples de code -->
+            <span class="tag is-link info">Exemples</span>
             <div class="card">
-                <span class="tag is-link info">Exemples</span>
                 <div class="box">
                     <div class="content description">
-                        <h4 class="title is-4">Exemples de code</h4>
+                        <h4 class="title is-4">Exemples pratiques avec Node.js</h4>
                         <p>
-                            Voici quelques exemples de code pour illustrer les nouvelles fonctionnalités de React 18 :
+                            Voici quelques exemples de code pour illustrer les fonctionnalités clés de Node.js et les bonnes pratiques actuelles :
                         </p>
-                        <h5 class="title is-5">Concurrent Rendering</h5>
+
+                        <h5 class="title is-5">Création d'un serveur HTTP basique</h5>
                         <pre>
-import { createRoot } from 'react-dom/client';
-import App from './App';
+// Server HTTP natif
+const http = require('http');
 
-const container = document.getElementById('root');
-const root = createRoot(container);
-root.render(&lt;App /&gt;);</pre>
+const server = http.createServer((req, res) => {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('Hello World\n');
+});
 
-                        <h5 class="title is-5">Suspense</h5>
+server.listen(3000, '127.0.0.1', () => {
+    console.log('Serveur démarré sur http://127.0.0.1:3000/');
+});</pre>
+
+                        <h5 class="title is-5">API REST avec Express.js et ESM</h5>
                         <pre>
-import React, { Suspense } from 'react';
-const OtherComponent = React.lazy(() => import('./OtherComponent'));
+// API REST avec Express et ES modules
+import express from 'express';
+import cors from 'cors';
 
-function MyComponent() {
-    return (
-        &lt;div&gt;
-            &lt;Suspense fallback={&lt;div&gt;Loading...&lt;/div&gt;}&gt;
-                &lt;OtherComponent /&gt;
-            &lt;/Suspense&gt;
-        &lt;/div&gt;
-    );
-}</pre>
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-                        <h5 class="title is-5">Automatic Batching</h5>
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Base de données simulée
+const users = [
+    { id: 1, name: 'Alice', email: 'alice@example.com' },
+    { id: 2, name: 'Bob', email: 'bob@example.com' }
+];
+
+// Routes
+app.get('/api/users', (req, res) => {
+    res.json(users);
+});
+
+app.get('/api/users/:id', (req, res) => {
+    const user = users.find(u => u.id === parseInt(req.params.id));
+    if (!user) return res.status(404).json({ message: 'Utilisateur non trouvé' });
+    res.json(user);
+});
+
+app.post('/api/users', (req, res) => {
+    const newUser = {
+        id: users.length + 1,
+        name: req.body.name,
+        email: req.body.email
+    };
+    users.push(newUser);
+    res.status(201).json(newUser);
+});
+
+app.listen(PORT, () => {
+    console.log(`Serveur démarré sur le port ${PORT}`);
+});</pre>
+
+                        <h5 class="title is-5">Utilisation d'async/await avec gestion d'erreurs</h5>
                         <pre>
-import { useState } from 'react';
+// Utilisation moderne de async/await
+import fs from 'fs/promises';
 
-function MyComponent() {
-    const [count, setCount] = useState(0);
-    const [text, setText] = useState('');
-
-    function handleClick() {
-        setCount(count + 1);
-        setText('Updated');
-        // Both state updates are batched together
+async function readConfigFile() {
+    try {
+        // Lecture asynchrone de fichier
+        const data = await fs.readFile('config.json', 'utf8');
+        const config = JSON.parse(data);
+        return config;
+    } catch (error) {
+        if (error.code === 'ENOENT') {
+            console.error('Le fichier de configuration n\'existe pas');
+            // Créer un fichier de configuration par défaut
+            const defaultConfig = { theme: 'light', language: 'fr' };
+            await fs.writeFile('config.json', JSON.stringify(defaultConfig, null, 2));
+            return defaultConfig;
+        }
+        console.error('Erreur lors de la lecture du fichier :', error);
+        throw error;  // Propager l'erreur pour une gestion à un niveau supérieur
     }
+}
 
-    return (
-        &lt;div&gt;
-            &lt;button onClick={handleClick}&gt;Click me&lt;/button&gt;
-            &lt;p&gt;{count}&lt;/p&gt;
-            &lt;p&gt;{text}&lt;/p&gt;
-        &lt;/div&gt;
-    );
+// Utilisation de la fonction
+(async () => {
+    try {
+        const config = await readConfigFile();
+        console.log('Configuration chargée :', config);
+    } catch (error) {
+        console.error('Impossible de charger la configuration');
+        process.exit(1);
+    }
+})();</pre>
+
+                        <h5 class="title is-5">Communication en temps réel avec Socket.IO</h5>
+                        <pre>
+// Serveur WebSocket avec Socket.IO
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+import express from 'express';
+
+const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+    cors: {
+        origin: "http://localhost:8080",
+        methods: ["GET", "POST"]
+    }
+});
+
+// Servir des fichiers statiques
+app.use(express.static('public'));
+
+// Gestion des connexions WebSocket
+io.on('connection', (socket) => {
+    console.log('Un utilisateur s\'est connecté', socket.id);
+
+    // Envoyer un message de bienvenue
+    socket.emit('welcome', { message: 'Bienvenue dans le chat!' });
+
+    // Informer les autres utilisateurs
+    socket.broadcast.emit('userJoined', { userId: socket.id });
+
+    // Recevoir et diffuser les messages
+    socket.on('chatMessage', (data) => {
+        io.emit('newMessage', {
+            userId: socket.id,
+            message: data.message,
+            timestamp: new Date()
+        });
+    });
+
+    // Gestion de la déconnexion
+    socket.on('disconnect', () => {
+        console.log('Un utilisateur s\'est déconnecté', socket.id);
+        io.emit('userLeft', { userId: socket.id });
+    });
+});
+
+httpServer.listen(3000, () => {
+    console.log('Serveur démarré sur le port 3000');
+});</pre>
+
+                        <h5 class="title is-5">API moderne avec Fastify et Prisma</h5>
+                        <pre>
+// API moderne avec Fastify et Prisma
+import Fastify from 'fastify';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+const fastify = Fastify({ logger: true });
+
+// Enregistrer des plugins
+await fastify.register(import('@fastify/cors'));
+await fastify.register(import('@fastify/swagger'), {
+    routePrefix: '/documentation',
+    swagger: {
+        info: { title: 'API Documentation', version: '1.0.0' }
+    },
+    exposeRoute: true
+});
+
+// Définition du schéma pour la validation
+const postSchema = {
+    type: 'object',
+    properties: {
+        title: { type: 'string' },
+        content: { type: 'string' }
+    },
+    required: ['title', 'content']
+};
+
+// Route pour créer un post
+fastify.post('/posts', {
+    schema: {
+        body: postSchema,
+        response: {
+            201: {
+                type: 'object',
+                properties: {
+                    id: { type: 'integer' },
+                    title: { type: 'string' },
+                    content: { type: 'string' },
+                    createdAt: { type: 'string', format: 'date-time' }
+                }
+            }
+        }
+    }
+}, async (request, reply) => {
+    const { title, content } = request.body;
+
+    try {
+        const post = await prisma.post.create({
+            data: { title, content }
+        });
+        return reply.code(201).send(post);
+    } catch (error) {
+        fastify.log.error(error);
+        return reply.code(500).send({ error: 'Erreur lors de la création du post' });
+    }
+});
+
+// Démarrer le serveur
+try {
+    await fastify.listen({ port: 3000 });
+} catch (err) {
+    fastify.log.error(err);
+    process.exit(1);
 }</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nouvelles tendances -->
+            <span class="tag is-link info">Tendances</span>
+            <div class="card">
+                <div class="box">
+                    <div class="content description">
+                        <h4 class="title is-4">Tendances et évolutions de Node.js</h4>
+                        <p>
+                            L'écosystème Node.js continue d'évoluer rapidement. Voici les tendances actuelles qui façonnent l'avenir du développement avec Node.js :
+                        </p>
+
+                        <h5 class="title is-5 mt-4">TypeScript comme standard</h5>
+                        <p>
+                            TypeScript est en train de devenir le standard de facto pour les projets Node.js d'envergure. Ses avantages en termes de typage statique, d'autocomplétion et de détection d'erreurs en font un choix privilégié pour les équipes qui recherchent la robustesse et la maintenabilité.
+                        </p>
+                        <p>
+                            Les frameworks modernes comme NestJS et les bibliothèques comme Prisma sont conçus avec TypeScript dès le départ, facilitant l'adoption de cette technologie. La transition de JavaScript vers TypeScript est de plus en plus considérée comme une évolution naturelle dans le cycle de vie des projets Node.js.
+                        </p>
+
+                        <h5 class="title is-5 mt-4">Architecture en microservices</h5>
+                        <p>
+                            La légèreté et la rapidité de démarrage de Node.js en font une technologie idéale pour les architectures en microservices. Cette tendance se poursuit avec l'adoption croissante de frameworks comme NestJS qui facilitent la création de microservices avec des fonctionnalités intégrées pour la communication entre services.
+                        </p>
+                        <p>
+                            On observe également une augmentation de l'utilisation de technologies complémentaires comme Docker, Kubernetes, et les outils de service mesh (comme Istio) pour orchestrer et gérer des écosystèmes complexes de microservices Node.js.
+                        </p>
+
+                        <h5 class="title is-5 mt-4">Serverless et Edge Computing</h5>
+                        <p>
+                            L'adoption des architectures serverless avec Node.js progresse rapidement, permettant aux développeurs de se concentrer sur le code métier sans se soucier de l'infrastructure sous-jacente. Des plateformes comme AWS Lambda, Vercel, Netlify et Cloudflare Workers supportent nativement les fonctions Node.js.
+                        </p>
+                        <p>
+                            Le edge computing, qui consiste à exécuter du code au plus près des utilisateurs sur des réseaux de distribution de contenu (CDN), gagne également en popularité. Les runtimes JavaScript comme Deno Deploy et les workers Cloudflare permettent d'exécuter du code compatible Node.js directement sur les edge servers, réduisant considérablement la latence pour les utilisateurs finaux.
+                        </p>
+
+                        <h5 class="title is-5 mt-4">Modules ESM comme standard</h5>
+                        <p>
+                            Les modules ECMAScript (ESM) remplacent progressivement le système de modules CommonJS traditionnel de Node.js. Cette transition permet une meilleure interopérabilité entre le code frontend et backend, ainsi qu'une meilleure optimisation par les moteurs JavaScript.
+                        </p>
+                        <p>
+                            Node.js a considérablement amélioré son support des ESM, et de nombreuses bibliothèques populaires ont désormais une version ESM ou sont en train de migrer vers ce format. Cette évolution s'accompagne de l'adoption croissante de la syntaxe d'importation/exportation moderne (`import`/`export`) au lieu des méthodes `require` traditionnelles.
+                        </p>
+
+                        <h5 class="title is-5 mt-4">Frameworks isomorphiques et rendering patterns</h5>
+                        <p>
+                            Les frameworks qui permettent de partager du code entre le client et le serveur connaissent une forte croissance. Next.js, Nuxt.js et Remix offrent des fonctionnalités comme le Server-Side Rendering (SSR), le Static Site Generation (SSG) et les nouvelles approches comme le Streaming SSR et le Partial Hydration.
+                        </p>
+                        <p>
+                            Ces approches répondent aux préoccupations de performance et de SEO tout en offrant des expériences utilisateur riches. Les React Server Components, qui permettent d'exécuter des composants exclusivement côté serveur et de réduire le JavaScript envoyé au client, représentent également une évolution majeure dans ce domaine.
+                        </p>
                     </div>
                 </div>
             </div>
 
             <!-- Fin de veille -->
             <div class="card">
+                <span class="tag is-link info">Conclusion</span>
                 <div class="box">
-                    <span class="tag is-link info">Conclusion</span>
                     <div class="content description">
-                        <h4 class="title is-4">Tendances et avenir des frameworks JS</h4>
+                        <h4 class="title is-4">L'avenir de Node.js et du JavaScript côté serveur</h4>
                         <p>
-                            Avec l'émergence de nouveaux outils comme Svelte et SolidJS, et l'évolution continue des frameworks établis comme Vue.js et Angular, le paysage des frameworks JavaScript continue de se diversifier.
-                            React 18 reste un choix de premier plan grâce à sa grande communauté et à son écosystème étendu.
+                            Node.js reste solidement ancré comme l'une des technologies backend dominantes, avec une communauté active et un écosystème en constante évolution. Malgré l'émergence d'alternatives comme Deno et Bun, Node.js continue de bénéficier d'une inertie considérable et d'une adoption massive dans l'industrie.
                         </p>
                         <p>
-                            Les tendances futures incluent une meilleure prise en charge des applications hybrides, des performances accrues et une intégration plus fluide avec les outils DevOps et CI/CD.
-                            De plus, l'adoption croissante des Server Components et du Streaming SSR promet de transformer la manière dont les applications web sont construites et déployées.
+                            Les priorités pour l'avenir de Node.js incluent l'amélioration continue des performances, le renforcement de la sécurité, et la simplification du développement grâce à une meilleure intégration des fonctionnalités modernes de JavaScript. L'équipe de Node.js travaille également à réduire la fragmentation entre les différentes versions et à améliorer la compatibilité avec les standards web.
+                        </p>
+                        <p>
+                            Avec l'adoption croissante de TypeScript, l'évolution vers les modules ESM, et l'intégration de plus en plus poussée avec les technologies cloud natives, Node.js est bien positionné pour rester pertinent dans le paysage technologique en constante évolution du développement web.
                         </p>
 
-                        <h4 class="title is-4 mt-6">Ressources utiles</h4>
+                        <h4 class="title is-4 mt-6">Ressources pour approfondir</h4>
                         <ul>
-                            <li><a href="https://react.dev" target="_blank">Documentation officielle de React</a></li>
-                            <li><a href="https://react.dev/blog/2022/03/29/react-v18" target="_blank">Annonce officielle de React 18</a></li>
-                            <li><a href="https://youtube.com/playlist?list=PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3" target="_blank">Tutoriels vidéos sur React 18</a></li>
-                            <li><a href="https://react.dev/learn" target="_blank">Commencer avec React</a></li>
+                            <li><a href="https://nodejs.org/fr/docs" target="_blank">Documentation officielle de Node.js</a></li>
+                            <li><a href="https://nodejs.org/en/blog" target="_blank">Blog officiel de Node.js pour suivre les nouvelles versions</a></li>
+                            <li><a href="https://github.com/goldbergyoni/nodebestpractices" target="_blank">Node.js Best Practices</a> - Une liste complète des meilleures pratiques pour Node.js</li>
+                            <li><a href="https://nodeschool.io" target="_blank">NodeSchool</a> - Tutoriels interactifs pour apprendre Node.js et ses écosystèmes</li>
+                            <li><a href="https://expressjs.com/fr" target="_blank">Express.js</a> - Documentation du framework web le plus populaire pour Node.js</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sources -->
+            <div class="card">
+                <span class="tag is-link info">Sources</span>
+                <div class="box">
+                    <div class="content description">
+                                                <h5 class="title is-5 mt-4">Documentation officielle et sources primaires</h5>
+                        <div class="columns is-multiline">
+                            <div class="column is-half">
+                                <a href="https://nodejs.org/docs/latest/api" target="_blank">Node.js Foundation. (2025). Documentation officielle de Node.js</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://nodejs.org/en/blog/release/v24.1.0" target="_blank">Node.js Foundation. (2025). Node.js v24.1.0 Release Notes</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://nodejs.org/en/blog/announcements" target="_blank">Node.js Foundation. (2024). Node.js 22 Promoted to Long-Term Support</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://nodejs.org/api/single-executable-applications.html" target="_blank">Node.js Foundation. (2025). Single Executable Applications Documentation</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://github.com/tc39/proposal-import-attributes" target="_blank">TC39. (2025). Import Attributes Proposal</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://nodejs.org/api/perf_hooks.html" target="_blank">Node.js Foundation. (2025). Performance Hooks API Documentation</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://nodejs.org/api/http.html" target="_blank">Node.js Foundation. (2025). WebSocket API Documentation</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://nodejs.org/api/esm.html" target="_blank">Node.js Foundation. (2025). ESM URL Imports Documentation</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://nodejs.org/api/permissions.html" target="_blank">Node.js Foundation. (2025). Permissions API Documentation</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://github.com/nodejs/node/blob/main/doc/contributing/strategic-initiatives.md" target="_blank">Node.js Foundation. (2024). Node.js Strategic Initiatives</a>
+                            </div>
+                        </div>
+
+                        <h5 class="title is-5 mt-4">Alternatives et comparaisons</h5>
+                        <div class="columns is-multiline">
+                            <div class="column is-half">
+                                <a href="https://deno.com/blog" target="_blank">Deno Land Inc. (2025). Deno vs Node.js Comparison</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://deno.com/blog" target="_blank">Deno Land Inc. (2024). Announcing Deno 2.0</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://www.php.net/releases" target="_blank">The PHP Foundation. (2024). PHP 8.4 Release Notes</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://kinsta.com/fr/blog/php-vs-nodejs" target="_blank">Kinsta. (2025). PHP vs Node.js - Comparaison approfondie</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://rubyonrails.org/category/releases" target="_blank">Rails Core Team. (2025). Rails 8.0 has been released</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://blog.logrocket.com" target="_blank">LogRocket. (2025). Comparing Ruby on Rails and Node.js</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://docs.djangoproject.com/en/stable/releases" target="_blank">Django Software Foundation. (2024). Django 6.0 Release Notes</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://devblogs.microsoft.com/dotnet" target="_blank">Microsoft. (2025). Announcing ASP.NET Core 9</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://stackify.com/blog" target="_blank">Stackify. (2025). Node.js vs ASP.NET Core Performance Comparison</a>
+                            </div>
+                        </div>
+
+                        <h5 class="title is-5 mt-4">Frameworks et écosystème</h5>
+                        <div class="columns is-multiline">
+                            <div class="column is-half">
+                                <a href="https://expressjs.com/en/changelog/#5.x" target="_blank">Express.js. (2024). Express 5.0.0 Changelog</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://www.npmtrends.com/express-vs-koa-vs-fastify-vs-nest" target="_blank">NPM Trends. (2025). Express vs Alternatives - Tendances de téléchargement</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://docs.nestjs.com" target="_blank">NestJS Team. (2025). NestJS v12 Migration Guide</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://trilon.io/blog" target="_blank">Trilon. (2025). NestJS in Enterprise 2025</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://www.fastify.io/blog" target="_blank">Fastify Team. (2024). Announcing Fastify v5</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://github.com/fastify/fastify/tree/main/docs" target="_blank">Fastify Team. (2025). Fastify Benchmarking Results</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://hapi.dev/api" target="_blank">Hapi.js Team. (2024). Hapi.js API Documentation</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://github.com/koajs/koa/releases" target="_blank">Koa.js Team. (2025). Koa Release Notes</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://mongoosejs.com/docs" target="_blank">Mongoose Team. (2024). Mongoose Migration to v9</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://www.prisma.io/blog" target="_blank">Prisma Team. (2025). Prisma ORM Suite v2 Announcement</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://github.com/typeorm/typeorm/releases" target="_blank">TypeORM Team. (2025). TypeORM Latest Releases</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://sequelize.org/docs/v7" target="_blank">Sequelize Team. (2024). Sequelize Release Notes</a>
+                            </div>
+                        </div>
+
+                        <h5 class="title is-5 mt-4">Frameworks frontend et fullstack</h5>
+                        <div class="columns is-multiline">
+                            <div class="column is-half">
+                                <a href="https://nextjs.org/blog" target="_blank">Vercel. (2025). Next.js 16 Release</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://vercel.com/blog" target="_blank">Vercel. (2025). Server Actions Improvements</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://nuxt.com/blog" target="_blank">Nuxt Team. (2025). Nuxt 5.0 Release</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://remix.run/blog" target="_blank">Remix Team. (2024). Remix + Vite Stable Release</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://blog.meteor.com" target="_blank">Meteor Software. (2024). Announcing Meteor 3.0</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://adonisjs.com/blog" target="_blank">AdonisJS Team. (2025). Introducing AdonisJS v7</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://react.dev/blog" target="_blank">React Team. (2025). React 19 Release</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://vercel.com/blog" target="_blank">Vercel. (2025). Partial Prerendering Improvements</a>
+                            </div>
+                        </div>
+
+                        <h5 class="title is-5 mt-4">Outils de test et qualité de code</h5>
+                        <div class="columns is-multiline">
+                            <div class="column is-half">
+                                <a href="https://jestjs.io/blog" target="_blank">Facebook. (2024). Jest 31 Release</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://github.com/vitest-dev/vitest/releases" target="_blank">Vitest Team. (2025). Vitest Release Notes</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://vitest.dev/guide/why" target="_blank">Vitest Team. (2025). Why Vitest?</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://mochajs.org" target="_blank">Mocha Team. (2024). Mocha Release Notes</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://eslint.org/blog" target="_blank">ESLint Team. (2025). ESLint v9.0.0 Released</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://devblogs.microsoft.com/typescript" target="_blank">Microsoft. (2025). TypeScript 6.0 Announcement</a>
+                            </div>
+                        </div>
+
+                        <h5 class="title is-5 mt-4">Tendances et évolutions</h5>
+                        <div class="columns is-multiline">
+                            <div class="column is-half">
+                                <a href="https://thenewstack.io/tag/node-js" target="_blank">The New Stack. (2025). Node.js Trends for 2025</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://www.infoworld.com/category/javascript" target="_blank">InfoWorld. (2025). What to Expect from Node.js in 2025</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://survey.stackoverflow.co" target="_blank">Stack Overflow. (2025). Developer Survey 2025 - TypeScript Data</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://www.typescriptlang.org/docs/handbook" target="_blank">TypeScript Team. (2025). TypeScript Handbook</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://github.com/microsoft/TypeScript/wiki" target="_blank">TypeScript Team. (2025). Node Target Mapping</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://docs.nestjs.com/microservices/basics" target="_blank">NestJS Team. (2025). NestJS Microservices Documentation</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://www.nginx.com/blog" target="_blank">NGINX. (2025). Microservices Adoption in 2025</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://kubernetes.io/blog" target="_blank">Kubernetes. (2025). Node Applications on Kubernetes</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://www.cncf.io/reports" target="_blank">CNCF. (2025). Cloud Native Survey 2025</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://aws.amazon.com/blogs/compute/" target="_blank">AWS. (2024). Node.js 20.x Runtime in AWS Lambda</a>
+                            </div>
+                        </div>
+
+                        <h5 class="title is-5 mt-4">Études de cas et exemples d'utilisation</h5>
+                        <div class="columns is-multiline">
+                            <div class="column is-half">
+                                <a href="https://nodejs.dev/learn" target="_blank">Node.js Foundation. (2025). Learn Node.js
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://netflixtechblog.com" target="_blank">Netflix Technology Blog. (2025). Node.js at Scale</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://medium.com/paypal-tech" target="_blank">PayPal Tech. (2025). Node.js at PayPal in 2025</a>
+                            </div>
+                            <div class="column is-half">
+                                <a href="https://medium.com/walmartglobaltech" target="_blank">Walmart Global Tech. (2025). Node.js Performance at Scale</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
