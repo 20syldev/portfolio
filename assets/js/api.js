@@ -42,7 +42,7 @@ async function load() {
                 section.appendChild(li)
             })
         }
-        else if (!filtered.length) menuList.style.display = 'none';
+        else if (!filtered.length) document.getElementById(id).style.display = 'none';
         else wrapper.style.display = 'none';
     });
 
