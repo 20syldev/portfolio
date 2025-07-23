@@ -525,6 +525,9 @@ pre {
 
 /* Mobile */
 @media (max-width: 600px) {
+    /* Padding des sections */
+    .section { padding: 3rem 1rem; }
+
     /* Titre des sections */
     .section-heading {
         margin-bottom: 1em;
