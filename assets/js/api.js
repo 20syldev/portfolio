@@ -7,7 +7,6 @@ async function load() {
     // Récupérer les données
     const { versions, patched_projects, updated_projects, new_projects, stats, notif_tag, active } = data;
     const notification = document.querySelector('.notification');
-    const menuList = document.getElementById('menu-list');
     const titles = [
         { title: 'Heures de code', stats: '4' },
         { title: 'Contributions aujourd\'hui', stats: 'today' },
