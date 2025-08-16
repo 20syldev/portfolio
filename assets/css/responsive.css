@@ -1,0 +1,103 @@
+/* - - - - - - - Responsive - - - - - - - */
+
+/* Tablette */
+@media (max-width: 1278px) {
+    /* Section veille */
+    section.veille { padding: 15px; }
+
+    /* Listes */
+    li { margin-left: -5px; }
+
+    /* Éléments de bas de page */
+    .theme-notif, .switch-btn, .menu-btn, .home-btn {
+        bottom: -5px;
+    }
+    .theme-notif, .switch-btn, .menu-btn, .home-btn i {
+        font-size: 14px;
+    }
+
+    /* Notification avec background */
+    .theme-notif {
+        background: var(--bg-invert);
+        color: var(--bg);
+        left: 60px;
+        bottom: 5px;
+        font-size: 12px;
+        padding: 5px 10px;
+        border-radius: 100px;
+    }
+
+    /* Colonnes */
+    .columns.about { display: inline; }
+    .columns.about .column { padding: 20px 0; }
+    .columns.about .column .card { margin: 0; }
+
+    /* Stats */
+    .level-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto auto;
+        display: grid;
+        gap: 20px;
+    }
+    .level-item { width: 100%; }
+
+    /* Badges Google */
+    .badge-grid {
+        border-radius: 50px;
+        padding: 10px 15px;
+    }
+    .badge-item { width: 60px; }
+
+    /* Boutons sans étoiles */
+    .button::before, .button::after {
+        background-image: none;
+    }
+
+    /* Tag */
+    .info {
+        font-size: 10px;
+        right: -10px;
+    }
+
+    /* Notifications du chat */
+    .field.is-grouped { display: none; }
+
+    /* Copyright */
+    .bottom { font-size: 0.8em; }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    /* Sections */
+    .section { padding: 3rem 1rem; }
+    .section-heading { margin-bottom: 1em; }
+
+    /* Stats */
+    .level-grid { display: block; }
+    .level-item { margin-bottom: 20px; }
+
+    /* Cases */
+    .card-content:not(.skills-content) {
+        padding: 20px 10px;
+    }
+    .profile, .skills, .profession {
+        min-width: auto;
+    }
+
+    /* Tableau du profil */
+    .table-profile td { display: inline-block; }
+
+    /* Badges Google */
+    .badge-grid {
+        grid-template-columns: repeat(3, auto);
+        overflow-y: scroll;
+    }
+    .badge-item { width: 40px; }
+    .badge-item::before { display: none; }
+
+    /* Tag */
+    .info { font-size: 12px; }
+
+    /* Messages du chat */
+    .chat td:nth-child(2) { padding-left: 45px; }
+}

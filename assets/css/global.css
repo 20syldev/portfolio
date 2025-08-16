@@ -1,0 +1,401 @@
+@import './theme.css';
+
+/* - - - - - - - Global - - - - - - - */
+
+:root { --transition: 0.8s; }
+
+* {
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
+}
+
+a {
+    border-radius: 2px;
+}
+
+pre {
+    border-radius: 10px;
+}
+
+/* Notification au chargement*/
+.notification {
+    transform: translateX(-150%);
+    position: fixed;
+    z-index: 999;
+    top: 10px;
+    left: 10px;
+    max-width: 400px;
+}
+.notification.slide-in {
+    transition: transform var(--transition) ease-in-out;
+    transform: translateX(0);
+}
+.notification.slide-out {
+    transition: transform var(--transition) ease-in-out;
+    transform: translateX(-150%);
+}
+
+/* Éléments de bas de page */
+.theme-notif, .switch-btn, .menu-btn, .home-btn {
+    color: var(--menu-list-bg);
+    position: fixed;
+    bottom: 0;
+    padding: 15px;
+    z-index: 1001;
+}
+.switch-btn:hover, .menu-btn:hover, .home-btn:hover {
+    filter: brightness(150%);
+}
+
+/* Notification au changement de thème */
+.theme-notif {
+    display: none;
+    left: 50px;
+    opacity: 0;
+    font-size: 14px;
+}
+.theme-notif.show {
+    animation: showNotif var(--transition) ease-out forwards;
+    display: block;
+}
+.theme-notif.hide {
+    animation: hideNotif var(--transition) ease-in forwards;
+}
+
+/* Changer de thème */
+.switch-btn {
+    transition: var(--transition) ease-in-out;
+    background: none;
+    border: none;
+    left: 10px;
+    border-radius: 100px;
+}
+
+/* Ouvrir le menu ou retourner à l'accueil */
+.menu-btn, .home-btn {
+    transition: var(--transition) ease-in-out;
+    background: none;
+    border: none;
+    right: 10px;
+    border-radius: 100px;
+}
+.menu-btn.is-visible {
+    transform: translateX(-185px) rotate(180deg);
+}
+
+/* Menu */
+.side-menu {
+    transition: var(--transition) transform ease-in-out;
+    background: var(--menu-bg);
+    transform: translateX(100%);
+    overflow-y: auto;
+    position: fixed;
+    z-index: 1000;
+    height: 100%;
+    width: 250px;
+    top: 0;
+    right: 0;
+    padding: 15px 15px 50px 15px;
+}
+.side-menu.is-visible {
+    box-shadow: -2px 0 5px var(--menu-shadow);
+    transform: translateX(0);
+}
+.menu-list a {
+    color: var(--menu-list-bg);
+    background: var(--bg);
+    transition: 0.5s;
+}
+.menu-list a:hover {
+    background: var(--hover-bg);
+}
+.menu-list .is-active {
+    background: var(--menu-list-active);
+    color: var(--button-color);
+    opacity: 0.9;
+}
+.menu-list .is-active:hover {
+    background: var(--menu-list-active);
+    opacity: 1;
+}
+
+/* Texte qui rebondit */
+.bounce span {
+    transform: translateY(0);
+    display: inline-block;
+    opacity: 0;
+}
+
+/* Titre des sections */
+.section-heading {
+    text-align: center;
+    margin-bottom: 4em;
+    margin-top: 1em;
+}
+
+/* Aligner le texte de chaque case */
+.card-content h3 {
+    text-align: center;
+}
+
+/* Statistiques */
+.level-item {
+    width: 25%;
+}
+
+/* Cases du profil et des compétences */
+.profile, .skills, .profession {
+    border: 2px solid var(--bg-invert);
+    height: fit-content;
+    overflow: hidden;
+    min-width: 380px;
+    min-height: 320px;
+    border-radius: 20px;
+}
+.profile:hover, .skills:hover, .profession:hover {
+    box-shadow: 5px 5px 0 var(--bg-invert);
+    transform: translate(-3px, -3px);
+}
+.profile:active, .skills:active, .profession:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+}
+
+/* Tableau du profil et des compétences */
+.table-profile td, th {
+    border: none !important;
+    transition: 0.5s;
+}
+.table-profile td:first-of-type {
+    font-weight: bold;
+}
+.table-profile tr:first-child:hover {
+    background: none;
+}
+.table-profile tr:hover td {
+    background: var(--hover-bg);
+    border-radius: 10px;
+}
+.table-profile tr:hover td:first-child {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+.table-profile tr:hover td:last-child {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+
+/* Survol et clic des boutons */
+.button {
+    background: var(--button-bg);
+    color: var(--button-color);
+    transition: 0.5s;
+}
+.button:hover {
+    box-shadow: 3px 3px 0 var(--button-shadow);
+    transform: translate(-3px, -3px);
+}
+.button:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+.button.disabled {
+    pointer-events: none;
+    opacity: 0.2;
+}
+/* Étoiles sur les boutons */
+.button::before, .button::after {
+    transform: scale(-0.5) rotate(0deg);
+    background-size: cover;
+    position: absolute;
+    content: '';
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+    transition: 0.5s;
+}
+.button::before {
+    background-image: var(--icon-sparkles);
+    left: -9px;
+    top: -6px;
+}
+.button::after {
+    background-image: var(--icon-sparkles);
+    bottom: -12px;
+    right: -10px;
+}
+.button:hover::before {
+    transform: scale(1) rotate(120deg);
+    opacity: 1;
+}
+.button:hover::after {
+    transform: scale(0.8) rotate(190deg);
+    opacity: 1;
+}
+
+/* Barres de progression */
+.skills-content .media {
+    padding: 4px !important;
+    margin: 0 !important;
+    border: 0 !important;
+    transition: 0.5s;
+}
+.skills-content .media:hover {
+    background: var(--hover-bg);
+    border-radius: 10px;
+}
+.skills-content .progress {
+    height: 4px !important;
+}
+
+/* Titre des projets */
+.card-header {
+    box-shadow: 0 5px 10px 0 var(--hover-bg);
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+.card-header-title {
+    white-space: nowrap;
+    overflow-x: scroll;
+}
+
+/* Description des projets */
+.card-description {
+    white-space: nowrap;
+    text-align: center;
+    overflow: scroll;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+/* Cases des projets */
+.card {
+    border: 2px solid transparent;
+    margin-bottom: 2em;
+    transition: 0.5s;
+}
+.card:hover {
+    box-shadow: 5px 5px 0 var(--bg-invert);
+    border: 2px solid var(--bg-invert);
+    transform: translate(-3px, -3px);
+    cursor: pointer;
+}
+.card:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+}
+.card img {
+    border: 2px solid transparent;
+    user-select: none;
+    transition: 0.5s;
+    border-radius: 15px;
+}
+.card img:hover {
+    border: 2px solid var(--bg-invert);
+    border-radius: 20px;
+}
+
+/* Liens des projets */
+.card-footer a {
+    font-weight: 500;
+    transition: 0.5s;
+}
+.card-footer a:hover {
+    transform: translateY(-2px);
+}
+.card-footer a:active {
+    transform: translate(0);
+}
+.card-footer a:focus {
+    border-radius: 10px;
+}
+
+/* Tags */
+.tag {
+    transition: 0.5s;
+}
+.tag:hover {
+    filter: invert(3%) brightness(100%);
+}
+/* Nouveau / Récent */
+.info {
+    position: absolute;
+    font-weight: bold;
+    right: -15px;
+    top: -10px;
+}
+
+/* Icônes */
+.icon {
+    transition: 0.5s ease;
+    pointer-events: none;
+    margin-top: -0.07em;
+    height: 1em;
+    width: 1em;
+}
+.fa-circle-check {
+    color: var(--check);
+    transition: 0.5s ease;
+}
+.fa-circle-check:hover {
+    filter: brightness(90%);
+}
+
+/* Badges Google */
+.badge-grid {
+    background: var(--hover-bg);
+    grid-template-columns: repeat(5, auto);
+    justify-content: space-between;
+    user-select: none;
+    display: grid;
+    margin: 0 20%;
+    padding: 10px 25px;
+    border-radius: 100px;
+}
+.badge-item {
+    position: relative;
+    display: inline-block;
+    transition: 0.5s;
+    width: 75px;
+}
+.badge-item:hover {
+    scale: 0.98;
+}
+.badge-item::before {
+    color: var(--bg);
+    background: var(--bg-invert);
+    content: attr(data-tooltip);
+    transform: translateX(-50%);
+    transition: 0.2s ease-in-out;
+    white-space: nowrap;
+    visibility: hidden;
+    position: absolute;
+    padding: 5px 8px;
+    bottom: -50%;
+    left: 50%;
+    opacity: 0;
+    border-radius: 10px;
+}
+.badge-item:hover::before {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Liens au survol */
+.description a:hover, .bottom a:hover, .chat a:hover {
+    text-decoration: underline;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 2px;
+    width: 100%;
+}
+
+/* Cacher la barre de scroll */
+::-webkit-scrollbar { display: none; }
