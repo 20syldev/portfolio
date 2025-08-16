@@ -12,6 +12,6 @@ Voici le **code source** de mon site web portfolio **[sylvain.pro](https://sylva
 
 Le design du site est réalisé à l'aide de **Bulma CSS** et du **CSS** personnalisé. Il est également "**responsive**", c'est-à-dire qu'il s'adapte à **toutes** les tailles d'écran !
 
-Vous avez aussi le droit à un **mode** clair et sombre **automatique** ou **manuel**, des **animations**, un menu de **navigation** ainsi qu'une petite **IA** qui vous aidera à trouver ce que vous cherchez à propos de **moi** !
+Vous avez aussi le droit à un **mode** clair et sombre **automatique** ou **manuel**, des **animations**, un menu de **navigation** dynamique et bien plus !
 
 > *Vous pouvez utiliser l'URL raccourcie **[sylv.pro](https://sylvain.pro)** pour accéder au **site web**, ainsi que **toutes** ses pages.*
