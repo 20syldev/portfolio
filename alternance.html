@@ -252,13 +252,14 @@
     <script type="text/javascript" src="assets/js/theme.js"></script>
 
     <script>
-        fetch('https://api.sylvain.pro/latest/website').then(r => r.json())
-        .then(d => {
-            document.getElementById('zpki').textContent = d.versions.zpki;
-            document.getElementById('lyah').textContent = d.versions.lyah;
-            document.getElementById('logvault').textContent = d.versions.logvault;
-            document.getElementById('drawio-plugin').textContent = d.versions.drawio_plugin;
-        });
+        fetch('https://api.sylvain.pro/latest/website')
+        .then(r => r.json())
+        .then(({ versions }) =>
+            Object.entries(versions).forEach(([k, v]) => {
+                const el = document.getElementById(k.replace('_','-'))
+                if (el) el.textContent = v
+            })
+        )
     </script>
 </body>
 </html>
