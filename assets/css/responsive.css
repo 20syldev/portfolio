@@ -43,10 +43,13 @@
 
     /* Badges Google */
     .badge-grid {
-        border-radius: 50px;
-        padding: 10px 15px;
+        grid-template-columns: repeat(3, auto);
+        justify-content: space-around;
+        border-radius: 40px;
+        padding: 15px 20px;
+        max-width: 60%;
     }
-    .badge-item { width: 60px; }
+    .badge-item:last-child { display: none; }
 
     /* Boutons sans étoiles */
     .button::before, .button::after {
@@ -88,11 +91,7 @@
     .table-profile td { display: inline-block; }
 
     /* Badges Google */
-    .badge-grid {
-        grid-template-columns: repeat(3, auto);
-        overflow-y: scroll;
-    }
-    .badge-item { width: 40px; }
+    .badge-grid { max-width: 90%; }
     .badge-item::before { display: none; }
 
     /* Tag */
