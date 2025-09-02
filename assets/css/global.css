@@ -349,11 +349,12 @@ pre {
 /* Badges Google */
 .badge-grid {
     background: var(--hover-bg);
-    grid-template-columns: repeat(5, auto);
+    grid-template-columns: repeat(7, auto);
     justify-content: space-between;
     user-select: none;
     display: grid;
-    margin: 0 20%;
+    margin: 0 auto;
+    max-width: 70%;
     padding: 10px 25px;
     border-radius: 100px;
 }
