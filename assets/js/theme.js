@@ -49,6 +49,15 @@ window.addEventListener('storage', (event) => {
     }
 });
 
+// Raccourci clavier pour changer de thème
+window.addEventListener('keydown', (e) => {
+    if ((e.altKey || e.metaKey) && e.key.toLowerCase() === 't') {
+        e.preventDefault();
+        currentTheme = (currentTheme + 1) % modes.length;
+        setTheme(modes[currentTheme]);
+    }
+});
+
 // Bouton de changement de thème
 document.querySelector('.switch-btn').addEventListener('click', () => {
     currentTheme = (currentTheme + 1) % modes.length;

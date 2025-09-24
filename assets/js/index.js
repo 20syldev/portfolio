@@ -96,6 +96,14 @@ window.addEventListener('load', () => {
     });
 });
 
+// Raccourci clavier pour afficher/masquer le menu
+window.addEventListener('keydown', (e) => {
+    if ((e.altKey || e.metaKey) && e.key.toLowerCase() === 'm') {
+        e.preventDefault();
+        toggleMenu();
+    }
+});
+
 // Fermeture du menu en cliquant en dehors
 ['click', 'touchmove'].forEach(event => {
     document.body.addEventListener(event, (e) => {
