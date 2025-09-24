@@ -43,12 +43,15 @@ pre {
 /* Éléments de bas de page */
 .theme-notif, .switch-btn, .menu-btn, .home-btn {
     color: var(--menu-list-bg);
+    outline: none !important;
     position: fixed;
     bottom: 0;
     padding: 20px;
     z-index: 1001;
 }
-.switch-btn:hover, .menu-btn:hover, .home-btn:hover {
+.switch-btn:hover, .menu-btn:hover, .home-btn:hover,
+.switch-btn:focus, .menu-btn:focus, .home-btn:focus {
+    background: var(--hover-bg);
     filter: brightness(150%);
 }
 
