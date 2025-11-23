@@ -37,7 +37,7 @@ async function load() {
         if (filtered.length) {
             filtered.forEach(project => {
                 const li = document.createElement('li')
-                li.innerHTML = `<a onclick="window.location.href='#${project}'">${project.charAt(0).toUpperCase() + project.slice(1)}</a>`
+                li.innerHTML = `<a onclick="location.href='#${project}'">${project.charAt(0).toUpperCase() + project.slice(1)}</a>`
                 section.appendChild(li)
             })
         }
@@ -53,7 +53,7 @@ async function load() {
         if (stats4 && title) {
             title.innerHTML = titles[i].title;
             stats4.innerHTML = titles[i].stats === 'projects'
-                ? `<a onclick="window.location.href='#projets'" style="color: var(--bg-invert)">${stats[titles[i].stats]}</a>`
+                ? `<a onclick="location.href='#projets'" style="color: var(--bg-invert)">${stats[titles[i].stats]}</a>`
                 : `<a onclick="window.open('https:/\/github.com/20syldev')" style="color: var(--bg-invert)">${stats[titles[i].stats]}</a>`;
         }
         i = (i + 1) % titles.length;
