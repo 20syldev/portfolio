@@ -292,13 +292,15 @@ pre {
     transform: translate(3px, 3px);
     box-shadow: none;
 }
-.card img {
+.card img,
+.card video {
     border: 2px solid transparent;
     user-select: none;
     transition: 0.5s;
     border-radius: 15px;
 }
-.card img:hover {
+.card img:hover,
+.card video:hover {
     border: 2px solid var(--bg-invert);
     border-radius: 20px;
 }
