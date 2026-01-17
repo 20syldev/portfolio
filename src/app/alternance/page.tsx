@@ -182,17 +182,62 @@ export default function AlternancePage() {
 
                 {/* Contributions */}
                 <h2 className="mb-8 text-2xl font-bold">Contributions externes</h2>
-                <div className="mb-12 flex items-center gap-3 rounded-lg border p-4">
-                    <span className="font-medium">rsyslog</span>
-                    <Badge variant="secondary">C</Badge>
-                    <div className="flex gap-2 ml-auto">
-                        <a href="https://github.com/rsyslog/rsyslog/pull/6384" target="_blank" rel="noopener noreferrer">
-                            <Badge variant="outline" className="cursor-pointer hover:bg-muted">PR #6384</Badge>
-                        </a>
-                        <a href="https://github.com/rsyslog/rsyslog/pull/6395" target="_blank" rel="noopener noreferrer">
-                            <Badge variant="outline" className="cursor-pointer hover:bg-muted">PR #6395</Badge>
-                        </a>
-                    </div>
+                <div className="grid gap-4 md:grid-cols-2">
+                    <Card>
+                        <CardHeader className="pb-2">
+                            <div className="flex items-center justify-between">
+                                <CardTitle className="text-base">split()</CardTitle>
+                                <a href="https://github.com/rsyslog/rsyslog/pull/6384" target="_blank" rel="noopener noreferrer">
+                                    <Badge variant="outline" className="cursor-pointer hover:bg-muted">PR #6384</Badge>
+                                </a>
+                            </div>
+                            <div className="flex gap-2">
+                                <Badge variant="secondary">rsyslog</Badge>
+                                <Badge variant="secondary">C</Badge>
+                            </div>
+                        </CardHeader>
+                        <CardContent className="space-y-2">
+                            <p className="text-sm text-muted-foreground">
+                                Nouvelle fonction RainerScript pour parser des chaînes délimitées
+                                (CSV, tags, chemins) en tableaux JSON sans traitement externe.
+                            </p>
+                            <code className="block text-xs bg-muted px-2 py-1 rounded">
+                                split(string, separator) → JSON array
+                            </code>
+                            <p className="text-xs text-muted-foreground">
+                                Gère les cas limites : entrées vides, délimiteurs consécutifs,
+                                en début/fin de chaîne. Documentation et tests inclus.
+                            </p>
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader className="pb-2">
+                            <div className="flex items-center justify-between">
+                                <CardTitle className="text-base">append_json()</CardTitle>
+                                <a href="https://github.com/rsyslog/rsyslog/pull/6385" target="_blank" rel="noopener noreferrer">
+                                    <Badge variant="outline" className="cursor-pointer hover:bg-muted">PR #6385</Badge>
+                                </a>
+                            </div>
+                            <div className="flex gap-2">
+                                <Badge variant="secondary">rsyslog</Badge>
+                                <Badge variant="secondary">C</Badge>
+                            </div>
+                        </CardHeader>
+                        <CardContent className="space-y-2">
+                            <p className="text-sm text-muted-foreground">
+                                Nouvelle fonction RainerScript pour construire dynamiquement
+                                des structures JSON sans traitement externe.
+                            </p>
+                            <code className="block text-xs bg-muted px-2 py-1 rounded">
+                                append_json(array, element) → JSON array<br/>
+                                append_json(object, key, value) → JSON object
+                            </code>
+                            <p className="text-xs text-muted-foreground">
+                                Retourne une nouvelle structure (immutable).
+                                Documentation et tests inclus.
+                            </p>
+                        </CardContent>
+                    </Card>
                 </div>
             </main>
             <Footer/>
