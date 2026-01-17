@@ -3,14 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
+    Archive,
     ArrowLeft,
+    ArrowRight,
+    BookOpen,
+    Clock,
     ExternalLink,
     Github,
     Package,
-    FolderCode,
-    Archive,
-    Clock,
-    BookOpen,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -62,14 +62,12 @@ export default function RepositoriesPage() {
             <main className="container mx-auto flex-1 px-4 py-12">
                 <Link href="/">
                     <Button variant="ghost" className="mb-6">
-                        <ArrowLeft className="mr-2 h-4 w-4"/>
-                        Retour
+                        <ArrowLeft className="h-4 w-4"/>
                     </Button>
                 </Link>
                 <div className="mb-12 text-center">
                     <h1 className="mb-2 text-4xl font-bold flex items-center justify-center gap-3">
-                        <FolderCode className="h-8 w-8 text-primary"/>
-                        Projets
+                        Projets personnels
                     </h1>
                     <p className="text-xl text-muted-foreground">
                         {projects.length} projets
@@ -105,7 +103,7 @@ export default function RepositoriesPage() {
                                                 </Badge>
                                             </TooltipTrigger>
                                             <TooltipContent>
-                                                Ce projet n&apos;est plus maintenu
+                                                Ce projet n'est plus maintenu
                                             </TooltipContent>
                                         </Tooltip>
                                     )}
@@ -127,7 +125,7 @@ export default function RepositoriesPage() {
                                 {project.description}
                             </span>
                             <div className="flex flex-wrap gap-1">
-                                {project.tags.slice(0, 2).map((tag) => (
+                                {project.tags.map((tag) => (
                                     <Badge
                                         key={tag}
                                         variant="secondary"
@@ -140,6 +138,12 @@ export default function RepositoriesPage() {
                         </button>
                     ))}
                 </div>
+                <Link href="/alternance" className="mt-12 flex justify-end">
+                    <Button variant="ghost">
+                        Voir mes projets d'alternance
+                        <ArrowRight className="ml-2 h-4 w-4"/>
+                    </Button>
+                </Link>
             </main>
             <Footer/>
 

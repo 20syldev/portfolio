@@ -1,11 +1,10 @@
 ---
-order: 19
+order: 9
 name: Password
 description: Testeur de mots de passe suivant des critères.
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/password"
 demo: "https://password.sylvain.pro"
-subtitle: Testeur de mot de passe
 ---
 
 ## À propos {#about}

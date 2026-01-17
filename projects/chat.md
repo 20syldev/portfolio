@@ -2,11 +2,10 @@
 order: 15
 name: Chat
 description: Application de chats publics et privés en ligne.
-longDescription: Application de messagerie en temps réel avec salons publics et conversations privées. Utilise WebSocket pour la communication instantanée.
-tags: ["WebSocket", "HTML", "CSS", "JS"]
+longDescription: Application de messagerie en temps réel avec salons publics et conversations privées.
+tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/chat"
 demo: "https://chat.sylvain.pro"
-subtitle: Création de chat privés en ligne
 ---
 
 ## À propos {#about}

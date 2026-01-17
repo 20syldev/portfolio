@@ -1,12 +1,11 @@
 ---
-order: 8
+order: 20
 name: Digit
 description: IA de reconnaissance de chiffres dessinés.
 longDescription: "Réseau de neurones en JavaScript pour reconnaître les chiffres manuscrits (0-9). Dessinez un chiffre et l'IA le reconnaît instantanément."
-tags: ["AI", "HTML", "CSS", "JS"]
+tags: ["IA", "HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/digit"
 demo: "https://digit.sylvain.pro"
-subtitle: IA de Reconnaissance de Chiffres
 ---
 
 ## À propos {#about}

@@ -1,10 +1,10 @@
 ---
-order: 13
+order: 23
 name: GitSite
 description: "Ma plateforme d'hébergement web abordable et intuitive."
 tags: ["HTML", "CSS", "JS"]
 demo: "https://gitsite.dev"
-subtitle: Open-Source hosting site
+archived: true
 ---
 
 ## À propos {#about}

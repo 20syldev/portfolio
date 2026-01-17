@@ -104,7 +104,7 @@ export function Projects() {
                                                 </Badge>
                                             </TooltipTrigger>
                                             <TooltipContent>
-                                                Ce projet n&apos;est plus maintenu
+                                                Ce projet n'est plus maintenu
                                             </TooltipContent>
                                         </Tooltip>
                                     )}
@@ -126,7 +126,7 @@ export function Projects() {
                                 {project.description}
                             </span>
                             <div className="flex flex-wrap gap-1">
-                                {project.tags.slice(0, 2).map((tag) => (
+                                {project.tags.map((tag) => (
                                     <Badge
                                         key={tag}
                                         variant="secondary"

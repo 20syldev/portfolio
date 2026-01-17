@@ -1,20 +1,32 @@
 "use client";
 
 import {
+    LucideBookOpenText,
     GraduationCap,
     Briefcase,
     Github,
-    ArrowRight,
+    BriefcaseBusiness,
     Award,
     GitPullRequest,
+    Download,
+    Plane,
+    Database,
+    CalendarDays,
 } from "lucide-react";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { profile, badges, contributions } from "@/data/profile";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { profile, badges, contributions, projects } from "@/data/profile";
 import Link from "next/link";
 import { useApi } from "@/hooks/api";
+
+const iconMap = {
+    calendar: CalendarDays,
+    database: Database,
+    plane: Plane,
+};
 
 export function InfoCards() {
     const { stats } = useApi();
@@ -29,15 +41,58 @@ export function InfoCards() {
                         Parcours
                     </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-3 text -sm">
-                    <div>
-                        <p className="font-medium">
-                            {profile.education.school}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                            {profile.education.degree} (
-                            {profile.education.duration})
-                        </p>
+                <CardContent className="space-y-3 text-sm">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <p className="font-medium">
+                                {profile.education.school}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                                {profile.education.degree} (
+                                {profile.education.duration})
+                            </p>
+                        </div>
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button variant="outline" size="sm" className="h-7 text-xs">
+                                    Projets
+                                    <LucideBookOpenText className="ml-1 h-3 w-3"/>
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>Projets Ensitech</DialogTitle>
+                                </DialogHeader>
+                                <div className="space-y-3">
+                                    {projects.map((project) => {
+                                        const Icon = iconMap[project.icon as keyof typeof iconMap];
+                                        return (
+                                            <div key={project.repo} className="flex items-center gap-4 p-3 rounded-lg border">
+                                                <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted">
+                                                    <Icon className="h-5 w-5 text-primary"/>
+                                                </div>
+                                                <div className="flex-1">
+                                                    <p className="font-medium">{project.name}</p>
+                                                    <p className="text-xs text-muted-foreground">{project.desc}</p>
+                                                </div>
+                                                <div className="flex gap-2">
+                                                    <Button asChild variant="outline" size="icon" className="h-8 w-8">
+                                                        <a href={`https://github.com/20syldev/${project.repo}`} target="_blank" rel="noopener noreferrer">
+                                                            <Github className="h-4 w-4"/>
+                                                        </a>
+                                                    </Button>
+                                                    <Button asChild variant="outline" size="icon" className="h-8 w-8">
+                                                        <a href={`https://github.com/20syldev/${project.repo}/archive/refs/heads/${project.branch}.zip`} download>
+                                                            <Download className="h-4 w-4"/>
+                                                        </a>
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </DialogContent>
+                        </Dialog>
                     </div>
                     <div className="border-t pt-3">
                         <div className="flex items-center justify-between">
@@ -55,7 +110,7 @@ export function InfoCards() {
                             >
                                 <Link href="/alternance">
                                     Projets
-                                    <ArrowRight className="ml-1 h-3 w-3"/>
+                                    <BriefcaseBusiness className="ml-1 h-3 w-3"/>
                                 </Link>
                             </Button>
                         </div>
@@ -99,7 +154,7 @@ export function InfoCards() {
                     </a>
                     <div className="space-y-1 text-xs">
                         <div className="flex justify-between">
-                            <span className="text-muted-foreground">Aujourd&apos;hui</span>
+                            <span className="text-muted-foreground">Aujourd'hui</span>
                             <span className="font-medium">{stats?.today || "—"}</span>
                         </div>
                         <div className="flex justify-between">
@@ -107,14 +162,14 @@ export function InfoCards() {
                             <span className="font-medium">{stats?.this_month || "—"}</span>
                         </div>
                         <div className="flex justify-between">
-                            <span className="text-muted-foreground">L&apos;an dernier</span>
+                            <span className="text-muted-foreground">L'an dernier</span>
                             <span className="font-medium">{stats?.last_year || "—"}</span>
                         </div>
                     </div>
                     <div className="border-t pt-3 space-y-1.5 text-xs">
                         <div className="flex items-center gap-1.5 text-muted-foreground mb-2">
                             <GitPullRequest className="h-3 w-3"/>
-                            <span>Contributions</span>
+                            <span>Contributions importantes</span>
                         </div>
                         {contributions.map((pr) => (
                             <a
@@ -124,7 +179,7 @@ export function InfoCards() {
                                 rel="noopener noreferrer"
                                 className="block truncate hover:text-primary"
                             >
-                                {pr.title}
+                                <span className="text-muted-foreground">{pr.repo}:</span> {pr.title}
                             </a>
                         ))}
                     </div>

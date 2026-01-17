@@ -1,11 +1,10 @@
 ---
-order: 5
+order: 13
 name: Flowers
 description: Application de création de LogCenter.
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/flowers"
 demo: "https://flowers.sylvain.pro"
-subtitle: LogCenter Customisable
 paused: true
 ---
 

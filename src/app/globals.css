@@ -254,7 +254,7 @@
 
 /* Glow effect on hover */
 .glow-hover {
-    transition: box-shadow 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 .glow-hover:hover {

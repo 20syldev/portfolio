@@ -21,8 +21,7 @@ export default function VeillePage() {
                 {/* Header */}
                 <Link href="/">
                     <Button variant="ghost" className="mb-6">
-                        <ArrowLeft className="mr-2 h-4 w-4"/>
-                        Retour
+                        <ArrowLeft className="h-4 w-4"/>
                     </Button>
                 </Link>
                 <div className="mb-12 text-center">
@@ -36,15 +35,15 @@ export default function VeillePage() {
 
                 {/* Introduction */}
                 <Card className="mb-8">
-                    <CardContent className="pt-6">
+                    <CardContent>
                         <p className="text-muted-foreground">
-                            Cette année, j&apos;ai décidé de faire une veille
+                            En 2025, j'ai décidé de commencer une veille
                             technologique pour suivre les dernières actualités
-                            de Node.js, un environnement d&apos;exécution
-                            JavaScript côté serveur. Il s&apos;agit d&apos;une
+                            de Node.js, un environnement d'exécution
+                            JavaScript côté serveur. Il s'agit d'une
                             veille mise à jour régulièrement pour refléter les
                             dernières évolutions de cette technologie
-                            essentielle au développement web moderne en 2025.
+                            essentielle au développement web moderne en 2026.
                         </p>
                     </CardContent>
                 </Card>
@@ -60,12 +59,12 @@ export default function VeillePage() {
                         </CardHeader>
                         <CardContent className="space-y-6">
                             <p className="text-muted-foreground">
-                                Node.js est un environnement d&apos;exécution
+                                Node.js est un environnement d'exécution
                                 JavaScript côté serveur, open-source et
                                 multi-plateforme. Créé par Ryan Dahl en 2009, il
                                 est construit sur le moteur JavaScript V8 de
-                                Chrome et permet d&apos;exécuter du code
-                                JavaScript en dehors d&apos;un navigateur web.
+                                Chrome et permet d'exécuter du code
+                                JavaScript en dehors d'un navigateur web.
                                 Node.js révolutionne le développement backend en
                                 utilisant un modèle non bloquant et orienté
                                 événements.
@@ -160,7 +159,7 @@ export default function VeillePage() {
                                         Deno :
                                     </strong>{" "}
                                     Alternative moderne à Node.js qui met
-                                    l&apos;accent sur la sécurité avec un
+                                    l'accent sur la sécurité avec un
                                     système de permissions explicites.
                                 </p>
                                 <p>
@@ -185,15 +184,15 @@ export default function VeillePage() {
                                         Django (Python) :
                                     </strong>{" "}
                                     Approche &quot;batteries included&quot;,
-                                    n&apos;exploite pas nativement
-                                    l&apos;approche événementielle de Node.js.
+                                    n'exploite pas nativement
+                                    l'approche événementielle de Node.js.
                                 </p>
                                 <p>
                                     <strong className="text-foreground">
                                         ASP.NET Core :
                                     </strong>{" "}
                                     Excellentes performances avec support de
-                                    l&apos;asynchronicité, mais nécessite plus
+                                    l'asynchronicité, mais nécessite plus
                                     de ressources système.
                                 </p>
                             </div>
@@ -206,7 +205,7 @@ export default function VeillePage() {
                             <div className="flex items-center gap-3">
                                 <Badge>Écosystème</Badge>
                                 <CardTitle>
-                                    L&apos;écosystème Node.js en 2024
+                                    L'écosystème Node.js en 2024
                                 </CardTitle>
                             </div>
                         </CardHeader>
@@ -234,8 +233,8 @@ export default function VeillePage() {
                                         <strong className="text-foreground">
                                             Fastify :
                                         </strong>{" "}
-                                        Alternative moderne, jusqu&apos;à 2x
-                                        plus rapide qu&apos;Express.
+                                        Alternative moderne, jusqu'à 2x
+                                        plus rapide qu'Express.
                                     </p>
                                     <p>
                                         <strong className="text-foreground">
@@ -298,7 +297,7 @@ export default function VeillePage() {
                                             Mongoose :
                                         </strong>{" "}
                                         ODM pour MongoDB, le plus populaire dans
-                                        l&apos;écosystème.
+                                        l'écosystème.
                                     </p>
                                     <p>
                                         <strong className="text-foreground">
@@ -369,7 +368,7 @@ export default function VeillePage() {
                                         Communauté :
                                     </strong>{" "}
                                     Large communauté contribuant à
-                                    l&apos;amélioration continue.
+                                    l'amélioration continue.
                                 </li>
                             </ul>
                         </CardContent>

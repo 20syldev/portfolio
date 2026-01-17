@@ -1,11 +1,10 @@
 ---
-order: 25
+order: 14
 name: PHP
 description: Un listing de mes projets en PHP, pour les tester en ligne.
 tags: ["Docker", "PHP", "HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/php"
 demo: "https://php.sylvain.pro"
-subtitle: Mon site PHP dynamique
 ---
 
 ## À propos {#about}

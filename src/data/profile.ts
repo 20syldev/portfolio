@@ -55,16 +55,14 @@ export const technologies = [
 ];
 
 export const contributions = [
-    {
-        repo: "rsyslog/rsyslog",
-        title: "add split() function",
-        url: "https://github.com/rsyslog/rsyslog/pull/6384",
-    },
-    {
-        repo: "rsyslog/rsyslog",
-        title: "add append_json() function",
-        url: "https://github.com/rsyslog/rsyslog/pull/6385",
-    },
+    { repo: "rsyslog/rsyslog", title: "add split() function", url: "https://github.com/rsyslog/rsyslog/pull/6384" },
+    { repo: "rsyslog/rsyslog", title: "add append_json() function", url: "https://github.com/rsyslog/rsyslog/pull/6385" },
+];
+
+export const projects = [
+    { name: "Planning", repo: "planning", branch: "master", icon: "calendar", desc: "UI de planning simplifiée" },
+    { name: "PPE C#", repo: "PPE-csharp", branch: "master", icon: "database", desc: "Gestionnaire de clients en C# avec PostGreSQL" },
+    { name: "FlyRadars", repo: "flyradars", branch: "master", icon: "plane", desc: "Interface de gestion de données d'aviation" },
 ];
 
 export const badges = [
@@ -72,11 +70,7 @@ export const badges = [
     { name: "Project IDX", icon: "idx", url: "https://idx.dev" },
     { name: "Firebase", icon: "firebase", url: "https://firebase.google.com" },
     { name: "Gemini AI", icon: "gemini", url: "https://gemini.google.com" },
-    {
-        name: "Google Studio",
-        icon: "studio",
-        url: "https://aistudio.google.com",
-    },
+    { name: "Google Studio", icon: "studio", url: "https://aistudio.google.com" },
     { name: "Google Maps", icon: "maps", url: "https://maps.google.com" },
     { name: "Google Cloud", icon: "cloud", url: "https://cloud.google.com" },
 ];

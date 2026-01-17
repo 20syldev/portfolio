@@ -1,5 +1,5 @@
 ---
-order: 16
+order: 24
 name: NitroGen
 description: Bot Discord de génération de code Nitro aléatoires.
 tags: ["Discord.js"]

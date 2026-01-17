@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-// Note: Github is deprecated in lucide-react but still functional
-// Will migrate when v1.0 is released
 import { ArrowLeft, ExternalLink, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -24,8 +22,7 @@ export default function AlternancePage() {
                 {/* Header */}
                 <Link href="/">
                     <Button variant="ghost" className="mb-6">
-                        <ArrowLeft className="mr-2 h-4 w-4"/>
-                        Retour
+                        <ArrowLeft className="h-4 w-4"/>
                     </Button>
                 </Link>
                 <div className="mb-12 text-center">
@@ -52,8 +49,8 @@ export default function AlternancePage() {
                             </a>{" "}
                             est une société par actions simplifiée (SAS) créée
                             en <strong className="text-foreground">2016</strong>{" "}
-                            par d&apos;anciens membres de la société Exosec,
-                            suite à sa fermeture. L&apos;entreprise est
+                            par d'anciens membres de la société Exosec,
+                            suite à sa fermeture. L'entreprise est
                             spécialisée dans les solutions de{" "}
                             <strong className="text-foreground">
                                 supervision
@@ -67,12 +64,12 @@ export default function AlternancePage() {
                         <p>
                             Elle développe des outils innovants pour la
                             surveillance réseau, la gestion des logs, et
-                            l&apos;analyse des systèmes d&apos;information.
+                            l'analyse des systèmes d'information.
                         </p>
                         <p>
                             Je crée, améliore, teste et optimise des
-                            applications web et des plugins. J&apos;ai été lancé
-                            dans plusieurs projets et j&apos;ai pu mettre en
+                            applications web et des plugins. J'ai été lancé
+                            dans plusieurs projets et j'ai pu mettre en
                             pratique mes connaissances en développement.
                         </p>
                     </CardContent>

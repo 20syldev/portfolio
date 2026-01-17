@@ -5,7 +5,6 @@ description: Mon réseau de diffusion de données pour certains projets.
 tags: ["Node.js", "Express", "Module"]
 github: "https://github.com/20syldev/cdn"
 demo: "https://cdn.sylvain.pro"
-subtitle: Content Delivery Network
 ---
 
 ## À propos {#about}

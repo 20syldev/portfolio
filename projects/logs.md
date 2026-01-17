@@ -5,7 +5,6 @@ description: Interface pour les logs de mon API.
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/logs"
 demo: "https://logs.sylvain.pro"
-subtitle: Interface de logs
 ---
 
 ## À propos {#about}

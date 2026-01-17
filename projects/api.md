@@ -7,7 +7,6 @@ tags: ["Node.js", "Express", "Module"]
 github: "https://github.com/20syldev/api"
 demo: "https://api.sylvain.pro"
 npm: "https://npmjs.com/package/@20syldev/api"
-subtitle: Application Programming Interface
 featured: true
 ---
 

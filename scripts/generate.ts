@@ -15,7 +15,6 @@ interface ProjectMeta {
     featured?: boolean;
     archived?: boolean;
     paused?: boolean;
-    subtitle?: string;
     lastUpdated?: string;
     version?: string;
     order?: number;

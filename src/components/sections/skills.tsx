@@ -15,7 +15,7 @@ export function Skills() {
         <section className="py-12">
             <h2 className="mb-2 text-center text-2xl font-bold">Compétences</h2>
             <p className="mb-8 text-center text-sm text-muted-foreground">
-                Auto-évaluation par rapport à la compréhension d&apos;un code en
+                Auto-évaluation par rapport à la compréhension d'un code en
                 %
             </p>
 

@@ -1,11 +1,10 @@
 ---
-order: 9
+order: 19
 name: Readme
 description: Interface de lecture de fichiers README.
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/readme"
 demo: "https://readme.sylvain.pro"
-subtitle: Visualisation de fichiers README
 ---
 
 ## À propos {#about}

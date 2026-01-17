@@ -1,11 +1,10 @@
 ---
-order: 18
+order: 11
 name: Timestamp
 description: Convertisseur de timestamps pour Discord.
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/timestamp"
 demo: "https://timestamp.sylvain.pro"
-subtitle: Générateur de timestamp Discord
 ---
 
 ## À propos {#about}

@@ -1,11 +1,10 @@
 ---
-order: 17
+order: 10
 name: Minify.js
 description: Un module Node.js pour minifier ce que vous voulez.
 tags: ["Node.js", "Module"]
 github: "https://github.com/20syldev/minify.js"
 npm: "https://npmjs.com/@20syldev/minify.js"
-subtitle: Un script pour minifier les fichiers
 ---
 
 ## À propos {#about}

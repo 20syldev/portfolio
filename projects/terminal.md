@@ -6,7 +6,6 @@ longDescription: Émulateur de terminal Linux fonctionnel dans le navigateur. Su
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/terminal"
 demo: "https://terminal.sylvain.pro"
-subtitle: Un terminal linux en ligne
 ---
 
 ## À propos {#about}

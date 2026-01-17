@@ -1,11 +1,10 @@
 ---
-order: 11
+order: 7
 name: WrkIT
 description: Bot Discord de la classe de BTS SIO.
 tags: ["Discord.js"]
 github: "https://github.com/20syldev/WrkIT"
 npm: "https://npmjs.com/wrkit"
-subtitle: Un bot Discord utilitaire
 ---
 
 ## À propos {#about}

@@ -1,6 +1,8 @@
 import { redirects, getRedirectTitle } from "@/data/redirects";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import type { Metadata } from "next";
+
+export const dynamicParams = false;
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -12,10 +14,6 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
-    const url = redirects[slug];
-
-    if (!url) return { title: "Page introuvable" };
-
     return {
         title: `Redirection vers ${getRedirectTitle(slug)}...`,
     };
@@ -23,8 +21,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function RedirectPage({ params }: Props) {
     const { slug } = await params;
-    const url = redirects[slug];
-
-    if (!url) notFound();
-    redirect(url);
+    redirect(redirects[slug]);
 }

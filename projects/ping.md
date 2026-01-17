@@ -1,11 +1,10 @@
 ---
-order: 20
+order: 16
 name: Ping
 description: Interface de test de disponibilité de mes sites web.
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/ping"
 demo: "https://ping.sylvain.pro"
-subtitle: Un site de test de disponibilité
 ---
 
 ## À propos {#about}

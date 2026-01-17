@@ -1,11 +1,10 @@
 ---
-order: 22
+order: 5
 name: LeBonChar
 description: "Mon site web de vente de véhicules d'occasion."
 tags: ["Docker", "PHP", "MySQL", "HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/LeBonChar"
 demo: "https://lebonchar.site"
-subtitle: "Mon site web de vente de véhicules d'occasion"
 ---
 
 ## À propos {#about}

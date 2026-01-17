@@ -1,10 +1,10 @@
 ---
-order: 12
+order: 22
 name: GemSync
 description: "La solution idéale pour une configuration DNS rapide et efficace."
 tags: ["HTML", "CSS", "JS"]
 demo: "https://gemsync.xyz"
-subtitle: Configuration DNS
+archived: true
 ---
 
 ## À propos {#about}

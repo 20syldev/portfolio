@@ -1,11 +1,10 @@
 ---
-order: 10
+order: 21
 name: Donut
 description: Une animation de donut interactive en JavaScript.
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/donut"
 demo: "https://donut.sylvain.pro"
-subtitle: "Animation d'un donut en JavaScript"
 ---
 
 ## À propos {#about}

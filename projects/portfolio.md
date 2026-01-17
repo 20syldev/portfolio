@@ -1,11 +1,11 @@
 ---
-order: 7
+order: 8
 name: Portfolio
 description: Mon site web, avec des informations sur mes projets.
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/portfolio"
 demo: "https://sylvain.pro"
-subtitle: Mon site web personnel
+featured: true
 ---
 
 ## À propos {#about}

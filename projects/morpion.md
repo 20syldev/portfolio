@@ -1,11 +1,10 @@
 ---
-order: 14
+order: 17
 name: Morpion
 description: "Un jeu de Morpion en ligne, ou contre l'ordinateur."
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/morpion"
 demo: "https://morpion.sylvain.pro"
-subtitle: Un jeu du morpion en ligne ou face à une IA
 ---
 
 ## À propos {#about}

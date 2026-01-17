@@ -1,12 +1,11 @@
 ---
-order: 23
+order: 12
 name: Planning
 description: Interface de planning HyperPlanning.
 longDescription: Interface personnalisée pour consulter les emplois du temps HyperPlanning. Navigation fluide jour/semaine avec sauvegarde des préférences.
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/planning"
 demo: "https://planning.sylvain.pro"
-subtitle: Interface de planning pour étudiants
 ---
 
 ## À propos {#about}
