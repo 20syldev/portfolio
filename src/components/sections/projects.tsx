@@ -15,6 +15,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Tags } from "@/components/ui/tags";
 import {
     Tooltip,
     TooltipContent,
@@ -125,17 +126,7 @@ export function Projects() {
                             <span className="line-clamp-2 text-xs text-muted-foreground">
                                 {project.description}
                             </span>
-                            <div className="flex flex-wrap gap-1">
-                                {project.tags.map((tag) => (
-                                    <Badge
-                                        key={tag}
-                                        variant="secondary"
-                                        className="text-xs px-1.5 py-0"
-                                    >
-                                        {tag}
-                                    </Badge>
-                                ))}
-                            </div>
+                            <Tags tags={project.tags} />
                         </button>
                     ))}
                 </CardContent>
