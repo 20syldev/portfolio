@@ -1,4 +1,4 @@
-export const alternanceProjects = [
+export const projects = [
     {
         id: "monitoring",
         title: "Outil de supervision",
@@ -89,6 +89,7 @@ export const alternanceProjects = [
             "En début d'année 2024, j'ai entrepris la refonte complète de l'interface utilisateur pour ZPKI, un outil de gestion de certificats OpenSSL. La complexité m'a conduit à recréer entièrement l'application en deux mois.",
         technologies: ["Node.js", "Bootstrap", "Shell/Bash", "OpenSSL"],
         image: "/images/zpki-demo.png",
+        github: "https://github.com/zenetys/zpki",
         link: "https://tools.zenetys.com/zpki",
         sections: [
             {

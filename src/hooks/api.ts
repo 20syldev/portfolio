@@ -23,6 +23,7 @@ const ID_TO_API_KEY: Record<string, string> = {
     "2048": "g_2048",
     "python-api": "python_api",
     "old-database": "old_database",
+    "drawio-plugin": "drawio_plugin",
 };
 
 export function getApiKey(projectId: string): string {

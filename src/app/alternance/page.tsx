@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ExternalLink, Github } from "lucide-react";
@@ -7,14 +8,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { alternanceProjects } from "@/data/alternance";
-
-export const metadata: Metadata = {
-    title: "Alternance - Sylvain L.",
-    description: "Développement Web chez Zenetys - Mes projets en alternance",
-};
+import { projects } from "@/data/alternance";
+import { useApi, getApiKey } from "@/hooks/api";
 
 export default function AlternancePage() {
+    const { versions } = useApi();
     return (
         <div className="flex min-h-screen flex-col">
             <Header/>
@@ -77,29 +75,19 @@ export default function AlternancePage() {
 
                 {/* Projects */}
                 <h2 className="mb-8 text-2xl font-bold">Projets réalisés</h2>
-                <div className="space-y-8">
-                    {alternanceProjects.map((project) => (
+                <div className="mb-12 space-y-8">
+                    {projects.map((project) => (
                         <Card key={project.id} id={project.id}>
                             <CardHeader>
                                 <div className="flex items-start justify-between">
                                     <CardTitle className="text-xl">
                                         {project.title}
                                     </CardTitle>
-                                    <div className="flex gap-2">
-                                        {project.link && (
-                                            <a
-                                                href={project.link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                <Button
-                                                    variant="outline"
-                                                    size="sm"
-                                                >
-                                                    <ExternalLink className="mr-2 h-4 w-4"/>
-                                                    Voir
-                                                </Button>
-                                            </a>
+                                    <div className="flex items-center gap-2">
+                                        {versions?.[getApiKey(project.id)] && (
+                                            <Badge variant="outline" className="text-xs">
+                                                {versions[getApiKey(project.id)]}
+                                            </Badge>
                                         )}
                                         {project.github && (
                                             <a
@@ -113,6 +101,21 @@ export default function AlternancePage() {
                                                 >
                                                     <Github className="mr-2 h-4 w-4"/>
                                                     GitHub
+                                                </Button>
+                                            </a>
+                                        )}
+                                        {project.link && (
+                                            <a
+                                                href={project.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <Button
+                                                    variant="outline"
+                                                    size="sm"
+                                                >
+                                                    <ExternalLink className="mr-2 h-4 w-4"/>
+                                                    Voir
                                                 </Button>
                                             </a>
                                         )}
@@ -175,6 +178,21 @@ export default function AlternancePage() {
                             </CardContent>
                         </Card>
                     ))}
+                </div>
+
+                {/* Contributions */}
+                <h2 className="mb-8 text-2xl font-bold">Contributions externes</h2>
+                <div className="mb-12 flex items-center gap-3 rounded-lg border p-4">
+                    <span className="font-medium">rsyslog</span>
+                    <Badge variant="secondary">C</Badge>
+                    <div className="flex gap-2 ml-auto">
+                        <a href="https://github.com/rsyslog/rsyslog/pull/6384" target="_blank" rel="noopener noreferrer">
+                            <Badge variant="outline" className="cursor-pointer hover:bg-muted">PR #6384</Badge>
+                        </a>
+                        <a href="https://github.com/rsyslog/rsyslog/pull/6395" target="_blank" rel="noopener noreferrer">
+                            <Badge variant="outline" className="cursor-pointer hover:bg-muted">PR #6395</Badge>
+                        </a>
+                    </div>
                 </div>
             </main>
             <Footer/>
