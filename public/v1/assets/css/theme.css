@@ -1,0 +1,43 @@
+/* - - - - - - - Thèmes - - - - - - - */
+
+/* Mode clair */
+[data-theme="light"] {
+    --bg: #fff;
+    --bg-invert: #111;
+    --button-bg: #333;
+    --button-color: #fff;
+    --button-shadow: #666;
+    --hover-bg: #00000008;
+    --menu-bg: #fafafa;
+    --menu-shadow: #00000022;
+    --menu-list-bg: #444;
+    --menu-list-active: #2942ff;
+    --menu-chat-bg: #fff;
+    --menu-chat-color: #444;
+    --menu-chat-placeholder-color: #444444aa;
+    --input-border-focus: #4258ff;
+    --icon-sparkles: url('../icons/sparkles-light.svg');
+    --check: #21da86;
+    --error: #ff4444;
+}
+
+/* Mode sombre */
+[data-theme="dark"] {
+    --bg: #111;
+    --bg-invert: #fff;
+    --button-bg: #333;
+    --button-color: #fff;
+    --button-shadow: #444;
+    --hover-bg: #ffffff08;
+    --menu-bg: #0d0d0d;
+    --menu-shadow: #00000044;
+    --menu-list-bg: #abb1bf;
+    --menu-list-active: #2942ff;
+    --menu-chat-bg: #14161a;
+    --menu-chat-color: #aaa;
+    --menu-chat-placeholder-color: #666666aa;
+    --input-border-focus: #4258ff;
+    --icon-sparkles: url('../icons/sparkles-dark.svg');
+    --check: #30ca85;
+    --error: #ff6666;
+}

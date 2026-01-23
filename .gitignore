@@ -1,0 +1,6 @@
+node_modules/
+out/
+.next/
+*.tsbuildinfo
+next-env.d.ts
+src/data/projects.json
