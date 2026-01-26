@@ -193,11 +193,11 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .card-hover:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 .dark .card-hover:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 .glow-hover {
@@ -290,8 +290,7 @@
 }
 
 .snap-tab {
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden;
     min-width: 100vw;
     height: 100%;
 }
