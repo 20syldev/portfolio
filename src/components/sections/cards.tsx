@@ -29,6 +29,7 @@ import {
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { badges, contributions, profile, projects } from "@/data/profile";
 import { useApi } from "@/hooks/api";
+import { useDragScroll } from "@/hooks/scroll";
 
 const iconMap = {
     calendar: CalendarDays,
@@ -300,6 +301,7 @@ export function InfoCards() {
     const { stats } = useApi();
     const scrollRef = useRef<HTMLDivElement>(null);
     const [scrollProgress, setScrollProgress] = useState(0);
+    useDragScroll(scrollRef);
 
     /**
      * Handle scroll event.
@@ -348,15 +350,21 @@ export function InfoCards() {
             {/* Mobile/Tablet carousel */}
             <div
                 ref={scrollRef}
-                className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hide gap-4 md:hidden -mx-4 px-4"
+                className="flex snap-x snap-mandatory overflow-x-auto py-1 scrollbar-hide lg:hidden"
             >
-                <ParcoursCard stats={stats} className="flex-shrink-0 w-full snap-center" />
-                <GitHubCard stats={stats} className="flex-shrink-0 w-full snap-center" />
-                <CertificationsCard className="flex-shrink-0 w-full snap-center" />
+                <div className="flex-shrink-0 w-full snap-center flex justify-center px-4">
+                    <ParcoursCard stats={stats} className="w-full max-w-lg" />
+                </div>
+                <div className="flex-shrink-0 w-full snap-center flex justify-center px-4">
+                    <GitHubCard stats={stats} className="w-full max-w-lg" />
+                </div>
+                <div className="flex-shrink-0 w-full snap-center flex justify-center px-4">
+                    <CertificationsCard className="w-full max-w-lg" />
+                </div>
             </div>
 
             {/* Mobile/Tablet dots */}
-            <div className="flex justify-center gap-2 md:hidden">
+            <div className="flex justify-center gap-2 lg:hidden">
                 {Array.from({ length: count }).map((_, index) => {
                     const isActive = Math.abs(scrollProgress - index) < 0.5;
                     return (
@@ -372,7 +380,7 @@ export function InfoCards() {
             </div>
 
             {/* Desktop grid */}
-            <div className="hidden md:grid gap-4 md:grid-cols-3 lg:gap-6 xl:gap-8">
+            <div className="hidden lg:grid gap-4 lg:grid-cols-3 xl:gap-8">
                 <ParcoursCard stats={stats} />
                 <GitHubCard stats={stats} />
                 <CertificationsCard badgeGridClass="grid grid-cols-2 md:grid-cols-3 gap-2 xl:gap-4 place-items-center w-full" />

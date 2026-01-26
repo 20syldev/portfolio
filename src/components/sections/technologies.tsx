@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useDragScroll } from "@/hooks/scroll";
 
 /** Icons that need to be inverted in dark mode (black icons) */
 const darkInvertIcons = [
@@ -136,12 +137,15 @@ const techCategories = [
 export function Technologies() {
     const [currentCategory, setCurrentCategory] = useState(0);
     const scrollRef = useRef<HTMLDivElement>(null);
+    useDragScroll(scrollRef);
 
     const handleScroll = useCallback(() => {
         if (!scrollRef.current) return;
-        const scrollLeft = scrollRef.current.scrollLeft;
-        const width = scrollRef.current.offsetWidth;
-        const newIndex = Math.round(scrollLeft / width);
+        const { scrollLeft, offsetWidth, scrollWidth } = scrollRef.current;
+        const maxScroll = scrollWidth - offsetWidth;
+        if (maxScroll <= 0) return;
+        const scrollProgress = scrollLeft / maxScroll;
+        const newIndex = Math.round(scrollProgress * (techCategories.length - 1));
         if (newIndex !== currentCategory && newIndex >= 0 && newIndex < techCategories.length) {
             setCurrentCategory(newIndex);
         }
