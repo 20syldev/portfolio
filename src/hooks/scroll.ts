@@ -128,6 +128,21 @@ export function useScroll({
             return scrollTop + clientHeight >= scrollHeight - 1;
         };
 
+        const hasHorizontalScroll = (element: Element | null): boolean => {
+            while (element && element !== container) {
+                const style = window.getComputedStyle(element);
+                const overflowX = style.overflowX;
+                if (
+                    (overflowX === "auto" || overflowX === "scroll") &&
+                    element.scrollWidth > element.clientWidth
+                ) {
+                    return true;
+                }
+                element = element.parentElement;
+            }
+            return false;
+        };
+
         const handleWheel = (e: WheelEvent) => {
             const { isScrolling, currentTab, currentSection } = stateRef.current;
 
@@ -141,12 +156,12 @@ export function useScroll({
             const hasNativeScroll = getSectionsForTab(currentTab) === 1;
 
             if (absX > absY && absX > threshold) {
+                const target = e.target as Element;
+                if (hasHorizontalScroll(target)) return;
+
                 e.preventDefault();
-                if (e.deltaX > 0) {
-                    nextTab();
-                } else {
-                    prevTab();
-                }
+                if (e.deltaX > 0) nextTab();
+                else prevTab();
             } else if (absY > absX && absY > threshold) {
                 if (hasNativeScroll) {
                     return;
@@ -160,17 +175,12 @@ export function useScroll({
                     const scrollingDown = e.deltaY > 0;
                     const atBoundary = isAtScrollBoundary(section, scrollingDown ? "down" : "up");
 
-                    if (!atBoundary) {
-                        return;
-                    }
+                    if (!atBoundary) return;
                 }
 
                 e.preventDefault();
-                if (e.deltaY > 0) {
-                    nextSection();
-                } else {
-                    prevSection();
-                }
+                if (e.deltaY > 0) nextSection();
+                else prevSection();
             }
         };
 
@@ -191,7 +201,7 @@ export function useScroll({
             return scrollTop + clientHeight >= scrollHeight - 1;
         };
 
-        const hasHorizontalScrollElement = (element: Element | null): boolean => {
+        const hasHorizontalScroll = (element: Element | null): boolean => {
             while (element && element !== container) {
                 const style = window.getComputedStyle(element);
                 const overflowX = style.overflowX;
@@ -214,7 +224,7 @@ export function useScroll({
             touchStartRef.current = {
                 x: touch.clientX,
                 y: touch.clientY,
-                hasHorizontalScroll: hasHorizontalScrollElement(target),
+                hasHorizontalScroll: hasHorizontalScroll(target),
             };
             directionLockedRef.current = null;
         };
@@ -486,4 +496,63 @@ export function useContainerSmoothScroll<T extends HTMLElement>(enabled = true) 
     }, [enabled]);
 
     return containerRef;
+}
+
+/**
+ * Hook for drag-to-scroll functionality on carousels.
+ * Enables mouse drag scrolling with grab cursor.
+ *
+ * @param ref - Ref to the scrollable element.
+ */
+export function useDragScroll<T extends HTMLElement>(ref: React.RefObject<T | null>) {
+    const isDragging = useRef(false);
+    const startX = useRef(0);
+    const scrollStart = useRef(0);
+
+    useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+
+        const handleMouseDown = (e: MouseEvent) => {
+            isDragging.current = true;
+            startX.current = e.pageX;
+            scrollStart.current = el.scrollLeft;
+            el.style.cursor = "grabbing";
+            el.style.userSelect = "none";
+            el.style.scrollSnapType = "none";
+        };
+
+        const handleMouseMove = (e: MouseEvent) => {
+            if (!isDragging.current) return;
+            e.preventDefault();
+            const delta = e.pageX - startX.current;
+            el.scrollLeft = scrollStart.current - delta;
+        };
+
+        const handleMouseUp = () => {
+            if (!isDragging.current) return;
+            isDragging.current = false;
+            el.style.cursor = "grab";
+            el.style.userSelect = "";
+
+            const itemWidth = el.offsetWidth;
+            const targetIndex = Math.round(el.scrollLeft / itemWidth);
+            el.scrollTo({ left: targetIndex * itemWidth, behavior: "smooth" });
+
+            setTimeout(() => {
+                el.style.scrollSnapType = "";
+            }, 300);
+        };
+
+        el.style.cursor = "grab";
+        el.addEventListener("mousedown", handleMouseDown);
+        window.addEventListener("mousemove", handleMouseMove);
+        window.addEventListener("mouseup", handleMouseUp);
+
+        return () => {
+            el.removeEventListener("mousedown", handleMouseDown);
+            window.removeEventListener("mousemove", handleMouseMove);
+            window.removeEventListener("mouseup", handleMouseUp);
+        };
+    }, [ref]);
 }
