@@ -60,6 +60,26 @@ export default function Home() {
         return () => window.removeEventListener("popstate", onPopState);
     }, [currentTab, goToTab]);
 
+    // Handle hash navigation on mount and hash changes
+    useEffect(() => {
+        const scrollToHash = () => {
+            const hash = window.location.hash.slice(1);
+            if (!hash) return;
+
+            const element = document.getElementById(hash);
+            if (!element) return;
+
+            const rect = element.getBoundingClientRect();
+            if (rect.left >= 0 && rect.left < window.innerWidth) {
+                element.scrollIntoView({ behavior: "smooth" });
+            }
+        };
+
+        setTimeout(scrollToHash, 100);
+        window.addEventListener("hashchange", scrollToHash);
+        return () => window.removeEventListener("hashchange", scrollToHash);
+    }, []);
+
     return (
         <div ref={containerRef} className="snap-container">
             <Nav currentTab={currentTab} tabs={tabs} onTabChange={goToTab} />
