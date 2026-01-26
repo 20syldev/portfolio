@@ -124,7 +124,7 @@ export function CommandMenu() {
                             <LayoutList className="mr-2 h-4 w-4" />
                             Tous les projets
                         </CommandItem>
-                        <CommandItem onSelect={() => runCommand(() => router.push("/v1"))}>
+                        <CommandItem onSelect={() => runCommand(() => router.push("/legacy"))}>
                             <Archive className="mr-2 h-4 w-4" />
                             Version précédente
                         </CommandItem>

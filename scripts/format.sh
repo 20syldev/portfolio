@@ -29,7 +29,7 @@ while read -r file; do
         newline_changes+="${GREEN}✓${NC} Cleaned: $file\n"
     fi
 done < <(find . -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" -o -name "*.mjs" -o -name "*.mts" -o -name "*.md" \) \
-    ! -path "./node_modules/*" ! -path "./.next/*" ! -path "./out/*" ! -path "./public/v1/*")
+    ! -path "./node_modules/*" ! -path "./.next/*" ! -path "./out/*" ! -path "./public/legacy/*")
 
 if [ -n "$newline_changes" ]; then
     echo ""

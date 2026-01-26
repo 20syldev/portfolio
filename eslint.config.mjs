@@ -53,7 +53,7 @@ const eslintConfig = defineConfig([
     },
 
     // Ignores
-    globalIgnores(["public/v1/**"]),
+    globalIgnores(["public/legacy/**"]),
 
     // Prettier (must be last to override formatting rules)
     prettier,
