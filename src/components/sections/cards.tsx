@@ -350,7 +350,7 @@ export function InfoCards() {
             {/* Mobile/Tablet carousel */}
             <div
                 ref={scrollRef}
-                className="flex snap-x snap-mandatory overflow-x-auto py-1 scrollbar-hide lg:hidden"
+                className="flex snap-x snap-mandatory overflow-x-auto py-3 scrollbar-hide lg:hidden"
             >
                 <div className="flex-shrink-0 w-full snap-center flex justify-center px-4">
                     <ParcoursCard stats={stats} className="w-full max-w-lg" />
