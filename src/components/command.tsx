@@ -205,7 +205,7 @@ export function CommandMenu() {
                             <CommandGroup heading="Pages">
                                 <CommandItem
                                     value="alternance zenetys développement web"
-                                    onSelect={() => runCommand(() => router.push("/alternance"))}
+                                    onSelect={() => runCommand(() => router.push("/alternance/"))}
                                 >
                                     <Briefcase className="mr-2 h-4 w-4" />
                                     Alternance
@@ -215,7 +215,7 @@ export function CommandMenu() {
                                 </CommandItem>
                                 <CommandItem
                                     value="veille technologique node.js javascript"
-                                    onSelect={() => runCommand(() => router.push("/veille"))}
+                                    onSelect={() => runCommand(() => router.push("/veille/"))}
                                 >
                                     <Newspaper className="mr-2 h-4 w-4" />
                                     Veille technologique
@@ -258,7 +258,7 @@ export function CommandMenu() {
                                         value={`${project.title} ${project.description} ${project.technologies.join(" ")}`}
                                         onSelect={() =>
                                             runCommand(() =>
-                                                router.push(`/alternance#${project.id}`)
+                                                router.push(`/alternance/#${project.id}`)
                                             )
                                         }
                                     >
