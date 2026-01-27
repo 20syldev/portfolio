@@ -11,7 +11,7 @@ export default function NotFound() {
             <p className="max-w-md text-muted-foreground">
                 La page que vous recherchez n'existe pas ou a été déplacée.
             </p>
-            <Link href="/">
+            <Link href="/" target="_top">
                 <Button>
                     <Home className="mr-2 h-4 w-4" />
                     Retour à l'accueil
