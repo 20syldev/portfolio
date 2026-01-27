@@ -2,7 +2,7 @@
 
 import { ChevronDown } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
@@ -17,67 +17,56 @@ import { tabs, urls } from "@/lib/nav";
 
 const sections = 4;
 
-function getTab(pathname: string): number {
-    if (pathname === "/alternance") return 1;
-    if (pathname === "/veille") return 2;
+function getTab(path: string): number {
+    if (path === "/alternance/") return 1;
+    if (path === "/veille/") return 2;
     return 0;
 }
 
 export default function Home() {
     const pathname = usePathname();
-    const initial = getTab(pathname);
+    const mounted = useRef(false);
 
     const { containerRef, currentTab, currentSection, goToTab, goToSection } = useScroll({
         totalTabs: tabs.length,
-        homeSections: sections,
+        sections,
         threshold: 10,
         scrollDuration: 500,
-        initialTab: initial,
+        initialTab: getTab(pathname),
     });
 
     // Sync URL when tab changes
     useEffect(() => {
-        const url = urls[currentTab];
-        if (pathname !== url) {
-            history.pushState(null, "", url);
+        if (!mounted.current) {
+            mounted.current = true;
+            return;
         }
-    }, [currentTab, pathname]);
+        const url = urls[currentTab];
+        if (location.pathname !== url) history.pushState(null, "", url);
+    }, [currentTab]);
 
     // Sync tab when pathname changes
     useEffect(() => {
+        if (!mounted.current) return;
         const expected = getTab(pathname);
         if (expected !== currentTab) goToTab(expected);
     }, [pathname, currentTab, goToTab]);
 
-    // Handle browser back/forward
-    useEffect(() => {
-        const onPopState = () => {
-            const expected = getTab(location.pathname);
-            if (expected !== currentTab) goToTab(expected);
-        };
-
-        window.addEventListener("popstate", onPopState);
-        return () => window.removeEventListener("popstate", onPopState);
-    }, [currentTab, goToTab]);
-
-    // Handle hash navigation on mount and hash changes
+    // Hash navigation
     useEffect(() => {
         const scrollToHash = () => {
-            const hash = window.location.hash.slice(1);
-            if (!hash) return;
-
-            const element = document.getElementById(hash);
-            if (!element) return;
-
-            const rect = element.getBoundingClientRect();
-            if (rect.left >= 0 && rect.left < window.innerWidth) {
-                element.scrollIntoView({ behavior: "smooth" });
+            const id = location.hash.slice(1);
+            if (!id) return;
+            const el = document.getElementById(id);
+            if (!el) return;
+            const rect = el.getBoundingClientRect();
+            if (rect.left >= 0 && rect.left < innerWidth) {
+                el.scrollIntoView({ behavior: "smooth" });
             }
         };
-
         setTimeout(scrollToHash, 100);
-        window.addEventListener("hashchange", scrollToHash);
-        return () => window.removeEventListener("hashchange", scrollToHash);
+        addEventListener("hashchange", scrollToHash);
+        return () => removeEventListener("hashchange", scrollToHash);
     }, []);
 
     return (
