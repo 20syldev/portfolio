@@ -11,7 +11,7 @@ interface ScrollState {
 
 interface UseScrollOptions {
     totalTabs: number;
-    homeSections?: number;
+    sections?: number;
     threshold?: number;
     scrollDuration?: number;
     initialTab?: number;
@@ -19,15 +19,12 @@ interface UseScrollOptions {
 
 export function useScroll({
     totalTabs,
-    homeSections = 1,
+    sections = 1,
     threshold = 50,
     scrollDuration = 500,
     initialTab = 0,
 }: UseScrollOptions) {
-    const getSectionsForTab = useCallback(
-        (tab: number) => (tab === 0 ? homeSections : 1),
-        [homeSections]
-    );
+    const getSectionsForTab = useCallback((tab: number) => (tab === 0 ? sections : 1), [sections]);
     const [state, setState] = useState<ScrollState>({
         currentTab: initialTab,
         currentSection: 0,
@@ -414,6 +411,7 @@ export function useSmoothScroll<T extends HTMLElement>(enabled = true) {
             touchMultiplier: 2,
             infinite: false,
             smoothWheel: true,
+            syncTouch: true,
         });
 
         lenisRef.current = lenis;
@@ -432,7 +430,11 @@ export function useSmoothScroll<T extends HTMLElement>(enabled = true) {
         };
     }, [enabled]);
 
-    return containerRef;
+    const scrollTo = useCallback((target: string | HTMLElement, offset = 0) => {
+        lenisRef.current?.scrollTo(target, { offset });
+    }, []);
+
+    return { scrollRef: containerRef, scrollTo };
 }
 
 export function useContainerSmoothScroll<T extends HTMLElement>(enabled = true) {
