@@ -9,13 +9,14 @@ export const metadata: Metadata = {
 export default function LegacyPage() {
     return (
         <div className="relative w-full h-screen">
-            <div className="absolute top-4 left-4 z-10 flex items-center gap-2 px-3 py-2 text-sm bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-200 rounded-lg shadow-md">
+            <div className="absolute inset-x-4 top-4 sm:right-auto z-10 flex items-center gap-2 px-3 py-2 text-sm bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-200 rounded-lg shadow-md">
                 <Info className="h-4 w-4 shrink-0" />
                 <span>
                     Cette version n'est plus maintenue.{" "}
                     <Link href="/" className="underline hover:no-underline font-medium">
-                        Voir la dernière version.
+                        Voir la v2
                     </Link>
+                    .
                 </span>
             </div>
             <iframe
