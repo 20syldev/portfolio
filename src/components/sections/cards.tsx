@@ -9,6 +9,7 @@ import {
     Download,
     Github,
     GitPullRequest,
+    Globe,
     GraduationCap,
     LucideBookOpenText,
     Plane,
@@ -99,33 +100,53 @@ function ParcoursCard({
                                                 </p>
                                             </div>
                                             <div className="flex gap-2">
-                                                <Button
-                                                    asChild
-                                                    variant="outline"
-                                                    size="icon"
-                                                    className="h-8 w-8"
-                                                >
-                                                    <a
-                                                        href={`https://github.com/20syldev/${project.repo}`}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
+                                                {project.link && (
+                                                    <Button
+                                                        asChild
+                                                        variant="outline"
+                                                        size="icon"
+                                                        className="h-8 w-8"
                                                     >
-                                                        <Github className="h-4 w-4" />
-                                                    </a>
-                                                </Button>
-                                                <Button
-                                                    asChild
-                                                    variant="outline"
-                                                    size="icon"
-                                                    className="h-8 w-8"
-                                                >
-                                                    <a
-                                                        href={`https://github.com/20syldev/${project.repo}/archive/refs/heads/${project.branch}.zip`}
-                                                        download
+                                                        <a
+                                                            href={project.link}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                        >
+                                                            <Globe className="h-4 w-4" />
+                                                        </a>
+                                                    </Button>
+                                                )}
+                                                {project.repo && (
+                                                    <Button
+                                                        asChild
+                                                        variant="outline"
+                                                        size="icon"
+                                                        className="h-8 w-8"
                                                     >
-                                                        <Download className="h-4 w-4" />
-                                                    </a>
-                                                </Button>
+                                                        <a
+                                                            href={`https://github.com/20syldev/${project.repo}`}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                        >
+                                                            <Github className="h-4 w-4" />
+                                                        </a>
+                                                    </Button>
+                                                )}
+                                                {project.repo && project.branch && (
+                                                    <Button
+                                                        asChild
+                                                        variant="outline"
+                                                        size="icon"
+                                                        className="h-8 w-8"
+                                                    >
+                                                        <a
+                                                            href={`https://github.com/20syldev/${project.repo}/archive/refs/heads/${project.branch}.zip`}
+                                                            download
+                                                        >
+                                                            <Download className="h-4 w-4" />
+                                                        </a>
+                                                    </Button>
+                                                )}
                                             </div>
                                         </div>
                                     );
@@ -140,12 +161,12 @@ function ParcoursCard({
                             <Briefcase className="h-3.5 w-3.5 text-muted-foreground" />
                             <span className="font-medium">{profile.work.company}</span>
                         </div>
-                        <Button asChild variant="outline" size="sm" className="h-7 text-xs">
-                            <Link href="/alternance">
+                        <Link href="/alternance/" scroll={false}>
+                            <Button variant="outline" size="sm" className="h-7 text-xs">
                                 Projets
                                 <BriefcaseBusiness className="ml-1 h-3 w-3" />
-                            </Link>
-                        </Button>
+                            </Button>
+                        </Link>
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">{profile.work.role}</p>
                 </div>

@@ -159,8 +159,8 @@ export function Technologies() {
     }, [handleScroll]);
 
     return (
-        <div className="flex h-full flex-col items-center justify-center px-4">
-            <div className="w-full max-w-4xl">
+        <div className="flex h-full flex-col items-center px-4 py-20">
+            <div className="w-full max-w-4xl flex-1 flex flex-col justify-center">
                 <h2 className="text-2xl font-bold text-center mb-6 lg:mb-8">Technologies</h2>
 
                 {/* Mobile/Tablet: Carousel */}
@@ -177,7 +177,7 @@ export function Technologies() {
                                 <h3 className="text-sm font-medium text-muted-foreground mb-4 text-center">
                                     {category.name}
                                 </h3>
-                                <div className="grid grid-cols-3 gap-3">
+                                <div className="grid grid-cols-3">
                                     {category.items.map((tech) => (
                                         <div
                                             key={tech.name}
@@ -207,7 +207,7 @@ export function Technologies() {
                     </div>
 
                     {/* Dots */}
-                    <div className="flex justify-center gap-1.5 mt-4">
+                    <div className="flex justify-center gap-1.5">
                         {techCategories.map((_, index) => (
                             <button
                                 key={index}

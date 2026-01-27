@@ -18,22 +18,22 @@ import { useSmoothScroll } from "@/hooks/scroll";
  */
 export function Alternance() {
     const { versions } = useApi();
-    const scrollRef = useSmoothScroll<HTMLDivElement>();
+    const { scrollRef } = useSmoothScroll<HTMLDivElement>();
 
     return (
         <div ref={scrollRef} className="h-dvh overflow-y-auto overflow-x-hidden scrollbar-none">
-            <div className="px-4 pt-24">
+            <div className="px-4 sm:px-6 pt-28 sm:pt-24">
                 <div className="container mx-auto max-w-4xl">
                     {/* Header */}
-                    <div className="mb-12 text-center">
-                        <h1 className="mb-2 text-4xl font-bold">Alternance</h1>
-                        <p className="text-xl text-muted-foreground">
+                    <div className="mb-8 sm:mb-12 text-center">
+                        <h1 className="mb-3 text-3xl sm:text-4xl font-bold">Alternance</h1>
+                        <p className="text-lg sm:text-xl text-muted-foreground">
                             Développement Web chez Zenetys
                         </p>
                     </div>
 
                     {/* Introduction */}
-                    <Card className="mb-12">
+                    <Card className="mb-8 sm:mb-12">
                         <CardHeader>
                             <CardTitle>À propos de Zenetys</CardTitle>
                         </CardHeader>
@@ -71,43 +71,75 @@ export function Alternance() {
                     </Card>
 
                     {/* Projects */}
-                    <h2 className="mb-8 text-2xl font-bold">Projets réalisés</h2>
-                    <div className="mb-12 space-y-8">
+                    <h2 className="mb-6 sm:mb-8 text-xl sm:text-2xl font-bold">Projets réalisés</h2>
+                    <div className="mb-8 sm:mb-12 space-y-6 sm:space-y-8">
                         {projects.map((project) => (
                             <Card key={project.id} id={project.id}>
                                 <CardHeader>
-                                    <div className="flex items-start justify-between">
+                                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                                         <CardTitle className="text-xl">{project.title}</CardTitle>
-                                        <div className="flex items-center gap-2">
+                                        <div className="flex items-center gap-2 flex-wrap">
                                             {versions?.[getApiKey(project.id)] && (
                                                 <Badge variant="outline" className="text-xs">
                                                     {versions[getApiKey(project.id)]}
                                                 </Badge>
                                             )}
-                                            {project.github && (
-                                                <a
-                                                    href={project.github}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                >
-                                                    <Button variant="outline" size="sm">
-                                                        <Github className="mr-2 h-4 w-4" />
-                                                        GitHub
-                                                    </Button>
-                                                </a>
-                                            )}
-                                            {project.link && (
-                                                <a
-                                                    href={project.link}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                >
-                                                    <Button variant="outline" size="sm">
-                                                        <ExternalLink className="mr-2 h-4 w-4" />
-                                                        Voir
-                                                    </Button>
-                                                </a>
-                                            )}
+                                            <div className="flex items-center gap-2">
+                                                {project.github && (
+                                                    <>
+                                                        <a
+                                                            href={project.github}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="p-2 rounded-full hover:bg-muted transition-colors sm:hidden"
+                                                        >
+                                                            <Github className="h-4 w-4" />
+                                                        </a>
+                                                        <Button
+                                                            asChild
+                                                            variant="outline"
+                                                            size="sm"
+                                                            className="hidden sm:inline-flex"
+                                                        >
+                                                            <a
+                                                                href={project.github}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                            >
+                                                                <Github className="mr-2 h-4 w-4" />
+                                                                GitHub
+                                                            </a>
+                                                        </Button>
+                                                    </>
+                                                )}
+                                                {project.link && (
+                                                    <>
+                                                        <a
+                                                            href={project.link}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="p-2 rounded-full hover:bg-muted transition-colors sm:hidden"
+                                                        >
+                                                            <ExternalLink className="h-4 w-4" />
+                                                        </a>
+                                                        <Button
+                                                            asChild
+                                                            variant="outline"
+                                                            size="sm"
+                                                            className="hidden sm:inline-flex"
+                                                        >
+                                                            <a
+                                                                href={project.link}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                            >
+                                                                <ExternalLink className="mr-2 h-4 w-4" />
+                                                                Voir
+                                                            </a>
+                                                        </Button>
+                                                    </>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="flex flex-wrap gap-2">
@@ -155,8 +187,10 @@ export function Alternance() {
                     </div>
 
                     {/* Contributions */}
-                    <h2 className="mb-8 text-2xl font-bold">Contributions externes</h2>
-                    <div className="grid gap-4 md:grid-cols-2">
+                    <h2 className="mb-6 sm:mb-8 text-xl sm:text-2xl font-bold">
+                        Contributions externes
+                    </h2>
+                    <div className="grid gap-4 md:grid-cols-2 mb-8">
                         <Card>
                             <CardHeader className="pb-2">
                                 <div className="flex items-center justify-between">
