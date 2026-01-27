@@ -21,7 +21,7 @@ interface DocProps {
 }
 
 export function Doc({ project, content }: DocProps) {
-    const scrollRef = useSmoothScroll<HTMLDivElement>();
+    const { scrollRef, scrollTo } = useSmoothScroll<HTMLDivElement>();
     const { versions } = useApi();
     const getProjectStatus = useProjectStatus();
     const version = versions?.[getApiKey(project.id)];
@@ -126,6 +126,7 @@ export function Doc({ project, content }: DocProps) {
                 <DetailNav
                     className="hidden md:flex sticky top-16 h-[calc(100vh-4rem)] border-r-0"
                     scrollContainerRef={scrollRef}
+                    scrollTo={scrollTo}
                     content={content}
                 />
 
@@ -136,6 +137,7 @@ export function Doc({ project, content }: DocProps) {
                         className="md:hidden sticky top-16 z-10 -mx-6 mb-6"
                         mobile
                         scrollContainerRef={scrollRef}
+                        scrollTo={scrollTo}
                         content={content}
                     />
 

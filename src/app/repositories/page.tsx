@@ -24,7 +24,7 @@ interface RepositoriesPageProps {
 }
 
 export default function RepositoriesPage({ initialProjectId }: RepositoriesPageProps) {
-    const scrollRef = useSmoothScroll<HTMLDivElement>();
+    const { scrollRef } = useSmoothScroll<HTMLDivElement>();
     const { versions } = useApi();
     const getProjectStatus = useProjectStatus();
     const initialProject = initialProjectId
@@ -53,16 +53,15 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
 
             <main className="container mx-auto px-4 pt-24 pb-12">
                 <div className="mb-8 flex items-center justify-between">
-                    <Button
-                        asChild
-                        variant="ghost"
-                        size="sm"
-                        className="text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                        <Link href="/">
+                    <Link href="/">
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-muted-foreground hover:text-foreground transition-colors"
+                        >
                             <ArrowLeft className="h-4 w-4" />
-                        </Link>
-                    </Button>
+                        </Button>
+                    </Link>
                     <Button
                         variant="ghost"
                         size="sm"
