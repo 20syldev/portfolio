@@ -13,6 +13,7 @@ interface DetailNavProps {
     className?: string;
     mobile?: boolean;
     scrollContainerRef?: React.RefObject<HTMLElement | null>;
+    scrollTo?: (target: string | HTMLElement, offset?: number) => void;
     content?: string | null;
 }
 
@@ -30,7 +31,13 @@ function extractSections(content: string | null | undefined): Section[] {
     return sections;
 }
 
-export function DetailNav({ className, mobile, scrollContainerRef, content }: DetailNavProps) {
+export function DetailNav({
+    className,
+    mobile,
+    scrollContainerRef,
+    scrollTo,
+    content,
+}: DetailNavProps) {
     const sections = useMemo(() => extractSections(content), [content]);
     const [active, setActive] = useState(sections[0]?.id ?? "");
     const observer = useRef<IntersectionObserver | null>(null);
@@ -119,34 +126,11 @@ export function DetailNav({ className, mobile, scrollContainerRef, content }: De
     }, [scrollContainerRef, sections]);
 
     const scrollToSection = (id: string) => {
-        const element = document.getElementById(id);
-        if (!element) return;
-
         setActive(id);
-
-        const container = scrollContainerRef?.current;
-        const useWindow = !container;
-
-        if (id === sections[0]?.id) {
-            if (useWindow) {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-            } else {
-                container!.scrollTo({ top: 0, behavior: "smooth" });
-            }
-            return;
-        }
-
-        if (useWindow) {
-            const elementRect = element.getBoundingClientRect();
-            const scrollTop = window.scrollY + elementRect.top - 150;
-            window.scrollTo({ top: Math.max(0, scrollTop), behavior: "smooth" });
+        if (scrollTo) {
+            scrollTo(`#${id}`, -120);
         } else {
-            const containerRect = container!.getBoundingClientRect();
-            const elementRect = element.getBoundingClientRect();
-            const paddingTop = parseFloat(getComputedStyle(element).paddingTop) || 10;
-            const scrollTop =
-                container!.scrollTop + elementRect.top - containerRect.top + paddingTop;
-            container!.scrollTo({ top: Math.max(0, scrollTop), behavior: "smooth" });
+            document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
         }
     };
 
@@ -162,7 +146,7 @@ export function DetailNav({ className, mobile, scrollContainerRef, content }: De
         return (
             <nav
                 className={cn(
-                    "bg-background/80 backdrop-blur-sm border-b border-border p-2 -mx-6 px-6",
+                    "bg-background/80 backdrop-blur-sm border-b border-border p-2 -mx-4 px-4 sm:-mx-6 sm:px-6",
                     className
                 )}
             >

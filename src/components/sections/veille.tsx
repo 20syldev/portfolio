@@ -10,7 +10,7 @@ import { useSmoothScroll } from "@/hooks/scroll";
  * Displays Node.js news and updates.
  */
 export function Veille() {
-    const scrollRef = useSmoothScroll<HTMLDivElement>();
+    const { scrollRef } = useSmoothScroll<HTMLDivElement>();
 
     return (
         <div ref={scrollRef} className="h-dvh overflow-y-auto overflow-x-hidden scrollbar-none">
