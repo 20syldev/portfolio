@@ -55,6 +55,7 @@ export const projects = [
         branch: "master",
         icon: "calendar",
         description: "UI de planning simplifiée",
+        link: "https://planning.sylvain.pro/",
     },
     {
         name: "PPE C#",
