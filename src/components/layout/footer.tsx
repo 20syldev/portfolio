@@ -14,13 +14,30 @@ export function Footer() {
         <footer className="mt-8 border-t py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] bg-background">
             <div className="container mx-auto px-4">
                 <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-                    <p className="text-sm text-muted-foreground">
-                        &copy; {currentYear}
-                        <Link href="/" className="transition-colors hover:text-foreground ml-1">
-                            sylvain.pro
-                        </Link>
-                        . Tout droits réservés.
-                    </p>
+                    <div className="flex flex-col items-center gap-1 md:items-start">
+                        <p className="text-sm text-muted-foreground">
+                            &copy; {currentYear}
+                            <Link href="/" className="transition-colors hover:text-foreground ml-1">
+                                sylvain.pro
+                            </Link>
+                            . Tout droits réservés.
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                            <Link
+                                href="/mentions/"
+                                className="transition-colors hover:text-foreground"
+                            >
+                                Mentions légales
+                            </Link>
+                            {" · "}
+                            <Link
+                                href="/confidentialite/"
+                                className="transition-colors hover:text-foreground"
+                            >
+                                Confidentialité
+                            </Link>
+                        </p>
+                    </div>
                     <div className="flex items-center gap-4">
                         <a
                             href={profile.links.github}
