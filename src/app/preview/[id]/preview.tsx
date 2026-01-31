@@ -20,6 +20,7 @@ export function Preview({ projectId }: PreviewProps) {
         openProject(projectId, {
             onClose: () => {
                 history.replaceState(null, "", "/repositories");
+                document.title = "Projets - Sylvain L.";
             },
             skipUpdate: true,
         });

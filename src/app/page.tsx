@@ -13,7 +13,7 @@ import { Projects } from "@/components/sections/projects";
 import { Technologies } from "@/components/sections/technologies";
 import { Veille } from "@/components/sections/veille";
 import { useScroll } from "@/hooks/scroll";
-import { tabs, urls } from "@/lib/nav";
+import { tabs, titles, urls } from "@/lib/nav";
 
 const sections = 4;
 
@@ -43,6 +43,7 @@ export default function Home() {
         }
         const url = urls[currentTab];
         if (location.pathname !== url) history.pushState(null, "", url);
+        document.title = titles[currentTab];
     }, [currentTab]);
 
     // Sync tab when pathname changes
@@ -148,9 +149,7 @@ export default function Home() {
                 </div>
 
                 {/* Tab 3: Veille */}
-                <div className="snap-tab">
-                    <Veille />
-                </div>
+                <div className="snap-tab">{currentTab === 2 && <Veille />}</div>
             </div>
         </div>
     );
