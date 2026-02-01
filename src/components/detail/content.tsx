@@ -27,7 +27,7 @@ export function DetailContent({ content }: DetailContentProps) {
 
     return (
         <article className="prose-custom mt-2">
-            <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdxComponents}>
+            <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdxComponents} skipHtml={false}>
                 {content}
             </ReactMarkdown>
         </article>
