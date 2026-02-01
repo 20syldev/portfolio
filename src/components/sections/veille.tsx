@@ -16,8 +16,11 @@ export function Veille() {
     const { scrollRef } = useSmoothScroll<HTMLDivElement>();
 
     return (
-        <div ref={scrollRef} className="h-dvh overflow-y-auto overflow-x-hidden scrollbar-none">
-            <div className="px-4 pt-24 pb-12">
+        <div
+            ref={scrollRef}
+            className="h-dvh overflow-y-auto overflow-x-hidden scrollbar-none flex flex-col"
+        >
+            <div className="px-4 pt-24 pb-12 flex-1">
                 <div className="container mx-auto max-w-4xl">
                     <div className="mb-12 text-center">
                         <h1 className="mb-2 text-4xl font-bold">Veilles Technologiques</h1>
@@ -33,7 +36,7 @@ export function Veille() {
                                 href={`/veille/${veille.id}`}
                                 className={
                                     veilles.length % 2 !== 0 && index === veilles.length - 1
-                                        ? "md:col-span-2 md:mx-auto md:max-w-[calc(50%-0.75rem)]"
+                                        ? "md:col-span-2 md:mx-auto md:w-[50%] md:max-w-[calc(50%-0.75rem)]"
                                         : ""
                                 }
                             >
