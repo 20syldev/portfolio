@@ -8,7 +8,6 @@ import {
     FolderOpen,
     Home,
     LayoutList,
-    Mail,
     Monitor,
     Moon,
     Newspaper,
@@ -16,12 +15,14 @@ import {
     Search,
     Sparkles,
     Sun,
+    UserRound,
     Wrench,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import * as React from "react";
 
+import { ContactDialog } from "@/components/contact";
 import {
     CommandDialog,
     CommandEmpty,
@@ -32,8 +33,8 @@ import {
     CommandSeparator,
 } from "@/components/ui/command";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { usePdfViewer } from "@/components/viewer";
 import { projects as alternanceProjects } from "@/data/alternance";
-import { profile } from "@/data/profile";
 import { projects } from "@/data/projects";
 import { useApi } from "@/hooks/api";
 import { useProjectDetail } from "@/hooks/detail";
@@ -61,10 +62,12 @@ const statusLabel: Record<Exclude<ProjectStatus, null>, string> = {
 export function CommandMenu() {
     const [open, setOpen] = React.useState(false);
     const [search, setSearch] = React.useState("");
+    const [contactOpen, setContactOpen] = React.useState(false);
     const router = useRouter();
     const { setTheme } = useTheme();
     const { newProjects, updatedProjects, patchedProjects } = useApi();
     const { openProject } = useProjectDetail();
+    const { openPdf } = usePdfViewer();
 
     const getProjectStatus = (projectId: string): ProjectStatus => {
         if (newProjects.includes(projectId)) return "new";
@@ -136,30 +139,24 @@ export function CommandMenu() {
 
                     <CommandGroup heading="Liens">
                         <CommandItem
-                            onSelect={() => runCommand(() => window.open("/CV.pdf", "_blank"))}
-                        >
-                            <FileText className="mr-2 h-4 w-4" />
-                            CV
-                        </CommandItem>
-                        <CommandItem
-                            onSelect={() =>
-                                runCommand(() => {
-                                    location.href = `mailto:${profile.links.email}`;
-                                })
-                            }
-                        >
-                            <Mail className="mr-2 h-4 w-4" />
-                            Contact
-                        </CommandItem>
-                        <CommandItem
                             onSelect={() =>
                                 runCommand(() =>
-                                    window.open("/E5 - Tableau Synthèse - Sylvain L.pdf", "_blank")
+                                    openPdf(
+                                        "/E5 - Tableau Synthèse - Sylvain L.pdf",
+                                        "Tableau de synthèse E5"
+                                    )
                                 )
                             }
                         >
                             <FilePenLine className="mr-2 h-4 w-4" />
-                            Tableau de sythèse E5
+                            Tableau de synthèse E5
+                        </CommandItem>
+                        <CommandItem onSelect={() => runCommand(() => openPdf("/CV.pdf", "CV"))}>
+                            <FileText className="mr-2 h-4 w-4" />
+                            CV
+                        </CommandItem>
+                        <CommandItem onSelect={() => runCommand(() => setContactOpen(true))}>
+                            <UserRound className="mr-2 h-4 w-4" />À propos de moi
                         </CommandItem>
                     </CommandGroup>
 
@@ -293,6 +290,7 @@ export function CommandMenu() {
                     </CommandGroup>
                 </CommandList>
             </CommandDialog>
+            <ContactDialog open={contactOpen} onOpenChange={setContactOpen} />
         </>
     );
 }
