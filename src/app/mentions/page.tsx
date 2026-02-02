@@ -69,8 +69,24 @@ export default function MentionsLegales() {
                         <h2 className="text-xl font-semibold">Hébergeur</h2>
                         <div className="text-sm text-muted-foreground space-y-1">
                             <p>Nom : GitHub Pages</p>
-                            <p>Adresse : https://github.com</p>
-                            <p>Contact : https://support.github.com</p>
+                            <p>
+                                Adresse :{" "}
+                                <a
+                                    href="https://github.com"
+                                    className="underline hover:text-foreground transition-colors"
+                                >
+                                    https://github.com
+                                </a>
+                            </p>
+                            <p>
+                                Contact :{" "}
+                                <a
+                                    href="https://support.github.com"
+                                    className="underline hover:text-foreground transition-colors"
+                                >
+                                    https://support.github.com
+                                </a>
+                            </p>
                         </div>
                     </section>
 
@@ -78,8 +94,25 @@ export default function MentionsLegales() {
                         <h2 className="text-xl font-semibold">Nom de domaine</h2>
                         <div className="text-sm text-muted-foreground space-y-1">
                             <p>Registrar : Namecheap, Inc.</p>
-                            <p>Domaine principal : sylvain.pro</p>
-                            <p>Domaine raccourci : sylv.pro (redirection vers sylvain.pro)</p>
+                            <p>
+                                Domaine principal :{" "}
+                                <a
+                                    href="https://sylvain.pro"
+                                    className="underline hover:text-foreground transition-colors"
+                                >
+                                    sylvain.pro
+                                </a>
+                            </p>
+                            <p>
+                                Domaine raccourci :{" "}
+                                <a
+                                    href="https://sylv.pro"
+                                    className="underline hover:text-foreground transition-colors"
+                                >
+                                    sylv.pro
+                                </a>{" "}
+                                (redirection vers sylvain.pro)
+                            </p>
                         </div>
                     </section>
 

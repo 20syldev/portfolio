@@ -81,7 +81,14 @@ export default function Confidentialite() {
                                 <strong className="text-foreground">API</strong> : ce site effectue
                                 des appels vers{" "}
                                 <code className="text-xs bg-muted px-1 py-0.5 rounded">
-                                    api.sylvain.pro
+                                    <a
+                                        href="https://api.sylvain.pro"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="hover:text-foreground transition-colors"
+                                    >
+                                        api.sylvain.pro
+                                    </a>
                                 </code>
                                 , un service hébergé sur le même domaine, pour afficher des
                                 statistiques de projets. Aucune donnée personnelle n'est transmise
