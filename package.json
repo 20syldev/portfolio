@@ -1,6 +1,6 @@
 {
     "name": "portfolio",
-    "version": "4.0.7",
+    "version": "4.0.8",
     "private": true,
     "scripts": {
         "dev": "npm run generate && next dev --hostname 127.0.0.1 --port 2146",
@@ -27,6 +27,7 @@
         "react": "19.2.3",
         "react-dom": "19.2.3",
         "react-markdown": "^10.1.0",
+        "react-pdf": "^10.3.0",
         "remark-gfm": "^4.0.1",
         "tailwind-merge": "^3.4.0"
     },
