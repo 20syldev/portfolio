@@ -3,6 +3,11 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 
+/**
+ * Global 404 page displayed when a route is not found.
+ *
+ * @returns The rendered 404 page
+ */
 export default function NotFound() {
     return (
         <div className="flex min-h-screen flex-col items-center justify-center gap-6 p-4 text-center animate-fade-in">

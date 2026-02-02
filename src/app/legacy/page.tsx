@@ -6,6 +6,11 @@ export const metadata: Metadata = {
     title: "Sylvain L. - Legacy Portfolio",
 };
 
+/**
+ * Legacy portfolio page embedding the v1 site in an iframe.
+ *
+ * @returns The rendered legacy page
+ */
 export default function LegacyPage() {
     return (
         <div className="relative w-full h-screen">

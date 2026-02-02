@@ -9,6 +9,13 @@ interface PreviewProps {
     projectId: string;
 }
 
+/**
+ * Client component that automatically opens the project detail modal on mount.
+ *
+ * @param props - Component props
+ * @param props.projectId - ID of the project to preview
+ * @returns The rendered repositories page with detail modal
+ */
 export function Preview({ projectId }: PreviewProps) {
     const { openProject } = useProjectDetail();
     const hasOpened = useRef(false);

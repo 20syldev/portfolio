@@ -21,6 +21,14 @@ function removeSpecialSections(content: string): string {
     return content.replace(/## Sources.*?\n[\s\S]*?$/, "");
 }
 
+/**
+ * Full-page veille article layout with header, sidebar navigation and content.
+ *
+ * @param props - Component props
+ * @param props.veille - Veille article data
+ * @param props.content - Markdown content to render
+ * @returns The rendered veille documentation page
+ */
 export function Doc({ veille, content }: DocProps) {
     const { scrollRef, scrollTo } = useSmoothScroll<HTMLDivElement>();
     const navContent = removeSpecialSections(content);

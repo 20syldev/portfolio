@@ -31,6 +31,13 @@ export const metadata: Metadata = {
     },
 };
 
+/**
+ * Root layout wrapping the entire application with theme provider and fonts.
+ *
+ * @param props - Layout props
+ * @param props.children - Page content
+ * @returns The rendered root HTML layout
+ */
 export default function RootLayout({
     children,
 }: Readonly<{

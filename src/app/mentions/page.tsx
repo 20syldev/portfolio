@@ -10,6 +10,11 @@ import { profile } from "@/data/profile";
 import { useSmoothScroll } from "@/hooks/scroll";
 import { tabs, urls } from "@/lib/nav";
 
+/**
+ * Legal notices page.
+ *
+ * @returns The rendered legal notices page
+ */
 export default function MentionsLegales() {
     const { scrollRef } = useSmoothScroll<HTMLDivElement>();
 

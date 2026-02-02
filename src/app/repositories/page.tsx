@@ -23,6 +23,13 @@ interface RepositoriesPageProps {
     initialProjectId?: string;
 }
 
+/**
+ * Full repositories listing page with project cards and detail dialogs.
+ *
+ * @param props - Page props
+ * @param props.initialProjectId - Optional project ID to open on load
+ * @returns The rendered repositories page
+ */
 export default function RepositoriesPage({ initialProjectId }: RepositoriesPageProps) {
     const { scrollRef } = useSmoothScroll<HTMLDivElement>();
     const { versions } = useApi();

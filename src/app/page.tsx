@@ -23,6 +23,12 @@ function getTab(path: string): number {
     return 0;
 }
 
+/**
+ * Home page with horizontal tab navigation and vertical section scrolling.
+ * Contains Hero, Technologies, Projects, InfoCards, Alternance and Veille tabs.
+ *
+ * @returns The rendered home page
+ */
 export default function Home() {
     const pathname = usePathname();
     const mounted = useRef(false);

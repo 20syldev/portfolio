@@ -12,10 +12,22 @@ interface Props {
     params: Promise<{ tech: string }>;
 }
 
+/**
+ * Generates static parameters for all veille article pages at build time.
+ *
+ * @returns Array of tech parameter objects for veille articles with content
+ */
 export async function generateStaticParams() {
     return veilles.filter((v) => v.hasContent).map((v) => ({ tech: v.id }));
 }
 
+/**
+ * Generates metadata for the veille article page.
+ *
+ * @param props - Page props
+ * @param props.params - Dynamic route parameters containing the tech identifier
+ * @returns Page metadata with title, description and OpenGraph data
+ */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { tech } = await params;
     const veille = getVeille(tech);
@@ -35,6 +47,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
 }
 
+/**
+ * Full-page veille article view with sidebar navigation and sources.
+ *
+ * @param props - Page props
+ * @param props.params - Dynamic route parameters containing the tech identifier
+ * @returns The rendered veille article page
+ */
 export default async function Page({ params }: Props) {
     const { tech } = await params;
     const veille = getVeille(tech);

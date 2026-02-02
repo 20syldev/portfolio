@@ -10,6 +10,11 @@ import { profile } from "@/data/profile";
 import { useSmoothScroll } from "@/hooks/scroll";
 import { tabs, urls } from "@/lib/nav";
 
+/**
+ * Privacy policy page.
+ *
+ * @returns The rendered privacy policy page
+ */
 export default function Confidentialite() {
     const { scrollRef } = useSmoothScroll<HTMLDivElement>();
 

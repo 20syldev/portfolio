@@ -20,6 +20,14 @@ interface DocProps {
     content: string;
 }
 
+/**
+ * Full-page project documentation layout with header, sidebar navigation and markdown content.
+ *
+ * @param props - Component props
+ * @param props.project - Project data
+ * @param props.content - Markdown content to render
+ * @returns The rendered documentation page
+ */
 export function Doc({ project, content }: DocProps) {
     const { scrollRef, scrollTo } = useSmoothScroll<HTMLDivElement>();
     const { versions } = useApi();
