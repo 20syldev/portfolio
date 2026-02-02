@@ -3,6 +3,7 @@
 import { ArrowLeft, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 
+import { ContactLink } from "@/components/contact";
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
 import { Button } from "@/components/ui/button";
@@ -54,13 +55,7 @@ export default function MentionsLegales() {
                         <div className="text-sm text-muted-foreground space-y-1">
                             <p>Nom : Lambert Sylvain</p>
                             <p>
-                                Email :{" "}
-                                <a
-                                    href={`mailto:${profile.links.email}`}
-                                    className="underline hover:text-foreground transition-colors"
-                                >
-                                    {profile.links.email}
-                                </a>
+                                Email : <ContactLink>{profile.links.email}</ContactLink>
                             </p>
                         </div>
                     </section>
@@ -141,13 +136,7 @@ export default function MentionsLegales() {
                         <h2 className="text-xl font-semibold">Contact</h2>
                         <p className="text-sm text-muted-foreground">
                             Pour toute question relative aux mentions légales, vous pouvez me
-                            contacter à l'adresse :{" "}
-                            <a
-                                href={`mailto:${profile.links.email}`}
-                                className="underline hover:text-foreground transition-colors"
-                            >
-                                {profile.links.email}
-                            </a>
+                            contacter à l'adresse : <ContactLink>{profile.links.email}</ContactLink>
                         </p>
                     </section>
                 </div>

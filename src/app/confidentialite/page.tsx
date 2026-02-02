@@ -3,6 +3,7 @@
 import { ArrowLeft, Scale } from "lucide-react";
 import Link from "next/link";
 
+import { ContactLink } from "@/components/contact";
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
 import { Button } from "@/components/ui/button";
@@ -122,12 +123,7 @@ export default function Confidentialite() {
                         <p className="text-sm text-muted-foreground">
                             Pour toute question relative à la politique de confidentialité, vous
                             pouvez me contacter à l'adresse :{" "}
-                            <a
-                                href={`mailto:${profile.links.email}`}
-                                className="underline hover:text-foreground transition-colors"
-                            >
-                                {profile.links.email}
-                            </a>
+                            <ContactLink>{profile.links.email}</ContactLink>
                         </p>
                     </section>
                 </div>
