@@ -5,6 +5,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import * as React from "react";
 import { useEffect } from "react";
 
+import { PdfViewerProvider } from "@/components/viewer";
 import { ProjectDetailProvider } from "@/hooks/detail";
 
 function LenisProvider({ children }: { children: React.ReactNode }) {
@@ -47,7 +48,9 @@ export function ThemeProvider({
     return (
         <NextThemesProvider {...props}>
             <LenisProvider>
-                <ProjectDetailProvider>{children}</ProjectDetailProvider>
+                <PdfViewerProvider>
+                    <ProjectDetailProvider>{children}</ProjectDetailProvider>
+                </PdfViewerProvider>
             </LenisProvider>
         </NextThemesProvider>
     );

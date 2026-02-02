@@ -1,8 +1,11 @@
+"use client";
+
 import { FileText, Github, Linkedin } from "lucide-react";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { usePdfViewer } from "@/components/viewer";
 import { profile } from "@/data/profile";
 
 /**
@@ -12,6 +15,8 @@ import { profile } from "@/data/profile";
  * @returns The rendered hero section
  */
 export function Hero() {
+    const { openPdf } = usePdfViewer();
+
     return (
         <div className="flex h-full flex-col items-center justify-center px-4 text-center">
             {/* Logo */}
@@ -79,14 +84,12 @@ export function Hero() {
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <Button
-                                asChild
                                 size="icon"
                                 variant="ghost"
                                 className="h-12 w-12 rounded-full"
+                                onClick={(e) => openPdf(profile.links.cv, "CV", e)}
                             >
-                                <a href={profile.links.cv} download>
-                                    <FileText className="h-5 w-5" />
-                                </a>
+                                <FileText className="h-5 w-5" />
                             </Button>
                         </TooltipTrigger>
                         <TooltipContent>CV</TooltipContent>
