@@ -18,6 +18,14 @@ interface ProjectDetailContextValue {
 
 const ProjectDetailContext = createContext<ProjectDetailContextValue | null>(null);
 
+/**
+ * Context provider for project detail modal management.
+ * Handles opening/closing project modals with URL synchronization.
+ *
+ * @param props - Component props
+ * @param props.children - Child components to wrap
+ * @returns The provider wrapping children with the detail modal
+ */
 export function ProjectDetailProvider({ children }: { children: ReactNode }) {
     const [open, setOpen] = useState(false);
     const [project, setProject] = useState<Project | null>(null);
@@ -75,6 +83,12 @@ export function ProjectDetailProvider({ children }: { children: ReactNode }) {
     );
 }
 
+/**
+ * Accesses the project detail context for opening and closing project modals.
+ *
+ * @returns Context value with openProject and closeProject methods
+ * @throws Error if used outside of ProjectDetailProvider
+ */
 export function useProjectDetail() {
     const context = useContext(ProjectDetailContext);
     if (!context) {

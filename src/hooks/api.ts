@@ -28,6 +28,12 @@ const ID_TO_API_KEY: Record<string, string> = {
     "drawio-plugin": "drawio_plugin",
 };
 
+/**
+ * Converts a project identifier to its corresponding API key.
+ *
+ * @param projectId - The project identifier to convert
+ * @returns The mapped API key, or the original identifier if no mapping exists
+ */
 export function getApiKey(projectId: string): string {
     return ID_TO_API_KEY[projectId] || projectId;
 }
@@ -42,6 +48,12 @@ interface CachedData {
 
 let cachedData: CachedData | null = null;
 
+/**
+ * Fetches and caches portfolio API data including stats, versions and project updates.
+ * Data is fetched once and cached globally for subsequent calls.
+ *
+ * @returns API data with stats, versions, project lists and loading state
+ */
 export function useApi(): ApiData {
     const [data, setData] = useState<CachedData>(
         cachedData || {

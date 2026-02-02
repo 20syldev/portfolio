@@ -17,6 +17,18 @@ interface UseScrollOptions {
     initialTab?: number;
 }
 
+/**
+ * Hook for tab and section-based scroll navigation.
+ * Handles wheel, touch and keyboard events for navigating between tabs and sections.
+ *
+ * @param options - Scroll configuration options
+ * @param options.totalTabs - Total number of navigable tabs
+ * @param options.sections - Number of sections in the first tab (default: 1)
+ * @param options.threshold - Minimum scroll delta to trigger navigation (default: 50)
+ * @param options.scrollDuration - Duration of scroll animation in ms (default: 500)
+ * @param options.initialTab - Initial active tab index (default: 0)
+ * @returns Scroll state and navigation methods
+ */
 export function useScroll({
     totalTabs,
     sections = 1,
@@ -396,6 +408,12 @@ export function useScroll({
     };
 }
 
+/**
+ * Hook that adds Lenis smooth scrolling to a container element.
+ *
+ * @param enabled - Whether smooth scrolling is active (default: true)
+ * @returns Object containing the container ref and a scrollTo function
+ */
 export function useSmoothScroll<T extends HTMLElement>(enabled = true) {
     const containerRef = useRef<T>(null);
     const lenisRef = useRef<Lenis | null>(null);
@@ -437,6 +455,13 @@ export function useSmoothScroll<T extends HTMLElement>(enabled = true) {
     return { scrollRef: containerRef, scrollTo };
 }
 
+/**
+ * Hook that adds Lenis smooth scrolling to a container with delayed initialization.
+ * Useful for elements that appear with animations (e.g. modals).
+ *
+ * @param enabled - Whether smooth scrolling is active (default: true)
+ * @returns Ref to attach to the scrollable container element
+ */
 export function useContainerSmoothScroll<T extends HTMLElement>(enabled = true) {
     const containerRef = useRef<T>(null);
     const lenisRef = useRef<Lenis | null>(null);
