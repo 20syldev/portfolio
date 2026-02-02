@@ -40,8 +40,8 @@ export function DetailModal({ project, content, open, onOpenChange }: DetailModa
                 <DialogPrimitive.Content
                     aria-describedby={undefined}
                     className={cn(
-                        "fixed z-50 bg-background border border-border rounded-xl shadow-2xl",
-                        "inset-4 sm:inset-8 md:inset-14 lg:inset-20",
+                        "fixed z-50 bg-background border border-border sm:rounded-xl shadow-2xl",
+                        "inset-0 sm:inset-8 md:inset-14 lg:inset-20",
                         "flex flex-col overflow-hidden",
                         "data-[state=open]:animate-in data-[state=closed]:animate-out",
                         "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
