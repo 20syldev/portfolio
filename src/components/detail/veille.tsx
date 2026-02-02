@@ -59,6 +59,14 @@ function removeSpecialSections(content: string): string {
     return content.replace(/## Sources.*?\n[\s\S]*?$/, "");
 }
 
+/**
+ * Veille article content display with parsed sources grid.
+ * Renders markdown content and transforms source references into a categorized grid.
+ *
+ * @param props - Component props
+ * @param props.content - Markdown content of the veille article
+ * @returns The rendered veille content with sources
+ */
 export function VeilleContent({ content }: VeilleContentProps) {
     if (!content) {
         return (

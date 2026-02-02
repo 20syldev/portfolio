@@ -5,6 +5,12 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
+/**
+ * Provider that configures tooltip behavior for child components.
+ *
+ * @param props - Radix Tooltip provider props with delayDuration defaulting to 0
+ * @returns The rendered tooltip provider
+ */
 function TooltipProvider({
     delayDuration = 0,
     ...props
@@ -18,6 +24,12 @@ function TooltipProvider({
     );
 }
 
+/**
+ * Tooltip root component that wraps content with a provider.
+ *
+ * @param props - Radix Tooltip root props
+ * @returns The rendered tooltip root with provider
+ */
 function Tooltip({ ...props }: React.ComponentProps<typeof TooltipPrimitive.Root>) {
     return (
         <TooltipProvider>
@@ -26,10 +38,22 @@ function Tooltip({ ...props }: React.ComponentProps<typeof TooltipPrimitive.Root
     );
 }
 
+/**
+ * Element that displays a tooltip on hover.
+ *
+ * @param props - Radix Tooltip trigger props
+ * @returns The rendered tooltip trigger
+ */
 function TooltipTrigger({ ...props }: React.ComponentProps<typeof TooltipPrimitive.Trigger>) {
     return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
 }
 
+/**
+ * Tooltip content popup with arrow and animated entrance.
+ *
+ * @param props - Radix Tooltip content props
+ * @returns The rendered tooltip content
+ */
 function TooltipContent({
     className,
     sideOffset = 0,

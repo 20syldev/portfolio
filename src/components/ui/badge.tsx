@@ -24,6 +24,12 @@ const badgeVariants = cva(
     }
 );
 
+/**
+ * Styled badge component with variant support.
+ *
+ * @param props - Badge props extending span element with variant and asChild options
+ * @returns The rendered badge
+ */
 function Badge({
     className,
     variant,

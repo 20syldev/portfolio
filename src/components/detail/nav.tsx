@@ -31,6 +31,18 @@ function extractSections(content: string | null | undefined): Section[] {
     return sections;
 }
 
+/**
+ * Sidebar or horizontal navigation for document sections.
+ * Tracks active section via intersection observer and scroll position.
+ *
+ * @param props - Component props
+ * @param props.className - Optional CSS class
+ * @param props.mobile - Whether to render as horizontal scrollable bar
+ * @param props.scrollContainerRef - Ref to the scrollable container for section tracking
+ * @param props.scrollTo - Smooth scroll function for navigation
+ * @param props.content - Markdown content to extract section headings from
+ * @returns The rendered navigation, or null if no sections found
+ */
 export function DetailNav({
     className,
     mobile,

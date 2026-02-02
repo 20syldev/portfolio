@@ -6,22 +6,52 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
+/**
+ * Root dialog component built on Radix UI Dialog.
+ *
+ * @param props - Radix Dialog root props
+ * @returns The rendered dialog root
+ */
 function Dialog({ ...props }: React.ComponentProps<typeof DialogPrimitive.Root>) {
     return <DialogPrimitive.Root data-slot="dialog" {...props} />;
 }
 
+/**
+ * Button or element that opens the dialog when clicked.
+ *
+ * @param props - Radix Dialog trigger props
+ * @returns The rendered dialog trigger
+ */
 function DialogTrigger({ ...props }: React.ComponentProps<typeof DialogPrimitive.Trigger>) {
     return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />;
 }
 
+/**
+ * Portal that renders dialog content outside the DOM hierarchy.
+ *
+ * @param props - Radix Dialog portal props
+ * @returns The rendered dialog portal
+ */
 function DialogPortal({ ...props }: React.ComponentProps<typeof DialogPrimitive.Portal>) {
     return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />;
 }
 
+/**
+ * Button that closes the dialog when clicked.
+ *
+ * @param props - Radix Dialog close props
+ * @returns The rendered dialog close button
+ */
 function DialogClose({ ...props }: React.ComponentProps<typeof DialogPrimitive.Close>) {
     return <DialogPrimitive.Close data-slot="dialog-close" {...props} />;
 }
 
+/**
+ * Semi-transparent backdrop overlay behind the dialog content.
+ *
+ * @param props - Radix Dialog overlay props
+ * @returns The rendered overlay
+ */
 function DialogOverlay({
     className,
     ...props
@@ -38,6 +68,12 @@ function DialogOverlay({
     );
 }
 
+/**
+ * Main dialog content panel centered on screen with optional close button.
+ *
+ * @param props - Radix Dialog content props with optional showCloseButton
+ * @returns The rendered dialog content
+ */
 function DialogContent({
     className,
     children,
@@ -73,6 +109,12 @@ function DialogContent({
     );
 }
 
+/**
+ * Header section of the dialog with centered text on mobile.
+ *
+ * @param props - Div element props
+ * @returns The rendered dialog header
+ */
 function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
     return (
         <div
@@ -83,6 +125,12 @@ function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
     );
 }
 
+/**
+ * Footer section of the dialog with responsive flex layout.
+ *
+ * @param props - Div element props
+ * @returns The rendered dialog footer
+ */
 function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
     return (
         <div
@@ -93,6 +141,12 @@ function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
     );
 }
 
+/**
+ * Dialog title element with semibold font styling.
+ *
+ * @param props - Radix Dialog title props
+ * @returns The rendered dialog title
+ */
 function DialogTitle({ className, ...props }: React.ComponentProps<typeof DialogPrimitive.Title>) {
     return (
         <DialogPrimitive.Title
@@ -103,6 +157,12 @@ function DialogTitle({ className, ...props }: React.ComponentProps<typeof Dialog
     );
 }
 
+/**
+ * Dialog description text with muted styling.
+ *
+ * @param props - Radix Dialog description props
+ * @returns The rendered dialog description
+ */
 function DialogDescription({
     className,
     ...props

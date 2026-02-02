@@ -69,6 +69,8 @@ function useProjectGrid() {
 /**
  * Projects display section.
  * Dynamic grid that adapts columns and rows based on viewport dimensions.
+ *
+ * @returns The rendered projects grid section
  */
 export function Projects() {
     const { versions } = useApi();

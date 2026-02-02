@@ -11,6 +11,8 @@ import { useSmoothScroll } from "@/hooks/scroll";
 /**
  * Tech Watch tab content.
  * Displays the list of veille cards directly in the snap-tab.
+ *
+ * @returns The rendered veille section
  */
 export function Veille() {
     const { scrollRef } = useSmoothScroll<HTMLDivElement>();

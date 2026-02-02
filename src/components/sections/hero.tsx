@@ -8,6 +8,8 @@ import { profile } from "@/data/profile";
 /**
  * Simplified hero section.
  * Displays logo, name, description and 3 icons (GitHub, LinkedIn, CV).
+ *
+ * @returns The rendered hero section
  */
 export function Hero() {
     return (

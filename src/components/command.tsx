@@ -38,10 +38,6 @@ import { projects } from "@/data/projects";
 import { useApi } from "@/hooks/api";
 import { useProjectDetail } from "@/hooks/detail";
 
-/**
- * Command menu accessible via Ctrl+K / Cmd+K.
- * Enables quick navigation, project access, external links and theme switching.
- */
 type ProjectStatus = "new" | "updated" | "patched" | null;
 
 const statusIcon: Record<Exclude<ProjectStatus, null>, React.ElementType> = {
@@ -56,6 +52,12 @@ const statusLabel: Record<Exclude<ProjectStatus, null>, string> = {
     patched: "Correctif récent",
 };
 
+/**
+ * Command menu accessible via Ctrl+K / Cmd+K.
+ * Enables quick navigation, project access, external links and theme switching.
+ *
+ * @returns The rendered command menu with search dialog
+ */
 export function CommandMenu() {
     const [open, setOpen] = React.useState(false);
     const [search, setSearch] = React.useState("");

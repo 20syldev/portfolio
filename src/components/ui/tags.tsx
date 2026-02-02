@@ -16,6 +16,7 @@ interface TagsProps {
  * @param props - Component properties
  * @param props.tags - List of tags to display
  * @param props.maxVisible - Max visible tags before expansion (default: 3)
+ * @returns The rendered tag list with optional expand button
  */
 export function Tags({ tags, maxVisible = 3 }: TagsProps) {
     const [expanded, setExpanded] = useState(false);

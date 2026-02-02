@@ -15,6 +15,7 @@ interface DetailContentProps {
  *
  * @param props - Component props
  * @param props.content - Markdown content to display
+ * @returns The rendered markdown content
  */
 export function DetailContent({ content }: DetailContentProps) {
     if (!content) {

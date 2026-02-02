@@ -317,6 +317,8 @@ function CertificationsCard({
  * Info cards grid.
  * Displays Career, GitHub, and Certifications cards.
  * Carousel on mobile, grid on tablet/desktop.
+ *
+ * @returns The rendered info cards section
  */
 export function InfoCards() {
     const { stats } = useApi();

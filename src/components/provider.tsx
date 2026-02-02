@@ -38,6 +38,7 @@ function LenisProvider({ children }: { children: React.ReactNode }) {
  * Wraps next-themes to handle light/dark/system themes.
  *
  * @param props - Props passed to NextThemesProvider
+ * @returns The rendered theme provider wrapping children
  */
 export function ThemeProvider({
     children,

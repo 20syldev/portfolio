@@ -12,6 +12,8 @@ import { useDragScroll } from "@/hooks/scroll";
  * Displays all technologies organized by category with icons.
  * Mobile: carousel with one category at a time showing icons + names.
  * Desktop: grid layout with all categories visible.
+ *
+ * @returns The rendered technologies section
  */
 export function Technologies() {
     const [currentCategory, setCurrentCategory] = useState(0);

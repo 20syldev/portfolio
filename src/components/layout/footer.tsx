@@ -6,6 +6,8 @@ import { profile } from "@/data/profile";
 /**
  * Site footer.
  * Displays copyright and social media links.
+ *
+ * @returns The rendered footer
  */
 export function Footer() {
     const currentYear = new Date().getFullYear();

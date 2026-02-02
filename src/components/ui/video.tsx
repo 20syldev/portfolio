@@ -20,6 +20,15 @@ function formatTime(seconds: number): string {
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
 }
 
+/**
+ * Custom video player with dialog overlay, progress bar, and playback controls.
+ *
+ * @param props - Component props
+ * @param props.src - Video source URL
+ * @param props.title - Video title displayed as tooltip
+ * @param props.className - Optional CSS class for the thumbnail
+ * @returns The rendered video player with dialog
+ */
 export function Video({ src, title, className }: VideoProps) {
     const [open, setOpen] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);

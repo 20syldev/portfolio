@@ -12,6 +12,14 @@ interface ContributionsDialogProps {
     onOpenChange: (open: boolean) => void;
 }
 
+/**
+ * Dialog listing external open-source contributions with PR links.
+ *
+ * @param props - Component props
+ * @param props.open - Whether the dialog is open
+ * @param props.onOpenChange - Callback when dialog open state changes
+ * @returns The rendered contributions dialog
+ */
 export function ContributionsDialog({ open, onOpenChange }: ContributionsDialogProps) {
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>

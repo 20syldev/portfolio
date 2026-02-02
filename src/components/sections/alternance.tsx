@@ -15,6 +15,8 @@ import { useSmoothScroll } from "@/hooks/scroll";
 /**
  * Alternance tab content.
  * Displays projects done at Zenetys.
+ *
+ * @returns The rendered alternance section
  */
 export function Alternance() {
     const { versions } = useApi();

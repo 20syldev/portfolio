@@ -2,6 +2,12 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
+/**
+ * Card container component with border, shadow and rounded corners.
+ *
+ * @param props - Div element props
+ * @returns The rendered card container
+ */
 function Card({ className, ...props }: React.ComponentProps<"div">) {
     return (
         <div
@@ -15,6 +21,12 @@ function Card({ className, ...props }: React.ComponentProps<"div">) {
     );
 }
 
+/**
+ * Card header section with grid layout for title, description and actions.
+ *
+ * @param props - Div element props
+ * @returns The rendered card header
+ */
 function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
     return (
         <div
@@ -28,6 +40,12 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
     );
 }
 
+/**
+ * Card title element with semibold font styling.
+ *
+ * @param props - Div element props
+ * @returns The rendered card title
+ */
 function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
     return (
         <div
@@ -38,6 +56,12 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
     );
 }
 
+/**
+ * Card description element with muted text styling.
+ *
+ * @param props - Div element props
+ * @returns The rendered card description
+ */
 function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
     return (
         <div
@@ -48,6 +72,12 @@ function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
     );
 }
 
+/**
+ * Card action slot positioned at the top-right of the card header.
+ *
+ * @param props - Div element props
+ * @returns The rendered card action
+ */
 function CardAction({ className, ...props }: React.ComponentProps<"div">) {
     return (
         <div
@@ -61,10 +91,22 @@ function CardAction({ className, ...props }: React.ComponentProps<"div">) {
     );
 }
 
+/**
+ * Card body content area with horizontal padding.
+ *
+ * @param props - Div element props
+ * @returns The rendered card content
+ */
 function CardContent({ className, ...props }: React.ComponentProps<"div">) {
     return <div data-slot="card-content" className={cn("px-6", className)} {...props} />;
 }
 
+/**
+ * Card footer section with horizontal flex layout.
+ *
+ * @param props - Div element props
+ * @returns The rendered card footer
+ */
 function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
     return (
         <div

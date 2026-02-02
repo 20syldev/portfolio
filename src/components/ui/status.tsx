@@ -7,6 +7,8 @@ export type ProjectStatus = "new" | "updated" | "patched" | null;
 
 /**
  * Hook to get the status of a project (new, updated, patched).
+ *
+ * @returns A function that takes a project ID and returns its status
  */
 export function useProjectStatus() {
     const { newProjects, updatedProjects, patchedProjects } = useApi();
@@ -42,6 +44,14 @@ const config = {
     },
 };
 
+/**
+ * Displays a colored badge indicating the project status (new, updated, patched).
+ *
+ * @param props - Component props
+ * @param props.status - Project status to display
+ * @param props.variant - Display variant: "absolute" for overlay positioning, "inline" for flow (default: "absolute")
+ * @returns The rendered status badge, or null if no status
+ */
 export function StatusBadge({ status, variant = "absolute" }: StatusBadgeProps) {
     if (!status) return null;
 

@@ -14,6 +14,12 @@ import {
 import { useContainerSmoothScroll } from "@/hooks/scroll";
 import { cn } from "@/lib/utils";
 
+/**
+ * Command palette container built on cmdk.
+ *
+ * @param props - Command primitive props
+ * @returns The rendered command container
+ */
 function Command({ className, ...props }: React.ComponentProps<typeof CommandPrimitive>) {
     return (
         <CommandPrimitive
@@ -27,6 +33,12 @@ function Command({ className, ...props }: React.ComponentProps<typeof CommandPri
     );
 }
 
+/**
+ * Command palette wrapped in a dialog overlay.
+ *
+ * @param props - Dialog props with optional title, description, className and showCloseButton
+ * @returns The rendered command dialog
+ */
 function CommandDialog({
     title = "Command Palette",
     description = "Search for a command to run...",
@@ -62,6 +74,12 @@ function CommandDialog({
     );
 }
 
+/**
+ * Search input field for the command palette with a search icon.
+ *
+ * @param props - Command input primitive props
+ * @returns The rendered command input
+ */
 function CommandInput({
     className,
     ...props
@@ -84,6 +102,12 @@ function CommandInput({
     );
 }
 
+/**
+ * Scrollable list container for command palette items with smooth scrolling.
+ *
+ * @param props - Command list primitive props
+ * @returns The rendered command list
+ */
 function CommandList({ className, ...props }: React.ComponentProps<typeof CommandPrimitive.List>) {
     const scrollRef = useContainerSmoothScroll<HTMLDivElement>();
 
@@ -98,6 +122,12 @@ function CommandList({ className, ...props }: React.ComponentProps<typeof Comman
     );
 }
 
+/**
+ * Empty state message displayed when no command results match.
+ *
+ * @param props - Command empty primitive props
+ * @returns The rendered empty state
+ */
 function CommandEmpty({ ...props }: React.ComponentProps<typeof CommandPrimitive.Empty>) {
     return (
         <CommandPrimitive.Empty
@@ -108,6 +138,12 @@ function CommandEmpty({ ...props }: React.ComponentProps<typeof CommandPrimitive
     );
 }
 
+/**
+ * Group container for organizing command palette items with a heading.
+ *
+ * @param props - Command group primitive props
+ * @returns The rendered command group
+ */
 function CommandGroup({
     className,
     ...props
@@ -124,6 +160,12 @@ function CommandGroup({
     );
 }
 
+/**
+ * Visual separator line between command palette groups.
+ *
+ * @param props - Command separator primitive props
+ * @returns The rendered separator
+ */
 function CommandSeparator({
     className,
     ...props
@@ -137,6 +179,12 @@ function CommandSeparator({
     );
 }
 
+/**
+ * Selectable item within the command palette.
+ *
+ * @param props - Command item primitive props
+ * @returns The rendered command item
+ */
 function CommandItem({ className, ...props }: React.ComponentProps<typeof CommandPrimitive.Item>) {
     return (
         <CommandPrimitive.Item
@@ -150,6 +198,12 @@ function CommandItem({ className, ...props }: React.ComponentProps<typeof Comman
     );
 }
 
+/**
+ * Keyboard shortcut hint displayed alongside a command item.
+ *
+ * @param props - Span element props
+ * @returns The rendered shortcut text
+ */
 function CommandShortcut({ className, ...props }: React.ComponentProps<"span">) {
     return (
         <span

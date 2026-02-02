@@ -13,6 +13,7 @@ interface PageTransitionProps {
  *
  * @param props - Component props
  * @param props.children - Page content to display
+ * @returns The rendered page with transition animation
  */
 export function PageTransition({ children }: PageTransitionProps) {
     const pathname = usePathname();

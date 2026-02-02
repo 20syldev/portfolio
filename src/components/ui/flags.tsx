@@ -16,6 +16,12 @@ interface ProjectMetaProps {
 /**
  * Unified component for project metadata badges.
  * Centralizes version, status and project flags with consistent spacing.
+ *
+ * @param props - Component props
+ * @param props.version - Optional version string to display
+ * @param props.status - Optional project status badge
+ * @param props.project - Optional project for archived/paused flags
+ * @returns The rendered metadata badges
  */
 export function ProjectMeta({ version, status, project }: ProjectMetaProps) {
     return (
@@ -40,6 +46,11 @@ interface ProjectBadgesProps {
  * Renders status badges for archived/paused projects.
  * - full: Badge with icon and text (for headers/dialogs)
  * - compact: Icon-only badge with tooltip (for grid cards)
+ *
+ * @param props - Component props
+ * @param props.project - Project with archived/paused flags
+ * @param props.variant - Display mode: "full" or "compact" (default: "full")
+ * @returns The rendered badges, or null if project has no flags
  */
 export function ProjectBadges({ project, variant = "full" }: ProjectBadgesProps) {
     if (!project?.archived && !project?.paused) return null;

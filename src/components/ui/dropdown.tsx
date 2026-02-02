@@ -30,6 +30,13 @@ const DropdownMenuContext = React.createContext<{
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 } | null>(null);
 
+/**
+ * Root dropdown menu component managing open/close state.
+ *
+ * @param props - Component props
+ * @param props.children - Menu trigger and content elements
+ * @returns The rendered dropdown menu container
+ */
 export function DropdownMenu({ children }: DropdownMenuProps) {
     const [open, setOpen] = React.useState(false);
 
@@ -40,6 +47,14 @@ export function DropdownMenu({ children }: DropdownMenuProps) {
     );
 }
 
+/**
+ * Element that toggles the dropdown menu on click.
+ *
+ * @param props - Component props
+ * @param props.children - Trigger element content
+ * @param props.asChild - Whether to merge props onto the child element
+ * @returns The rendered trigger
+ */
 export function DropdownMenuTrigger({ children, asChild }: DropdownMenuTriggerProps) {
     const context = React.useContext(DropdownMenuContext);
     if (!context) throw new Error("DropdownMenuTrigger must be used within DropdownMenu");
@@ -55,6 +70,15 @@ export function DropdownMenuTrigger({ children, asChild }: DropdownMenuTriggerPr
     return <button onClick={handleClick}>{children}</button>;
 }
 
+/**
+ * Popover container for dropdown menu items with alignment options.
+ *
+ * @param props - Component props
+ * @param props.children - Menu items
+ * @param props.align - Horizontal alignment relative to the trigger (default: "end")
+ * @param props.className - Optional CSS class
+ * @returns The rendered dropdown content, or null when closed
+ */
 export function DropdownMenuContent({
     children,
     align = "end",
@@ -97,6 +121,15 @@ export function DropdownMenuContent({
     );
 }
 
+/**
+ * Selectable item within the dropdown menu that closes on click.
+ *
+ * @param props - Component props
+ * @param props.children - Item content
+ * @param props.onClick - Click handler
+ * @param props.className - Optional CSS class
+ * @returns The rendered menu item
+ */
 export function DropdownMenuItem({ children, onClick, className }: DropdownMenuItemProps) {
     const context = React.useContext(DropdownMenuContext);
     if (!context) throw new Error("DropdownMenuItem must be used within DropdownMenu");

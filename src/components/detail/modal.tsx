@@ -28,6 +28,7 @@ interface DetailModalProps {
  * @param props.content - Project markdown content
  * @param props.open - Modal open state
  * @param props.onOpenChange - Callback on open state change
+ * @returns The rendered detail modal dialog
  */
 export function DetailModal({ project, content, open, onOpenChange }: DetailModalProps) {
     const scrollRef = useContainerSmoothScroll<HTMLDivElement>(open);

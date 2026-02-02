@@ -24,6 +24,17 @@ interface CardDialogProps {
     onOpenDetail?: (project: Project) => void;
 }
 
+/**
+ * Project card dialog displaying project details, links and documentation access.
+ *
+ * @param props - Component props
+ * @param props.project - Project to display, or null to close
+ * @param props.version - Optional version string
+ * @param props.status - Optional project status badge
+ * @param props.onOpenChange - Callback when dialog open state changes
+ * @param props.onOpenDetail - Optional callback to open full project detail
+ * @returns The rendered card dialog
+ */
 export function CardDialog({
     project,
     version,

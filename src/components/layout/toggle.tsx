@@ -15,6 +15,8 @@ import {
 /**
  * Theme toggle button (light/dark/system).
  * Supports Alt+T keyboard shortcut to cycle through themes.
+ *
+ * @returns The rendered theme toggle dropdown
  */
 export function ThemeToggle() {
     const { theme, setTheme } = useTheme();

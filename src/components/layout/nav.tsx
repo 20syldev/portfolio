@@ -20,6 +20,13 @@ interface NavProps {
  * Adaptive navigation header with morphing animation.
  * Compact centered pill on homepage, expands to full header bar on other tabs.
  * Includes hamburger menu on mobile.
+ *
+ * @param props - Component props
+ * @param props.currentTab - Currently active tab index
+ * @param props.tabs - Array of tab labels
+ * @param props.onTabChange - Optional callback when a tab is selected
+ * @param props.links - Optional array of URLs for link-based navigation
+ * @returns The rendered navigation header
  */
 export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
     const isHome = currentTab === 0;

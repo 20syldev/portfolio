@@ -21,6 +21,7 @@ interface DetailHeaderProps {
  * @param props - Component props
  * @param props.project - Project to display
  * @param props.onClose - Callback to close modal
+ * @returns The rendered header, or null if no project
  */
 export function DetailHeader({ project, onClose }: DetailHeaderProps) {
     const { versions } = useApi();
