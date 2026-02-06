@@ -20,7 +20,7 @@ const eslintConfig = defineConfig([
             import: importPlugin,
         },
         rules: {
-            // Formatting (handled by Prettier, keep only what Prettier doesn't cover)
+            // Formatting
             "no-multiple-empty-lines": ["error", { max: 1, maxEOF: 0 }],
 
             // Files
@@ -55,7 +55,7 @@ const eslintConfig = defineConfig([
     // Ignores
     globalIgnores(["public/legacy/**"]),
 
-    // Prettier (must be last to override formatting rules)
+    // Prettier
     prettier,
 ]);
 
