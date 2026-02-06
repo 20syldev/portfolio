@@ -88,7 +88,7 @@ export const mdxComponents = {
         </ol>
     ),
     li: ({ children, ...props }: ComponentPropsWithoutRef<"li">) => (
-        <li className="leading-7" {...props}>
+        <li className="leading-7 [&>p]:mb-0 [&>p]:inline" {...props}>
             {children}
         </li>
     ),
