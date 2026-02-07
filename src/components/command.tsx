@@ -36,6 +36,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { usePdfViewer } from "@/components/viewer";
 import { projects as alternanceProjects } from "@/data/alternance";
 import { projects } from "@/data/projects";
+import { veilles } from "@/data/veille";
 import { useApi } from "@/hooks/api";
 import { useProjectDetail } from "@/hooks/detail";
 
@@ -213,15 +214,34 @@ export function CommandMenu() {
                                     </span>
                                 </CommandItem>
                                 <CommandItem
-                                    value="veille technologique node.js javascript"
-                                    onSelect={() => runCommand(() => router.push("/veille/"))}
+                                    value="veilles technologiques node.js typescript radix next.js vue.js"
+                                    onSelect={() => runCommand(() => router.push("/veilles/"))}
                                 >
                                     <Newspaper className="mr-2 h-4 w-4" />
-                                    Veille technologique
+                                    Veilles technologiques
                                     <span className="ml-2 text-xs text-muted-foreground">
                                         Node.js
                                     </span>
                                 </CommandItem>
+                            </CommandGroup>
+
+                            <CommandSeparator />
+                            <CommandGroup heading="Toutes les veilles">
+                                {veilles.map((veille) => (
+                                    <CommandItem
+                                        key={veille.id}
+                                        value={`${veille.title} ${veille.description} ${veille.keywords?.join(" ") || ""} veille veilles technologique technologiques`}
+                                        onSelect={() =>
+                                            runCommand(() => router.push(`/veilles/#${veille.id}`))
+                                        }
+                                    >
+                                        <Newspaper className="mr-2 h-4 w-4" />
+                                        {veille.title}
+                                        <span className="ml-2 text-xs text-muted-foreground truncate">
+                                            {veille.keywords?.slice(0, 3).join(", ") || ""}
+                                        </span>
+                                    </CommandItem>
+                                ))}
                             </CommandGroup>
 
                             <CommandSeparator />
