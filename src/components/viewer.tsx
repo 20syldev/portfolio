@@ -125,13 +125,22 @@ function PdfViewerDialog({ url, title, open, onOpenChange }: PdfViewerDialogProp
     const scrollRef = useContainerSmoothScroll<HTMLDivElement>(open);
     const reactPdf = useReactPdf();
 
+    // Détection du type d'appareil pour le zoom initial
+    const getInitialScale = React.useCallback(() => {
+        if (typeof window === "undefined") return 1;
+        const width = window.innerWidth;
+        if (width < 768) return 0.6; // Mobile: 60%
+        if (width < 1024) return 0.8; // Tablette: 80%
+        return 1; // Desktop: 100%
+    }, []);
+
     React.useEffect(() => {
         if (!open) {
             setPage(1);
-            setScale(1);
+            setScale(getInitialScale());
             setNumPages(0);
         }
-    }, [open]);
+    }, [open, getInitialScale]);
 
     React.useEffect(() => {
         const el = scrollRef.current;
