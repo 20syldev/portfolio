@@ -60,9 +60,12 @@ export function Technologies() {
                                 </h3>
                                 <div className="grid grid-cols-3">
                                     {category.items.map((tech) => (
-                                        <div
+                                        <a
                                             key={tech.name}
-                                            className="flex flex-col items-center gap-1.5 p-2 rounded-lg"
+                                            href={tech.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex flex-col items-center gap-1.5 p-2 rounded-lg hover:bg-muted/50 transition-colors"
                                         >
                                             <Image
                                                 src={tech.icon}
@@ -80,7 +83,7 @@ export function Technologies() {
                                             <span className="text-xs text-muted-foreground text-center leading-tight">
                                                 {tech.name}
                                             </span>
-                                        </div>
+                                        </a>
                                     ))}
                                 </div>
                             </div>
@@ -124,7 +127,12 @@ export function Technologies() {
                                     {category.items.map((tech) => (
                                         <Tooltip key={tech.name}>
                                             <TooltipTrigger asChild>
-                                                <div className="p-1.5 rounded-lg hover:bg-muted transition-colors">
+                                                <a
+                                                    href={tech.url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="p-1.5 rounded-lg hover:bg-muted transition-colors"
+                                                >
                                                     <Image
                                                         src={tech.icon}
                                                         alt={tech.name}
@@ -132,7 +140,7 @@ export function Technologies() {
                                                         height={24}
                                                         className={`w-6 h-6 ${darkInvertIcons.includes(tech.name) ? "dark:invert" : darkInvertHueIcons.includes(tech.name) ? "invert-hue" : ""}`}
                                                     />
-                                                </div>
+                                                </a>
                                             </TooltipTrigger>
                                             <TooltipContent>
                                                 <p>{tech.name}</p>
