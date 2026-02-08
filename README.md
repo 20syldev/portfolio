@@ -2,7 +2,7 @@
   <a href="https://sylvain.pro"><img src="https://sylvain.pro/favicon.ico" alt="Logo" width="25%" height="auto"/></a>
 
   # Site Web Personnel - Portfolio
-  [![Version](https://custom-icon-badges.demolab.com/badge/Version%20:-v4.1.1-6479ee?logo=sylvain&labelColor=23272A)](https://github.com/20syldev/portfolio/releases/latest)
+  [![Version](https://custom-icon-badges.demolab.com/badge/Version%20:-v4.1.2-6479ee?logo=sylvain&labelColor=23272A)](https://github.com/20syldev/portfolio/releases/latest)
 </div>
 
 ---
