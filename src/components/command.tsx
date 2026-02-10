@@ -25,6 +25,7 @@ import * as React from "react";
 
 import { ContactDialog } from "@/components/contact";
 import { useCursor } from "@/components/cursor";
+import { Button } from "@/components/ui/button";
 import {
     CommandDialog,
     CommandEmpty,
@@ -57,13 +58,66 @@ const statusLabel: Record<Exclude<ProjectStatus, null>, string> = {
 };
 
 /**
- * Command menu accessible via Ctrl+K / Cmd+K.
+ * Context for sharing command dialog state
+ */
+const CommandContext = React.createContext<{
+    open: boolean;
+    setOpen: (open: boolean | ((prev: boolean) => boolean)) => void;
+} | null>(null);
+
+/**
+ * Hook to access command dialog state
+ */
+export function useCommand() {
+    const context = React.useContext(CommandContext);
+    if (!context) {
+        throw new Error("useCommand must be used within a CommandProvider");
+    }
+    return context;
+}
+
+/**
+ * Provider for command dialog state
+ */
+export function CommandProvider({ children }: { children: React.ReactNode }) {
+    const [open, setOpen] = React.useState(false);
+
+    const setOpenWrapper = React.useCallback((value: boolean | ((prev: boolean) => boolean)) => {
+        if (typeof value === "function") {
+            setOpen(value);
+        } else {
+            setOpen(value);
+        }
+    }, []);
+
+    return (
+        <CommandContext.Provider value={{ open, setOpen: setOpenWrapper }}>
+            {children}
+        </CommandContext.Provider>
+    );
+}
+
+/**
+ * Search button that opens the command dialog
+ */
+export function SearchButton() {
+    const { setOpen } = useCommand();
+
+    return (
+        <Button variant="ghost" size="icon" onClick={() => setOpen(true)} className="h-9 w-9">
+            <Search className="h-4 w-4" />
+        </Button>
+    );
+}
+
+/**
+ * Command menu dialog accessible via Ctrl+K / Cmd+K.
  * Enables quick navigation, project access, external links and theme switching.
  *
- * @returns The rendered command menu with search dialog
+ * @returns The rendered command dialog
  */
 export function CommandMenu() {
-    const [open, setOpen] = React.useState(false);
+    const { open, setOpen } = useCommand();
     const [search, setSearch] = React.useState("");
     const [contactOpen, setContactOpen] = React.useState(false);
     const router = useRouter();
@@ -84,29 +138,24 @@ export function CommandMenu() {
         const down = (e: KeyboardEvent) => {
             if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
                 e.preventDefault();
-                setOpen((open) => !open);
+                setOpen((prevOpen) => !prevOpen);
             }
         };
 
         document.addEventListener("keydown", down);
         return () => document.removeEventListener("keydown", down);
-    }, []);
+    }, [setOpen]);
 
-    const runCommand = React.useCallback((command: () => void) => {
-        setOpen(false);
-        command();
-    }, []);
+    const runCommand = React.useCallback(
+        (command: () => void) => {
+            setOpen(false);
+            command();
+        },
+        [setOpen]
+    );
 
     return (
         <>
-            {/* Search button in header */}
-            <button
-                onClick={() => setOpen(true)}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-            >
-                <Search className="h-4 w-4" />
-            </button>
-
             <CommandDialog
                 open={open}
                 onOpenChange={(open) => {

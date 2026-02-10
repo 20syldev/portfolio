@@ -4,7 +4,7 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
-import { CommandMenu } from "@/components/command";
+import { CommandMenu, SearchButton } from "@/components/command";
 import { ThemeToggle } from "@/components/layout/toggle";
 import { Button } from "@/components/ui/button";
 import { profile } from "@/data/profile";
@@ -34,6 +34,9 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
 
     return (
         <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
+            {/* Global command dialog */}
+            <CommandMenu />
+
             <div
                 className={`
                     pointer-events-auto
@@ -126,16 +129,16 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
                         ${isHome ? "w-0 opacity-0 overflow-hidden" : "w-auto opacity-100"}
                     `}
                     >
-                        {/* Desktop: CommandMenu + ThemeToggle */}
+                        {/* Desktop: SearchButton + ThemeToggle */}
                         <div className="hidden md:flex items-center gap-1">
-                            <CommandMenu />
+                            <SearchButton />
                             <ThemeToggle />
                         </div>
 
                         {/* Mobile: actions appear when menu is open */}
                         {isMenuOpen && (
                             <div className="flex md:hidden items-center gap-1">
-                                <CommandMenu />
+                                <SearchButton />
                                 <ThemeToggle />
                             </div>
                         )}
@@ -225,7 +228,7 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
             >
                 {/* Desktop: show actions directly */}
                 <div className="hidden md:flex items-center gap-1">
-                    <CommandMenu />
+                    <SearchButton />
                     <ThemeToggle />
                 </div>
 
@@ -250,7 +253,7 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
                     {/* Actions revealed when open */}
                     {isMenuOpen && (
                         <>
-                            <CommandMenu />
+                            <SearchButton />
                             <ThemeToggle />
                         </>
                     )}
