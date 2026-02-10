@@ -10,6 +10,7 @@ import {
     LayoutList,
     Monitor,
     Moon,
+    MousePointer,
     Newspaper,
     RefreshCw,
     Search,
@@ -23,6 +24,7 @@ import { useTheme } from "next-themes";
 import * as React from "react";
 
 import { ContactDialog } from "@/components/contact";
+import { useCursor } from "@/components/cursor";
 import {
     CommandDialog,
     CommandEmpty,
@@ -66,6 +68,7 @@ export function CommandMenu() {
     const [contactOpen, setContactOpen] = React.useState(false);
     const router = useRouter();
     const { setTheme } = useTheme();
+    const { enabled: cursorEnabled, setEnabled: setCursorEnabled } = useCursor();
     const { newProjects, updatedProjects, patchedProjects } = useApi();
     const { openProject } = useProjectDetail();
     const { openPdf } = usePdfViewer();
@@ -293,6 +296,15 @@ export function CommandMenu() {
                     )}
 
                     <CommandSeparator />
+
+                    <CommandGroup heading="Curseur">
+                        <CommandItem
+                            onSelect={() => runCommand(() => setCursorEnabled(!cursorEnabled))}
+                        >
+                            <MousePointer className="mr-2 h-4 w-4" />
+                            {cursorEnabled ? "Désactiver" : "Activer"} le curseur personnalisé
+                        </CommandItem>
+                    </CommandGroup>
 
                     <CommandGroup heading="Thème">
                         <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
