@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 
+import { CommandProvider } from "@/components/command";
 import { ThemeProvider } from "@/components/provider";
 import "./globals.css";
 
@@ -52,7 +53,7 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
-                    {children}
+                    <CommandProvider>{children}</CommandProvider>
                 </ThemeProvider>
             </body>
         </html>

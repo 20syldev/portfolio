@@ -188,6 +188,16 @@
     animation: float 1.5s ease-in-out infinite;
 }
 
+/* Custom cursor */
+.cursor-none {
+    cursor: none !important;
+}
+.cursor-none *,
+.cursor-none *::before,
+.cursor-none *::after {
+    cursor: none !important;
+}
+
 /* Hover Effects */
 .card-hover {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
