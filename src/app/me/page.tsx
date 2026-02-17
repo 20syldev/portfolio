@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { ContactDialog } from "@/components/contact";
+import { ContactDialog } from "@/components/dialogs/contact";
 
 import Home from "../page";
 

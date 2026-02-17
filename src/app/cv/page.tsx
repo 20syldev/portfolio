@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-import { usePdfViewer } from "@/components/viewer";
+import { usePdfViewer } from "@/components/utils/viewer";
 
 /**
  * CV viewer page component.

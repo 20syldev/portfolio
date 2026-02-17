@@ -3,7 +3,7 @@
 import { ArrowLeft, Scale } from "lucide-react";
 import Link from "next/link";
 
-import { ContactLink } from "@/components/contact";
+import { ContactLink } from "@/components/dialogs/contact";
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
 import { Button } from "@/components/ui/button";

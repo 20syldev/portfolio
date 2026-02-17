@@ -4,8 +4,8 @@ import { ArrowLeft, GitPullRequest } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
-import { CardDialog } from "@/components/card";
-import { ContributionsDialog } from "@/components/contributions";
+import { CardDialog } from "@/components/dialogs/card";
+import { ContributionsDialog } from "@/components/dialogs/contributions";
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
 import { Badge } from "@/components/ui/badge";
