@@ -56,10 +56,10 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
     };
 
     return (
-        <div ref={scrollRef} className="h-dvh overflow-y-auto scrollbar-none">
+        <div ref={scrollRef} className="flex flex-col h-dvh overflow-y-auto scrollbar-none">
             <Nav currentTab={-1} tabs={tabs} links={urls} />
 
-            <main className="container mx-auto px-4 pt-24 pb-12">
+            <main className="flex-1 container mx-auto px-4 pt-24 pb-12">
                 <div className="mb-8 flex items-center justify-between">
                     <Link href="/">
                         <Button
