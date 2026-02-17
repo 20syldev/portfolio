@@ -2,6 +2,7 @@
 order: 5
 name: LeBonChar
 description: "Mon site web de vente de véhicules d'occasion."
+longDescription: "Plateforme de vente de véhicules d'occasion inspirée de LeBonCoin, développée en PHP/MySQL avec architecture MVC. Projet de BTS SIO avec Docker."
 tags: ["Docker", "PHP", "MySQL", "HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/LeBonChar"
 demo: "https://lebonchar.site"
@@ -12,7 +13,7 @@ demo: "https://lebonchar.site"
 LeBonChar est un site web que j'ai créé en vue de mon projet MVC, qui sera à présenter lors de mon examen de BTS SIO.
 Il s'agit d'une plateforme de vente de véhicules d'occasion, inspirée du célèbre site LeBonCoin.
 
-## À propos de LeBonChar {#features}
+## Fonctionnalités {#features}
 
 LeBonChar est un site web qui a été créé en utilisant PHP, MySQL, HTML, CSS et JavaScript.
 Il est disponible sur toutes les plateformes et est entièrement responsive, offrant une expérience utilisateur optimale sur mobile et desktop.
@@ -37,3 +38,11 @@ Vous pouvez consulter les annonces de véhicules, créer un compte pour publier 
 LeBonChar est un site web qui a été créé en utilisant PHP, MySQL, HTML, CSS et JavaScript.
 Une documentation simple est disponible sur la page [GitHub](https://github.com/20syldev/LeBonChar) du projet.
 Pour voir un aperçu du site, vous pouvez consulter le [site web](https://lebonchar.site) directement !
+
+## Installation locale {#install}
+
+Pour lancer le projet en local, il faut avoir **PHP** et **MySQL** installés. Les étapes sont les suivantes :
+
+1. Créer la base de données `lebonchar` et importer le schéma SQL fourni
+2. Configurer le fichier `.env` avec les variables `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` et `DB_PORT`
+3. Lancer le serveur avec `php -S 0.0.0.0:8000 -t public`

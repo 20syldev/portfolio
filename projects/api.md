@@ -14,25 +14,16 @@ npm: "https://npmjs.com/package/@20syldev/api"
 Voici mon API personnelle, elle est développée avec Node.js et hébergée 24h/7j.
 Elle est simple d'utilisation et a une documentation disponible sur [docs.sylvain.pro](https://docs.sylvain.pro) !
 
-## À propos de l'API {#features}
+## Fonctionnalités {#features}
 
 Mon API est hébergée sur [api.sylvain.pro](https://api.sylvain.pro) et elle est disponible 24/7.
-Développée avec Node.js, elle propose **15 modules spécialisés** couvrant une grande variété de besoins :
-
-- **Génération de couleurs** : formats HEX, RGB et HSL
-- **Création de tokens** sécurisés
-- **Génération de noms d'utilisateur**
-- **QR codes et CAPTCHA**
-- **Hachage de texte** et calcul de distance de Levenshtein
-- **Chat temporaire**
-- **Conversions d'unités**
-- **Informations de domaines**
-- **Jeu du morpion** (API backend)
-- **Analyse d'emplois du temps** (Hyperplanning)
-- **Fonctions algorithmiques**
+Développée avec Node.js, elle propose de nombreux modules spécialisés couvrant une grande variété de besoins, comme la génération de QR codes, de couleurs ou de tokens sécurisés, mais aussi un système de chat temporaire et un jeu de morpion jouable via l'API.
 
 Vous pouvez accéder à chaque service facilement en effectuant des requêtes HTTP avec des paramètres ajustables.
 Elle est conçue pour être simple à utiliser et facile à intégrer dans vos projets. L'API repose sur une architecture REST, vous permettant d'interagir avec les services via des requêtes HTTP standards.
+
+La liste complète des modules et leurs paramètres est disponible sur la [documentation](https://docs.sylvain.pro).
+L'API est aussi disponible en tant que [module NPM](https://npmjs.com/package/@20syldev/api) pour une intégration directe dans vos projets Node.js.
 
 ## Qu'est-ce qu'une API REST ? {#rest}
 

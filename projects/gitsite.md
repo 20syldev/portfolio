@@ -2,6 +2,7 @@
 order: 23
 name: GitSite
 description: "Ma plateforme d'hébergement web abordable et intuitive."
+longDescription: "Plateforme d'hébergement web abordable basée sur GitHub. Hébergement sur sous-domaine personnalisé avec un processus en 4 étapes. Site en ligne 24h/24."
 tags: ["HTML", "CSS", "JS"]
 demo: "https://gitsite.dev"
 archived: true
@@ -14,8 +15,12 @@ Avec des tarifs compétitifs, GitSite simplifie la mise en ligne de votre site g
 
 ## Fonctionnalités {#features}
 
-Vous pouvez héberger votre site sur un sous-domaine personnalisé comme `gitsite.dev/votre-nom`, offrant une adresse web professionnelle et mémorable.
-Des tarifs adaptés à tous les budgets. Un site en ligne 24h/24 et 7j/7. Hébergez des blogs, portfolios ou autres !
+GitSite offrait une solution clé en main pour héberger un site web :
+
+- **Sous-domaine personnalisé** : hébergement sur `gitsite.dev/votre-nom`, offrant une adresse web professionnelle et mémorable
+- **Disponibilité 24/7** : un site en ligne en permanence sans interruption
+- **Tarifs accessibles** : des offres adaptées à tous les budgets
+- **Polyvalent** : hébergez des blogs, portfolios, pages de présentation ou autres
 
 ## Processus d'hébergement {#process}
 
@@ -29,3 +34,6 @@ Le processus d'hébergement se fait en **4 étapes** simples via GitHub :
 ## Derrière le projet {#stack}
 
 GitSite est un des premiers sites de vente que j'ai créé. Le système de contact est clair, et il est facile de comprendre comment fonctionne la procédure d'hébergement.
+
+Le concept reposait entièrement sur GitHub : les utilisateurs forkaient un dépôt, ajoutaient leurs fichiers, puis soumettaient une pull request. Cette approche avait l'avantage d'initier les débutants aux bases de Git tout en leur offrant un hébergement simple.
+Le site était développé en HTML, CSS et JavaScript avec un design épuré et accessible.

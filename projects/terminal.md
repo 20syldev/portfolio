@@ -13,15 +13,17 @@ demo: "https://terminal.sylvain.pro"
 Voici un terminal fonctionnel disponible directement dans votre navigateur !
 Ce projet permet aux utilisateurs d'exécuter les commandes de base d'un terminal Linux.
 
-## À propos du terminal {#features}
+## Fonctionnalités {#features}
 
-Le terminal supporte **plus de 27 commandes** incluant les utilitaires standards Linux :
+Le terminal supporte **plus de 30 commandes** incluant les utilitaires standards Linux :
 
-- **Navigation** : `ls`, `cd`, `pwd`, `mkdir`, `rmdir`
+- **Navigation** : `ls`, `cd`, `pwd`, `mkdir`, `rmdir`, `tree`
 - **Fichiers** : `cat`, `echo`, `cp`, `mv`, `rm`, `touch`
-- **Système** : `neofetch`, `clear`, `history`, `whoami`
-- **Avancé** : `curl`, `nano`, `javascript`, `screenshot`
-- **Utilisateurs** : `adduser`, `userdel`, `passwd`, `sudo`
+- **Système** : `neofetch`, `clear`, `date`, `history`, `stats`, `whoami`, `exit`
+- **Réseau** : `curl`, `wget`
+- **Avancé** : `nano`, `javascript`, `screenshot`, `sh`, `color`
+- **Utilisateurs** : `adduser`, `userdel`, `usermod`, `passwd`, `su`, `sudo`
+- **Alias** : `alias`, `unalias`
 
 Accédez facilement aux commandes précédemment exécutées à l'aide des touches flèche haut et flèche bas.
 Utilisez la touche "Tab" pour compléter automatiquement les commandes et les chemins d'accès aux fichiers.

@@ -2,6 +2,7 @@
 order: 17
 name: Morpion
 description: "Un jeu de Morpion en ligne, ou contre l'ordinateur."
+longDescription: "Jeu du morpion multijoueur en ligne, en local ou contre une IA avec 3 niveaux de difficulté. Les parties en ligne sont stockées via l'API pendant 1 heure."
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/morpion"
 demo: "https://morpion.sylvain.pro"
@@ -12,7 +13,7 @@ demo: "https://morpion.sylvain.pro"
 Sur ce site, vous pouvez jouer au jeu du morpion en ligne contre un autre joueur ou face à une IA.
 Vous pouvez rejoindre une partie ou en héberger une pour jouer en ligne !
 
-## À propos du jeu {#features}
+## Fonctionnalités {#features}
 
 Le jeu propose **trois modes** différents :
 
@@ -32,4 +33,22 @@ Il est dans mon style, avec la réutilisation de certains de mes scripts.
 ## Une rapidité de jeu {#speed}
 
 Le site est optimisé pour une rapidité de jeu maximale, vous pouvez donc jouer rapidement et sans latence.
-Les parties sont gérées en temps réel via mon [API](https://api.sylvain.pro).
+Les parties en ligne sont gérées en temps réel via mon [API](https://api.sylvain.pro) sur l'endpoint `/latest`, qui stocke les données de chaque partie pendant 1 heure.
+
+## Comment jouer en ligne ? {#online}
+
+Pour lancer une partie en ligne :
+
+1. Cliquez sur **Mode en ligne** et choisissez un nom d'utilisateur
+2. Un **code de partie** unique est généré automatiquement
+3. Partagez ce code avec votre adversaire pour qu'il puisse rejoindre
+4. Vous pouvez également rejoindre une partie existante en entrant son code
+5. Les spectateurs peuvent aussi observer une partie en cours sans y participer
+
+## L'IA en mode solo {#ai}
+
+Le mode solo propose **trois niveaux de difficulté** pour jouer contre l'ordinateur :
+
+- **Facile** : l'IA joue de manière aléatoire
+- **Moyen** : l'IA bloque vos coups gagnants
+- **Difficile** : l'IA utilise une stratégie optimale, quasiment imbattable

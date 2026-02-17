@@ -13,7 +13,7 @@ demo: "https://docs.sylvain.pro"
 Voici la documentation de mon API Personnelle disponible sur [docs.sylvain.pro](https://docs.sylvain.pro).
 Elle permet de mieux comprendre comment fonctionne mon API et comment l'utiliser.
 
-## À propos de la Documentation {#features}
+## Fonctionnalités {#features}
 
 Cette documentation a été spécialement conçue pour offrir une présentation claire et bien structurée de l'API, afin de faciliter son intégration dans vos projets.
 
@@ -27,12 +27,23 @@ Vous y trouverez des sections dédiées à chaque service de l'API, avec des des
 J'ai également pris soin d'ajouter des explications sur l'architecture REST et sur le fonctionnement de chaque service.
 Vous pourrez ainsi comprendre en profondeur comment intégrer l'API dans vos applications, que ce soit pour des projets web, des applications mobiles ou d'autres solutions de développement.
 
-## Fonctionnalités techniques {#tech}
+## Stack technique {#tech}
 
 Le site de documentation est construit avec VitePress (Vue.js) et offre plusieurs fonctionnalités avancées :
 
-- **Support multi-versions** : documentation disponible pour chaque version de l'API
+- **Support multi-versions** : documentation disponible pour chaque version de l'API (v1, v2, v3)
 - **Bilingue** : interface disponible en français et en anglais
 - **Thème sombre** : mode clair et sombre intégré
 - **Recherche locale** : recherche instantanée dans toute la documentation
 - **Responsive** : interface adaptée à tous les appareils
+
+## Composants personnalisés {#components}
+
+La documentation utilise des composants Vue.js personnalisés pour une meilleure présentation :
+
+- **Endpoint** : affichage formaté des endpoints API avec méthode et URL
+- **Method** : mise en forme des méthodes HTTP (GET, POST, etc.)
+- **Request** : exemples de requêtes interactifs
+- **Terminal** : simulation de terminal pour les exemples en ligne de commande
+- **Lang** : sélecteur de langue pour basculer entre français et anglais
+- **Version** : sélecteur de version de l'API

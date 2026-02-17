@@ -2,6 +2,7 @@
 order: 11
 name: Timestamp
 description: Convertisseur de timestamps pour Discord.
+longDescription: "Générateur de timestamps Discord dynamiques supportant les 7 formats officiels. Les timestamps s'adaptent automatiquement au fuseau horaire de chaque utilisateur."
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/timestamp"
 demo: "https://timestamp.sylvain.pro"
@@ -12,7 +13,7 @@ demo: "https://timestamp.sylvain.pro"
 Une interface qui permet de facilement générer et customiser des timestamps Discord.
 Créez des affichages de dates dynamiques pour vos messages Discord !
 
-## À propos du Générateur de Timestamp {#features}
+## Fonctionnalités {#features}
 
 Le Générateur de Timestamp Discord est hébergé sur [timestamp.sylvain.pro](https://timestamp.sylvain.pro) et permet de créer facilement des timestamps Discord dynamiques.
 Cette application web légère vous aide à générer des timestamps qui s'adaptent automatiquement au fuseau horaire de chaque utilisateur Discord.
@@ -36,3 +37,22 @@ L'outil prend en charge tous les formats de timestamp Discord officiels :
 - **Date et heure courtes (f)** : 20 avril 2021 à 16:20
 - **Date et heure longues (F)** : mardi 20 avril 2021 à 16:20
 - **Temps relatif (R)** : il y a 2 mois / dans 3 heures
+
+## Comment l'utiliser ? {#usage}
+
+L'utilisation du générateur est simple et rapide :
+
+1. Sélectionnez une **date** et une **heure** via les champs de saisie
+2. Choisissez le **format** d'affichage souhaité parmi les 7 disponibles
+3. Le code timestamp est généré automatiquement, par exemple `<t:1619000000:R>`
+4. **Copiez** le code et collez-le directement dans votre message Discord
+
+Le timestamp s'adaptera alors automatiquement au fuseau horaire de chaque personne qui le verra dans Discord.
+
+## Pourquoi utiliser des timestamps ? {#why}
+
+Les timestamps sont particulièrement utiles pour :
+
+- **Organiser des événements** : chaque membre voit l'heure dans son propre fuseau
+- **Fixer des deadlines** : affichage clair avec compte à rebours relatif
+- **Communiquer à l'international** : plus besoin de préciser "heure de Paris" ou "EST"
