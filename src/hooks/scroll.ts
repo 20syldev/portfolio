@@ -408,61 +408,32 @@ export function useScroll({
     };
 }
 
-/**
- * Hook that adds Lenis smooth scrolling to a container element.
- *
- * @param enabled - Whether smooth scrolling is active (default: true)
- * @returns Object containing the container ref and a scrollTo function
- */
-export function useSmoothScroll<T extends HTMLElement>(enabled = true) {
-    const containerRef = useRef<T>(null);
-    const lenisRef = useRef<Lenis | null>(null);
-
-    useEffect(() => {
-        if (!containerRef.current || !enabled) return;
-
-        const lenis = new Lenis({
-            wrapper: containerRef.current,
-            content: containerRef.current.firstElementChild as HTMLElement,
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            touchMultiplier: 2,
-            infinite: false,
-            smoothWheel: true,
-            syncTouch: true,
-        });
-
-        lenisRef.current = lenis;
-
-        function raf(time: number) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-
-        const rafId = requestAnimationFrame(raf);
-
-        return () => {
-            cancelAnimationFrame(rafId);
-            lenis.destroy();
-            lenisRef.current = null;
-        };
-    }, [enabled]);
-
-    const scrollTo = useCallback((target: string | HTMLElement, offset = 0) => {
-        lenisRef.current?.scrollTo(target, { offset });
-    }, []);
-
-    return { scrollRef: containerRef, scrollTo };
+interface UseSmoothScrollOptions {
+    /** Whether smooth scrolling is active (default: true) */
+    enabled?: boolean;
+    /** Delay initialization for animated elements like modals (default: false) */
+    delayed?: boolean;
+    /** Delay duration in ms when delayed is true (default: 250) */
+    delayDuration?: number;
 }
 
 /**
- * Hook that adds Lenis smooth scrolling to a container with delayed initialization.
- * Useful for elements that appear with animations (e.g. modals).
+ * Hook that adds Lenis smooth scrolling to a container element.
+ * Supports both immediate and delayed initialization modes.
  *
- * @param enabled - Whether smooth scrolling is active (default: true)
- * @returns Ref to attach to the scrollable container element
+ * @param options - Configuration options
+ * @param options.enabled - Whether smooth scrolling is active (default: true)
+ * @param options.delayed - Delay initialization for animated elements (default: false)
+ * @param options.delayDuration - Delay duration in ms when delayed is true (default: 250)
+ * @returns Object containing the container ref and scrollTo function
  */
-export function useContainerSmoothScroll<T extends HTMLElement>(enabled = true) {
+export function useSmoothScroll<T extends HTMLElement>(
+    options: UseSmoothScrollOptions | boolean = {}
+) {
+    // Support legacy boolean parameter
+    const opts = typeof options === "boolean" ? { enabled: options } : options;
+    const { enabled = true, delayed = false, delayDuration = 250 } = opts;
+
     const containerRef = useRef<T>(null);
     const lenisRef = useRef<Lenis | null>(null);
     const rafIdRef = useRef<number | null>(null);
@@ -481,8 +452,7 @@ export function useContainerSmoothScroll<T extends HTMLElement>(enabled = true) 
             return;
         }
 
-        // Delay initialization to wait for modal animation
-        const timeoutId = setTimeout(() => {
+        const initializeLenis = () => {
             if (!containerRef.current) return;
 
             const container = containerRef.current;
@@ -498,7 +468,8 @@ export function useContainerSmoothScroll<T extends HTMLElement>(enabled = true) 
                 touchMultiplier: 2,
                 infinite: false,
                 smoothWheel: true,
-                overscroll: false,
+                syncTouch: !delayed,
+                overscroll: delayed ? false : undefined,
             });
 
             function raf(time: number) {
@@ -507,10 +478,17 @@ export function useContainerSmoothScroll<T extends HTMLElement>(enabled = true) 
             }
 
             rafIdRef.current = requestAnimationFrame(raf);
-        }, 250);
+        };
+
+        // Delay initialization if delayed mode is enabled
+        const timeoutId = delayed ? setTimeout(initializeLenis, delayDuration) : null;
+
+        if (!delayed) {
+            initializeLenis();
+        }
 
         return () => {
-            clearTimeout(timeoutId);
+            if (timeoutId) clearTimeout(timeoutId);
             if (rafIdRef.current) {
                 cancelAnimationFrame(rafIdRef.current);
                 rafIdRef.current = null;
@@ -520,9 +498,13 @@ export function useContainerSmoothScroll<T extends HTMLElement>(enabled = true) 
                 lenisRef.current = null;
             }
         };
-    }, [enabled]);
+    }, [enabled, delayed, delayDuration]);
 
-    return containerRef;
+    const scrollTo = useCallback((target: string | HTMLElement, offset = 0) => {
+        lenisRef.current?.scrollTo(target, { offset });
+    }, []);
+
+    return { scrollRef: containerRef, scrollTo };
 }
 
 /**
