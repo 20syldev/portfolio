@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "npm run generate && next dev --hostname 127.0.0.1 --port 2146",
-        "build": "npm run generate && next build && cp -r public/legacy/* out/",
+        "build": "npm run generate && next build && cp -r public/legacy/*/ out/",
         "start": "npx serve out -p 2147",
         "generate": "tsx scripts/generate.ts",
         "format": "./scripts/format.sh",
