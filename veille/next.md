@@ -3,12 +3,12 @@ id: next
 title: Next.js
 description: Framework React pour des applications web modernes et performantes
 keywords:
-  - Next.js
-  - React
-  - SSR
-  - Framework
-  - Vercel
-url: 'https://nextjs.org'
+    - Next.js
+    - React
+    - SSR
+    - Framework
+    - Vercel
+url: "https://nextjs.org"
 order: 4
 ---
 
@@ -175,26 +175,26 @@ export default function NewProductPage() {
 
 ```typescript
 // middleware.ts
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get('auth-token');
+    const token = request.cookies.get("auth-token");
 
-  // Rediriger vers login si pas authentifié
-  if (!token && request.nextUrl.pathname.startsWith('/dashboard')) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  }
+    // Rediriger vers login si pas authentifié
+    if (!token && request.nextUrl.pathname.startsWith("/dashboard")) {
+        return NextResponse.redirect(new URL("/login", request.url));
+    }
 
-  // Ajouter des headers personnalisés
-  const response = NextResponse.next();
-  response.headers.set('x-custom-header', 'my-value');
+    // Ajouter des headers personnalisés
+    const response = NextResponse.next();
+    response.headers.set("x-custom-header", "my-value");
 
-  return response;
+    return response;
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/api/:path*'],
+    matcher: ["/dashboard/:path*", "/api/:path*"],
 };
 ```
 
@@ -202,34 +202,28 @@ export const config = {
 
 ```typescript
 // app/api/users/route.ts
-import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
 // GET /api/users
 export async function GET(request: NextRequest) {
-  try {
-    const users = await prisma.user.findMany();
-    return NextResponse.json(users);
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Failed to fetch users' },
-      { status: 500 }
-    );
-  }
+    try {
+        const users = await prisma.user.findMany();
+        return NextResponse.json(users);
+    } catch (error) {
+        return NextResponse.json({ error: "Failed to fetch users" }, { status: 500 });
+    }
 }
 
 // POST /api/users
 export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json();
-    const user = await prisma.user.create({ data: body });
-    return NextResponse.json(user, { status: 201 });
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Failed to create user' },
-      { status: 400 }
-    );
-  }
+    try {
+        const body = await request.json();
+        const user = await prisma.user.create({ data: body });
+        return NextResponse.json(user, { status: 201 });
+    } catch (error) {
+        return NextResponse.json({ error: "Failed to create user" }, { status: 400 });
+    }
 }
 ```
 

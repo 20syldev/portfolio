@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -123,7 +123,7 @@
 
 /* Property */
 @property --gradient-angle {
-    syntax: '<angle>';
+    syntax: "<angle>";
     initial-value: 0deg;
     inherits: false;
 }
@@ -135,7 +135,8 @@
         scrollbar-color: oklch(0.7 0 0 / 30%) transparent;
         scrollbar-width: thin;
     }
-    html, body {
+    html,
+    body {
         @apply bg-background text-foreground;
         overflow: hidden;
         height: 100%;
@@ -144,8 +145,12 @@
 
 /* Keyframes */
 @keyframes gradient-rotate {
-    0% { --gradient-angle: 0deg; }
-    100% { --gradient-angle: 360deg; }
+    0% {
+        --gradient-angle: 0deg;
+    }
+    100% {
+        --gradient-angle: 360deg;
+    }
 }
 
 @keyframes fade-in {
@@ -171,8 +176,13 @@
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(6px); }
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(6px);
+    }
 }
 
 /* Animation Classes */
@@ -200,7 +210,9 @@
 
 /* Hover Effects */
 .card-hover {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 .card-hover:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
@@ -211,7 +223,9 @@
 }
 
 .glow-hover {
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.3s ease;
 }
 .glow-hover:hover {
     box-shadow: 0 0 12px rgba(88, 101, 242, 0.2);
@@ -230,12 +244,18 @@
     border-radius: calc(var(--radius-lg) + 2px);
     background: conic-gradient(
         from var(--gradient-angle),
-        #38bdf8, #5865f2, #8b5cf6, #a78bfa, #f9a8d4, #fda4af, #38bdf8
+        #38bdf8,
+        #5865f2,
+        #8b5cf6,
+        #a78bfa,
+        #f9a8d4,
+        #fda4af,
+        #38bdf8
     );
     animation: gradient-rotate 3s linear infinite;
     transition: all 0.2s ease;
     position: absolute;
-    content: '';
+    content: "";
     inset: -2px;
     z-index: -1;
 }
@@ -247,7 +267,7 @@
     border-radius: var(--radius-lg);
     background: var(--card);
     position: absolute;
-    content: '';
+    content: "";
     z-index: -1;
     inset: 0;
 }
@@ -267,22 +287,42 @@
     background: linear-gradient(135deg, #119b6d, #04815a);
 }
 
-.inactive { opacity: 0.6 !important; }
+.inactive {
+    opacity: 0.6 !important;
+}
 .stagger-children > *:not(.inactive) {
     animation: fade-in 0.4s ease forwards;
     opacity: 0;
 }
-.stagger-children > *:nth-child(1) { animation-delay: 0.05s; }
-.stagger-children > *:nth-child(2) { animation-delay: 0.1s; }
-.stagger-children > *:nth-child(3) { animation-delay: 0.15s; }
-.stagger-children > *:nth-child(4) { animation-delay: 0.2s; }
-.stagger-children > *:nth-child(5) { animation-delay: 0.25s; }
-.stagger-children > *:nth-child(6) { animation-delay: 0.3s; }
-.stagger-children > *:nth-child(7) { animation-delay: 0.35s; }
-.stagger-children > *:nth-child(8) { animation-delay: 0.4s; }
+.stagger-children > *:nth-child(1) {
+    animation-delay: 0.05s;
+}
+.stagger-children > *:nth-child(2) {
+    animation-delay: 0.1s;
+}
+.stagger-children > *:nth-child(3) {
+    animation-delay: 0.15s;
+}
+.stagger-children > *:nth-child(4) {
+    animation-delay: 0.2s;
+}
+.stagger-children > *:nth-child(5) {
+    animation-delay: 0.25s;
+}
+.stagger-children > *:nth-child(6) {
+    animation-delay: 0.3s;
+}
+.stagger-children > *:nth-child(7) {
+    animation-delay: 0.35s;
+}
+.stagger-children > *:nth-child(8) {
+    animation-delay: 0.4s;
+}
 
 /* Anchor Scroll Margin */
-[id] { scroll-margin-top: 150px; }
+[id] {
+    scroll-margin-top: 150px;
+}
 
 /* Snap Scroll System */
 .snap-container {

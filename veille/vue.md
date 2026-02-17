@@ -3,12 +3,12 @@ id: vue
 title: Vue.js
 description: Framework JavaScript progressif pour créer des interfaces utilisateur
 keywords:
-  - Vue.js
-  - JavaScript
-  - Framework
-  - Frontend
-  - SPA
-url: 'https://vuejs.org'
+    - Vue.js
+    - JavaScript
+    - Framework
+    - Frontend
+    - SPA
+url: "https://vuejs.org"
 order: 5
 ---
 
@@ -93,20 +93,20 @@ Les fichiers .vue permettent de regrouper template, script et styles dans un seu
 
 ```vue
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-  </div>
+    <div class="hello">
+        <h1>{{ msg }}</h1>
+    </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 
-const msg = ref('Hello Vue 3!')
+const msg = ref("Hello Vue 3!");
 </script>
 
 <style scoped>
 .hello {
-  color: #42b983;
+    color: #42b983;
 }
 </style>
 ```
@@ -119,17 +119,17 @@ const msg = ref('Hello Vue 3!')
 
 ```vue
 <script setup>
-import { ref, reactive, computed, onMounted } from 'vue';
+import { ref, reactive, computed, onMounted } from "vue";
 
 // Refs pour valeurs primitives
 const count = ref(0);
-const message = ref('Bonjour Vue 3!');
+const message = ref("Bonjour Vue 3!");
 
 // Reactive pour objets
 const user = reactive({
-  name: 'Alice',
-  email: 'alice@example.com',
-  age: 25
+    name: "Alice",
+    email: "alice@example.com",
+    age: 25,
 });
 
 // Computed property
@@ -137,26 +137,26 @@ const doubleCount = computed(() => count.value * 2);
 
 // Fonction
 function increment() {
-  count.value++;
+    count.value++;
 }
 
 // Lifecycle hook
 onMounted(() => {
-  console.log('Composant monté');
+    console.log("Composant monté");
 });
 </script>
 
 <template>
-  <div>
-    <p>{{ message }}</p>
-    <p>Count: {{ count }}</p>
-    <p>Double: {{ doubleCount }}</p>
-    <button @click="increment">Incrémenter</button>
-
     <div>
-      <p>User: {{ user.name }} ({{ user.age }} ans)</p>
+        <p>{{ message }}</p>
+        <p>Count: {{ count }}</p>
+        <p>Double: {{ doubleCount }}</p>
+        <button @click="increment">Incrémenter</button>
+
+        <div>
+            <p>User: {{ user.name }} ({{ user.age }} ans)</p>
+        </div>
     </div>
-  </div>
 </template>
 ```
 
@@ -213,53 +213,49 @@ const { count, doubled, increment, decrement, reset } = useCounter(10);
 
 ```vue
 <script setup>
-import { ref, watch, watchEffect } from 'vue';
+import { ref, watch, watchEffect } from "vue";
 
-const searchQuery = ref('');
+const searchQuery = ref("");
 const results = ref([]);
 const isLoading = ref(false);
 
 // Watch avec source spécifique
 watch(searchQuery, async (newQuery, oldQuery) => {
-  if (newQuery.length > 2) {
-    isLoading.value = true;
-    // Simulation d'une recherche API
-    await new Promise(resolve => setTimeout(resolve, 500));
-    results.value = [`Résultat pour "${newQuery}"`];
-    isLoading.value = false;
-  }
+    if (newQuery.length > 2) {
+        isLoading.value = true;
+        // Simulation d'une recherche API
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        results.value = [`Résultat pour "${newQuery}"`];
+        isLoading.value = false;
+    }
 });
 
 // Watch multiple sources
-const firstName = ref('John');
-const lastName = ref('Doe');
+const firstName = ref("John");
+const lastName = ref("Doe");
 
 watch([firstName, lastName], ([newFirst, newLast]) => {
-  console.log(`Nom complet: ${newFirst} ${newLast}`);
+    console.log(`Nom complet: ${newFirst} ${newLast}`);
 });
 
 // WatchEffect s'exécute immédiatement et track les dépendances
 watchEffect(() => {
-  console.log(`Query actuelle: ${searchQuery.value}`);
-  // Automatiquement re-exécuté quand searchQuery change
+    console.log(`Query actuelle: ${searchQuery.value}`);
+    // Automatiquement re-exécuté quand searchQuery change
 });
 
 // Watch avec options avancées
-watch(
-  searchQuery,
-  (newVal) => console.log('Changed:', newVal),
-  { deep: true, immediate: true }
-);
+watch(searchQuery, (newVal) => console.log("Changed:", newVal), { deep: true, immediate: true });
 </script>
 
 <template>
-  <div>
-    <input v-model="searchQuery" placeholder="Rechercher..." />
-    <p v-if="isLoading">Chargement...</p>
-    <ul>
-      <li v-for="result in results" :key="result">{{ result }}</li>
-    </ul>
-  </div>
+    <div>
+        <input v-model="searchQuery" placeholder="Rechercher..." />
+        <p v-if="isLoading">Chargement...</p>
+        <ul>
+            <li v-for="result in results" :key="result">{{ result }}</li>
+        </ul>
+    </div>
 </template>
 ```
 
@@ -313,55 +309,55 @@ const textColor = ref('blue');
 
 ```vue
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const isModalOpen = ref(false);
 
 function openModal() {
-  isModalOpen.value = true;
+    isModalOpen.value = true;
 }
 
 function closeModal() {
-  isModalOpen.value = false;
+    isModalOpen.value = false;
 }
 </script>
 
 <template>
-  <div>
-    <button @click="openModal">Ouvrir Modal</button>
+    <div>
+        <button @click="openModal">Ouvrir Modal</button>
 
-    <!-- Teleport vers <body> pour éviter les problèmes de z-index -->
-    <Teleport to="body">
-      <div v-if="isModalOpen" class="modal-overlay" @click="closeModal">
-        <div class="modal-content" @click.stop>
-          <h2>Modal Title</h2>
-          <p>Contenu du modal</p>
-          <button @click="closeModal">Fermer</button>
-        </div>
-      </div>
-    </Teleport>
-  </div>
+        <!-- Teleport vers <body> pour éviter les problèmes de z-index -->
+        <Teleport to="body">
+            <div v-if="isModalOpen" class="modal-overlay" @click="closeModal">
+                <div class="modal-content" @click.stop>
+                    <h2>Modal Title</h2>
+                    <p>Contenu du modal</p>
+                    <button @click="closeModal">Fermer</button>
+                </div>
+            </div>
+        </Teleport>
+    </div>
 </template>
 
 <style scoped>
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
 }
 
 .modal-content {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  max-width: 500px;
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 500px;
 }
 </style>
 ```

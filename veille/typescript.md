@@ -3,12 +3,12 @@ id: typescript
 title: TypeScript
 description: JavaScript avec typage statique pour des applications plus robustes
 keywords:
-  - TypeScript
-  - JavaScript
-  - Typage
-  - Microsoft
-  - Frontend
-url: 'https://www.typescriptlang.org'
+    - TypeScript
+    - JavaScript
+    - Typage
+    - Microsoft
+    - Frontend
+url: "https://www.typescriptlang.org"
 order: 2
 ---
 
@@ -96,19 +96,19 @@ De plus en plus de packages NPM sont écrits directement en TypeScript ou fourni
 ```typescript
 // Interface pour définir la structure d'un utilisateur
 interface User {
-  id: number;
-  name: string;
-  email: string;
-  age?: number; // Propriété optionnelle
+    id: number;
+    name: string;
+    email: string;
+    age?: number; // Propriété optionnelle
 }
 
 // Fonction avec paramètres typés et valeur de retour typée
 function createUser(name: string, email: string): User {
-  return {
-    id: Math.floor(Math.random() * 1000),
-    name,
-    email,
-  };
+    return {
+        id: Math.floor(Math.random() * 1000),
+        name,
+        email,
+    };
 }
 
 const user: User = createUser("Alice", "alice@example.com");
@@ -119,13 +119,13 @@ const user: User = createUser("Alice", "alice@example.com");
 ```typescript
 // Fonction générique avec contrainte de type
 function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
-  return obj[key];
+    return obj[key];
 }
 
 interface Product {
-  name: string;
-  price: number;
-  stock: number;
+    name: string;
+    price: number;
+    stock: number;
 }
 
 const product: Product = { name: "Laptop", price: 999, stock: 5 };
@@ -138,7 +138,7 @@ const productPrice = getProperty(product, "price"); // Type: number
 ```typescript
 // Type mappé pour rendre toutes les propriétés readonly
 type Readonly<T> = {
-  readonly [P in keyof T]: T[P];
+    readonly [P in keyof T]: T[P];
 };
 
 // Type conditionnel pour extraire le type de retour d'une fonction
@@ -155,37 +155,41 @@ type UserWithoutId = Omit<User, "id">; // User sans la propriété id
 ```typescript
 // Type guard personnalisé
 function isString(value: unknown): value is string {
-  return typeof value === "string";
+    return typeof value === "string";
 }
 
 // Utilisation de type guards natifs
 function processValue(value: string | number | null) {
-  if (value === null) {
-    return "Valeur nulle";
-  }
+    if (value === null) {
+        return "Valeur nulle";
+    }
 
-  if (typeof value === "string") {
-    return value.toUpperCase(); // TypeScript sait que c'est un string
-  }
+    if (typeof value === "string") {
+        return value.toUpperCase(); // TypeScript sait que c'est un string
+    }
 
-  return value.toFixed(2); // TypeScript sait que c'est un number
+    return value.toFixed(2); // TypeScript sait que c'est un number
 }
 
 // instanceof pour les classes
 class Dog {
-  bark() { console.log("Woof!"); }
+    bark() {
+        console.log("Woof!");
+    }
 }
 
 class Cat {
-  meow() { console.log("Meow!"); }
+    meow() {
+        console.log("Meow!");
+    }
 }
 
 function makeSound(animal: Dog | Cat) {
-  if (animal instanceof Dog) {
-    animal.bark();
-  } else {
-    animal.meow();
-  }
+    if (animal instanceof Dog) {
+        animal.bark();
+    } else {
+        animal.meow();
+    }
 }
 ```
 
@@ -198,8 +202,8 @@ type UserPreview = Pick<User, "name" | "email">;
 // Record: Créer un type objet avec clés et valeurs typées
 type UserRoles = Record<string, "admin" | "user" | "guest">;
 const roles: UserRoles = {
-  "user1": "admin",
-  "user2": "user",
+    user1: "admin",
+    user2: "user",
 };
 
 // Exclude et Extract: Manipulation d'unions

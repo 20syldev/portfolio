@@ -3,12 +3,12 @@ id: node
 title: Node.js
 description: Environnement d'exécution JavaScript côté serveur
 keywords:
-  - Node.js
-  - JavaScript
-  - Backend
-  - Runtime
-  - Server
-url: 'https://nodejs.org'
+    - Node.js
+    - JavaScript
+    - Backend
+    - Runtime
+    - Server
+url: "https://nodejs.org"
 order: 1
 ---
 
@@ -90,24 +90,24 @@ Voici quelques exemples de code pour illustrer les fonctionnalités clés de Nod
 #### Serveur HTTP natif
 
 ```javascript
-const http = require('http');
+const http = require("http");
 
 const server = http.createServer((req, res) => {
     res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello World\n');
+    res.setHeader("Content-Type", "text/plain");
+    res.end("Hello World\n");
 });
 
-server.listen(3000, '127.0.0.1', () => {
-    console.log('Serveur démarré sur http://127.0.0.1:3000/');
+server.listen(3000, "127.0.0.1", () => {
+    console.log("Serveur démarré sur http://127.0.0.1:3000/");
 });
 ```
 
 #### API REST avec Express.js et ESM
 
 ```javascript
-import express from 'express';
-import cors from 'cors';
+import express from "express";
+import cors from "cors";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -116,15 +116,15 @@ app.use(cors());
 app.use(express.json());
 
 const users = [
-    { id: 1, name: 'Alice', email: 'alice@example.com' },
-    { id: 2, name: 'Bob', email: 'bob@example.com' }
+    { id: 1, name: "Alice", email: "alice@example.com" },
+    { id: 2, name: "Bob", email: "bob@example.com" },
 ];
 
-app.get('/api/users', (req, res) => res.json(users));
+app.get("/api/users", (req, res) => res.json(users));
 
-app.get('/api/users/:id', (req, res) => {
-    const user = users.find(u => u.id === parseInt(req.params.id));
-    if (!user) return res.status(404).json({ message: 'Non trouvé' });
+app.get("/api/users/:id", (req, res) => {
+    const user = users.find((u) => u.id === parseInt(req.params.id));
+    if (!user) return res.status(404).json({ message: "Non trouvé" });
     res.json(user);
 });
 
@@ -134,16 +134,16 @@ app.listen(PORT, () => console.log(`Serveur sur port ${PORT}`));
 #### Async/await avec gestion d'erreurs
 
 ```javascript
-import fs from 'fs/promises';
+import fs from "fs/promises";
 
 async function readConfigFile() {
     try {
-        const data = await fs.readFile('config.json', 'utf8');
+        const data = await fs.readFile("config.json", "utf8");
         return JSON.parse(data);
     } catch (error) {
-        if (error.code === 'ENOENT') {
-            const defaultConfig = { theme: 'light', language: 'fr' };
-            await fs.writeFile('config.json', JSON.stringify(defaultConfig, null, 2));
+        if (error.code === "ENOENT") {
+            const defaultConfig = { theme: "light", language: "fr" };
+            await fs.writeFile("config.json", JSON.stringify(defaultConfig, null, 2));
             return defaultConfig;
         }
         throw error;
@@ -151,32 +151,32 @@ async function readConfigFile() {
 }
 
 const config = await readConfigFile();
-console.log('Configuration chargée :', config);
+console.log("Configuration chargée :", config);
 ```
 
 #### Communication temps réel avec Socket.IO
 
 ```javascript
-import { createServer } from 'http';
-import { Server } from 'socket.io';
-import express from 'express';
+import { createServer } from "http";
+import { Server } from "socket.io";
+import express from "express";
 
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-    cors: { origin: "http://localhost:8080", methods: ["GET", "POST"] }
+    cors: { origin: "http://localhost:8080", methods: ["GET", "POST"] },
 });
 
-io.on('connection', (socket) => {
-    console.log('Utilisateur connecté', socket.id);
-    socket.emit('welcome', { message: 'Bienvenue!' });
+io.on("connection", (socket) => {
+    console.log("Utilisateur connecté", socket.id);
+    socket.emit("welcome", { message: "Bienvenue!" });
 
-    socket.on('chatMessage', (data) => {
-        io.emit('newMessage', { userId: socket.id, message: data.message });
+    socket.on("chatMessage", (data) => {
+        io.emit("newMessage", { userId: socket.id, message: data.message });
     });
 
-    socket.on('disconnect', () => {
-        io.emit('userLeft', { userId: socket.id });
+    socket.on("disconnect", () => {
+        io.emit("userLeft", { userId: socket.id });
     });
 });
 
@@ -186,30 +186,34 @@ httpServer.listen(3000);
 #### API moderne avec Fastify et Prisma
 
 ```javascript
-import Fastify from 'fastify';
-import { PrismaClient } from '@prisma/client';
+import Fastify from "fastify";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 const fastify = Fastify({ logger: true });
 
-await fastify.register(import('@fastify/cors'));
+await fastify.register(import("@fastify/cors"));
 
-fastify.post('/posts', {
-    schema: {
-        body: {
-            type: 'object',
-            properties: {
-                title: { type: 'string' },
-                content: { type: 'string' }
+fastify.post(
+    "/posts",
+    {
+        schema: {
+            body: {
+                type: "object",
+                properties: {
+                    title: { type: "string" },
+                    content: { type: "string" },
+                },
+                required: ["title", "content"],
             },
-            required: ['title', 'content']
-        }
+        },
+    },
+    async (request, reply) => {
+        const { title, content } = request.body;
+        const post = await prisma.post.create({ data: { title, content } });
+        return reply.code(201).send(post);
     }
-}, async (request, reply) => {
-    const { title, content } = request.body;
-    const post = await prisma.post.create({ data: { title, content } });
-    return reply.code(201).send(post);
-});
+);
 
 await fastify.listen({ port: 3000 });
 ```
