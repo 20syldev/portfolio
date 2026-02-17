@@ -1,3 +1,26 @@
+// Mapping project IDs to their API keys
+const ID_TO_API_KEY: Record<string, string> = {
+    "2048": "g_2048",
+    "python-api": "python_api",
+    "old-database": "old_database",
+    "drawio-plugin": "drawio_plugin",
+};
+
+/**
+ * Converts a project identifier to its corresponding API key.
+ *
+ * @param projectId - The project identifier to convert
+ * @returns The mapped API key, or the original identifier if no mapping exists
+ */
+export function getApiKey(projectId: string): string {
+    return ID_TO_API_KEY[projectId] || projectId;
+}
+
+// Mapping PDF file paths to their route slugs
+export const pdfs: Record<string, string> = {
+    "/CV.pdf": "/cv/",
+};
+
 // Redirects from sylvain.pro/[slug] to target URL
 export const redirects: Record<string, string> = {
     "2048": "https://2048.sylvain.pro",
@@ -24,7 +47,13 @@ export const redirects: Record<string, string> = {
     wrkit: "https://wrkit.sylvain.pro",
 };
 
-// Get display name for redirect page
+/**
+ * Retrieves the display name for a redirect slug.
+ * Maps URL slugs to human-readable titles for redirect pages.
+ *
+ * @param slug - The redirect slug identifier
+ * @returns The display title, or the slug itself if no mapping exists
+ */
 export function getRedirectTitle(slug: string): string {
     const names: Record<string, string> = {
         "2048": "2048",
