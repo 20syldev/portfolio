@@ -18,7 +18,11 @@ interface VeilleContentProps {
 }
 
 /**
- * Parse source categories from markdown content
+ * Parses source categories from markdown veille content.
+ * Extracts H4 sections with categorized links from the ## Sources section.
+ *
+ * @param content - Markdown content to parse
+ * @returns Array of categories with titles and source links
  */
 function parseSourceCategories(content: string): SourceCategory[] {
     const categories: SourceCategory[] = [];
@@ -53,7 +57,11 @@ function parseSourceCategories(content: string): SourceCategory[] {
 }
 
 /**
- * Remove news and sources sections from content
+ * Removes special sections (Sources, News) from markdown content.
+ * Strips H2 sections with specific headings for clean content display.
+ *
+ * @param content - Markdown content to filter
+ * @returns Filtered markdown without special sections
  */
 function removeSpecialSections(content: string): string {
     return content.replace(/## Sources.*?\n[\s\S]*?$/, "");
