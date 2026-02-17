@@ -17,6 +17,13 @@ import { tabs, titles, urls } from "@/lib/nav";
 
 const sections = 4;
 
+/**
+ * Determines the active tab index based on the current route path.
+ * Maps paths to tab indices for navigation highlighting.
+ *
+ * @param path - Current pathname from router
+ * @returns Tab index (0-based)
+ */
 function getTab(path: string): number {
     if (path === "/alternance/") return 1;
     if (path === "/veille/") return 2;
