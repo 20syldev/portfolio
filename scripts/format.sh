@@ -8,7 +8,7 @@ NC='\033[0m'
 
 echo -e "${BLUE}→${NC} Running Prettier..."
 echo ""
-npx prettier --write "src/**/*.{ts,tsx}" "scripts/**/*.ts" "public/**/*.svg" "*.{js,mjs,json}"
+npx prettier --write .
 echo ""
 echo -e "${GREEN}✓${NC} Prettier completed"
 
@@ -28,8 +28,13 @@ while read -r file; do
     if [ "$before" != "$after" ]; then
         newline_changes+="${GREEN}✓${NC} Cleaned: $file\n"
     fi
-done < <(find . -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" -o -name "*.mjs" -o -name "*.mts" -o -name "*.md" \) \
-    ! -path "./node_modules/*" ! -path "./.next/*" ! -path "./out/*" ! -path "./public/legacy/*")
+done < <(
+  if git rev-parse --is-inside-work-tree &>/dev/null; then
+    git ls-files --cached --others --exclude-standard
+  else
+    find . -type f -not -path '*/node_modules/*' -not -path '*/.next/*' -not -path '*/dist/*'
+  fi | grep -E '\.(ts|tsx|js|jsx|mjs|mts|md)$' | grep -v -F -f .prettierignore
+)
 
 if [ -n "$newline_changes" ]; then
     echo ""
