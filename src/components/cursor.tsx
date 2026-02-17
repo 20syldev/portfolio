@@ -9,6 +9,13 @@ interface CursorContextType {
 
 const CursorContext = React.createContext<CursorContextType | undefined>(undefined);
 
+/**
+ * Hook to access custom cursor context state.
+ * Provides enabled state and setter for toggling the custom cursor.
+ *
+ * @returns Cursor context with enabled state and setter
+ * @throws Error if used outside CursorProvider
+ */
 export function useCursor() {
     const context = React.useContext(CursorContext);
     if (context === undefined) {
@@ -17,8 +24,27 @@ export function useCursor() {
     return context;
 }
 
+/**
+ * Provider for custom cursor functionality.
+ * Manages cursor visibility, keyboard shortcuts (Alt+C), and localStorage persistence.
+ *
+ * @param props - Provider props
+ * @param props.children - Child components to wrap with cursor context
+ * @returns The rendered provider with cursor context and custom cursor overlay
+ */
 export function CursorProvider({ children }: { children: React.ReactNode }) {
     const [enabled, setEnabled] = React.useState(true);
+
+    React.useEffect(() => {
+        const stored = localStorage.getItem("cursor");
+        if (stored !== null) {
+            setEnabled(JSON.parse(stored));
+        }
+    }, []);
+
+    React.useEffect(() => {
+        localStorage.setItem("cursor", JSON.stringify(enabled));
+    }, [enabled]);
 
     React.useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -52,6 +78,12 @@ export function CursorProvider({ children }: { children: React.ReactNode }) {
     );
 }
 
+/**
+ * Custom cursor component with smooth following animation.
+ * Displays a dot and circle cursor, hidden on touch devices.
+ *
+ * @returns The rendered custom cursor elements, or null if disabled or on touch device
+ */
 function Cursor() {
     const { enabled } = useCursor();
     const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
