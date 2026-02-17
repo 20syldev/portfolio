@@ -17,6 +17,13 @@ interface DetailNavProps {
     content?: string | null;
 }
 
+/**
+ * Extracts section headings from markdown content.
+ * Parses H2 headings with custom ID syntax: ## Title {#id}
+ *
+ * @param content - Markdown content to parse
+ * @returns Array of sections with id and title, or empty array if no content
+ */
 function extractSections(content: string | null | undefined): Section[] {
     if (!content) return [];
 
@@ -145,6 +152,11 @@ export function DetailNav({
             document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
         }
     };
+
+    useEffect(() => {
+        if (!active || mobile) return;
+        window.history.replaceState(null, "", `#${active}`);
+    }, [active, mobile]);
 
     useEffect(() => {
         if (!mobile || !active) return;
