@@ -21,23 +21,6 @@ interface ApiData {
     loading: boolean;
 }
 
-const ID_TO_API_KEY: Record<string, string> = {
-    "2048": "g_2048",
-    "python-api": "python_api",
-    "old-database": "old_database",
-    "drawio-plugin": "drawio_plugin",
-};
-
-/**
- * Converts a project identifier to its corresponding API key.
- *
- * @param projectId - The project identifier to convert
- * @returns The mapped API key, or the original identifier if no mapping exists
- */
-export function getApiKey(projectId: string): string {
-    return ID_TO_API_KEY[projectId] || projectId;
-}
-
 interface CachedData {
     stats: Stats | null;
     versions: Versions | null;
