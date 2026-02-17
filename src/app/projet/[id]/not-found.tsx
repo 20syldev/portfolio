@@ -3,6 +3,12 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 
+/**
+ * 404 error page for projet routes.
+ * Displays a centered error message with navigation link to home.
+ *
+ * @returns The rendered 404 error page
+ */
 export default function NotFound() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-background">
