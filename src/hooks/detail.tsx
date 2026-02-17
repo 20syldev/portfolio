@@ -37,10 +37,7 @@ export function ProjectDetailProvider({ children }: { children: ReactNode }) {
         const found = projects.find((p) => p.id === projectId);
         if (found) {
             if (!skipUpdate) {
-                const url = `/projet/${projectId}`;
-                if (location.pathname === "/") {
-                    return (location.href = url);
-                }
+                const url = `/preview/${projectId}/`;
                 previousUrlRef.current = location.pathname;
                 requestAnimationFrame(() => history.pushState(null, "", url));
             }
