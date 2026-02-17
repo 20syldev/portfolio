@@ -21,6 +21,8 @@ export const profile = {
     links: {
         github: "https://github.com/20syldev",
         linkedin: "https://linkedin.com/in/sylvainlmb",
+        discord: "https://discord.com/users/607163002755481602",
+        sponsors: "https://github.com/sponsors/20syldev",
         google: "https://g.dev/20syl",
         cv: "/CV.pdf",
         email: "contact@sylvain.pro",
@@ -28,6 +30,7 @@ export const profile = {
     social: {
         github: "20syldev",
         linkedin: "sylvainlmb",
+        discord: "20syl",
     },
 };
 
@@ -71,6 +74,22 @@ export const projects = [
         icon: "plane",
         description: "Interface de gestion de données d'aviation",
     },
+];
+
+export interface ContactLink {
+    icon: string;
+    label: string;
+    url?: string;
+    action?: "copy" | "pdf";
+}
+
+export const contacts: ContactLink[] = [
+    { icon: "mail", label: profile.links.email, action: "copy" },
+    { icon: "github", label: profile.social.github, url: profile.links.github },
+    { icon: "linkedin", label: profile.social.linkedin, url: profile.links.linkedin },
+    { icon: "discord", label: profile.social.discord, url: profile.links.discord },
+    { icon: "sponsors", label: "Sponsors", url: profile.links.sponsors },
+    { icon: "cv", label: "CV", action: "pdf", url: profile.links.cv },
 ];
 
 export const badges = [
