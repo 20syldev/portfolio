@@ -9,7 +9,8 @@ import type { DocumentProps, PageProps } from "react-pdf";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogOverlay, DialogPortal } from "@/components/ui/dialog";
-import { useContainerSmoothScroll } from "@/hooks/scroll";
+import { pdfs } from "@/data/redirects";
+import { useSmoothScroll } from "@/hooks/scroll";
 import { cn } from "@/lib/utils";
 
 type ReactPdfModule = {
@@ -17,6 +18,12 @@ type ReactPdfModule = {
     Page: React.ComponentType<PageProps>;
 };
 
+/**
+ * Hook to lazy load the react-pdf library and its dependencies.
+ * Configures the PDF.js worker and imports required CSS.
+ *
+ * @returns The react-pdf module with Document and Page components, or null if not loaded
+ */
 function useReactPdf() {
     const [mod, setMod] = React.useState<ReactPdfModule | null>(null);
 
@@ -44,8 +51,14 @@ function useReactPdf() {
     return mod;
 }
 
+interface PdfOpenOptions {
+    shiftKey?: boolean;
+    fullscreen?: boolean;
+    onClose?: () => void;
+}
+
 interface PdfViewerContextValue {
-    openPdf: (url: string, title: string, event?: { shiftKey: boolean }) => void;
+    openPdf: (url: string, title: string, options?: PdfOpenOptions) => void;
     closePdf: () => void;
 }
 
@@ -62,19 +75,51 @@ const PdfViewerContext = createContext<PdfViewerContextValue | null>(null);
 export function PdfViewerProvider({ children }: { children: ReactNode }) {
     const [open, setOpen] = useState(false);
     const [pdf, setPdf] = useState<{ url: string; title: string } | null>(null);
+    const [fullscreen, setFullscreen] = useState(false);
+    const onCloseRef = React.useRef<(() => void) | undefined>(undefined);
+    const pushedSlugRef = React.useRef(false);
 
-    const openPdf = useCallback((url: string, title: string, event?: { shiftKey: boolean }) => {
-        if (event?.shiftKey) {
+    const openPdf = useCallback((url: string, title: string, options?: PdfOpenOptions) => {
+        if (options?.shiftKey) {
             window.open(url, "_blank");
             return;
         }
+        const slug = pdfs[url];
+        if (slug && location.pathname !== slug) {
+            history.pushState({ dialog: slug }, "", slug);
+            pushedSlugRef.current = true;
+        }
         setPdf({ url, title });
+        setFullscreen(options?.fullscreen ?? false);
+        onCloseRef.current = options?.onClose;
         setOpen(true);
     }, []);
 
     const closePdf = useCallback(() => {
         setOpen(false);
         setPdf(null);
+        setFullscreen(false);
+        if (pushedSlugRef.current) {
+            history.back();
+            pushedSlugRef.current = false;
+        }
+        onCloseRef.current?.();
+        onCloseRef.current = undefined;
+    }, []);
+
+    React.useEffect(() => {
+        const onPopState = () => {
+            if (pushedSlugRef.current) {
+                pushedSlugRef.current = false;
+                setOpen(false);
+                setPdf(null);
+                setFullscreen(false);
+                onCloseRef.current?.();
+                onCloseRef.current = undefined;
+            }
+        };
+        window.addEventListener("popstate", onPopState);
+        return () => window.removeEventListener("popstate", onPopState);
     }, []);
 
     return (
@@ -84,6 +129,7 @@ export function PdfViewerProvider({ children }: { children: ReactNode }) {
                 url={pdf?.url ?? null}
                 title={pdf?.title ?? null}
                 open={open}
+                fullscreen={fullscreen}
                 onOpenChange={(isOpen) => {
                     if (!isOpen) closePdf();
                 }}
@@ -114,15 +160,29 @@ interface PdfViewerDialogProps {
     url: string | null;
     title: string | null;
     open: boolean;
+    fullscreen?: boolean;
     onOpenChange: (open: boolean) => void;
 }
 
-function PdfViewerDialog({ url, title, open, onOpenChange }: PdfViewerDialogProps) {
+/**
+ * PDF viewer dialog with navigation, zoom, and fullscreen support.
+ * Adapts initial scale based on device width.
+ *
+ * @param props - Component props
+ * @param props.url - PDF file URL to display
+ * @param props.title - Title to show in the dialog header
+ * @param props.open - Whether the dialog is open
+ * @param props.fullscreen - Whether to display in fullscreen mode
+ * @param props.onOpenChange - Callback when open state changes
+ * @returns The rendered PDF viewer dialog
+ */
+function PdfViewerDialog({ url, title, open, fullscreen, onOpenChange }: PdfViewerDialogProps) {
     const [numPages, setNumPages] = React.useState(0);
     const [page, setPage] = React.useState(1);
     const [scale, setScale] = React.useState(1);
     const [containerWidth, setContainerWidth] = React.useState<number | undefined>();
-    const scrollRef = useContainerSmoothScroll<HTMLDivElement>(open);
+    const { scrollRef } = useSmoothScroll<HTMLDivElement>({ enabled: open, delayed: true });
+    const closeRef = React.useRef<HTMLButtonElement>(null);
     const reactPdf = useReactPdf();
 
     // Détection du type d'appareil pour le zoom initial
@@ -166,9 +226,15 @@ function PdfViewerDialog({ url, title, open, onOpenChange }: PdfViewerDialogProp
                 <DialogOverlay />
                 <DialogPrimitive.Content
                     aria-describedby={undefined}
+                    onOpenAutoFocus={(e) => {
+                        e.preventDefault();
+                        closeRef.current?.focus();
+                    }}
                     className={cn(
-                        "fixed z-50 bg-background border border-border sm:rounded-xl shadow-2xl",
-                        "inset-0 sm:inset-8 md:inset-14 lg:inset-16",
+                        "fixed z-50 bg-background border border-border shadow-2xl",
+                        fullscreen
+                            ? "inset-0"
+                            : "inset-0 sm:inset-8 md:inset-14 lg:inset-16 sm:rounded-xl",
                         "flex flex-col overflow-hidden",
                         "data-[state=open]:animate-in data-[state=closed]:animate-out",
                         "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
@@ -181,9 +247,58 @@ function PdfViewerDialog({ url, title, open, onOpenChange }: PdfViewerDialogProp
                     </VisuallyHidden>
 
                     {/* Header */}
-                    <div className="flex items-center justify-between p-3 border-b">
+                    <div className="grid grid-cols-[1fr_auto_1fr] items-center p-3 border-b text-sm">
                         <h2 className="pl-1 text-lg font-semibold truncate">{title}</h2>
+
                         <div className="flex items-center gap-1">
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-7 w-7"
+                                onClick={prevPage}
+                                disabled={page <= 1}
+                            >
+                                <ChevronLeft className="h-4 w-4" />
+                            </Button>
+                            <span className="tabular-nums text-muted-foreground min-w-[4rem] text-center">
+                                {page} / {numPages || "–"}
+                            </span>
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-7 w-7"
+                                onClick={nextPage}
+                                disabled={page >= numPages}
+                            >
+                                <ChevronRight className="h-4 w-4" />
+                            </Button>
+
+                            <div className="w-px h-4 bg-border mx-1" />
+
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-7 w-7"
+                                onClick={zoomOut}
+                                disabled={scale <= ZOOM_MIN}
+                            >
+                                <Minus className="h-4 w-4" />
+                            </Button>
+                            <span className="tabular-nums text-muted-foreground min-w-[3rem] text-center">
+                                {Math.round(scale * 100)}%
+                            </span>
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-7 w-7"
+                                onClick={zoomIn}
+                                disabled={scale >= ZOOM_MAX}
+                            >
+                                <Plus className="h-4 w-4" />
+                            </Button>
+                        </div>
+
+                        <div className="flex items-center gap-1 justify-end">
                             <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
                                 <a href={url ?? "#"} target="_blank" rel="noopener noreferrer">
                                     <ExternalLink className="h-4 w-4" />
@@ -191,61 +306,17 @@ function PdfViewerDialog({ url, title, open, onOpenChange }: PdfViewerDialogProp
                                 </a>
                             </Button>
                             <DialogPrimitive.Close asChild>
-                                <Button variant="ghost" size="icon" className="h-8 w-8">
+                                <Button
+                                    ref={closeRef}
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-8 w-8"
+                                >
                                     <XIcon className="h-4 w-4" />
                                     <span className="sr-only">Fermer</span>
                                 </Button>
                             </DialogPrimitive.Close>
                         </div>
-                    </div>
-
-                    {/* Toolbar */}
-                    <div className="flex items-center justify-center gap-2 px-6 py-2 border-b text-sm">
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-7 w-7"
-                            onClick={prevPage}
-                            disabled={page <= 1}
-                        >
-                            <ChevronLeft className="h-4 w-4" />
-                        </Button>
-                        <span className="tabular-nums text-muted-foreground min-w-[4rem] text-center">
-                            {page} / {numPages || "–"}
-                        </span>
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-7 w-7"
-                            onClick={nextPage}
-                            disabled={page >= numPages}
-                        >
-                            <ChevronRight className="h-4 w-4" />
-                        </Button>
-
-                        <div className="w-px h-4 bg-border mx-1" />
-
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-7 w-7"
-                            onClick={zoomOut}
-                            disabled={scale <= ZOOM_MIN}
-                        >
-                            <Minus className="h-4 w-4" />
-                        </Button>
-                        <span className="tabular-nums text-muted-foreground min-w-[3rem] text-center">
-                            {Math.round(scale * 100)}%
-                        </span>
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-7 w-7"
-                            onClick={zoomIn}
-                            disabled={scale >= ZOOM_MAX}
-                        >
-                            <Plus className="h-4 w-4" />
-                        </Button>
                     </div>
 
                     {/* PDF content */}
