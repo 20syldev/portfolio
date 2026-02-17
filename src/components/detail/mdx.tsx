@@ -126,12 +126,12 @@ export const mdxComponents = {
         </th>
     ),
     td: ({ children, ...props }: ComponentPropsWithoutRef<"td">) => (
-        <td className="p-3 border-b border-border last:border-b-0" {...props}>
+        <td className="p-3 border-b border-border" {...props}>
             {children}
         </td>
     ),
     tr: ({ children, ...props }: ComponentPropsWithoutRef<"tr">) => (
-        <tr className="last:border-b-0" {...props}>
+        <tr className="last:[&>td]:border-b-0" {...props}>
             {children}
         </tr>
     ),
@@ -167,7 +167,7 @@ export const mdxComponents = {
     },
     pre: ({ children, ...props }: ComponentPropsWithoutRef<"pre">) => (
         <pre
-            className="bg-muted p-4 rounded-lg overflow-x-auto mb-6 text-sm border border-border"
+            className="bg-muted p-4 rounded-lg overflow-x-auto mb-6 text-sm border border-border [&>code]:p-0 [&>code]:bg-transparent [&>code]:rounded-none"
             {...props}
         >
             {children}
@@ -184,41 +184,9 @@ export const mdxComponents = {
     hr: ({ ...props }: ComponentPropsWithoutRef<"hr">) => (
         <hr className="my-8 border-border" {...props} />
     ),
-    div: ({ children, className, ...props }: ComponentPropsWithoutRef<"div">) => {
-        // Handle veille articles grid
-        if (className === "veille-grid" || className === "veille-articles-grid") {
-            return (
-                <div
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8"
-                    {...props}
-                >
-                    {children}
-                </div>
-            );
-        }
-        // Handle individual veille article cards
-        if (className === "veille-card" || className === "veille-article-card") {
-            return (
-                <div
-                    className="border border-border rounded-lg p-4 hover:border-primary/50 transition-colors flex flex-col gap-2"
-                    {...props}
-                >
-                    {children}
-                </div>
-            );
-        }
-        // Handle article meta info
-        if (className === "veille-article-meta") {
-            return (
-                <div className="text-xs text-muted-foreground mb-2" {...props}>
-                    {children}
-                </div>
-            );
-        }
-        return (
-            <div className={className} {...props}>
-                {children}
-            </div>
-        );
-    },
+    div: ({ children, className, ...props }: ComponentPropsWithoutRef<"div">) => (
+        <div className={className} {...props}>
+            {children}
+        </div>
+    ),
 };
