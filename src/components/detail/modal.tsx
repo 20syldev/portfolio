@@ -5,7 +5,7 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 import { Dialog, DialogOverlay, DialogPortal } from "@/components/ui/dialog";
 import type { Project } from "@/data/projects";
-import { useContainerSmoothScroll } from "@/hooks/scroll";
+import { useSmoothScroll } from "@/hooks/scroll";
 import { cn } from "@/lib/utils";
 
 import { DetailContent } from "./content";
@@ -31,7 +31,7 @@ interface DetailModalProps {
  * @returns The rendered detail modal dialog
  */
 export function DetailModal({ project, content, open, onOpenChange }: DetailModalProps) {
-    const scrollRef = useContainerSmoothScroll<HTMLDivElement>(open);
+    const { scrollRef } = useSmoothScroll<HTMLDivElement>({ enabled: open, delayed: true });
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
