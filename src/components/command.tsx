@@ -2,6 +2,7 @@
 
 import {
     Archive,
+    BookOpen,
     Briefcase,
     FilePenLine,
     FileText,
@@ -10,7 +11,7 @@ import {
     LayoutList,
     Monitor,
     Moon,
-    MousePointer,
+    MousePointer2,
     Newspaper,
     RefreshCw,
     Search,
@@ -38,6 +39,7 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { usePdfViewer } from "@/components/viewer";
 import { projects as alternanceProjects } from "@/data/alternance";
+import { docs } from "@/data/docs";
 import { projects } from "@/data/projects";
 import { veilles } from "@/data/veille";
 import { useApi } from "@/hooks/api";
@@ -56,6 +58,49 @@ const statusLabel: Record<Exclude<ProjectStatus, null>, string> = {
     updated: "Mis à jour récemment",
     patched: "Correctif récent",
 };
+
+/**
+ * Normalize a string for accent-insensitive comparison.
+ * Strips diacritics and lowercases.
+ */
+function normalize(str: string): string {
+    return str
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase();
+}
+
+/**
+ * Custom filter for the command palette.
+ * Prioritizes exact matches on value (name/title) over keyword matches.
+ */
+function commandFilter(value: string, search: string, keywords?: string[]): number {
+    const v = normalize(value);
+    const s = normalize(search);
+
+    if (!s) return 1;
+
+    // Exact match on value
+    if (v === s) return 1;
+
+    // Value starts with search
+    if (v.startsWith(s)) return 0.9;
+
+    // Any word in value starts with search
+    const valueWords = v.split(/\s+/);
+    if (valueWords.some((word) => word.startsWith(s))) return 0.85;
+
+    // Value contains search as substring
+    if (v.includes(s)) return 0.75;
+
+    // Check keywords
+    if (keywords && keywords.length > 0) {
+        const kw = keywords.map(normalize).join(" ");
+        if (kw.includes(s)) return 0.5;
+    }
+
+    return 0;
+}
 
 /**
  * Context for sharing command dialog state
@@ -120,6 +165,8 @@ export function CommandMenu() {
     const { open, setOpen } = useCommand();
     const [search, setSearch] = React.useState("");
     const [contactOpen, setContactOpen] = React.useState(false);
+    const [scrolled, setScrolled] = React.useState(false);
+    const scrollReadyRef = React.useRef(false);
     const router = useRouter();
     const { setTheme } = useTheme();
     const { enabled: cursorEnabled, setEnabled: setCursorEnabled } = useCursor();
@@ -146,6 +193,29 @@ export function CommandMenu() {
         return () => document.removeEventListener("keydown", down);
     }, [setOpen]);
 
+    /**
+     * Manages scroll readiness to ignore cmdk's initial scrollIntoView calls.
+     * Enables scroll detection after a short delay once the dialog opens.
+     */
+    React.useEffect(() => {
+        if (!open) {
+            setScrolled(false);
+            scrollReadyRef.current = false;
+            return;
+        }
+        const timer = setTimeout(() => {
+            scrollReadyRef.current = true;
+        }, 150);
+        return () => {
+            clearTimeout(timer);
+            scrollReadyRef.current = false;
+        };
+    }, [open]);
+
+    const scroll = React.useCallback(() => {
+        if (scrollReadyRef.current) setScrolled(true);
+    }, []);
+
     const runCommand = React.useCallback(
         (command: () => void) => {
             setOpen(false);
@@ -153,6 +223,200 @@ export function CommandMenu() {
         },
         [setOpen]
     );
+
+    const navigationItems = (
+        <>
+            <CommandItem onSelect={() => runCommand(() => router.push("/"))}>
+                <Home className="mr-2 h-4 w-4" />
+                Accueil
+            </CommandItem>
+            <CommandItem onSelect={() => runCommand(() => router.push("/repositories"))}>
+                <LayoutList className="mr-2 h-4 w-4" />
+                Tous les projets
+            </CommandItem>
+            <CommandItem onSelect={() => runCommand(() => router.push("/help"))}>
+                <BookOpen className="mr-2 h-4 w-4" />
+                Documentations
+            </CommandItem>
+            <CommandItem onSelect={() => runCommand(() => router.push("/legacy"))}>
+                <Archive className="mr-2 h-4 w-4" />
+                Version précédente
+            </CommandItem>
+        </>
+    );
+
+    const profilItems = (
+        <>
+            <CommandItem onSelect={() => runCommand(() => setContactOpen(true))}>
+                <UserRound className="mr-2 h-4 w-4" />À propos de moi
+            </CommandItem>
+            <CommandItem
+                onSelect={() =>
+                    runCommand(() =>
+                        openPdf("/E5 - Tableau Synthèse - Sylvain L.pdf", "Tableau de synthèse E5")
+                    )
+                }
+            >
+                <FilePenLine className="mr-2 h-4 w-4" />
+                Tableau de synthèse E5
+            </CommandItem>
+            <CommandItem onSelect={() => runCommand(() => openPdf("/CV.pdf", "CV"))}>
+                <FileText className="mr-2 h-4 w-4" />
+                CV
+            </CommandItem>
+        </>
+    );
+
+    const personnalisationItems = (
+        <>
+            <CommandItem onSelect={() => runCommand(() => setCursorEnabled(!cursorEnabled))}>
+                <MousePointer2 className="mr-2 h-4 w-4" />
+                {cursorEnabled ? "Désactiver" : "Activer"} le curseur personnalisé
+            </CommandItem>
+            <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
+                <Sun className="mr-2 h-4 w-4" />
+                Thème clair
+            </CommandItem>
+            <CommandItem onSelect={() => runCommand(() => setTheme("dark"))}>
+                <Moon className="mr-2 h-4 w-4" />
+                Thème sombre
+            </CommandItem>
+            <CommandItem onSelect={() => runCommand(() => setTheme("system"))}>
+                <Monitor className="mr-2 h-4 w-4" />
+                Thème système
+            </CommandItem>
+        </>
+    );
+
+    const recentProjectItems = projects
+        .filter((p) => getProjectStatus(p.id) !== null)
+        .map((project) => {
+            const status = getProjectStatus(project.id)!;
+            const Icon = statusIcon[status];
+            return (
+                <CommandItem
+                    key={project.id}
+                    value={project.name}
+                    keywords={[project.description, ...project.tags]}
+                    onSelect={() =>
+                        runCommand(() =>
+                            openProject(project.id, {
+                                onClose: () => setOpen(true),
+                            })
+                        )
+                    }
+                >
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <span className="mr-2 inline-flex">
+                                <Icon className="h-4 w-4" />
+                            </span>
+                        </TooltipTrigger>
+                        <TooltipContent side="left">{statusLabel[status]}</TooltipContent>
+                    </Tooltip>
+                    {project.name}
+                    <span className="ml-2 text-xs text-muted-foreground">
+                        {project.tags.join(", ")}
+                    </span>
+                </CommandItem>
+            );
+        });
+
+    const pageItems = (
+        <>
+            <CommandItem
+                value="Alternance"
+                keywords={["zenetys", "développement", "web"]}
+                onSelect={() => runCommand(() => router.push("/alternance/"))}
+            >
+                <Briefcase className="mr-2 h-4 w-4" />
+                Alternance
+                <span className="ml-2 text-xs text-muted-foreground">Zenetys</span>
+            </CommandItem>
+            <CommandItem
+                value="Veilles technologiques"
+                keywords={["node.js", "typescript", "radix", "next.js", "vue.js"]}
+                onSelect={() => runCommand(() => router.push("/veilles/"))}
+            >
+                <Newspaper className="mr-2 h-4 w-4" />
+                Veilles technologiques
+                <span className="ml-2 text-xs text-muted-foreground">Node.js</span>
+            </CommandItem>
+        </>
+    );
+
+    const docItems = docs.map((doc) => (
+        <CommandItem
+            key={doc.id}
+            value={doc.title}
+            keywords={[doc.description, doc.category, "documentation", "aide", "help", "guide"]}
+            onSelect={() => runCommand(() => router.push(`/help/${doc.category}/${doc.slug}`))}
+        >
+            <FileText className="mr-2 h-4 w-4" />
+            {doc.title}
+            <span className="ml-2 text-xs text-muted-foreground truncate">{doc.category}</span>
+        </CommandItem>
+    ));
+
+    const veilleItems = veilles.map((veille) => (
+        <CommandItem
+            key={veille.id}
+            value={veille.title}
+            keywords={[
+                veille.description,
+                ...(veille.keywords || []),
+                "veille",
+                "veilles",
+                "technologique",
+                "technologiques",
+            ]}
+            onSelect={() => runCommand(() => router.push(`/veilles/#${veille.id}`))}
+        >
+            <Newspaper className="mr-2 h-4 w-4" />
+            {veille.title}
+            <span className="ml-2 text-xs text-muted-foreground truncate">
+                {veille.keywords?.slice(0, 3).join(", ") || ""}
+            </span>
+        </CommandItem>
+    ));
+
+    const remainingProjectItems = projects
+        .filter((p) => getProjectStatus(p.id) === null)
+        .map((project) => (
+            <CommandItem
+                key={project.id}
+                value={project.name}
+                keywords={[project.description, ...project.tags]}
+                onSelect={() =>
+                    runCommand(() =>
+                        openProject(project.id, {
+                            onClose: () => setOpen(true),
+                        })
+                    )
+                }
+            >
+                <FolderOpen className="mr-2 h-4 w-4" />
+                {project.name}
+                <span className="ml-2 text-xs text-muted-foreground truncate">
+                    {project.tags.slice(0, 3).join(", ")}
+                </span>
+            </CommandItem>
+        ));
+
+    const alternanceItems = alternanceProjects.map((project) => (
+        <CommandItem
+            key={project.id}
+            value={project.title}
+            keywords={[project.description, ...project.technologies]}
+            onSelect={() => runCommand(() => router.push(`/alternance/#${project.id}`))}
+        >
+            <Briefcase className="mr-2 h-4 w-4" />
+            {project.title}
+            <span className="ml-2 text-xs text-muted-foreground truncate">
+                {project.technologies.slice(0, 3).join(", ")}
+            </span>
+        </CommandItem>
+    ));
 
     return (
         <>
@@ -162,213 +426,55 @@ export function CommandMenu() {
                     setOpen(open);
                     if (!open) setSearch("");
                 }}
+                filter={commandFilter}
+                className={
+                    scrolled
+                        ? "sm:max-w-2xl transition-all duration-300"
+                        : "transition-all duration-300"
+                }
             >
                 <CommandInput
                     placeholder="Rechercher..."
                     value={search}
                     onValueChange={setSearch}
                 />
-                <CommandList>
+                <CommandList
+                    onScroll={scroll}
+                    className={
+                        scrolled
+                            ? "!max-h-[600px] transition-all duration-300"
+                            : "transition-all duration-300"
+                    }
+                >
                     <CommandEmpty>Aucun résultat.</CommandEmpty>
 
-                    <CommandGroup heading="Navigation">
-                        <CommandItem onSelect={() => runCommand(() => router.push("/"))}>
-                            <Home className="mr-2 h-4 w-4" />
-                            Accueil
-                        </CommandItem>
-                        <CommandItem
-                            onSelect={() => runCommand(() => router.push("/repositories"))}
-                        >
-                            <LayoutList className="mr-2 h-4 w-4" />
-                            Tous les projets
-                        </CommandItem>
-                        <CommandItem onSelect={() => runCommand(() => router.push("/legacy"))}>
-                            <Archive className="mr-2 h-4 w-4" />
-                            Version précédente
-                        </CommandItem>
-                    </CommandGroup>
-
-                    <CommandSeparator />
-
-                    <CommandGroup heading="Liens">
-                        <CommandItem
-                            onSelect={() =>
-                                runCommand(() =>
-                                    openPdf(
-                                        "/E5 - Tableau Synthèse - Sylvain L.pdf",
-                                        "Tableau de synthèse E5"
-                                    )
-                                )
-                            }
-                        >
-                            <FilePenLine className="mr-2 h-4 w-4" />
-                            Tableau de synthèse E5
-                        </CommandItem>
-                        <CommandItem onSelect={() => runCommand(() => openPdf("/CV.pdf", "CV"))}>
-                            <FileText className="mr-2 h-4 w-4" />
-                            CV
-                        </CommandItem>
-                        <CommandItem onSelect={() => runCommand(() => setContactOpen(true))}>
-                            <UserRound className="mr-2 h-4 w-4" />À propos de moi
-                        </CommandItem>
-                    </CommandGroup>
-
-                    <CommandSeparator />
-
-                    <CommandGroup heading="Projets récents">
-                        {projects
-                            .filter((p) => getProjectStatus(p.id) !== null)
-                            .map((project) => {
-                                const status = getProjectStatus(project.id)!;
-                                const Icon = statusIcon[status];
-                                return (
-                                    <CommandItem
-                                        key={project.id}
-                                        onSelect={() =>
-                                            runCommand(() =>
-                                                openProject(project.id, {
-                                                    onClose: () => setOpen(true),
-                                                })
-                                            )
-                                        }
-                                    >
-                                        <Tooltip>
-                                            <TooltipTrigger asChild>
-                                                <span className="mr-2 inline-flex">
-                                                    <Icon className="h-4 w-4" />
-                                                </span>
-                                            </TooltipTrigger>
-                                            <TooltipContent side="left">
-                                                {statusLabel[status]}
-                                            </TooltipContent>
-                                        </Tooltip>
-                                        {project.name}
-                                        <span className="ml-2 text-xs text-muted-foreground">
-                                            {project.tags.join(", ")}
-                                        </span>
-                                    </CommandItem>
-                                );
-                            })}
-                    </CommandGroup>
-
-                    {search.length > 0 && (
+                    {search.length > 0 ? (
+                        <CommandGroup>
+                            {navigationItems}
+                            {profilItems}
+                            {personnalisationItems}
+                            {recentProjectItems}
+                            {pageItems}
+                            {docItems}
+                            {veilleItems}
+                            {remainingProjectItems}
+                            {alternanceItems}
+                        </CommandGroup>
+                    ) : (
                         <>
+                            <CommandGroup heading="Navigation">{navigationItems}</CommandGroup>
                             <CommandSeparator />
-                            <CommandGroup heading="Pages">
-                                <CommandItem
-                                    value="alternance zenetys développement web"
-                                    onSelect={() => runCommand(() => router.push("/alternance/"))}
-                                >
-                                    <Briefcase className="mr-2 h-4 w-4" />
-                                    Alternance
-                                    <span className="ml-2 text-xs text-muted-foreground">
-                                        Zenetys
-                                    </span>
-                                </CommandItem>
-                                <CommandItem
-                                    value="veilles technologiques node.js typescript radix next.js vue.js"
-                                    onSelect={() => runCommand(() => router.push("/veilles/"))}
-                                >
-                                    <Newspaper className="mr-2 h-4 w-4" />
-                                    Veilles technologiques
-                                    <span className="ml-2 text-xs text-muted-foreground">
-                                        Node.js
-                                    </span>
-                                </CommandItem>
+                            <CommandGroup heading="Profil">{profilItems}</CommandGroup>
+                            <CommandSeparator />
+                            <CommandGroup heading="Personnalisation">
+                                {personnalisationItems}
                             </CommandGroup>
-
                             <CommandSeparator />
-                            <CommandGroup heading="Toutes les veilles">
-                                {veilles.map((veille) => (
-                                    <CommandItem
-                                        key={veille.id}
-                                        value={`${veille.title} ${veille.description} ${veille.keywords?.join(" ") || ""} veille veilles technologique technologiques`}
-                                        onSelect={() =>
-                                            runCommand(() => router.push(`/veilles/#${veille.id}`))
-                                        }
-                                    >
-                                        <Newspaper className="mr-2 h-4 w-4" />
-                                        {veille.title}
-                                        <span className="ml-2 text-xs text-muted-foreground truncate">
-                                            {veille.keywords?.slice(0, 3).join(", ") || ""}
-                                        </span>
-                                    </CommandItem>
-                                ))}
-                            </CommandGroup>
-
-                            <CommandSeparator />
-                            <CommandGroup heading="Tous les projets">
-                                {projects
-                                    .filter((p) => getProjectStatus(p.id) === null)
-                                    .map((project) => (
-                                        <CommandItem
-                                            key={project.id}
-                                            value={`${project.name} ${project.description} ${project.tags.join(" ")}`}
-                                            onSelect={() =>
-                                                runCommand(() =>
-                                                    openProject(project.id, {
-                                                        onClose: () => setOpen(true),
-                                                    })
-                                                )
-                                            }
-                                        >
-                                            <FolderOpen className="mr-2 h-4 w-4" />
-                                            {project.name}
-                                            <span className="ml-2 text-xs text-muted-foreground truncate">
-                                                {project.tags.slice(0, 3).join(", ")}
-                                            </span>
-                                        </CommandItem>
-                                    ))}
-                            </CommandGroup>
-
-                            <CommandSeparator />
-                            <CommandGroup heading="Projets d'alternance">
-                                {alternanceProjects.map((project) => (
-                                    <CommandItem
-                                        key={project.id}
-                                        value={`${project.title} ${project.description} ${project.technologies.join(" ")}`}
-                                        onSelect={() =>
-                                            runCommand(() =>
-                                                router.push(`/alternance/#${project.id}`)
-                                            )
-                                        }
-                                    >
-                                        <Briefcase className="mr-2 h-4 w-4" />
-                                        {project.title}
-                                        <span className="ml-2 text-xs text-muted-foreground truncate">
-                                            {project.technologies.slice(0, 3).join(", ")}
-                                        </span>
-                                    </CommandItem>
-                                ))}
+                            <CommandGroup heading="Projets récents">
+                                {recentProjectItems}
                             </CommandGroup>
                         </>
                     )}
-
-                    <CommandSeparator />
-
-                    <CommandGroup heading="Curseur">
-                        <CommandItem
-                            onSelect={() => runCommand(() => setCursorEnabled(!cursorEnabled))}
-                        >
-                            <MousePointer className="mr-2 h-4 w-4" />
-                            {cursorEnabled ? "Désactiver" : "Activer"} le curseur personnalisé
-                        </CommandItem>
-                    </CommandGroup>
-
-                    <CommandGroup heading="Thème">
-                        <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
-                            <Sun className="mr-2 h-4 w-4" />
-                            Thème clair
-                        </CommandItem>
-                        <CommandItem onSelect={() => runCommand(() => setTheme("dark"))}>
-                            <Moon className="mr-2 h-4 w-4" />
-                            Thème sombre
-                        </CommandItem>
-                        <CommandItem onSelect={() => runCommand(() => setTheme("system"))}>
-                            <Monitor className="mr-2 h-4 w-4" />
-                            Thème système
-                        </CommandItem>
-                    </CommandGroup>
                 </CommandList>
             </CommandDialog>
             <ContactDialog open={contactOpen} onOpenChange={setContactOpen} />
