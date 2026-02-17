@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { ProjectMeta } from "@/components/ui/flags";
 import { useProjectStatus } from "@/components/ui/status";
 import type { Project } from "@/data/projects";
-import { getApiKey, useApi } from "@/hooks/api";
+import { getApiKey } from "@/data/redirects";
+import { useApi } from "@/hooks/api";
 
 interface DetailHeaderProps {
     project: Project | null;

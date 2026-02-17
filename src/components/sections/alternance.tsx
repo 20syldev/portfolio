@@ -9,7 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Video } from "@/components/ui/video";
 import { projects } from "@/data/alternance";
-import { getApiKey, useApi } from "@/hooks/api";
+import { getApiKey } from "@/data/redirects";
+import { useApi } from "@/hooks/api";
 import { useSmoothScroll } from "@/hooks/scroll";
 
 /**
