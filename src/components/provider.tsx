@@ -5,8 +5,8 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import * as React from "react";
 import { useEffect } from "react";
 
-import { CursorProvider } from "@/components/cursor";
-import { PdfViewerProvider } from "@/components/viewer";
+import { CursorProvider } from "@/components/utils/cursor";
+import { PdfViewerProvider } from "@/components/utils/viewer";
 import { ProjectDetailProvider } from "@/hooks/detail";
 
 /**

@@ -8,7 +8,7 @@ import { ThemeToggle } from "@/components/layout/toggle";
 import { Button } from "@/components/ui/button";
 import { profile } from "@/data/profile";
 
-import { CommandMenu, SearchButton } from "../command";
+import { CommandMenu, SearchButton } from "../utils/command";
 
 interface NavProps {
     currentTab: number;

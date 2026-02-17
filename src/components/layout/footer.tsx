@@ -4,7 +4,7 @@ import { Github, Linkedin, UserRound } from "lucide-react";
 import Link from "next/link";
 import * as React from "react";
 
-import { ContactDialog } from "@/components/contact";
+import { ContactDialog } from "@/components/dialogs/contact";
 import { Button } from "@/components/ui/button";
 import { profile } from "@/data/profile";
 

@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { CardDialog } from "@/components/card";
+import { CardDialog } from "@/components/dialogs/card";
 import { Badge } from "@/components/ui/badge";
 import { ProjectBadges } from "@/components/ui/flags";
 import { StatusBadge, useProjectStatus } from "@/components/ui/status";

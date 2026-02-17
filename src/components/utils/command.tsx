@@ -24,8 +24,8 @@ import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import * as React from "react";
 
-import { ContactDialog } from "@/components/contact";
-import { useCursor } from "@/components/cursor";
+import { ContactDialog } from "@/components/dialogs/contact";
+import { useCursor } from "@/components/utils/cursor";
 import { Button } from "@/components/ui/button";
 import {
     CommandDialog,
@@ -37,7 +37,7 @@ import {
     CommandSeparator,
 } from "@/components/ui/command";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { usePdfViewer } from "@/components/viewer";
+import { usePdfViewer } from "@/components/utils/viewer";
 import { projects as alternanceProjects } from "@/data/alternance";
 import { docs } from "@/data/docs";
 import { projects } from "@/data/projects";

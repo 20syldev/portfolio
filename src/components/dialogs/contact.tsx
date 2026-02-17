@@ -12,7 +12,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
-import { usePdfViewer } from "@/components/viewer";
+import { usePdfViewer } from "@/components/utils/viewer";
 import type { ContactLink } from "@/data/profile";
 import { contacts, profile } from "@/data/profile";
 

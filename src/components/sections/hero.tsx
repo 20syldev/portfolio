@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { usePdfViewer } from "@/components/viewer";
+import { usePdfViewer } from "@/components/utils/viewer";
 import { profile } from "@/data/profile";
 
 /**
