@@ -12,6 +12,16 @@ import { profile } from "@/data/profile";
  * Site footer.
  * Displays copyright and social media links.
  *
+ * @example
+ * // To keep the footer at the bottom of the page:
+ * <div className="flex flex-col h-dvh overflow-y-auto scrollbar-none">
+ *     <Nav />
+ *     <main className="flex-1 container mx-auto px-4 pt-24 pb-12">
+ *       {content}
+ *     </main>
+ *     <Footer />
+ * </div>
+ *
  * @returns The rendered footer
  */
 export function Footer() {

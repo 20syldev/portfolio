@@ -9,6 +9,14 @@ import { CursorProvider } from "@/components/cursor";
 import { PdfViewerProvider } from "@/components/viewer";
 import { ProjectDetailProvider } from "@/hooks/detail";
 
+/**
+ * Provider for Lenis smooth scrolling functionality.
+ * Integrates smooth scroll behavior with React and Next.js routing.
+ *
+ * @param props - Provider props
+ * @param props.children - Child components to wrap with smooth scroll context
+ * @returns The rendered provider with smooth scroll functionality
+ */
 function LenisProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         const lenis = new Lenis({

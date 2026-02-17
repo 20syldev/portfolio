@@ -326,10 +326,6 @@ export function InfoCards() {
     const [scrollProgress, setScrollProgress] = useState(0);
     useDragScroll(scrollRef);
 
-    /**
-     * Handle scroll event.
-     * Updates scroll progress state when carousel is scrolled.
-     */
     const handleScroll = useCallback(() => {
         if (!scrollRef.current) return;
         const { scrollLeft, clientWidth } = scrollRef.current;
