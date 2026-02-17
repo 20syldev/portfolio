@@ -5,3 +5,4 @@ out/
 next-env.d.ts
 src/data/projects.json
 src/data/veille.json
+src/data/docs.json
