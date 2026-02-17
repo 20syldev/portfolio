@@ -1,1 +1,4 @@
 public/legacy/
+node_modules/
+out/
+.next/
