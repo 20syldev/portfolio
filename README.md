@@ -83,3 +83,12 @@ npm run generate && next dev --hostname 0.0.0.0 --port 2146
 - `sylvain.pro/card/api` - Carte du projet API
 - `sylvain.pro/projet/api` - Vue complète du projet API
 - `sylvain.pro/preview/api` - Preview du projet API
+
+---
+
+## URLs de raccourcis
+
+| URL   | Description                                      |
+|-------|--------------------------------------------------|
+| `/me` | Ouvre la popup "À propos de moi"                 |
+| `/cv` | Ouvre le CV en plein écran                       |
