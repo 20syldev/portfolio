@@ -11,7 +11,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
-import { useContainerSmoothScroll } from "@/hooks/scroll";
+import { useSmoothScroll } from "@/hooks/scroll";
 import { cn } from "@/lib/utils";
 
 /**
@@ -45,12 +45,14 @@ function CommandDialog({
     children,
     className,
     showCloseButton = true,
+    filter,
     ...props
 }: React.ComponentProps<typeof Dialog> & {
     title?: string;
     description?: string;
     className?: string;
     showCloseButton?: boolean;
+    filter?: (value: string, search: string, keywords?: string[]) => number;
 }) {
     return (
         <Dialog {...props}>
@@ -66,7 +68,10 @@ function CommandDialog({
                 )}
                 showCloseButton={showCloseButton}
             >
-                <Command className="[&_[cmdk-group-heading]]:text-muted-foreground **:data-[slot=command-input-wrapper]:h-12 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+                <Command
+                    filter={filter}
+                    className="[&_[cmdk-group-heading]]:text-muted-foreground **:data-[slot=command-input-wrapper]:h-12 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5"
+                >
                     {children}
                 </Command>
             </DialogContent>
@@ -108,19 +113,51 @@ function CommandInput({
  * @param props - Command list primitive props
  * @returns The rendered command list
  */
-function CommandList({ className, ...props }: React.ComponentProps<typeof CommandPrimitive.List>) {
-    const scrollRef = useContainerSmoothScroll<HTMLDivElement>();
+const CommandList = React.forwardRef<
+    HTMLDivElement,
+    React.ComponentProps<typeof CommandPrimitive.List>
+>(({ className, ...props }, ref) => {
+    const { scrollRef } = useSmoothScroll<HTMLDivElement>({ delayed: true });
+    const internalRef = React.useRef<HTMLDivElement>(null);
+
+    // Sync refs using useEffect to avoid mutation during render
+    React.useEffect(() => {
+        const node = internalRef.current;
+        if (!node) return;
+
+        // Set scrollRef
+        if ("current" in scrollRef) {
+            scrollRef.current = node;
+        }
+
+        // Set external ref
+        if (typeof ref === "function") {
+            ref(node);
+        } else if (ref) {
+            ref.current = node;
+        }
+
+        // Cleanup
+        return () => {
+            if (typeof ref === "function") {
+                ref(null);
+            } else if (ref) {
+                ref.current = null;
+            }
+        };
+    }, [ref, scrollRef]);
 
     return (
         <CommandPrimitive.List
-            ref={scrollRef}
+            ref={internalRef}
             data-slot="command-list"
             data-lenis-prevent
             className={cn("max-h-[300px] scroll-py-1 overflow-x-hidden overflow-y-auto", className)}
             {...props}
         />
     );
-}
+});
+CommandList.displayName = "CommandList";
 
 /**
  * Empty state message displayed when no command results match.
