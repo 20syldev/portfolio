@@ -2,12 +2,14 @@
 
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ThemeToggle } from "@/components/layout/toggle";
 import { Button } from "@/components/ui/button";
 import { CommandMenu, SearchButton } from "@/components/utils/command";
 import { profile } from "@/data/profile";
+
+let hasAnimated = false;
 
 interface NavProps {
     currentTab: number;
@@ -31,9 +33,16 @@ interface NavProps {
 export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
     const isHome = currentTab === 0;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [animate] = useState(!hasAnimated);
+
+    useEffect(() => {
+        hasAnimated = true;
+    }, []);
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none animate-header-in">
+        <header
+            className={`fixed top-0 left-0 right-0 z-50 pointer-events-none ${animate ? "animate-header-in" : ""}`}
+        >
             {/* Global command dialog */}
             <CommandMenu />
 
