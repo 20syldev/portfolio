@@ -3,6 +3,7 @@
 import { ArrowLeft, BookOpen } from "lucide-react";
 import Link from "next/link";
 
+import { RandomButton } from "@/components/dialogs/random";
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
 import { Button } from "@/components/ui/button";
@@ -35,6 +36,7 @@ export default function HelpPage() {
                             <ArrowLeft className="h-4 w-4" />
                         </Button>
                     </Link>
+                    <RandomButton />
                 </div>
                 <div className="mb-12 text-center">
                     <h1 className="mb-2 text-4xl font-bold">Documentations</h1>
@@ -65,22 +67,24 @@ export default function HelpPage() {
                                     </span>
                                 </div>
                                 <div className="flex flex-wrap gap-2">
-                                    {categoryDocs.slice(0, 4).map((doc) => {
-                                        const limit = categoryDocs.length > 1 ? 30 : 60;
-                                        return (
-                                            <span
-                                                key={doc.id}
-                                                className="px-2.5 py-1 text-xs rounded-full bg-muted text-muted-foreground"
-                                                title={doc.title}
-                                            >
-                                                {doc.title.length > limit
-                                                    ? doc.title.slice(0, limit - 3) + "..."
-                                                    : doc.title}
-                                            </span>
-                                        );
-                                    })}
+                                    {categoryDocs.slice(0, 4).map((doc, index) => (
+                                        <span
+                                            key={doc.id}
+                                            className={`px-2.5 py-1 text-xs rounded-full bg-muted text-muted-foreground whitespace-nowrap ${index >= 1 ? "sm:hidden 2xl:inline-block" : ""}`}
+                                            title={doc.title}
+                                        >
+                                            {doc.title.length > 30
+                                                ? doc.title.slice(0, 27) + "..."
+                                                : doc.title}
+                                        </span>
+                                    ))}
+                                    {categoryDocs.length > 1 && (
+                                        <span className="hidden sm:inline-block 2xl:hidden px-2.5 py-1 text-xs rounded-full bg-muted text-primary font-medium">
+                                            + {categoryDocs.length - 1}
+                                        </span>
+                                    )}
                                     {categoryDocs.length > 4 && (
-                                        <span className="px-2.5 py-1 text-xs rounded-full bg-muted text-primary font-medium">
+                                        <span className="sm:hidden 2xl:inline-block px-2.5 py-1 text-xs rounded-full bg-muted text-primary font-medium">
                                             + {categoryDocs.length - 4}
                                         </span>
                                     )}

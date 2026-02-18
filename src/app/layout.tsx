@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 
 import { ThemeProvider } from "@/components/provider";
-
-import { CommandProvider } from "../components/utils/command";
+import { CommandProvider } from "@/components/utils/command";
 import "./globals.css";
 
 const outfit = Outfit({

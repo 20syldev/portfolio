@@ -3,6 +3,7 @@
 import { ArrowLeft, ArrowRight, FileText } from "lucide-react";
 import Link from "next/link";
 
+import { RandomButton } from "@/components/dialogs/random";
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
 import { Button } from "@/components/ui/button";
@@ -44,6 +45,7 @@ export function Listing({ category, docs, subcategories = [] }: ListingProps) {
                             <ArrowLeft className="h-4 w-4" />
                         </Button>
                     </Link>
+                    <RandomButton />
                 </div>
                 <div className="mb-12 text-center">
                     <h1 className="mb-2 text-4xl font-bold capitalize">{category}</h1>
