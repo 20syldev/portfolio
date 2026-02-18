@@ -2,16 +2,47 @@
 
 import { ArrowLeft, BookOpen } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 
 import { RandomButton } from "@/components/dialogs/random";
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
 import { Button } from "@/components/ui/button";
+import type { Doc } from "@/data/docs";
 import { docs } from "@/data/docs";
+import { useOverflow } from "@/hooks/overflow";
 import { useSmoothScroll } from "@/hooks/scroll";
 import { getDocCategories } from "@/lib/docs";
 import { tabs, urls } from "@/lib/nav";
+
+/**
+ * Displays doc titles on a single line with overflow truncation.
+ * Uses useOverflow to measure, truncate and show a "+X" counter.
+ *
+ * @param docs - List of docs to display
+ * @returns The rendered tag row
+ */
+function DocPreview({ docs: items }: { docs: Doc[] }) {
+    const containerRef = useOverflow<HTMLDivElement>(items.length);
+
+    return (
+        <div ref={containerRef} className="flex flex-nowrap gap-2 overflow-hidden">
+            {items.map((doc) => (
+                <span
+                    key={doc.id}
+                    data-item
+                    className="px-2.5 py-1 text-xs rounded-full bg-muted text-muted-foreground whitespace-nowrap"
+                >
+                    {doc.title}
+                </span>
+            ))}
+            <span
+                data-counter
+                className="px-2.5 py-1 text-xs rounded-full bg-muted text-primary font-medium whitespace-nowrap"
+                style={{ display: "none" }}
+            />
+        </div>
+    );
+}
 
 /**
  * Help index page listing all documentation categories.
@@ -21,14 +52,6 @@ import { tabs, urls } from "@/lib/nav";
 export default function HelpPage() {
     const { scrollRef } = useSmoothScroll<HTMLDivElement>();
     const categories = getDocCategories();
-    const [randomIndices] = useState(() =>
-        Object.fromEntries(
-            categories.map((c) => {
-                const count = docs.filter((d) => d.category === c).length;
-                return [c, Math.floor(Math.random() * count)];
-            })
-        )
-    );
 
     return (
         <div ref={scrollRef} className="flex flex-col h-dvh overflow-y-auto scrollbar-none">
@@ -62,7 +85,7 @@ export default function HelpPage() {
                             <Link
                                 key={category}
                                 href={`/help/${category}`}
-                                className="flex flex-col gap-3 rounded-lg border bg-card p-6 transition-colors hover:bg-muted/50 card-hover"
+                                className="flex flex-col gap-3 rounded-lg border bg-card p-6 transition-colors hover:bg-muted/50 card-hover min-w-0"
                             >
                                 <div className="flex items-center justify-between gap-3">
                                     <div className="flex items-center gap-3">
@@ -75,19 +98,7 @@ export default function HelpPage() {
                                         {categoryDocs.length}
                                     </span>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <span
-                                        suppressHydrationWarning
-                                        className="px-2.5 py-1 text-xs rounded-full bg-muted text-muted-foreground truncate min-w-0"
-                                    >
-                                        {categoryDocs[randomIndices[category]].title}
-                                    </span>
-                                    {categoryDocs.length > 1 && (
-                                        <span className="px-2.5 py-1 text-xs rounded-full bg-muted text-primary font-medium whitespace-nowrap">
-                                            + {categoryDocs.length - 1}
-                                        </span>
-                                    )}
-                                </div>
+                                <DocPreview docs={categoryDocs} />
                             </Link>
                         );
                     })}
