@@ -55,13 +55,16 @@ export default function Home() {
             return;
         }
         const url = urls[currentTab];
-        if (location.pathname !== url) history.pushState(null, "", url);
+        const path = location.pathname;
+        if (!urls.includes(path)) return;
+        if (path !== url) history.pushState(null, "", url);
         document.title = titles[currentTab];
     }, [currentTab]);
 
     // Sync tab when pathname changes
     useEffect(() => {
         if (!mounted.current) return;
+        if (!urls.includes(pathname)) return;
         const expected = getTab(pathname);
         if (expected !== currentTab) goToTab(expected);
     }, [pathname, currentTab, goToTab]);
