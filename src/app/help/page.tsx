@@ -2,6 +2,7 @@
 
 import { ArrowLeft, BookOpen } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 import { RandomButton } from "@/components/dialogs/random";
 import { Footer } from "@/components/layout/footer";
@@ -20,6 +21,14 @@ import { tabs, urls } from "@/lib/nav";
 export default function HelpPage() {
     const { scrollRef } = useSmoothScroll<HTMLDivElement>();
     const categories = getDocCategories();
+    const [randomIndices] = useState(() =>
+        Object.fromEntries(
+            categories.map((c) => {
+                const count = docs.filter((d) => d.category === c).length;
+                return [c, Math.floor(Math.random() * count)];
+            })
+        )
+    );
 
     return (
         <div ref={scrollRef} className="flex flex-col h-dvh overflow-y-auto scrollbar-none">
@@ -46,7 +55,7 @@ export default function HelpPage() {
                     </p>
                 </div>
 
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 items-start">
                     {categories.map((category) => {
                         const categoryDocs = docs.filter((d) => d.category === category);
                         return (
@@ -66,26 +75,16 @@ export default function HelpPage() {
                                         {categoryDocs.length}
                                     </span>
                                 </div>
-                                <div className="flex flex-wrap gap-2">
-                                    {categoryDocs.slice(0, 4).map((doc, index) => (
-                                        <span
-                                            key={doc.id}
-                                            className={`px-2.5 py-1 text-xs rounded-full bg-muted text-muted-foreground whitespace-nowrap ${index >= 1 ? "sm:hidden 2xl:inline-block" : ""}`}
-                                            title={doc.title}
-                                        >
-                                            {doc.title.length > 30
-                                                ? doc.title.slice(0, 27) + "..."
-                                                : doc.title}
-                                        </span>
-                                    ))}
+                                <div className="flex items-center gap-2">
+                                    <span
+                                        suppressHydrationWarning
+                                        className="px-2.5 py-1 text-xs rounded-full bg-muted text-muted-foreground truncate min-w-0"
+                                    >
+                                        {categoryDocs[randomIndices[category]].title}
+                                    </span>
                                     {categoryDocs.length > 1 && (
-                                        <span className="hidden sm:inline-block 2xl:hidden px-2.5 py-1 text-xs rounded-full bg-muted text-primary font-medium">
+                                        <span className="px-2.5 py-1 text-xs rounded-full bg-muted text-primary font-medium whitespace-nowrap">
                                             + {categoryDocs.length - 1}
-                                        </span>
-                                    )}
-                                    {categoryDocs.length > 4 && (
-                                        <span className="sm:hidden 2xl:inline-block px-2.5 py-1 text-xs rounded-full bg-muted text-primary font-medium">
-                                            + {categoryDocs.length - 4}
                                         </span>
                                     )}
                                 </div>
