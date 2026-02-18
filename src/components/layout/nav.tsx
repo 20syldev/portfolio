@@ -6,9 +6,8 @@ import { useState } from "react";
 
 import { ThemeToggle } from "@/components/layout/toggle";
 import { Button } from "@/components/ui/button";
+import { CommandMenu, SearchButton } from "@/components/utils/command";
 import { profile } from "@/data/profile";
-
-import { CommandMenu, SearchButton } from "../utils/command";
 
 interface NavProps {
     currentTab: number;
@@ -34,14 +33,14 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
+        <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none animate-header-in">
             {/* Global command dialog */}
             <CommandMenu />
 
             <div
                 className={`
                     pointer-events-auto
-                    transition-all duration-500 ease-out
+                    transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
                     ${
                         isHome
                             ? "relative mt-4 md:mt-6 mx-auto w-fit rounded-full bg-muted/80 backdrop-blur-sm border border-border/50"
@@ -52,7 +51,7 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
                 <div
                     className={`
                     flex items-center
-                    transition-all duration-500 ease-out
+                    transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
                     ${isHome ? "justify-center px-1 md:px-1.5 md:py-1" : "justify-between px-4 md:px-6 h-16"}
                 `}
                 >
@@ -69,7 +68,7 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
                         }
                         className={`
                             text-xl font-bold whitespace-nowrap
-                            transition-all duration-500 ease-out
+                            transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
                             ${isHome ? "w-0 opacity-0 overflow-hidden" : "w-auto opacity-100"}
                         `}
                     >
@@ -80,13 +79,13 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
                     <nav
                         className={`
                         flex items-center gap-1
-                        transition-all duration-500 ease-out
+                        transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
                         ${isHome ? "" : "hidden md:flex"}
                     `}
                     >
                         {tabs.map((tab, index) => {
                             const className = `
-                                transition-all duration-300 ease-out
+                                transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]
                                 ${
                                     isHome
                                         ? `px-3 py-1 md:px-4 md:py-2 text-xs md:text-sm rounded-full ${
@@ -126,7 +125,7 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
                     <div
                         className={`
                         flex items-center gap-1 h-8
-                        transition-all duration-500 ease-out
+                        transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
                         ${isHome ? "w-0 opacity-0 overflow-hidden" : "w-auto opacity-100"}
                     `}
                     >
@@ -218,8 +217,8 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
             {/* Floating actions - desktop on home, mobile hamburger on home */}
             <div
                 className={`
-                    fixed right-4 md:right-6 top-4 md:top-6 flex items-center gap-1 pointer-events-auto
-                    transition-all duration-500 ease-out
+                    fixed right-4 md:right-6 top-4 md:top-7 flex items-center gap-1 pointer-events-auto
+                    transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
                     ${
                         isHome
                             ? "opacity-100 translate-y-0"

@@ -133,7 +133,7 @@ export function ContactDialog({ open, onOpenChange, autoFocusClose }: ContactDia
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent
-                className="max-w-md sm:max-w-md lg:max-w-lg"
+                className="p-4 sm:p-6 sm:max-w-md lg:max-w-lg"
                 onOpenAutoFocus={
                     autoFocusClose
                         ? (e) => {

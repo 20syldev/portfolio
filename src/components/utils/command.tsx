@@ -25,7 +25,6 @@ import { useTheme } from "next-themes";
 import * as React from "react";
 
 import { ContactDialog } from "@/components/dialogs/contact";
-import { useCursor } from "@/components/utils/cursor";
 import { Button } from "@/components/ui/button";
 import {
     CommandDialog,
@@ -37,6 +36,7 @@ import {
     CommandSeparator,
 } from "@/components/ui/command";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { useCursor } from "@/components/utils/cursor";
 import { usePdfViewer } from "@/components/utils/viewer";
 import { projects as alternanceProjects } from "@/data/alternance";
 import { docs } from "@/data/docs";
@@ -44,6 +44,7 @@ import { projects } from "@/data/projects";
 import { veilles } from "@/data/veille";
 import { useApi } from "@/hooks/api";
 import { useProjectDetail } from "@/hooks/detail";
+import { cn } from "@/lib/utils";
 
 type ProjectStatus = "new" | "updated" | "patched" | null;
 
@@ -427,11 +428,10 @@ export function CommandMenu() {
                     if (!open) setSearch("");
                 }}
                 filter={commandFilter}
-                className={
-                    scrolled
-                        ? "sm:max-w-2xl transition-all duration-300"
-                        : "transition-all duration-300"
-                }
+                className={cn(
+                    "transition-all duration-300",
+                    scrolled && "md:max-w-[calc(100%-6rem)] lg:max-w-4xl"
+                )}
             >
                 <CommandInput
                     placeholder="Rechercher..."
@@ -440,11 +440,7 @@ export function CommandMenu() {
                 />
                 <CommandList
                     onScroll={scroll}
-                    className={
-                        scrolled
-                            ? "!max-h-[600px] transition-all duration-300"
-                            : "transition-all duration-300"
-                    }
+                    className={cn("transition-all duration-300", scrolled && "!max-h-[500px]")}
                 >
                     <CommandEmpty>Aucun résultat.</CommandEmpty>
 
@@ -462,17 +458,47 @@ export function CommandMenu() {
                         </CommandGroup>
                     ) : (
                         <>
-                            <CommandGroup heading="Navigation">{navigationItems}</CommandGroup>
-                            <CommandSeparator />
-                            <CommandGroup heading="Profil">{profilItems}</CommandGroup>
-                            <CommandSeparator />
-                            <CommandGroup heading="Personnalisation">
-                                {personnalisationItems}
-                            </CommandGroup>
-                            <CommandSeparator />
-                            <CommandGroup heading="Projets récents">
-                                {recentProjectItems}
-                            </CommandGroup>
+                            {scrolled ? (
+                                <div className="hidden md:flex md:gap-2 md:p-2">
+                                    <div className="flex-1 space-y-2">
+                                        <div className="rounded-lg border">
+                                            <CommandGroup heading="Navigation">
+                                                {navigationItems}
+                                            </CommandGroup>
+                                        </div>
+                                        <div className="rounded-lg border">
+                                            <CommandGroup heading="Personnalisation">
+                                                {personnalisationItems}
+                                            </CommandGroup>
+                                        </div>
+                                    </div>
+                                    <div className="flex-1 space-y-2">
+                                        <div className="rounded-lg border">
+                                            <CommandGroup heading="Profil">
+                                                {profilItems}
+                                            </CommandGroup>
+                                        </div>
+                                        <div className="rounded-lg border">
+                                            <CommandGroup heading="Projets récents">
+                                                {recentProjectItems}
+                                            </CommandGroup>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : null}
+                            <div className={cn(scrolled && "md:hidden")}>
+                                <CommandGroup heading="Navigation">{navigationItems}</CommandGroup>
+                                <CommandSeparator />
+                                <CommandGroup heading="Profil">{profilItems}</CommandGroup>
+                                <CommandSeparator />
+                                <CommandGroup heading="Personnalisation">
+                                    {personnalisationItems}
+                                </CommandGroup>
+                                <CommandSeparator />
+                                <CommandGroup heading="Projets récents">
+                                    {recentProjectItems}
+                                </CommandGroup>
+                            </div>
                         </>
                     )}
                 </CommandList>
