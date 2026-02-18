@@ -64,8 +64,9 @@ export default function Confidentialite() {
                         <p className="text-sm text-muted-foreground">
                             Ce site n'utilise aucun cookie. Le seul mécanisme de stockage utilisé
                             est le <strong className="text-foreground">localStorage</strong> du
-                            navigateur, uniquement pour sauvegarder votre préférence de thème
-                            (clair, sombre ou système). Rien d'autre n'est stocké.
+                            navigateur, uniquement pour sauvegarder vos préférences : le thème
+                            (clair, sombre ou système) et l'activation du curseur personnalisé. Rien
+                            d'autre n'est stocké.
                         </p>
                     </section>
 
