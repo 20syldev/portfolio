@@ -30,9 +30,24 @@ function DocPreview({ docs: items }: { docs: Doc[] }) {
         setShuffled([...items].sort(() => Math.random() - 0.5));
     }, []);
 
+    if (!shuffled) {
+        return (
+            <div className="flex flex-nowrap gap-2 overflow-hidden">
+                {[0, 1, 2].map((i) => (
+                    <span
+                        key={i}
+                        suppressHydrationWarning
+                        className="h-6 rounded-full bg-muted animate-pulse"
+                        style={{ width: 32 + Math.floor(Math.random() * 148) }}
+                    />
+                ))}
+            </div>
+        );
+    }
+
     return (
         <div ref={containerRef} className="flex flex-nowrap gap-2 overflow-hidden">
-            {shuffled?.map((doc) => (
+            {shuffled.map((doc) => (
                 <span
                     key={doc.id}
                     data-item
