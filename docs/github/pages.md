@@ -244,6 +244,8 @@ Ce workflow se déclenche automatiquement à chaque push sur la branche `master`
 
 > **Note** : Adaptez le nom de la branche (`master` ou `main`) selon la configuration de votre dépôt.
 
+Cet exemple convient pour un site HTML statique. Pour des projets utilisant un framework, consultez les guides dédiés : [Next.js](./workflows/nextjs.md), [VitePress](./workflows/vitepress.md).
+
 ## Problèmes de chemins d'accès {#paths}
 
 ### Le problème des chemins absolus
