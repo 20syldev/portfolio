@@ -2,6 +2,7 @@
 
 import { ArrowLeft, BookOpen } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 import { RandomButton } from "@/components/dialogs/random";
 import { Footer } from "@/components/layout/footer";
@@ -22,11 +23,16 @@ import { tabs, urls } from "@/lib/nav";
  * @returns The rendered tag row
  */
 function DocPreview({ docs: items }: { docs: Doc[] }) {
-    const containerRef = useOverflow<HTMLDivElement>(items.length);
+    const [shuffled, setShuffled] = useState<Doc[] | null>(null);
+    const containerRef = useOverflow<HTMLDivElement>(shuffled?.length ?? 0);
+
+    useEffect(() => {
+        setShuffled([...items].sort(() => Math.random() - 0.5));
+    }, []);
 
     return (
         <div ref={containerRef} className="flex flex-nowrap gap-2 overflow-hidden">
-            {items.map((doc) => (
+            {shuffled?.map((doc) => (
                 <span
                     key={doc.id}
                     data-item
