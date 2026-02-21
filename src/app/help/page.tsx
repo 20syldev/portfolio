@@ -2,7 +2,7 @@
 
 import { ArrowLeft, BookOpen } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { RandomButton } from "@/components/dialogs/random";
 import { Footer } from "@/components/layout/footer";
@@ -24,21 +24,24 @@ import { tabs, urls } from "@/lib/nav";
  */
 function DocPreview({ docs: items }: { docs: Doc[] }) {
     const [shuffled, setShuffled] = useState<Doc[] | null>(null);
+    const [skeletonWidths] = useState(() =>
+        [0, 1, 2].map(() => 32 + Math.floor(Math.random() * 148))
+    );
     const containerRef = useOverflow<HTMLDivElement>(shuffled?.length ?? 0);
+    const itemsRef = useRef(items);
 
     useEffect(() => {
-        setShuffled([...items].sort(() => Math.random() - 0.5));
+        setShuffled([...itemsRef.current].sort(() => Math.random() - 0.5));
     }, []);
 
     if (!shuffled) {
         return (
             <div className="flex flex-nowrap gap-2 overflow-hidden">
-                {[0, 1, 2].map((i) => (
+                {skeletonWidths.map((width, i) => (
                     <span
                         key={i}
-                        suppressHydrationWarning
                         className="h-6 rounded-full bg-muted animate-pulse"
-                        style={{ width: 32 + Math.floor(Math.random() * 148) }}
+                        style={{ width }}
                     />
                 ))}
             </div>
