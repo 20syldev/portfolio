@@ -14,15 +14,26 @@ order: 3
 curl -fsSL https://cdn.sylvain.pro/bash/mn@latest/install.sh | sh
 ```
 
-### Installation manuelle
+### Installation manuelle depuis le dépôt local
 
 ```bash
-# Télécharger et lancer l'installeur
 ./install.sh
+```
 
-# Ou manuellement :
-sudo ln -sf ~/.config/mn/mn /usr/local/bin/mn
-chmod +x ~/.config/mn/mn
+## Mise à jour {#update}
+
+### Via curl
+
+```bash
+curl -fsSL https://cdn.sylvain.pro/bash/mn@latest/install.sh | sh
+```
+
+L'installeur détecte une installation existante et met à jour les fichiers sans toucher aux données.
+
+### Depuis le dépôt local
+
+```bash
+./update.sh
 ```
 
 ## Utilisation {#usage}
