@@ -22,6 +22,7 @@ echo -e "${BLUE}→${NC} Cleaning trailing newlines..."
 
 newline_changes=""
 while read -r file; do
+    [ -f "$file" ] || continue
     before=$(cat "$file")
     perl -pe 'chomp if eof' -i "$file"
     after=$(cat "$file")
