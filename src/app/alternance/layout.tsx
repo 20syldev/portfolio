@@ -2,6 +2,14 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Alternance - Sylvain L.",
+    description:
+        "Présentation de mon alternance chez Zenetys — projets réalisés et contributions open source.",
+    openGraph: {
+        title: "Alternance - Sylvain L.",
+        description:
+            "Présentation de mon alternance chez Zenetys — projets réalisés et contributions open source.",
+        type: "website",
+    },
 };
 
 /**

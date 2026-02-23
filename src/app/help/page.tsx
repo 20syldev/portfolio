@@ -40,6 +40,7 @@ function DocPreview({ docs: items }: { docs: Doc[] }) {
                 {skeletonWidths.map((width, i) => (
                     <span
                         key={i}
+                        suppressHydrationWarning
                         className="h-6 rounded-full bg-muted animate-pulse"
                         style={{ width }}
                     />

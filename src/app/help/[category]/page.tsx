@@ -29,8 +29,16 @@ export async function generateStaticParams() {
  */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { category } = await params;
+    const capitalized = category.charAt(0).toUpperCase() + category.slice(1);
+    const description = `Documentation de la catégorie ${capitalized}.`;
     return {
-        title: `${category.charAt(0).toUpperCase() + category.slice(1)} - Aide - Sylvain L.`,
+        title: `${capitalized} - Aide - Sylvain L.`,
+        description,
+        openGraph: {
+            title: `${capitalized} - Aide - Sylvain L.`,
+            description,
+            type: "website",
+        },
     };
 }
 

@@ -2,6 +2,12 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Projets - Sylvain L.",
+    description: "Explorez mes projets open source et documentations associées.",
+    openGraph: {
+        title: "Projets - Sylvain L.",
+        description: "Explorez mes projets open source et documentations associées.",
+        type: "website",
+    },
 };
 
 /**
