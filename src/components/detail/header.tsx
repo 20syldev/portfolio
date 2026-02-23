@@ -5,10 +5,10 @@ import { ExternalLink, Github, Package, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ProjectMeta } from "@/components/ui/flags";
-import { useProjectStatus } from "@/components/ui/status";
 import type { Project } from "@/data/projects";
 import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
+import { useProjectStatus } from "@/hooks/status";
 
 interface DetailHeaderProps {
     project: Project | null;

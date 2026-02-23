@@ -7,12 +7,13 @@ import { useEffect, useState } from "react";
 import { CardDialog } from "@/components/dialogs/card";
 import { Badge } from "@/components/ui/badge";
 import { ProjectBadges } from "@/components/ui/flags";
-import { StatusBadge, useProjectStatus } from "@/components/ui/status";
+import { StatusBadge } from "@/components/ui/status";
 import { Tags } from "@/components/ui/tags";
 import { type Project, projects } from "@/data/projects";
 import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
 import { useProjectDetail } from "@/hooks/detail";
+import { useProjectStatus } from "@/hooks/status";
 
 /** Card height in pixels for row calculation */
 const CARD_HEIGHT = 124;

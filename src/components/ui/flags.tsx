@@ -1,9 +1,10 @@
 import { Archive, Clock } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
-import { type ProjectStatus, StatusBadge } from "@/components/ui/status";
+import { StatusBadge } from "@/components/ui/status";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type { Project } from "@/data/projects";
+import { type ProjectStatus } from "@/hooks/status";
 
 type ProjectLike = Pick<Project, "archived" | "paused">;
 

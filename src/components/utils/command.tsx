@@ -42,11 +42,9 @@ import { projects as alternanceProjects } from "@/data/alternance";
 import { docs } from "@/data/docs";
 import { projects } from "@/data/projects";
 import { veilles } from "@/data/veille";
-import { useApi } from "@/hooks/api";
 import { useProjectDetail } from "@/hooks/detail";
+import { type ProjectStatus, useProjectStatus } from "@/hooks/status";
 import { cn } from "@/lib/utils";
-
-type ProjectStatus = "new" | "updated" | "patched" | null;
 
 const statusIcon: Record<Exclude<ProjectStatus, null>, React.ElementType> = {
     new: Sparkles,
@@ -171,16 +169,9 @@ export function CommandMenu() {
     const router = useRouter();
     const { setTheme } = useTheme();
     const { enabled: cursorEnabled, setEnabled: setCursorEnabled } = useCursor();
-    const { newProjects, updatedProjects, patchedProjects } = useApi();
     const { openProject } = useProjectDetail();
     const { openPdf } = usePdfViewer();
-
-    const getProjectStatus = (projectId: string): ProjectStatus => {
-        if (newProjects.includes(projectId)) return "new";
-        if (updatedProjects.includes(projectId)) return "updated";
-        if (patchedProjects.includes(projectId)) return "patched";
-        return null;
-    };
+    const getProjectStatus = useProjectStatus();
 
     React.useEffect(() => {
         const down = (e: KeyboardEvent) => {

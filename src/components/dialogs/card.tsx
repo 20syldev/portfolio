@@ -12,8 +12,8 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { ProjectMeta } from "@/components/ui/flags";
-import type { ProjectStatus } from "@/components/ui/status";
 import type { Project } from "@/data/projects";
+import type { ProjectStatus } from "@/hooks/status";
 import { hasProjectContent } from "@/lib/projects";
 
 interface CardDialogProps {
