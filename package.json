@@ -1,6 +1,6 @@
 {
     "name": "portfolio",
-    "version": "4.2.3",
+    "version": "4.2.4",
     "private": true,
     "scripts": {
         "dev": "npm run generate && next dev --hostname 127.0.0.1 --port 2146",
