@@ -11,13 +11,14 @@ import { Nav } from "@/components/layout/nav";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ProjectBadges } from "@/components/ui/flags";
-import { StatusBadge, useProjectStatus } from "@/components/ui/status";
+import { StatusBadge } from "@/components/ui/status";
 import { Tags } from "@/components/ui/tags";
 import { type Project, projects } from "@/data/projects";
 import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
 import { useProjectDetail } from "@/hooks/detail";
 import { useSmoothScroll } from "@/hooks/scroll";
+import { useProjectStatus } from "@/hooks/status";
 import { tabs, urls } from "@/lib/nav";
 
 interface RepositoriesPageProps {
