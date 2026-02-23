@@ -3,7 +3,7 @@ title: Guide du style de commit
 description: Conventions et bonnes pratiques pour rédiger des messages de commit clairs et structurés.
 category: git
 slug: commit
-order: 1
+order: 7
 ---
 
 ## Introduction {#intro}
@@ -397,6 +397,4 @@ RELEASE/MAJOR: version: Bump to v2.0.0
 LICENSE/MAJOR: license: Update to MIT license
 ```
 
----
-
-En suivant ce guide, vos messages de commit seront bien plus clairs et cohérents !
+En suivant ce guide, vos messages de commit seront bien plus clairs et cohérents ! Pour maîtriser les commandes qui accompagnent ces commits, consultez les guides : [Workflow quotidien](/help/git/workflow), [Branches et fusion](/help/git/branches), [Corriger des erreurs](/help/git/corrections).
