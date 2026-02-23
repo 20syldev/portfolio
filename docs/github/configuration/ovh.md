@@ -326,4 +326,5 @@ Votre site est maintenant accessible via votre domaine OVH avec des emails profe
 - [Documentation GitHub Pages Custom Domain](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)
 - [DNS Checker](https://dnschecker.org) - Vérifier la propagation DNS
 - [MXToolbox](https://mxtoolbox.com) - Tester les enregistrements MX et email
+- [Configurer Cloudflare](/help/github/configuration/cloudflare) - Déléguer vos DNS à Cloudflare pour le CDN et la protection DDoS
 - [SSL Checker](https://www.sslshopper.com/ssl-checker.html) - Vérifier le certificat SSL

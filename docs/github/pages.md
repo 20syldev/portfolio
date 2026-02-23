@@ -105,7 +105,7 @@ Cette méthode utilise **Git en ligne de commande**. Elle est plus rapide une fo
     - Assurez-vous que le fichier `index.html` se trouve à la racine du dossier (c'est la page d'accueil par défaut).
 
 2. **Installer Git** :
-    - Téléchargez et installez Git depuis [git-scm.com](https://git-scm.com/downloads).
+    - Téléchargez et installez Git depuis [git-scm.com](https://git-scm.com/install).
     - Vérifiez l'installation avec la commande suivante :
 
 ```bash
@@ -244,7 +244,7 @@ Ce workflow se déclenche automatiquement à chaque push sur la branche `master`
 
 > **Note** : Adaptez le nom de la branche (`master` ou `main`) selon la configuration de votre dépôt.
 
-Cet exemple convient pour un site HTML statique. Pour des projets utilisant un framework, consultez les guides dédiés : [Next.js](./workflows/nextjs.md), [VitePress](./workflows/vitepress.md).
+Cet exemple convient pour un site HTML statique. Pour des projets utilisant un framework, consultez les guides dédiés : [Next.js](./workflows/next.md), [VitePress](./workflows/vitepress.md).
 
 ## Problèmes de chemins d'accès {#paths}
 
@@ -303,9 +303,9 @@ La meilleure solution est d'utiliser votre propre nom de domaine. Cela résout t
 **Avantages :**
 
 - Chemins absolus fonctionnels (le `/` pointe vers la racine de votre domaine)
-- URL personnalisée et mémorable (ex: `https://monportfolio.com`)
-- Possibilité de configurer des sous-domaines (ex: `blog.monportfolio.com`)
-- Emails professionnels (ex: `contact@monportfolio.com`)
+- URL personnalisée et mémorable (ex: `https://prenom.fr`)
+- Possibilité de configurer des sous-domaines (ex: `blog.prenom.fr`)
+- Emails professionnels (ex: `contact@prenom.fr`)
 - Système catch-all pour recevoir tous les emails du domaine
 
 Pour configurer un domaine personnalisé, consultez nos guides détaillés pour les principaux fournisseurs :

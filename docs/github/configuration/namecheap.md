@@ -226,3 +226,4 @@ Votre site est maintenant accessible via votre domaine personnalisé avec des em
 - [Documentation GitHub Pages Custom Domain](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)
 - [DNS Checker](https://dnschecker.org) - Vérifier la propagation DNS
 - [SSL Checker](https://www.sslshopper.com/ssl-checker.html) - Vérifier le certificat SSL
+- [Configurer Cloudflare](/help/github/configuration/cloudflare) - Déléguer vos DNS à Cloudflare pour le CDN et la protection DDoS

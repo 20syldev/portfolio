@@ -22,7 +22,7 @@ order: 4
 
 ### Prérequis
 
-- Un domaine enregistré (chez n'importe quel registrar)
+- Un domaine enregistré chez [NameCheap](/help/github/configuration/namecheap), [GoDaddy](/help/github/configuration/godaddy), [OVH](/help/github/configuration/ovh) ou tout autre registrar
 - Un compte Cloudflare gratuit
 - Un site GitHub Pages déjà configuré (voir [notre guide](/help/github/pages))
 - Accès au panneau de contrôle de votre dépôt GitHub
@@ -361,4 +361,5 @@ Votre site est maintenant accessible via votre domaine avec Cloudflare et des em
 - [DNS Checker](https://dnschecker.org) - Vérifier la propagation DNS
 - [Cloudflare Community](https://community.cloudflare.com) - Forum d'entraide
 - [SSL Checker](https://www.sslshopper.com/ssl-checker.html) - Vérifier le certificat SSL
+
 - [Cloudflare Status](https://www.cloudflarestatus.com) - État des services Cloudflare

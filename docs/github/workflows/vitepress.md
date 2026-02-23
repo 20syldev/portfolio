@@ -10,7 +10,7 @@ order: 1
 
 **VitePress** est un générateur de sites statiques construit sur **Vue.js** et **Vite**. Il est conçu pour créer des sites de documentation performants à partir de fichiers Markdown.
 
-Ce guide présente un workflow GitHub Actions prêt à l'emploi pour déployer automatiquement un site VitePress sur **GitHub Pages** à chaque push.
+Ce guide présente un workflow GitHub Actions prêt à l'emploi pour déployer automatiquement un site VitePress sur **GitHub Pages** à chaque push. Pour un déploiement Next.js, consultez le [workflow Next.js](/help/github/workflows/next).
 
 ### Pourquoi VitePress ?
 
@@ -20,10 +20,10 @@ Ce guide présente un workflow GitHub Actions prêt à l'emploi pour déployer a
 - **Thème par défaut** : Navigation, sidebar et recherche inclus
 - **SEO optimisé** : Génération statique avec métadonnées
 
-## Prérequis {#prerequis}
+## Prérequis {#prerequisites}
 
 - Un projet VitePress fonctionnel localement (`npm run build` passe sans erreur)
-- Un dépôt GitHub avec GitHub Pages activé (source : **GitHub Actions**)
+- Un dépôt GitHub avec [GitHub Pages](/help/github/pages) activé (source : **GitHub Actions**)
 - Node.js et npm configurés dans le projet
 
 ### Structure type d'un projet VitePress
@@ -219,7 +219,7 @@ Si votre build nécessite des variables d'environnement :
       VITE_API_URL: ${{ secrets.API_URL }}
 ```
 
-## Résumé {#resume}
+## Résumé {#summary}
 
 | Élément         | Valeur                     |
 | --------------- | -------------------------- |
@@ -230,5 +230,3 @@ Si votre build nécessite des variables d'environnement :
 | **Sortie**      | `src/.vitepress/dist`      |
 | **Déploiement** | GitHub Pages               |
 | **Checkout**    | Historique complet         |
-
-> **Voir aussi** : [Déployer un site Next.js](/help/github/workflows/nextjs) pour comparer avec un workflow Next.js, et [Héberger un site sur GitHub Pages](/help/github/pages) pour la configuration initiale de GitHub Pages.

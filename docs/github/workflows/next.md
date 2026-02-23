@@ -2,7 +2,7 @@
 title: Déployer un site Next.js
 description: Workflow GitHub Actions pour builder et déployer automatiquement un site Next.js en export statique sur GitHub Pages.
 category: github
-slug: workflows/nextjs
+slug: workflows/next
 order: 2
 ---
 
@@ -10,7 +10,7 @@ order: 2
 
 **Next.js** est un framework React qui supporte le rendu statique, le rendu côté serveur (SSR), et l'export statique. Ce dernier mode permet de générer un site entièrement statique, déployable sur **GitHub Pages** sans serveur.
 
-Ce guide présente un workflow GitHub Actions pour déployer automatiquement un projet Next.js en mode **static export** sur GitHub Pages.
+Ce guide présente un workflow GitHub Actions pour déployer automatiquement un projet Next.js en mode **static export** sur GitHub Pages. Pour un déploiement VitePress, consultez le [workflow VitePress](/help/github/workflows/vitepress).
 
 ### Export statique vs SSR
 
@@ -21,11 +21,11 @@ Ce guide présente un workflow GitHub Actions pour déployer automatiquement un 
 
 > **Important** : GitHub Pages ne supporte que des fichiers statiques. Votre projet Next.js doit être configuré en mode `export` pour fonctionner.
 
-## Prérequis {#prerequis}
+## Prérequis {#prerequisites}
 
 - Un projet Next.js fonctionnel avec `npm run build` qui passe sans erreur
 - Le mode `export` activé dans `next.config.ts`
-- Un dépôt GitHub avec GitHub Pages activé (source : **GitHub Actions**)
+- Un dépôt GitHub avec [GitHub Pages](/help/github/pages) activé (source : **GitHub Actions**)
 
 ### Configuration Next.js requise
 
@@ -235,7 +235,7 @@ Certaines fonctionnalités Next.js ne sont **pas disponibles** en mode export :
 | Client Components      | Oui        | Fonctionne normalement                    |
 | CSS Modules / Tailwind | Oui        | Fonctionne normalement                    |
 
-## Résumé {#resume}
+## Résumé {#summary}
 
 | Élément         | Valeur                             |
 | --------------- | ---------------------------------- |
@@ -246,5 +246,3 @@ Certaines fonctionnalités Next.js ne sont **pas disponibles** en mode export :
 | **Build**       | `npm run build`                    |
 | **Sortie**      | `out/`                             |
 | **Déploiement** | GitHub Pages                       |
-
-> **Voir aussi** : [Déployer un site VitePress](/help/github/workflows/vitepress) pour comparer avec un workflow VitePress, et [Héberger un site sur GitHub Pages](/help/github/pages) pour la configuration initiale de GitHub Pages.

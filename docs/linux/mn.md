@@ -74,13 +74,13 @@ Les raccourcis courts sont également supportés : `mn r` (repos), `mn a` (alias
 ## Fonctionnalités {#features}
 
 - **Connexions SSH/Custom** — stocker des serveurs avec label, IP, type de connexion (SSH ou commande personnalisée) et mot de passe optionnel, puis s'y connecter en une touche
-- **Repos GitHub** — créer des alias vers des répertoires locaux et les ouvrir dans VS Code directement
+- **Repos GitHub** — créer des alias vers des répertoires locaux et les ouvrir dans VS Code directement (pour télécharger des releases GitHub depuis le terminal, voir [gft](/help/linux/gft))
 - **Alias Bash** — ajouter, modifier, supprimer des alias avec synchronisation automatique vers `~/.bash_aliases`
 - **Fonctions shell** — gérer des fonctions Bash complexes avec synchronisation vers `~/.bash_functions`
 - **Documentation** — lire des fichiers Markdown internes directement dans le terminal
 - **Configuration** — éditer les fichiers de configuration et recharger l'environnement à la volée
 
-## Structure des fichiers {#file-structure}
+## Structure des fichiers {#structure}
 
 ```
 ~/.config/mn/
@@ -106,7 +106,7 @@ Les raccourcis courts sont également supportés : `mn r` (repos), `mn a` (alias
 └── docs/              # Documentation Markdown interne
 ```
 
-## Format des données {#data-format}
+## Format des données {#format}
 
 Toutes les données sont stockées dans des fichiers `.dat` avec `:::` comme séparateur. Les fichiers sont triés alphabétiquement et peuvent être édités manuellement.
 
@@ -157,7 +157,7 @@ Les couleurs sont définies dans `~/.config/mn/lib/core.sh`.
 
 Déposer un fichier Markdown dans `~/.config/mn/docs/` — il apparaîtra automatiquement dans le module `docs`.
 
-## Fonctionnement {#how-it-works}
+## Fonctionnement {#internals}
 
 mn stocke toutes les données dans `~/.config/mn/data/` sous forme de fichiers `.dat` séparés par `:::`, donc il :
 

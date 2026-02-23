@@ -2,7 +2,7 @@
 title: Guide complet Next.js + TypeScript + Tailwind CSS
 description: Architecture, structure, build et personnalisation d'un projet Next.js avec TypeScript et Tailwind CSS.
 category: frameworks
-slug: nextjs
+slug: next
 order: 1
 ---
 
@@ -174,30 +174,30 @@ const nextConfig: NextConfig = {
 
 ```
 src/components/
-├── detail/          # Rendu de contenu (Markdown, layout, navigation)
-│   ├── content.tsx  # Affiche le Markdown avec ReactMarkdown
-│   ├── layout.tsx   # Layout des pages de détail (header + nav + contenu)
-│   ├── mdx.tsx      # Composants personnalisés pour le Markdown
-│   └── nav.tsx      # Sidebar avec table des matières
-├── dialogs/         # Modales et popups
-│   ├── contact.tsx  # Formulaire de contact
-│   └── random.tsx   # Documentation aléatoire
-├── layout/          # Layout global
-│   ├── nav.tsx      # Barre de navigation principale
-│   ├── footer.tsx   # Pied de page
-│   └── toggle.tsx   # Toggle thème clair/sombre
-├── sections/        # Sections de la page d'accueil
-│   ├── hero.tsx     # Bannière principale
-│   ├── projects.tsx # Grille de projets
+├── detail/                # Rendu de contenu (Markdown, layout, navigation)
+│   ├── content.tsx        # Affiche le Markdown avec ReactMarkdown
+│   ├── layout.tsx         # Layout des pages de détail (header + nav + contenu)
+│   ├── mdx.tsx            # Composants personnalisés pour le Markdown
+│   └── nav.tsx            # Sidebar avec table des matières
+├── dialogs/               # Modales et popups
+│   ├── contact.tsx        # Formulaire de contact
+│   └── random.tsx         # Documentation aléatoire
+├── layout/                # Layout global
+│   ├── nav.tsx            # Barre de navigation principale
+│   ├── footer.tsx         # Pied de page
+│   └── toggle.tsx         # Toggle thème clair/sombre
+├── sections/              # Sections de la page d'accueil
+│   ├── hero.tsx           # Bannière principale
+│   ├── projects.tsx       # Grille de projets
 │   └── ...
-├── ui/              # Composants primitifs (Radix UI + custom)
+├── ui/                    # Composants primitifs (Radix UI + custom)
 │   ├── button.tsx
 │   ├── card.tsx
 │   ├── dialog.tsx
 │   └── ...
-└── utils/           # Utilitaires visuels
-    ├── command.tsx   # Palette de commandes
-    └── cursor.tsx    # Curseur personnalisé
+└── utils/                 # Utilitaires visuels
+    ├── command.tsx        # Palette de commandes
+    └── cursor.tsx         # Curseur personnalisé
 ```
 
 ### Conventions
@@ -221,7 +221,7 @@ import { MonComposant } from "@/components/sections/mon-composant";
 
 > L'alias `@/` pointe vers `src/` et est configuré dans `tsconfig.json`.
 
-## Ajouter une page de documentation {#add-doc}
+## Ajouter une page de documentation {#newdoc}
 
 Le système de documentation est conçu pour être simple à étendre. Il suffit de créer un fichier Markdown.
 
@@ -259,7 +259,7 @@ order: 1
 
 ### Étape 3 : Écrire le contenu
 
-Utilisez du Markdown standard avec le support GFM (GitHub Flavored Markdown) :
+Utilisez du Markdown standard avec le support [GFM](/help/markdown/github) — consultez le [guide Markdown](/help/markdown/guide) pour la syntaxe complète :
 
 ```md
 ## Ma section {#ma-section}
@@ -284,7 +284,7 @@ npm run generate
 npm run dev
 ```
 
-Le script détecte automatiquement le nouveau fichier, l'ajoute à `docs.json`, et la page est accessible à `/help/<catégorie>/<slug>`.
+Le script détecte automatiquement le nouveau fichier, l'ajoute à `docs.json`, et la page est accessible à `/help/<catégorie>/<slug>`. Pour comprendre comment ce Markdown est transformé en interface, consultez le guide [React Markdown](/help/frameworks/react).
 
 ## Slugs et sous-catégories {#slugs}
 
@@ -382,18 +382,18 @@ En production, Next.js génère un dossier `out/` contenant :
 
 ```
 out/
-├── index.html           # Page d'accueil
+├── index.html                   # Page d'accueil
 ├── help/
-│   ├── index.html       # /help
+│   ├── index.html               # /help
 │   ├── git/
-│   │   ├── index.html   # /help/git
+│   │   ├── index.html           # /help/git
 │   │   └── commit/
-│   │       └── index.html  # /help/git/commit
+│   │       └── index.html       # /help/git/commit
 │   └── ...
 ├── _next/
-│   ├── static/          # CSS et JS bundlés
+│   ├── static/                  # CSS et JS bundlés
 │   └── ...
-└── images/              # Assets statiques
+└── images/                      # Assets statiques
 ```
 
 Chaque route devient un dossier avec un `index.html` (grâce à `trailingSlash: true`). Le site peut être hébergé sur n'importe quel serveur statique.
@@ -411,11 +411,11 @@ Les fonctionnalités suivantes ne sont **pas disponibles** en mode export :
 
 Le dossier `out/` peut être déployé sur :
 
-- **GitHub Pages** — Avec un [workflow GitHub Actions](/help/github/workflows/nextjs)
+- **GitHub Pages** — Avec un [workflow GitHub Actions](/help/github/workflows/next)
 - **Netlify** / **Vercel** — Configuration automatique
 - **Tout serveur HTTP** — Apache, Nginx, `npx serve out/`
 
-## Résumé {#resume}
+## Résumé {#summary}
 
 | Aspect               | Détail                                       |
 | -------------------- | -------------------------------------------- |

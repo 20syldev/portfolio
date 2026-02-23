@@ -12,7 +12,7 @@ order: 1
 
 Ce guide explique comment remplacer le logo Mint par votre propre image.
 
-## Prérequis {#prerequis}
+## Prérequis {#prerequisites}
 
 - Accès `sudo` sur la machine
 - Une image **PNG** prête à l'emploi (votre logo personnalisé)
@@ -31,7 +31,7 @@ Le thème par défaut se trouve dans `/usr/share/plymouth/themes/mint-logo/` :
 
 > **Point clé** : Ce sont les fichiers `animation-*.png` et `throbber-*.png` qui déterminent ce qui s'affiche réellement au boot, pas le paramètre `Logo=` du fichier `.plymouth`.
 
-## Étapes {#etapes}
+## Étapes {#steps}
 
 Toutes les commandes sont à exécuter depuis le répertoire du thème :
 
@@ -39,13 +39,13 @@ Toutes les commandes sont à exécuter depuis le répertoire du thème :
 cd /usr/share/plymouth/themes/mint-logo
 ```
 
-### 1. Copier votre image dans le répertoire du thème {#copier}
+### 1. Copier votre image dans le répertoire du thème {#copy}
 
 ```bash
 sudo cp ~/Downloads/votre-logo.png /usr/share/plymouth/themes/mint-logo/
 ```
 
-### 2. Sauvegarder le logo original {#sauvegarder}
+### 2. Sauvegarder le logo original {#backup}
 
 ```bash
 sudo mv mint-logo.png mint-logo.png.bak
@@ -79,7 +79,7 @@ for i in {0001..0036}; do sudo cp votre-logo.png animation-$i.png; done
 for i in {0001..0030}; do sudo cp votre-logo.png throbber-$i.png; done
 ```
 
-### 7. Appliquer les changements {#appliquer}
+### 7. Appliquer les changements {#apply}
 
 Plymouth est intégré dans l'initramfs. Il faut le reconstruire pour que les modifications prennent effet :
 
@@ -89,7 +89,7 @@ sudo update-initramfs -u
 
 Redémarrez pour voir le résultat.
 
-## Pièges à éviter {#pieges}
+## Pièges à éviter {#pitfalls}
 
 ### Ce qui compte, ce sont les fichiers PNG
 
@@ -111,7 +111,7 @@ echo "data" | sudo tee /usr/share/plymouth/themes/mint-logo/blank.png > /dev/nul
 
 Si vous ne remplacez que l'animation sans toucher au watermark et au throbber, des résidus de l'ancien thème resteront visibles.
 
-## Restauration {#restauration}
+## Restauration {#restore}
 
 Pour revenir au thème Mint d'origine :
 
@@ -124,7 +124,7 @@ sudo update-initramfs -u
 
 La réinstallation du paquet restaure tous les fichiers originaux (animation, throbber, watermark).
 
-## Résumé {#resume}
+## Résumé {#summary}
 
 | Étape                           | Commande principale                                                       |
 | ------------------------------- | ------------------------------------------------------------------------- |

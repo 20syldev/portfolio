@@ -84,7 +84,7 @@ gft cli/cli v2.40.0..v2.50.0
 - Respecte la convention `NO_COLOR` et la détection de pipe
 - Complétion Bash et Zsh
 
-## Fonctionnement {#how-it-works}
+## Fonctionnement {#internals}
 
 gft récupère directement les pages de releases GitHub, donc il :
 
@@ -92,7 +92,7 @@ gft récupère directement les pages de releases GitHub, donc il :
 - N'a **aucun problème de rate limit** (scraping, pas API)
 - Fonctionne sur n'importe quelle machine avec `curl` et `bash`
 
-Lorsque le CLI `gh` est installé et authentifié, gft l'utilise en transparence comme fallback pour les dépôts privés et une sortie JSON plus riche.
+Lorsque le CLI `gh` est installé et authentifié, gft l'utilise en transparence comme fallback pour les dépôts privés et une sortie JSON plus riche. Pour compléter cet outillage, [mn](/help/linux/mn) offre un menu interactif pour gérer vos connexions SSH, repos locaux et alias Bash depuis le terminal.
 
 ## Options {#options}
 
