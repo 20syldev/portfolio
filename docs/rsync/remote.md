@@ -177,14 +177,14 @@ pkill -f "ssh -f -N -L 8873"
 
 ## SSH vs Daemon : lequel choisir ? {#comparison}
 
-| Critère | SSH | Daemon |
-| --- | --- | --- |
-| Chiffrement | Natif (SSH) | Non (sauf tunnel SSH) |
-| Authentification | Clé SSH / mot de passe SSH | Fichier secrets dédié |
-| Compte système | Nécessaire sur le serveur | Pas nécessaire |
-| Performance | Légèrement plus lent (chiffrement) | Plus rapide (pas de chiffrement) |
-| Port | 22 (SSH) | 873 (rsync) |
-| Cas d'usage | Internet, WAN, partout | LAN, réseau de confiance |
+| Critère          | SSH                                | Daemon                           |
+| ---------------- | ---------------------------------- | -------------------------------- |
+| Chiffrement      | Natif (SSH)                        | Non (sauf tunnel SSH)            |
+| Authentification | Clé SSH / mot de passe SSH         | Fichier secrets dédié            |
+| Compte système   | Nécessaire sur le serveur          | Pas nécessaire                   |
+| Performance      | Légèrement plus lent (chiffrement) | Plus rapide (pas de chiffrement) |
+| Port             | 22 (SSH)                           | 873 (rsync)                      |
+| Cas d'usage      | Internet, WAN, partout             | LAN, réseau de confiance         |
 
 ## Configuration du pare-feu {#firewall}
 

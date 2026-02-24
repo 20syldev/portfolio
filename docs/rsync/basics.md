@@ -33,30 +33,30 @@ rsync -av /home/user/documents /backup/
 
 ## Options essentielles {#options}
 
-| Option | Forme longue | Description |
-| --- | --- | --- |
-| `-a` | `--archive` | Mode archive : équivaut à `-rlptgoD`. Préserve récursivité, liens, permissions, timestamps, group, owner, devices. |
-| `-v` | `--verbose` | Affiche les fichiers transférés. Doublez (`-vv`) pour plus de détails. |
-| `-h` | `--human-readable` | Tailles en Ko/Mo/Go plutôt qu'en octets. |
-| `-z` | `--compress` | Compresse les données pendant le transfert (utile pour les connexions lentes). |
-| `-P` | `--partial --progress` | Affiche la progression et conserve les fichiers partiels (reprise de transfert). |
-| `-n` | `--dry-run` | Simule l'exécution sans rien modifier. **Toujours tester d'abord !** |
-| `-r` | `--recursive` | Copie récursive dans les sous-dossiers. Déjà inclus dans `-a`. |
-| `--delete` | `--delete` | Supprime les fichiers dans la destination qui n'existent plus dans la source (miroir exact). |
+| Option     | Forme longue           | Description                                                                                                        |
+| ---------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `-a`       | `--archive`            | Mode archive : équivaut à `-rlptgoD`. Préserve récursivité, liens, permissions, timestamps, group, owner, devices. |
+| `-v`       | `--verbose`            | Affiche les fichiers transférés. Doublez (`-vv`) pour plus de détails.                                             |
+| `-h`       | `--human-readable`     | Tailles en Ko/Mo/Go plutôt qu'en octets.                                                                           |
+| `-z`       | `--compress`           | Compresse les données pendant le transfert (utile pour les connexions lentes).                                     |
+| `-P`       | `--partial --progress` | Affiche la progression et conserve les fichiers partiels (reprise de transfert).                                   |
+| `-n`       | `--dry-run`            | Simule l'exécution sans rien modifier. **Toujours tester d'abord !**                                               |
+| `-r`       | `--recursive`          | Copie récursive dans les sous-dossiers. Déjà inclus dans `-a`.                                                     |
+| `--delete` | `--delete`             | Supprime les fichiers dans la destination qui n'existent plus dans la source (miroir exact).                       |
 
 ## Décomposition de `-a` {#archive}
 
 `-a` est un raccourci pour sept flags combinés. Voici ce que chacun fait :
 
-| Flag | Forme longue | Ce qui est préservé |
-| --- | --- | --- |
-| `-r` | `--recursive` | Copie dans les sous-dossiers |
-| `-l` | `--links` | Liens symboliques (copié tel quel, pas la cible) |
-| `-p` | `--perms` | Permissions fichier (chmod — ex: 755, 644) |
-| `-t` | `--times` | Date de modification (mtime) — critique pour les synchros suivantes |
-| `-g` | `--group` | Groupe propriétaire (gid) |
-| `-o` | `--owner` | Propriétaire (uid) — nécessite les droits root |
-| `-D` | `--devices --specials` | Fichiers device spéciaux et sockets (root uniquement) |
+| Flag | Forme longue           | Ce qui est préservé                                                 |
+| ---- | ---------------------- | ------------------------------------------------------------------- |
+| `-r` | `--recursive`          | Copie dans les sous-dossiers                                        |
+| `-l` | `--links`              | Liens symboliques (copié tel quel, pas la cible)                    |
+| `-p` | `--perms`              | Permissions fichier (chmod — ex: 755, 644)                          |
+| `-t` | `--times`              | Date de modification (mtime) — critique pour les synchros suivantes |
+| `-g` | `--group`              | Groupe propriétaire (gid)                                           |
+| `-o` | `--owner`              | Propriétaire (uid) — nécessite les droits root                      |
+| `-D` | `--devices --specials` | Fichiers device spéciaux et sockets (root uniquement)               |
 
 > **Attention** : `-a` ne préserve **pas** les ACL (`-A`), les attributs étendus (`-X`), ni les hard links (`-H`). Pour une sauvegarde système complète, utilisez `-aAXH`.
 

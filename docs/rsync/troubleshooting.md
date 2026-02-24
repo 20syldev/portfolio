@@ -23,14 +23,14 @@ rsync -avhn --delete --stats /source/ /dest/
 
 ## Niveaux de verbosité {#verbosity}
 
-| Option | Détails affichés |
-| --- | --- |
-| `-v` | Liste des fichiers transférés |
-| `-vv` | Fichiers ignorés et plus de détails |
-| `-vvv` | Informations de débogage du protocole |
-| `--progress` | Barre de progression par fichier |
-| `--stats` | Statistiques globales en fin de transfert |
-| `-i` | Résumé codé de chaque changement (itemize) |
+| Option       | Détails affichés                           |
+| ------------ | ------------------------------------------ |
+| `-v`         | Liste des fichiers transférés              |
+| `-vv`        | Fichiers ignorés et plus de détails        |
+| `-vvv`       | Informations de débogage du protocole      |
+| `--progress` | Barre de progression par fichier           |
+| `--stats`    | Statistiques globales en fin de transfert  |
+| `-i`         | Résumé codé de chaque changement (itemize) |
 
 ## Erreurs courantes et solutions {#errors}
 
@@ -189,21 +189,21 @@ tar czf - /source/ | ssh user@serveur "tar xzf - -C /dest/"
 
 ## Codes de sortie rsync {#codes}
 
-| Code | Signification | Cause fréquente / Action |
-| --- | --- | --- |
-| `0` | Succès | — |
-| `1` | Erreur de syntaxe ou d'utilisation | Option inconnue ou chemin manquant |
-| `2` | Incompatibilité de protocole | Versions rsync très différentes entre source et destination |
-| `3` | Erreurs de sélection de fichiers/dossiers | Règles `--include`/`--exclude` mal configurées |
-| `5` | Erreur de démarrage du protocole client-serveur | rsync non installé côté distant, ou chemin incorrect |
-| `10` | Erreur I/O socket | Connexion réseau coupée ou timeout SSH |
-| `11` | Erreur I/O fichier | Disque plein, permissions refusées en lecture/écriture |
-| `12` | Erreur dans le flux de données du protocole | Message parasite sur stdout côté serveur (bashrc, motd) |
-| `14` | Erreur IPC | Problème de communication inter-processus |
-| `20` | Signal reçu (SIGUSR1, SIGINT) | Ctrl+C ou kill envoyé au processus |
-| `23` | Transfert partiel — certains fichiers n'ont pas pu être transférés | Permissions manquantes → utiliser `--ignore-errors` si attendu |
-| `24` | Fichiers disparus pendant le transfert (souvent bénin) | Fichiers temp/logs supprimés en cours de synchro — traiter comme succès dans les scripts |
-| `30` | Timeout en envoi/réception de données | Connexion lente ou serveur surchargé — augmenter `--timeout` |
+| Code | Signification                                                      | Cause fréquente / Action                                                                 |
+| ---- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
+| `0`  | Succès                                                             | —                                                                                        |
+| `1`  | Erreur de syntaxe ou d'utilisation                                 | Option inconnue ou chemin manquant                                                       |
+| `2`  | Incompatibilité de protocole                                       | Versions rsync très différentes entre source et destination                              |
+| `3`  | Erreurs de sélection de fichiers/dossiers                          | Règles `--include`/`--exclude` mal configurées                                           |
+| `5`  | Erreur de démarrage du protocole client-serveur                    | rsync non installé côté distant, ou chemin incorrect                                     |
+| `10` | Erreur I/O socket                                                  | Connexion réseau coupée ou timeout SSH                                                   |
+| `11` | Erreur I/O fichier                                                 | Disque plein, permissions refusées en lecture/écriture                                   |
+| `12` | Erreur dans le flux de données du protocole                        | Message parasite sur stdout côté serveur (bashrc, motd)                                  |
+| `14` | Erreur IPC                                                         | Problème de communication inter-processus                                                |
+| `20` | Signal reçu (SIGUSR1, SIGINT)                                      | Ctrl+C ou kill envoyé au processus                                                       |
+| `23` | Transfert partiel — certains fichiers n'ont pas pu être transférés | Permissions manquantes → utiliser `--ignore-errors` si attendu                           |
+| `24` | Fichiers disparus pendant le transfert (souvent bénin)             | Fichiers temp/logs supprimés en cours de synchro — traiter comme succès dans les scripts |
+| `30` | Timeout en envoi/réception de données                              | Connexion lente ou serveur surchargé — augmenter `--timeout`                             |
 
 > Consultez `man rsync` pour la documentation complète, ou visitez [rsync.samba.org](https://rsync.samba.org) pour les dernières informations.
 

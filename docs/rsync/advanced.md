@@ -46,13 +46,13 @@ logs/
 
 ## Variantes de --delete {#delete}
 
-| Option | Comportement |
-| --- | --- |
-| `--delete` | Supprime les fichiers absents de la source (par défaut : avant le transfert). |
-| `--delete-before` | Supprime d'abord, puis transfère. Libère de l'espace disque avant la copie. |
-| `--delete-during` | Supprime au fur et à mesure du scan. Plus rapide pour les grands ensembles de fichiers. |
-| `--delete-after` | Transfère d'abord, supprime ensuite. Plus sûr car les fichiers sont copiés avant suppression. |
-| `--delete-excluded` | Supprime aussi les fichiers exclus par `--exclude` dans la destination. |
+| Option              | Comportement                                                                                  |
+| ------------------- | --------------------------------------------------------------------------------------------- |
+| `--delete`          | Supprime les fichiers absents de la source (par défaut : avant le transfert).                 |
+| `--delete-before`   | Supprime d'abord, puis transfère. Libère de l'espace disque avant la copie.                   |
+| `--delete-during`   | Supprime au fur et à mesure du scan. Plus rapide pour les grands ensembles de fichiers.       |
+| `--delete-after`    | Transfère d'abord, supprime ensuite. Plus sûr car les fichiers sont copiés avant suppression. |
+| `--delete-excluded` | Supprime aussi les fichiers exclus par `--exclude` dans la destination.                       |
 
 > **Danger** : `--delete` supprime définitivement des fichiers ! Testez **toujours** avec `--dry-run` avant.
 
@@ -99,12 +99,12 @@ rsync -av --no-compress /source/*.gz user@serveur:/dest/
 
 ### Quel algorithme choisir ?
 
-| Algorithme | Vitesse | Ratio | Cas d'usage |
-| --- | --- | --- | --- |
-| **zlib** (défaut) | Moyen | Bon | Compatibilité maximale (rsync < 3.2 côté serveur) |
-| **zstd** | Rapide | Meilleur | WAN avec rsync 3.2.3+ des deux côtés — recommandé |
-| **lz4** | Très rapide | Moyen | LAN rapide où la vitesse CPU prime sur le ratio |
-| **aucune** | N/A | N/A | LAN Gigabit, ou fichiers déjà compressés (.gz, .zip, .jpg, .mp4) |
+| Algorithme        | Vitesse     | Ratio    | Cas d'usage                                                      |
+| ----------------- | ----------- | -------- | ---------------------------------------------------------------- |
+| **zlib** (défaut) | Moyen       | Bon      | Compatibilité maximale (rsync < 3.2 côté serveur)                |
+| **zstd**          | Rapide      | Meilleur | WAN avec rsync 3.2.3+ des deux côtés — recommandé                |
+| **lz4**           | Très rapide | Moyen    | LAN rapide où la vitesse CPU prime sur le ratio                  |
+| **aucune**        | N/A         | N/A      | LAN Gigabit, ou fichiers déjà compressés (.gz, .zip, .jpg, .mp4) |
 
 > **Astuce** : N'utilisez jamais `-z` sur des fichiers déjà compressés — la compression ne fera que consommer du CPU sans gain. Utilisez `--skip-compress` pour les exclure :
 >
@@ -140,17 +140,17 @@ rsync -avhi /source/ /dest/
 
 Chaque ligne commence par un code de 11 caractères. Voici comment le lire :
 
-| Position | Valeurs possibles | Signification |
-| --- | --- | --- |
+| Position       | Valeurs possibles       | Signification                                                                                                                                    |
+| -------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **Y — Action** | `<` `>` `c` `h` `.` `*` | `<` envoyé vers dest, `>` reçu depuis dest, `c` créé localement, `h` hard link, `.` pas de transfert (métadonnée seulement), `*` message système |
-| **X — Type** | `f` `d` `L` `D` `S` | `f` fichier régulier, `d` dossier, `L` lien symbolique, `D` device, `S` socket |
-| **c** | `c` `.` | Checksum différent (contenu modifié) |
-| **s** | `s` `.` | Taille (size) différente |
-| **t** | `t` `.` | Timestamp (mtime) différent |
-| **p** | `p` `.` | Permissions différentes |
-| **o** | `o` `.` | Owner (propriétaire uid) différent |
-| **g** | `g` `.` | Group (gid) différent |
-| **a x** | `a` `x` `.` | ACL ou attributs étendus (xattr) différents |
+| **X — Type**   | `f` `d` `L` `D` `S`     | `f` fichier régulier, `d` dossier, `L` lien symbolique, `D` device, `S` socket                                                                   |
+| **c**          | `c` `.`                 | Checksum différent (contenu modifié)                                                                                                             |
+| **s**          | `s` `.`                 | Taille (size) différente                                                                                                                         |
+| **t**          | `t` `.`                 | Timestamp (mtime) différent                                                                                                                      |
+| **p**          | `p` `.`                 | Permissions différentes                                                                                                                          |
+| **o**          | `o` `.`                 | Owner (propriétaire uid) différent                                                                                                               |
+| **g**          | `g` `.`                 | Group (gid) différent                                                                                                                            |
+| **a x**        | `a` `x` `.`             | ACL ou attributs étendus (xattr) différents                                                                                                      |
 
 ```
 >f.st......  fichier envoyé, taille (s) et timestamp (t) changés

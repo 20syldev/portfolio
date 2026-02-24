@@ -62,12 +62,12 @@ sudo apt install rsync
 
 ## Versions et fonctionnalités {#versions}
 
-| Version | Nouveautés clés |
-| --- | --- |
-| **3.0.x** | Protocole incrémental, ACL et xattr support |
-| **3.1.x** | Transfert incrémental récursif, options `--info` et `--debug` |
+| Version   | Nouveautés clés                                                                           |
+| --------- | ----------------------------------------------------------------------------------------- |
+| **3.0.x** | Protocole incrémental, ACL et xattr support                                               |
+| **3.1.x** | Transfert incrémental récursif, options `--info` et `--debug`                             |
 | **3.2.x** | Compression zstd et lz4 (`--compress-choice`), checksum xxhash, améliorations de sécurité |
-| **3.3.x** | Optimisation des performances, correctifs de sécurité, support renforcé des liens |
+| **3.3.x** | Optimisation des performances, correctifs de sécurité, support renforcé des liens         |
 
 > **Conseil** : Vérifiez votre version avec `rsync --version`. Pour profiter de la compression zstd et des checksums xxhash, vous avez besoin de rsync **3.2.3 ou supérieur sur les deux machines** (source et destination).
 

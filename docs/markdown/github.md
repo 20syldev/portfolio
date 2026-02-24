@@ -119,11 +119,11 @@ En RGB : `rgb(9, 105, 218)`.
 En HSL : `hsl(212, 92%, 45%)`.
 ```
 
-| Format  | Exemple                  |
-| ------- | ------------------------ |
-| **HEX** | `#0969DA`                |
-| **RGB** | `rgb(9, 105, 218)`       |
-| **HSL** | `hsl(212, 92%, 45%)`     |
+| Format  | Exemple              |
+| ------- | -------------------- |
+| **HEX** | `#0969DA`            |
+| **RGB** | `rgb(9, 105, 218)`   |
+| **HSL** | `hsl(212, 92%, 45%)` |
 
 > **Note** : L'aperçu couleur fonctionne uniquement dans les issues, PRs et discussions — pas dans les fichiers `.md` du dépôt.
 
@@ -357,18 +357,18 @@ Utile pour :
 
 ## Récapitulatif {#summary}
 
-| Fonctionnalité          | Syntaxe                    | Standard? |
-| ----------------------- | -------------------------- | :-------: |
-| **Alertes**             | `> [!NOTE]`                | GFM only  |
-| **Task lists**          | `- [x]` / `- [ ]`          | GFM only  |
-| **Texte barré**         | `~~texte~~`                | GFM only  |
-| **Tableaux**            | `\| col \| col \|`         | GFM only  |
-| **Autolinks**           | URL nue → lien automatique | GFM only  |
-| **Mentions**            | `@username`                |  GitHub   |
-| **Références issues**   | `#42`, `Fixes #42`         |  GitHub   |
-| **Emoji shortcodes**    | `:tada:`                   |  GitHub   |
-| **Footnotes**           | `[^1]` + `[^1]: texte`     | GFM only  |
-| **Mermaid**             | ` ```mermaid ` `           |  GitHub   |
-| **Sections repliables** | `<details><summary>`       |   HTML    |
-| **Modèles de couleurs** | `` `#rrggbb` ``, `` `rgb()` ``, `` `hsl()` `` | GitHub |
-| **Commentaires cachés** | `<!-- texte -->`           |   HTML    |
+| Fonctionnalité          | Syntaxe                                       | Standard? |
+| ----------------------- | --------------------------------------------- | :-------: |
+| **Alertes**             | `> [!NOTE]`                                   | GFM only  |
+| **Task lists**          | `- [x]` / `- [ ]`                             | GFM only  |
+| **Texte barré**         | `~~texte~~`                                   | GFM only  |
+| **Tableaux**            | `\| col \| col \|`                            | GFM only  |
+| **Autolinks**           | URL nue → lien automatique                    | GFM only  |
+| **Mentions**            | `@username`                                   |  GitHub   |
+| **Références issues**   | `#42`, `Fixes #42`                            |  GitHub   |
+| **Emoji shortcodes**    | `:tada:`                                      |  GitHub   |
+| **Footnotes**           | `[^1]` + `[^1]: texte`                        | GFM only  |
+| **Mermaid**             | ` ```mermaid ` `                              |  GitHub   |
+| **Sections repliables** | `<details><summary>`                          |   HTML    |
+| **Modèles de couleurs** | `` `#rrggbb` ``, `` `rgb()` ``, `` `hsl()` `` |  GitHub   |
+| **Commentaires cachés** | `<!-- texte -->`                              |   HTML    |
