@@ -36,7 +36,7 @@ function getTab(path: string): number {
  *
  * @returns The rendered home page
  */
-export default function Home() {
+export default function HomePage() {
     const pathname = usePathname();
     const mounted = useRef(false);
 

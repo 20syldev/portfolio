@@ -16,7 +16,7 @@ import { tabs, urls } from "@/lib/nav";
  *
  * @returns The rendered privacy policy page
  */
-export default function Confidentialite() {
+export default function ConfidentialitePage() {
     const { scrollRef } = useSmoothScroll<HTMLDivElement>();
 
     return (

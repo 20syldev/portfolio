@@ -16,7 +16,7 @@ import { tabs, urls } from "@/lib/nav";
  *
  * @returns The rendered legal notices page
  */
-export default function MentionsLegales() {
+export default function MentionsPage() {
     const { scrollRef } = useSmoothScroll<HTMLDivElement>();
 
     return (
