@@ -60,30 +60,35 @@ export function Technologies() {
                                 </h3>
                                 <div className="grid grid-cols-3">
                                     {category.items.map((tech) => (
-                                        <a
+                                        <div
                                             key={tech.name}
-                                            href={tech.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex flex-col items-center gap-1.5 p-2 rounded-lg hover:bg-muted/50 transition-colors"
+                                            className="flex flex-col items-center gap-1.5 p-2"
                                         >
-                                            <Image
-                                                src={tech.icon}
-                                                alt={tech.name}
-                                                width={36}
-                                                height={36}
-                                                className={
-                                                    darkInvertIcons.includes(tech.name)
-                                                        ? "dark:invert"
-                                                        : darkInvertHueIcons.includes(tech.name)
-                                                          ? "invert-hue"
-                                                          : ""
-                                                }
-                                            />
+                                            <a
+                                                href={tech.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="rounded-lg hover:bg-muted/50 transition-colors w-16 h-16 flex items-center justify-center"
+                                                aria-label={tech.name}
+                                            >
+                                                <Image
+                                                    src={tech.icon}
+                                                    alt={tech.name}
+                                                    width={36}
+                                                    height={36}
+                                                    className={
+                                                        darkInvertIcons.includes(tech.name)
+                                                            ? "dark:invert"
+                                                            : darkInvertHueIcons.includes(tech.name)
+                                                              ? "invert-hue"
+                                                              : ""
+                                                    }
+                                                />
+                                            </a>
                                             <span className="text-xs text-muted-foreground text-center leading-tight">
                                                 {tech.name}
                                             </span>
-                                        </a>
+                                        </div>
                                     ))}
                                 </div>
                             </div>
@@ -91,7 +96,7 @@ export function Technologies() {
                     </div>
 
                     {/* Dots */}
-                    <div className="flex justify-center gap-1.5">
+                    <div className="flex justify-center gap-1.5 mt-4">
                         {techCategories.map((_, index) => (
                             <button
                                 key={index}
