@@ -1,7 +1,6 @@
 "use client";
 
 import {
-    Archive,
     BookOpen,
     Briefcase,
     FilePenLine,
@@ -238,9 +237,9 @@ export function CommandMenu() {
                 <BookOpen className="mr-2 h-4 w-4" />
                 Documentations
             </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => router.push("/legacy"))}>
-                <Archive className="mr-2 h-4 w-4" />
-                Version précédente
+            <CommandItem onSelect={() => runCommand(() => router.push("/tech"))}>
+                <Wrench className="mr-2 h-4 w-4" />
+                Mes technologies
             </CommandItem>
         </>
     );
