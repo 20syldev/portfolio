@@ -18,6 +18,8 @@ interface ApiData {
     patchedProjects: string[];
     updatedProjects: string[];
     newProjects: string[];
+    notifTag: string | null;
+    notifActive: boolean;
     loading: boolean;
 }
 
@@ -27,6 +29,8 @@ interface CachedData {
     patchedProjects: string[];
     updatedProjects: string[];
     newProjects: string[];
+    notifTag: string | null;
+    notifActive: boolean;
 }
 
 let cachedData: CachedData | null = null;
@@ -45,6 +49,8 @@ export function useApi(): ApiData {
             patchedProjects: [],
             updatedProjects: [],
             newProjects: [],
+            notifTag: null,
+            notifActive: false,
         }
     );
     const [loading, setLoading] = useState(!cachedData);
@@ -61,6 +67,8 @@ export function useApi(): ApiData {
                     patchedProjects: apiData?.patched_projects || [],
                     updatedProjects: apiData?.updated_projects || [],
                     newProjects: apiData?.new_projects || [],
+                    notifTag: apiData?.notif_tag || null,
+                    notifActive: apiData?.active === "true",
                 };
                 cachedData = newData;
                 setData(newData);
@@ -72,6 +80,8 @@ export function useApi(): ApiData {
                     patchedProjects: [],
                     updatedProjects: [],
                     newProjects: [],
+                    notifTag: null,
+                    notifActive: false,
                 });
             })
             .finally(() => {
