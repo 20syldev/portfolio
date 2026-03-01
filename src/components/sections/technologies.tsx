@@ -1,11 +1,39 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { darkInvertHueIcons, darkInvertIcons, techCategories } from "@/data/technologies";
 import { useDragScroll } from "@/hooks/scroll";
+
+/** Approximate height of one row of tech icons in the carousel */
+const ITEM_ROW_HEIGHT = 100;
+
+/**
+ * Hook to calculate how many tech items fit in the carousel based on viewport height.
+ * Mirrors the pattern used in the Projects section.
+ */
+function useTechCarousel() {
+    const [itemsPerCategory, setItemsPerCategory] = useState(6);
+
+    useEffect(() => {
+        const calculate = () => {
+            // Fixed overhead: py-20 + title + category name + dots + "voir tout" link
+            const overhead = 240;
+            const availableHeight = window.innerHeight - overhead;
+            const rows = Math.min(5, Math.max(2, Math.floor(availableHeight / ITEM_ROW_HEIGHT)));
+            setItemsPerCategory(rows * 3);
+        };
+
+        calculate();
+        window.addEventListener("resize", calculate);
+        return () => window.removeEventListener("resize", calculate);
+    }, []);
+
+    return itemsPerCategory;
+}
 
 /**
  * Technologies section.
@@ -15,7 +43,9 @@ import { useDragScroll } from "@/hooks/scroll";
  *
  * @returns The rendered technologies section
  */
-export function Technologies() {
+export function Technologies({ preview }: { preview?: boolean }) {
+    const itemsPerCategory = useTechCarousel();
+    const mobileCategories = preview ? techCategories.slice(0, 4) : techCategories;
     const [currentCategory, setCurrentCategory] = useState(0);
     const scrollRef = useRef<HTMLDivElement>(null);
     useDragScroll(scrollRef);
@@ -26,11 +56,11 @@ export function Technologies() {
         const maxScroll = scrollWidth - offsetWidth;
         if (maxScroll <= 0) return;
         const scrollProgress = scrollLeft / maxScroll;
-        const newIndex = Math.round(scrollProgress * (techCategories.length - 1));
-        if (newIndex !== currentCategory && newIndex >= 0 && newIndex < techCategories.length) {
+        const newIndex = Math.round(scrollProgress * (mobileCategories.length - 1));
+        if (newIndex !== currentCategory && newIndex >= 0 && newIndex < mobileCategories.length) {
             setCurrentCategory(newIndex);
         }
-    }, [currentCategory]);
+    }, [currentCategory, mobileCategories.length]);
 
     useEffect(() => {
         const el = scrollRef.current;
@@ -50,7 +80,7 @@ export function Technologies() {
                         ref={scrollRef}
                         className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hide -mx-4 px-4"
                     >
-                        {techCategories.map((category) => (
+                        {mobileCategories.map((category) => (
                             <div
                                 key={category.name}
                                 className="flex-shrink-0 w-full snap-center px-2"
@@ -59,7 +89,10 @@ export function Technologies() {
                                     {category.name}
                                 </h3>
                                 <div className="grid grid-cols-3">
-                                    {category.items.map((tech) => (
+                                    {(preview
+                                        ? category.items.slice(0, itemsPerCategory - 1)
+                                        : category.items
+                                    ).map((tech) => (
                                         <div
                                             key={tech.name}
                                             className="flex flex-col items-center gap-1.5 p-2"
@@ -90,6 +123,19 @@ export function Technologies() {
                                             </span>
                                         </div>
                                     ))}
+                                    {preview && category.items.length > itemsPerCategory - 1 && (
+                                        <div className="flex flex-col items-center gap-1.5 p-2">
+                                            <Link
+                                                href="/tech"
+                                                className="w-16 h-16 flex items-center justify-center rounded-lg bg-muted/50 hover:bg-muted transition-colors"
+                                            >
+                                                <span className="text-sm font-medium text-muted-foreground">
+                                                    +
+                                                    {category.items.length - (itemsPerCategory - 1)}
+                                                </span>
+                                            </Link>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         ))}
@@ -97,7 +143,7 @@ export function Technologies() {
 
                     {/* Dots */}
                     <div className="flex justify-center gap-1.5 mt-4">
-                        {techCategories.map((_, index) => (
+                        {mobileCategories.map((_, index) => (
                             <button
                                 key={index}
                                 onClick={() => {
@@ -117,7 +163,7 @@ export function Technologies() {
                     </div>
                 </div>
 
-                {/* Desktop: Grid of 8 blocks */}
+                {/* Desktop: Grid of blocks */}
                 <TooltipProvider>
                     <div className="hidden lg:block lg:columns-4 gap-4">
                         {techCategories.map((category) => (
