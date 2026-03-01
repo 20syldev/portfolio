@@ -1,5 +1,15 @@
 import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
+import {
+    DM_Sans,
+    Fredoka,
+    Inter,
+    Lexend,
+    Montserrat,
+    Outfit,
+    Plus_Jakarta_Sans,
+    Poppins,
+    Raleway,
+} from "next/font/google";
 
 import { ThemeProvider } from "@/components/provider";
 import { CommandProvider } from "@/components/utils/command";
@@ -11,6 +21,59 @@ const outfit = Outfit({
     weight: ["400", "500", "600", "700", "800"],
 });
 
+const inter = Inter({
+    variable: "--font-inter",
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700", "800"],
+});
+
+const lexend = Lexend({
+    variable: "--font-lexend",
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700", "800"],
+});
+
+const montserrat = Montserrat({
+    variable: "--font-montserrat",
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700", "800"],
+    style: ["normal", "italic"],
+});
+
+const raleway = Raleway({
+    variable: "--font-raleway",
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700", "800"],
+    style: ["normal", "italic"],
+});
+
+const dm = DM_Sans({
+    variable: "--font-dm",
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700", "800"],
+    style: ["normal", "italic"],
+});
+
+const jakarta = Plus_Jakarta_Sans({
+    variable: "--font-jakarta",
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700", "800"],
+    style: ["normal", "italic"],
+});
+
+const poppins = Poppins({
+    variable: "--font-poppins",
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700", "800"],
+    style: ["normal", "italic"],
+});
+
+const fredoka = Fredoka({
+    variable: "--font-fredoka",
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700"],
+});
+
 export const metadata: Metadata = {
     title: "Sylvain L. - Développeur Full Stack",
     description:
@@ -20,7 +83,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Sylvain L. - Développeur Full Stack",
         description: "Développeur Front-end depuis 8 ans et Back-end depuis 5 ans.",
-        url: "https://sylvain.pro",
+        url: "https://sylvain.sh",
         siteName: "Sylvain L.",
         locale: "fr_FR",
         type: "website",
@@ -46,7 +109,10 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="fr" suppressHydrationWarning>
-            <body className={`${outfit.variable} font-sans antialiased`} suppressHydrationWarning>
+            <body
+                className={`${outfit.variable} ${inter.variable} ${lexend.variable} ${montserrat.variable} ${raleway.variable} ${dm.variable} ${jakarta.variable} ${poppins.variable} ${fredoka.variable} font-sans antialiased`}
+                suppressHydrationWarning
+            >
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
