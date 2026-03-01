@@ -5,7 +5,7 @@ description: IA de reconnaissance de chiffres dessinés.
 longDescription: "Réseau de neurones en JavaScript pour reconnaître les chiffres manuscrits (0-9). Dessinez un chiffre et l'IA le reconnaît instantanément."
 tags: ["IA", "HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/digit"
-demo: "https://digit.sylvain.pro"
+demo: "https://digit.sylvain.sh"
 ---
 
 ## À propos {#about}

@@ -5,7 +5,7 @@ description: Mon réseau de diffusion de données pour certains projets.
 longDescription: "Réseau de stockage et de diffusion de fichiers personnel développé avec Node.js et Express. Stocke et sert les scripts NPM, fichiers CSS, images et autres ressources."
 tags: ["Node.js", "Express", "Module"]
 github: "https://github.com/20syldev/cdn"
-demo: "https://cdn.sylvain.pro"
+demo: "https://cdn.sylvain.sh"
 ---
 
 ## À propos {#about}
@@ -31,5 +31,5 @@ Il est en constante évolution et je l'améliore régulièrement pour qu'il soit
 ## Utilisation {#usage}
 
 Les fichiers hébergés sur le CDN sont régulièrement mis à jour et accessibles à tous.
-Ils peuvent être intégrés directement dans vos projets en les référençant via leur URL sur [cdn.sylvain.pro](https://cdn.sylvain.pro).
+Ils peuvent être intégrés directement dans vos projets en les référençant via leur URL sur [cdn.sylvain.sh](https://cdn.sylvain.sh).
 Le système de redirection permet de toujours accéder à la version la plus récente d'un fichier, sans avoir à modifier vos liens.

@@ -5,7 +5,7 @@ description: "Un jeu de Morpion en ligne, ou contre l'ordinateur."
 longDescription: "Jeu du morpion multijoueur en ligne, en local ou contre une IA avec 3 niveaux de difficulté. Les parties en ligne sont stockées via l'API pendant 1 heure."
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/morpion"
-demo: "https://morpion.sylvain.pro"
+demo: "https://morpion.sylvain.sh"
 ---
 
 ## À propos {#about}
@@ -33,7 +33,7 @@ Il est dans mon style, avec la réutilisation de certains de mes scripts.
 ## Une rapidité de jeu {#speed}
 
 Le site est optimisé pour une rapidité de jeu maximale, vous pouvez donc jouer rapidement et sans latence.
-Les parties en ligne sont gérées en temps réel via mon [API](https://api.sylvain.pro) sur l'endpoint `/latest`, qui stocke les données de chaque partie pendant 1 heure.
+Les parties en ligne sont gérées en temps réel via mon [API](https://api.sylvain.sh) sur l'endpoint `/latest`, qui stocke les données de chaque partie pendant 1 heure.
 
 ## Comment jouer en ligne ? {#online}
 

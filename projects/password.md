@@ -5,7 +5,7 @@ description: Testeur de mots de passe suivant des critères.
 longDescription: "Outil d'évaluation de robustesse de mots de passe côté client. Analyse la longueur, la complexité et fournit des recommandations personnalisées. Aucune donnée n'est sauvegardée."
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/password"
-demo: "https://password.sylvain.pro"
+demo: "https://password.sylvain.sh"
 ---
 
 ## À propos {#about}
@@ -15,7 +15,7 @@ La vérification se fait côté client, ainsi aucune donnée n'est sauvegardée 
 
 ## Fonctionnalités {#features}
 
-Le Testeur de Mot de Passe est hébergé sur [password.sylvain.pro](https://password.sylvain.pro) et permet d'évaluer la robustesse de vos mots de passe en temps réel.
+Le Testeur de Mot de Passe est hébergé sur [password.sylvain.sh](https://password.sylvain.sh) et permet d'évaluer la robustesse de vos mots de passe en temps réel.
 Cet outil effectue toutes les vérifications côté client, garantissant ainsi que vos mots de passe ne quittent jamais votre navigateur.
 
 L'interface simple et intuitive vous permet de saisir un mot de passe et d'obtenir immédiatement une évaluation détaillée de sa force selon de multiples critères de sécurité.

@@ -5,7 +5,7 @@ description: Convertisseur de timestamps pour Discord.
 longDescription: "Générateur de timestamps Discord dynamiques supportant les 7 formats officiels. Les timestamps s'adaptent automatiquement au fuseau horaire de chaque utilisateur."
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/timestamp"
-demo: "https://timestamp.sylvain.pro"
+demo: "https://timestamp.sylvain.sh"
 ---
 
 ## À propos {#about}
@@ -15,7 +15,7 @@ Créez des affichages de dates dynamiques pour vos messages Discord !
 
 ## Fonctionnalités {#features}
 
-Le Générateur de Timestamp Discord est hébergé sur [timestamp.sylvain.pro](https://timestamp.sylvain.pro) et permet de créer facilement des timestamps Discord dynamiques.
+Le Générateur de Timestamp Discord est hébergé sur [timestamp.sylvain.sh](https://timestamp.sylvain.sh) et permet de créer facilement des timestamps Discord dynamiques.
 Cette application web légère vous aide à générer des timestamps qui s'adaptent automatiquement au fuseau horaire de chaque utilisateur Discord.
 
 L'interface intuitive vous permet de sélectionner une date et une heure, puis de choisir parmi différents formats d'affichage.

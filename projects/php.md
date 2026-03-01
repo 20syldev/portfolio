@@ -5,7 +5,7 @@ description: Un listing de mes projets en PHP, pour les tester en ligne.
 longDescription: "Site dynamique listant tous mes projets PHP avec possibilité de les tester en ligne. Design réalisé avec Bulma CSS, responsive et mode clair/sombre."
 tags: ["Docker", "PHP", "HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/php"
-demo: "https://php.sylvain.pro"
+demo: "https://php.sylvain.sh"
 ---
 
 ## À propos {#about}

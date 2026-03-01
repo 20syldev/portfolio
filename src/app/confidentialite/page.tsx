@@ -65,7 +65,8 @@ export default function ConfidentialitePage() {
                             Ce site n'utilise aucun cookie. Le seul mécanisme de stockage utilisé
                             est le <strong className="text-foreground">localStorage</strong> du
                             navigateur, uniquement pour sauvegarder vos préférences : le thème
-                            (clair, sombre ou système) et l'activation du curseur personnalisé. Rien
+                            (clair, sombre ou système), l'activation du curseur personnalisé, la
+                            police de caractères choisie et la version de l'application. Rien
                             d'autre n'est stocké.
                         </p>
                     </section>
@@ -75,21 +76,22 @@ export default function ConfidentialitePage() {
                         <div className="text-sm text-muted-foreground space-y-2">
                             <p>
                                 <strong className="text-foreground">Polices de caractères</strong> :
-                                ce site utilise la police Google Fonts "Outfit", servie localement
-                                par le framework Next.js. Aucune requête n'est envoyée aux serveurs
-                                de Google lors de votre visite.
+                                ce site utilise les polices Google Fonts Outfit, Inter, Lexend,
+                                Montserrat, Raleway, DM Sans, Plus Jakarta Sans, Poppins et Fredoka
+                                servies localement par le framework Next.js. Aucune requête n'est
+                                envoyée aux serveurs de Google lors de votre visite.
                             </p>
                             <p>
                                 <strong className="text-foreground">API</strong> : ce site effectue
                                 des appels vers{" "}
                                 <code className="text-xs bg-muted px-1 py-0.5 rounded">
                                     <a
-                                        href="https://api.sylvain.pro"
+                                        href="https://api.sylvain.sh"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="hover:text-foreground transition-colors"
                                     >
-                                        api.sylvain.pro
+                                        api.sylvain.sh
                                     </a>
                                 </code>
                                 , un service hébergé sur le même domaine, pour afficher des

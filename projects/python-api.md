@@ -20,7 +20,7 @@ L'API était développée avec **Flask** et offrait plusieurs endpoints accessib
 - Génération de tokens sécurisés
 - Récupération de données diverses
 - Tous les endpoints étaient publics et sans limitation de requêtes
-- Hébergée 24h/7j avec une documentation sur [docs.sylvain.pro](https://docs.sylvain.pro)
+- Hébergée 24h/7j avec une documentation sur [docs.sylvain.sh](https://docs.sylvain.sh)
 
 ## Exemples d'utilisation {#usage}
 
@@ -41,4 +41,4 @@ L'API Python a été remplacée par une version Node.js pour plusieurs raisons :
 - **Limitation de requêtes** : la nouvelle version intègre un système de rate limiting (2000 requêtes/heure) pour une meilleure stabilité
 - **Documentation** : migration vers VitePress pour une documentation plus complète et multilingue
 
-La version actuelle est disponible sur [api.sylvain.pro](https://api.sylvain.pro) avec sa documentation sur [docs.sylvain.pro](https://docs.sylvain.pro).
+La version actuelle est disponible sur [api.sylvain.sh](https://api.sylvain.sh) avec sa documentation sur [docs.sylvain.sh](https://docs.sylvain.sh).

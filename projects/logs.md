@@ -5,12 +5,12 @@ description: Interface pour les logs de mon API.
 longDescription: "Interface de visualisation en temps réel des logs générés par l'API. Récupère et affiche les données JSON de manière structurée et lisible."
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/logs"
-demo: "https://logs.sylvain.pro"
+demo: "https://logs.sylvain.sh"
 ---
 
 ## À propos {#about}
 
-Ce site permet de visualiser en temps réel les logs générés par mon [API](https://api.sylvain.pro).
+Ce site permet de visualiser en temps réel les logs générés par mon [API](https://api.sylvain.sh).
 Les données au format JSON sont récupérées et une vue structurée des logs est générée.
 
 ## Fonctionnalités {#features}
@@ -24,5 +24,5 @@ Ce projet m'a permis d'explorer un nouveau style d'interface, en gardant à l'es
 
 ## Créez votre propre LogCenter {#custom}
 
-Comme le projet est très modulable, il est possible de créer votre propre LogCenter personnalisé sur [flowers.sylvain.pro](https://flowers.sylvain.pro).
+Comme le projet est très modulable, il est possible de créer votre propre LogCenter personnalisé sur [flowers.sylvain.sh](https://flowers.sylvain.sh).
 Flowers vous permet de connecter une ou plusieurs APIs renvoyant du JSON, et de personnaliser l'affichage selon vos besoins.

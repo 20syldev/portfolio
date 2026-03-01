@@ -5,14 +5,14 @@ description: Application de création de LogCenter.
 longDescription: "LogCenter customisable et modulable permettant de connecter plusieurs APIs JSON et de visualiser les données en temps réel, sans création de compte."
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/flowers"
-demo: "https://flowers.sylvain.pro"
+demo: "https://flowers.sylvain.sh"
 paused: true
 ---
 
 ## À propos {#about}
 
 Cette application web permet de personnaliser un centre de logs pour visualiser les données envoyées par des APIs.
-Elle est disponible sur [flowers.sylvain.pro](https://flowers.sylvain.pro) sans nécessiter de compte.
+Elle est disponible sur [flowers.sylvain.sh](https://flowers.sylvain.sh) sans nécessiter de compte.
 
 ## Fonctionnalités {#features}
 
@@ -27,7 +27,7 @@ Que ce soit pour suivre les performances d'une API ou surveiller des événement
 
 L'utilisation est simple et ne nécessite aucune inscription :
 
-1. Accédez à [flowers.sylvain.pro](https://flowers.sylvain.pro)
+1. Accédez à [flowers.sylvain.sh](https://flowers.sylvain.sh)
 2. Ajoutez l'URL d'une API renvoyant du JSON
 3. L'interface interprète automatiquement les données et crée les éléments d'affichage
 

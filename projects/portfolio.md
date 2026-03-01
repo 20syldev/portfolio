@@ -5,14 +5,13 @@ description: Mon site web, avec des informations sur mes projets.
 longDescription: "Site web portfolio développé avec Next.js 16, Tailwind CSS 4 et Radix UI. Design responsive avec mode clair/sombre et animations fluides."
 tags: ["Next.js", "Radix UI", "Tailwind CSS", "TS", "MD"]
 github: "https://github.com/20syldev/portfolio"
-demo: "https://sylvain.pro"
+demo: "https://sylvain.sh"
 ---
 
 ## À propos {#about}
 
 Ce site a été créé pour faire une présentation claire et professionnelle de mes projets et de mes compétences.
 Vous pouvez y trouver des informations sur mon parcours, mes compétences et mes expériences.
-Il est aussi accessible via l'URL raccourcie [sylv.pro](https://sylv.pro).
 
 ## Fonctionnalités {#features}
 

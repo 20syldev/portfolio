@@ -20,10 +20,10 @@ Le Markdown est un format de texte simple qui se transforme facilement en HTML. 
 
 ### Deux approches, deux outils
 
-| Outil              | Écosystème | Cas d'usage                        | Exemple          |
-| ------------------ | ---------- | ---------------------------------- | ---------------- |
-| **React Markdown** | React      | Contenu intégré dans une app React | Ce portfolio     |
-| **VitePress**      | Vue.js     | Site de documentation dédié        | docs.sylvain.pro |
+| Outil              | Écosystème | Cas d'usage                        | Exemple         |
+| ------------------ | ---------- | ---------------------------------- | --------------- |
+| **React Markdown** | React      | Contenu intégré dans une app React | Ce portfolio    |
+| **VitePress**      | Vue.js     | Site de documentation dédié        | docs.sylvain.sh |
 
 ## Comparaison {#comparison}
 
@@ -49,7 +49,7 @@ Le Markdown est un format de texte simple qui se transforme facilement en HTML. 
 ## Cas d'usage concrets {#usecase}
 
 - **Ce portfolio** utilise React Markdown pour afficher les docs, projets et articles de veille
-- **docs.sylvain.pro** utilise VitePress pour une documentation technique dédiée
+- **docs.sylvain.sh** utilise VitePress pour une documentation technique dédiée
 
 ### Présenter un projet
 

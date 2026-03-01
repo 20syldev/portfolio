@@ -11,7 +11,7 @@ order: 2
 ### Via curl (recommandée)
 
 ```bash
-curl -fsSL https://cdn.sylvain.pro/bash/gft@latest/install.sh | sh
+curl -fsSL https://cdn.sylvain.sh/bash/gft@latest/install.sh | sh
 ```
 
 ### Installation manuelle

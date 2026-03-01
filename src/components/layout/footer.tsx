@@ -36,7 +36,7 @@ export function Footer() {
                         <p className="text-sm text-muted-foreground">
                             &copy; {currentYear}
                             <Link href="/" className="transition-colors hover:text-foreground ml-1">
-                                sylvain.pro
+                                sylvain.sh
                             </Link>
                             . Tout droits réservés.
                         </p>

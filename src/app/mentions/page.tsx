@@ -92,21 +92,11 @@ export default function MentionsPage() {
                             <p>
                                 Domaine principal :{" "}
                                 <a
-                                    href="https://sylvain.pro"
+                                    href="https://sylvain.sh"
                                     className="underline hover:text-foreground transition-colors"
                                 >
-                                    sylvain.pro
+                                    sylvain.sh
                                 </a>
-                            </p>
-                            <p>
-                                Domaine raccourci :{" "}
-                                <a
-                                    href="https://sylv.pro"
-                                    className="underline hover:text-foreground transition-colors"
-                                >
-                                    sylv.pro
-                                </a>{" "}
-                                (redirection vers sylvain.pro)
                             </p>
                         </div>
                     </section>

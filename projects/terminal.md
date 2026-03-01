@@ -5,7 +5,7 @@ description: Terminal Linux en ligne, avec les commandes de base.
 longDescription: Émulateur de terminal Linux fonctionnel dans le navigateur. Supporte les commandes de base (ls, cd, cat, etc.) avec un système de fichiers simulé.
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/terminal"
-demo: "https://terminal.sylvain.pro"
+demo: "https://terminal.sylvain.sh"
 ---
 
 ## À propos {#about}

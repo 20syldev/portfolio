@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://sylvain.pro"><img src="https://sylvain.pro/favicon.ico" alt="Logo" width="25%" height="auto"/></a>
+  <a href="https://sylvain.sh"><img src="https://sylvain.sh/favicon.ico" alt="Logo" width="25%" height="auto"/></a>
 
 # Site Web Personnel - Portfolio
 
@@ -11,13 +11,11 @@
 
 ## Présentation rapide
 
-Voici le **code source** de mon site web portfolio **[sylvain.pro](https://sylvain.pro)**.
+Voici le **code source** de mon site web portfolio **[sylvain.sh](https://sylvain.sh)**.
 
 Le design du site est réalisé avec **Next.js**, **Tailwind CSS** et **Radix UI**. Il est également "**responsive**", c'est-à-dire qu'il s'adapte à **toutes** les tailles d'écran !
 
 Vous avez aussi le droit à un **mode** clair et sombre **automatique** ou **manuel**, des **animations**, un menu de **navigation** dynamique et bien plus !
-
-> _Vous pouvez utiliser l'URL raccourcie **[sylv.pro](https://sylvain.pro)** pour accéder au **site web**, ainsi que **toutes** ses pages._
 
 ---
 
@@ -83,10 +81,10 @@ npm run generate && next dev --hostname 0.0.0.0 --port 2146
 
 **Exemples :**
 
-- `sylvain.pro/api` - Redirection vers api.sylvain.pro
-- `sylvain.pro/card/api` - Carte du projet API
-- `sylvain.pro/projet/api` - Vue complète du projet API
-- `sylvain.pro/preview/api` - Preview du projet API
+- `sylvain.sh/api` - Redirection vers api.sylvain.sh
+- `sylvain.sh/card/api` - Carte du projet API
+- `sylvain.sh/projet/api` - Vue complète du projet API
+- `sylvain.sh/preview/api` - Preview du projet API
 
 ---
 

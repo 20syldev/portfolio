@@ -52,7 +52,7 @@ export function useApi(): ApiData {
     useEffect(() => {
         if (cachedData) return;
 
-        fetch("https://api.sylvain.pro/latest/website")
+        fetch("https://api.sylvain.sh/latest/website")
             .then((res) => res.json())
             .then((apiData) => {
                 const newData: CachedData = {

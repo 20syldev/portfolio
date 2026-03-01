@@ -5,12 +5,12 @@ description: Interface de lecture de fichiers README.
 longDescription: "Interface web minimaliste pour visualiser n'importe quel fichier README depuis un fichier local ou une URL. Développée avec Tailwind CSS et un mode sombre personnalisé."
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/readme"
-demo: "https://readme.sylvain.pro"
+demo: "https://readme.sylvain.sh"
 ---
 
 ## À propos {#about}
 
-Interface dédiée à la visualisation de fichiers README, disponible sur [readme.sylvain.pro](https://readme.sylvain.pro).
+Interface dédiée à la visualisation de fichiers README, disponible sur [readme.sylvain.sh](https://readme.sylvain.sh).
 Ce projet a été conçu pour offrir un moyen rapide et pratique de lire n'importe quel fichier README.
 
 ## Fonctionnalités {#features}

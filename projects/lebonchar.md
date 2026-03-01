@@ -5,7 +5,7 @@ description: "Mon site web de vente de véhicules d'occasion."
 longDescription: "Plateforme de vente de véhicules d'occasion inspirée de LeBonCoin, développée en PHP/MySQL avec architecture MVC. Projet de BTS SIO avec Docker."
 tags: ["Docker", "PHP", "MySQL", "HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/LeBonChar"
-demo: "https://lebonchar.site"
+demo: "https://lebonchar.sylvain.sh"
 ---
 
 ## À propos {#about}
@@ -37,7 +37,7 @@ Vous pouvez consulter les annonces de véhicules, créer un compte pour publier 
 
 LeBonChar est un site web qui a été créé en utilisant PHP, MySQL, HTML, CSS et JavaScript.
 Une documentation simple est disponible sur la page [GitHub](https://github.com/20syldev/LeBonChar) du projet.
-Pour voir un aperçu du site, vous pouvez consulter le [site web](https://lebonchar.site) directement !
+Pour voir un aperçu du site, vous pouvez consulter le [site web](https://lebonchar.sylvain.sh) directement !
 
 ## Installation locale {#install}
 

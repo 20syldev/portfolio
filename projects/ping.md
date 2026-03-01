@@ -5,7 +5,7 @@ description: Interface de test de disponibilité de mes sites web.
 longDescription: "Interface de monitoring vérifiant la disponibilité de tous les sous-domaines en temps réel via l'API, avec un affichage dynamique des résultats."
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/ping"
-demo: "https://ping.sylvain.pro"
+demo: "https://ping.sylvain.sh"
 ---
 
 ## À propos {#about}
@@ -21,7 +21,7 @@ Vous pouvez donc visualiser en direct la disponibilité de mes sites web.
 
 ## Affichage dynamique via API {#api}
 
-J'utilise mon [API](https://api.sylvain.pro) pour récupérer dynamiquement la liste de tous mes sous-domaines via l'endpoint [/latest/website](https://api.sylvain.pro/latest/website).
+J'utilise mon [API](https://api.sylvain.sh) pour récupérer dynamiquement la liste de tous mes sous-domaines via l'endpoint [/latest/website](https://api.sylvain.sh/latest/website).
 Le script effectue ensuite une requête fetch pour chaque site et affiche le résultat en temps réel.
 La liste des sites testés se met à jour automatiquement lorsque de nouveaux sous-domaines sont ajoutés à l'API.
 

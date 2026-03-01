@@ -11,7 +11,7 @@ order: 3
 ### Via curl (recommandée)
 
 ```bash
-curl -fsSL https://cdn.sylvain.pro/bash/mn@latest/install.sh | sh
+curl -fsSL https://cdn.sylvain.sh/bash/mn@latest/install.sh | sh
 ```
 
 ### Installation manuelle depuis le dépôt local
@@ -25,7 +25,7 @@ curl -fsSL https://cdn.sylvain.pro/bash/mn@latest/install.sh | sh
 ### Via curl
 
 ```bash
-curl -fsSL https://cdn.sylvain.pro/bash/mn@latest/install.sh | sh
+curl -fsSL https://cdn.sylvain.sh/bash/mn@latest/install.sh | sh
 ```
 
 L'installeur détecte une installation existante et met à jour les fichiers sans toucher aux données.

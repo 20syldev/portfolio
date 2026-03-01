@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Mentions légales - Sylvain L.",
-    description: "Mentions légales du site sylvain.pro.",
+    description: "Mentions légales du site sylvain.sh.",
     openGraph: {
         title: "Mentions légales - Sylvain L.",
-        description: "Mentions légales du site sylvain.pro.",
+        description: "Mentions légales du site sylvain.sh.",
         type: "website",
     },
 };

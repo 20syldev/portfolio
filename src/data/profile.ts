@@ -7,7 +7,7 @@ export const profile = {
         school: "Ensitech",
         degree: "BTS SIO SLAM",
         duration: "2 ans",
-        email: "contact@sylvain.pro",
+        email: "contact@sylvain.sh",
     },
     work: {
         company: "Zenetys",
@@ -25,7 +25,7 @@ export const profile = {
         sponsors: "https://github.com/sponsors/20syldev",
         google: "https://g.dev/20syl",
         cv: "/CV.pdf",
-        email: "contact@sylvain.pro",
+        email: "contact@sylvain.sh",
     },
     social: {
         github: "20syldev",
@@ -58,7 +58,7 @@ export const projects = [
         branch: "master",
         icon: "calendar",
         description: "UI de planning simplifiée",
-        link: "https://planning.sylvain.pro/",
+        link: "https://planning.sylvain.sh/",
     },
     {
         name: "PPE C#",

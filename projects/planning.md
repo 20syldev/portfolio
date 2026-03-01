@@ -5,13 +5,13 @@ description: Interface de planning HyperPlanning.
 longDescription: Interface personnalisée pour consulter les emplois du temps HyperPlanning. Navigation fluide jour/semaine avec sauvegarde des préférences.
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/planning"
-demo: "https://planning.sylvain.pro"
+demo: "https://planning.sylvain.sh"
 ---
 
 ## À propos {#about}
 
 Cette interface web est un planning pour les SLAM et SISR de Ensitech.
-Elle est disponible sur [planning.sylvain.pro](https://planning.sylvain.pro).
+Elle est disponible sur [planning.sylvain.sh](https://planning.sylvain.sh).
 
 ## Fonctionnalités {#features}
 
