@@ -139,7 +139,7 @@ export default function HomePage() {
 
                         {/* Section 2: Technologies */}
                         <section className="snap-section">
-                            <Technologies />
+                            <Technologies preview />
                         </section>
 
                         {/* Section 3: Projects */}
