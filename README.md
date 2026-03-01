@@ -90,7 +90,8 @@ npm run generate && next dev --hostname 0.0.0.0 --port 2146
 
 ## URLs de raccourcis
 
-| URL   | Description                      |
-| ----- | -------------------------------- |
-| `/me` | Ouvre la popup "À propos de moi" |
-| `/cv` | Ouvre le CV en plein écran       |
+| URL     | Description                      |
+| ------- | -------------------------------- |
+| `/me`   | Ouvre la popup "À propos de moi" |
+| `/cv`   | Ouvre le CV en plein écran       |
+| `/tech` | Affiche toutes les technologies  |
