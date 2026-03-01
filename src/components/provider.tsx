@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { FontDialog } from "@/components/dialogs/font";
 import { CursorProvider } from "@/components/utils/cursor";
 import { FontProvider } from "@/components/utils/font";
+import { NotifProvider } from "@/components/utils/notif";
 import { PdfViewerProvider } from "@/components/utils/viewer";
 import { ProjectDetailProvider } from "@/hooks/detail";
 
@@ -66,6 +67,7 @@ export function ThemeProvider({
                             <ProjectDetailProvider>{children}</ProjectDetailProvider>
                         </PdfViewerProvider>
                     </FontProvider>
+                    <NotifProvider />
                 </CursorProvider>
             </LenisProvider>
         </NextThemesProvider>
