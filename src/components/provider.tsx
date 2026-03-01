@@ -5,7 +5,9 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import * as React from "react";
 import { useEffect } from "react";
 
+import { FontDialog } from "@/components/dialogs/font";
 import { CursorProvider } from "@/components/utils/cursor";
+import { FontProvider } from "@/components/utils/font";
 import { PdfViewerProvider } from "@/components/utils/viewer";
 import { ProjectDetailProvider } from "@/hooks/detail";
 
@@ -58,9 +60,12 @@ export function ThemeProvider({
         <NextThemesProvider {...props}>
             <LenisProvider>
                 <CursorProvider>
-                    <PdfViewerProvider>
-                        <ProjectDetailProvider>{children}</ProjectDetailProvider>
-                    </PdfViewerProvider>
+                    <FontProvider>
+                        <FontDialog />
+                        <PdfViewerProvider>
+                            <ProjectDetailProvider>{children}</ProjectDetailProvider>
+                        </PdfViewerProvider>
+                    </FontProvider>
                 </CursorProvider>
             </LenisProvider>
         </NextThemesProvider>
