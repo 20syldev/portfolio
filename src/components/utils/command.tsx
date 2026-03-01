@@ -17,6 +17,7 @@ import {
     Search,
     Sparkles,
     Sun,
+    Type,
     UserRound,
     Wrench,
 } from "lucide-react";
@@ -37,6 +38,7 @@ import {
 } from "@/components/ui/command";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useCursor } from "@/components/utils/cursor";
+import { useFont } from "@/components/utils/font";
 import { usePdfViewer } from "@/components/utils/viewer";
 import { projects as alternanceProjects } from "@/data/alternance";
 import { docs } from "@/data/docs";
@@ -167,8 +169,9 @@ export function CommandMenu() {
     const [scrolled, setScrolled] = React.useState(false);
     const scrollReadyRef = React.useRef(false);
     const router = useRouter();
-    const { setTheme } = useTheme();
+    const { theme, setTheme } = useTheme();
     const { enabled: cursorEnabled, setEnabled: setCursorEnabled } = useCursor();
+    const { setDialogOpen: setFontDialogOpen } = useFont();
     const { openProject } = useProjectDetail();
     const { openPdf } = usePdfViewer();
     const getProjectStatus = useProjectStatus();
@@ -205,7 +208,12 @@ export function CommandMenu() {
     }, [open]);
 
     const scroll = React.useCallback(() => {
-        if (scrollReadyRef.current) setScrolled(true);
+        if (scrollReadyRef.current) {
+            setScrolled(true);
+            if ("ontouchstart" in window) {
+                (document.activeElement as HTMLElement)?.blur();
+            }
+        }
     }, []);
 
     const runCommand = React.useCallback(
@@ -265,18 +273,32 @@ export function CommandMenu() {
                 <MousePointer2 className="mr-2 h-4 w-4" />
                 {cursorEnabled ? "Désactiver" : "Activer"} le curseur personnalisé
             </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
-                <Sun className="mr-2 h-4 w-4" />
-                Thème clair
+            <CommandItem
+                value="Changer la police"
+                keywords={["font", "police", "typographie", "écriture"]}
+                onSelect={() => runCommand(() => setFontDialogOpen(true))}
+            >
+                <Type className="mr-2 h-4 w-4" />
+                Changer la police
             </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => setTheme("dark"))}>
-                <Moon className="mr-2 h-4 w-4" />
-                Thème sombre
-            </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => setTheme("system"))}>
-                <Monitor className="mr-2 h-4 w-4" />
-                Thème système
-            </CommandItem>
+            {theme !== "light" && (
+                <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
+                    <Sun className="mr-2 h-4 w-4" />
+                    Thème clair
+                </CommandItem>
+            )}
+            {theme !== "dark" && (
+                <CommandItem onSelect={() => runCommand(() => setTheme("dark"))}>
+                    <Moon className="mr-2 h-4 w-4" />
+                    Thème sombre
+                </CommandItem>
+            )}
+            {theme !== "system" && (
+                <CommandItem onSelect={() => runCommand(() => setTheme("system"))}>
+                    <Monitor className="mr-2 h-4 w-4" />
+                    Thème système
+                </CommandItem>
+            )}
         </>
     );
 

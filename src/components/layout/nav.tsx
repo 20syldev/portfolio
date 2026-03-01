@@ -6,7 +6,9 @@ import { useEffect, useState } from "react";
 
 import { ThemeToggle } from "@/components/layout/toggle";
 import { Button } from "@/components/ui/button";
+import { Collapsible } from "@/components/ui/collapsible";
 import { CommandMenu, SearchButton } from "@/components/utils/command";
+import { useFont } from "@/components/utils/font";
 import { profile } from "@/data/profile";
 
 let hasAnimated = false;
@@ -33,6 +35,7 @@ interface NavProps {
 export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
     const isHome = currentTab === 0;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { setDialogOpen } = useFont();
     const [animate] = useState(!hasAnimated);
 
     useEffect(() => {
@@ -75,8 +78,12 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
                                   }
                                 : undefined
                         }
+                        onDoubleClick={(e) => {
+                            e.preventDefault();
+                            setDialogOpen(true);
+                        }}
                         className={`
-                            text-xl font-bold whitespace-nowrap
+                            text-xl font-bold whitespace-nowrap select-none
                             transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
                             ${isHome ? "w-0 opacity-0 overflow-hidden" : "w-auto opacity-100"}
                         `}
@@ -145,12 +152,12 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
                         </div>
 
                         {/* Mobile: actions appear when menu is open */}
-                        {isMenuOpen && (
-                            <div className="flex md:hidden items-center gap-1">
-                                <SearchButton />
-                                <ThemeToggle />
-                            </div>
-                        )}
+                        <div
+                            className={`flex md:hidden items-center gap-1 transition-opacity duration-300 ${isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+                        >
+                            <SearchButton />
+                            <ThemeToggle />
+                        </div>
 
                         {/* Mobile: hamburger */}
                         <Button
@@ -172,8 +179,8 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
                 </div>
 
                 {/* Mobile menu - non-home pages only */}
-                {!isHome && isMenuOpen && (
-                    <nav className="md:hidden border-t border-border/50">
+                <Collapsible open={!isHome && isMenuOpen} className="md:hidden">
+                    <nav className="border-t border-border/50">
                         <div className="flex flex-col p-2">
                             {tabs.map((tab, index) => {
                                 const isActive = currentTab === index;
@@ -220,7 +227,7 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
                             })}
                         </div>
                     </nav>
-                )}
+                </Collapsible>
             </div>
 
             {/* Floating actions - desktop on home, mobile hamburger on home */}
@@ -258,14 +265,16 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
                             />
                         </span>
                     </Button>
-
-                    {/* Actions revealed when open */}
-                    {isMenuOpen && (
-                        <>
-                            <SearchButton />
-                            <ThemeToggle />
-                        </>
-                    )}
+                    <div
+                        className={`flex flex-col items-center gap-1 ${isMenuOpen ? "" : "pointer-events-none"}`}
+                        style={{
+                            opacity: isMenuOpen ? 1 : 0,
+                            transition: "opacity 300ms ease-out",
+                        }}
+                    >
+                        <SearchButton />
+                        <ThemeToggle />
+                    </div>
                 </div>
             </div>
         </header>

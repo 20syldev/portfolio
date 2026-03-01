@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useFont } from "@/components/utils/font";
 import { usePdfViewer } from "@/components/utils/viewer";
 import { profile } from "@/data/profile";
 
@@ -16,6 +17,7 @@ import { profile } from "@/data/profile";
  */
 export function Hero() {
     const { openPdf } = usePdfViewer();
+    const { setDialogOpen } = useFont();
 
     return (
         <div className="flex h-full flex-col items-center justify-center px-4 text-center">
@@ -31,7 +33,12 @@ export function Hero() {
 
             {/* Nom & Titre */}
             <div className="mt-6 space-y-1">
-                <h1 className="text-3xl font-bold">{profile.name}</h1>
+                <h1
+                    className="text-3xl font-bold cursor-pointer select-none"
+                    onClick={() => setDialogOpen(true)}
+                >
+                    {profile.name}
+                </h1>
                 <p className="text-lg text-muted-foreground">{profile.title}</p>
             </div>
 
