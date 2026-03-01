@@ -134,17 +134,7 @@ export function ContactDialog({ open, onOpenChange, autoFocusClose }: ContactDia
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent
                 className="p-4 sm:p-6 sm:max-w-md lg:max-w-lg"
-                onOpenAutoFocus={
-                    autoFocusClose
-                        ? (e) => {
-                              e.preventDefault();
-                              const target = e.currentTarget as HTMLElement | null;
-                              target
-                                  ?.querySelector<HTMLButtonElement>("[data-slot='dialog-close']")
-                                  ?.focus();
-                          }
-                        : undefined
-                }
+                autoFocusClose={autoFocusClose}
             >
                 <DialogHeader>
                     <DialogTitle>{profile.name}</DialogTitle>
