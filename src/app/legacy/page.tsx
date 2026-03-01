@@ -25,7 +25,7 @@ export default function LegacyPage() {
                 </span>
             </div>
             <iframe
-                src="/legacy/v1.html"
+                src="/legacy/index.html"
                 className="w-full h-full border-0"
                 title="Sylvain L. - Legacy Portfolio"
             />
