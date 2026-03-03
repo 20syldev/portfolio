@@ -196,6 +196,17 @@
     }
 }
 
+@keyframes shine {
+    0%,
+    30% {
+        background-position: 100% center;
+    }
+    70%,
+    100% {
+        background-position: 0% center;
+    }
+}
+
 /* Animation Classes */
 .animate-header-in {
     animation: header-in 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -211,6 +222,24 @@
 
 .animate-float {
     animation: float 1.5s ease-in-out infinite;
+}
+
+.animate-shine {
+    background: linear-gradient(
+        120deg,
+        currentColor 0%,
+        currentColor 37%,
+        #c7d2fe 43%,
+        #a5b4fc 50%,
+        #c4b5fd 57%,
+        currentColor 63%,
+        currentColor 100%
+    );
+    background-size: 300% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 5s ease-in-out infinite;
 }
 
 /* Custom cursor */
