@@ -88,7 +88,7 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
                             ${isHome ? "w-0 opacity-0 overflow-hidden" : "w-auto opacity-100"}
                         `}
                     >
-                        {profile.name}
+                        <span className="animate-shine">{profile.name}</span>
                     </Link>
 
                     {/* Navigation tabs - pills on home (always visible), hidden on mobile for other pages */}

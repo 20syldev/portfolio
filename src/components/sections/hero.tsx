@@ -37,7 +37,7 @@ export function Hero() {
                     className="text-3xl font-bold cursor-pointer select-none"
                     onClick={() => setDialogOpen(true)}
                 >
-                    {profile.name}
+                    <span className="animate-shine">{profile.name}</span>
                 </h1>
                 <p className="text-lg text-muted-foreground">{profile.title}</p>
             </div>

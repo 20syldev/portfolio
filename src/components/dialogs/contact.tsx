@@ -137,7 +137,9 @@ export function ContactDialog({ open, onOpenChange, autoFocusClose }: ContactDia
                 autoFocusClose={autoFocusClose}
             >
                 <DialogHeader>
-                    <DialogTitle>{profile.name}</DialogTitle>
+                    <DialogTitle>
+                        <span className="animate-shine">{profile.name}</span>
+                    </DialogTitle>
                     <DialogDescription className="text-center sm:text-left">
                         {profile.title}
                     </DialogDescription>
