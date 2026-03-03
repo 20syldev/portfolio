@@ -14,6 +14,7 @@ import { useOverflow } from "@/hooks/overflow";
 import { useSmoothScroll } from "@/hooks/scroll";
 import { getDocCategories } from "@/lib/docs";
 import { tabs, urls } from "@/lib/nav";
+import { random } from "@/lib/utils";
 
 /**
  * Displays doc titles on a single line with overflow truncation.
@@ -31,7 +32,7 @@ function DocPreview({ docs: items }: { docs: Doc[] }) {
     const itemsRef = useRef(items);
 
     useEffect(() => {
-        setShuffled([...itemsRef.current].sort(() => Math.random() - 0.5));
+        setShuffled(random.shuffle(itemsRef.current));
     }, []);
 
     if (!shuffled) {
