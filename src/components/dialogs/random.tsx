@@ -13,15 +13,17 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { docs } from "@/data/docs";
+import { random } from "@/lib/utils";
 
 /**
  * Pick a random documentation entry that has content.
  *
- * @returns A random doc entry from the available docs with content
+ * @param exclude - ID of the doc to exclude (avoids re-picking the current one)
+ * @returns A randomly selected doc entry that has content
  */
-function pickRandom(exclude?: string) {
+function pickRandomDoc(exclude?: string) {
     const withContent = docs.filter((d) => d.hasContent && d.id !== exclude);
-    return withContent[Math.floor(Math.random() * withContent.length)];
+    return random.pick(withContent);
 }
 
 /**
@@ -32,12 +34,12 @@ function pickRandom(exclude?: string) {
  */
 export function RandomButton() {
     const [open, setOpen] = useState(false);
-    const [doc, setDoc] = useState(() => pickRandom());
+    const [doc, setDoc] = useState(() => pickRandomDoc());
 
-    const reroll = useCallback(() => setDoc((prev) => pickRandom(prev.id)), []);
+    const reroll = useCallback(() => setDoc((prev) => pickRandomDoc(prev.id)), []);
 
     const handleOpen = useCallback(() => {
-        setDoc((prev) => pickRandom(prev.id));
+        setDoc((prev) => pickRandomDoc(prev.id));
         setOpen(true);
     }, []);
 
