@@ -34,6 +34,7 @@ import {
     CommandItem,
     CommandList,
     CommandSeparator,
+    CommandShortcut,
 } from "@/components/ui/command";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useCursor } from "@/components/utils/cursor";
@@ -73,6 +74,11 @@ function normalize(str: string): string {
 /**
  * Custom filter for the command palette.
  * Prioritizes exact matches on value (name/title) over keyword matches.
+ *
+ * @param value - The item value (name/title) to match against
+ * @param search - The current search query
+ * @param keywords - Optional additional keywords for the item
+ * @returns Score between 0 (no match) and 1 (exact match)
  */
 function commandFilter(value: string, search: string, keywords?: string[]): number {
     const v = normalize(value);
@@ -271,6 +277,7 @@ export function CommandMenu() {
             <CommandItem onSelect={() => runCommand(() => setCursorEnabled(!cursorEnabled))}>
                 <MousePointer2 className="mr-2 h-4 w-4" />
                 {cursorEnabled ? "Désactiver" : "Activer"} le curseur personnalisé
+                <CommandShortcut>Alt + C</CommandShortcut>
             </CommandItem>
             <CommandItem
                 value="Changer la police"
@@ -279,23 +286,27 @@ export function CommandMenu() {
             >
                 <Type className="mr-2 h-4 w-4" />
                 Changer la police
+                <CommandShortcut>Alt + P</CommandShortcut>
             </CommandItem>
             {theme !== "light" && (
                 <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
                     <Sun className="mr-2 h-4 w-4" />
                     Thème clair
+                    <CommandShortcut>Alt + T</CommandShortcut>
                 </CommandItem>
             )}
             {theme !== "dark" && (
                 <CommandItem onSelect={() => runCommand(() => setTheme("dark"))}>
                     <Moon className="mr-2 h-4 w-4" />
                     Thème sombre
+                    <CommandShortcut>Alt + T</CommandShortcut>
                 </CommandItem>
             )}
             {theme !== "system" && (
                 <CommandItem onSelect={() => runCommand(() => setTheme("system"))}>
                     <Monitor className="mr-2 h-4 w-4" />
                     Thème système
+                    <CommandShortcut>Alt + T</CommandShortcut>
                 </CommandItem>
             )}
         </>
