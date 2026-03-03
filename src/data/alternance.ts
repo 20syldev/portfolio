@@ -1,3 +1,4 @@
+// Projects developed during the work-study program at Zenetys
 export const projects = [
     {
         id: "monitoring",

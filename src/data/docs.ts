@@ -11,4 +11,5 @@ export interface Doc {
     content?: string;
 }
 
+// Documentation entries loaded from docs.json
 export const docs: Doc[] = docsData as Doc[];

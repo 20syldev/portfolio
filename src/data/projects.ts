@@ -18,4 +18,5 @@ export interface Project {
     content?: string;
 }
 
+// Project entries loaded from projects.json
 export const projects: Project[] = projectsData as Project[];

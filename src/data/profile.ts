@@ -1,3 +1,4 @@
+// Main profile data (identity, education, experience, links)
 export const profile = {
     name: "Sylvain L.",
     title: "Développeur Full Stack & Web Designer",
@@ -34,6 +35,7 @@ export const profile = {
     },
 };
 
+// Open source contributions (PRs, repositories)
 export const contributions = [
     {
         repo: "rsyslog/rsyslog",
@@ -51,6 +53,7 @@ export const contributions = [
     },
 ];
 
+// Pinned GitHub projects displayed on the homepage
 export const projects = [
     {
         name: "Planning",
@@ -83,6 +86,7 @@ export interface ContactLink {
     action?: "copy" | "pdf";
 }
 
+// Contact links with icons, labels and optional actions
 export const contacts: ContactLink[] = [
     { icon: "mail", label: profile.links.email, action: "copy" },
     { icon: "github", label: profile.social.github, url: profile.links.github },
@@ -92,6 +96,7 @@ export const contacts: ContactLink[] = [
     { icon: "cv", label: "CV", action: "pdf", url: profile.links.cv },
 ];
 
+// Google badges displayed on the profile
 export const badges = [
     { name: "Google Developer", icon: "developer", url: "https://g.dev/20syl" },
     { name: "Gemini AI", icon: "gemini", url: "https://gemini.google.com" },

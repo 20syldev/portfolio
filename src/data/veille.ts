@@ -11,4 +11,5 @@ export interface Veille {
     content?: string;
 }
 
+// Technology watch entries loaded from veille.json
 export const veilles: Veille[] = veilleData as Veille[];

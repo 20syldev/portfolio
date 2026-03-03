@@ -1,4 +1,4 @@
-/** Icons that need to be inverted in dark mode (black icons) */
+// Icons requiring a CSS invert filter in dark mode
 export const darkInvertIcons = [
     "Rust",
     "Bash",
@@ -10,10 +10,10 @@ export const darkInvertIcons = [
     "Markdown",
 ];
 
-/** Icons that need invert + hue-rotate to preserve colors (black + colored) */
+// Icons requiring a hue rotation filter in dark mode
 export const darkInvertHueIcons = ["YAML"];
 
-/** Technologies organized by category */
+// Categorized tech stack displayed on the /technologies page
 export const techCategories = [
     {
         name: "Langages",
