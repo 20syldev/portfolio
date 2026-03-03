@@ -40,6 +40,8 @@ export { defaultFontSize, minFontSize, maxFontSize };
  * Apply the selected font to the body element.
  * Uses inline style to override Tailwind's compiled font-sans utility.
  * For the default font, removes the override to let the utility class apply.
+ *
+ * @param fontId - ID of the font to apply (from {@link fonts})
  */
 function applyFont(fontId: string) {
     const config = getFontById(fontId);
@@ -52,6 +54,12 @@ function applyFont(fontId: string) {
     }
 }
 
+/**
+ * Apply a global font size override to the root element.
+ * At the default size, removes the override to restore the browser default.
+ *
+ * @param size - Font size as a percentage (e.g. `100` for 100%)
+ */
 function applyFontSize(size: number) {
     if (size === defaultFontSize) {
         document.documentElement.style.removeProperty("font-size");

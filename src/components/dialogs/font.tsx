@@ -20,6 +20,11 @@ const previewText = "Le vif zéphyr jubile sur les kumquats du clown gracieux";
 
 /**
  * Card displaying a single font option in the picker grid.
+ *
+ * @param props - Component props
+ * @param props.config - Font configuration to display
+ * @param props.active - Whether this font is currently selected
+ * @param props.onSelect - Callback invoked when the card is clicked
  */
 function FontCard({
     config,
@@ -58,6 +63,9 @@ function FontCard({
 
 /**
  * Font preview container showing text in different styles.
+ *
+ * @param props - Component props
+ * @param props.fontVariable - CSS variable name for the font (e.g. `--font-inter`)
  */
 function FontPreview({ fontVariable }: { fontVariable: string }) {
     const family = `var(${fontVariable})`;

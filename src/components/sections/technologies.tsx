@@ -41,6 +41,8 @@ function useTechCarousel() {
  * Mobile: carousel with one category at a time showing icons + names.
  * Desktop: grid layout with all categories visible.
  *
+ * @param props - Component props
+ * @param props.preview - When true, renders a condensed version for homepage preview (default: false)
  * @returns The rendered technologies section
  */
 export function Technologies({ preview }: { preview?: boolean }) {
