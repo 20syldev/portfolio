@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+    id="Speaker_Badge"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    version="1.1"
+    viewBox="0 0 600 600"
+>
+    <!-- Generator: Adobe Illustrator 29.0.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 186)  -->
+    <defs>
+        <style>
+            .st0,
+            .st1 {
+                fill: none;
+            }
+
+            .st2 {
+                fill: #1e1e1e;
+            }
+
+            .st3 {
+                fill: #fff;
+            }
+
+            .st4 {
+                fill: #c1daf4;
+            }
+
+            .st4,
+            .st5 {
+                stroke: #1e1e1e;
+            }
+
+            .st4,
+            .st5,
+            .st1 {
+                stroke-width: 4px;
+            }
+
+            .st4,
+            .st1 {
+                stroke-miterlimit: 10;
+            }
+
+            .st5 {
+                fill: #4183f2;
+                stroke-linejoin: round;
+            }
+
+            .st6 {
+                fill: #cbcbcb;
+            }
+
+            .st1 {
+                stroke: #4183f2;
+            }
+
+            .st7 {
+                filter: url(#AI_Shadow_3);
+                opacity: 0.2;
+            }
+
+            .st8 {
+                clip-path: url(#clippath);
+            }
+        </style>
+        <filter id="AI_Shadow_3" x="-15%" y="-15%" width="140%" height="130%">
+            <feGaussianBlur in="SourceAlpha" result="blur" stdDeviation="10" />
+            <feOffset dx="0" dy="5" in="blur" result="offsetBlurredAlpha" />
+            <feMerge>
+                <feMergeNode in="offsetBlurredAlpha" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+        <clipPath id="clippath">
+            <circle class="st0" cx="296.5" cy="300" r="226.5" />
+        </clipPath>
+    </defs>
+    <g>
+        <g id="svg_shadow" class="st7">
+            <circle class="st6" cx="296" cy="300" r="239.7" />
+        </g>
+        <g id="base">
+            <g>
+                <circle class="st2" cx="296.5" cy="300" r="241.5" />
+                <path
+                    class="st3"
+                    d="M296.5,73.5c30.6,0,60.2,6,88.2,17.8,27,11.4,51.2,27.7,72,48.5s37.1,45,48.5,72c11.8,27.9,17.8,57.6,17.8,88.2s-6,60.2-17.8,88.2c-11.4,27-27.7,51.2-48.5,72s-45,37.1-72,48.5c-27.9,11.8-57.6,17.8-88.2,17.8s-60.2-6-88.2-17.8c-27-11.4-51.2-27.7-72-48.5s-37.1-45-48.5-72c-11.8-27.9-17.8-57.6-17.8-88.2s6-60.2,17.8-88.2c11.4-27,27.7-51.2,48.5-72s45-37.1,72-48.5c27.9-11.8,57.6-17.8,88.2-17.8M296.5,58.5c-133.4,0-241.5,108.1-241.5,241.5s108.1,241.5,241.5,241.5,241.5-108.1,241.5-241.5S429.8,58.5,296.5,58.5h0Z"
+                />
+            </g>
+        </g>
+    </g>
+    <g>
+        <rect
+            class="st5"
+            x="179"
+            y="182.6"
+            width="114.4"
+            height="49.4"
+            rx="24.7"
+            ry="24.7"
+            transform="translate(-76.6 176.8) rotate(-35.7)"
+        />
+        <rect
+            class="st4"
+            x="211.5"
+            y="188.1"
+            width="49.4"
+            height="114.4"
+            rx="24.7"
+            ry="24.7"
+            transform="translate(-100.8 294) rotate(-54.3)"
+        />
+        <rect
+            class="st5"
+            x="306.6"
+            y="220.6"
+            width="114.4"
+            height="49.4"
+            rx="24.7"
+            ry="24.7"
+            transform="translate(-74.8 258.4) rotate(-35.7)"
+        />
+        <rect
+            class="st4"
+            x="339.1"
+            y="150.1"
+            width="49.4"
+            height="114.4"
+            rx="24.7"
+            ry="24.7"
+            transform="translate(-16.9 381.7) rotate(-54.3)"
+        />
+    </g>
+    <g>
+        <circle class="st1" cx="184.3" cy="388.4" r="41.3" />
+        <circle class="st1" cx="296.5" cy="388.4" r="41.3" />
+        <circle class="st1" cx="408.6" cy="388.4" r="41.3" />
+    </g>
+    <g class="st8">
+        <g>
+            <path class="st1" d="M241.4,523.6c0-36.2,24.7-65.5,55.1-65.5s55.1,29.3,55.1,65.5" />
+            <path class="st1" d="M351.5,523.6c0-36.2,24.7-65.5,55.1-65.5s55.1,29.3,55.1,65.5" />
+            <path class="st1" d="M131.2,523.6c0-36.2,24.7-65.5,55.1-65.5s55.1,29.3,55.1,65.5" />
+        </g>
+    </g>
+</svg>
