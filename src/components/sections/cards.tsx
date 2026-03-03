@@ -27,10 +27,45 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { badges, contributions, profile, projects } from "@/data/profile";
+import { GalleryTooltipContent } from "@/components/ui/gallery";
+import { Tooltip, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+    Certification,
+    certifications,
+    gdevBadges,
+    skillsBadges,
+    totalCertifications,
+    totalGdevBadges,
+    totalSkillsBadges,
+} from "@/data/achievements";
+import { contributions, profile, projects } from "@/data/profile";
 import { useApi } from "@/hooks/api";
 import { useDragScroll } from "@/hooks/scroll";
+import { random } from "@/lib/utils";
+
+const certPool: Certification[] = certifications.flatMap((cat) => cat.items);
+const skillsPool: Certification[] = skillsBadges.flatMap((cat) => cat.items);
+const gdevPool: Certification[] = gdevBadges.flatMap((cat) => cat.items);
+
+const pools = [certPool, skillsPool, gdevPool];
+const certDisplayCount = 10;
+
+/**
+ * Returns N random certifications from a random pool.
+ * Ensures that the same pool is not picked consecutively to maintain variety.
+ *
+ * @param n - Number of items to pick
+ * @param excludeIndex - Pool index to exclude (ensures category alternation)
+ * @returns The selected items and the pool index used
+ */
+function pickRandomCerts(
+    n: number,
+    excludeIndex?: number
+): { items: Certification[]; poolIndex: number } {
+    const candidates = pools.map((pool, i) => ({ pool, i })).filter(({ i }) => i !== excludeIndex);
+    const { pool, i } = candidates[Math.floor(Math.random() * candidates.length)];
+    return { items: random.shuffle(pool).slice(0, n), poolIndex: i };
+}
 
 const iconMap = {
     calendar: CalendarDays,
@@ -259,15 +294,34 @@ function GitHubCard({
  *
  * @param props - Component properties.
  * @param props.className - Optional CSS class.
- * @param props.badgeGridClass - Optional grid layout class.
  */
-function CertificationsCard({
-    className,
-    badgeGridClass,
-}: {
-    className?: string;
-    badgeGridClass?: string;
-}) {
+function CertificationsCard({ className }: { className?: string }) {
+    const [displayed, setDisplayed] = useState<Certification[]>([]);
+    const [visible, setVisible] = useState(true);
+    const lastPoolIndex = useRef<number | undefined>(undefined);
+
+    useEffect(() => {
+        const initial = pickRandomCerts(certDisplayCount);
+        setDisplayed(initial.items);
+        lastPoolIndex.current = initial.poolIndex;
+
+        let timeout: ReturnType<typeof setTimeout>;
+        const timer = setInterval(() => {
+            setVisible(false);
+            timeout = setTimeout(() => {
+                const result = pickRandomCerts(certDisplayCount, lastPoolIndex.current);
+                setDisplayed(result.items);
+                lastPoolIndex.current = result.poolIndex;
+                setVisible(true);
+            }, 300);
+        }, 7000);
+
+        return () => {
+            clearInterval(timer);
+            clearTimeout(timeout);
+        };
+    }, []);
+
     return (
         <Card className={`card-hover flex flex-col ${className || ""}`}>
             <CardHeader>
@@ -276,38 +330,57 @@ function CertificationsCard({
                     Certifications
                 </CardTitle>
             </CardHeader>
-            <CardContent className="flex-1 flex items-center">
-                <TooltipProvider>
-                    <div
-                        className={
-                            badgeGridClass || "grid grid-cols-3 gap-2 place-items-center w-full"
-                        }
+            <CardContent className="flex-1 flex flex-col">
+                <div className="flex-1 flex items-center justify-center">
+                    <TooltipProvider>
+                        <div
+                            className={`grid grid-cols-5 gap-3 place-items-center w-full transition-opacity duration-300 ${visible ? "opacity-100" : "opacity-0"}`}
+                        >
+                            {displayed.map((cert) => (
+                                <Tooltip key={cert.name}>
+                                    <TooltipTrigger asChild>
+                                        <a
+                                            href={cert.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <Image
+                                                src={cert.icon}
+                                                alt={cert.name}
+                                                width={60}
+                                                height={60}
+                                                className="rounded-md object-contain"
+                                            />
+                                        </a>
+                                    </TooltipTrigger>
+                                    <GalleryTooltipContent cert={cert} />
+                                </Tooltip>
+                            ))}
+                        </div>
+                    </TooltipProvider>
+                </div>
+                <div className="flex justify-center gap-3 border-t pt-3">
+                    <Link
+                        href="/certifications"
+                        className="text-xs text-muted-foreground hover:text-primary transition-colors"
                     >
-                        {badges.map((badge) => (
-                            <Tooltip key={badge.name}>
-                                <TooltipTrigger asChild>
-                                    <a
-                                        href={badge.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="p-2 xl:p-3 rounded-lg hover:bg-muted transition-colors"
-                                    >
-                                        <Image
-                                            src={`/icons/${badge.icon}.svg`}
-                                            alt={badge.name}
-                                            width={44}
-                                            height={44}
-                                            className="xl:w-14 xl:h-14"
-                                        />
-                                    </a>
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                    <p>{badge.name}</p>
-                                </TooltipContent>
-                            </Tooltip>
-                        ))}
-                    </div>
-                </TooltipProvider>
+                        +{totalCertifications} certifications
+                    </Link>
+                    <span className="text-xs text-muted-foreground">·</span>
+                    <Link
+                        href="/completion"
+                        className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                    >
+                        +{totalSkillsBadges} complétion
+                    </Link>
+                    <span className="text-xs text-muted-foreground">·</span>
+                    <Link
+                        href="/badges"
+                        className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                    >
+                        +{totalGdevBadges} badges
+                    </Link>
+                </div>
             </CardContent>
         </Card>
     );
@@ -402,7 +475,7 @@ export function InfoCards() {
             <div className="hidden lg:grid gap-4 lg:grid-cols-3 xl:gap-8">
                 <ParcoursCard stats={stats} />
                 <GitHubCard stats={stats} />
-                <CertificationsCard badgeGridClass="grid grid-cols-2 md:grid-cols-3 gap-2 xl:gap-4 place-items-center w-full" />
+                <CertificationsCard />
             </div>
         </div>
     );
