@@ -1,0 +1,210 @@
+import type { CertificationCategory } from "./types";
+
+// Google Cloud Skills badges
+export const skillsBadges: CertificationCategory[] = [
+    {
+        name: "IA & Machine Learning",
+        items: [
+            {
+                name: "Introduction to Generative AI",
+                icon: "/images/google/intro-generative-ai.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22583805",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Introduction to Large Language Models",
+                icon: "/images/google/intro-llm.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22583535",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Introduction to Image Generation",
+                icon: "/images/google/intro-image-generation.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22586307",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Introduction to Vertex AI Studio",
+                icon: "/images/google/intro-vertex-ai-studio.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22618361",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Create Image Captioning Models",
+                icon: "/images/google/image-captioning-models.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22618160",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Transformer Models and BERT Model",
+                icon: "/images/google/transformer-bert.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22587536",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Encoder-Decoder Architecture",
+                icon: "/images/google/encoder-decoder.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22587493",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Attention Mechanism",
+                icon: "/images/google/attention-mechanism.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22586341",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Vector Search and Embeddings",
+                icon: "/images/google/vector-search-embeddings.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22624371",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "MLOps with Vertex AI: Model Evaluation",
+                icon: "/images/google/mlops-model-evaluation.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "MLOps for Generative AI",
+                icon: "/images/google/mlops-generative-ai.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+        ],
+    },
+    {
+        name: "IA Responsable",
+        items: [
+            {
+                name: "Introduction to Responsible AI",
+                icon: "/images/google/intro-responsible-ai.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22583924",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Responsible AI: Applying AI Principles with Google Cloud",
+                icon: "/images/google/responsible-ai-principles.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22586257",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Responsible AI for Developers: Fairness & Bias",
+                icon: "/images/google/responsible-ai-fairness.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22623781",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Responsible AI for Developers: Interpretability & Transparency",
+                icon: "/images/google/responsible-ai-interpretability.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22623858",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Responsible AI for Developers: Privacy & Safety",
+                icon: "/images/google/responsible-ai-privacy.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22640049",
+                provider: "google",
+                date: "27 févr. 2026",
+            },
+        ],
+    },
+    {
+        name: "Google Workspace",
+        items: [
+            {
+                name: "Introduction to Google Workspace with Gemini",
+                icon: "/images/google/intro-workspace-gemini.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22583715",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Gemini in Google Docs",
+                icon: "/images/google/gemini-docs.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22584101",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Gemini in Google Sheets",
+                icon: "/images/google/gemini-sheets.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22586374",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Gemini in Google Meet",
+                icon: "/images/google/gemini-meet.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22587434",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Gemini in Gmail",
+                icon: "/images/google/gemini-gmail.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22583896",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Gemini in Google Drive",
+                icon: "/images/google/gemini-drive.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22623650",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Gemini in Google Slides",
+                icon: "/images/google/gemini-slides.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22584151",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Create Engaging Video with Google Vids",
+                icon: "/images/google/google-vids.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22623686",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+        ],
+    },
+    {
+        name: "Cloud & Sécurité",
+        items: [
+            {
+                name: "Introduction to Security Principles in Cloud Computing",
+                icon: "/images/google/security-cloud-computing.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22623604",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+            {
+                name: "Introduction to Data Analytics in Google Cloud",
+                icon: "/images/google/data-analytics-cloud.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22623554",
+                provider: "google",
+                date: "26 févr. 2026",
+            },
+        ],
+    },
+];
+
+// Counter
+export const totalSkillsBadges = skillsBadges.reduce((sum, cat) => sum + cat.items.length, 0);
