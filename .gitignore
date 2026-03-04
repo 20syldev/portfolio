@@ -6,3 +6,8 @@ next-env.d.ts
 src/data/projects.json
 src/data/veille.json
 src/data/docs.json
+public/sitemap.xml
+public/favicon.ico
+public/favicon-*.png
+public/apple-touch-icon.png
+public/android-chrome-*.png
