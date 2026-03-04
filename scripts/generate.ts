@@ -2,6 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 import matter from "gray-matter";
+import sharp from "sharp";
 
 interface ProjectMeta {
     id: string;
@@ -291,6 +292,130 @@ function generateDocs(): void {
     console.log(`  - Categories: ${categories.join(", ")}`);
 }
 
+const sitemapOutput = path.join(process.cwd(), "public", "sitemap.xml");
+
+/**
+ * Builds a single XML <url> entry for the sitemap.
+ *
+ * @param loc - Full URL
+ * @param lastmod - ISO date string
+ * @param priority - Priority value (0.0 to 1.0)
+ * @param changefreq - Change frequency
+ * @returns XML string for the URL entry
+ */
+function buildUrlEntry(loc: string, lastmod: string, priority: string, changefreq: string): string {
+    return `    <url>
+        <loc>${loc}</loc>
+        <lastmod>${lastmod}</lastmod>
+        <changefreq>${changefreq}</changefreq>
+        <priority>${priority}</priority>
+    </url>`;
+}
+
+/**
+ * Generates the sitemap.xml file from static pages and generated data.
+ * Reads the previously generated JSON files and builds a complete sitemap.
+ *
+ * @returns void
+ */
+function generateSitemap(): void {
+    const baseUrl = "https://sylvain.sh";
+    const now = new Date().toISOString();
+
+    const staticPages = [
+        { path: "/", priority: "1.0", changefreq: "weekly" },
+        { path: "/repositories/", priority: "0.8", changefreq: "monthly" },
+        { path: "/alternance/", priority: "0.8", changefreq: "monthly" },
+        { path: "/help/", priority: "0.7", changefreq: "weekly" },
+        { path: "/cv/", priority: "0.7", changefreq: "monthly" },
+        { path: "/me/", priority: "0.7", changefreq: "monthly" },
+        { path: "/tech/", priority: "0.6", changefreq: "monthly" },
+        { path: "/veille/", priority: "0.6", changefreq: "monthly" },
+        { path: "/badges/", priority: "0.5", changefreq: "monthly" },
+        { path: "/certifications/", priority: "0.5", changefreq: "monthly" },
+        { path: "/labs/", priority: "0.4", changefreq: "monthly" },
+        { path: "/mentions/", priority: "0.3", changefreq: "yearly" },
+        { path: "/confidentialite/", priority: "0.3", changefreq: "yearly" },
+    ];
+
+    const projects: GeneratedProject[] = JSON.parse(fs.readFileSync(projectsOutput, "utf-8"));
+    const veilles: GeneratedVeille[] = JSON.parse(fs.readFileSync(veilleOutput, "utf-8"));
+    const docs: GeneratedDoc[] = JSON.parse(fs.readFileSync(docsOutput, "utf-8"));
+
+    const urls: string[] = [];
+
+    for (const page of staticPages) {
+        urls.push(buildUrlEntry(baseUrl + page.path, now, page.priority, page.changefreq));
+    }
+
+    for (const project of projects.filter((p) => p.hasContent)) {
+        const lastmod = project.lastUpdated ? new Date(project.lastUpdated).toISOString() : now;
+        urls.push(buildUrlEntry(`${baseUrl}/projet/${project.id}/`, lastmod, "0.7", "monthly"));
+    }
+
+    for (const veille of veilles.filter((v) => v.hasContent)) {
+        urls.push(buildUrlEntry(`${baseUrl}/veille/${veille.id}/`, now, "0.6", "monthly"));
+    }
+
+    const categories = [...new Set(docs.map((d) => d.category))];
+    for (const category of categories) {
+        urls.push(buildUrlEntry(`${baseUrl}/help/${category}/`, now, "0.5", "weekly"));
+    }
+
+    for (const doc of docs.filter((d) => d.hasContent)) {
+        urls.push(
+            buildUrlEntry(`${baseUrl}/help/${doc.category}/${doc.slug}/`, now, "0.5", "monthly")
+        );
+    }
+
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.join("\n")}
+</urlset>`;
+
+    fs.writeFileSync(sitemapOutput, sitemap, "utf-8");
+
+    console.log(`Generated sitemap with ${urls.length} URLs to ${sitemapOutput}`);
+}
+
+const faviconSource = path.join(process.cwd(), "src", "app", "logo.png");
+const publicDir = path.join(process.cwd(), "public");
+
+/**
+ * Generates favicon variants from the source logo image.
+ * Creates properly sized PNG favicons, apple touch icon, and android chrome icons
+ * from the high-resolution source logo.
+ *
+ * @returns Promise that resolves when all favicons are generated
+ */
+async function generateFavicons(): Promise<void> {
+    if (!fs.existsSync(faviconSource)) {
+        console.error(`Error: ${faviconSource} does not exist`);
+        process.exit(1);
+    }
+
+    const variants = [
+        { name: "favicon.ico", size: 48 },
+        { name: "favicon-16x16.png", size: 16 },
+        { name: "favicon-32x32.png", size: 32 },
+        { name: "favicon-96x96.png", size: 96 },
+        { name: "apple-touch-icon.png", size: 180 },
+        { name: "android-chrome-192x192.png", size: 192 },
+        { name: "android-chrome-512x512.png", size: 512 },
+    ];
+
+    for (const variant of variants) {
+        await sharp(faviconSource)
+            .resize(variant.size, variant.size)
+            .png()
+            .toFile(path.join(publicDir, variant.name));
+    }
+
+    console.log(`Generated ${variants.length} favicon variants to ${publicDir}`);
+}
+
 generateProjects();
 generateVeilles();
 generateDocs();
+generateSitemap();
+generateFavicons();
