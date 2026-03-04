@@ -75,11 +75,23 @@ const fredoka = Fredoka({
 });
 
 export const metadata: Metadata = {
+    metadataBase: new URL("https://sylvain.sh"),
     title: "Sylvain L. - Développeur Full Stack",
     description:
         "Développeur Front-end depuis 8 ans et Back-end depuis 5 ans. Portfolio présentant mes projets et compétences.",
     keywords: ["développeur", "full stack", "web", "react", "node.js", "javascript"],
     authors: [{ name: "Sylvain L." }],
+    alternates: {
+        canonical: "/",
+    },
+    icons: {
+        icon: [
+            { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+            { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+        ],
+        apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    },
+    manifest: "/site.webmanifest",
     openGraph: {
         title: "Sylvain L. - Développeur Full Stack",
         description: "Développeur Front-end depuis 8 ans et Back-end depuis 5 ans.",
@@ -93,6 +105,28 @@ export const metadata: Metadata = {
         title: "Sylvain L. - Développeur Full Stack",
         description: "Développeur Front-end depuis 8 ans et Back-end depuis 5 ans.",
     },
+};
+
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "WebSite",
+            "@id": "https://sylvain.sh/#website",
+            url: "https://sylvain.sh",
+            name: "Sylvain L.",
+            description:
+                "Développeur Front-end depuis 8 ans et Back-end depuis 5 ans. Portfolio présentant mes projets et compétences.",
+            inLanguage: "fr-FR",
+        },
+        {
+            "@type": "Person",
+            "@id": "https://sylvain.sh/#person",
+            name: "Sylvain L.",
+            url: "https://sylvain.sh",
+            jobTitle: "Développeur Full Stack",
+        },
+    ],
 };
 
 /**
@@ -113,6 +147,10 @@ export default function RootLayout({
                 className={`${outfit.variable} ${inter.variable} ${lexend.variable} ${montserrat.variable} ${raleway.variable} ${dm.variable} ${jakarta.variable} ${poppins.variable} ${fredoka.variable} font-sans antialiased`}
                 suppressHydrationWarning
             >
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
