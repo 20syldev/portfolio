@@ -242,7 +242,11 @@ export function Gallery({ categories, title, subtitle, relatedPages }: GalleryPr
                                                 )}
                                                 {item.type && (
                                                     <Badge
-                                                        variant={item.type === "Examen" ? "default" : "outline"}
+                                                        variant={
+                                                            item.type === "Examen"
+                                                                ? "default"
+                                                                : "outline"
+                                                        }
                                                         className="text-[10px] py-0"
                                                     >
                                                         {item.type}
@@ -331,7 +335,11 @@ export function Gallery({ categories, title, subtitle, relatedPages }: GalleryPr
                                                         )}
                                                         {item.type && (
                                                             <Badge
-                                                                variant={item.type === "Examen" ? "default" : "outline"}
+                                                                variant={
+                                                                    item.type === "Examen"
+                                                                        ? "default"
+                                                                        : "outline"
+                                                                }
                                                                 className="text-[10px] py-0"
                                                             >
                                                                 {item.type}
