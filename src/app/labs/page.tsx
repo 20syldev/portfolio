@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowLeft, ExternalLink } from "lucide-react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
@@ -16,6 +16,7 @@ import { tabs, urls } from "@/lib/nav";
  * @returns The rendered labs page
  */
 export default function LabsPage() {
+    const router = useRouter();
     const { scrollRef } = useSmoothScroll<HTMLDivElement>();
 
     return (
@@ -26,15 +27,14 @@ export default function LabsPage() {
                     <div className="w-full max-w-3xl">
                         {/* Navigation */}
                         <div className="mb-8">
-                            <Link href="/">
-                                <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    className="text-muted-foreground hover:text-foreground transition-colors"
-                                >
-                                    <ArrowLeft className="h-4 w-4" />
-                                </Button>
-                            </Link>
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                className="text-muted-foreground hover:text-foreground transition-colors"
+                                onClick={() => router.push("/badges")}
+                            >
+                                <ArrowLeft className="h-4 w-4" />
+                            </Button>
                         </div>
 
                         {/* Header */}
