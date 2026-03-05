@@ -3,6 +3,7 @@
 import { ArrowLeft, Award } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
@@ -105,6 +106,7 @@ export function GalleryTooltipContent({ cert }: { cert: Certification }) {
  * @returns The rendered gallery page layout
  */
 export function Gallery({ categories, title, subtitle, relatedPages }: GalleryProps) {
+    const router = useRouter();
     const [currentCategory, setCurrentCategory] = useState(0);
     const [relatedOpen, setRelatedOpen] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
@@ -133,15 +135,16 @@ export function Gallery({ categories, title, subtitle, relatedPages }: GalleryPr
             <div className="w-full max-w-7xl">
                 {/* Navigation */}
                 <div className="mb-8 flex justify-between items-center">
-                    <Link href="/">
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-muted-foreground hover:text-foreground transition-colors"
-                        >
-                            <ArrowLeft className="h-4 w-4" />
-                        </Button>
-                    </Link>
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-muted-foreground hover:text-foreground transition-colors"
+                        onClick={() =>
+                            window.history.length > 2 ? router.back() : router.push("/")
+                        }
+                    >
+                        <ArrowLeft className="h-4 w-4" />
+                    </Button>
                     {relatedPages && relatedPages.length > 0 && (
                         <>
                             <Button
