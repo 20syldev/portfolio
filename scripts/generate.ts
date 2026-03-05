@@ -4,6 +4,8 @@ import * as path from "path";
 import matter from "gray-matter";
 import sharp from "sharp";
 
+import { buildIco } from "./ico";
+
 interface ProjectMeta {
     id: string;
     name: string;
@@ -395,10 +397,8 @@ async function generateFavicons(): Promise<void> {
     }
 
     const variants = [
-        { name: "favicon.ico", size: 48 },
         { name: "favicon-16x16.png", size: 16 },
         { name: "favicon-32x32.png", size: 32 },
-        { name: "favicon-96x96.png", size: 96 },
         { name: "apple-touch-icon.png", size: 180 },
         { name: "android-chrome-192x192.png", size: 192 },
         { name: "android-chrome-512x512.png", size: 512 },
@@ -411,7 +411,20 @@ async function generateFavicons(): Promise<void> {
             .toFile(path.join(publicDir, variant.name));
     }
 
-    console.log(`Generated ${variants.length} favicon variants to ${publicDir}`);
+    // Generate a true multi-resolution favicon.ico
+    fs.writeFileSync(
+        path.join(publicDir, "favicon.ico"),
+        buildIco(
+            await Promise.all(
+                [16, 32, 48, 256].map(async (size) => ({
+                    size,
+                    buffer: await sharp(faviconSource).resize(size, size).png().toBuffer(),
+                }))
+            )
+        )
+    );
+
+    console.log(`Generated ${variants.length} favicon variants + favicon.ico to ${publicDir}`);
 }
 
 generateProjects();
