@@ -33,10 +33,10 @@ import {
     Certification,
     certifications,
     gdevBadges,
-    skillsBadges,
+    completionBadges,
     totalCertifications,
     totalGdevBadges,
-    totalSkillsBadges,
+    totalCompletionBadges,
 } from "@/data/achievements";
 import { contributions, profile, projects } from "@/data/profile";
 import { useApi } from "@/hooks/api";
@@ -44,10 +44,10 @@ import { useDragScroll } from "@/hooks/scroll";
 import { random } from "@/lib/utils";
 
 const certPool: Certification[] = certifications.flatMap((cat) => cat.items);
-const skillsPool: Certification[] = skillsBadges.flatMap((cat) => cat.items);
+const completionPool: Certification[] = completionBadges.flatMap((cat) => cat.items);
 const gdevPool: Certification[] = gdevBadges.flatMap((cat) => cat.items);
 
-const pools = [certPool, skillsPool, gdevPool];
+const pools = [certPool, completionPool, gdevPool];
 const certDisplayCount = 10;
 
 /**
@@ -371,7 +371,7 @@ function CertificationsCard({ className }: { className?: string }) {
                         href="/completion"
                         className="text-xs text-muted-foreground hover:text-primary transition-colors"
                     >
-                        +{totalSkillsBadges} complétion
+                        +{totalCompletionBadges} complétion
                     </Link>
                     <span className="text-xs text-muted-foreground">·</span>
                     <Link
