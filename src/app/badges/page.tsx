@@ -7,7 +7,7 @@ import {
     gdevBadges,
     totalCertifications,
     totalGdevBadges,
-    totalSkillsBadges,
+    totalCompletionBadges,
 } from "@/data/achievements";
 import { useSmoothScroll } from "@/hooks/scroll";
 import { tabs, urls } from "@/lib/nav";
@@ -34,7 +34,7 @@ export default function BadgesPage() {
                             href: "/certifications",
                             count: totalCertifications,
                         },
-                        { label: "Complétion", href: "/completion", count: totalSkillsBadges },
+                        { label: "Complétion", href: "/completion", count: totalCompletionBadges },
                     ]}
                 />
             </main>

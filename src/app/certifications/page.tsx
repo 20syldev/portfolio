@@ -7,7 +7,7 @@ import {
     certifications,
     totalCertifications,
     totalGdevBadges,
-    totalSkillsBadges,
+    totalCompletionBadges,
 } from "@/data/achievements";
 import { useSmoothScroll } from "@/hooks/scroll";
 import { tabs, urls } from "@/lib/nav";
@@ -30,7 +30,7 @@ export default function CertificationsPage() {
                     subtitle={`${totalCertifications} certifications`}
                     relatedPages={[
                         { label: "Badges", href: "/badges", count: totalGdevBadges },
-                        { label: "Complétion", href: "/completion", count: totalSkillsBadges },
+                        { label: "Complétion", href: "/completion", count: totalCompletionBadges },
                     ]}
                 />
             </main>
