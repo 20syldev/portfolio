@@ -145,6 +145,14 @@ export const gdevBadges: CertificationCategory[] = [
         name: "Événements & Cours",
         items: [
             {
+                name: "I/O 2026 – Inscription",
+                icon: "/icons/google/io-2026.svg",
+                url: "https://developers.google.com/profile/badges/events/io/2026/registered",
+                provider: "google",
+                date: "6 mars 2026",
+                shape: "round",
+            },
+            {
                 name: "Google Skills",
                 icon: "/icons/google/google-skills.svg",
                 url: "https://developers.google.com/profile/badges/skillsboost/earned-badge",
