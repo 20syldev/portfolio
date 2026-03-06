@@ -189,6 +189,20 @@ export const skillsBadges: CertificationCategory[] = [
         name: "Cloud & Sécurité",
         items: [
             {
+                name: "Model Armor: Securing AI Deployments",
+                icon: "/images/google/model-armor.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22814185",
+                provider: "google",
+                date: "6 mars 2026",
+            },
+            {
+                name: "Introduction to Security in the World of AI",
+                icon: "/images/google/intro-security-ai.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22813609",
+                provider: "google",
+                date: "6 mars 2026",
+            },
+            {
                 name: "Introduction to Security Principles in Cloud Computing",
                 icon: "/images/google/security-cloud-computing.png",
                 url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22623604",
