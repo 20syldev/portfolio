@@ -324,7 +324,12 @@
             clip-path: url(#SVGID_00000024712769785440405950000001388029924680587959_);
         }
     </style>
-    <g>
+    <defs>
+        <clipPath id="badge-clip">
+            <circle cx="300" cy="300" r="300" />
+        </clipPath>
+    </defs>
+    <g style="clip-path: url(#badge-clip)">
         <g>
             <defs>
                 <polyline
