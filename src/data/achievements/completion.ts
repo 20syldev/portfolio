@@ -1,7 +1,7 @@
 import type { CertificationCategory } from "./types";
 
 // Google Cloud Skills badges
-export const skillsBadges: CertificationCategory[] = [
+export const completionBadges: CertificationCategory[] = [
     {
         name: "IA & Machine Learning",
         items: [
@@ -221,4 +221,4 @@ export const skillsBadges: CertificationCategory[] = [
 ];
 
 // Counter
-export const totalSkillsBadges = skillsBadges.reduce((sum, cat) => sum + cat.items.length, 0);
+export const totalCompletionBadges = completionBadges.reduce((sum, cat) => sum + cat.items.length, 0);
