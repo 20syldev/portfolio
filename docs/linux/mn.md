@@ -84,7 +84,7 @@ Les raccourcis courts sont également supportés : `mn r` (repos), `mn a` (alias
 
 ```
 ~/.config/mn/
-├── mn              # Point d'entrée principal
+├── mn                 # Point d'entrée principal
 ├── lib/
 │   ├── core.sh        # Config, couleurs, utilitaires
 │   ├── crud.sh        # Moteur CRUD générique
