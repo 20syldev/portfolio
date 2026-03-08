@@ -18,6 +18,56 @@ import { cn } from "@/lib/utils";
 
 const previewText = "Le vif zéphyr jubile sur les kumquats du clown gracieux";
 
+function FontSlider({
+    min,
+    max,
+    value,
+    onChange,
+}: {
+    min: number;
+    max: number;
+    value: number;
+    onChange: (v: number) => void;
+}) {
+    const [hovered, setHovered] = React.useState(false);
+    const percent = ((value - min) / (max - min)) * 100;
+
+    return (
+        <div
+            className="relative h-6 flex items-center cursor-pointer group"
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+            onClick={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+                onChange(Math.round(min + x * (max - min)));
+            }}
+        >
+            <div className="absolute inset-y-1/2 left-0 right-0 h-1.5 -translate-y-1/2 rounded-full bg-muted transition-colors duration-200 group-hover:bg-accent">
+                <div
+                    className="absolute inset-y-0 left-0 rounded-full bg-primary"
+                    style={{ width: `${percent}%` }}
+                />
+            </div>
+            <div
+                className={cn(
+                    "absolute top-1/2 -translate-y-1/2 -translate-x-1/2 size-4 rounded-full bg-primary border-2 border-background shadow transition-transform duration-200",
+                    hovered && "scale-125"
+                )}
+                style={{ left: `${percent}%` }}
+            />
+            <input
+                type="range"
+                min={min}
+                max={max}
+                value={value}
+                onChange={(e) => onChange(parseInt(e.target.value, 10))}
+                className="absolute inset-0 opacity-0 cursor-pointer"
+            />
+        </div>
+    );
+}
+
 /**
  * Card displaying a single font option in the picker grid.
  *
@@ -153,13 +203,11 @@ export function FontDialog() {
                             </span>
                         </div>
                     </div>
-                    <input
-                        type="range"
+                    <FontSlider
                         min={minFontSize}
                         max={maxFontSize}
                         value={fontSize}
-                        onChange={(e) => setFontSize(parseInt(e.target.value, 10))}
-                        className="w-full accent-primary"
+                        onChange={setFontSize}
                     />
                     <div className="flex justify-between text-xs text-muted-foreground">
                         <span>{minFontSize}%</span>
