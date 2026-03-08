@@ -67,8 +67,8 @@ export function useApi(): ApiData {
                     patchedProjects: apiData?.patched_projects || [],
                     updatedProjects: apiData?.updated_projects || [],
                     newProjects: apiData?.new_projects || [],
-                    notifTag: apiData?.notif_tag || null,
-                    notifActive: apiData?.active === "true",
+                    notifTag: apiData?.tag || null,
+                    notifActive: apiData?.active || false,
                 };
                 cachedData = newData;
                 setData(newData);
