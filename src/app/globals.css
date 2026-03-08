@@ -141,6 +141,10 @@
         overflow: hidden;
         height: 100%;
     }
+    ::selection {
+        background: oklch(0.6 0.2 280);
+        color: white;
+    }
 }
 
 /* Keyframes */
