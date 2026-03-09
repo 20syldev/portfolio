@@ -22,13 +22,13 @@ Imagine un cadenas spécial :
 - La **clé privée**, c'est la seule clé qui ouvre ce cadenas. Tu la gardes secrète sur ta machine.
 
 ```
- Toi                                          Destinataire
- ───                                          ────────────
- Clé privée (secrète)                         Ta clé publique (partagée)
-     │                                              │
-     ├── Signer ──────────────────────────────> Vérifier ✓
-     │                                              │
-     └── Déchiffrer <──────────────────────── Chiffrer
+    Toi                                           Destinataire
+    ───                                           ────────────
+ Clé privée (secrète)                      Ta clé publique (partagée)
+     │                                                 │
+     ├──  Signer      ────────────────────────>    Vérifier ✓
+     │                                                 │
+     └──  Déchiffrer  <────────────────────────     Chiffrer
 ```
 
 Ce qui est chiffré avec la clé publique ne peut être déchiffré qu'avec la clé privée, et vice-versa. C'est ce principe qui rend la signature et le chiffrement possibles.
@@ -79,18 +79,18 @@ Les deux utilisent la cryptographie asymétrique, mais pour des usages différen
 ### Signature et vérification
 
 ```
-   AUTEUR                                    VÉRIFICATEUR
-   ──────                                    ────────────
+     AUTEUR                                  VÉRIFICATEUR
+     ──────                                  ────────────
 
-  ┌──────────┐      Signature           ┌──────────┐
-  │  Fichier │ ─── + clé privée ──────> │ Fichier  │
-  │          │      = signature          │ + signat.│
-  └──────────┘                           └────┬─────┘
-                                              │
-                                    clé publique de l'auteur
-                                              │
-                                         ✓ Authentique
-                                    ou   ✗ Modifié / Faux
+  ┌───────────┐        Signature             ┌─────────────┐
+  │  Fichier  │ ────  + clé privée  ──────>  │   Fichier   │
+  │           │       = signature            │  + signat.  │
+  └───────────┘                              └──────┬──────┘
+                                                    │
+                                         clé publique de l'auteur
+                                                    │
+                                              ✓ Authentique
+                                          ou  ✗ Modifié / Faux
 ```
 
 La signature prouve deux choses :
@@ -101,20 +101,20 @@ La signature prouve deux choses :
 ### Chiffrement et déchiffrement
 
 ```
-   EXPÉDITEUR                                DESTINATAIRE
-   ──────────                                ────────────
+    EXPÉDITEUR                                   DESTINATAIRE
+    ──────────                                   ────────────
 
-  ┌──────────┐    Chiffrement           ┌──────────┐
-  │ Message  │ ── + clé publique ─────> │ Message  │
-  │ en clair │    du destinataire       │ chiffré  │
-  └──────────┘                           └────┬─────┘
-                                              │
-                                    clé privée du destinataire
-                                              │
-                                        ┌──────────┐
-                                        │ Message  │
-                                        │ en clair │
-                                        └──────────┘
+  ┌────────────┐          Chiffrement            ┌───────────┐
+  │  Message   │  ─────  + clé publique  ─────>  │  Message  │
+  │  en clair  │         du destinataire         │  chiffré  │
+  └────────────┘                                 └─────┬─────┘
+                                                       │
+                                           clé privée du destinataire
+                                                       │
+                                                 ┌─────┴──────┐
+                                                 │  Message   │
+                                                 │  en clair  │
+                                                 └────────────┘
 ```
 
 Seul le destinataire peut déchiffrer le message, car lui seul possède sa clé privée.
