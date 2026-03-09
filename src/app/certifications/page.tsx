@@ -6,8 +6,8 @@ import { Gallery } from "@/components/ui/gallery";
 import {
     certifications,
     totalCertifications,
-    totalGdevBadges,
     totalCompletionBadges,
+    totalGdevBadges,
 } from "@/data/achievements";
 import { useSmoothScroll } from "@/hooks/scroll";
 import { tabs, urls } from "@/lib/nav";
