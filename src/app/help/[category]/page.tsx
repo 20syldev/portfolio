@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import {
-    getCategoryName,
-    getDocCategories,
-    getDocsByCategory,
-    getSubcategories,
-} from "@/lib/docs";
+import { getCategoryName, getDocCategories, getDocsByCategory, getSubcategories } from "@/lib/docs";
 
 import { Listing } from "./listing";
 
