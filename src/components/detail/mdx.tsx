@@ -97,17 +97,20 @@ export const mdxComponents = {
             {children}
         </strong>
     ),
-    a: ({ children, href, ...props }: ComponentPropsWithoutRef<"a">) => (
-        <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary underline underline-offset-4 hover:text-primary/80 transition-colors"
-            {...props}
-        >
-            {children}
-        </a>
-    ),
+    a: ({ children, href, ...props }: ComponentPropsWithoutRef<"a">) => {
+        const anchor = href?.startsWith("#");
+        return (
+            <a
+                href={href}
+                target={anchor ? undefined : "_blank"}
+                rel={anchor ? undefined : "noopener noreferrer"}
+                className="text-primary underline underline-offset-4 hover:text-primary/80 transition-colors"
+                {...props}
+            >
+                {children}
+            </a>
+        );
+    },
     table: ({ children, ...props }: ComponentPropsWithoutRef<"table">) => (
         <div className="overflow-x-auto mb-6 rounded-lg border border-border">
             <table className="w-full text-sm" {...props}>
