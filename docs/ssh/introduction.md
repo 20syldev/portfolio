@@ -40,13 +40,15 @@ SSH fonctionne en mode client-serveur :
 3. Une fois authentifié, le client obtient un shell distant ou exécute une commande
 
 ```
-┌──────────┐                          ┌──────────┐
-│  Client   │  ──── TCP port 22 ────▶ │  Serveur  │
-│  (ssh)    │                          │  (sshd)   │
-│           │  1. Échange de clés      │           │
-│           │  2. Authentification     │           │
-│           │  3. Session chiffrée     │           │
-└──────────┘  ◀────────────────────── └──────────┘
+┌──────────┐                            ┌───────────┐
+│  Client  │  ────  TCP port 22  ────>  │  Serveur  │
+│  (ssh)   │                            │  (sshd)   │
+│          │  1. Échange de clés        │           │
+│          │  2. Authentification       │           │
+│          │  3. Session chiffrée       │           │
+│          │                            │           │
+│          │  <───────────────────────  │           │
+└──────────┘                            └───────────┘
 ```
 
 L'échange de clés initial (Diffie-Hellman) établit un secret partagé sans jamais le transmettre sur le réseau. Ensuite, toute la session est chiffrée symétriquement.

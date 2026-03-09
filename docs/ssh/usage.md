@@ -150,10 +150,10 @@ psql -h localhost -p 5432 -U dbuser mydb
 ```
 
 ```
-┌──────────┐       tunnel SSH        ┌──────────┐      ┌────────────┐
-│  Client   │ ──── port 5432 ──────▶ │  Serveur  │ ───▶│ PostgreSQL │
-│  local    │                         │  SSH      │      │ port 5432  │
-└──────────┘                         └──────────┘      └────────────┘
+┌──────────┐                           ┌───────────┐        ┌──────────────┐
+│  Client  │  ────  tunnel SSH  ────>  │  Serveur  │  ───>  │  PostgreSQL  │
+│  local   │        port 5432          │    SSH    │        │  port 5432   │
+└──────────┘                           └───────────┘        └──────────────┘
 ```
 
 Autre exemple courant — accéder à une interface web d'administration :
@@ -176,10 +176,10 @@ ssh -R 8080:localhost:3000 user@192.168.1.10
 Le port 8080 du serveur distant redirige maintenant vers votre serveur local sur le port 3000 :
 
 ```
-┌──────────┐       tunnel SSH        ┌──────────┐
-│  Client   │ ◀──── port 8080 ────── │  Serveur  │
-│  :3000    │                         │  SSH      │
-└──────────┘                         └──────────┘
+┌──────────┐                             ┌───────────┐
+│  Client  │  <────  tunnel SSH  ──────  │  Serveur  │
+│  :3000   │         port 8080           │    SSH    │
+└──────────┘                             └───────────┘
 ```
 
 > **Note :** Le serveur SSH doit avoir `GatewayPorts yes` dans `sshd_config` pour que le port soit accessible depuis d'autres machines que le serveur lui-même.
