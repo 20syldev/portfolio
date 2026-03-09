@@ -73,7 +73,7 @@ Les raccourcis courts sont également supportés : `mn r` (repos), `mn a` (alias
 
 ## Fonctionnalités {#features}
 
-- **Connexions SSH/Custom** — stocker des serveurs avec label, IP, type de connexion (SSH ou commande personnalisée) et mot de passe optionnel, puis s'y connecter en une touche
+- **Connexions SSH/Custom** — stocker des serveurs avec label, IP, type de connexion (SSH ou commande personnalisée) et mot de passe optionnel, puis s'y connecter en une touche (voir le [guide SSH](/help/ssh/usage#mn) pour plus de détails)
 - **Repos GitHub** — créer des alias vers des répertoires locaux et les ouvrir dans VS Code directement (pour télécharger des releases GitHub depuis le terminal, voir [gft](/help/linux/gft))
 - **Alias Bash** — ajouter, modifier, supprimer des alias avec synchronisation automatique vers `~/.bash_aliases`
 - **Fonctions shell** — gérer des fonctions Bash complexes avec synchronisation vers `~/.bash_functions`

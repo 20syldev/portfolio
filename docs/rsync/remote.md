@@ -51,6 +51,8 @@ rsync -avhP user@serveur.com:/backup/db-dump.sql.gz /local/backups/
 
 ## Configuration des clés SSH {#keys}
 
+Pour un guide complet sur la gestion des clés SSH (génération, agent, multi-clés), consultez la [documentation SSH dédiée](/help/ssh/keys).
+
 Pour automatiser les transferts (cron, scripts), configurez l'authentification par clé SSH afin d'éviter la saisie du mot de passe.
 
 ```bash
