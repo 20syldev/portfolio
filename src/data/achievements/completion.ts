@@ -221,4 +221,7 @@ export const completionBadges: CertificationCategory[] = [
 ];
 
 // Counter
-export const totalCompletionBadges = completionBadges.reduce((sum, cat) => sum + cat.items.length, 0);
+export const totalCompletionBadges = completionBadges.reduce(
+    (sum, cat) => sum + cat.items.length,
+    0
+);
