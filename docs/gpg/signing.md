@@ -21,7 +21,7 @@ Git ne vérifie pas l'identité. La signature GPG résout ce problème :
 - **Supply chain security** — Protège ton projet contre les commits usurpés
 - **Confiance** — Les contributeurs et utilisateurs savent que le code est authentique
 
-## Configurer Git pour la signature GPG {#config}
+## Configurer Git avec GPG {#config}
 
 ### Étape 1 — Trouver l'ID de ta clé
 

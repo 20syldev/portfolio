@@ -6,7 +6,7 @@ slug: asymmetric
 order: 3
 ---
 
-## Principe de la cryptographie asymétrique {#intro}
+## La cryptographie asymétrique {#intro}
 
 La cryptographie asymétrique (ou **cryptographie à clé publique**) repose sur une idée révolutionnaire : au lieu d'une seule clé partagée, chaque personne possède **deux clés** liées mathématiquement.
 

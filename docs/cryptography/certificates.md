@@ -112,12 +112,12 @@ Ton navigateur et ton système d'exploitation sont livrés avec une liste de **C
 | GlobalSign            | Services cloud, IoT                |
 | Google Trust Services | Domaines Google, GCP               |
 
-## Comment un navigateur vérifie un certificat {#browser}
+## Vérification du certificat {#browser}
 
 Quand tu visites `https://sylvain.sh`, voici ce qui se passe :
 
 ```
-   Navigateur                                   Serveur (sylvain.sh)
+    Navigateur                                  Serveur (sylvain.sh)
    ┌──────────┐                                ┌───────────────────┐
    │          │  ────  1. ClientHello  ─────>  │                   │
    │          │                                │                   │

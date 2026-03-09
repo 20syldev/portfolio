@@ -6,7 +6,7 @@ slug: hashing
 order: 4
 ---
 
-## Qu'est-ce qu'une fonction de hachage ? {#intro}
+## Fonction de hachage {#intro}
 
 Une **fonction de hachage cryptographique** transforme n'importe quelle donnée (un fichier, un mot de passe, un commit Git) en une empreinte de taille fixe appelée **hash** ou **digest**.
 

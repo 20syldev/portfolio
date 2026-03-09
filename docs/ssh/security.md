@@ -8,7 +8,7 @@ order: 6
 
 ## Checklist de sécurisation {#checklist}
 
-1. Désactiver l'authentification par mot de passe → [voir ci-dessous](#disable-password)
+1. Désactiver les mots de passe → [voir ci-dessous](#disable-password)
 2. Désactiver le login root → [voir ci-dessous](#disable-root)
 3. Limiter les utilisateurs autorisés → [voir ci-dessous](#allowusers)
 4. Installer Fail2Ban → [voir ci-dessous](#fail2ban)
@@ -16,7 +16,7 @@ order: 6
 6. Utiliser des clés ed25519 avec passphrase → [gestion des clés](/help/ssh/keys)
 7. Restreindre les clés par commande si nécessaire → [voir ci-dessous](#restrict-key)
 
-## Désactiver l'authentification par mot de passe {#disable-password}
+## Désactiver les mots de passe {#disable-password}
 
 Prérequis : avoir déployé sa [clé SSH](/help/ssh/keys#deploy) et vérifié qu'elle fonctionne.
 
@@ -25,7 +25,7 @@ sudo nano /etc/ssh/sshd_config
 ```
 
 ```bash
-# Désactiver l'authentification par mot de passe
+# Désactiver les mots de passe
 PasswordAuthentication no
 
 # Désactiver aussi les méthodes liées

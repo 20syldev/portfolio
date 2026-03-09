@@ -39,7 +39,7 @@ backup:::root@10.0.0.5:::Backup NAS:::custom::::ssh -p 2222 root@10.0.0.5
 
 Depuis le menu interactif, sélectionnez un serveur et appuyez sur `Entrée` pour lancer la connexion. Vous pouvez aussi utiliser des commandes personnalisées (type `custom`) pour des connexions avec des options spécifiques.
 
-## Exécuter des commandes à distance {#remote-cmd}
+## Commandes à distance {#remote-cmd}
 
 Pas besoin d'ouvrir un shell interactif pour exécuter une commande ponctuelle :
 
@@ -220,7 +220,7 @@ scp fichier.txt user@192.168.1.10:
 
 La configuration complète du multiplexage est détaillée dans le [fichier de configuration SSH](/help/ssh/config#multiplex).
 
-## Monter un système de fichiers distant avec SSHFS {#sshfs}
+## Système de fichiers distant {#sshfs}
 
 SSHFS permet de monter un répertoire distant comme un dossier local, via SSH.
 

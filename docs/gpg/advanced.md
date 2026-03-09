@@ -111,7 +111,7 @@ gpg --keyserver hkps://keyserver.ubuntu.com --send-keys 6E4F9B11A8475F3D
 
 Une fois révoquée, la clé est marquée comme invalide dans ton keyring et sur les serveurs de clés. Les signatures existantes restent vérifiables mais afficheront un avertissement.
 
-## Chiffrer et déchiffrer des fichiers {#encrypt}
+## Chiffrer et déchiffrer {#encrypt}
 
 ### Chiffrement asymétrique (avec clé publique)
 
@@ -230,7 +230,7 @@ Pour mettre à jour les clés de ton keyring (vérifier les révocations, nouvel
 gpg --keyserver hkps://keyserver.ubuntu.com --refresh-keys
 ```
 
-## Niveau de confiance (Web of Trust) {#trust}
+## Niveau de confiance (WoT) {#trust}
 
 Le **Web of Trust** est le modèle de confiance décentralisé de GPG. Au lieu d'une autorité centrale (comme les certificats SSL), ce sont les utilisateurs qui se valident mutuellement en signant les clés des autres.
 

@@ -6,7 +6,7 @@ slug: signatures
 order: 5
 ---
 
-## Qu'est-ce qu'une signature numérique ? {#intro}
+## La signature numérique {#intro}
 
 Une **signature numérique** est l'équivalent électronique d'une signature manuscrite, mais en infiniment plus sûr. Elle combine deux concepts vus précédemment :
 
@@ -30,8 +30,8 @@ Le processus de signature se déroule en deux phases :
 **Phase 1 — Signature (par l'auteur)**
 
 ```
-   AUTEUR
-   ──────
+       AUTEUR
+       ──────
 
    ┌────────────┐
    │  Message   │  ────┐
