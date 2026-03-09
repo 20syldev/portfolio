@@ -1,5 +1,28 @@
 import { type Doc, docs } from "@/data/docs";
 
+const categoryNames: Record<string, string> = {
+    cryptography: "Cryptographie",
+    frameworks: "Frameworks",
+    git: "Git",
+    github: "GitHub",
+    gpg: "GPG",
+    linux: "Linux",
+    markdown: "Markdown",
+    rsync: "Rsync",
+    ssh: "SSH",
+};
+
+/**
+ * Returns the display name for a category or subcategory.
+ * Falls back to capitalizing the first letter if not mapped.
+ *
+ * @param name - The category or subcategory key
+ * @returns The display name
+ */
+export function getCategoryName(name: string): string {
+    return categoryNames[name] ?? name.charAt(0).toUpperCase() + name.slice(1);
+}
+
 /**
  * Finds a doc by its category and slug.
  *
