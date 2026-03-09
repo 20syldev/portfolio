@@ -24,14 +24,22 @@ function FontSlider({
     max,
     value,
     onChange,
+    onCommit,
 }: {
     min: number;
     max: number;
     value: number;
     onChange: (v: number) => void;
+    onCommit: (v: number) => void;
 }) {
     const [hovered, setHovered] = React.useState(false);
     const percent = ((value - min) / (max - min)) * 100;
+
+    const computeValue = (e: React.MouseEvent) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        return Math.round(min + x * (max - min));
+    };
 
     return (
         <div
@@ -39,9 +47,9 @@ function FontSlider({
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
             onClick={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-                onChange(Math.round(min + x * (max - min)));
+                const v = computeValue(e);
+                onChange(v);
+                onCommit(v);
             }}
         >
             <div className="absolute inset-y-1/2 left-0 right-0 h-1.5 -translate-y-1/2 rounded-full bg-muted transition-colors duration-200 group-hover:bg-accent">
@@ -63,6 +71,7 @@ function FontSlider({
                 max={max}
                 value={value}
                 onChange={(e) => onChange(parseInt(e.target.value, 10))}
+                onPointerUp={(e) => onCommit(parseInt((e.target as HTMLInputElement).value, 10))}
                 className="absolute inset-0 opacity-0 cursor-pointer"
             />
         </div>
@@ -166,10 +175,14 @@ function FontPreview({ fontVariable }: { fontVariable: string }) {
 export function FontDialog() {
     const { font, setFont, fontSize, setFontSize, dialogOpen, setDialogOpen } = useFont();
     const [preview, setPreview] = React.useState(font);
+    const [draftSize, setDraftSize] = React.useState(fontSize);
 
     React.useEffect(() => {
-        if (dialogOpen) setPreview(font);
-    }, [dialogOpen, font]);
+        if (dialogOpen) {
+            setPreview(font);
+            setDraftSize(fontSize);
+        }
+    }, [dialogOpen, font, fontSize]);
 
     const currentConfig = fonts.find((f) => f.id === preview);
 
@@ -209,24 +222,28 @@ export function FontDialog() {
                     <div className="flex items-center justify-between">
                         <span className="text-sm font-medium">Taille globale</span>
                         <div className="flex items-center gap-2">
-                            {fontSize !== defaultFontSize && (
+                            {draftSize !== defaultFontSize && (
                                 <button
-                                    onClick={() => setFontSize(defaultFontSize)}
+                                    onClick={() => {
+                                        setDraftSize(defaultFontSize);
+                                        setFontSize(defaultFontSize);
+                                    }}
                                     className="text-xs text-muted-foreground hover:text-foreground transition-colors"
                                 >
                                     Réinitialiser
                                 </button>
                             )}
                             <span className="text-sm tabular-nums w-10 text-right">
-                                {fontSize}%
+                                {draftSize}%
                             </span>
                         </div>
                     </div>
                     <FontSlider
                         min={minFontSize}
                         max={maxFontSize}
-                        value={fontSize}
-                        onChange={setFontSize}
+                        value={draftSize}
+                        onChange={setDraftSize}
+                        onCommit={setFontSize}
                     />
                     <div className="flex justify-between text-xs text-muted-foreground">
                         <span>{minFontSize}%</span>
