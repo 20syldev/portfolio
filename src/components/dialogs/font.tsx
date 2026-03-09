@@ -11,6 +11,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useFont } from "@/components/utils/font";
 import { defaultFontSize, maxFontSize, minFontSize } from "@/components/utils/font";
 import { defaultFontId, type FontConfig, fonts } from "@/lib/fonts";
@@ -85,7 +86,7 @@ function FontCard({
     active: boolean;
     onSelect: () => void;
 }) {
-    return (
+    const card = (
         <button
             onClick={onSelect}
             className={cn(
@@ -109,6 +110,24 @@ function FontCard({
             </span>
         </button>
     );
+
+    if (config.id === defaultFontId) {
+        return (
+            <Tooltip>
+                <TooltipTrigger asChild>{card}</TooltipTrigger>
+                <TooltipContent side="top">Police par défaut du site</TooltipContent>
+            </Tooltip>
+        );
+    } else if (config.accessibility) {
+        return (
+            <Tooltip>
+                <TooltipTrigger asChild>{card}</TooltipTrigger>
+                <TooltipContent side="top">Conçue pour les personnes dyslexiques</TooltipContent>
+            </Tooltip>
+        );
+    }
+
+    return card;
 }
 
 /**
