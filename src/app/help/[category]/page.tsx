@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { getDocCategories, getDocsByCategory, getSubcategories } from "@/lib/docs";
+import {
+    getCategoryName,
+    getDocCategories,
+    getDocsByCategory,
+    getSubcategories,
+} from "@/lib/docs";
 
 import { Listing } from "./listing";
 
@@ -29,13 +34,13 @@ export async function generateStaticParams() {
  */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { category } = await params;
-    const capitalized = category.charAt(0).toUpperCase() + category.slice(1);
-    const description = `Documentation de la catégorie ${capitalized}.`;
+    const displayName = getCategoryName(category);
+    const description = `Documentation de la catégorie ${displayName}.`;
     return {
-        title: `${capitalized} - Aide - Sylvain L.`,
+        title: `${displayName} - Aide - Sylvain L.`,
         description,
         openGraph: {
-            title: `${capitalized} - Aide - Sylvain L.`,
+            title: `${displayName} - Aide - Sylvain L.`,
             description,
             type: "website",
         },

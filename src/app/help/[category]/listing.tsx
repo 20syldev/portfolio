@@ -9,6 +9,7 @@ import { Nav } from "@/components/layout/nav";
 import { Button } from "@/components/ui/button";
 import type { Doc } from "@/data/docs";
 import { useSmoothScroll } from "@/hooks/scroll";
+import { getCategoryName } from "@/lib/docs";
 import { tabs, urls } from "@/lib/nav";
 
 interface ListingProps {
@@ -48,7 +49,7 @@ export function Listing({ category, docs, subcategories = [] }: ListingProps) {
                     <RandomButton />
                 </div>
                 <div className="mb-12 text-center">
-                    <h1 className="mb-2 text-4xl font-bold capitalize">{category}</h1>
+                    <h1 className="mb-2 text-4xl font-bold">{getCategoryName(category)}</h1>
                     <p className="text-xl text-muted-foreground">
                         {totalItems} {totalItems > 1 ? "guides" : "guide"}
                     </p>
@@ -63,7 +64,9 @@ export function Listing({ category, docs, subcategories = [] }: ListingProps) {
                         >
                             <div className="flex items-center gap-3">
                                 <FileText className="h-5 w-5 text-primary" />
-                                <span className="text-sm font-medium capitalize">{subcat}</span>
+                                <span className="text-sm font-medium">
+                                    {getCategoryName(subcat)}
+                                </span>
                             </div>
                             <span className="line-clamp-2 text-xs text-muted-foreground">
                                 Guides de {subcat}

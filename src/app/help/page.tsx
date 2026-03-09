@@ -12,7 +12,7 @@ import type { Doc } from "@/data/docs";
 import { docs } from "@/data/docs";
 import { useOverflow } from "@/hooks/overflow";
 import { useSmoothScroll } from "@/hooks/scroll";
-import { getDocCategories } from "@/lib/docs";
+import { getCategoryName, getDocCategories } from "@/lib/docs";
 import { tabs, urls } from "@/lib/nav";
 import { random } from "@/lib/utils";
 
@@ -116,8 +116,8 @@ export default function HelpPage() {
                                 <div className="flex items-center justify-between gap-3">
                                     <div className="flex items-center gap-3">
                                         <BookOpen className="h-5 w-5 text-primary" />
-                                        <span className="text-lg font-medium capitalize">
-                                            {category}
+                                        <span className="text-lg font-medium">
+                                            {getCategoryName(category)}
                                         </span>
                                     </div>
                                     <span className="text-sm font-medium text-muted-foreground">

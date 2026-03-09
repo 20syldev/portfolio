@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { docs } from "@/data/docs";
-import { getDoc, getDocContent, getDocsBySubcategory } from "@/lib/docs";
+import { getCategoryName, getDoc, getDocContent, getDocsBySubcategory } from "@/lib/docs";
 
 import { Listing } from "../listing";
 
@@ -74,13 +74,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // Check if it's a subcategory listing
     const subcategoryDocs = getDocsBySubcategory(category, slug[0]);
     if (subcategoryDocs.length > 0) {
-        const capitalized = slug[0].charAt(0).toUpperCase() + slug[0].slice(1);
-        const description = `Documentation de la sous-catégorie ${capitalized}.`;
+        const displayName = getCategoryName(slug[0]);
+        const description = `Documentation de la sous-catégorie ${displayName}.`;
         return {
-            title: `${capitalized} - ${category} - Aide - Sylvain L.`,
+            title: `${displayName} - ${getCategoryName(category)} - Aide - Sylvain L.`,
             description,
             openGraph: {
-                title: `${capitalized} - ${category} - Aide - Sylvain L.`,
+                title: `${displayName} - ${getCategoryName(category)} - Aide - Sylvain L.`,
                 description,
                 type: "website",
             },
