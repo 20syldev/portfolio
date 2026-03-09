@@ -32,11 +32,11 @@ import { Tooltip, TooltipProvider, TooltipTrigger } from "@/components/ui/toolti
 import {
     Certification,
     certifications,
-    gdevBadges,
     completionBadges,
+    gdevBadges,
     totalCertifications,
-    totalGdevBadges,
     totalCompletionBadges,
+    totalGdevBadges,
 } from "@/data/achievements";
 import { contributions, profile, projects } from "@/data/profile";
 import { useApi } from "@/hooks/api";
