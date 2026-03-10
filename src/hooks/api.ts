@@ -12,17 +12,6 @@ interface Stats {
 
 type Versions = Record<string, string>;
 
-interface ApiData {
-    stats: Stats | null;
-    versions: Versions | null;
-    patchedProjects: string[];
-    updatedProjects: string[];
-    newProjects: string[];
-    notifTag: string | null;
-    notifActive: boolean;
-    loading: boolean;
-}
-
 interface CachedData {
     stats: Stats | null;
     versions: Versions | null;
@@ -34,59 +23,50 @@ interface CachedData {
 }
 
 let cachedData: CachedData | null = null;
+let fetchPromise: Promise<CachedData> | null = null;
+
+const defaultData: CachedData = {
+    stats: null,
+    versions: null,
+    patchedProjects: [],
+    updatedProjects: [],
+    newProjects: [],
+    notifTag: null,
+    notifActive: false,
+};
 
 /**
  * Fetches and caches portfolio API data including stats, versions and project updates.
- * Data is fetched once and cached globally for subsequent calls.
+ * Concurrent callers share a single in-flight request to avoid duplicate fetches.
  *
  * @returns API data with stats, versions, project lists and loading state
  */
-export function useApi(): ApiData {
-    const [data, setData] = useState<CachedData>(
-        cachedData || {
-            stats: null,
-            versions: null,
-            patchedProjects: [],
-            updatedProjects: [],
-            newProjects: [],
-            notifTag: null,
-            notifActive: false,
-        }
-    );
+export function useApi(): CachedData & { loading: boolean } {
+    const [data, setData] = useState<CachedData>(cachedData || defaultData);
     const [loading, setLoading] = useState(!cachedData);
 
     useEffect(() => {
         if (cachedData) return;
 
-        fetch("https://api.sylvain.sh/latest/website")
-            .then((res) => res.json())
-            .then((apiData) => {
-                const newData: CachedData = {
-                    stats: apiData?.stats || null,
-                    versions: apiData?.versions || null,
-                    patchedProjects: apiData?.patched_projects || [],
-                    updatedProjects: apiData?.updated_projects || [],
-                    newProjects: apiData?.new_projects || [],
-                    notifTag: apiData?.tag || null,
-                    notifActive: apiData?.active || false,
-                };
-                cachedData = newData;
-                setData(newData);
-            })
-            .catch(() => {
-                setData({
-                    stats: null,
-                    versions: null,
-                    patchedProjects: [],
-                    updatedProjects: [],
-                    newProjects: [],
-                    notifTag: null,
-                    notifActive: false,
-                });
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+        if (!fetchPromise) {
+            fetchPromise = fetch("https://api.sylvain.sh/latest/website")
+                .then((res) => res.json())
+                .then((api) => {
+                    cachedData = {
+                        stats: api?.stats || null,
+                        versions: api?.versions || null,
+                        patchedProjects: api?.patched_projects || [],
+                        updatedProjects: api?.updated_projects || [],
+                        newProjects: api?.new_projects || [],
+                        notifTag: api?.tag || null,
+                        notifActive: api?.active || false,
+                    };
+                    return cachedData;
+                })
+                .catch(() => defaultData);
+        }
+
+        fetchPromise.then((result) => setData(result)).finally(() => setLoading(false));
     }, []);
 
     return { ...data, loading };
