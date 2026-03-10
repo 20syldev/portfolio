@@ -1,6 +1,6 @@
 "use client";
 
-import { Github, Linkedin, UserRound } from "lucide-react";
+import { Dot, Github, Linkedin, UserRound } from "lucide-react";
 import Link from "next/link";
 import * as React from "react";
 
@@ -47,13 +47,22 @@ export function Footer() {
                             >
                                 Mentions légales
                             </Link>
-                            {" · "}
+                            <Dot className="h-3 w-3 text-muted-foreground inline" />
                             <Link
                                 href="/confidentialite/"
                                 className="transition-colors hover:text-foreground"
                             >
                                 Confidentialité
                             </Link>
+                            <Dot className="h-3 w-3 text-muted-foreground inline" />
+                            <a
+                                href="https://status.sylvain.sh"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="transition-colors hover:text-foreground"
+                            >
+                                Statut
+                            </a>
                         </p>
                     </div>
                     <div className="flex items-center gap-1">
