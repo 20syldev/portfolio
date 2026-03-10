@@ -1,5 +1,7 @@
 import { type Project, projects } from "@/data/projects";
 
+export { projectOrder } from "@/lib/order";
+
 /**
  * Retrieves the markdown content of a project by its identifier.
  *
