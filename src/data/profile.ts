@@ -83,25 +83,23 @@ export interface ContactLink {
     icon: string;
     label: string;
     url?: string;
-    action?: "copy" | "pdf";
+    action?: "copy" | "pdf" | "route";
 }
 
 // Contact links with icons, labels and optional actions
 export const contacts: ContactLink[] = [
     { icon: "mail", label: profile.links.email, action: "copy" },
     { icon: "github", label: profile.social.github, url: profile.links.github },
+    { icon: "cv", label: "CV", action: "pdf", url: profile.links.cv },
+    { icon: "sponsors", label: "Sponsors", url: profile.links.sponsors },
     { icon: "linkedin", label: profile.social.linkedin, url: profile.links.linkedin },
     { icon: "discord", label: profile.social.discord, url: profile.links.discord },
-    { icon: "sponsors", label: "Sponsors", url: profile.links.sponsors },
-    { icon: "cv", label: "CV", action: "pdf", url: profile.links.cv },
 ];
 
-// Google badges displayed on the profile
-export const badges = [
-    { name: "Google Developer", icon: "developer", url: "https://g.dev/20syl" },
-    { name: "Gemini AI", icon: "gemini", url: "https://gemini.google.com" },
-    { name: "Firebase", icon: "firebase", url: "https://firebase.google.com" },
-    { name: "Google Studio", icon: "studio", url: "https://aistudio.google.com" },
-    { name: "Google Cloud", icon: "cloud", url: "https://cloud.google.com" },
-    { name: "Google Maps", icon: "maps", url: "https://maps.google.com" },
+// Internal page links displayed in the contact dialog
+export const pageLinks: ContactLink[] = [
+    { icon: "wrench", label: "Technologies", url: "/tech", action: "route" },
+    { icon: "award", label: "Certifications", url: "/certifications", action: "route" },
+    { icon: "badge", label: "Badges", url: "/badges", action: "route" },
+    { icon: "check", label: "Complétions", url: "/completion", action: "route" },
 ];
