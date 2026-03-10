@@ -51,7 +51,7 @@ export function CardDialog({
                         {project?.name}
                         <ProjectMeta version={version} status={status} project={project} />
                     </DialogTitle>
-                    <DialogDescription>
+                    <DialogDescription className="text-left">
                         {project?.longDescription || project?.description}
                     </DialogDescription>
                 </DialogHeader>

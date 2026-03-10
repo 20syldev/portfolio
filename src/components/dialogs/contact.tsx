@@ -140,9 +140,7 @@ export function ContactDialog({ open, onOpenChange, autoFocusClose }: ContactDia
                     <DialogTitle>
                         <span className="animate-shine">{profile.name}</span>
                     </DialogTitle>
-                    <DialogDescription className="text-center sm:text-left">
-                        {profile.title}
-                    </DialogDescription>
+                    <DialogDescription>{profile.title}</DialogDescription>
                 </DialogHeader>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
