@@ -4,6 +4,8 @@ import * as path from "path";
 import matter from "gray-matter";
 import sharp from "sharp";
 
+import { projectOrder } from "../src/lib/order";
+
 import { buildIco } from "./ico";
 
 interface ProjectMeta {
@@ -15,12 +17,12 @@ interface ProjectMeta {
     github?: string;
     demo?: string;
     npm?: string;
+    docs?: string;
     image?: string;
     archived?: boolean;
     paused?: boolean;
     lastUpdated?: string;
     version?: string;
-    order?: number;
 }
 
 interface GeneratedProject extends ProjectMeta {
@@ -113,11 +115,13 @@ function generateProjects(): void {
         } as GeneratedProject);
     }
 
-    // Sort: archived last, then by order
+    // Sort: archived last, then by position
     projects.sort((a, b) => {
         if (a.archived && !b.archived) return 1;
         if (!a.archived && b.archived) return -1;
-        return (a.order ?? 999) - (b.order ?? 999);
+        const ai = projectOrder.indexOf(a.id);
+        const bi = projectOrder.indexOf(b.id);
+        return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
     });
 
     // Write the JSON file
