@@ -1,6 +1,5 @@
 "use client";
 
-import { Keyboard, MousePointer2, Palette, Search, Type } from "lucide-react";
 import * as React from "react";
 
 import {
@@ -10,18 +9,11 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
-
-const shortcuts = [
-    { keys: ["Alt", "C"], label: "Curseur personnalisé", icon: MousePointer2 },
-    { keys: ["Alt", "P"], label: "Police de caractères", icon: Type },
-    { keys: ["Alt", "T"], label: "Changer de thème", icon: Palette },
-    { keys: ["Alt", "/"], label: "Raccourcis clavier", icon: Keyboard },
-    { keys: ["Ctrl", "K"], label: "Rechercher", icon: Search },
-];
+import { shortcuts } from "@/data/shortcuts";
 
 function Keycap({ children }: { children: React.ReactNode }) {
     return (
-        <kbd className="inline-flex h-6 min-w-6 items-center justify-center rounded-md border border-border bg-muted px-1.5 font-mono text-[11px] font-medium text-muted-foreground shadow-[0_1px_0_1px] shadow-border/50">
+        <kbd className="inline-flex h-6 min-w-6 items-center justify-center rounded-md border border-border bg-muted px-1.5 pt-px font-mono text-[11px] font-medium text-muted-foreground shadow-[0_1px_0_1px] shadow-border/50">
             {children}
         </kbd>
     );
