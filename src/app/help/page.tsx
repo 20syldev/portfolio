@@ -8,6 +8,7 @@ import { RandomButton } from "@/components/dialogs/random";
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import type { Doc } from "@/data/docs";
 import { docs } from "@/data/docs";
 import { useOverflow } from "@/hooks/overflow";
@@ -39,12 +40,7 @@ function DocPreview({ docs: items }: { docs: Doc[] }) {
         return (
             <div className="flex flex-nowrap gap-2 overflow-hidden">
                 {skeletonWidths.map((width, i) => (
-                    <span
-                        key={i}
-                        suppressHydrationWarning
-                        className="h-6 rounded-full bg-muted animate-pulse"
-                        style={{ width }}
-                    />
+                    <Skeleton key={i} suppressHydrationWarning className="h-6" style={{ width }} />
                 ))}
             </div>
         );

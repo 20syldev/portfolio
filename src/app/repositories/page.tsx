@@ -11,6 +11,7 @@ import { Nav } from "@/components/layout/nav";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ProjectBadges } from "@/components/ui/flags";
+import { Skeleton } from "@/components/ui/skeleton";
 import { StatusBadge } from "@/components/ui/status";
 import { Tags } from "@/components/ui/tags";
 import { type Project, projects } from "@/data/projects";
@@ -34,7 +35,7 @@ interface RepositoriesPageProps {
  */
 export default function RepositoriesPage({ initialProjectId }: RepositoriesPageProps) {
     const { scrollRef } = useSmoothScroll<HTMLDivElement>();
-    const { versions } = useApi();
+    const { versions, loading } = useApi();
     const getProjectStatus = useProjectStatus();
     const initialProject = initialProjectId
         ? projects.find((p) => p.id === initialProjectId)
@@ -105,14 +106,16 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm font-medium">{project.name}</span>
                                     <div className="flex gap-1">
-                                        {getVersion(project.id) && (
+                                        {loading ? (
+                                            <Skeleton className="h-5 w-10" />
+                                        ) : getVersion(project.id) ? (
                                             <Badge
                                                 className="py-0 text-xs font-normal"
                                                 variant="outline"
                                             >
                                                 {getVersion(project.id)}
                                             </Badge>
-                                        )}
+                                        ) : null}
                                         <ProjectBadges project={project} variant="compact" />
                                     </div>
                                 </div>
