@@ -152,9 +152,9 @@ export function usePdfViewer() {
     return context;
 }
 
-const ZOOM_STEP = 0.2;
-const ZOOM_MIN = 0.5;
-const ZOOM_MAX = 3;
+const zoomStep = 0.2;
+const zoomMin = 0.5;
+const zoomMax = 3;
 
 interface PdfViewerDialogProps {
     url: string | null;
@@ -215,8 +215,8 @@ function PdfViewerDialog({ url, title, open, fullscreen, onOpenChange }: PdfView
         return () => observer.disconnect();
     }, [open, scrollRef]);
 
-    const zoomIn = () => setScale((s) => Math.min(ZOOM_MAX, s + ZOOM_STEP));
-    const zoomOut = () => setScale((s) => Math.max(ZOOM_MIN, s - ZOOM_STEP));
+    const zoomIn = () => setScale((s) => Math.min(zoomMax, s + zoomStep));
+    const zoomOut = () => setScale((s) => Math.max(zoomMin, s - zoomStep));
     const prevPage = () => setPage((p) => Math.max(1, p - 1));
     const nextPage = () => setPage((p) => Math.min(numPages, p + 1));
 
@@ -280,7 +280,7 @@ function PdfViewerDialog({ url, title, open, fullscreen, onOpenChange }: PdfView
                                 size="icon"
                                 className="h-7 w-7"
                                 onClick={zoomOut}
-                                disabled={scale <= ZOOM_MIN}
+                                disabled={scale <= zoomMin}
                             >
                                 <Minus className="h-4 w-4" />
                             </Button>
@@ -292,7 +292,7 @@ function PdfViewerDialog({ url, title, open, fullscreen, onOpenChange }: PdfView
                                 size="icon"
                                 className="h-7 w-7"
                                 onClick={zoomIn}
-                                disabled={scale >= ZOOM_MAX}
+                                disabled={scale >= zoomMax}
                             >
                                 <Plus className="h-4 w-4" />
                             </Button>

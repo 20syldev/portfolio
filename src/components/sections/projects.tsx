@@ -17,7 +17,7 @@ import { useProjectDetail } from "@/hooks/detail";
 import { useProjectStatus } from "@/hooks/status";
 
 /** Card height in pixels for row calculation */
-const CARD_HEIGHT = 124;
+const cardHeight = 124;
 
 /**
  * Hook to calculate optimal grid layout based on viewport.
@@ -51,7 +51,7 @@ function useProjectGrid() {
 
             // Rows based on available height
             const availableHeight = height - headerOffset;
-            let rows = Math.floor(availableHeight / CARD_HEIGHT);
+            let rows = Math.floor(availableHeight / cardHeight);
 
             // Clamp rows based on layout
             const maxRows = cols === 1 ? 5 : 4;

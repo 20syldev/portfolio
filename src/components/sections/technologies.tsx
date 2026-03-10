@@ -9,7 +9,7 @@ import { darkInvertHueIcons, darkInvertIcons, techCategories } from "@/data/tech
 import { useDragScroll } from "@/hooks/scroll";
 
 /** Approximate height of one row of tech icons in the carousel */
-const ITEM_ROW_HEIGHT = 100;
+const itemRowHeight = 100;
 
 /**
  * Hook to calculate how many tech items fit in the carousel based on viewport height.
@@ -23,7 +23,7 @@ function useTechCarousel() {
             // Fixed overhead: py-20 + title + category name + dots + "voir tout" link
             const overhead = 240;
             const availableHeight = window.innerHeight - overhead;
-            const rows = Math.min(5, Math.max(2, Math.floor(availableHeight / ITEM_ROW_HEIGHT)));
+            const rows = Math.min(5, Math.max(2, Math.floor(availableHeight / itemRowHeight)));
             setItemsPerCategory(rows * 3);
         };
 
