@@ -1,5 +1,5 @@
 // Mapping project IDs to their API keys
-const ID_TO_API_KEY: Record<string, string> = {
+const keyId: Record<string, string> = {
     "2048": "g_2048",
     "python-api": "python_api",
     "old-database": "old_database",
@@ -13,7 +13,7 @@ const ID_TO_API_KEY: Record<string, string> = {
  * @returns The mapped API key, or the original identifier if no mapping exists
  */
 export function getApiKey(projectId: string): string {
-    return ID_TO_API_KEY[projectId] || projectId;
+    return keyId[projectId] || projectId;
 }
 
 // Mapping PDF file paths to their route slugs
