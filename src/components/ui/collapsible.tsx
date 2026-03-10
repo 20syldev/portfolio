@@ -8,6 +8,15 @@ interface CollapsibleProps {
     className?: string;
 }
 
+/**
+ * Animated collapsible container using CSS grid row transitions.
+ *
+ * @param props - Collapsible props
+ * @param props.open - Whether the content is expanded
+ * @param props.children - Content to show/hide
+ * @param props.className - Optional additional CSS classes
+ * @returns The rendered collapsible container
+ */
 export function Collapsible({ open, children, className }: CollapsibleProps) {
     return (
         <div
