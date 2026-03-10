@@ -14,12 +14,12 @@ const config = {
     new: {
         label: "Nouveau",
         icon: Sparkles,
-        className: "badge-new text-white",
+        className: "badge-new",
     },
     updated: {
         label: "Mis à jour",
         icon: RefreshCw,
-        className: "badge-updated text-white",
+        className: "badge-updated",
     },
     patched: {
         label: "Patché",
@@ -43,7 +43,7 @@ export function StatusBadge({ status, variant = "absolute" }: StatusBadgeProps) 
     const Icon = cfg.icon;
 
     const badge = (
-        <Badge className={`gap-1 text-xs ${cfg.className}`}>
+        <Badge className={`gap-2 text-xs h-5 text-white ${cfg.className}`}>
             <Icon className="h-3 w-3" />
             {cfg.label}
         </Badge>
