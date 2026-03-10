@@ -25,16 +25,19 @@ export const pdfs: Record<string, string> = {
 export const redirects: Record<string, string> = {
     "2048": "https://2048.sylvain.sh",
     api: "https://api.sylvain.sh",
-    cdn: "https://cdn.sylvain.sh/npm",
+    cdn: "https://cdn.sylvain.sh",
     chat: "https://chat.sylvain.sh",
     digit: "https://digit.sylvain.sh",
     discord: "https://discord.com/users/607163002755481602",
     docs: "https://docs.sylvain.sh",
     donut: "https://donut.sylvain.sh",
     flowers: "https://flowers.sylvain.sh",
+    gft: "/help/linux/gft",
     git: "https://github.com/20syldev",
     lebonchar: "https://lebonchar.sylvain.sh",
     logs: "https://logs.sylvain.sh",
+    minify: "https://npmjs.org/@20syldev/minify.js",
+    mn: "/help/linux/mn",
     morpion: "https://morpion.sylvain.sh",
     password: "https://password.sylvain.sh",
     php: "https://php.sylvain.sh",
@@ -44,6 +47,7 @@ export const redirects: Record<string, string> = {
     status: "https://status.sylvain.sh",
     terminal: "https://terminal.sylvain.sh",
     timestamp: "https://timestamp.sylvain.sh",
+    valentine: "https://valentine.sylvain.sh",
     wrkit: "https://wrkit.sylvain.sh",
 };
 
@@ -58,7 +62,7 @@ export function getRedirectTitle(slug: string): string {
     const names: Record<string, string> = {
         "2048": "2048",
         api: "API",
-        cdn: "CDN NPM",
+        cdn: "CDN",
         chat: "Chat",
         digit: "Digit",
         discord: "Discord",
@@ -66,7 +70,7 @@ export function getRedirectTitle(slug: string): string {
         donut: "Donut",
         flowers: "Flowers",
         git: "GitHub",
-        lebonchar: "Le Bon Char",
+        lebonchar: "LeBonChar",
         logs: "Logs",
         morpion: "Morpion",
         password: "Password",
@@ -77,6 +81,7 @@ export function getRedirectTitle(slug: string): string {
         status: "Status",
         terminal: "Terminal",
         timestamp: "Timestamp",
+        valentine: "Valentine",
         wrkit: "Wrkit",
     };
     return names[slug] || slug;

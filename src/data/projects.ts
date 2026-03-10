@@ -9,6 +9,7 @@ export interface Project {
     github?: string;
     demo?: string;
     npm?: string;
+    docs?: string;
     image?: string;
     archived?: boolean;
     paused?: boolean;
