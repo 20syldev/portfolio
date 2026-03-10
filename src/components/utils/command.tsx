@@ -7,6 +7,7 @@ import {
     FileText,
     FolderOpen,
     Home,
+    Keyboard,
     LayoutList,
     Monitor,
     Moon,
@@ -25,6 +26,7 @@ import { useTheme } from "next-themes";
 import * as React from "react";
 
 import { ContactDialog } from "@/components/dialogs/contact";
+import { ShortcutsDialog } from "@/components/dialogs/shortcuts";
 import { Button } from "@/components/ui/button";
 import {
     CommandDialog,
@@ -58,6 +60,15 @@ const statusLabel: Record<Exclude<ProjectStatus, null>, string> = {
     new: "Nouveau projet",
     updated: "Mis à jour récemment",
     patched: "Correctif récent",
+};
+
+type CommandItemConfig = {
+    label: string;
+    icon: React.ComponentType<{ className?: string }>;
+    action: () => void;
+    value?: string;
+    keywords?: string[];
+    shortcut?: string;
 };
 
 /**
@@ -171,6 +182,7 @@ export function CommandMenu() {
     const { open, setOpen } = useCommand();
     const [search, setSearch] = React.useState("");
     const [contactOpen, setContactOpen] = React.useState(false);
+    const [shortcutsOpen, setShortcutsOpen] = React.useState(false);
     const [scrolled, setScrolled] = React.useState(false);
     const scrollReadyRef = React.useRef(false);
     const router = useRouter();
@@ -186,6 +198,10 @@ export function CommandMenu() {
             if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
                 e.preventDefault();
                 setOpen((prevOpen) => !prevOpen);
+            }
+            if (e.altKey && (e.key === "/" || e.key === ":")) {
+                e.preventDefault();
+                setShortcutsOpen((prev) => !prev);
             }
         };
 
@@ -229,91 +245,97 @@ export function CommandMenu() {
         [setOpen]
     );
 
-    const navigationItems = (
-        <>
-            <CommandItem onSelect={() => runCommand(() => router.push("/"))}>
-                <Home className="mr-2 h-4 w-4" />
-                Accueil
-            </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => router.push("/repositories"))}>
-                <LayoutList className="mr-2 h-4 w-4" />
-                Tous les projets
-            </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => router.push("/help"))}>
-                <BookOpen className="mr-2 h-4 w-4" />
-                Documentations
-            </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => router.push("/tech"))}>
-                <Wrench className="mr-2 h-4 w-4" />
-                Mes technologies
-            </CommandItem>
-        </>
-    );
+    const navigationItems: CommandItemConfig[] = [
+        { label: "Accueil", icon: Home, action: () => router.push("/") },
+        { label: "Tous les projets", icon: LayoutList, action: () => router.push("/repositories") },
+        { label: "Documentations", icon: BookOpen, action: () => router.push("/help") },
+        { label: "Mes technologies", icon: Wrench, action: () => router.push("/tech") },
+    ];
 
-    const profilItems = (
-        <>
-            <CommandItem onSelect={() => runCommand(() => setContactOpen(true))}>
-                <UserRound className="mr-2 h-4 w-4" />À propos de moi
-            </CommandItem>
-            <CommandItem
-                onSelect={() =>
-                    runCommand(() =>
-                        openPdf("/E5 - Tableau Synthèse - Sylvain L.pdf", "Tableau de synthèse E5")
-                    )
-                }
-            >
-                <FilePenLine className="mr-2 h-4 w-4" />
-                Tableau de synthèse E5
-            </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => openPdf("/CV.pdf", "CV"))}>
-                <FileText className="mr-2 h-4 w-4" />
-                CV
-            </CommandItem>
-        </>
-    );
+    const profilItems: CommandItemConfig[] = [
+        { label: "À propos de moi", icon: UserRound, action: () => setContactOpen(true) },
+        {
+            label: "Tableau de synthèse E5",
+            icon: FilePenLine,
+            action: () =>
+                openPdf("/E5 - Tableau Synthèse - Sylvain L.pdf", "Tableau de synthèse E5"),
+        },
+        { label: "CV", icon: FileText, action: () => openPdf("/CV.pdf", "CV") },
+    ];
 
-    const personnalisationItems = (
-        <>
-            <CommandItem onSelect={() => runCommand(() => setCursorEnabled(!cursorEnabled))}>
-                <MousePointer2 className="mr-2 h-4 w-4" />
-                {cursorEnabled ? "Désactiver" : "Activer"} le curseur personnalisé
-                <CommandShortcut>Alt + C</CommandShortcut>
-            </CommandItem>
+    const personnalisationItems: CommandItemConfig[] = [
+        {
+            label: "Raccourcis clavier",
+            icon: Keyboard,
+            action: () => setShortcutsOpen(true),
+            shortcut: "Alt + /",
+        },
+        {
+            label: `${cursorEnabled ? "Désactiver" : "Activer"} le curseur personnalisé`,
+            icon: MousePointer2,
+            action: () => setCursorEnabled(!cursorEnabled),
+            shortcut: "Alt + C",
+        },
+        {
+            label: "Changer la police",
+            icon: Type,
+            action: () => setFontDialogOpen(true),
+            value: "Changer la police",
+            keywords: ["font", "police", "typographie", "écriture"],
+            shortcut: "Alt + P",
+        },
+        ...(theme !== "light"
+            ? [
+                  {
+                      label: "Thème clair",
+                      icon: Sun,
+                      action: () => setTheme("light"),
+                      shortcut: "Alt + T",
+                  },
+              ]
+            : []),
+        ...(theme !== "dark"
+            ? [
+                  {
+                      label: "Thème sombre",
+                      icon: Moon,
+                      action: () => setTheme("dark"),
+                      shortcut: "Alt + T",
+                  },
+              ]
+            : []),
+        ...(theme !== "system"
+            ? [
+                  {
+                      label: "Thème système",
+                      icon: Monitor,
+                      action: () => setTheme("system"),
+                      shortcut: "Alt + T",
+                  },
+              ]
+            : []),
+    ];
+
+    const renderItems = (items: CommandItemConfig[]) =>
+        items.map((item) => (
             <CommandItem
-                value="Changer la police"
-                keywords={["font", "police", "typographie", "écriture"]}
-                onSelect={() => runCommand(() => setFontDialogOpen(true))}
+                key={item.label}
+                value={item.value}
+                keywords={item.keywords}
+                onSelect={() => runCommand(item.action)}
             >
-                <Type className="mr-2 h-4 w-4" />
-                Changer la police
-                <CommandShortcut>Alt + P</CommandShortcut>
+                <item.icon className="mr-2 h-4 w-4" />
+                {item.label}
+                {item.shortcut && <CommandShortcut>{item.shortcut}</CommandShortcut>}
             </CommandItem>
-            {theme !== "light" && (
-                <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
-                    <Sun className="mr-2 h-4 w-4" />
-                    Thème clair
-                    <CommandShortcut>Alt + T</CommandShortcut>
-                </CommandItem>
-            )}
-            {theme !== "dark" && (
-                <CommandItem onSelect={() => runCommand(() => setTheme("dark"))}>
-                    <Moon className="mr-2 h-4 w-4" />
-                    Thème sombre
-                    <CommandShortcut>Alt + T</CommandShortcut>
-                </CommandItem>
-            )}
-            {theme !== "system" && (
-                <CommandItem onSelect={() => runCommand(() => setTheme("system"))}>
-                    <Monitor className="mr-2 h-4 w-4" />
-                    Thème système
-                    <CommandShortcut>Alt + T</CommandShortcut>
-                </CommandItem>
-            )}
-        </>
-    );
+        ));
+
+    const maxRecentProjects =
+        navigationItems.length + personnalisationItems.length - profilItems.length - 1;
 
     const recentProjectItems = projects
         .filter((p) => getProjectStatus(p.id) !== null)
+        .slice(0, maxRecentProjects)
         .map((project) => {
             const status = getProjectStatus(project.id)!;
             const Icon = statusIcon[status];
@@ -469,9 +491,9 @@ export function CommandMenu() {
 
                     {search.length > 0 ? (
                         <CommandGroup>
-                            {navigationItems}
-                            {profilItems}
-                            {personnalisationItems}
+                            {renderItems(navigationItems)}
+                            {renderItems(profilItems)}
+                            {renderItems(personnalisationItems)}
                             {recentProjectItems}
                             {pageItems}
                             {docItems}
@@ -486,40 +508,62 @@ export function CommandMenu() {
                                     <div className="flex-1 space-y-2">
                                         <div className="rounded-lg border">
                                             <CommandGroup heading="Navigation">
-                                                {navigationItems}
+                                                {renderItems(navigationItems)}
                                             </CommandGroup>
                                         </div>
                                         <div className="rounded-lg border">
                                             <CommandGroup heading="Personnalisation">
-                                                {personnalisationItems}
+                                                {renderItems(personnalisationItems)}
                                             </CommandGroup>
                                         </div>
                                     </div>
                                     <div className="flex-1 space-y-2">
                                         <div className="rounded-lg border">
                                             <CommandGroup heading="Profil">
-                                                {profilItems}
+                                                {renderItems(profilItems)}
                                             </CommandGroup>
                                         </div>
                                         <div className="rounded-lg border">
                                             <CommandGroup heading="Projets récents">
                                                 {recentProjectItems}
+                                                <CommandItem
+                                                    onSelect={() =>
+                                                        runCommand(() =>
+                                                            router.push("/repositories")
+                                                        )
+                                                    }
+                                                >
+                                                    <FolderOpen className="mr-2 h-4 w-4" />
+                                                    Voir tout
+                                                </CommandItem>
                                             </CommandGroup>
                                         </div>
                                     </div>
                                 </div>
                             ) : null}
                             <div className={cn(scrolled && "md:hidden")}>
-                                <CommandGroup heading="Navigation">{navigationItems}</CommandGroup>
+                                <CommandGroup heading="Navigation">
+                                    {renderItems(navigationItems)}
+                                </CommandGroup>
                                 <CommandSeparator />
-                                <CommandGroup heading="Profil">{profilItems}</CommandGroup>
+                                <CommandGroup heading="Profil">
+                                    {renderItems(profilItems)}
+                                </CommandGroup>
                                 <CommandSeparator />
                                 <CommandGroup heading="Personnalisation">
-                                    {personnalisationItems}
+                                    {renderItems(personnalisationItems)}
                                 </CommandGroup>
                                 <CommandSeparator />
                                 <CommandGroup heading="Projets récents">
                                     {recentProjectItems}
+                                    <CommandItem
+                                        onSelect={() =>
+                                            runCommand(() => router.push("/repositories"))
+                                        }
+                                    >
+                                        <FolderOpen className="mr-2 h-4 w-4" />
+                                        Voir tout
+                                    </CommandItem>
                                 </CommandGroup>
                             </div>
                         </>
@@ -527,6 +571,7 @@ export function CommandMenu() {
                 </CommandList>
             </CommandDialog>
             <ContactDialog open={contactOpen} onOpenChange={setContactOpen} />
+            <ShortcutsDialog open={shortcutsOpen} onOpenChange={setShortcutsOpen} />
         </>
     );
 }
