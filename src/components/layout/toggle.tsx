@@ -26,19 +26,6 @@ export function ThemeToggle() {
         setMounted(true);
     }, []);
 
-    // ALT+T keyboard shortcut to cycle themes
-    React.useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.altKey && e.key.toLowerCase() === "t") {
-                e.preventDefault();
-                setTheme(theme === "system" ? "light" : theme === "light" ? "dark" : "system");
-            }
-        };
-
-        window.addEventListener("keydown", handleKeyDown);
-        return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [theme, setTheme]);
-
     const getCurrentIcon = () => {
         if (theme === "light") return <Sun className="h-4 w-4" />;
         if (theme === "dark") return <Moon className="h-4 w-4" />;

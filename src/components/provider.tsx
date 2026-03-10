@@ -8,8 +8,10 @@ import { useEffect } from "react";
 import { FontDialog } from "@/components/dialogs/font";
 import { CursorProvider } from "@/components/utils/cursor";
 import { FontProvider } from "@/components/utils/font";
+import { KonamiProvider } from "@/components/utils/konami";
 import { NotifProvider } from "@/components/utils/notif";
 import { PdfViewerProvider } from "@/components/utils/viewer";
+import { XrayProvider } from "@/components/utils/xray";
 import { ProjectDetailProvider } from "@/hooks/detail";
 
 /**
@@ -64,7 +66,11 @@ export function ThemeProvider({
                     <FontProvider>
                         <FontDialog />
                         <PdfViewerProvider>
-                            <ProjectDetailProvider>{children}</ProjectDetailProvider>
+                            <ProjectDetailProvider>
+                                <KonamiProvider>
+                                    <XrayProvider>{children}</XrayProvider>
+                                </KonamiProvider>
+                            </ProjectDetailProvider>
                         </PdfViewerProvider>
                     </FontProvider>
                     <NotifProvider />

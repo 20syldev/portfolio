@@ -15,6 +15,7 @@ import {
     Newspaper,
     RefreshCw,
     Search,
+    Smile,
     Sparkles,
     Sun,
     Type,
@@ -42,9 +43,11 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { useCursor } from "@/components/utils/cursor";
 import { useFont } from "@/components/utils/font";
 import { usePdfViewer } from "@/components/utils/viewer";
+import { useXray } from "@/components/utils/xray";
 import { projects as alternanceProjects } from "@/data/alternance";
 import { docs } from "@/data/docs";
 import { projects } from "@/data/projects";
+import { formatShortcut, getShortcut } from "@/data/shortcuts";
 import { veilles } from "@/data/veille";
 import { useProjectDetail } from "@/hooks/detail";
 import { type ProjectStatus, useProjectStatus } from "@/hooks/status";
@@ -188,7 +191,8 @@ export function CommandMenu() {
     const router = useRouter();
     const { theme, setTheme } = useTheme();
     const { enabled: cursorEnabled, setEnabled: setCursorEnabled } = useCursor();
-    const { setDialogOpen: setFontDialogOpen } = useFont();
+    const { dialogOpen: fontDialogOpen, setDialogOpen: setFontDialogOpen } = useFont();
+    const { enabled: xrayEnabled, setEnabled: setXrayEnabled } = useXray();
     const { openProject } = useProjectDetail();
     const { openPdf } = usePdfViewer();
     const getProjectStatus = useProjectStatus();
@@ -198,16 +202,50 @@ export function CommandMenu() {
             if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
                 e.preventDefault();
                 setOpen((prevOpen) => !prevOpen);
+                return;
             }
-            if (e.altKey && (e.key === "/" || e.key === ":")) {
-                e.preventDefault();
-                setShortcutsOpen((prev) => !prev);
+            if (e.altKey) {
+                switch (e.key) {
+                    case "/":
+                    case ":":
+                        e.preventDefault();
+                        setShortcutsOpen((prev) => !prev);
+                        break;
+                    case "c":
+                        e.preventDefault();
+                        setCursorEnabled(!cursorEnabled);
+                        break;
+                    case "p":
+                        e.preventDefault();
+                        setFontDialogOpen(!fontDialogOpen);
+                        break;
+                    case "t":
+                        e.preventDefault();
+                        setTheme(
+                            theme === "system" ? "light" : theme === "light" ? "dark" : "system"
+                        );
+                        break;
+                    case "x":
+                        e.preventDefault();
+                        setXrayEnabled(!xrayEnabled);
+                        break;
+                }
             }
         };
 
         document.addEventListener("keydown", down);
         return () => document.removeEventListener("keydown", down);
-    }, [setOpen]);
+    }, [
+        setOpen,
+        cursorEnabled,
+        setCursorEnabled,
+        fontDialogOpen,
+        setFontDialogOpen,
+        theme,
+        setTheme,
+        xrayEnabled,
+        setXrayEnabled,
+    ]);
 
     /**
      * Manages scroll readiness to ignore cmdk's initial scrollIntoView calls.
@@ -263,18 +301,20 @@ export function CommandMenu() {
         { label: "CV", icon: FileText, action: () => openPdf("/CV.pdf", "CV") },
     ];
 
+    const themeShortcut = formatShortcut(getShortcut("theme")!.keys);
+
     const personnalisationItems: CommandItemConfig[] = [
         {
             label: "Raccourcis clavier",
             icon: Keyboard,
             action: () => setShortcutsOpen(true),
-            shortcut: "Alt + /",
+            shortcut: formatShortcut(getShortcut("shortcuts")!.keys),
         },
         {
             label: `${cursorEnabled ? "Désactiver" : "Activer"} le curseur personnalisé`,
             icon: MousePointer2,
             action: () => setCursorEnabled(!cursorEnabled),
-            shortcut: "Alt + C",
+            shortcut: formatShortcut(getShortcut("cursor")!.keys),
         },
         {
             label: "Changer la police",
@@ -282,7 +322,7 @@ export function CommandMenu() {
             action: () => setFontDialogOpen(true),
             value: "Changer la police",
             keywords: ["font", "police", "typographie", "écriture"],
-            shortcut: "Alt + P",
+            shortcut: formatShortcut(getShortcut("font")!.keys),
         },
         ...(theme !== "light"
             ? [
@@ -290,7 +330,7 @@ export function CommandMenu() {
                       label: "Thème clair",
                       icon: Sun,
                       action: () => setTheme("light"),
-                      shortcut: "Alt + T",
+                      shortcut: themeShortcut,
                   },
               ]
             : []),
@@ -300,7 +340,7 @@ export function CommandMenu() {
                       label: "Thème sombre",
                       icon: Moon,
                       action: () => setTheme("dark"),
-                      shortcut: "Alt + T",
+                      shortcut: themeShortcut,
                   },
               ]
             : []),
@@ -310,7 +350,7 @@ export function CommandMenu() {
                       label: "Thème système",
                       icon: Monitor,
                       action: () => setTheme("system"),
-                      shortcut: "Alt + T",
+                      shortcut: themeShortcut,
                   },
               ]
             : []),
@@ -487,7 +527,16 @@ export function CommandMenu() {
                     onScroll={scroll}
                     className={cn("transition-all duration-300", scrolled && "!max-h-[500px]")}
                 >
-                    <CommandEmpty>Aucun résultat.</CommandEmpty>
+                    <CommandEmpty>
+                        {normalize(search).includes("sylvain") ? (
+                            <span className="flex items-center justify-center gap-2">
+                                <Smile className="h-4 w-4" />
+                                Salut !
+                            </span>
+                        ) : (
+                            "Aucun résultat."
+                        )}
+                    </CommandEmpty>
 
                     {search.length > 0 ? (
                         <CommandGroup>

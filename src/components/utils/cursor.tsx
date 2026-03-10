@@ -84,18 +84,6 @@ export function CursorProvider({ children }: { children: React.ReactNode }) {
     }, [enabled]);
 
     React.useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.altKey && e.key === "c") {
-                e.preventDefault();
-                handleSetEnabled(!enabled);
-            }
-        };
-
-        document.addEventListener("keydown", handleKeyDown);
-        return () => document.removeEventListener("keydown", handleKeyDown);
-    }, [enabled, handleSetEnabled]);
-
-    React.useEffect(() => {
         if (enabled) document.body.classList.add("cursor-none");
         else document.body.classList.remove("cursor-none");
 

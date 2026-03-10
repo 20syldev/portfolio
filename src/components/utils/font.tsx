@@ -109,23 +109,6 @@ export function FontProvider({ children }: { children: React.ReactNode }) {
         applyFontSize(fontSize);
     }, [fontSize]);
 
-    React.useEffect(() => {
-        applyFont(font);
-        applyFontSize(fontSize);
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-    React.useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.altKey && e.key === "p") {
-                e.preventDefault();
-                setDialogOpen((prev) => !prev);
-            }
-        };
-
-        document.addEventListener("keydown", handleKeyDown);
-        return () => document.removeEventListener("keydown", handleKeyDown);
-    }, []);
-
     return (
         <FontContext.Provider
             value={{ font, setFont, fontSize, setFontSize, dialogOpen, setDialogOpen }}
