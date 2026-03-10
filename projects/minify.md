@@ -1,5 +1,4 @@
 ---
-order: 10
 name: Minify.js
 description: Un module Node.js pour minifier ce que vous voulez.
 longDescription: "Module NPM minimaliste pour minifier du code JavaScript à partir de chaînes de caractères, fichiers locaux ou URLs. Fonctionne en mode asynchrone."

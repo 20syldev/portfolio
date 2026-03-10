@@ -1,5 +1,4 @@
 ---
-order: 13
 name: Flowers
 description: Application de création de LogCenter.
 longDescription: "LogCenter customisable et modulable permettant de connecter plusieurs APIs JSON et de visualiser les données en temps réel, sans création de compte."

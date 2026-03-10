@@ -1,5 +1,4 @@
 ---
-order: 16
 name: Ping
 description: Interface de test de disponibilité de mes sites web.
 longDescription: "Interface de monitoring vérifiant la disponibilité de tous les sous-domaines en temps réel via l'API, avec un affichage dynamique des résultats."

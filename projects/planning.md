@@ -1,5 +1,4 @@
 ---
-order: 12
 name: Planning
 description: Interface de planning HyperPlanning.
 longDescription: Interface personnalisée pour consulter les emplois du temps HyperPlanning. Navigation fluide jour/semaine avec sauvegarde des préférences.

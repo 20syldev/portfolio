@@ -1,5 +1,4 @@
 ---
-order: 9
 name: Password
 description: Testeur de mots de passe suivant des critères.
 longDescription: "Outil d'évaluation de robustesse de mots de passe côté client. Analyse la longueur, la complexité et fournit des recommandations personnalisées. Aucune donnée n'est sauvegardée."

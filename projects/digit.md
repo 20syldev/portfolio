@@ -1,5 +1,4 @@
 ---
-order: 20
 name: Digit
 description: IA de reconnaissance de chiffres dessinés.
 longDescription: "Réseau de neurones en JavaScript pour reconnaître les chiffres manuscrits (0-9). Dessinez un chiffre et l'IA le reconnaît instantanément."

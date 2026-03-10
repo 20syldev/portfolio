@@ -1,5 +1,4 @@
 ---
-order: 7
 name: WrkIT
 description: Bot Discord de la classe de BTS SIO.
 longDescription: "Bot Discord pour le serveur BTS SIO, hébergé 24h/7j. Gestion du planning, des événements et des embeds avec un statut dynamique."

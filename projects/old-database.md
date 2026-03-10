@@ -1,5 +1,4 @@
 ---
-order: 26
 name: Database
 description: Ancienne interface de base de données.
 longDescription: "Interface web de base de données serverless permettant de stocker et gérer des données directement depuis le navigateur, sans serveur backend."

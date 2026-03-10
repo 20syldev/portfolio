@@ -1,5 +1,4 @@
 ---
-order: 14
 name: PHP
 description: Un listing de mes projets en PHP, pour les tester en ligne.
 longDescription: "Site dynamique listant tous mes projets PHP avec possibilité de les tester en ligne. Design réalisé avec Bulma CSS, responsive et mode clair/sombre."

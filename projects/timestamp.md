@@ -1,5 +1,4 @@
 ---
-order: 11
 name: Timestamp
 description: Convertisseur de timestamps pour Discord.
 longDescription: "Générateur de timestamps Discord dynamiques supportant les 7 formats officiels. Les timestamps s'adaptent automatiquement au fuseau horaire de chaque utilisateur."

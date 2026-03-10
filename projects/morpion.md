@@ -1,5 +1,4 @@
 ---
-order: 17
 name: Morpion
 description: "Un jeu de Morpion en ligne, ou contre l'ordinateur."
 longDescription: "Jeu du morpion multijoueur en ligne, en local ou contre une IA avec 3 niveaux de difficulté. Les parties en ligne sont stockées via l'API pendant 1 heure."

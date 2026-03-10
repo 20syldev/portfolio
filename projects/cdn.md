@@ -1,5 +1,4 @@
 ---
-order: 3
 name: CDN
 description: Mon réseau de diffusion de données pour certains projets.
 longDescription: "Réseau de stockage et de diffusion de fichiers personnel développé avec Node.js et Express. Stocke et sert les scripts NPM, fichiers CSS, images et autres ressources."

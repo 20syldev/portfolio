@@ -1,5 +1,4 @@
 ---
-order: 5
 name: LeBonChar
 description: "Mon site web de vente de véhicules d'occasion."
 longDescription: "Plateforme de vente de véhicules d'occasion inspirée de LeBonCoin, développée en PHP/MySQL avec architecture MVC. Projet de BTS SIO avec Docker."

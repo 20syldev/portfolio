@@ -1,5 +1,4 @@
 ---
-order: 19
 name: Readme
 description: Interface de lecture de fichiers README.
 longDescription: "Interface web minimaliste pour visualiser n'importe quel fichier README depuis un fichier local ou une URL. Développée avec Tailwind CSS et un mode sombre personnalisé."

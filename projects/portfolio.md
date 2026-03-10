@@ -1,5 +1,4 @@
 ---
-order: 8
 name: Portfolio
 description: Mon site web, avec des informations sur mes projets.
 longDescription: "Site web portfolio développé avec Next.js 16, Tailwind CSS 4 et Radix UI. Design responsive avec mode clair/sombre et animations fluides."

@@ -1,5 +1,4 @@
 ---
-order: 4
 name: Logs
 description: Interface pour les logs de mon API.
 longDescription: "Interface de visualisation en temps réel des logs générés par l'API. Récupère et affiche les données JSON de manière structurée et lisible."

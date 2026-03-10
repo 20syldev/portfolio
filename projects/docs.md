@@ -1,5 +1,4 @@
 ---
-order: 2
 name: Docs
 description: La documentation de mon API, pour les développeurs.
 longDescription: "Documentation complète de l'API construite avec VitePress (Vue.js). Interface moderne avec recherche, exemples de code et guides d'utilisation."

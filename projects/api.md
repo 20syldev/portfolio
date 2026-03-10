@@ -1,5 +1,4 @@
 ---
-order: 1
 name: API
 description: Mon API Node.js, pour les développeurs et les utilisateurs.
 longDescription: API REST complète développée en Node.js avec Express. Elle fournit des endpoints pour récupérer des données sur mes projets, les statistiques GitHub, et plus encore. Disponible aussi en tant que module NPM.

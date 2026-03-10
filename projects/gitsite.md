@@ -1,5 +1,4 @@
 ---
-order: 23
 name: GitSite
 description: "Ma plateforme d'hébergement web abordable et intuitive."
 longDescription: "Plateforme d'hébergement web abordable basée sur GitHub. Hébergement sur sous-domaine personnalisé avec un processus en 4 étapes. Site en ligne 24h/24."

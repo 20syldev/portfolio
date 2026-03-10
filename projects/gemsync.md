@@ -1,5 +1,4 @@
 ---
-order: 22
 name: GemSync
 description: "La solution pour une configuration DNS rapide et efficace."
 longDescription: "Service de configuration DNS et d'hébergement web personnalisé. Prise en charge complète de la mise en ligne de votre site avec explications et support."

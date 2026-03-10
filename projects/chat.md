@@ -1,5 +1,4 @@
 ---
-order: 15
 name: Chat
 description: Application de chats publics et privés en ligne.
 longDescription: Application de messagerie en temps réel avec salons publics et conversations privées.

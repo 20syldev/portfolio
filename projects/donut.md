@@ -1,5 +1,4 @@
 ---
-order: 21
 name: Donut
 description: Une animation de donut interactive en JavaScript.
 longDescription: "Animation 3D interactive d'un donut en caractères ASCII. Contrôlable en temps réel via des curseurs pour ajuster la vitesse et la taille."
