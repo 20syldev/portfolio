@@ -331,7 +331,7 @@ export function Video({ src, title, className }: VideoProps) {
 
             {/* Dialog Content */}
             <DialogPortal>
-                <DialogOverlay className="bg-black/90 backdrop-blur-sm" />
+                <DialogOverlay className="bg-black/50 backdrop-blur-sm" />
                 <DialogPrimitive.Content
                     aria-describedby={undefined}
                     className={cn(
