@@ -1,6 +1,18 @@
 "use client";
 
-import { Check, Copy, FileText, Github, Heart, Linkedin, Mail } from "lucide-react";
+import {
+    Award,
+    BadgeCheck,
+    Check,
+    CircleCheck,
+    Copy,
+    FileText,
+    Github,
+    Heart,
+    Linkedin,
+    Mail,
+    Wrench,
+} from "lucide-react";
 import type { MouseEvent } from "react";
 import * as React from "react";
 
@@ -14,7 +26,7 @@ import {
 } from "@/components/ui/dialog";
 import { usePdfViewer } from "@/components/utils/viewer";
 import type { ContactLink } from "@/data/profile";
-import { contacts, profile } from "@/data/profile";
+import { contacts, pageLinks, profile } from "@/data/profile";
 
 const links: Record<string, React.ReactNode> = {
     mail: <Mail className="h-4 w-4 shrink-0" />,
@@ -27,6 +39,10 @@ const links: Record<string, React.ReactNode> = {
         </svg>
     ),
     cv: <FileText className="h-4 w-4 shrink-0" />,
+    award: <Award className="h-4 w-4 shrink-0" />,
+    badge: <BadgeCheck className="h-4 w-4 shrink-0" />,
+    check: <CircleCheck className="h-4 w-4 shrink-0" />,
+    wrench: <Wrench className="h-4 w-4 shrink-0" />,
 };
 
 interface ContactDialogProps {
@@ -43,7 +59,7 @@ interface ContactDialogProps {
  * @param props.contact - Contact link configuration with action type
  * @returns The rendered contact button
  */
-function ContactButton({ contact }: { contact: ContactLink }) {
+function ContactButton({ contact, onNavigate }: { contact: ContactLink; onNavigate?: () => void }) {
     const [copied, setCopied] = React.useState(false);
     const { openPdf } = usePdfViewer();
 
@@ -67,6 +83,17 @@ function ContactButton({ contact }: { contact: ContactLink }) {
                 ) : (
                     <Copy className="h-4 w-4 shrink-0" />
                 )}
+            </Button>
+        );
+    }
+
+    if (contact.action === "route") {
+        return (
+            <Button variant="outline" asChild className={btnClass} onClick={() => onNavigate?.()}>
+                <a href={contact.url}>
+                    {links[contact.icon]}
+                    {contact.label}
+                </a>
             </Button>
         );
     }
@@ -146,6 +173,13 @@ export function ContactDialog({ open, onOpenChange, autoFocusClose }: ContactDia
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {contacts.map((contact) => (
                         <ContactButton key={contact.icon} contact={contact} />
+                    ))}
+                    {pageLinks.map((link) => (
+                        <ContactButton
+                            key={link.icon}
+                            contact={link}
+                            onNavigate={() => onOpenChange(false)}
+                        />
                     ))}
                 </div>
             </DialogContent>
