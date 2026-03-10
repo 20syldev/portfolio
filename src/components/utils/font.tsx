@@ -30,11 +30,9 @@ export function useFont() {
     return context;
 }
 
-const defaultFontSize = 100;
-const minFontSize = 80;
-const maxFontSize = 180;
-
-export { defaultFontSize, minFontSize, maxFontSize };
+export const defaultFontSize = 100;
+export const minFontSize = 80;
+export const maxFontSize = 180;
 
 /**
  * Apply the selected font to the body element.
