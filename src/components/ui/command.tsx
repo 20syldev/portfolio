@@ -241,13 +241,24 @@ function CommandItem({ className, ...props }: React.ComponentProps<typeof Comman
  * @param props - Span element props
  * @returns The rendered shortcut text
  */
-function CommandShortcut({ className, ...props }: React.ComponentProps<"span">) {
+function CommandShortcut({ className, children, ...props }: React.ComponentProps<"span">) {
+    const keys = typeof children === "string" ? children.split(" + ") : [];
+
     return (
         <span
             data-slot="command-shortcut"
-            className={cn("text-muted-foreground ml-auto text-xs tracking-widest", className)}
+            className={cn("ml-auto flex items-center gap-1", className)}
             {...props}
-        />
+        >
+            {keys.map((key, i) => (
+                <React.Fragment key={key}>
+                    {i > 0 && <span className="text-[10px] text-muted-foreground">+</span>}
+                    <kbd className="inline-flex h-5 min-w-5 items-center justify-center rounded border border-border bg-muted px-1 font-mono text-[11px] font-medium text-muted-foreground shadow-[0_1px_0_1px] shadow-border/50">
+                        {key}
+                    </kbd>
+                </React.Fragment>
+            ))}
+        </span>
     );
 }
 
