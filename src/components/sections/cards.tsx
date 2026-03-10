@@ -6,6 +6,7 @@ import {
     BriefcaseBusiness,
     CalendarDays,
     Database,
+    Dot,
     Download,
     Github,
     GitPullRequest,
@@ -350,6 +351,7 @@ function CertificationsCard({ className }: { className?: string }) {
                                                 width={60}
                                                 height={60}
                                                 className="rounded-md object-contain"
+                                                style={{ width: "auto", height: "auto" }}
                                             />
                                         </a>
                                     </TooltipTrigger>
@@ -366,14 +368,14 @@ function CertificationsCard({ className }: { className?: string }) {
                     >
                         +{totalCertifications} certifications
                     </Link>
-                    <span className="text-xs text-muted-foreground">·</span>
+                    <Dot className="h-3 w-3 text-muted-foreground" />
                     <Link
                         href="/completion"
                         className="text-xs text-muted-foreground hover:text-primary transition-colors"
                     >
                         +{totalCompletionBadges} complétion
                     </Link>
-                    <span className="text-xs text-muted-foreground">·</span>
+                    <Dot className="h-3 w-3 text-muted-foreground" />
                     <Link
                         href="/badges"
                         className="text-xs text-muted-foreground hover:text-primary transition-colors"
