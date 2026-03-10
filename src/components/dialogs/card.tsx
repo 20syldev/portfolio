@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, ExternalLink, Github, Package } from "lucide-react";
+import { BookOpen } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,7 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { ProjectMeta } from "@/components/ui/flags";
+import { ProjectLinks } from "@/components/ui/links";
 import type { Project } from "@/data/projects";
 import type { ProjectStatus } from "@/hooks/status";
 import { hasProjectContent } from "@/lib/projects";
@@ -64,30 +65,7 @@ export function CardDialog({
                 </div>
 
                 <div className="flex flex-wrap gap-2 pt-4">
-                    {project?.github && (
-                        <Button asChild size="sm" variant="outline">
-                            <a href={project.github} target="_blank" rel="noopener noreferrer">
-                                <Github className="mr-2 h-4 w-4" />
-                                GitHub
-                            </a>
-                        </Button>
-                    )}
-                    {project?.demo && (
-                        <Button asChild size="sm" variant="default">
-                            <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                                <ExternalLink className="mr-2 h-4 w-4" />
-                                Démo
-                            </a>
-                        </Button>
-                    )}
-                    {project?.npm && (
-                        <Button asChild size="sm" variant="outline">
-                            <a href={project.npm} target="_blank" rel="noopener noreferrer">
-                                <Package className="mr-2 h-4 w-4" />
-                                NPM
-                            </a>
-                        </Button>
-                    )}
+                    {project && <ProjectLinks project={project} />}
                     {project && hasProjectContent(project.id) && onOpenDetail && (
                         <Button size="sm" variant="secondary" onClick={() => onOpenDetail(project)}>
                             <BookOpen className="mr-2 h-4 w-4" />
