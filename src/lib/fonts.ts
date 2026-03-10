@@ -24,10 +24,22 @@ export const fonts: FontConfig[] = [
 
 export const defaultFontId = "outfit";
 
+/**
+ * Finds a font configuration by its identifier.
+ *
+ * @param id - The unique font identifier
+ * @returns The matching font config, or undefined if not found
+ */
 export function getFontById(id: string): FontConfig | undefined {
     return fonts.find((f) => f.id === id);
 }
 
+/**
+ * Generates a CSS font-family value with fallbacks for a given font config.
+ *
+ * @param font - The font configuration to convert
+ * @returns A CSS font-family string using the font's CSS variable
+ */
 export function getFontCssValue(font: FontConfig): string {
     return `var(${font.variable}), ui-sans-serif, system-ui, sans-serif`;
 }
