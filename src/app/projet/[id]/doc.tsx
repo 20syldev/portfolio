@@ -1,11 +1,9 @@
 "use client";
 
-import { ExternalLink, Github, Package } from "lucide-react";
-
 import { DocumentationLayout } from "@/components/detail/layout";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { ProjectMeta } from "@/components/ui/flags";
+import { ProjectLinks } from "@/components/ui/links";
 import type { Project } from "@/data/projects";
 import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
@@ -50,60 +48,10 @@ export function Doc({ project, content }: DocProps) {
                         ))}
                     </div>
                 </div>
-                <div className="hidden sm:flex flex-wrap gap-2">
-                    {project.npm && (
-                        <Button asChild size="sm" variant="outline">
-                            <a href={project.npm} target="_blank" rel="noopener noreferrer">
-                                <Package className="mr-2 h-4 w-4" />
-                                NPM
-                            </a>
-                        </Button>
-                    )}
-                    {project.github && (
-                        <Button asChild size="sm" variant="outline">
-                            <a href={project.github} target="_blank" rel="noopener noreferrer">
-                                <Github className="mr-2 h-4 w-4" />
-                                GitHub
-                            </a>
-                        </Button>
-                    )}
-                    {project.demo && (
-                        <Button asChild size="sm" variant="default">
-                            <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                                <ExternalLink className="mr-2 h-4 w-4" />
-                                Démo
-                            </a>
-                        </Button>
-                    )}
-                </div>
+                <ProjectLinks project={project} className="hidden sm:flex flex-wrap gap-2" />
             </div>
             {/* Mobile links */}
-            <div className="flex sm:hidden flex-wrap gap-2 mt-4">
-                {project.npm && (
-                    <Button asChild size="sm" variant="outline">
-                        <a href={project.npm} target="_blank" rel="noopener noreferrer">
-                            <Package className="mr-2 h-4 w-4" />
-                            NPM
-                        </a>
-                    </Button>
-                )}
-                {project.github && (
-                    <Button asChild size="sm" variant="outline">
-                        <a href={project.github} target="_blank" rel="noopener noreferrer">
-                            <Github className="mr-2 h-4 w-4" />
-                            GitHub
-                        </a>
-                    </Button>
-                )}
-                {project.demo && (
-                    <Button asChild size="sm" variant="default">
-                        <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="mr-2 h-4 w-4" />
-                            Démo
-                        </a>
-                    </Button>
-                )}
-            </div>
+            <ProjectLinks project={project} className="flex sm:hidden flex-wrap gap-2 mt-4" />
         </>
     );
 
