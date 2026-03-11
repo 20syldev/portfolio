@@ -211,6 +211,27 @@
     }
 }
 
+@keyframes animate-sparkle {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(0deg) translate(0, 0);
+    }
+    20% {
+        opacity: 1;
+        transform: scale(1.2) rotate(var(--sparkle-rot)) translate(0, 0);
+    }
+    50% {
+        opacity: 0.9;
+        transform: scale(0.8) rotate(var(--sparkle-rot))
+            translate(calc(var(--sparkle-dx) * 0.5), calc(var(--sparkle-dy) * 0.5));
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0) rotate(calc(var(--sparkle-rot) * 2))
+            translate(var(--sparkle-dx), var(--sparkle-dy));
+    }
+}
+
 /* Animation Classes */
 .animate-header-in {
     animation: header-in 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -226,6 +247,21 @@
 
 .animate-float {
     animation: float 1.5s ease-in-out infinite;
+}
+
+.animate-sparkle {
+    position: absolute;
+    width: var(--sparkle-size, 10px);
+    height: var(--sparkle-size, 10px);
+    pointer-events: none;
+    animation: animate-sparkle 0.8s ease-out both;
+    clip-path: polygon(50% 0%, 60% 35%, 100% 50%, 60% 65%, 50% 100%, 40% 65%, 0% 50%, 40% 35%);
+    background: oklch(0.6 0.2 280);
+    filter: drop-shadow(0 0 3px oklch(0.6 0.2 280 / 60%));
+}
+.dark .animate-sparkle {
+    background: oklch(0.95 0.02 280);
+    filter: drop-shadow(0 0 4px oklch(0.85 0.15 280 / 70%));
 }
 
 .animate-shine {
