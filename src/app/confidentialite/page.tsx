@@ -66,8 +66,9 @@ export default function ConfidentialitePage() {
                             est le <strong className="text-foreground">localStorage</strong> du
                             navigateur, uniquement pour sauvegarder vos préférences : le thème
                             (clair, sombre ou système), l'activation du curseur personnalisé, la
-                            police de caractères choisie et la version de l'application. Rien
-                            d'autre n'est stocké.
+                            police de caractères choisie, la taille de police, l'activation des
+                            animations, le mode X-Ray et la version de l'application. Rien d'autre
+                            n'est stocké.
                         </p>
                     </section>
 
