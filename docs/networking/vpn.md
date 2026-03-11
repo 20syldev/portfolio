@@ -119,3 +119,4 @@ AllowedIPs = 10.0.0.0/24, 192.168.1.0/24
 - [Routage et NAT](/help/networking/routing) — comprendre les tables de routage
 - [Pare-feu Linux](/help/hardening/firewall) — configurer UFW avec un VPN
 - [SSH tunnels](/help/ssh/usage) — alternative applicative au VPN
+- [VPN WireGuard sur pfSense](/help/pfsense/vpn) — configurer WireGuard sur un pare-feu pfSense

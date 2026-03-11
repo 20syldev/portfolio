@@ -271,3 +271,4 @@ Tout le reste (MySQL 3306, Redis 6379, etc.) est automatiquement bloqué par la 
 - [Services et processus](/help/hardening/services) — identifier quels ports doivent rester ouverts
 - [Sécuriser SSH](/help/hardening/ssh) — durcir le service qui écoute sur le port 22
 - [Sécurité SSH](/help/ssh/security) — Fail2Ban et restrictions d'accès SSH
+- [Pare-feu pfSense](/help/pfsense/firewall) — filtrage de paquets sur une appliance dédiée
