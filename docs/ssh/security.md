@@ -261,3 +261,5 @@ Le module `google-authenticator` génère un QR code à scanner avec une applica
 
 - [Dépannage](/help/ssh/troubleshooting) — diagnostiquer les erreurs de connexion
 - [Fichier de configuration](/help/ssh/config) — centraliser les options de connexion
+- [Hardening Linux](/help/hardening/introduction) — durcir le système au-delà de SSH
+- [Gestion des secrets](/help/hardening/secrets) — protéger clés et tokens applicatifs
