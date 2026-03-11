@@ -151,7 +151,7 @@ Ajoutez un enregistrement CNAME :
 3. Votre site GitHub Pages devrait s'afficher
 4. Vérifiez que HTTPS fonctionne
 
-## Configuration des emails avec Email Routing {#email}
+## Email Routing {#email}
 
 Cloudflare propose **Email Routing** gratuit qui permet de rediriger les emails de votre domaine vers votre adresse personnelle, avec support du Catch-All !
 
