@@ -410,8 +410,17 @@ export function CommandMenu() {
             </CommandItem>
         ));
 
+    /**
+     * Max recent projects to display in the scrolled two-column layout.
+     * Balances left (navigation + recent projects + "Voir tout")
+     * with right (personnalisation + profil + réalisations).
+     * Update if a group is added/removed from either column.
+     */
     const maxRecentProjects =
-        navigationItems.length + personnalisationItems.length - profilItems.length - 1;
+        personnalisationItems.length +
+        profilItems.length +
+        realisationsItems.length -
+        navigationItems.length;
 
     const recentProjectItems = projects
         .filter((p) => getProjectStatus(p.id) !== null)
@@ -583,8 +592,9 @@ export function CommandMenu() {
                     {search.length > 0 ? (
                         <CommandGroup>
                             {renderItems(navigationItems)}
-                            {renderItems(profilItems)}
                             {renderItems(personnalisationItems)}
+                            {renderItems(profilItems)}
+                            {renderItems(realisationsItems)}
                             {recentProjectItems}
                             {pageItems}
                             {docItems}
@@ -603,18 +613,6 @@ export function CommandMenu() {
                                             </CommandGroup>
                                         </div>
                                         <div className="rounded-lg border">
-                                            <CommandGroup heading="Personnalisation">
-                                                {renderItems(personnalisationItems)}
-                                            </CommandGroup>
-                                        </div>
-                                    </div>
-                                    <div className="flex-1 space-y-2">
-                                        <div className="rounded-lg border">
-                                            <CommandGroup heading="Profil">
-                                                {renderItems(profilItems)}
-                                            </CommandGroup>
-                                        </div>
-                                        <div className="rounded-lg border">
                                             <CommandGroup heading="Projets récents">
                                                 {recentProjectItems}
                                                 <CommandItem
@@ -630,19 +628,28 @@ export function CommandMenu() {
                                             </CommandGroup>
                                         </div>
                                     </div>
+                                    <div className="flex-1 space-y-2">
+                                        <div className="rounded-lg border">
+                                            <CommandGroup heading="Personnalisation">
+                                                {renderItems(personnalisationItems)}
+                                            </CommandGroup>
+                                        </div>
+                                        <div className="rounded-lg border">
+                                            <CommandGroup heading="Profil">
+                                                {renderItems(profilItems)}
+                                            </CommandGroup>
+                                        </div>
+                                        <div className="rounded-lg border">
+                                            <CommandGroup heading="Réalisations">
+                                                {renderItems(realisationsItems)}
+                                            </CommandGroup>
+                                        </div>
+                                    </div>
                                 </div>
                             ) : null}
                             <div className={cn(scrolled && "md:hidden")}>
                                 <CommandGroup heading="Navigation">
                                     {renderItems(navigationItems)}
-                                </CommandGroup>
-                                <CommandSeparator />
-                                <CommandGroup heading="Profil">
-                                    {renderItems(profilItems)}
-                                </CommandGroup>
-                                <CommandSeparator />
-                                <CommandGroup heading="Personnalisation">
-                                    {renderItems(personnalisationItems)}
                                 </CommandGroup>
                                 <CommandSeparator />
                                 <CommandGroup heading="Projets récents">
@@ -656,13 +663,39 @@ export function CommandMenu() {
                                         Voir tout
                                     </CommandItem>
                                 </CommandGroup>
+                                <CommandSeparator />
+                                <CommandGroup heading="Personnalisation">
+                                    {renderItems(personnalisationItems)}
+                                </CommandGroup>
+                                <CommandSeparator />
+                                <CommandGroup heading="Profil">
+                                    {renderItems(profilItems)}
+                                </CommandGroup>
+                                <CommandSeparator />
+                                <CommandGroup heading="Réalisations">
+                                    {renderItems(realisationsItems)}
+                                </CommandGroup>
                             </div>
                         </>
                     )}
                 </CommandList>
             </CommandDialog>
             <ContactDialog open={contactOpen} onOpenChange={setContactOpen} />
-            <ShortcutsDialog open={shortcutsOpen} onOpenChange={setShortcutsOpen} />
+            <ShortcutsDialog
+                open={shortcutsOpen}
+                onOpenChange={setShortcutsOpen}
+                actions={{
+                    cursor: () => setCursorEnabled(!cursorEnabled),
+                    font: () => setFontDialogOpen(true),
+                    theme: () =>
+                        setTheme(
+                            theme === "system" ? "light" : theme === "light" ? "dark" : "system"
+                        ),
+                    motion: () => setMotionEnabled(!motionEnabled),
+                    xray: () => setXrayEnabled(!xrayEnabled),
+                    command: () => setOpen(true),
+                }}
+            />
         </>
     );
 }
