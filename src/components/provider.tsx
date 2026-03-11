@@ -9,6 +9,7 @@ import { FontDialog } from "@/components/dialogs/font";
 import { CursorProvider } from "@/components/utils/cursor";
 import { FontProvider } from "@/components/utils/font";
 import { KonamiProvider } from "@/components/utils/konami";
+import { MotionProvider } from "@/components/utils/motion";
 import { NotifProvider } from "@/components/utils/notif";
 import { PdfViewerProvider } from "@/components/utils/viewer";
 import { XrayProvider } from "@/components/utils/xray";
@@ -68,7 +69,9 @@ export function ThemeProvider({
                         <PdfViewerProvider>
                             <ProjectDetailProvider>
                                 <KonamiProvider>
-                                    <XrayProvider>{children}</XrayProvider>
+                                    <MotionProvider>
+                                        <XrayProvider>{children}</XrayProvider>
+                                    </MotionProvider>
                                 </KonamiProvider>
                             </ProjectDetailProvider>
                         </PdfViewerProvider>
