@@ -42,6 +42,7 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useCursor } from "@/components/utils/cursor";
 import { useFont } from "@/components/utils/font";
+import { useMotion } from "@/components/utils/motion";
 import { usePdfViewer } from "@/components/utils/viewer";
 import { useXray } from "@/components/utils/xray";
 import { projects as alternanceProjects } from "@/data/alternance";
@@ -192,6 +193,7 @@ export function CommandMenu() {
     const { theme, setTheme } = useTheme();
     const { enabled: cursorEnabled, setEnabled: setCursorEnabled } = useCursor();
     const { dialogOpen: fontDialogOpen, setDialogOpen: setFontDialogOpen } = useFont();
+    const { enabled: motionEnabled, setEnabled: setMotionEnabled } = useMotion();
     const { enabled: xrayEnabled, setEnabled: setXrayEnabled } = useXray();
     const { openProject } = useProjectDetail();
     const { openPdf } = usePdfViewer();
@@ -225,6 +227,10 @@ export function CommandMenu() {
                             theme === "system" ? "light" : theme === "light" ? "dark" : "system"
                         );
                         break;
+                    case "m":
+                        e.preventDefault();
+                        setMotionEnabled(!motionEnabled);
+                        break;
                     case "x":
                         e.preventDefault();
                         setXrayEnabled(!xrayEnabled);
@@ -241,6 +247,8 @@ export function CommandMenu() {
         setCursorEnabled,
         fontDialogOpen,
         setFontDialogOpen,
+        motionEnabled,
+        setMotionEnabled,
         theme,
         setTheme,
         xrayEnabled,
@@ -315,6 +323,13 @@ export function CommandMenu() {
             icon: MousePointer2,
             action: () => setCursorEnabled(!cursorEnabled),
             shortcut: formatShortcut(getShortcut("cursor")!.keys),
+        },
+        {
+            label: `${motionEnabled ? "Désactiver" : "Activer"} les animations`,
+            icon: Sparkles,
+            action: () => setMotionEnabled(!motionEnabled),
+            keywords: ["animation", "motion", "mouvement", "effet"],
+            shortcut: formatShortcut(getShortcut("motion")!.keys),
         },
         {
             label: "Changer la police",
