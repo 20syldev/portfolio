@@ -147,6 +147,13 @@
     }
 }
 
+/* Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+    .animate-sparkle {
+        display: none;
+    }
+}
+
 /* Keyframes */
 @keyframes gradient-rotate {
     0% {
@@ -290,6 +297,36 @@
 .cursor-none *::before,
 .cursor-none *::after {
     cursor: none !important;
+}
+
+/* X-Ray Mode */
+.xray * {
+    outline: 1px solid oklch(0.7 0.2 280 / 40%) !important;
+}
+.xray * > * {
+    outline-color: oklch(0.7 0.2 200 / 40%) !important;
+}
+.xray * > * > * {
+    outline-color: oklch(0.7 0.2 140 / 40%) !important;
+}
+.xray * > * > * > * {
+    outline-color: oklch(0.7 0.2 60 / 40%) !important;
+}
+.xray * > * > * > * > * {
+    outline-color: oklch(0.7 0.2 340 / 40%) !important;
+}
+
+/* No-Motion Mode */
+.no-motion *,
+.no-motion *::before,
+.no-motion *::after {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+}
+.no-motion .animate-sparkle {
+    display: none !important;
 }
 
 /* Hover Effects */
@@ -494,21 +531,4 @@
 }
 .dark * {
     scrollbar-color: oklch(0.5 0 0 / 30%) transparent;
-}
-
-/* X-Ray Mode */
-.xray * {
-    outline: 1px solid oklch(0.7 0.2 280 / 40%) !important;
-}
-.xray * > * {
-    outline-color: oklch(0.7 0.2 200 / 40%) !important;
-}
-.xray * > * > * {
-    outline-color: oklch(0.7 0.2 140 / 40%) !important;
-}
-.xray * > * > * > * {
-    outline-color: oklch(0.7 0.2 60 / 40%) !important;
-}
-.xray * > * > * > * > * {
-    outline-color: oklch(0.7 0.2 340 / 40%) !important;
 }
