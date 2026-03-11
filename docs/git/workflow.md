@@ -201,7 +201,7 @@ build/
 out/
 .next/
 
-# Environnement et secrets
+# Environnement et secrets (voir /help/hardening/secrets)
 .env
 .env.local
 .env*.local

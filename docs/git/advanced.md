@@ -273,7 +273,7 @@ git switch feature/ma-feature
 
 ### Fichier trop gros poussé par erreur
 
-**Symptôme** : Un fichier volumineux a été commité et bloque le push.
+**Symptôme** : Un fichier volumineux a été commité et bloque le push. Pour les fichiers binaires récurrents, voir [Git LFS](/help/git/large).
 
 **Solution** :
 
@@ -321,4 +321,6 @@ git push --force-with-lease origin ma-branche
 ## Pour aller plus loin {#next}
 
 - [Guide du style de commit](/help/git/commit) — conventions pour des messages de commit structurés
+- [Git internals](/help/git/internals) — comprendre les objets, refs et le dossier `.git`
+- [Gros dépôts](/help/git/large) — Git LFS, shallow clone, sparse-checkout
 - [GitHub Pages](/help/github/pages) — héberger un site statique directement depuis votre dépôt Git
