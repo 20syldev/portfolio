@@ -8,6 +8,7 @@ const categoryNames: Record<string, string> = {
     gpg: "GPG",
     linux: "Linux",
     markdown: "Markdown",
+    pfsense: "pfSense",
     rsync: "Rsync",
     ssh: "SSH",
 };
