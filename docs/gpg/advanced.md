@@ -3,7 +3,7 @@ title: Utilisation avancée
 description: Export/import de clés, sauvegarde sécurisée, certificat de révocation, chiffrement de fichiers et serveurs de clés.
 category: gpg
 slug: advanced
-order: 6
+order: 7
 ---
 
 ## Exporter et importer des clés {#export-import}
@@ -265,6 +265,7 @@ gpg --keyserver hkps://keyserver.ubuntu.com --send-keys THEIR_KEY_ID
 
 ## Pour aller plus loin {#next}
 
+- [Clés hardware](/help/gpg/hardware) — stocker tes clés sur une Yubikey ou Nitrokey
+- [Gestion des secrets](/help/hardening/secrets) — protéger les secrets applicatifs
 - [Dépannage](/help/gpg/troubleshooting) — résoudre les erreurs GPG courantes
 - [Signer ses commits](/help/gpg/signing) — revenir à la configuration Git
-- [Introduction](/help/gpg/introduction) — revoir les concepts fondamentaux

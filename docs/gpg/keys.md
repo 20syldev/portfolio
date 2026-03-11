@@ -202,5 +202,6 @@ gpg --delete-secret-and-public-key alice@example.com
 ## Pour aller plus loin {#next}
 
 - [Signer ses commits](/help/gpg/signing) — utiliser ta clé pour signer tes commits Git
+- [Clés hardware](/help/gpg/hardware) — stocker tes clés sur une Yubikey ou Nitrokey
 - [Intégration GitHub](/help/gpg/github) — ajouter ta clé publique à GitHub
 - [Utilisation avancée](/help/gpg/advanced) — export, import, révocation et chiffrement

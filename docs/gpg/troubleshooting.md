@@ -3,7 +3,7 @@ title: Dépannage
 description: Diagnostiquer les erreurs GPG courantes, résoudre les problèmes de signature Git et de pinentry.
 category: gpg
 slug: troubleshooting
-order: 7
+order: 8
 ---
 
 ## Erreurs courantes et solutions {#errors}
