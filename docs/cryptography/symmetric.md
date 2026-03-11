@@ -126,7 +126,7 @@ C'est cette limitation qui a motivé l'invention de la [cryptographie asymétriq
 ## Cas d'usage {#usecases}
 
 - **Chiffrement de disque** — LUKS (Linux), FileVault (macOS) et BitLocker (Windows) utilisent AES-256 pour protéger le disque entier.
-- **VPN** — WireGuard utilise ChaCha20-Poly1305, OpenVPN utilise AES-256-GCM.
+- **VPN** — [WireGuard](/help/networking/vpn/#wireguard) utilise ChaCha20-Poly1305, OpenVPN utilise AES-256-GCM.
 - **HTTPS** — Après le handshake TLS (asymétrique), toutes les données sont chiffrées en AES-GCM ou ChaCha20-Poly1305.
 - **SSH** — Les sessions SSH chiffrent les données avec `chacha20-poly1305` ou `aes256-gcm`.
 - **Chiffrement de fichiers** — `gpg --symmetric` utilise AES-256 pour chiffrer un fichier avec une passphrase (voir [GPG avancé](/help/gpg/advanced)).

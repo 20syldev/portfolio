@@ -3,7 +3,7 @@ title: Glossaire et ressources
 description: Glossaire des termes cryptographiques, tableau récapitulatif des algorithmes et ressources pour approfondir.
 category: cryptography
 slug: glossary
-order: 7
+order: 8
 ---
 
 ## Glossaire {#glossary}

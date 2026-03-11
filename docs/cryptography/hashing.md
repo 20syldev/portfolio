@@ -156,7 +156,7 @@ git rev-parse HEAD
 # a3f8c21e5b7d4c9f2e1a0b8c7d6e5f4a3b2c1d0e
 ```
 
-Chaque commit est identifié par le hash de son contenu. Si un seul octet change, le hash change — c'est ainsi que Git détecte les modifications.
+Chaque commit est identifié par le hash de son contenu. Si un seul octet change, le hash change — c'est ainsi que Git détecte les modifications (voir [Git internals](/help/git/internals) pour les détails).
 
 > **Note** : Git migre progressivement vers SHA-256 pour plus de sécurité (SHA-1 a des collisions connues depuis 2017).
 
@@ -169,3 +169,4 @@ Les [signatures numériques](/help/cryptography/signatures) utilisent le hachage
 - [Signatures numériques](/help/cryptography/signatures) — comment hachage et clé privée se combinent pour signer
 - [Chiffrement asymétrique](/help/cryptography/asymmetric) — les clés publiques et privées en détail
 - [Certificats et PKI](/help/cryptography/certificates) — les hashes dans les certificats TLS
+- [Vulnérabilités cryptographiques](/help/cryptography/vulnerabilities) — quand le hachage est mal implémenté
