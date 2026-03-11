@@ -11,6 +11,41 @@ export interface LabCategory {
 
 export const labs: LabCategory[] = [
     {
+        name: "AI & Agents",
+        items: [
+            {
+                name: "Securing a Multi-Agent System",
+                url: "https://codelabs.developers.google.com/codelabs/production-ready-ai-roadshow/3-securing-a-multi-agent-system/securing-a-multi-agent-system",
+                date: "11 mars 2026",
+            },
+            {
+                name: 'From "vibe checks" to data-driven Agent Evaluation',
+                url: "https://codelabs.developers.google.com/codelabs/production-ready-ai-roadshow/2-evaluating-multi-agent-systems/evaluating-multi-agent-systems",
+                date: "11 mars 2026",
+            },
+            {
+                name: "Build a Multimodal AI Agent with Graph RAG, ADK & Memory Bank",
+                url: "https://codelabs.developers.google.com/codelabs/survivor-network/instructions",
+                date: "11 mars 2026",
+            },
+            {
+                name: "Integrate Vertex AI Agents with Google Workspace",
+                url: "https://codelabs.developers.google.com/vertexai-gws-agents",
+                date: "11 mars 2026",
+            },
+            {
+                name: "Integrate Gemini Enterprise Agents with Google Workspace",
+                url: "https://codelabs.developers.google.com/ge-gws-agents",
+                date: "11 mars 2026",
+            },
+            {
+                name: "Update your app to use a spam filtering Machine Learning model",
+                url: "https://codelabs.developers.google.com/tflite-nlp-update-app",
+                date: "11 mars 2026",
+            },
+        ],
+    },
+    {
         name: "Machine Learning",
         items: [
             {
@@ -312,6 +347,16 @@ export const labs: LabCategory[] = [
                 name: "Semantic Locators",
                 url: "https://codelabs.developers.google.com/codelabs/semantic-locators",
                 date: "27 juin 2024",
+            },
+            {
+                name: "Build a Gemini powered Flutter app",
+                url: "https://codelabs.developers.google.com/codelabs/flutter-gemini-colorist",
+                date: "11 mars 2026",
+            },
+            {
+                name: "How to use Baseline in your project",
+                url: "https://codelabs.developers.google.com/codelabs/use-baseline-in-your-project",
+                date: "11 mars 2026",
             },
         ],
     },
