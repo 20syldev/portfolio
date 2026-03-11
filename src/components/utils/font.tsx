@@ -82,7 +82,7 @@ export function FontProvider({ children }: { children: React.ReactNode }) {
     });
     const [fontSize, setFontSizeState] = React.useState(() => {
         if (typeof window === "undefined") return defaultFontSize;
-        const stored = localStorage.getItem("fontSize");
+        const stored = localStorage.getItem("size");
         if (!stored) return defaultFontSize;
         const parsed = parseInt(stored, 10);
         return parsed >= minFontSize && parsed <= maxFontSize ? parsed : defaultFontSize;
@@ -105,7 +105,7 @@ export function FontProvider({ children }: { children: React.ReactNode }) {
     }, [font]);
 
     React.useEffect(() => {
-        localStorage.setItem("fontSize", String(fontSize));
+        localStorage.setItem("size", String(fontSize));
         applyFontSize(fontSize);
     }, [fontSize]);
 
