@@ -9,6 +9,7 @@ import { useFont } from "@/components/utils/font";
 import { usePdfViewer } from "@/components/utils/viewer";
 import { profile } from "@/data/profile";
 import { useDraggablePhysics } from "@/hooks/physics";
+import { useSparkle } from "@/hooks/sparkle";
 
 /**
  * Simplified hero section.
@@ -20,6 +21,7 @@ export function Hero() {
     const { openPdf } = usePdfViewer();
     const { setDialogOpen } = useFont();
     const { ref: logoRef, isDragging } = useDraggablePhysics();
+    useSparkle(logoRef, isDragging);
 
     return (
         <div className="flex h-full flex-col items-center justify-center px-4 text-center">
