@@ -35,13 +35,16 @@ export function useXray() {
  */
 export function XrayProvider({ children }: { children: React.ReactNode }) {
     const [enabled, setEnabled] = React.useState(false);
+    const mounted = React.useRef(false);
 
     React.useEffect(() => {
         const stored = localStorage.getItem("xray");
         if (stored !== null) setEnabled(JSON.parse(stored) as boolean);
+        mounted.current = true;
     }, []);
 
     React.useEffect(() => {
+        if (!mounted.current) return;
         localStorage.setItem("xray", JSON.stringify(enabled));
     }, [enabled]);
 
