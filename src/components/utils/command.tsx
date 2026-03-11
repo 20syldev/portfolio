@@ -1,6 +1,8 @@
 "use client";
 
 import {
+    Award,
+    BadgeCheck,
     BookOpen,
     Briefcase,
     FilePenLine,
@@ -18,6 +20,7 @@ import {
     Smile,
     Sparkles,
     Sun,
+    Trophy,
     Type,
     UserRound,
     Wrench,
@@ -52,6 +55,7 @@ import { formatShortcut, getShortcut } from "@/data/shortcuts";
 import { veilles } from "@/data/veille";
 import { useProjectDetail } from "@/hooks/detail";
 import { type ProjectStatus, useProjectStatus } from "@/hooks/status";
+import { getCategoryName } from "@/lib/docs";
 import { cn } from "@/lib/utils";
 
 const statusIcon: Record<Exclude<ProjectStatus, null>, React.ElementType> = {
@@ -371,6 +375,27 @@ export function CommandMenu() {
             : []),
     ];
 
+    const realisationsItems: CommandItemConfig[] = [
+        {
+            label: "Certifications",
+            icon: Award,
+            action: () => router.push("/certifications"),
+            keywords: ["google", "cisco", "netacad", "credly", "certification"],
+        },
+        {
+            label: "Badges",
+            icon: BadgeCheck,
+            action: () => router.push("/badges"),
+            keywords: ["google", "developer", "badge", "machine learning", "communauté"],
+        },
+        {
+            label: "Completion",
+            icon: Trophy,
+            action: () => router.push("/completion"),
+            keywords: ["google", "cloud", "skills", "boost", "ai", "workspace"],
+        },
+    ];
+
     const renderItems = (items: CommandItemConfig[]) =>
         items.map((item) => (
             <CommandItem
@@ -455,7 +480,9 @@ export function CommandMenu() {
         >
             <FileText className="mr-2 h-4 w-4" />
             {doc.title}
-            <span className="ml-2 text-xs text-muted-foreground truncate">{doc.category}</span>
+            <span className="ml-2 text-xs text-muted-foreground truncate">
+                {getCategoryName(doc.category)}
+            </span>
         </CommandItem>
     ));
 
