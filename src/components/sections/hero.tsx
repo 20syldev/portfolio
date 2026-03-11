@@ -8,6 +8,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { useFont } from "@/components/utils/font";
 import { usePdfViewer } from "@/components/utils/viewer";
 import { profile } from "@/data/profile";
+import { useDraggablePhysics } from "@/hooks/physics";
 
 /**
  * Simplified hero section.
@@ -18,18 +19,22 @@ import { profile } from "@/data/profile";
 export function Hero() {
     const { openPdf } = usePdfViewer();
     const { setDialogOpen } = useFont();
+    const { ref: logoRef, isDragging } = useDraggablePhysics();
 
     return (
         <div className="flex h-full flex-col items-center justify-center px-4 text-center">
             {/* Logo */}
-            <Image
-                src="/favicon.ico"
-                alt={profile.name}
-                width={120}
-                height={120}
-                className="rounded-full shadow-lg"
-                priority
-            />
+            <div ref={logoRef} className="relative inline-block">
+                <Image
+                    src="/favicon.ico"
+                    alt={profile.name}
+                    width={120}
+                    height={120}
+                    className="rounded-full shadow-lg pointer-events-none"
+                    draggable={false}
+                    priority
+                />
+            </div>
 
             {/* Nom & Titre */}
             <div className="mt-6 space-y-1">
