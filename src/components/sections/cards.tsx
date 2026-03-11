@@ -29,6 +29,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { GalleryTooltipContent } from "@/components/ui/gallery";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import {
     Certification,
@@ -299,6 +300,7 @@ function GitHubCard({
 function CertificationsCard({ className }: { className?: string }) {
     const [displayed, setDisplayed] = useState<Certification[]>([]);
     const [visible, setVisible] = useState(true);
+    const [loaded, setLoaded] = useState<Set<string>>(new Set());
     const lastPoolIndex = useRef<number | undefined>(undefined);
 
     useEffect(() => {
@@ -311,6 +313,7 @@ function CertificationsCard({ className }: { className?: string }) {
             setVisible(false);
             timeout = setTimeout(() => {
                 const result = pickRandomCerts(certDisplayCount, lastPoolIndex.current);
+                setLoaded(new Set());
                 setDisplayed(result.items);
                 lastPoolIndex.current = result.poolIndex;
                 setVisible(true);
@@ -321,6 +324,10 @@ function CertificationsCard({ className }: { className?: string }) {
             clearInterval(timer);
             clearTimeout(timeout);
         };
+    }, []);
+
+    const handleImageLoad = useCallback((icon: string) => {
+        setLoaded((prev) => new Set(prev).add(icon));
     }, []);
 
     return (
@@ -344,7 +351,11 @@ function CertificationsCard({ className }: { className?: string }) {
                                             href={cert.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
+                                            className="relative w-[60px] h-[60px]"
                                         >
+                                            {!loaded.has(cert.icon) && (
+                                                <Skeleton className="absolute inset-0 rounded-md" />
+                                            )}
                                             <Image
                                                 src={cert.icon}
                                                 alt={cert.name}
@@ -352,6 +363,7 @@ function CertificationsCard({ className }: { className?: string }) {
                                                 height={60}
                                                 className="rounded-md object-contain"
                                                 style={{ width: "auto", height: "auto" }}
+                                                onLoad={() => handleImageLoad(cert.icon)}
                                             />
                                         </a>
                                     </TooltipTrigger>
