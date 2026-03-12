@@ -43,7 +43,7 @@ export function StatusBadge({ status, variant = "absolute" }: StatusBadgeProps) 
     const Icon = cfg.icon;
 
     const badge = (
-        <Badge className={`gap-2 text-xs h-5 text-white ${cfg.className}`}>
+        <Badge className={`gap-2 text-xs h-5 text-white border-0 ${cfg.className}`}>
             <Icon className="h-3 w-3" />
             {cfg.label}
         </Badge>
