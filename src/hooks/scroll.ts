@@ -517,6 +517,7 @@ export function useSmoothScroll<T extends HTMLElement>(
 /**
  * Hook for drag-to-scroll functionality on carousels.
  * Enables mouse drag scrolling with grab cursor.
+ * On touch devices, prevents vertical page scroll while swiping the carousel horizontally.
  *
  * @param ref - Ref to the scrollable element.
  */
@@ -560,13 +561,42 @@ export function useDragScroll<T extends HTMLElement>(ref: React.RefObject<T | nu
             }, 300);
         };
 
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchDirection: "x" | "y" | null = null;
+
+        const handleTouchStart = (e: TouchEvent) => {
+            const touch = e.touches[0];
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+            touchDirection = null;
+        };
+
+        const handleTouchMove = (e: TouchEvent) => {
+            const touch = e.touches[0];
+            const dx = Math.abs(touch.clientX - touchStartX);
+            const dy = Math.abs(touch.clientY - touchStartY);
+
+            if (!touchDirection && (dx > 10 || dy > 10)) {
+                touchDirection = dx > dy ? "x" : "y";
+            }
+
+            if (touchDirection === "x" && e.cancelable) {
+                e.preventDefault();
+            }
+        };
+
         el.style.cursor = "grab";
         el.addEventListener("mousedown", handleMouseDown);
+        el.addEventListener("touchstart", handleTouchStart, { passive: true });
+        el.addEventListener("touchmove", handleTouchMove, { passive: false });
         window.addEventListener("mousemove", handleMouseMove);
         window.addEventListener("mouseup", handleMouseUp);
 
         return () => {
             el.removeEventListener("mousedown", handleMouseDown);
+            el.removeEventListener("touchstart", handleTouchStart);
+            el.removeEventListener("touchmove", handleTouchMove);
             window.removeEventListener("mousemove", handleMouseMove);
             window.removeEventListener("mouseup", handleMouseUp);
         };
