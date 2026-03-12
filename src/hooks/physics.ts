@@ -320,7 +320,13 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
         });
         observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
 
+        const onTouchStart = (e: TouchEvent) => {
+            if (noMotion()) return;
+            e.stopPropagation();
+        };
+
         el.addEventListener("pointerdown", onPointerDown);
+        el.addEventListener("touchstart", onTouchStart, { passive: true });
         window.addEventListener("pointermove", onPointerMove);
         window.addEventListener("pointerup", onPointerUp);
         window.addEventListener("pointercancel", onPointerUp);
@@ -329,6 +335,7 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
         return () => {
             observer.disconnect();
             el.removeEventListener("pointerdown", onPointerDown);
+            el.removeEventListener("touchstart", onTouchStart);
             window.removeEventListener("pointermove", onPointerMove);
             window.removeEventListener("pointerup", onPointerUp);
             window.removeEventListener("pointercancel", onPointerUp);
