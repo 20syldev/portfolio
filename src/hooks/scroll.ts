@@ -164,14 +164,17 @@ export function useScroll({
             const absY = Math.abs(e.deltaY);
             const hasNativeScroll = getSectionsForTab(currentTab) === 1;
 
-            if (absX > absY && absX > threshold) {
+            const isHorizontal = absX > absY * 1.5 && absX > threshold;
+            const isVertical = absY > absX * 1.5 && absY > threshold;
+
+            if (isHorizontal) {
                 const target = e.target as Element;
                 if (hasHorizontalScroll(target)) return;
 
                 e.preventDefault();
                 if (e.deltaX > 0) nextTab();
                 else prevTab();
-            } else if (absY > absX && absY > threshold) {
+            } else if (isVertical) {
                 if (hasNativeScroll) {
                     return;
                 }
@@ -247,8 +250,12 @@ export function useScroll({
             const absX = Math.abs(deltaX);
             const absY = Math.abs(deltaY);
 
-            if (!directionLockedRef.current && (absX > 10 || absY > 10)) {
-                directionLockedRef.current = absX > absY ? "x" : "y";
+            if (!directionLockedRef.current && (absX > 15 || absY > 15)) {
+                if (absX > absY * 1.5) {
+                    directionLockedRef.current = "x";
+                } else if (absY > absX * 1.5) {
+                    directionLockedRef.current = "y";
+                }
             }
 
             // Prevent default for horizontal swipes (tab navigation)
