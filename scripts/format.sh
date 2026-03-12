@@ -34,7 +34,7 @@ done < <(
     git ls-files --cached --others --exclude-standard
   else
     find . -type f -not -path '*/node_modules/*' -not -path '*/.next/*' -not -path '*/dist/*'
-  fi | grep -E '\.(ts|tsx|js|jsx|mjs|mts|md|json|webmanifest)$' | grep -v -F -f .prettierignore
+  fi | grep -E '\.(ts|tsx|js|jsx|mjs|mts|css|md|json|webmanifest)$' | grep -v -F -f .prettierignore
 )
 
 if [ -n "$newline_changes" ]; then
