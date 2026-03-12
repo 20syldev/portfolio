@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useFont } from "@/components/utils/font";
+import { useMultiTap } from "@/components/utils/konami";
 import { usePdfViewer } from "@/components/utils/viewer";
 import { profile } from "@/data/profile";
 import { useDraggablePhysics } from "@/hooks/physics";
@@ -22,6 +23,7 @@ export function Hero() {
     const { setDialogOpen } = useFont();
     const { ref: logoRef, isDragging } = useDraggablePhysics();
     useSparkle(logoRef, isDragging);
+    useMultiTap(logoRef);
 
     return (
         <div className="flex h-full flex-col items-center justify-center px-4 text-center">
