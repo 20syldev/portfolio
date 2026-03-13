@@ -10,6 +10,7 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { shortcuts } from "@/data/shortcuts";
+import { cn } from "@/lib/utils";
 
 function Keycap({ children }: { children: React.ReactNode }) {
     return (
@@ -36,10 +37,11 @@ export function ShortcutsDialog({
 }) {
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-md lg:max-w-lg" autoFocusClose>
+            <DialogContent className="max-w-max sm:max-w-md lg:max-w-lg" autoFocusClose>
                 <DialogHeader>
-                    <DialogTitle>Raccourcis clavier</DialogTitle>
-                    <DialogDescription>
+                    <DialogTitle className="max-md:hidden">Raccourcis clavier</DialogTitle>
+                    <DialogTitle className="md:hidden">Actions</DialogTitle>
+                    <DialogDescription className="max-md:hidden">
                         Personnalisations accessibles via un raccourci
                     </DialogDescription>
                 </DialogHeader>
@@ -58,13 +60,16 @@ export function ShortcutsDialog({
                                 type="button"
                                 disabled={!action}
                                 onClick={handleClick}
-                                className="flex w-full items-center justify-between rounded-lg px-2 py-1.5 transition-colors hover:bg-muted/50 disabled:cursor-default"
+                                className={cn(
+                                    "flex w-full items-center justify-between rounded-lg px-2 py-1.5 transition-colors hover:bg-muted/50 disabled:cursor-default max-md:justify-center",
+                                    s.id === "shortcuts" && "max-md:hidden"
+                                )}
                             >
                                 <span className="flex items-center gap-4 text-sm">
                                     <s.icon className="h-4 w-4 text-muted-foreground" />
                                     {s.label}
                                 </span>
-                                <span className="flex items-center gap-1">
+                                <span className="hidden items-center gap-1 md:flex">
                                     {s.keys.map((key, i) => (
                                         <React.Fragment key={key}>
                                             {i > 0 && (
