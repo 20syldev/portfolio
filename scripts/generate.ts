@@ -384,7 +384,7 @@ ${urls.join("\n")}
     console.log(`Generated sitemap with ${urls.length} URLs to ${sitemapOutput}`);
 }
 
-const faviconSource = path.join(process.cwd(), "src", "app", "logo.png");
+const faviconSource = path.join(process.cwd(), "public", "images", "logo.png");
 const publicDir = path.join(process.cwd(), "public");
 
 /**
