@@ -26,7 +26,7 @@ L'assistant interactif crée la structure du projet automatiquement. Il demande 
 docs-project/
 ├── src/
 │   ├── .vitepress/
-│   │   ├── config.ts      # Configuration du site
+│   │   ├── config.ts       # Configuration du site
 │   │   └── theme/          # Personnalisation du thème
 │   │       ├── index.ts
 │   │       └── custom.css
@@ -246,11 +246,9 @@ hero:
       link: https://github.com/user/project
 
 features:
-  - icon: ⚡
-    title: Rapide
+  - title: Rapide
     details: Construit sur Vite pour un build ultra-rapide.
-  - icon: 🛠️
-    title: Extensible
+  - title: Extensible
     details: Plugins Vue et Markdown à volonté.
 ---
 ```

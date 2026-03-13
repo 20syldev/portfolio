@@ -14,12 +14,12 @@ Le chiffrement symétrique est le type de cryptographie le plus ancien et le plu
       ALICE                                                 BOB
       ─────                                                 ───
 
-  ┌───────────┐         Clé secrète partagée           ┌───────────┐
-  │  Message  │  ──────      🔑 même clé     ───────>  │  Message  │
-  │  en clair │          = message chiffré             │  chiffré  │
-  └───────────┘                                        └─────┬─────┘
+  ┌────────────┐         Clé secrète partagée          ┌───────────┐
+  │  Message   │  ──────       même clé       ──────>  │  Message  │
+  │  en clair  │          = message chiffré            │  chiffré  │
+  └────────────┘                                       └─────┬─────┘
                                                              │
-                                                         🔑 même clé
+                                                          même clé
                                                              │
                                                        ┌─────┴─────┐
                                                        │  Message  │
