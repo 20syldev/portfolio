@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
+import { useDragScroll } from "@/hooks/scroll";
 import { cn } from "@/lib/utils";
 
 interface Section {
@@ -61,6 +62,9 @@ export function DetailNav({
     const [active, setActive] = useState(sections[0]?.id ?? "");
     const observer = useRef<IntersectionObserver | null>(null);
     const buttonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    useDragScroll(scrollRef, false);
 
     useEffect(() => {
         if (sections.length > 0 && !sections.find((s) => s.id === active)) {
@@ -174,7 +178,7 @@ export function DetailNav({
                     className
                 )}
             >
-                <div className="flex gap-2 overflow-x-auto scrollbar-none">
+                <div ref={scrollRef} className="flex gap-2 overflow-x-auto scrollbar-none">
                     {sections.map(({ id, title }) => (
                         <button
                             key={id}
