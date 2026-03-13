@@ -24,6 +24,7 @@ import {
     Type,
     UserRound,
     Wrench,
+    Zap,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
@@ -313,15 +314,23 @@ export function CommandMenu() {
         { label: "CV", icon: FileText, action: () => openPdf("/CV.pdf", "CV") },
     ];
 
+    const shortcutsCommandItem = (
+        <CommandItem
+            key="shortcuts"
+            value="Raccourcis clavier Actions"
+            onSelect={() => runCommand(() => setShortcutsOpen(true))}
+        >
+            <Keyboard className="mr-2 h-4 w-4 max-md:hidden" />
+            <Zap className="mr-2 h-4 w-4 md:hidden" />
+            <span className="max-md:hidden">Raccourcis clavier</span>
+            <span className="md:hidden">Actions</span>
+            <CommandShortcut>{formatShortcut(getShortcut("shortcuts")!.keys)}</CommandShortcut>
+        </CommandItem>
+    );
+
     const themeShortcut = formatShortcut(getShortcut("theme")!.keys);
 
     const personnalisationItems: CommandItemConfig[] = [
-        {
-            label: "Raccourcis clavier",
-            icon: Keyboard,
-            action: () => setShortcutsOpen(true),
-            shortcut: formatShortcut(getShortcut("shortcuts")!.keys),
-        },
         {
             label: `${cursorEnabled ? "Désactiver" : "Activer"} le curseur personnalisé`,
             icon: MousePointer2,
@@ -559,9 +568,9 @@ export function CommandMenu() {
         <>
             <CommandDialog
                 open={open}
-                onOpenChange={(open) => {
-                    setOpen(open);
-                    if (!open) setSearch("");
+                onOpenChange={(value: boolean) => {
+                    setOpen(value);
+                    if (!value) setSearch("");
                 }}
                 filter={commandFilter}
                 className={cn(
@@ -592,6 +601,7 @@ export function CommandMenu() {
                     {search.length > 0 ? (
                         <CommandGroup>
                             {renderItems(navigationItems)}
+                            {shortcutsCommandItem}
                             {renderItems(personnalisationItems)}
                             {renderItems(profilItems)}
                             {renderItems(realisationsItems)}
@@ -631,6 +641,7 @@ export function CommandMenu() {
                                     <div className="flex-1 space-y-2">
                                         <div className="rounded-lg border">
                                             <CommandGroup heading="Personnalisation">
+                                                {shortcutsCommandItem}
                                                 {renderItems(personnalisationItems)}
                                             </CommandGroup>
                                         </div>
@@ -665,6 +676,7 @@ export function CommandMenu() {
                                 </CommandGroup>
                                 <CommandSeparator />
                                 <CommandGroup heading="Personnalisation">
+                                    {shortcutsCommandItem}
                                     {renderItems(personnalisationItems)}
                                 </CommandGroup>
                                 <CommandSeparator />

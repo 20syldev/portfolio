@@ -247,7 +247,7 @@ function CommandShortcut({ className, children, ...props }: React.ComponentProps
     return (
         <span
             data-slot="command-shortcut"
-            className={cn("ml-auto flex items-center gap-1", className)}
+            className={cn("ml-auto hidden items-center gap-1 md:flex", className)}
             {...props}
         >
             {keys.map((key, i) => (
