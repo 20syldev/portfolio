@@ -188,7 +188,10 @@ export function FontDialog() {
 
     return (
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-            <DialogContent className="sm:max-w-lg" autoFocusClose>
+            <DialogContent
+                className="max-h-[calc(100dvh-30%)] overflow-y-auto sm:max-w-lg"
+                autoFocusClose
+            >
                 <DialogHeader>
                     <DialogTitle>Police de caractères</DialogTitle>
                     <DialogDescription>Choisissez la police utilisée sur le site</DialogDescription>
