@@ -47,10 +47,19 @@ function parseMarkdown(text: string): React.ReactNode[] {
 export function NotifProvider() {
     const { notifTag, notifActive } = useApi();
     const [dismissed, setDismissed] = React.useState(false);
+    const [cached, setCached] = React.useState(false);
 
-    if (!notifActive || !notifTag || dismissed) return null;
+    React.useEffect(() => {
+        if (!notifActive || !notifTag || dismissed) return;
+        const timer = setTimeout(() => setCached(true), 10000);
+        return () => clearTimeout(timer);
+    }, [notifActive, notifTag, dismissed]);
+
+    if (!notifActive || !notifTag || dismissed || cached) return null;
 
     return (
-        <Notification onDismiss={() => setDismissed(true)}>{parseMarkdown(notifTag)}</Notification>
+        <Notification onDismiss={() => setDismissed(true)}>
+            {parseMarkdown(notifTag)}
+        </Notification>
     );
 }
