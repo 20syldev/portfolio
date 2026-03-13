@@ -29,7 +29,7 @@ export function Hero() {
     const setThemeRef = useRef(setTheme);
     const [sucked, setSucked] = useState(false);
     const suckedRef = useRef(false);
-    const previousThemeRef = useRef<string | undefined>(undefined);
+    const [previousTheme, setPreviousTheme] = useState<string | undefined>(undefined);
 
     useEffect(() => {
         themeRef.current = theme;
@@ -41,7 +41,7 @@ export function Hero() {
         if (suckedRef.current) return;
         if (document.body.classList.contains("no-motion")) return;
         suckedRef.current = true;
-        previousThemeRef.current = themeRef.current;
+        setPreviousTheme(themeRef.current);
         setSingularity({
             cx: rect.left + rect.width / 2,
             cy: rect.top + rect.height / 2,
@@ -88,18 +88,18 @@ export function Hero() {
     }, [logoRef, triggerHole]);
 
     const handleExpanded = useCallback(() => {
-        setThemeRef.current("dark");
+        setThemeRef.current(themeRef.current === "dark" ? "light" : "dark");
     }, []);
 
     const handleReset = useCallback(() => {
         suckedRef.current = false;
         setSucked(false);
-        if (previousThemeRef.current) {
-            setThemeRef.current(previousThemeRef.current);
-            previousThemeRef.current = undefined;
+        if (previousTheme) {
+            setThemeRef.current(previousTheme);
+            setPreviousTheme(undefined);
         }
         settle.current?.();
-    }, [settle]);
+    }, [settle, previousTheme]);
 
     return (
         <div className="flex h-full flex-col items-center justify-center px-4 text-center">
@@ -195,9 +195,10 @@ export function Hero() {
                     <HoleVortex
                         cx={singularity.cx}
                         cy={singularity.cy}
+                        theme={previousTheme ?? "light"}
                         onExpanded={handleExpanded}
                     />
-                    <ResultScreen onReset={handleReset} />
+                    <ResultScreen theme={previousTheme ?? "light"} onReset={handleReset} />
                 </>
             )}
         </div>

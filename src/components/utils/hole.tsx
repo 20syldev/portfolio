@@ -167,15 +167,18 @@ function reset() {
 
 /**
  * Blob that grows from the singularity to fill the screen.
+ * Color is the opposite of the current theme for maximum contrast.
  * Starts small, morphs shape while expanding, becomes the ResultScreen background.
  */
 export function HoleVortex({
     cx,
     cy,
+    theme,
     onExpanded,
 }: {
     cx: number;
     cy: number;
+    theme: string;
     onExpanded?: () => void;
 }) {
     const ref = useRef<HTMLDivElement>(null);
@@ -222,6 +225,8 @@ export function HoleVortex({
         return () => anims.forEach((a) => a.cancel());
     }, [cx, cy, onExpanded]);
 
+    const bg = theme === "dark" ? "white" : "black";
+
     return createPortal(
         <div
             ref={ref}
@@ -233,7 +238,7 @@ export function HoleVortex({
                 height: 120,
                 transform: "translate(-50%, -50%) scale(0)",
                 borderRadius: "40% 60% 65% 35% / 55% 40% 60% 45%",
-                background: "black",
+                background: bg,
                 zIndex: 99,
                 pointerEvents: "none",
             }}
@@ -248,10 +253,13 @@ export function HoleVortex({
  * Click to reverse the hole and fade out overlay.
  * Rendered via portal outside snap-container.
  */
-export function ResultScreen({ onReset }: { onReset: () => void }) {
+export function ResultScreen({ theme, onReset }: { theme: string; onReset: () => void }) {
     const [phase, setPhase] = useState<"anim" | "wait" | "show" | "done" | "closing">("anim");
     const resettingRef = useRef(false);
     const overlayRef = useRef<HTMLDivElement>(null);
+
+    const bg = theme === "dark" ? "white" : "black";
+    const fg = theme === "dark" ? "black" : "white";
 
     useEffect(() => {
         const t0 = setTimeout(() => setPhase("wait"), 2400);
@@ -294,8 +302,8 @@ export function ResultScreen({ onReset }: { onReset: () => void }) {
 
         wrap.animate(
             [
-                { maxWidth: "0px", opacity: 0 },
-                { maxWidth: "2rem", opacity: 1 },
+                { maxWidth: "0px", marginLeft: "0px", opacity: 0 },
+                { maxWidth: "2rem", marginLeft: "1rem", opacity: 1 },
             ],
             { duration: 400, easing: "ease-out", fill: "forwards" }
         );
@@ -320,13 +328,13 @@ export function ResultScreen({ onReset }: { onReset: () => void }) {
             className="fixed inset-0 z-[100] flex items-center justify-center transition-colors duration-500"
             style={{
                 cursor: clickable ? "pointer" : "default",
-                backgroundColor: showBg ? "black" : undefined,
-                color: "white",
+                backgroundColor: showBg ? bg : undefined,
+                color: fg,
             }}
             onClick={handleClick}
         >
             {(phase === "show" || phase === "done") && (
-                <div className="flex items-center gap-4 animate-fade-in">
+                <div className="flex items-center animate-fade-in" style={{ gap: 0 }}>
                     <p className="text-xl font-medium">Bravo</p>
                     <div
                         ref={thumbWrapRef}
