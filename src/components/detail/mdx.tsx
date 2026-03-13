@@ -112,7 +112,7 @@ export const mdxComponents = {
         );
     },
     table: ({ children, ...props }: ComponentPropsWithoutRef<"table">) => (
-        <div className="overflow-x-auto mb-6 rounded-lg border border-border">
+        <div className="overflow-x-auto touch-pan-x mb-6 rounded-lg border border-border">
             <table className="w-full text-sm" {...props}>
                 {children}
             </table>
@@ -170,7 +170,7 @@ export const mdxComponents = {
     },
     pre: ({ children, ...props }: ComponentPropsWithoutRef<"pre">) => (
         <pre
-            className="bg-muted p-4 rounded-lg overflow-x-auto mb-6 text-sm border border-border [&>code]:p-0 [&>code]:bg-transparent [&>code]:rounded-none"
+            className="bg-muted p-4 rounded-lg overflow-x-auto touch-pan-x mb-6 text-sm font-mono border border-border [&>code]:p-0 [&>code]:bg-transparent [&>code]:rounded-none"
             {...props}
         >
             {children}
