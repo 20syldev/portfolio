@@ -59,7 +59,7 @@ export function NotifProvider() {
 
     React.useEffect(() => {
         const observer = new MutationObserver(() => {
-            const active = document.body.classList.contains("blackhole-active");
+            const active = document.body.classList.contains("hole-active");
             if (active && !hiding) {
                 setHiding(true);
                 setTimeout(() => setGone(true), 300);

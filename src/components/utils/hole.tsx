@@ -49,15 +49,15 @@ function getVisibleElements(): HTMLElement[] {
 }
 
 /**
- * Black hole animation: container sucks toward singularity while elements fade out staggered.
+ * Hole animation: container sucks toward singularity while elements fade out staggered.
  * The container transform-origin creates the visible epicenter — everything converges there.
  * Per-element opacity stagger adds visual rhythm on top.
  */
-export async function collapseBlackHole(targetRect: DOMRect): Promise<void> {
+export async function collapseHole(targetRect: DOMRect): Promise<void> {
     const container = document.querySelector(".snap-container") as HTMLElement;
     if (!container) return;
 
-    document.body.classList.add("blackhole-active");
+    document.body.classList.add("hole-active");
 
     const cx = targetRect.left + targetRect.width / 2;
     const cy = targetRect.top + targetRect.height / 2;
@@ -122,10 +122,10 @@ export async function collapseBlackHole(targetRect: DOMRect): Promise<void> {
 }
 
 /**
- * Reset all black hole state and pop elements back in with stagger.
+ * Reset all hole state and pop elements back in with stagger.
  */
 function reset() {
-    document.body.classList.remove("blackhole-active");
+    document.body.classList.remove("hole-active");
 
     const container = document.querySelector(".snap-container") as HTMLElement;
     if (!container) return;
@@ -166,10 +166,10 @@ function reset() {
 }
 
 /**
- * Black blob that grows from the singularity to fill the screen.
+ * Blob that grows from the singularity to fill the screen.
  * Starts small, morphs shape while expanding, becomes the ResultScreen background.
  */
-export function BlackHoleVortex({
+export function HoleVortex({
     cx,
     cy,
     onExpanded,
@@ -243,9 +243,9 @@ export function BlackHoleVortex({
 }
 
 /**
- * Full-screen result overlay shown after the black hole animation.
+ * Full-screen result overlay shown after the hole animation.
  * Transparent during animation, then bg appears. 3s wait → "Bravo" → 2s → ThumbsUp.
- * Click to reverse the black hole and fade out overlay.
+ * Click to reverse the hole and fade out overlay.
  * Rendered via portal outside snap-container.
  */
 export function ResultScreen({ onReset }: { onReset: () => void }) {

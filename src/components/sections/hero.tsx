@@ -7,8 +7,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { BlackHoleVortex, collapseBlackHole, ResultScreen } from "@/components/utils/blackhole";
 import { useFont } from "@/components/utils/font";
+import { collapseHole, HoleVortex, ResultScreen } from "@/components/utils/hole";
 import { useMultiTap } from "@/components/utils/konami";
 import { usePdfViewer } from "@/components/utils/viewer";
 import { profile } from "@/data/profile";
@@ -30,7 +30,7 @@ export function Hero() {
     const previousThemeRef = useRef<string | undefined>(undefined);
     const [singularity, setSingularity] = useState({ cx: 0, cy: 0 });
 
-    const triggerBlackHole = useCallback(
+    const triggerHole = useCallback(
         (rect: DOMRect) => {
             if (suckedRef.current) return;
             if (document.body.classList.contains("no-motion")) return;
@@ -41,17 +41,17 @@ export function Hero() {
                 cy: rect.top + rect.height / 2,
             });
             setSucked(true);
-            collapseBlackHole(rect);
+            collapseHole(rect);
         },
         [theme]
     );
 
     const handleAllEdges = useCallback(
         (rect: DOMRect): boolean => {
-            triggerBlackHole(rect);
+            triggerHole(rect);
             return true;
         },
-        [triggerBlackHole]
+        [triggerHole]
     );
 
     const {
@@ -77,11 +77,11 @@ export function Hero() {
                     t.clientY >= rect.top &&
                     t.clientY <= rect.bottom
             );
-            if (touchesLogo) triggerBlackHole(rect);
+            if (touchesLogo) triggerHole(rect);
         };
         window.addEventListener("touchstart", onTouch, { passive: true });
         return () => window.removeEventListener("touchstart", onTouch);
-    }, [logoRef, triggerBlackHole]);
+    }, [logoRef, triggerHole]);
 
     const handleExpanded = useCallback(() => {
         setTheme("dark");
@@ -185,10 +185,10 @@ export function Hero() {
                 </div>
             </TooltipProvider>
 
-            {/* Black Hole Easter Egg */}
+            {/* Hole Easter Egg */}
             {sucked && (
                 <>
-                    <BlackHoleVortex
+                    <HoleVortex
                         cx={singularity.cx}
                         cy={singularity.cy}
                         onExpanded={handleExpanded}
