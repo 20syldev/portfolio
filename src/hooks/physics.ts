@@ -9,6 +9,7 @@ interface PhysicsOptions {
     bounceFactor?: number;
     snapDistance?: number;
     snapThreshold?: number;
+    onAllEdges?: (rect: DOMRect) => boolean;
 }
 
 interface PointerSample {
@@ -50,6 +51,7 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
     const config = { ...defaults, ...options };
     const ref = useRef<HTMLDivElement>(null);
     const draggingRef = useRef(false);
+    const settleRef = useRef<(() => void) | null>(null);
     const configRef = useRef(config);
 
     useEffect(() => {
@@ -75,8 +77,12 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
             dragStartOx = 0,
             dragStartOy = 0;
         let prevDragX = 0;
+
         const samples: PointerSample[] = [];
+
         let originRect: DOMRect | null = null;
+        let edgesHit = 0;
+        let firstEdgeTime = 0;
 
         const apply = () => {
             el.style.translate = `${x}px ${y}px`;
@@ -107,6 +113,7 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
             el.style.willChange = "auto";
             animId = undefined;
         };
+        settleRef.current = settle;
 
         const dragPendulum = () => {
             if (!dragging) return;
@@ -148,19 +155,40 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
             const vw = window.innerWidth;
             const vh = window.innerHeight;
 
+            let hitEdge = 0;
             if (left < 0) {
                 x = -origin.left;
                 vx = Math.abs(vx) * c.bounceFactor;
+                hitEdge |= 1;
             } else if (right > vw) {
                 x = vw - origin.left - origin.width;
                 vx = -Math.abs(vx) * c.bounceFactor;
+                hitEdge |= 2;
             }
             if (top < 0) {
                 y = -origin.top;
                 vy = Math.abs(vy) * c.bounceFactor;
+                hitEdge |= 4;
             } else if (bottom > vh) {
                 y = vh - origin.top - origin.height;
                 vy = -Math.abs(vy) * c.bounceFactor;
+                hitEdge |= 8;
+            }
+
+            if (hitEdge) {
+                const now = performance.now();
+                if (!edgesHit) firstEdgeTime = now;
+                edgesHit |= hitEdge;
+                if (edgesHit === 15 && now - firstEdgeTime < 1000) {
+                    if (c.onAllEdges?.(el.getBoundingClientRect())) {
+                        stop();
+                        return;
+                    }
+                }
+                if (now - firstEdgeTime >= 1000) {
+                    edgesHit = hitEdge;
+                    firstEdgeTime = now;
+                }
             }
 
             if (
@@ -222,6 +250,8 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
             stop();
             dragging = true;
             draggingRef.current = true;
+            edgesHit = 0;
+            firstEdgeTime = 0;
             el.style.cursor = "grabbing";
             el.style.willChange = "translate, rotate";
 
@@ -352,5 +382,5 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
         };
     }, []);
 
-    return { ref, isDragging: draggingRef };
+    return { ref, isDragging: draggingRef, settle: settleRef };
 }
