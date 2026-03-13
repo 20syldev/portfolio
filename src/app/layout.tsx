@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import {
     DM_Sans,
+    Fira_Code,
     Fredoka,
     Inter,
     Lexend,
@@ -74,6 +75,12 @@ const fredoka = Fredoka({
     weight: ["400", "500", "600", "700"],
 });
 
+const fira = Fira_Code({
+    variable: "--font-fira-code",
+    subsets: ["latin"],
+    weight: ["400", "500", "700"],
+});
+
 export const metadata: Metadata = {
     metadataBase: new URL("https://sylvain.sh"),
     title: "Sylvain L. - Développeur Full Stack",
@@ -99,11 +106,13 @@ export const metadata: Metadata = {
         siteName: "Sylvain L.",
         locale: "fr_FR",
         type: "website",
+        images: [{ url: "/images/card.png" }],
     },
     twitter: {
         card: "summary_large_image",
         title: "Sylvain L. - Développeur Full Stack",
         description: "Développeur Front-end depuis 8 ans et Back-end depuis 5 ans.",
+        images: ["/images/card.png"],
     },
 };
 
@@ -144,7 +153,7 @@ export default function RootLayout({
     return (
         <html lang="fr" suppressHydrationWarning>
             <body
-                className={`${outfit.variable} ${inter.variable} ${lexend.variable} ${montserrat.variable} ${raleway.variable} ${dm.variable} ${jakarta.variable} ${poppins.variable} ${fredoka.variable} font-sans antialiased`}
+                className={`${outfit.variable} ${inter.variable} ${lexend.variable} ${montserrat.variable} ${raleway.variable} ${dm.variable} ${jakarta.variable} ${poppins.variable} ${fredoka.variable} ${fira.variable} font-sans antialiased`}
                 suppressHydrationWarning
             >
                 <script
