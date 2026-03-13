@@ -48,6 +48,8 @@ export function NotifProvider() {
     const { notifTag, notifActive } = useApi();
     const [dismissed, setDismissed] = React.useState(false);
     const [cached, setCached] = React.useState(false);
+    const [hiding, setHiding] = React.useState(false);
+    const [gone, setGone] = React.useState(false);
 
     React.useEffect(() => {
         if (!notifActive || !notifTag || dismissed) return;
@@ -55,10 +57,22 @@ export function NotifProvider() {
         return () => clearTimeout(timer);
     }, [notifActive, notifTag, dismissed]);
 
-    if (!notifActive || !notifTag || dismissed || cached) return null;
+    React.useEffect(() => {
+        const observer = new MutationObserver(() => {
+            const active = document.body.classList.contains("blackhole-active");
+            if (active && !hiding) {
+                setHiding(true);
+                setTimeout(() => setGone(true), 300);
+            }
+        });
+        observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+        return () => observer.disconnect();
+    }, [hiding]);
+
+    if (!notifActive || !notifTag || dismissed || cached || gone) return null;
 
     return (
-        <Notification onDismiss={() => setDismissed(true)}>
+        <Notification isHiding={hiding} onDismiss={() => setDismissed(true)}>
             {parseMarkdown(notifTag)}
         </Notification>
     );
