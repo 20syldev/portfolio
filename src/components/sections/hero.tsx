@@ -25,26 +25,30 @@ export function Hero() {
     const { openPdf } = usePdfViewer();
     const { setDialogOpen } = useFont();
     const { theme, setTheme } = useTheme();
+    const themeRef = useRef(theme);
+    const setThemeRef = useRef(setTheme);
     const [sucked, setSucked] = useState(false);
     const suckedRef = useRef(false);
     const previousThemeRef = useRef<string | undefined>(undefined);
+
+    useEffect(() => {
+        themeRef.current = theme;
+        setThemeRef.current = setTheme;
+    }, [theme, setTheme]);
     const [singularity, setSingularity] = useState({ cx: 0, cy: 0 });
 
-    const triggerHole = useCallback(
-        (rect: DOMRect) => {
-            if (suckedRef.current) return;
-            if (document.body.classList.contains("no-motion")) return;
-            suckedRef.current = true;
-            previousThemeRef.current = theme;
-            setSingularity({
-                cx: rect.left + rect.width / 2,
-                cy: rect.top + rect.height / 2,
-            });
-            setSucked(true);
-            collapseHole(rect);
-        },
-        [theme]
-    );
+    const triggerHole = useCallback((rect: DOMRect) => {
+        if (suckedRef.current) return;
+        if (document.body.classList.contains("no-motion")) return;
+        suckedRef.current = true;
+        previousThemeRef.current = themeRef.current;
+        setSingularity({
+            cx: rect.left + rect.width / 2,
+            cy: rect.top + rect.height / 2,
+        });
+        setSucked(true);
+        collapseHole(rect);
+    }, []);
 
     const handleAllEdges = useCallback(
         (rect: DOMRect): boolean => {
@@ -84,18 +88,18 @@ export function Hero() {
     }, [logoRef, triggerHole]);
 
     const handleExpanded = useCallback(() => {
-        setTheme("dark");
-    }, [setTheme]);
+        setThemeRef.current("dark");
+    }, []);
 
     const handleReset = useCallback(() => {
         suckedRef.current = false;
         setSucked(false);
         if (previousThemeRef.current) {
-            setTheme(previousThemeRef.current);
+            setThemeRef.current(previousThemeRef.current);
             previousThemeRef.current = undefined;
         }
         settle.current?.();
-    }, [settle, setTheme]);
+    }, [settle]);
 
     return (
         <div className="flex h-full flex-col items-center justify-center px-4 text-center">
