@@ -520,8 +520,9 @@ export function useSmoothScroll<T extends HTMLElement>(
  * On touch devices, prevents vertical page scroll while swiping the carousel horizontally.
  *
  * @param ref - Ref to the scrollable element.
+ * @param snap - Whether to snap to items on mouse release (default: true, for carousels).
  */
-export function useDragScroll<T extends HTMLElement>(ref: React.RefObject<T | null>) {
+export function useDragScroll<T extends HTMLElement>(ref: React.RefObject<T | null>, snap = true) {
     const isDragging = useRef(false);
     const startX = useRef(0);
     const scrollStart = useRef(0);
@@ -536,7 +537,7 @@ export function useDragScroll<T extends HTMLElement>(ref: React.RefObject<T | nu
             scrollStart.current = el.scrollLeft;
             el.style.cursor = "grabbing";
             el.style.userSelect = "none";
-            el.style.scrollSnapType = "none";
+            if (snap) el.style.scrollSnapType = "none";
         };
 
         const handleMouseMove = (e: MouseEvent) => {
@@ -552,13 +553,15 @@ export function useDragScroll<T extends HTMLElement>(ref: React.RefObject<T | nu
             el.style.cursor = "grab";
             el.style.userSelect = "";
 
-            const itemWidth = el.offsetWidth;
-            const targetIndex = Math.round(el.scrollLeft / itemWidth);
-            el.scrollTo({ left: targetIndex * itemWidth, behavior: "smooth" });
+            if (snap) {
+                const itemWidth = el.offsetWidth;
+                const targetIndex = Math.round(el.scrollLeft / itemWidth);
+                el.scrollTo({ left: targetIndex * itemWidth, behavior: "smooth" });
 
-            setTimeout(() => {
-                el.style.scrollSnapType = "";
-            }, 300);
+                setTimeout(() => {
+                    el.style.scrollSnapType = "";
+                }, 300);
+            }
         };
 
         let touchStartX = 0;
@@ -601,5 +604,5 @@ export function useDragScroll<T extends HTMLElement>(ref: React.RefObject<T | nu
             window.removeEventListener("mousemove", handleMouseMove);
             window.removeEventListener("mouseup", handleMouseUp);
         };
-    }, [ref]);
+    }, [ref, snap]);
 }
