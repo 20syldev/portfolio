@@ -101,7 +101,7 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
                                         : "border bg-card transition-colors hover:bg-muted/50"
                                 } ${project.archived || project.paused ? "inactive" : ""}`}
                             >
-                                {status && <StatusBadge status={status} />}
+                                {status && <StatusBadge status={status} github={project.github} />}
 
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm font-medium">{project.name}</span>
@@ -109,12 +109,28 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
                                         {loading ? (
                                             <Skeleton className="h-5 w-10" />
                                         ) : getVersion(project.id) ? (
-                                            <Badge
-                                                className="py-0 text-xs font-normal"
-                                                variant="outline"
-                                            >
-                                                {getVersion(project.id)}
-                                            </Badge>
+                                            project.github ? (
+                                                <a
+                                                    href={`${project.github}/releases/latest`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    onClick={(e) => e.stopPropagation()}
+                                                >
+                                                    <Badge
+                                                        className="py-0 text-xs font-normal hover:bg-muted transition-colors"
+                                                        variant="outline"
+                                                    >
+                                                        {getVersion(project.id)}
+                                                    </Badge>
+                                                </a>
+                                            ) : (
+                                                <Badge
+                                                    className="py-0 text-xs font-normal"
+                                                    variant="outline"
+                                                >
+                                                    {getVersion(project.id)}
+                                                </Badge>
+                                            )
                                         ) : null}
                                         <ProjectBadges project={project} variant="compact" />
                                     </div>
