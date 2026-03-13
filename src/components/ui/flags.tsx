@@ -6,7 +6,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import type { Project } from "@/data/projects";
 import { type ProjectStatus } from "@/hooks/status";
 
-type ProjectLike = Pick<Project, "archived" | "paused">;
+type ProjectLike = Pick<Project, "archived" | "paused" | "github">;
 
 interface ProjectMetaProps {
     version?: string | null;
@@ -27,12 +27,27 @@ interface ProjectMetaProps {
 export function ProjectMeta({ version, status, project }: ProjectMetaProps) {
     return (
         <div className="flex items-center gap-1">
-            {version && (
-                <Badge variant="outline" className="text-xs">
-                    {version}
-                </Badge>
-            )}
-            <StatusBadge status={status ?? null} variant="inline" />
+            {version &&
+                (project?.github ? (
+                    <a
+                        href={`${project.github}/releases/latest`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <Badge
+                            variant="outline"
+                            className="text-xs hover:bg-muted transition-colors"
+                        >
+                            {version}
+                        </Badge>
+                    </a>
+                ) : (
+                    <Badge variant="outline" className="text-xs">
+                        {version}
+                    </Badge>
+                ))}
+            <StatusBadge status={status ?? null} github={project?.github} variant="inline" />
             <ProjectBadges project={project} />
         </div>
     );

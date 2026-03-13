@@ -7,6 +7,7 @@ export type { ProjectStatus };
 
 interface StatusBadgeProps {
     status: ProjectStatus;
+    github?: string;
     variant?: "absolute" | "inline";
 }
 
@@ -33,10 +34,11 @@ const config = {
  *
  * @param props - Component props
  * @param props.status - Project status to display
+ * @param props.github - Optional GitHub URL for linking the badge to the latest release
  * @param props.variant - Display variant: "absolute" for overlay positioning, "inline" for flow (default: "absolute")
  * @returns The rendered status badge, or null if no status
  */
-export function StatusBadge({ status, variant = "absolute" }: StatusBadgeProps) {
+export function StatusBadge({ status, github, variant = "absolute" }: StatusBadgeProps) {
     if (!status) return null;
 
     const cfg = config[status];
@@ -49,6 +51,19 @@ export function StatusBadge({ status, variant = "absolute" }: StatusBadgeProps) 
         </Badge>
     );
 
-    if (variant === "inline") return badge;
-    return <div className="absolute right-2 -top-[13px]">{badge}</div>;
+    const linked = github ? (
+        <a
+            href={`${github}/releases/latest`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+        >
+            {badge}
+        </a>
+    ) : (
+        badge
+    );
+
+    if (variant === "inline") return linked;
+    return <div className="absolute right-2 -top-[13px]">{linked}</div>;
 }
