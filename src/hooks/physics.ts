@@ -350,6 +350,21 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
         });
         observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
 
+        const visibility = new IntersectionObserver(
+            ([entry]) => {
+                if (!entry.isIntersecting && (animId !== undefined || dragging)) {
+                    if (dragging) {
+                        dragging = false;
+                        draggingRef.current = false;
+                    }
+                    stop();
+                    settle();
+                }
+            },
+            { threshold: 0 }
+        );
+        visibility.observe(el);
+
         const onTouchStart = (e: TouchEvent) => {
             if (noMotion()) return;
             e.stopPropagation();
@@ -363,6 +378,7 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
         window.addEventListener("resize", onResize);
 
         return () => {
+            visibility.disconnect();
             observer.disconnect();
             el.removeEventListener("pointerdown", onPointerDown);
             el.removeEventListener("touchstart", onTouchStart);
