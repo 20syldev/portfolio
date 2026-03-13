@@ -50,7 +50,8 @@ const completionPool: Certification[] = completionBadges.flatMap((cat) => cat.it
 const gdevPool: Certification[] = gdevBadges.flatMap((cat) => cat.items);
 
 const pools = [certPool, completionPool, gdevPool];
-const certDisplayCount = 10;
+const certDisplayCount = 12;
+const certMaxRows = 2;
 
 /**
  * Returns N random certifications from a random pool.
@@ -342,7 +343,12 @@ function CertificationsCard({ className }: { className?: string }) {
                 <div className="flex-1 flex items-center justify-center">
                     <TooltipProvider>
                         <div
-                            className={`grid grid-cols-5 gap-3 place-items-center w-full transition-opacity duration-300 ${visible ? "opacity-100" : "opacity-0"}`}
+                            className={`grid gap-3 place-items-center w-full transition-opacity duration-300 ${visible ? "opacity-100" : "opacity-0"}`}
+                            style={{
+                                gridTemplateColumns: "repeat(auto-fill, minmax(60px, 1fr))",
+                                maxHeight: `calc(${certMaxRows} * 60px + ${certMaxRows - 1} * 12px)`,
+                                overflow: "hidden",
+                            }}
                         >
                             {displayed.map((cert) => (
                                 <Tooltip key={cert.name}>
@@ -351,7 +357,7 @@ function CertificationsCard({ className }: { className?: string }) {
                                             href={cert.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="relative w-[60px] h-[60px]"
+                                            className="relative w-[60px] h-[60px] flex items-center justify-center"
                                         >
                                             {!loaded.has(cert.icon) && (
                                                 <Skeleton className="absolute inset-0 rounded-md" />
@@ -378,19 +384,26 @@ function CertificationsCard({ className }: { className?: string }) {
                         href="/certifications"
                         className="text-xs text-muted-foreground hover:text-primary transition-colors"
                     >
-                        +{totalCertifications} certifications
+                        <span className="sm:hidden">Tout voir</span>
+                        <span className="hidden sm:inline">
+                            +{totalCertifications} certifications
+                        </span>
                     </Link>
-                    <Dot className="h-3 w-3 text-muted-foreground" />
+                    <span className="hidden sm:inline">
+                        <Dot className="h-3 w-3 text-muted-foreground" />
+                    </span>
                     <Link
                         href="/completion"
-                        className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                        className="hidden sm:inline text-xs text-muted-foreground hover:text-primary transition-colors"
                     >
                         +{totalCompletionBadges} complétion
                     </Link>
-                    <Dot className="h-3 w-3 text-muted-foreground" />
+                    <span className="hidden sm:inline">
+                        <Dot className="h-3 w-3 text-muted-foreground" />
+                    </span>
                     <Link
                         href="/badges"
-                        className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                        className="hidden sm:inline text-xs text-muted-foreground hover:text-primary transition-colors"
                     >
                         +{totalGdevBadges} badges
                     </Link>
