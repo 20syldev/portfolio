@@ -1,5 +1,8 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+"use client";
 
+import { type ComponentPropsWithoutRef, type ReactNode, useRef } from "react";
+
+import { useDragScroll } from "@/hooks/scroll";
 import { cn } from "@/lib/utils";
 
 /**
@@ -111,13 +114,17 @@ export const mdxComponents = {
             </a>
         );
     },
-    table: ({ children, ...props }: ComponentPropsWithoutRef<"table">) => (
-        <div className="overflow-x-auto touch-pan-x mb-6 rounded-lg border border-border">
-            <table className="w-full text-sm" {...props}>
-                {children}
-            </table>
-        </div>
-    ),
+    table: function Table({ children, ...props }: ComponentPropsWithoutRef<"table">) {
+        const ref = useRef<HTMLDivElement>(null);
+        useDragScroll(ref, false);
+        return (
+            <div ref={ref} className="overflow-x-auto mb-6 rounded-lg border border-border">
+                <table className="w-full text-sm" {...props}>
+                    {children}
+                </table>
+            </div>
+        );
+    },
     thead: ({ children, ...props }: ComponentPropsWithoutRef<"thead">) => (
         <thead className="bg-muted/50" {...props}>
             {children}
@@ -168,14 +175,19 @@ export const mdxComponents = {
             </code>
         );
     },
-    pre: ({ children, ...props }: ComponentPropsWithoutRef<"pre">) => (
-        <pre
-            className="bg-muted p-4 rounded-lg overflow-x-auto touch-pan-x mb-6 text-sm font-mono border border-border [&>code]:p-0 [&>code]:bg-transparent [&>code]:rounded-none"
-            {...props}
-        >
-            {children}
-        </pre>
-    ),
+    pre: function Pre({ children, ...props }: ComponentPropsWithoutRef<"pre">) {
+        const ref = useRef<HTMLPreElement>(null);
+        useDragScroll(ref, false);
+        return (
+            <pre
+                ref={ref}
+                className="bg-muted p-4 rounded-lg overflow-x-auto mb-6 text-sm font-mono border border-border [&>code]:p-0 [&>code]:bg-transparent [&>code]:rounded-none"
+                {...props}
+            >
+                {children}
+            </pre>
+        );
+    },
     blockquote: ({ children, ...props }: ComponentPropsWithoutRef<"blockquote">) => (
         <blockquote
             className="border-l-4 border-primary pl-4 italic text-muted-foreground my-4"
