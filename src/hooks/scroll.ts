@@ -581,15 +581,16 @@ export function useDragScroll<T extends HTMLElement>(ref: React.RefObject<T | nu
                 touchDirection = dx > dy ? "x" : "y";
             }
 
-            if (touchDirection === "x" && e.cancelable) {
-                e.preventDefault();
+            if (touchDirection === "x") {
+                e.stopPropagation();
             }
         };
 
         el.style.cursor = "grab";
+        el.style.touchAction = "pan-x";
         el.addEventListener("mousedown", handleMouseDown);
         el.addEventListener("touchstart", handleTouchStart, { passive: true });
-        el.addEventListener("touchmove", handleTouchMove, { passive: false });
+        el.addEventListener("touchmove", handleTouchMove, { passive: true });
         window.addEventListener("mousemove", handleMouseMove);
         window.addEventListener("mouseup", handleMouseUp);
 
