@@ -118,7 +118,8 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
         const dragPendulum = () => {
             if (!dragging) return;
 
-            const dx = x - prevDragX;
+            const rawDx = x - prevDragX;
+            const dx = Math.max(-20, Math.min(20, rawDx));
             prevDragX = x;
             const moveTorque = dx * rotation.dragTorqueScale;
 
@@ -136,8 +137,9 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
             const origin = originRect;
             if (!origin) return;
 
-            const fx = -c.springStiffness * x;
-            const fy = -c.springStiffness * y;
+            const maxForce = 2;
+            const fx = Math.max(-maxForce, Math.min(maxForce, -c.springStiffness * x));
+            const fy = Math.max(-maxForce, Math.min(maxForce, -c.springStiffness * y));
             vx = (vx + fx) * c.friction - c.springDamping * vx;
             vy = (vy + fy) * c.friction - c.springDamping * vy;
             x += vx;
