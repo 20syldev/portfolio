@@ -420,7 +420,7 @@ function CertificationsCard({ className }: { className?: string }) {
  *
  * @returns The rendered info cards section
  */
-export function InfoCards() {
+export function Cards() {
     const { stats } = useApi();
     const scrollRef = useRef<HTMLDivElement>(null);
     const [scrollProgress, setScrollProgress] = useState(0);
