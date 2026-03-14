@@ -27,7 +27,7 @@ export function Notification({ children, onDismiss, isHiding = false }: Notifica
 
     return (
         <div
-            className={`fixed bottom-4 right-4 z-[9998] max-w-sm w-full bg-background border border-border rounded-lg shadow-lg p-4 ${hiding || isHiding ? "animate-out slide-out-to-bottom-4 fade-out duration-300" : "animate-in slide-in-from-bottom-4 fade-in duration-300"}`}
+            className={`fixed bottom-4 right-4 z-[9998] max-w-sm w-full bg-background border border-border rounded-lg shadow-lg p-4 ${hiding || isHiding ? "animate-out slide-out-to-bottom-4 fade-out duration-500" : "animate-in slide-in-from-bottom-4 fade-in duration-500"}`}
         >
             <div className="flex items-start gap-3">
                 <div className="flex-1 text-sm text-foreground leading-snug">{children}</div>
