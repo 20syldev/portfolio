@@ -1,6 +1,6 @@
 "use client";
 
-import { DocumentationLayout } from "@/components/detail/layout";
+import { Documentation } from "@/components/detail/documentation";
 
 interface HelpDocProps {
     title: string;
@@ -25,5 +25,5 @@ export function HelpDoc({ title, description, content }: HelpDocProps) {
         </>
     );
 
-    return <DocumentationLayout header={header} content={content} />;
+    return <Documentation header={header} content={content} />;
 }

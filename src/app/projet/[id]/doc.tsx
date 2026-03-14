@@ -1,6 +1,6 @@
 "use client";
 
-import { DocumentationLayout } from "@/components/detail/layout";
+import { Documentation } from "@/components/detail/documentation";
 import { Badge } from "@/components/ui/badge";
 import { ProjectMeta } from "@/components/ui/flags";
 import { ProjectLinks } from "@/components/ui/links";
@@ -55,5 +55,5 @@ export function Doc({ project, content }: DocProps) {
         </>
     );
 
-    return <DocumentationLayout header={header} content={content} />;
+    return <Documentation header={header} content={content} />;
 }
