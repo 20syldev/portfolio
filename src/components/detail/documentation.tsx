@@ -9,7 +9,7 @@ import { Nav } from "@/components/layout/nav";
 import { useSmoothScroll } from "@/hooks/scroll";
 import { tabs, urls } from "@/lib/nav";
 
-interface DocumentationLayoutProps {
+interface DocumentationProps {
     header: ReactNode;
     content: string;
 }
@@ -23,7 +23,7 @@ interface DocumentationLayoutProps {
  * @param props.content - Markdown content to render
  * @returns The rendered documentation page
  */
-export function DocumentationLayout({ header, content }: DocumentationLayoutProps) {
+export function Documentation({ header, content }: DocumentationProps) {
     const { scrollRef, scrollTo } = useSmoothScroll<HTMLDivElement>();
 
     return (
