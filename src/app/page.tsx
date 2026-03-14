@@ -7,7 +7,7 @@ import { useEffect, useRef } from "react";
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
 import { Alternance } from "@/components/sections/alternance";
-import { InfoCards } from "@/components/sections/cards";
+import { Cards } from "@/components/sections/cards";
 import { Hero } from "@/components/sections/hero";
 import { Projects } from "@/components/sections/projects";
 import { Technologies } from "@/components/sections/technologies";
@@ -32,7 +32,7 @@ function getTab(path: string): number {
 
 /**
  * Home page with horizontal tab navigation and vertical section scrolling.
- * Contains Hero, Technologies, Projects, InfoCards, Alternance and Veille tabs.
+ * Contains Hero, Technologies, Projects, Cards, Alternance and Veille tabs.
  *
  * @returns The rendered home page
  */
@@ -147,11 +147,11 @@ export default function HomePage() {
                             <Projects />
                         </section>
 
-                        {/* Section 4: InfoCards + Footer */}
+                        {/* Section 4: Cards + Footer */}
                         <section className="snap-section flex flex-col px-4 lg:px-8">
                             <div className="flex flex-1 items-center justify-center">
                                 <div className="w-full max-w-6xl xl:max-w-[1400px]">
-                                    <InfoCards />
+                                    <Cards />
                                 </div>
                             </div>
                             <Footer />
