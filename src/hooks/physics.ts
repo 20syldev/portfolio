@@ -358,9 +358,20 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
                     if (dragging) {
                         dragging = false;
                         draggingRef.current = false;
+                        el.style.cursor = "grab";
+                        if (dragAnimId !== undefined) {
+                            cancelAnimationFrame(dragAnimId);
+                            dragAnimId = undefined;
+                        }
+                        const vel = computeVelocity();
+                        vx = vel.vx;
+                        vy = vel.vy;
+                        cacheOrigin();
+                        animId = requestAnimationFrame(animateLoop);
+                    } else {
+                        stop();
+                        settle();
                     }
-                    stop();
-                    settle();
                 }
             },
             { threshold: 0 }
