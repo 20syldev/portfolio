@@ -10,7 +10,7 @@ import * as React from "react";
  * @param props.active - Whether the animation is currently running
  * @returns The rendered canvas element when active, null otherwise
  */
-export function MatrixRain({ active }: { active: boolean }) {
+export function Matrix({ active }: { active: boolean }) {
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
     const animationRef = React.useRef<number | undefined>(undefined);
 

@@ -3,7 +3,7 @@
 import { useTheme } from "next-themes";
 import * as React from "react";
 
-import { MatrixRain } from "@/components/utils/matrix";
+import { Matrix } from "@/components/utils/matrix";
 
 const konamiSequence = [
     "ArrowUp",
@@ -108,7 +108,7 @@ export function KonamiProvider({ children }: { children: React.ReactNode }) {
     return (
         <KonamiContext.Provider value={ctx}>
             {children}
-            <MatrixRain active={activated} />
+            <Matrix active={activated} />
         </KonamiContext.Provider>
     );
 }
