@@ -2,8 +2,14 @@
 export const profile = {
     name: "Sylvain L.",
     title: "Développeur Full Stack & Web Designer",
-    description:
-        "Je développe de tout, mais principalement des sites Internets et des APIs. J\'expérimente beaucoup, surtout du côté back-end chez Zenetys.",
+    description: {
+        template: "Je conçois des %s, des %s et des %s en tout genre. Je m'intéresse %s et %s.",
+        variants: [
+            ["sites web", "APIs", "outils", "à la cybersécurité", "à l'IA"],
+            ["outils CLI", "plugins", "jeux", "au réseau", "au hacking"],
+            ["apps", "bots", "scripts", "à la cryptographie", "à l'open source"],
+        ],
+    },
     education: {
         school: "Ensitech",
         degree: "BTS SIO SLAM",
