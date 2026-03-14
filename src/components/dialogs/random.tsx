@@ -13,6 +13,7 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { docs } from "@/data/docs";
+import { getCategoryName } from "@/lib/docs";
 import { random } from "@/lib/utils";
 
 /**
@@ -62,11 +63,13 @@ export function RandomButton() {
 
                     <div className="flex flex-col gap-4">
                         <div className="rounded-lg border bg-card p-4">
-                            <p className="font-medium">{doc.title}</p>
+                            <div className="flex items-start justify-between">
+                                <p className="font-medium">{doc.title}</p>
+                                <span className="px-2.5 py-0.5 text-xs rounded-full bg-muted text-muted-foreground">
+                                    {getCategoryName(doc.category)}
+                                </span>
+                            </div>
                             <p className="text-sm text-muted-foreground mt-1">{doc.description}</p>
-                            <span className="inline-block mt-2 px-2.5 py-0.5 text-xs rounded-full bg-muted text-muted-foreground capitalize">
-                                {doc.category}
-                            </span>
                         </div>
 
                         <div className="flex gap-2">
