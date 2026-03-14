@@ -47,29 +47,30 @@ function parseMarkdown(text: string): React.ReactNode[] {
 export function NotifProvider() {
     const { notifTag, notifActive } = useApi();
     const [dismissed, setDismissed] = React.useState(false);
-    const [cached, setCached] = React.useState(false);
     const [hiding, setHiding] = React.useState(false);
     const [gone, setGone] = React.useState(false);
 
+    const hide = React.useCallback(() => {
+        if (hiding) return;
+        setHiding(true);
+        setTimeout(() => setGone(true), 300);
+    }, [hiding]);
+
     React.useEffect(() => {
         if (!notifActive || !notifTag || dismissed) return;
-        const timer = setTimeout(() => setCached(true), 10000);
+        const timer = setTimeout(hide, 10000);
         return () => clearTimeout(timer);
-    }, [notifActive, notifTag, dismissed]);
+    }, [notifActive, notifTag, dismissed, hide]);
 
     React.useEffect(() => {
         const observer = new MutationObserver(() => {
-            const active = document.body.classList.contains("hole-active");
-            if (active && !hiding) {
-                setHiding(true);
-                setTimeout(() => setGone(true), 300);
-            }
+            if (document.body.classList.contains("hole-active")) hide();
         });
         observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
         return () => observer.disconnect();
-    }, [hiding]);
+    }, [hide]);
 
-    if (!notifActive || !notifTag || dismissed || cached || gone) return null;
+    if (!notifActive || !notifTag || dismissed || gone) return null;
 
     return (
         <Notification isHiding={hiding} onDismiss={() => setDismissed(true)}>
