@@ -170,7 +170,7 @@ function reset() {
  * Color is the opposite of the current theme for maximum contrast.
  * Starts small, morphs shape while expanding, becomes the ResultScreen background.
  */
-export function HoleVortex({
+export function Vortex({
     cx,
     cy,
     theme,
@@ -253,7 +253,7 @@ export function HoleVortex({
  * Click to reverse the hole and fade out overlay.
  * Rendered via portal outside snap-container.
  */
-export function ResultScreen({ theme, onReset }: { theme: string; onReset: () => void }) {
+export function Result({ theme, onReset }: { theme: string; onReset: () => void }) {
     const [phase, setPhase] = useState<"anim" | "wait" | "show" | "done" | "closing">("anim");
     const resettingRef = useRef(false);
     const overlayRef = useRef<HTMLDivElement>(null);

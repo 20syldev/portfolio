@@ -8,9 +8,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useFont } from "@/components/utils/font";
-import { collapseHole, HoleVortex, ResultScreen } from "@/components/utils/hole";
 import { useMultiTap } from "@/components/utils/konami";
 import { usePdfViewer } from "@/components/utils/viewer";
+import { collapseHole, Result, Vortex } from "@/components/utils/vortex";
 import { profile } from "@/data/profile";
 import { useDraggablePhysics } from "@/hooks/physics";
 import { useSparkle } from "@/hooks/sparkle";
@@ -192,13 +192,13 @@ export function Hero() {
             {/* Hole Easter Egg */}
             {sucked && (
                 <>
-                    <HoleVortex
+                    <Vortex
                         cx={singularity.cx}
                         cy={singularity.cy}
                         theme={previousTheme ?? "light"}
                         onExpanded={handleExpanded}
                     />
-                    <ResultScreen theme={previousTheme ?? "light"} onReset={handleReset} />
+                    <Result theme={previousTheme ?? "light"} onReset={handleReset} />
                 </>
             )}
         </div>
