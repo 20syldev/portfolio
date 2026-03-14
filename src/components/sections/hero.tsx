@@ -6,6 +6,7 @@ import { useTheme } from "next-themes";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { Name } from "@/components/ui/name";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useFont } from "@/components/utils/font";
 import { useMultiTap } from "@/components/utils/konami";
@@ -122,7 +123,7 @@ export function Hero() {
                     className="text-3xl font-bold cursor-pointer select-none"
                     onClick={() => setDialogOpen(true)}
                 >
-                    <span className="animate-shine">{profile.name}</span>
+                    <Name>{profile.name}</Name>
                 </h1>
                 <p className="text-lg text-muted-foreground">{profile.title}</p>
             </div>

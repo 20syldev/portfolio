@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { ThemeToggle } from "@/components/layout/toggle";
 import { Button } from "@/components/ui/button";
 import { Collapsible } from "@/components/ui/collapsible";
+import { Name } from "@/components/ui/name";
 import { CommandMenu, SearchButton } from "@/components/utils/command";
 import { useFont } from "@/components/utils/font";
 import { profile } from "@/data/profile";
@@ -88,7 +89,7 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
                             ${isHome ? "w-0 opacity-0 overflow-hidden" : "w-auto opacity-100"}
                         `}
                     >
-                        <span className="animate-shine">{profile.name}</span>
+                        <Name>{profile.name}</Name>
                     </Link>
 
                     {/* Navigation tabs - pills on home (always visible), hidden on mobile for other pages */}
