@@ -7,6 +7,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Name } from "@/components/ui/name";
+import { Rotating } from "@/components/ui/rotating";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useFont } from "@/components/utils/font";
 import { useMultiTap } from "@/components/utils/konami";
@@ -129,7 +130,11 @@ export function Hero() {
             </div>
 
             {/* Description */}
-            <p className="mt-4 max-w-md text-sm text-muted-foreground">{profile.description}</p>
+            <Rotating
+                template={profile.description.template}
+                variants={profile.description.variants}
+                className="mt-4 max-w-md text-sm text-muted-foreground"
+            />
 
             {/* Icônes */}
             <TooltipProvider>
