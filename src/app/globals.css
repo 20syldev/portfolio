@@ -218,7 +218,7 @@
     }
 }
 
-@keyframes animate-sparkle {
+@keyframes sparkle {
     0% {
         opacity: 0;
         transform: scale(0) rotate(0deg) translate(0, 0);
@@ -261,7 +261,7 @@
     width: var(--sparkle-size, 10px);
     height: var(--sparkle-size, 10px);
     pointer-events: none;
-    animation: animate-sparkle 0.8s ease-out both;
+    animation: sparkle 0.8s ease-out both;
     clip-path: polygon(50% 0%, 60% 35%, 100% 50%, 60% 65%, 50% 100%, 40% 65%, 0% 50%, 40% 35%);
     background: oklch(0.6 0.2 280);
     filter: drop-shadow(0 0 3px oklch(0.6 0.2 280 / 60%));
