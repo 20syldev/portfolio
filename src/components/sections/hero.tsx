@@ -26,17 +26,22 @@ import { useSparkle } from "@/hooks/sparkle";
 export function Hero() {
     const { openPdf } = usePdfViewer();
     const { setDialogOpen } = useFont();
-    const { theme, setTheme } = useTheme();
+    const { theme, resolvedTheme, setTheme } = useTheme();
     const themeRef = useRef(theme);
+    const resolvedThemeRef = useRef(resolvedTheme);
     const setThemeRef = useRef(setTheme);
     const [sucked, setSucked] = useState(false);
     const suckedRef = useRef(false);
     const [previousTheme, setPreviousTheme] = useState<string | undefined>(undefined);
+    const [previousResolvedTheme, setPreviousResolvedTheme] = useState<string | undefined>(
+        undefined
+    );
 
     useEffect(() => {
         themeRef.current = theme;
+        resolvedThemeRef.current = resolvedTheme;
         setThemeRef.current = setTheme;
-    }, [theme, setTheme]);
+    }, [theme, resolvedTheme, setTheme]);
     const [singularity, setSingularity] = useState({ cx: 0, cy: 0 });
 
     const triggerHole = useCallback((rect: DOMRect) => {
@@ -44,6 +49,7 @@ export function Hero() {
         if (document.body.classList.contains("no-motion")) return;
         suckedRef.current = true;
         setPreviousTheme(themeRef.current);
+        setPreviousResolvedTheme(resolvedThemeRef.current);
         setSingularity({
             cx: rect.left + rect.width / 2,
             cy: rect.top + rect.height / 2,
@@ -90,7 +96,7 @@ export function Hero() {
     }, [logoRef, triggerHole]);
 
     const handleExpanded = useCallback(() => {
-        setThemeRef.current(themeRef.current === "dark" ? "light" : "dark");
+        setThemeRef.current(resolvedThemeRef.current === "dark" ? "light" : "dark");
     }, []);
 
     const handleReset = useCallback(() => {
@@ -99,6 +105,7 @@ export function Hero() {
         if (previousTheme) {
             setThemeRef.current(previousTheme);
             setPreviousTheme(undefined);
+            setPreviousResolvedTheme(undefined);
         }
         settle.current?.();
     }, [settle, previousTheme]);
@@ -201,10 +208,10 @@ export function Hero() {
                     <Vortex
                         cx={singularity.cx}
                         cy={singularity.cy}
-                        theme={previousTheme ?? "light"}
+                        theme={previousResolvedTheme ?? "light"}
                         onExpanded={handleExpanded}
                     />
-                    <Result theme={previousTheme ?? "light"} onReset={handleReset} />
+                    <Result theme={previousResolvedTheme ?? "light"} onReset={handleReset} />
                 </>
             )}
         </div>
