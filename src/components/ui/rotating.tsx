@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
+import { useFont } from "@/components/utils/font";
 import { useMotion } from "@/components/utils/motion";
 
 type Segment = { type: "static"; text: string } | { type: "slot"; words: string[] };
@@ -17,6 +18,7 @@ interface RotatingSlotProps {
     active: number;
     prev: number;
     index: number;
+    stamp: string;
 }
 
 /**
@@ -43,6 +45,7 @@ function parseTemplate(template: string, variants: string[][]): Segment[] {
 export function Rotating({ template, variants, className = "" }: RotatingProps) {
     const [{ active, prev }, setRotation] = useState({ active: 0, prev: 0 });
     const { enabled: motionEnabled } = useMotion();
+    const { font, fontSize } = useFont();
     const segments = useMemo(() => parseTemplate(template, variants), [template, variants]);
 
     useEffect(() => {
@@ -73,6 +76,7 @@ export function Rotating({ template, variants, className = "" }: RotatingProps) 
                         active={active}
                         prev={prev}
                         index={slotIndex++}
+                        stamp={`${font}-${fontSize}`}
                     />
                 )
             )}
@@ -83,14 +87,19 @@ export function Rotating({ template, variants, className = "" }: RotatingProps) 
 const duration = "600ms";
 const easing = "cubic-bezier(0.22, 1, 0.36, 1)";
 
-function RotatingSlot({ options, active, prev, index }: RotatingSlotProps) {
+function RotatingSlot({ options, active, prev, index, stamp }: RotatingSlotProps) {
     const refs = useRef<(HTMLSpanElement | null)[]>([]);
     const [widths, setWidths] = useState<number[] | null>(null);
 
     useEffect(() => {
-        const measured = refs.current.map((r) => r?.offsetWidth ?? 0);
-        if (measured.some((w) => w > 0)) setWidths(measured);
-    }, []);
+        const measure = () => {
+            const measured = refs.current.map((r) => r?.offsetWidth ?? 0);
+            if (measured.some((w) => w > 0)) setWidths(measured);
+        };
+
+        measure();
+        document.fonts.ready.then(measure);
+    }, [stamp]);
 
     const measured = widths !== null;
     const delay = `${index * 100}ms`;
