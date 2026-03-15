@@ -80,6 +80,13 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
 
         const samples: PointerSample[] = [];
 
+        let lastTime = 0;
+        const dt = (now: number) => {
+            const delta = lastTime ? Math.min((now - lastTime) / 16.67, 3) : 1;
+            lastTime = now;
+            return delta;
+        };
+
         let originRect: DOMRect | null = null;
         let edgesHit = 0;
         let firstEdgeTime = 0;
@@ -115,40 +122,42 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
         };
         settleRef.current = settle;
 
-        const dragPendulum = () => {
+        const dragPendulum = (now: number) => {
             if (!dragging) return;
+            const t = dt(now);
 
             const rawDx = x - prevDragX;
             const dx = Math.max(-20, Math.min(20, rawDx));
             prevDragX = x;
-            const moveTorque = dx * rotation.dragTorqueScale;
+            const moveTorque = dx * rotation.dragTorqueScale * t;
 
             const diff = targetAngle - angle;
-            av += diff * rotation.dragSpringStiffness + moveTorque;
-            av *= rotation.dragDamping;
-            angle += av;
+            av += diff * rotation.dragSpringStiffness * t + moveTorque;
+            av *= Math.pow(rotation.dragDamping, t);
+            angle += av * t;
 
             apply();
             dragAnimId = requestAnimationFrame(dragPendulum);
         };
 
-        const animateLoop = () => {
+        const animateLoop = (now: number) => {
             const c = configRef.current;
             const origin = originRect;
             if (!origin) return;
+            const t = dt(now);
 
             const maxForce = 2;
-            const fx = Math.max(-maxForce, Math.min(maxForce, -c.springStiffness * x));
-            const fy = Math.max(-maxForce, Math.min(maxForce, -c.springStiffness * y));
-            vx = (vx + fx) * c.friction - c.springDamping * vx;
-            vy = (vy + fy) * c.friction - c.springDamping * vy;
-            x += vx;
-            y += vy;
+            const fx = Math.max(-maxForce, Math.min(maxForce, -c.springStiffness * x * t));
+            const fy = Math.max(-maxForce, Math.min(maxForce, -c.springStiffness * y * t));
+            vx = (vx + fx) * Math.pow(c.friction, t) - c.springDamping * vx * t;
+            vy = (vy + fy) * Math.pow(c.friction, t) - c.springDamping * vy * t;
+            x += vx * t;
+            y += vy * t;
 
-            av += -rotation.flightStiffness * angle;
-            av *= rotation.flightDamping;
-            av += vx * rotation.flightVelocityCoupling;
-            angle += av;
+            av += -rotation.flightStiffness * angle * t;
+            av *= Math.pow(rotation.flightDamping, t);
+            av += vx * rotation.flightVelocityCoupling * t;
+            angle += av * t;
 
             const left = origin.left + x;
             const right = left + origin.width;
@@ -207,15 +216,17 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
             animId = requestAnimationFrame(animateLoop);
         };
 
-        const snapLoop = () => {
-            vx = (vx + -rotation.snapStiffness * x) * rotation.snapFriction;
-            vy = (vy + -rotation.snapStiffness * y) * rotation.snapFriction;
-            x += vx;
-            y += vy;
+        const snapLoop = (now: number) => {
+            const t = dt(now);
 
-            av += -rotation.snapStiffness * angle;
-            av *= rotation.snapDamping;
-            angle += av;
+            vx = (vx + -rotation.snapStiffness * x * t) * Math.pow(rotation.snapFriction, t);
+            vy = (vy + -rotation.snapStiffness * y * t) * Math.pow(rotation.snapFriction, t);
+            x += vx * t;
+            y += vy * t;
+
+            av += -rotation.snapStiffness * angle * t;
+            av *= Math.pow(rotation.snapDamping, t);
+            angle += av * t;
 
             if (
                 Math.abs(x) + Math.abs(y) < 0.5 &&
@@ -282,6 +293,7 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
             prevDragX = x;
 
             cacheOrigin();
+            lastTime = 0;
             dragAnimId = requestAnimationFrame(dragPendulum);
         };
 
@@ -316,6 +328,7 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
             vx = vel.vx;
             vy = vel.vy;
 
+            lastTime = 0;
             if (dist < c.snapDistance && speed < c.snapThreshold) {
                 animId = requestAnimationFrame(snapLoop);
             } else {
@@ -367,6 +380,7 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
                         vx = vel.vx;
                         vy = vel.vy;
                         cacheOrigin();
+                        lastTime = 0;
                         animId = requestAnimationFrame(animateLoop);
                     } else {
                         stop();
