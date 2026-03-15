@@ -117,6 +117,7 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
             el.style.translate = "";
             el.style.rotate = "";
             el.style.transformOrigin = "";
+            el.style.zIndex = "";
             el.style.willChange = "auto";
             animId = undefined;
         };
@@ -266,6 +267,7 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
             edgesHit = 0;
             firstEdgeTime = 0;
             el.style.cursor = "grabbing";
+            el.style.zIndex = "50";
             el.style.willChange = "translate, rotate";
 
             angle = 0;
@@ -419,6 +421,7 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
             el.style.rotate = "";
             el.style.transformOrigin = "";
             el.style.willChange = "";
+            el.style.zIndex = "";
             el.style.cursor = "";
             el.style.touchAction = "";
             el.style.userSelect = "";
