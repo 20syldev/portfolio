@@ -4,6 +4,8 @@ import { ThumbsUp } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
+let cachedCollapseElements: HTMLElement[] | null = null;
+
 /**
  * Collects visible elements for staggered animation.
  * Goes deep into the DOM to get individual visual blocks.
@@ -64,6 +66,7 @@ export async function collapseHole(targetRect: DOMRect): Promise<void> {
 
     // Phase 1
     const elements = getVisibleElements();
+    cachedCollapseElements = elements;
     const withDist = elements.map((el) => {
         const r = el.getBoundingClientRect();
         const ex = r.left + r.width / 2;
@@ -135,7 +138,8 @@ function reset() {
     container.style.opacity = "";
     container.style.transformOrigin = "";
 
-    const elements = getVisibleElements();
+    const elements = cachedCollapseElements ?? getVisibleElements();
+    cachedCollapseElements = null;
     elements.forEach((el) => {
         el.getAnimations().forEach((a) => a.cancel());
         el.style.transform = "";
