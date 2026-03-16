@@ -63,7 +63,7 @@ export function RandomButton() {
 
                     <div className="flex flex-col gap-4">
                         <div className="rounded-lg border bg-card p-4">
-                            <div className="flex items-start justify-between">
+                            <div className="flex items-start justify-between gap-4">
                                 <p className="font-medium">{doc.title}</p>
                                 <span className="px-2.5 py-0.5 text-xs rounded-full bg-muted text-muted-foreground">
                                     {getCategoryName(doc.category)}
