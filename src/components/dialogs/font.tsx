@@ -212,13 +212,13 @@ export function FontDialog() {
                 </div>
 
                 <div className="space-y-0">
-                    {currentConfig && <FontPreview fontVariable={currentConfig.variable} />}
                     <Collapsible open={!!currentConfig?.accessibility}>
-                        <p className="text-xs text-muted-foreground pt-3">
+                        <p className="text-xs text-muted-foreground pb-3">
                             Cette police a été conçue pour réduire le stress visuel et améliorer la
                             lisibilité pour les personnes dyslexiques.
                         </p>
                     </Collapsible>
+                    {currentConfig && <FontPreview fontVariable={currentConfig.variable} />}
                 </div>
 
                 <div className="space-y-2">
