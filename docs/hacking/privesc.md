@@ -3,7 +3,7 @@ title: Escalade de privilèges
 description: Techniques d'escalade de privilèges Linux — SUID, sudo, cron jobs, capabilities, kernel exploits et outils d'énumération automatisée.
 category: hacking
 slug: privesc
-order: 8
+order: 10
 ---
 
 ## Escalade de privilèges {#intro}

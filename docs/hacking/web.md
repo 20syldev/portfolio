@@ -3,7 +3,7 @@ title: Vulnérabilités web
 description: OWASP Top 10, injection SQL, XSS, CSRF, SSRF — comprendre et prévenir les principales vulnérabilités des applications web.
 category: hacking
 slug: web
-order: 6
+order: 8
 ---
 
 ## OWASP Top 10 {#owasp}
