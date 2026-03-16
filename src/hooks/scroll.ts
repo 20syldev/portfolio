@@ -589,15 +589,33 @@ export function useDragScroll<T extends HTMLElement>(ref: React.RefObject<T | nu
             }
         };
 
-        el.style.cursor = "grab";
-        el.style.touchAction = "pan-x";
-        el.addEventListener("mousedown", handleMouseDown);
-        el.addEventListener("touchstart", handleTouchStart, { passive: true });
-        el.addEventListener("touchmove", handleTouchMove, { passive: true });
-        window.addEventListener("mousemove", handleMouseMove);
-        window.addEventListener("mouseup", handleMouseUp);
+        const updateOverflowState = () => {
+            const overflows = el.scrollWidth > el.clientWidth;
+            if (overflows) {
+                el.style.cursor = "grab";
+                el.style.touchAction = "pan-x";
+                el.addEventListener("mousedown", handleMouseDown);
+                el.addEventListener("touchstart", handleTouchStart, { passive: true });
+                el.addEventListener("touchmove", handleTouchMove, { passive: true });
+                window.addEventListener("mousemove", handleMouseMove);
+                window.addEventListener("mouseup", handleMouseUp);
+            } else {
+                el.style.cursor = "";
+                el.style.touchAction = "";
+                el.removeEventListener("mousedown", handleMouseDown);
+                el.removeEventListener("touchstart", handleTouchStart);
+                el.removeEventListener("touchmove", handleTouchMove);
+                window.removeEventListener("mousemove", handleMouseMove);
+                window.removeEventListener("mouseup", handleMouseUp);
+            }
+        };
+
+        updateOverflowState();
+        const observer = new ResizeObserver(updateOverflowState);
+        observer.observe(el);
 
         return () => {
+            observer.disconnect();
             el.removeEventListener("mousedown", handleMouseDown);
             el.removeEventListener("touchstart", handleTouchStart);
             el.removeEventListener("touchmove", handleTouchMove);
