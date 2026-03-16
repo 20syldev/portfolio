@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
-import { useFont } from "@/components/utils/font";
 import { useMotion } from "@/components/utils/motion";
 
 type Segment = { type: "static"; text: string } | { type: "slot"; words: string[] };
@@ -18,7 +17,6 @@ interface RotatingSlotProps {
     active: number;
     prev: number;
     index: number;
-    stamp: string;
 }
 
 /**
@@ -45,7 +43,6 @@ function parseTemplate(template: string, variants: string[][]): Segment[] {
 export function Rotating({ template, variants, className = "" }: RotatingProps) {
     const [{ active, prev }, setRotation] = useState({ active: 0, prev: 0 });
     const { enabled: motionEnabled } = useMotion();
-    const { font, fontSize } = useFont();
     const segments = useMemo(() => parseTemplate(template, variants), [template, variants]);
 
     useEffect(() => {
@@ -76,7 +73,6 @@ export function Rotating({ template, variants, className = "" }: RotatingProps) 
                         active={active}
                         prev={prev}
                         index={slotIndex++}
-                        stamp={`${font}-${fontSize}`}
                     />
                 )
             )}
@@ -87,21 +83,41 @@ export function Rotating({ template, variants, className = "" }: RotatingProps) 
 const duration = "600ms";
 const easing = "cubic-bezier(0.22, 1, 0.36, 1)";
 
-function RotatingSlot({ options, active, prev, index, stamp }: RotatingSlotProps) {
-    const refs = useRef<(HTMLSpanElement | null)[]>([]);
+function RotatingSlot({ options, active, prev, index }: RotatingSlotProps) {
+    const measureRefs = useRef<(HTMLSpanElement | null)[]>([]);
     const [widths, setWidths] = useState<number[] | null>(null);
+    const [instant, setInstant] = useState(false);
+    const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+    const optionsKey = options.join("|");
 
     useEffect(() => {
         const measure = () => {
-            const measured = refs.current.map((r) => r?.offsetWidth ?? 0);
-            if (measured.some((w) => w > 0)) setWidths(measured);
+            const measured = measureRefs.current.map((r) =>
+                r ? r.getBoundingClientRect().width : 0
+            );
+            if (measured.some((w) => w > 0)) {
+                clearTimeout(timerRef.current);
+                setInstant(true);
+                setWidths(measured);
+                timerRef.current = setTimeout(() => setInstant(false), 50);
+            }
         };
 
         measure();
         document.fonts.ready.then(measure);
-    }, [stamp]);
 
-    const measured = widths !== null;
+        const observer = new ResizeObserver(measure);
+        measureRefs.current.forEach((ref) => {
+            if (ref) observer.observe(ref);
+        });
+
+        return () => {
+            observer.disconnect();
+            clearTimeout(timerRef.current);
+        };
+    }, [optionsKey]);
+
     const delay = `${index * 100}ms`;
 
     return (
@@ -109,11 +125,36 @@ function RotatingSlot({ options, active, prev, index, stamp }: RotatingSlotProps
             className="relative inline-block overflow-hidden align-bottom"
             style={{
                 height: "1.25rem",
-                width: measured ? widths[active] : "auto",
-                transition: `width ${duration} ${easing} ${delay}`,
+                width: widths ? widths[active] : undefined,
+                transition: instant ? "none" : `width ${duration} ${easing} ${delay}`,
                 perspective: "200px",
             }}
         >
+            {/* Off-screen measurement spans — always have intrinsic text width */}
+            <span
+                className="absolute whitespace-nowrap"
+                style={{ visibility: "hidden", pointerEvents: "none" }}
+                aria-hidden="true"
+            >
+                {options.map((word, i) => (
+                    <span
+                        key={i}
+                        ref={(el) => {
+                            measureRefs.current[i] = el;
+                        }}
+                        className="inline-block"
+                    >
+                        {word}
+                    </span>
+                ))}
+            </span>
+
+            {/* Ghost: invisible, in-flow, for auto-sizing before first measurement */}
+            <span className="invisible inline-block whitespace-nowrap" aria-hidden="true">
+                {options[active]}
+            </span>
+
+            {/* Rotating display words */}
             {options.map((word, i) => {
                 const isActive = i === active;
                 const wasActive = i === prev && i !== active;
@@ -121,10 +162,7 @@ function RotatingSlot({ options, active, prev, index, stamp }: RotatingSlotProps
                 return (
                     <span
                         key={i}
-                        ref={(el) => {
-                            refs.current[i] = el;
-                        }}
-                        className={`${i === 0 ? "block" : "absolute left-0 top-0 block"} whitespace-nowrap`}
+                        className="absolute left-0 top-0 whitespace-nowrap"
                         style={{
                             transform: isActive
                                 ? "rotateX(0deg)"
