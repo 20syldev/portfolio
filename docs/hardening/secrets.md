@@ -125,6 +125,66 @@ Les secrets doivent être renouvelés régulièrement (tous les 90 jours minimum
 - **Certificats TLS** : automatiser avec Let's Encrypt / certbot
 - **Secrets JWT** : renouveler et invalider les tokens existants
 
+## Diceware et passphrases {#diceware}
+
+La méthode **Diceware** génère des passphrases en utilisant des **dés physiques** et une liste de mots numérotés. Chaque mot est sélectionné par un lancer de 5 dés, ce qui garantit un caractère véritablement aléatoire (pas de biais humain).
+
+### Comment ça fonctionne
+
+```
+1. Lancer 5 dés             → 4-2-5-1-6
+2. Chercher dans la liste   → 42516 = "merge"
+3. Répéter 6 fois           → "merge clamp hobby plaid cedar omega"
+```
+
+Chaque mot apporte **~12.9 bits d'entropie** (la liste EFF contient 7776 mots = 6⁵).
+
+### Entropie par nombre de mots
+
+| Mots | Bits d'entropie | Résistance                       |
+| ---- | --------------- | -------------------------------- |
+| 4    | ~51 bits        | Faible — usage personnel basique |
+| 5    | ~64 bits        | Correct — usage courant          |
+| 6    | ~77 bits        | Bon — recommandé pour la plupart |
+| 7    | ~90 bits        | Très bon — secrets importants    |
+| 8    | ~103 bits       | Excellent — master password      |
+
+> **Minimum recommandé** : 6 mots pour un usage sérieux (gestionnaire de mots de passe, chiffrement de disque).
+
+### Listes de mots
+
+| Liste                   | Taille    | Particularité                              |
+| ----------------------- | --------- | ------------------------------------------ |
+| **EFF Long Word List**  | 7776 mots | Mots courants anglais, faciles à retenir   |
+| **EFF Short Word List** | 1296 mots | Mots plus courts, moins d'entropie par mot |
+| **Diceware FR**         | 7776 mots | Liste française                            |
+
+```bash
+# Generate a 6-word passphrase with dice (manual process)
+# Roll 5 dice 6 times, look up each result in the word list
+
+# Or use a CSPRNG to simulate (less pure, but practical)
+# Using EFF word list:
+shuf -n 6 eff_large_wordlist.txt | awk '{print $2}'
+
+# With keepassxc-cli
+keepassxc-cli diceware -W 6
+
+# With Bitwarden CLI
+bw generate --passphrase --words 6 --separator '-'
+```
+
+### Diceware vs mot de passe aléatoire
+
+| Critère                      | Diceware (`merge-clamp-hobby-plaid`) | Aléatoire (`x7$kQ!9mR2@p`)  |
+| ---------------------------- | ------------------------------------ | --------------------------- |
+| Mémorisation                 | Facile (mots du quotidien)           | Très difficile              |
+| Saisie manuelle              | Facile                               | Pénible, erreurs fréquentes |
+| Entropie (6 mots / 12 chars) | ~77 bits                             | ~78 bits                    |
+| Résistance                   | Équivalente à longueur égale         | Équivalente                 |
+
+> **L'avantage principal** : une passphrase diceware de 6 mots est aussi sûre qu'un mot de passe aléatoire de 12 caractères, mais beaucoup plus facile à retenir et à taper.
+
 ## Que faire en cas de fuite ? {#incident}
 
 1. **Révoquer** immédiatement le secret compromis
