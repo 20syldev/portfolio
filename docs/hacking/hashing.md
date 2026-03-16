@@ -230,6 +230,7 @@ Les algorithmes conçus pour le stockage de mots de passe sont **volontairement 
 
 ## Pour aller plus loin {#next}
 
+- [Bruteforce](/help/hacking/bruteforce) — Hashcat avancé, rules engine, bruteforce online et génération de wordlists
 - [Mots de passe et authentification](/help/hacking/passwords) — stockage, attaques et bonnes pratiques
 - [Fonctions de hachage](/help/cryptography/hashing) — théorie des fonctions de hachage cryptographiques
 - [Escalade de privilèges](/help/hacking/privesc) — utiliser les hashes crackés pour élever ses privilèges

@@ -107,6 +107,7 @@ Les 10 mots de passe les plus courants (d'après les fuites de données) :
 - **Longueur** > complexité — `cheval-correct-batterie-agrafe` est bien meilleur que `P@s$w0rd!`
 - **Unique** par service — ne jamais réutiliser un mot de passe
 - **Aléatoire** — généré par un gestionnaire de mots de passe, pas inventé par un humain
+- **Diceware** — méthode de génération de passphrases avec des dés physiques, offrant une entropie mesurable et un résultat facile à retenir (voir [Diceware et passphrases](/help/hardening/secrets#diceware))
 
 ## Politiques de mots de passe {#policies}
 
@@ -167,5 +168,7 @@ curl "https://api.pwnedpasswords.com/range/CBFDA"
 ## Pour aller plus loin {#next}
 
 - [Hash cracking](/help/hacking/hashing) — casser des hashes avec Hashcat et John the Ripper
+- [Bruteforce](/help/hacking/bruteforce) — attaques avancées offline et online
+- [Keylogging](/help/hacking/keylogging) — capture de frappes clavier
 - [Vulnérabilités web](/help/hacking/web) — attaques sur l'authentification des applications web
 - [Fonctions de hachage](/help/cryptography/hashing) — théorie des fonctions de hachage cryptographiques

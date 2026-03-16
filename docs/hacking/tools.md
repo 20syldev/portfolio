@@ -155,7 +155,7 @@ hydra -L users.txt -P /usr/share/wordlists/rockyou.txt ftp://192.168.1.10
 hydra -l root -P wordlist.txt -s 2222 ssh://192.168.1.10
 ```
 
-Pour le hash cracking en détail, voir la [documentation Hash cracking](/help/hacking/hashing).
+Pour le hash cracking en détail, voir la [documentation Hash cracking](/help/hacking/hashing) et [Bruteforce](/help/hacking/bruteforce).
 
 ## Réseau {#network}
 
