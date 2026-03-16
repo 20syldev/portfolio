@@ -1,6 +1,7 @@
 "use client";
 
-import { type ComponentPropsWithoutRef, type ReactNode, useRef } from "react";
+import { Check, Copy } from "lucide-react";
+import { type ComponentPropsWithoutRef, type ReactNode, useRef, useState } from "react";
 
 import { useDragScroll } from "@/hooks/scroll";
 import { cn } from "@/lib/utils";
@@ -177,15 +178,38 @@ export const mdxComponents = {
     },
     pre: function Pre({ children, ...props }: ComponentPropsWithoutRef<"pre">) {
         const ref = useRef<HTMLPreElement>(null);
+        const [copied, setCopied] = useState(false);
         useDragScroll(ref, false);
+
+        const handleCopy = () => {
+            const text = ref.current?.textContent ?? "";
+            navigator.clipboard.writeText(text);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        };
+
         return (
-            <pre
-                ref={ref}
-                className="bg-muted p-4 rounded-lg overflow-x-auto mb-6 text-sm font-mono border border-border [&>code]:p-0 [&>code]:bg-transparent [&>code]:rounded-none"
-                {...props}
-            >
-                {children}
-            </pre>
+            <div className="relative group mb-6">
+                <pre
+                    ref={ref}
+                    className="bg-muted p-4 rounded-lg overflow-x-auto text-sm font-mono border border-border [&>code]:p-0 [&>code]:bg-transparent [&>code]:rounded-none"
+                    {...props}
+                >
+                    {children}
+                </pre>
+                <button
+                    type="button"
+                    onClick={handleCopy}
+                    className="absolute top-2 right-2 p-1.5 rounded-md bg-background/80 border border-border text-muted-foreground opacity-0 group-hover:opacity-100 hover:text-foreground transition-all cursor-pointer"
+                    aria-label="Copy code"
+                >
+                    {copied ? (
+                        <Check className="h-3.5 w-3.5 text-green-500" />
+                    ) : (
+                        <Copy className="h-3.5 w-3.5" />
+                    )}
+                </button>
+            </div>
         );
     },
     blockquote: ({ children, ...props }: ComponentPropsWithoutRef<"blockquote">) => (
