@@ -12,13 +12,21 @@ import * as React from "react";
  * @param props.active - Whether the animation is currently running
  * @returns The rendered canvas element when active or draining, null otherwise
  */
-export function Matrix({ active, onDrainComplete }: { active: boolean; onDrainComplete?: () => void }) {
+export function Matrix({
+    active,
+    onDrainComplete,
+}: {
+    active: boolean;
+    onDrainComplete?: () => void;
+}) {
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
     const animationRef = React.useRef<number | undefined>(undefined);
     const activeRef = React.useRef(active);
+    const onDrainCompleteRef = React.useRef(onDrainComplete);
     const [visible, setVisible] = React.useState(false);
 
     activeRef.current = active;
+    onDrainCompleteRef.current = onDrainComplete;
 
     React.useEffect(() => {
         if (active) setVisible(true);
@@ -90,7 +98,7 @@ export function Matrix({ active, onDrainComplete }: { active: boolean; onDrainCo
                 fadeFrames++;
                 if (fadeFrames >= fadeOutDuration) {
                     setVisible(false);
-                    onDrainComplete?.();
+                    onDrainCompleteRef.current?.();
                     return;
                 }
             }
