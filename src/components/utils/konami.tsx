@@ -95,20 +95,24 @@ export function KonamiProvider({ children }: { children: React.ReactNode }) {
         return () => window.removeEventListener("devicemotion", handleMotion);
     }, [toggle]);
 
+    const restoreTheme = React.useCallback(() => {
+        if (previousThemeRef.current) {
+            setThemeRef.current(previousThemeRef.current);
+            previousThemeRef.current = undefined;
+        }
+    }, []);
+
     React.useEffect(() => {
         if (activated) {
             previousThemeRef.current = themeRef.current;
             setThemeRef.current("dark");
-        } else if (previousThemeRef.current) {
-            setThemeRef.current(previousThemeRef.current);
-            previousThemeRef.current = undefined;
         }
     }, [activated]);
 
     return (
         <KonamiContext.Provider value={ctx}>
             {children}
-            <Matrix active={activated} />
+            <Matrix active={activated} onDrainComplete={restoreTheme} />
         </KonamiContext.Provider>
     );
 }
