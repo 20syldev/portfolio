@@ -15,6 +15,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Certification, CertificationCategory } from "@/data/achievements";
 import { useDragScroll } from "@/hooks/scroll";
@@ -37,6 +38,13 @@ const badgeSizes = {
     round: { mobile: 80, desktop: 120, container: 160 },
     rectangle: { mobile: 160, desktop: 220, container: 240 },
 } as const;
+
+const badgeRounding = (item: Certification) =>
+    item.shape === "round"
+        ? "rounded-full"
+        : item.provider === "cisco"
+          ? "rounded-xl"
+          : "rounded-[2.5px]";
 
 const maxContainer = 200;
 const tooltipSize = 220;
@@ -109,8 +117,13 @@ export function Gallery({ categories, title, subtitle, relatedPages }: GalleryPr
     const router = useRouter();
     const [currentCategory, setCurrentCategory] = useState(0);
     const [relatedOpen, setRelatedOpen] = useState(false);
+    const [loaded, setLoaded] = useState<Set<string>>(new Set());
     const scrollRef = useRef<HTMLDivElement>(null);
     useDragScroll(scrollRef);
+
+    const handleImageLoad = useCallback((icon: string) => {
+        setLoaded((prev) => new Set(prev).add(icon));
+    }, []);
 
     const handleScroll = useCallback(() => {
         if (!scrollRef.current) return;
@@ -219,12 +232,18 @@ export function Gallery({ categories, title, subtitle, relatedPages }: GalleryPr
                                                 className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-muted/50 transition-colors"
                                             >
                                                 <div className="relative">
+                                                    {!loaded.has(item.icon) && (
+                                                        <Skeleton
+                                                            className={`absolute inset-0 ${badgeRounding(item)}`}
+                                                        />
+                                                    )}
                                                     <Image
                                                         src={item.icon}
                                                         alt={item.name}
                                                         width={sizes.mobile}
                                                         height={sizes.mobile}
-                                                        className="rounded-[2.5px] object-contain"
+                                                        className={`${badgeRounding(item)} object-contain transition-opacity duration-300 ${loaded.has(item.icon) ? "opacity-100" : "opacity-0"}`}
+                                                        onLoad={() => handleImageLoad(item.icon)}
                                                     />
                                                     {item.counter !== undefined && (
                                                         <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-[#4285F4] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
@@ -312,12 +331,20 @@ export function Gallery({ categories, title, subtitle, relatedPages }: GalleryPr
                                                         }}
                                                     >
                                                         <div className="relative">
+                                                            {!loaded.has(item.icon) && (
+                                                                <Skeleton
+                                                                    className={`absolute inset-0 ${badgeRounding(item)}`}
+                                                                />
+                                                            )}
                                                             <Image
                                                                 src={item.icon}
                                                                 alt={item.name}
                                                                 width={sizes.desktop}
                                                                 height={sizes.desktop}
-                                                                className="rounded-[2.5px] object-contain"
+                                                                className={`${badgeRounding(item)} object-contain transition-opacity duration-300 ${loaded.has(item.icon) ? "opacity-100" : "opacity-0"}`}
+                                                                onLoad={() =>
+                                                                    handleImageLoad(item.icon)
+                                                                }
                                                             />
                                                             {item.counter !== undefined && (
                                                                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-[#4285F4] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
