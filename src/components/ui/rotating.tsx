@@ -94,7 +94,7 @@ function RotatingSlot({ options, active, prev, index }: RotatingSlotProps) {
     useEffect(() => {
         const measure = () => {
             const measured = measureRefs.current.map((r) =>
-                r ? r.getBoundingClientRect().width : 0
+                r ? r.getBoundingClientRect().width + 0.5 : 0
             );
             if (measured.some((w) => w > 0)) {
                 clearTimeout(timerRef.current);
