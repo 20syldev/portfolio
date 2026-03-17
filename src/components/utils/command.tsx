@@ -419,24 +419,24 @@ export function CommandMenu() {
             </CommandItem>
         ));
 
-    /**
-     * Max recent projects to display in the scrolled two-column layout.
-     * Balances left (navigation + recent projects + "Voir tout")
-     * with right (personnalisation + profil + réalisations).
-     * Update if a group is added/removed from either column.
-     */
+    // Max projects to balance the scrolled two-column layout
     const maxRecentProjects =
         personnalisationItems.length +
         profilItems.length +
         realisationsItems.length -
-        navigationItems.length;
+        navigationItems.length +
+        1;
 
-    const recentProjectItems = projects
-        .filter((p) => getProjectStatus(p.id) !== null)
+    const statusProjects = projects.filter((p) => getProjectStatus(p.id) !== null);
+    const fillerProjects = projects
+        .filter((p) => getProjectStatus(p.id) === null)
+        .slice(0, maxRecentProjects - statusProjects.length);
+
+    const recentProjectItems = [...statusProjects, ...fillerProjects]
         .slice(0, maxRecentProjects)
         .map((project) => {
-            const status = getProjectStatus(project.id)!;
-            const Icon = statusIcon[status];
+            const status = getProjectStatus(project.id);
+            const Icon = status ? statusIcon[status] : FolderOpen;
             return (
                 <CommandItem
                     key={project.id}
@@ -450,14 +450,18 @@ export function CommandMenu() {
                         )
                     }
                 >
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <span className="mr-2 inline-flex">
-                                <Icon className="h-4 w-4" />
-                            </span>
-                        </TooltipTrigger>
-                        <TooltipContent side="left">{statusLabel[status]}</TooltipContent>
-                    </Tooltip>
+                    {status ? (
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <span className="mr-2 inline-flex">
+                                    <Icon className="h-4 w-4" />
+                                </span>
+                            </TooltipTrigger>
+                            <TooltipContent side="left">{statusLabel[status]}</TooltipContent>
+                        </Tooltip>
+                    ) : (
+                        <Icon className="mr-2 h-4 w-4" />
+                    )}
                     {project.name}
                     <span className="ml-2 text-xs text-muted-foreground">
                         {project.tags.join(", ")}
@@ -623,7 +627,7 @@ export function CommandMenu() {
                                             </CommandGroup>
                                         </div>
                                         <div className="rounded-lg border">
-                                            <CommandGroup heading="Projets récents">
+                                            <CommandGroup heading="Projets mis en avant">
                                                 {recentProjectItems}
                                                 <CommandItem
                                                     onSelect={() =>
@@ -663,7 +667,7 @@ export function CommandMenu() {
                                     {renderItems(navigationItems)}
                                 </CommandGroup>
                                 <CommandSeparator />
-                                <CommandGroup heading="Projets récents">
+                                <CommandGroup heading="Projets mis en avant">
                                     {recentProjectItems}
                                     <CommandItem
                                         onSelect={() =>
