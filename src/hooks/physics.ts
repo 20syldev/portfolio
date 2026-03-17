@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 
 interface PhysicsOptions {
+    circular?: boolean;
     friction?: number;
     springStiffness?: number;
     springDamping?: number;
@@ -258,6 +259,7 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
 
         const onPointerDown = (e: PointerEvent) => {
             if (e.button !== 0 || noMotion()) return;
+            if (configRef.current.circular && !isInside(e.clientX, e.clientY)) return;
             e.preventDefault();
             el.setPointerCapture(e.pointerId);
 
@@ -315,7 +317,7 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
             if (!dragging) return;
             dragging = false;
             draggingRef.current = false;
-            el.style.cursor = "grab";
+            el.style.cursor = configRef.current.circular ? "" : "grab";
 
             if (dragAnimId !== undefined) {
                 cancelAnimationFrame(dragAnimId);
@@ -347,8 +349,24 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
             });
         };
 
+        const isInside = (ex: number, ey: number) => {
+            const o = originRect;
+            if (!o) return true;
+            const cx = o.left + x + o.width / 2;
+            const cy = o.top + y + o.height / 2;
+            const r = Math.min(o.width, o.height) / 2;
+            const dx = ex - cx;
+            const dy = ey - cy;
+            return dx * dx + dy * dy <= r * r;
+        };
+
+        const onHover = (e: PointerEvent) => {
+            if (dragging || noMotion()) return;
+            el.style.cursor = isInside(e.clientX, e.clientY) ? "grab" : "";
+        };
+
         const applyInteractive = (on: boolean) => {
-            el.style.cursor = on ? "grab" : "";
+            el.style.cursor = on && !configRef.current.circular ? "grab" : "";
             el.style.touchAction = on ? "none" : "";
             el.style.userSelect = on ? "none" : "";
         };
@@ -373,7 +391,6 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
                     if (dragging) {
                         dragging = false;
                         draggingRef.current = false;
-                        el.style.cursor = "grab";
                         if (dragAnimId !== undefined) {
                             cancelAnimationFrame(dragAnimId);
                             dragAnimId = undefined;
@@ -399,7 +416,9 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
             e.stopPropagation();
         };
 
+        const circular = configRef.current.circular;
         el.addEventListener("pointerdown", onPointerDown);
+        if (circular) el.addEventListener("pointermove", onHover);
         el.addEventListener("touchstart", onTouchStart, { passive: true });
         window.addEventListener("pointermove", onPointerMove);
         window.addEventListener("pointerup", onPointerUp);
@@ -410,6 +429,7 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
             visibility.disconnect();
             observer.disconnect();
             el.removeEventListener("pointerdown", onPointerDown);
+            if (circular) el.removeEventListener("pointermove", onHover);
             el.removeEventListener("touchstart", onTouchStart);
             window.removeEventListener("pointermove", onPointerMove);
             window.removeEventListener("pointerup", onPointerUp);
