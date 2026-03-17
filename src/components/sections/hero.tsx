@@ -71,6 +71,7 @@ export function Hero() {
         isDragging,
         settle,
     } = useDraggablePhysics({
+        circular: true,
         onAllEdges: handleAllEdges,
     });
     useSparkle(logoRef, isDragging);
@@ -82,13 +83,14 @@ export function Hero() {
             const logo = logoRef.current;
             if (!logo) return;
             const rect = logo.getBoundingClientRect();
-            const touchesLogo = Array.from(e.touches).some(
-                (t) =>
-                    t.clientX >= rect.left &&
-                    t.clientX <= rect.right &&
-                    t.clientY >= rect.top &&
-                    t.clientY <= rect.bottom
-            );
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const r = Math.min(rect.width, rect.height) / 2;
+            const touchesLogo = Array.from(e.touches).some((t) => {
+                const dx = t.clientX - cx;
+                const dy = t.clientY - cy;
+                return dx * dx + dy * dy <= r * r;
+            });
             if (touchesLogo) triggerHole(rect);
         };
         window.addEventListener("touchstart", onTouch, { passive: true });
