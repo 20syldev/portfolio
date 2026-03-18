@@ -70,6 +70,13 @@ export const projects = [
         link: "https://planning.sylvain.sh/",
     },
     {
+        name: "StadiumCompany",
+        repo: "stadiumcompany",
+        branch: "master",
+        icon: "chart",
+        description: "App desktop et web de gestion de questionnaires",
+    },
+    {
         name: "PPE C#",
         repo: "PPE-csharp",
         branch: "master",
