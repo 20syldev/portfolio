@@ -5,6 +5,7 @@ import {
     Briefcase,
     BriefcaseBusiness,
     CalendarDays,
+    ChartBar,
     Database,
     Dot,
     Download,
@@ -72,6 +73,7 @@ function pickRandomCerts(
 
 const iconMap = {
     calendar: CalendarDays,
+    chart: ChartBar,
     database: Database,
     plane: Plane,
 };
