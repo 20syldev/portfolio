@@ -101,7 +101,13 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
                                         : "border bg-card transition-colors hover:bg-muted/50"
                                 } ${project.archived || project.paused ? "inactive" : ""}`}
                             >
-                                {status && <StatusBadge status={status} github={project.github} />}
+                                {status && (
+                                    <StatusBadge
+                                        status={status}
+                                        github={project.github}
+                                        npm={project.npm}
+                                    />
+                                )}
 
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm font-medium">{project.name}</span>
@@ -109,9 +115,12 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
                                         {loading ? (
                                             <Skeleton className="h-5 w-10" />
                                         ) : getVersion(project.id) ? (
-                                            project.github ? (
+                                            project.npm || project.github ? (
                                                 <a
-                                                    href={`${project.github}/releases/latest`}
+                                                    href={
+                                                        project.npm ??
+                                                        `${project.github}/releases/latest`
+                                                    }
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     onClick={(e) => e.stopPropagation()}
