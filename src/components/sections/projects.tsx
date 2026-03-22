@@ -120,7 +120,11 @@ export function Projects() {
                                 >
                                     {/* Status Badge */}
                                     {status && (
-                                        <StatusBadge status={status} github={project.github} />
+                                        <StatusBadge
+                                            status={status}
+                                            github={project.github}
+                                            npm={project.npm}
+                                        />
                                     )}
 
                                     <div className="flex items-center justify-between">
@@ -129,9 +133,12 @@ export function Projects() {
                                             {loading ? (
                                                 <Skeleton className="h-5 w-10" />
                                             ) : getVersion(project.id) ? (
-                                                project.github ? (
+                                                project.npm || project.github ? (
                                                     <a
-                                                        href={`${project.github}/releases/latest`}
+                                                        href={
+                                                            project.npm ??
+                                                            `${project.github}/releases/latest`
+                                                        }
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         onClick={(e) => e.stopPropagation()}
