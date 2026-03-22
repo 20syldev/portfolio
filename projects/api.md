@@ -5,7 +5,7 @@ longDescription: API REST complète développée en Node.js avec Express. Elle f
 tags: ["Node.js", "Express", "Module"]
 github: "https://github.com/20syldev/api"
 demo: "https://api.sylvain.sh"
-npm: "https://npmjs.com/package/@20syldev/api"
+npm: "https://npmjs.com/@20syldev/api"
 ---
 
 ## À propos {#about}
