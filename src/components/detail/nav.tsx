@@ -174,7 +174,7 @@ export function DetailNav({
         return (
             <nav
                 className={cn(
-                    "bg-background/80 backdrop-blur-sm border-b border-border p-2 -mx-4 px-4 sm:-mx-6 sm:px-6",
+                    "bg-background/80 backdrop-blur-sm border-b border-border p-2 px-4 sm:px-6",
                     className
                 )}
             >

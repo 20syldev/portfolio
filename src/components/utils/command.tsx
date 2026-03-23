@@ -54,7 +54,6 @@ import { docs } from "@/data/docs";
 import { projects } from "@/data/projects";
 import { formatShortcut, getShortcut } from "@/data/shortcuts";
 import { veilles } from "@/data/veille";
-import { useProjectDetail } from "@/hooks/detail";
 import { type ProjectStatus, useProjectStatus } from "@/hooks/status";
 import { getCategoryName } from "@/lib/docs";
 import { cn } from "@/lib/utils";
@@ -200,7 +199,6 @@ export function CommandMenu() {
     const { dialogOpen: fontDialogOpen, setDialogOpen: setFontDialogOpen } = useFont();
     const { enabled: motionEnabled, setEnabled: setMotionEnabled } = useMotion();
     const { enabled: xrayEnabled, setEnabled: setXrayEnabled } = useXray();
-    const { openProject } = useProjectDetail();
     const { openPdf } = usePdfViewer();
     const getProjectStatus = useProjectStatus();
 
@@ -442,13 +440,7 @@ export function CommandMenu() {
                     key={project.id}
                     value={project.name}
                     keywords={[project.description, ...project.tags]}
-                    onSelect={() =>
-                        runCommand(() =>
-                            openProject(project.id, {
-                                onClose: () => setOpen(true),
-                            })
-                        )
-                    }
+                    onSelect={() => runCommand(() => router.push(`/projet/${project.id}`))}
                 >
                     {status ? (
                         <Tooltip>
@@ -537,13 +529,7 @@ export function CommandMenu() {
                 key={project.id}
                 value={project.name}
                 keywords={[project.description, ...project.tags]}
-                onSelect={() =>
-                    runCommand(() =>
-                        openProject(project.id, {
-                            onClose: () => setOpen(true),
-                        })
-                    )
-                }
+                onSelect={() => runCommand(() => router.push(`/projet/${project.id}`))}
             >
                 <FolderOpen className="mr-2 h-4 w-4" />
                 {project.name}

@@ -13,7 +13,6 @@ import { Tags } from "@/components/ui/tags";
 import { type Project, projects } from "@/data/projects";
 import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
-import { useProjectDetail } from "@/hooks/detail";
 import { useProjectStatus } from "@/hooks/status";
 
 /** Card height in pixels for row calculation */
@@ -85,13 +84,6 @@ export function Projects() {
         if (!versions) return undefined;
         const apiKey = getApiKey(projectId);
         return versions[apiKey];
-    };
-
-    const { openProject } = useProjectDetail();
-
-    const handleOpenDetail = (project: Project) => {
-        setSelectedProject(null);
-        openProject(project.id);
     };
 
     const previewProjects = projects.slice(0, count);
@@ -185,7 +177,6 @@ export function Projects() {
                 version={selectedProject ? getVersion(selectedProject.id) : undefined}
                 status={selectedProject ? getProjectStatus(selectedProject.id) : null}
                 onOpenChange={() => setSelectedProject(null)}
-                onOpenDetail={handleOpenDetail}
             />
         </>
     );

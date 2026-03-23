@@ -13,7 +13,6 @@ import { MotionProvider } from "@/components/utils/motion";
 import { NotifProvider } from "@/components/utils/notif";
 import { PdfViewerProvider } from "@/components/utils/viewer";
 import { XrayProvider } from "@/components/utils/xray";
-import { ProjectDetailProvider } from "@/hooks/detail";
 
 /**
  * Provider for Lenis smooth scrolling functionality.
@@ -67,13 +66,11 @@ export function ThemeProvider({
                     <FontProvider>
                         <FontDialog />
                         <PdfViewerProvider>
-                            <ProjectDetailProvider>
-                                <KonamiProvider>
-                                    <MotionProvider>
-                                        <XrayProvider>{children}</XrayProvider>
-                                    </MotionProvider>
-                                </KonamiProvider>
-                            </ProjectDetailProvider>
+                            <KonamiProvider>
+                                <MotionProvider>
+                                    <XrayProvider>{children}</XrayProvider>
+                                </MotionProvider>
+                            </KonamiProvider>
                         </PdfViewerProvider>
                     </FontProvider>
                     <NotifProvider />

@@ -1,6 +1,7 @@
 "use client";
 
 import { BookOpen } from "lucide-react";
+import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -22,7 +23,6 @@ interface CardDialogProps {
     version?: string;
     status?: ProjectStatus;
     onOpenChange: (open: boolean) => void;
-    onOpenDetail?: (project: Project) => void;
 }
 
 /**
@@ -36,13 +36,7 @@ interface CardDialogProps {
  * @param props.onOpenDetail - Optional callback to open full project detail
  * @returns The rendered card dialog
  */
-export function CardDialog({
-    project,
-    version,
-    status,
-    onOpenChange,
-    onOpenDetail,
-}: CardDialogProps) {
+export function CardDialog({ project, version, status, onOpenChange }: CardDialogProps) {
     return (
         <Dialog open={!!project} onOpenChange={() => onOpenChange(false)}>
             <DialogContent className="sm:max-w-lg">
@@ -66,10 +60,12 @@ export function CardDialog({
 
                 <div className="flex flex-wrap gap-2 pt-4">
                     {project && <ProjectLinks project={project} />}
-                    {project && hasProjectContent(project.id) && onOpenDetail && (
-                        <Button size="sm" variant="secondary" onClick={() => onOpenDetail(project)}>
-                            <BookOpen className="mr-2 h-4 w-4" />
-                            En savoir plus
+                    {project && hasProjectContent(project.id) && (
+                        <Button size="sm" variant="secondary" asChild>
+                            <Link href={`/projet/${project.id}`}>
+                                <BookOpen className="mr-2 h-4 w-4" />
+                                En savoir plus
+                            </Link>
                         </Button>
                     )}
                 </div>
