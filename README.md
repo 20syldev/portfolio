@@ -72,19 +72,17 @@ npm run generate && next dev --hostname 0.0.0.0 --port 2146
 
 ## URLs des projets
 
-| URL                 | Description                                |
-| ------------------- | ------------------------------------------ |
-| `/{projet}`         | Redirection vers le site externe du projet |
-| `/card/{projet}`    | Carte du projet (popup)                    |
-| `/projet/{projet}`  | Page complète du projet (vue)              |
-| `/preview/{projet}` | Modal complète du projet (popup)           |
+| URL                | Description                                |
+| ------------------ | ------------------------------------------ |
+| `/{projet}`        | Redirection vers le site externe du projet |
+| `/card/{projet}`   | Carte du projet (popup)                    |
+| `/projet/{projet}` | Page complète du projet (vue)              |
 
 **Exemples :**
 
 - `sylvain.sh/api` - Redirection vers api.sylvain.sh
 - `sylvain.sh/card/api` - Carte du projet API
 - `sylvain.sh/projet/api` - Vue complète du projet API
-- `sylvain.sh/preview/api` - Preview du projet API
 
 ---
 
