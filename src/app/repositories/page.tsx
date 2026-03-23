@@ -17,7 +17,6 @@ import { Tags } from "@/components/ui/tags";
 import { type Project, projects } from "@/data/projects";
 import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
-import { useProjectDetail } from "@/hooks/detail";
 import { useSmoothScroll } from "@/hooks/scroll";
 import { useProjectStatus } from "@/hooks/status";
 import { tabs, urls } from "@/lib/nav";
@@ -42,19 +41,11 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
         : null;
     const [selectedProject, setSelectedProject] = useState<Project | null>(initialProject ?? null);
     const [showContributions, setShowContributions] = useState(false);
-    const { openProject } = useProjectDetail();
 
     const getVersion = (projectId: string): string | undefined => {
         if (!versions) return undefined;
         const apiKey = getApiKey(projectId);
         return versions[apiKey];
-    };
-
-    const handleOpenDetail = (project: Project) => {
-        setSelectedProject(null);
-        openProject(project.id, {
-            onClose: initialProjectId ? () => setSelectedProject(project) : undefined,
-        });
     };
 
     return (
@@ -160,7 +151,6 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
                 version={selectedProject ? getVersion(selectedProject.id) : undefined}
                 status={selectedProject ? getProjectStatus(selectedProject.id) : null}
                 onOpenChange={() => setSelectedProject(null)}
-                onOpenDetail={handleOpenDetail}
             />
 
             <ContributionsDialog open={showContributions} onOpenChange={setShowContributions} />
