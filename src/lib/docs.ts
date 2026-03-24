@@ -11,6 +11,7 @@ const categoryNames: Record<string, string> = {
     linux: "Linux",
     markdown: "Markdown",
     networking: "Réseau",
+    packages: "Packages",
     pfsense: "pfSense",
     rsync: "Rsync",
     ssh: "SSH",
