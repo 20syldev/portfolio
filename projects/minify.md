@@ -5,6 +5,7 @@ longDescription: "Module NPM minimaliste pour minifier du code JavaScript à par
 tags: ["Node.js", "Module"]
 github: "https://github.com/20syldev/minify.js"
 npm: "https://npmjs.com/@20syldev/minify.js"
+docs: "packages/minify"
 ---
 
 ## À propos {#about}

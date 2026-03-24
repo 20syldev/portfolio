@@ -6,6 +6,7 @@ tags: ["Node.js", "Express", "Module"]
 github: "https://github.com/20syldev/api"
 demo: "https://api.sylvain.sh"
 npm: "https://npmjs.com/@20syldev/api"
+docs: "packages/api"
 ---
 
 ## À propos {#about}
