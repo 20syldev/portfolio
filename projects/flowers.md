@@ -1,26 +1,34 @@
 ---
 name: Flowers
-description: Application de création de LogCenter.
-longDescription: "LogCenter customisable et modulable permettant de connecter plusieurs APIs JSON et de visualiser les données en temps réel, sans création de compte."
-tags: ["HTML", "CSS", "JS"]
+description: Visualiseur de données en temps réel pour toute API JSON.
+longDescription: "Visualiseur de données en temps réel développé avec Next.js 16, Tailwind CSS 4 et Radix UI. Détection automatique des types de données, filtrage avancé, presets, comparaison côte à côte et le tout sans serveur."
+tags: ["Next.js", "Radix UI", "Tailwind CSS", "TS"]
 github: "https://github.com/20syldev/flowers"
 demo: "https://flowers.sylvain.sh"
-paused: true
 ---
 
 ## À propos {#about}
 
-Cette application web permet de personnaliser un centre de logs pour visualiser les données envoyées par des APIs.
-Elle est disponible sur [flowers.sylvain.sh](https://flowers.sylvain.sh) sans nécessiter de compte.
+Flowers est un visualiseur de données en temps réel pour toute API JSON.
+Entièrement réécrit en Next.js pour la v1.0.0, il est disponible sur [flowers.sylvain.sh](https://flowers.sylvain.sh) sans nécessiter de compte.
+Toutes les données sont stockées localement dans votre navigateur.
 
 ## Fonctionnalités {#features}
 
 Flowers est conçu pour être flexible et adaptable à vos besoins.
-Vous avez la possibilité d'ajouter une ou plusieurs APIs qui renvoient des données au format JSON.
-L'interface de Flowers interprète ces données et génère automatiquement les éléments nécessaires pour les afficher de manière claire et organisée.
 
-Grâce à cette approche modulable, vous pouvez facilement connecter différentes sources de données et personnaliser l'affichage des logs selon vos préférences.
-Que ce soit pour suivre les performances d'une API ou surveiller des événements spécifiques, Flowers vous offre une solution simple pour visualiser vos logs.
+**Capacités principales :**
+
+- **Détection automatique** des types de champs (status, méthode HTTP, URL, timestamp, durée, etc.)
+- **Filtrage avancé** par codes de status, méthodes HTTP et recherche textuelle libre
+- **Presets** : sauvegardez et rechargez vos configurations d'APIs
+- **Temps réel** : polling automatique avec intervalle configurable
+- **Comparaison** côte à côte de deux entrées pour visualiser les différences
+- **Import/Export** de vos données pour les partager ou les sauvegarder
+- **Internationalisation** : interface disponible en français et en anglais
+- **Stockage local** : aucune donnée n'est envoyée à un serveur externe
+
+**Technologies utilisées :** TypeScript, Lucide Icons, Lenis (smooth scroll), next-themes, TanStack Virtual.
 
 ## Comment l'utiliser ? {#usage}
 
@@ -28,11 +36,7 @@ L'utilisation est simple et ne nécessite aucune inscription :
 
 1. Accédez à [flowers.sylvain.sh](https://flowers.sylvain.sh)
 2. Ajoutez l'URL d'une API renvoyant du JSON
-3. L'interface interprète automatiquement les données et crée les éléments d'affichage
+3. Flowers détecte automatiquement les types de données et génère l'affichage
+4. Filtrez, comparez et exportez vos données selon vos besoins
 
-Vous pouvez connecter plusieurs APIs simultanément pour centraliser vos logs.
-
-## Documentation à venir {#docs}
-
-Une documentation détaillée sera disponible lors de la version 1.0.0 afin de vous guider dans l'intégration et l'utilisation de cette interface.
-Elle expliquera comment configurer vos APIs, personnaliser l'interface, et tirer le meilleur parti de toutes les fonctionnalités offertes par Flowers.
+Vous pouvez connecter plusieurs APIs simultanément et sauvegarder vos configurations en tant que presets.
