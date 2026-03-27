@@ -58,6 +58,7 @@ export function StatusBadge({ status, github, npm, variant = "absolute" }: Statu
             href={href}
             target="_blank"
             rel="noopener noreferrer"
+            className="inline-flex"
             onClick={(e) => e.stopPropagation()}
         >
             {badge}

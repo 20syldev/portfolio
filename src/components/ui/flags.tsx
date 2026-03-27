@@ -33,17 +33,18 @@ export function ProjectMeta({ version, status, project }: ProjectMetaProps) {
                         href={project?.npm ?? `${project.github}/releases/latest`}
                         target="_blank"
                         rel="noopener noreferrer"
+                        className="inline-flex"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <Badge
                             variant="outline"
-                            className="text-xs hover:bg-muted transition-colors"
+                            className="text-xs h-5 hover:bg-muted transition-colors"
                         >
                             {version}
                         </Badge>
                     </a>
                 ) : (
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="outline" className="text-xs h-5">
                         {version}
                     </Badge>
                 ))}
