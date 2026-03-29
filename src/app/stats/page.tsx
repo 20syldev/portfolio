@@ -116,19 +116,19 @@ export default function StatsPage() {
                                 label="Contributions aujourd'hui"
                                 value={stats?.today ?? "—"}
                                 icon={Github}
-                                loading={loading}
+                                loading={loading || stats?.today == null}
                             />
                             <StatCard
                                 label="Contributions ce mois"
                                 value={stats?.month ?? "—"}
                                 icon={Github}
-                                loading={loading}
+                                loading={loading || stats?.month == null}
                             />
                             <StatCard
                                 label="Contributions l'an dernier"
                                 value={stats?.year ?? "—"}
                                 icon={Github}
-                                loading={loading}
+                                loading={loading || stats?.year == null}
                             />
                         </div>
                     </section>
@@ -259,7 +259,7 @@ export default function StatsPage() {
                                         : "—"
                                 }
                                 icon={Zap}
-                                loading={browserLoading}
+                                loading={browserLoading || browserStats?.apiLatency == null}
                             />
                             <StatCard
                                 label="Chargement"
@@ -269,25 +269,25 @@ export default function StatsPage() {
                                         : "—"
                                 }
                                 icon={Clock}
-                                loading={browserLoading}
+                                loading={browserLoading || browserStats?.pageLoadTime == null}
                             />
                             <StatCard
                                 label="TTFB"
                                 value={browserStats?.ttfb != null ? `${browserStats.ttfb}ms` : "—"}
                                 icon={Gauge}
-                                loading={browserLoading}
+                                loading={browserLoading || browserStats?.ttfb == null}
                             />
                             <StatCard
                                 label="FPS"
                                 value={browserStats?.fps ?? "—"}
                                 icon={Monitor}
-                                loading={browserLoading}
+                                loading={browserLoading || browserStats?.fps == null}
                             />
                             <StatCard
                                 label="Nodes DOM"
                                 value={browserStats?.domNodes ?? "—"}
                                 icon={Box}
-                                loading={browserLoading}
+                                loading={browserLoading || browserStats?.domNodes == null}
                             />
                             <StatCard
                                 label="Mémoire JS"
@@ -297,7 +297,7 @@ export default function StatsPage() {
                                         : "—"
                                 }
                                 icon={Cpu}
-                                loading={browserLoading}
+                                loading={browserLoading || browserStats?.jsHeapMB == null}
                             />
                         </div>
                     </section>
