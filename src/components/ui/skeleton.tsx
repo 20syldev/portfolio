@@ -7,5 +7,7 @@ import { cn } from "@/lib/utils";
  * @returns The rendered skeleton element
  */
 export function Skeleton({ className, ...props }: React.ComponentProps<"span">) {
-    return <span className={cn("rounded-full bg-muted animate-pulse", className)} {...props} />;
+    return (
+        <span className={cn("block rounded-full bg-muted animate-pulse", className)} {...props} />
+    );
 }
