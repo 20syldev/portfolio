@@ -45,7 +45,7 @@ export function ActivityChart({ data, loading }: { data?: ActivityWeek[]; loadin
                     <CardTitle className="text-sm font-medium">Contributions GitHub</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <Skeleton className="h-[300px] w-full rounded-lg" />
+                    <Skeleton className="h-[320px] w-full rounded-lg" />
                 </CardContent>
             </Card>
         );
@@ -108,7 +108,7 @@ export function ActivityChart({ data, loading }: { data?: ActivityWeek[]; loadin
             <CardHeader>
                 <CardTitle className="text-sm font-medium">Contributions GitHub</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-0">
                 <svg viewBox={`0 0 ${W} ${H}`} width="100%" preserveAspectRatio="xMidYMid meet">
                     {/* Grid lines */}
                     {Array.from({ length: ticks + 1 }, (_, i) => {
