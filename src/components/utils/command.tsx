@@ -5,6 +5,7 @@ import {
     BadgeCheck,
     BookOpen,
     Briefcase,
+    ChartBar,
     FilePenLine,
     FileText,
     FolderOpen,
@@ -29,9 +30,11 @@ import {
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import * as React from "react";
+import ReactDOM from "react-dom";
 
 import { ContactDialog } from "@/components/dialogs/contact";
 import { ShortcutsDialog } from "@/components/dialogs/shortcuts";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
     CommandDialog,
@@ -43,7 +46,6 @@ import {
     CommandSeparator,
     CommandShortcut,
 } from "@/components/ui/command";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useCursor } from "@/components/utils/cursor";
 import { useFont } from "@/components/utils/font";
 import { useMotion } from "@/components/utils/motion";
@@ -62,12 +64,6 @@ const statusIcon: Record<Exclude<ProjectStatus, null>, React.ElementType> = {
     new: Sparkles,
     updated: RefreshCw,
     patched: Wrench,
-};
-
-const statusLabel: Record<Exclude<ProjectStatus, null>, string> = {
-    new: "Nouveau projet",
-    updated: "Mis à jour récemment",
-    patched: "Correctif récent",
 };
 
 type CommandItemConfig = {
@@ -186,12 +182,62 @@ export function SearchButton() {
  *
  * @returns The rendered command dialog
  */
+/**
+ * Tooltip card shown on hover for command items with rich data.
+ *
+ * @param props - Tooltip content props
+ * @param props.title - Item title
+ * @param props.description - Item description
+ * @param props.tags - Optional tag list
+ * @returns The rendered tooltip content
+ */
+type HoverPreview = {
+    title: string;
+    description?: string;
+    tags?: string[];
+    rect: DOMRect;
+} | null;
+
+function CommandPreviewCard({ preview }: { preview: HoverPreview }) {
+    if (!preview) return null;
+
+    const { title, description, tags, rect } = preview;
+
+    return ReactDOM.createPortal(
+        <div
+            className="fixed z-[200] p-0 bg-background text-foreground border rounded-xl shadow-xl w-[220px] animate-in fade-in-0 zoom-in-95 duration-150 hidden md:block"
+            style={{
+                top: rect.top,
+                left: rect.right + 8,
+            }}
+        >
+            <div className="flex flex-col gap-2 p-4">
+                <p className="font-medium text-sm leading-tight">{title}</p>
+                {description && (
+                    <p className="text-xs text-muted-foreground line-clamp-3">{description}</p>
+                )}
+                {tags && tags.length > 0 && (
+                    <div className="flex flex-wrap gap-1">
+                        {tags.slice(0, 5).map((tag) => (
+                            <Badge key={tag} variant="outline" className="text-[10px] py-0">
+                                {tag}
+                            </Badge>
+                        ))}
+                    </div>
+                )}
+            </div>
+        </div>,
+        document.body
+    );
+}
+
 export function CommandMenu() {
     const { open, setOpen } = useCommand();
     const [search, setSearch] = React.useState("");
     const [contactOpen, setContactOpen] = React.useState(false);
     const [shortcutsOpen, setShortcutsOpen] = React.useState(false);
     const [scrolled, setScrolled] = React.useState(false);
+    const [hoverPreview, setHoverPreview] = React.useState<HoverPreview>(null);
     const scrollReadyRef = React.useRef(false);
     const router = useRouter();
     const { theme, setTheme } = useTheme();
@@ -299,6 +345,12 @@ export function CommandMenu() {
         { label: "Tous les projets", icon: LayoutList, action: () => router.push("/repositories") },
         { label: "Documentations", icon: BookOpen, action: () => router.push("/help") },
         { label: "Mes technologies", icon: Wrench, action: () => router.push("/tech") },
+        {
+            label: "Statistiques",
+            icon: ChartBar,
+            action: () => router.push("/stats"),
+            keywords: ["stats", "statistiques", "métriques", "projets", "certifications"],
+        },
     ];
 
     const profilItems: CommandItemConfig[] = [
@@ -430,6 +482,16 @@ export function CommandMenu() {
         .filter((p) => getProjectStatus(p.id) === null)
         .slice(0, maxRecentProjects - statusProjects.length);
 
+    const handleHover = (
+        e: React.MouseEvent,
+        data: { title: string; description?: string; tags?: string[] }
+    ) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        setHoverPreview({ ...data, rect });
+    };
+
+    const clearHover = () => setHoverPreview(null);
+
     const recentProjectItems = [...statusProjects, ...fillerProjects]
         .slice(0, maxRecentProjects)
         .map((project) => {
@@ -441,19 +503,16 @@ export function CommandMenu() {
                     value={project.name}
                     keywords={[project.description, ...project.tags]}
                     onSelect={() => runCommand(() => router.push(`/projet/${project.id}`))}
+                    onMouseEnter={(e) =>
+                        handleHover(e, {
+                            title: project.name,
+                            description: project.longDescription || project.description,
+                            tags: project.tags,
+                        })
+                    }
+                    onMouseLeave={clearHover}
                 >
-                    {status ? (
-                        <Tooltip>
-                            <TooltipTrigger asChild>
-                                <span className="mr-2 inline-flex">
-                                    <Icon className="h-4 w-4" />
-                                </span>
-                            </TooltipTrigger>
-                            <TooltipContent side="left">{statusLabel[status]}</TooltipContent>
-                        </Tooltip>
-                    ) : (
-                        <Icon className="mr-2 h-4 w-4" />
-                    )}
+                    <Icon className="mr-2 h-4 w-4" />
                     {project.name}
                     <span className="ml-2 text-xs text-muted-foreground">
                         {project.tags.join(", ")}
@@ -491,6 +550,14 @@ export function CommandMenu() {
             value={doc.title}
             keywords={[doc.description, doc.category, "documentation", "aide", "help", "guide"]}
             onSelect={() => runCommand(() => router.push(`/help/${doc.category}/${doc.slug}`))}
+            onMouseEnter={(e) =>
+                handleHover(e, {
+                    title: doc.title,
+                    description: doc.description,
+                    tags: [getCategoryName(doc.category)],
+                })
+            }
+            onMouseLeave={clearHover}
         >
             <FileText className="mr-2 h-4 w-4" />
             {doc.title}
@@ -513,6 +580,14 @@ export function CommandMenu() {
                 "technologiques",
             ]}
             onSelect={() => runCommand(() => router.push(`/veilles/#${veille.id}`))}
+            onMouseEnter={(e) =>
+                handleHover(e, {
+                    title: veille.title,
+                    description: veille.description,
+                    tags: veille.keywords,
+                })
+            }
+            onMouseLeave={clearHover}
         >
             <Newspaper className="mr-2 h-4 w-4" />
             {veille.title}
@@ -530,6 +605,14 @@ export function CommandMenu() {
                 value={project.name}
                 keywords={[project.description, ...project.tags]}
                 onSelect={() => runCommand(() => router.push(`/projet/${project.id}`))}
+                onMouseEnter={(e) =>
+                    handleHover(e, {
+                        title: project.name,
+                        description: project.longDescription || project.description,
+                        tags: project.tags,
+                    })
+                }
+                onMouseLeave={clearHover}
             >
                 <FolderOpen className="mr-2 h-4 w-4" />
                 {project.name}
@@ -545,6 +628,14 @@ export function CommandMenu() {
             value={project.title}
             keywords={[project.description, ...project.technologies]}
             onSelect={() => runCommand(() => router.push(`/alternance/#${project.id}`))}
+            onMouseEnter={(e) =>
+                handleHover(e, {
+                    title: project.title,
+                    description: project.description,
+                    tags: project.technologies,
+                })
+            }
+            onMouseLeave={clearHover}
         >
             <Briefcase className="mr-2 h-4 w-4" />
             {project.title}
@@ -560,7 +651,10 @@ export function CommandMenu() {
                 open={open}
                 onOpenChange={(value: boolean) => {
                     setOpen(value);
-                    if (!value) setSearch("");
+                    if (!value) {
+                        setSearch("");
+                        setHoverPreview(null);
+                    }
                 }}
                 filter={commandFilter}
                 className={cn(
@@ -682,6 +776,7 @@ export function CommandMenu() {
                     )}
                 </CommandList>
             </CommandDialog>
+            <CommandPreviewCard preview={hoverPreview} />
             <ContactDialog open={contactOpen} onOpenChange={setContactOpen} />
             <ShortcutsDialog
                 open={shortcutsOpen}
