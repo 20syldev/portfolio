@@ -2,6 +2,7 @@
 
 import {
     Award,
+    BookOpen,
     Briefcase,
     BriefcaseBusiness,
     CalendarDays,
@@ -20,6 +21,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { Sparkline } from "@/components/stats/chart";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -42,6 +44,7 @@ import {
     totalGdevBadges,
 } from "@/data/achievements";
 import { contributions, profile, projects } from "@/data/profile";
+import { projects as allProjects } from "@/data/projects";
 import { useApi } from "@/hooks/api";
 import { useDragScroll } from "@/hooks/scroll";
 import { random } from "@/lib/utils";
@@ -86,13 +89,16 @@ const count = 3;
  *
  * @param props - Component properties.
  * @param props.stats - API stats for experience years.
+ * @param props.loading - Whether API data is still loading.
  * @param props.className - Optional CSS class.
  */
 function ParcoursCard({
     stats,
+    loading,
     className,
 }: {
     stats: ReturnType<typeof useApi>["stats"];
+    loading?: boolean;
     className?: string;
 }) {
     return (
@@ -118,7 +124,7 @@ function ParcoursCard({
                                 <LucideBookOpenText className="ml-1 h-3 w-3" />
                             </Button>
                         </DialogTrigger>
-                        <DialogContent aria-describedby={undefined}>
+                        <DialogContent className="sm:max-w-xl" aria-describedby={undefined}>
                             <DialogHeader>
                                 <DialogTitle>Projets Ensitech</DialogTitle>
                             </DialogHeader>
@@ -140,6 +146,18 @@ function ParcoursCard({
                                                 </p>
                                             </div>
                                             <div className="flex gap-2">
+                                                {allProjects.some((p) => p.id === project.repo) && (
+                                                    <Button
+                                                        asChild
+                                                        variant="outline"
+                                                        size="icon"
+                                                        className="h-8 w-8"
+                                                    >
+                                                        <Link href={`/projet/${project.repo}`}>
+                                                            <BookOpen className="h-4 w-4" />
+                                                        </Link>
+                                                    </Button>
+                                                )}
                                                 {project.link && (
                                                     <Button
                                                         asChild
@@ -213,11 +231,23 @@ function ParcoursCard({
                 <div className="border-t pt-3 space-y-1 text-xs">
                     <div className="flex justify-between">
                         <span className="text-muted-foreground">Front-End</span>
-                        <span className="font-medium">{stats?.frontend || "8 ans"}</span>
+                        <span className="font-medium">
+                            {loading ? (
+                                <Skeleton className="inline-block h-3 w-10 align-middle" />
+                            ) : (
+                                stats?.frontend || "8 ans"
+                            )}
+                        </span>
                     </div>
                     <div className="flex justify-between">
                         <span className="text-muted-foreground">Back-End</span>
-                        <span className="font-medium">{stats?.backend || "5 ans"}</span>
+                        <span className="font-medium">
+                            {loading ? (
+                                <Skeleton className="inline-block h-3 w-10 align-middle" />
+                            ) : (
+                                stats?.backend || "5 ans"
+                            )}
+                        </span>
                     </div>
                 </div>
             </CardContent>
@@ -231,13 +261,16 @@ function ParcoursCard({
  *
  * @param props - Component properties.
  * @param props.stats - API stats for commit counts.
+ * @param props.loading - Whether API data is still loading.
  * @param props.className - Optional CSS class.
  */
 function GitHubCard({
     stats,
+    loading,
     className,
 }: {
     stats: ReturnType<typeof useApi>["stats"];
+    loading?: boolean;
     className?: string;
 }) {
     return (
@@ -257,21 +290,14 @@ function GitHubCard({
                 >
                     @20syldev
                 </a>
-                <div className="space-y-1 text-xs">
-                    <div className="flex justify-between">
-                        <span className="text-muted-foreground">Contributions aujourd'hui</span>
-                        <span className="font-medium">{stats?.today || "—"}</span>
-                    </div>
-                    <div className="flex justify-between">
-                        <span className="text-muted-foreground">Contributions ce mois</span>
-                        <span className="font-medium">{stats?.this_month || "—"}</span>
-                    </div>
-                    <div className="flex justify-between">
-                        <span className="text-muted-foreground">Contributions l'an dernier</span>
-                        <span className="font-medium">{stats?.last_year || "—"}</span>
-                    </div>
-                </div>
-                <div className="border-t pt-3 space-y-1.5 text-xs">
+                <Link href="/stats">
+                    {loading ? (
+                        <Skeleton className="h-[75px] w-full rounded" />
+                    ) : (
+                        <Sparkline data={stats?.activity} className="w-full h-[75px]" interactive />
+                    )}
+                </Link>
+                <div className="border-t pt-3 mt-2 space-y-1.5 text-xs">
                     <div className="flex items-center gap-1.5 text-muted-foreground mb-2">
                         <GitPullRequest className="h-3 w-3" />
                         <span>Contributions importantes</span>
@@ -423,7 +449,7 @@ function CertificationsCard({ className }: { className?: string }) {
  * @returns The rendered info cards section
  */
 export function Cards() {
-    const { stats } = useApi();
+    const { stats, loading } = useApi();
     const scrollRef = useRef<HTMLDivElement>(null);
     const [scrollProgress, setScrollProgress] = useState(0);
     useDragScroll(scrollRef);
@@ -474,10 +500,10 @@ export function Cards() {
                 className="flex snap-x snap-mandatory overflow-x-auto py-3 scrollbar-hide lg:hidden"
             >
                 <div className="flex-shrink-0 w-full snap-center flex justify-center px-4">
-                    <ParcoursCard stats={stats} className="w-full max-w-lg" />
+                    <ParcoursCard stats={stats} loading={loading} className="w-full max-w-lg" />
                 </div>
                 <div className="flex-shrink-0 w-full snap-center flex justify-center px-4">
-                    <GitHubCard stats={stats} className="w-full max-w-lg" />
+                    <GitHubCard stats={stats} loading={loading} className="w-full max-w-lg" />
                 </div>
                 <div className="flex-shrink-0 w-full snap-center flex justify-center px-4">
                     <CertificationsCard className="w-full max-w-lg" />
@@ -502,8 +528,8 @@ export function Cards() {
 
             {/* Desktop grid */}
             <div className="hidden lg:grid gap-4 lg:grid-cols-3 xl:gap-8">
-                <ParcoursCard stats={stats} />
-                <GitHubCard stats={stats} />
+                <ParcoursCard stats={stats} loading={loading} />
+                <GitHubCard stats={stats} loading={loading} />
                 <CertificationsCard />
             </div>
         </div>
