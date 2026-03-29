@@ -2,12 +2,24 @@
 
 import { useEffect, useState } from "react";
 
+interface ActivityDay {
+    date: string;
+    count: number;
+}
+
+export interface ActivityWeek {
+    week: string;
+    total: number;
+    days: ActivityDay[];
+}
+
 interface Stats {
     frontend?: string;
     backend?: string;
     today?: string;
-    this_month?: string;
-    last_year?: string;
+    month?: string;
+    year?: string;
+    activity?: ActivityWeek[];
 }
 
 type Versions = Record<string, string>;
@@ -52,8 +64,33 @@ export function useApi(): CachedData & { loading: boolean } {
             fetchPromise = fetch("https://api.sylvain.sh/latest/website")
                 .then((res) => res.json())
                 .then((api) => {
+                    const raw = api?.stats;
+                    const activity: ActivityWeek[] = raw?.activity || [];
+
+                    // Derive contribution counts from activity data
+                    const today = new Date().toISOString().split("T")[0];
+                    const monthStart = today.slice(0, 8) + "01";
+                    const allDays = activity.flatMap((w) => w.days);
+
+                    const todayCount = allDays
+                        .filter((d) => d.date === today)
+                        .reduce((s, d) => s + d.count, 0);
+                    const monthCount = allDays
+                        .filter((d) => d.date >= monthStart)
+                        .reduce((s, d) => s + d.count, 0);
+                    const yearCount = activity.reduce((s, w) => s + w.total, 0);
+
                     cachedData = {
-                        stats: api?.stats || null,
+                        stats: raw
+                            ? {
+                                  frontend: raw[2] || undefined,
+                                  backend: raw[3] || undefined,
+                                  today: String(todayCount),
+                                  month: String(monthCount),
+                                  year: String(yearCount),
+                                  activity,
+                              }
+                            : null,
                         versions: api?.versions || null,
                         patchedProjects: api?.patched_projects || [],
                         updatedProjects: api?.updated_projects || [],
