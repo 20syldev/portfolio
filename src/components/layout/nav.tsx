@@ -4,7 +4,7 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { ThemeToggle } from "@/components/layout/toggle";
+import { ThemeToggle } from "@/components/layout/theme";
 import { Button } from "@/components/ui/button";
 import { Collapsible } from "@/components/ui/collapsible";
 import { Name } from "@/components/ui/name";
