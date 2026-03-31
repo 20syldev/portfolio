@@ -13,7 +13,7 @@ import { Tags } from "@/components/ui/tags";
 import { type Project, projects } from "@/data/projects";
 import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
-import { useProjectStatus } from "@/hooks/status";
+import { useStatus } from "@/hooks/status";
 
 /** Card height in pixels for row calculation */
 const cardHeight = 124;
@@ -76,7 +76,7 @@ function useProjectGrid() {
  */
 export function Projects() {
     const { versions, loading } = useApi();
-    const getProjectStatus = useProjectStatus();
+    const getProjectStatus = useStatus();
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const { cols, count } = useProjectGrid();
 

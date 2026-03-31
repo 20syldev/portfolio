@@ -56,7 +56,7 @@ import { docs } from "@/data/docs";
 import { projects } from "@/data/projects";
 import { formatShortcut, getShortcut } from "@/data/shortcuts";
 import { veilles } from "@/data/veille";
-import { type ProjectStatus, useProjectStatus } from "@/hooks/status";
+import { type ProjectStatus, useStatus } from "@/hooks/status";
 import { getCategoryName } from "@/lib/docs";
 import { cn } from "@/lib/utils";
 
@@ -246,7 +246,7 @@ export function CommandMenu() {
     const { enabled: motionEnabled, setEnabled: setMotionEnabled } = useMotion();
     const { enabled: xrayEnabled, setEnabled: setXrayEnabled } = useXray();
     const { openPdf } = useViewer();
-    const getProjectStatus = useProjectStatus();
+    const getProjectStatus = useStatus();
 
     React.useEffect(() => {
         const down = (e: KeyboardEvent) => {
