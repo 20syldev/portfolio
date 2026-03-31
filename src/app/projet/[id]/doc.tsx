@@ -2,12 +2,12 @@
 
 import { Documentation } from "@/components/detail/documentation";
 import { Badge } from "@/components/ui/badge";
-import { ProjectMeta } from "@/components/ui/flags";
-import { ProjectLinks } from "@/components/ui/links";
+import { Meta } from "@/components/ui/meta";
+import { Links } from "@/components/ui/links";
 import type { Project } from "@/data/projects";
 import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
-import { useProjectStatus } from "@/hooks/status";
+import { useStatus } from "@/hooks/status";
 
 interface DocProps {
     project: Project;
@@ -24,7 +24,7 @@ interface DocProps {
  */
 export function Doc({ project, content }: DocProps) {
     const { versions } = useApi();
-    const getProjectStatus = useProjectStatus();
+    const getProjectStatus = useStatus();
     const version = versions?.[getApiKey(project.id)];
 
     const header = (
@@ -33,7 +33,7 @@ export function Doc({ project, content }: DocProps) {
                 <div className="space-y-2">
                     <div className="flex items-center gap-3 flex-wrap">
                         <h1 className="text-2xl font-bold">{project.name}</h1>
-                        <ProjectMeta
+                        <Meta
                             version={version}
                             status={getProjectStatus(project.id)}
                             project={project}
@@ -48,10 +48,10 @@ export function Doc({ project, content }: DocProps) {
                         ))}
                     </div>
                 </div>
-                <ProjectLinks project={project} className="hidden sm:flex flex-wrap gap-2" />
+                <Links project={project} className="hidden sm:flex flex-wrap gap-2" />
             </div>
             {/* Mobile links */}
-            <ProjectLinks project={project} className="flex sm:hidden flex-wrap gap-2 mt-4" />
+            <Links project={project} className="flex sm:hidden flex-wrap gap-2 mt-4" />
         </>
     );
 

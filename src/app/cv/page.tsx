@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-import { usePdfViewer } from "@/components/utils/viewer";
+import { useViewer } from "@/components/utils/viewer";
 
 /**
  * CV viewer page component.
@@ -12,7 +12,7 @@ import { usePdfViewer } from "@/components/utils/viewer";
  * @returns null (PDF is displayed in dialog overlay)
  */
 export default function CvPage() {
-    const { openPdf } = usePdfViewer();
+    const { openPdf } = useViewer();
     const router = useRouter();
 
     useEffect(() => {

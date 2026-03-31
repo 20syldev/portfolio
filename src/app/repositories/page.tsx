@@ -10,7 +10,7 @@ import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ProjectBadges } from "@/components/ui/flags";
+import { MetaBadges } from "@/components/ui/meta";
 import { Skeleton } from "@/components/ui/skeleton";
 import { StatusBadge } from "@/components/ui/status";
 import { Tags } from "@/components/ui/tags";
@@ -18,7 +18,7 @@ import { type Project, projects } from "@/data/projects";
 import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
 import { useSmoothScroll } from "@/hooks/scroll";
-import { useProjectStatus } from "@/hooks/status";
+import { useStatus } from "@/hooks/status";
 import { tabs, urls } from "@/lib/nav";
 
 interface RepositoriesPageProps {
@@ -35,7 +35,7 @@ interface RepositoriesPageProps {
 export default function RepositoriesPage({ initialProjectId }: RepositoriesPageProps) {
     const { scrollRef } = useSmoothScroll<HTMLDivElement>();
     const { versions, loading } = useApi();
-    const getProjectStatus = useProjectStatus();
+    const getProjectStatus = useStatus();
     const initialProject = initialProjectId
         ? projects.find((p) => p.id === initialProjectId)
         : null;
@@ -132,7 +132,7 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
                                                 </Badge>
                                             )
                                         ) : null}
-                                        <ProjectBadges project={project} variant="compact" />
+                                        <MetaBadges project={project} variant="compact" />
                                     </div>
                                 </div>
                                 <span className="line-clamp-2 text-xs text-muted-foreground">
