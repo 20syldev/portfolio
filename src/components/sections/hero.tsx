@@ -11,7 +11,7 @@ import { Rotating } from "@/components/ui/rotating";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useFont } from "@/components/utils/font";
 import { useMultiTap } from "@/components/utils/konami";
-import { usePdfViewer } from "@/components/utils/viewer";
+import { useViewer } from "@/components/utils/viewer";
 import { collapseHole, Result, Vortex } from "@/components/utils/vortex";
 import { profile } from "@/data/profile";
 import { useDraggablePhysics } from "@/hooks/physics";
@@ -24,7 +24,7 @@ import { useSparkle } from "@/hooks/sparkle";
  * @returns The rendered hero section
  */
 export function Hero() {
-    const { openPdf } = usePdfViewer();
+    const { openPdf } = useViewer();
     const { setDialogOpen } = useFont();
     const { theme, resolvedTheme, setTheme } = useTheme();
     const themeRef = useRef(theme);

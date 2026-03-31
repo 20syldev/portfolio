@@ -49,7 +49,7 @@ import {
 import { useCursor } from "@/components/utils/cursor";
 import { useFont } from "@/components/utils/font";
 import { useMotion } from "@/components/utils/motion";
-import { usePdfViewer } from "@/components/utils/viewer";
+import { useViewer } from "@/components/utils/viewer";
 import { useXray } from "@/components/utils/xray";
 import { projects as alternanceProjects } from "@/data/alternance";
 import { docs } from "@/data/docs";
@@ -245,7 +245,7 @@ export function CommandMenu() {
     const { dialogOpen: fontDialogOpen, setDialogOpen: setFontDialogOpen } = useFont();
     const { enabled: motionEnabled, setEnabled: setMotionEnabled } = useMotion();
     const { enabled: xrayEnabled, setEnabled: setXrayEnabled } = useXray();
-    const { openPdf } = usePdfViewer();
+    const { openPdf } = useViewer();
     const getProjectStatus = useProjectStatus();
 
     React.useEffect(() => {

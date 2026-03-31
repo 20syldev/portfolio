@@ -24,7 +24,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
-import { usePdfViewer } from "@/components/utils/viewer";
+import { useViewer } from "@/components/utils/viewer";
 import type { ContactLink } from "@/data/profile";
 import { contacts, pageLinks, profile } from "@/data/profile";
 
@@ -61,7 +61,7 @@ interface ContactDialogProps {
  */
 function ContactButton({ contact, onNavigate }: { contact: ContactLink; onNavigate?: () => void }) {
     const [copied, setCopied] = React.useState(false);
-    const { openPdf } = usePdfViewer();
+    const { openPdf } = useViewer();
 
     const btnClass = "justify-start gap-3 p-3 h-auto text-muted-foreground";
 

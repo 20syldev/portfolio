@@ -57,12 +57,12 @@ interface PdfOpenOptions {
     onClose?: () => void;
 }
 
-interface PdfViewerContextValue {
+interface ViewerContextValue {
     openPdf: (url: string, title: string, options?: PdfOpenOptions) => void;
     closePdf: () => void;
 }
 
-const PdfViewerContext = createContext<PdfViewerContextValue | null>(null);
+const ViewerContext = createContext<ViewerContextValue | null>(null);
 
 /**
  * Provider for the PDF viewer dialog.
@@ -72,7 +72,7 @@ const PdfViewerContext = createContext<PdfViewerContextValue | null>(null);
  * @param props.children - Child elements to wrap
  * @returns The rendered provider with PDF viewer dialog
  */
-export function PdfViewerProvider({ children }: { children: ReactNode }) {
+export function ViewerProvider({ children }: { children: ReactNode }) {
     const [open, setOpen] = useState(false);
     const [pdf, setPdf] = useState<{ url: string; title: string } | null>(null);
     const [fullscreen, setFullscreen] = useState(false);
@@ -123,9 +123,9 @@ export function PdfViewerProvider({ children }: { children: ReactNode }) {
     }, []);
 
     return (
-        <PdfViewerContext.Provider value={{ openPdf, closePdf }}>
+        <ViewerContext.Provider value={{ openPdf, closePdf }}>
             {children}
-            <PdfViewerDialog
+            <ViewerDialog
                 url={pdf?.url ?? null}
                 title={pdf?.title ?? null}
                 open={open}
@@ -134,7 +134,7 @@ export function PdfViewerProvider({ children }: { children: ReactNode }) {
                     if (!isOpen) closePdf();
                 }}
             />
-        </PdfViewerContext.Provider>
+        </ViewerContext.Provider>
     );
 }
 
@@ -144,10 +144,10 @@ export function PdfViewerProvider({ children }: { children: ReactNode }) {
  *
  * @returns The PDF viewer context value
  */
-export function usePdfViewer() {
-    const context = useContext(PdfViewerContext);
+export function useViewer() {
+    const context = useContext(ViewerContext);
     if (!context) {
-        throw new Error("usePdfViewer must be used within a PdfViewerProvider");
+        throw new Error("useViewer must be used within a ViewerProvider");
     }
     return context;
 }
@@ -156,7 +156,7 @@ const zoomStep = 0.2;
 const zoomMin = 0.5;
 const zoomMax = 3;
 
-interface PdfViewerDialogProps {
+interface ViewerDialogProps {
     url: string | null;
     title: string | null;
     open: boolean;
@@ -176,7 +176,7 @@ interface PdfViewerDialogProps {
  * @param props.onOpenChange - Callback when open state changes
  * @returns The rendered PDF viewer dialog
  */
-function PdfViewerDialog({ url, title, open, fullscreen, onOpenChange }: PdfViewerDialogProps) {
+function ViewerDialog({ url, title, open, fullscreen, onOpenChange }: ViewerDialogProps) {
     const [numPages, setNumPages] = React.useState(0);
     const [page, setPage] = React.useState(1);
     const [scale, setScale] = React.useState(1);
