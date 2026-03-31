@@ -5,6 +5,7 @@ import { Maximize, Minimize, Pause, Play, Volume2, VolumeX, X } from "lucide-rea
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Dialog, DialogOverlay, DialogPortal } from "@/components/ui/dialog";
+import { Expand } from "@/components/ui/expand";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
@@ -306,26 +307,7 @@ export function Video({ src, title, className }: VideoProps) {
                         <source src={src} type="video/mp4" />
                     </video>
 
-                    {/* Hover overlay - expand icon */}
-                    <div
-                        className={cn(
-                            "absolute inset-0 flex items-center justify-center",
-                            "bg-black/0 transition-all duration-200",
-                            "opacity-0 group-hover:opacity-100 group-hover:bg-black/30"
-                        )}
-                    >
-                        <div
-                            className={cn(
-                                "flex items-center justify-center rounded-full",
-                                "h-12 w-12 sm:h-14 sm:w-14",
-                                "bg-white/90 text-black shadow-lg",
-                                "transition-transform duration-200",
-                                "scale-90 group-hover:scale-100"
-                            )}
-                        >
-                            <Maximize className="h-5 w-5 sm:h-6 sm:w-6" />
-                        </div>
-                    </div>
+                    <Expand />
                 </button>
             </DialogPrimitive.Trigger>
 
