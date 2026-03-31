@@ -12,7 +12,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
-import { ProjectMeta } from "@/components/ui/flags";
+import { Meta } from "@/components/ui/meta";
 import { ProjectLinks } from "@/components/ui/links";
 import type { Project } from "@/data/projects";
 import type { ProjectStatus } from "@/hooks/status";
@@ -43,7 +43,7 @@ export function CardDialog({ project, version, status, onOpenChange }: CardDialo
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-3 flex-wrap">
                         {project?.name}
-                        <ProjectMeta version={version} status={status} project={project} />
+                        <Meta version={version} status={status} project={project} />
                     </DialogTitle>
                     <DialogDescription className="text-left">
                         {project?.longDescription || project?.description}

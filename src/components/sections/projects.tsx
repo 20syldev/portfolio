@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 import { CardDialog } from "@/components/dialogs/card";
 import { Badge } from "@/components/ui/badge";
-import { ProjectBadges } from "@/components/ui/flags";
+import { MetaBadges } from "@/components/ui/meta";
 import { Skeleton } from "@/components/ui/skeleton";
 import { StatusBadge } from "@/components/ui/status";
 import { Tags } from "@/components/ui/tags";
@@ -151,7 +151,7 @@ export function Projects() {
                                                     </Badge>
                                                 )
                                             ) : null}
-                                            <ProjectBadges project={project} variant="compact" />
+                                            <MetaBadges project={project} variant="compact" />
                                         </div>
                                     </div>
                                     <span className="line-clamp-2 text-xs text-muted-foreground">

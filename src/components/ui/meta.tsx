@@ -8,7 +8,7 @@ import { type ProjectStatus } from "@/hooks/status";
 
 type ProjectLike = Pick<Project, "archived" | "paused" | "github" | "npm">;
 
-interface ProjectMetaProps {
+interface MetaProps {
     version?: string | null;
     status?: ProjectStatus | null;
     project?: ProjectLike | null;
@@ -24,7 +24,7 @@ interface ProjectMetaProps {
  * @param props.project - Optional project for archived/paused flags
  * @returns The rendered metadata badges
  */
-export function ProjectMeta({ version, status, project }: ProjectMetaProps) {
+export function Meta({ version, status, project }: MetaProps) {
     return (
         <div className="flex items-center gap-1">
             {version &&
@@ -54,12 +54,12 @@ export function ProjectMeta({ version, status, project }: ProjectMetaProps) {
                 npm={project?.npm}
                 variant="inline"
             />
-            <ProjectBadges project={project} />
+            <MetaBadges project={project} />
         </div>
     );
 }
 
-interface ProjectBadgesProps {
+interface MetaBadgesProps {
     project: ProjectLike | null | undefined;
     variant?: "full" | "compact";
 }
@@ -74,7 +74,7 @@ interface ProjectBadgesProps {
  * @param props.variant - Display mode: "full" or "compact" (default: "full")
  * @returns The rendered badges, or null if project has no flags
  */
-export function ProjectBadges({ project, variant = "full" }: ProjectBadgesProps) {
+export function MetaBadges({ project, variant = "full" }: MetaBadgesProps) {
     if (!project?.archived && !project?.paused) return null;
 
     const { archived, paused } = project;
