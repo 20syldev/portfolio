@@ -7,7 +7,7 @@ export type ProjectStatus = "new" | "updated" | "patched" | null;
  *
  * @returns A function that takes a project ID and returns its status
  */
-export function useProjectStatus() {
+export function useStatus() {
     const { newProjects, updatedProjects, patchedProjects } = useApi();
 
     return (projectId: string): ProjectStatus => {
