@@ -3,8 +3,11 @@
 import { useState } from "react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Expand } from "@/components/ui/expand";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { ActivityWeek } from "@/hooks/api";
+import { cn } from "@/lib/utils";
 
 const monthsFr = [
     "Jan",
@@ -28,7 +31,203 @@ const chartW = W - pad.left - pad.right;
 const chartH = H - pad.top - pad.bottom;
 
 /**
+ * Prepare chart data: drop incomplete last week, compute paths and labels.
+ */
+function prepareChartData(data?: ActivityWeek[]) {
+    if (!data || data.length === 0) return null;
+
+    const lastWeek = data[data.length - 1];
+    const weeks = lastWeek.days.length < 7 ? data.slice(0, -1) : data;
+    if (weeks.length === 0) return null;
+
+    const maxY = Math.max(...weeks.map((w) => w.total), 1);
+    const ticks = 4;
+
+    function x(i: number) {
+        return pad.left + (i / (weeks.length - 1)) * chartW;
+    }
+
+    function y(val: number) {
+        return pad.top + chartH - (val / maxY) * chartH;
+    }
+
+    const linePath = weeks.map((w, i) => `${i === 0 ? "M" : "L"} ${x(i)} ${y(w.total)}`).join(" ");
+    const areaPath = `${linePath} L ${x(weeks.length - 1)} ${y(0)} L ${x(0)} ${y(0)} Z`;
+
+    const minLabelGap = 40;
+    const monthLabels: { x: number; label: string }[] = [];
+    let lastMonth = -1;
+    let lastLabelX = -Infinity;
+    for (let i = 0; i < weeks.length; i++) {
+        const month = new Date(weeks[i].week).getMonth();
+        if (month !== lastMonth && x(i) - lastLabelX >= minLabelGap) {
+            monthLabels.push({ x: x(i), label: monthsFr[month] });
+            lastMonth = month;
+            lastLabelX = x(i);
+        }
+    }
+
+    function formatDate(dateStr: string) {
+        const d = new Date(dateStr);
+        return `${d.getDate()} ${monthsFr[d.getMonth()]}`;
+    }
+
+    function formatWeekRange(week: (typeof weeks)[number]) {
+        const start = week.days[0]?.date ?? week.week;
+        const end = week.days[week.days.length - 1]?.date ?? week.week;
+        return `${formatDate(start)} — ${formatDate(end)}`;
+    }
+
+    return { weeks, maxY, ticks, x, y, linePath, areaPath, monthLabels, formatWeekRange };
+}
+
+/**
+ * The SVG chart rendering, used both inline and inside the dialog.
+ */
+function ChartSvg({
+    chart,
+    hovered,
+    setHovered,
+}: {
+    chart: NonNullable<ReturnType<typeof prepareChartData>>;
+    hovered: number | null;
+    setHovered: (i: number | null) => void;
+}) {
+    const { weeks, maxY, ticks, x, y, linePath, areaPath, monthLabels, formatWeekRange } = chart;
+
+    return (
+        <svg viewBox={`0 0 ${W} ${H}`} width="100%" preserveAspectRatio="xMidYMid meet">
+            {/* Grid lines */}
+            {Array.from({ length: ticks + 1 }, (_, i) => {
+                const val = Math.round((maxY / ticks) * i);
+                const yPos = y(val);
+                return (
+                    <g key={i}>
+                        <line
+                            x1={pad.left}
+                            x2={W - pad.right}
+                            y1={yPos}
+                            y2={yPos}
+                            className="stroke-border"
+                            strokeDasharray="4 4"
+                            strokeWidth={1}
+                        />
+                        <text
+                            x={pad.left - 8}
+                            y={yPos + 4}
+                            textAnchor="end"
+                            fontSize={11}
+                            className="fill-muted-foreground"
+                        >
+                            {val}
+                        </text>
+                    </g>
+                );
+            })}
+
+            {/* X-axis month labels */}
+            {monthLabels.map(({ x: mx, label }) => (
+                <text
+                    key={`${label}-${mx}`}
+                    x={mx}
+                    y={H - 6}
+                    textAnchor="middle"
+                    fontSize={11}
+                    className="fill-muted-foreground"
+                >
+                    {label}
+                </text>
+            ))}
+
+            {/* Area fill */}
+            <path d={areaPath} fill="var(--color-chart-1)" opacity={0.15} />
+
+            {/* Line stroke */}
+            <path d={linePath} fill="none" stroke="var(--color-chart-1)" strokeWidth={2} />
+
+            {/* Data points on hover */}
+            {hovered !== null && (
+                <>
+                    <line
+                        x1={x(hovered)}
+                        x2={x(hovered)}
+                        y1={pad.top}
+                        y2={pad.top + chartH}
+                        stroke="var(--color-chart-1)"
+                        strokeWidth={1}
+                        strokeDasharray="4 4"
+                        opacity={0.5}
+                    />
+                    <circle
+                        cx={x(hovered)}
+                        cy={y(weeks[hovered].total)}
+                        r={4}
+                        fill="var(--color-chart-1)"
+                    />
+                    {/* Tooltip background + text */}
+                    {(() => {
+                        const tooltipW = 220;
+                        const tooltipH = 36;
+                        const tx = Math.max(
+                            pad.left,
+                            Math.min(x(hovered) - tooltipW / 2, W - pad.right - tooltipW)
+                        );
+                        const ty = Math.max(pad.top, y(weeks[hovered].total) - tooltipH - 12);
+                        return (
+                            <g>
+                                <rect
+                                    x={tx}
+                                    y={ty}
+                                    width={tooltipW}
+                                    height={tooltipH}
+                                    rx={6}
+                                    className="fill-card stroke-border"
+                                />
+                                <text
+                                    x={tx + tooltipW / 2}
+                                    y={ty + 14}
+                                    textAnchor="middle"
+                                    fontSize={10}
+                                    className="fill-muted-foreground"
+                                >
+                                    {formatWeekRange(weeks[hovered])}
+                                </text>
+                                <text
+                                    x={tx + tooltipW / 2}
+                                    y={ty + 28}
+                                    textAnchor="middle"
+                                    fontSize={11}
+                                    fontWeight={500}
+                                    className="fill-foreground"
+                                >
+                                    {weeks[hovered].total} contributions
+                                </text>
+                            </g>
+                        );
+                    })()}
+                </>
+            )}
+
+            {/* Invisible hover rects */}
+            {weeks.map((_, i) => (
+                <rect
+                    key={i}
+                    x={x(i) - chartW / weeks.length / 2}
+                    y={pad.top}
+                    width={chartW / weeks.length}
+                    height={chartH}
+                    fill="transparent"
+                    onMouseEnter={() => setHovered(i)}
+                    onMouseLeave={() => setHovered(null)}
+                />
+            ))}
+        </svg>
+    );
+}
+
+/**
  * Pure SVG area chart showing GitHub contributions over ~52 weeks.
+ * Clickable to open a larger dialog view.
  *
  * @param props - Chart props
  * @param props.data - Weekly activity data from API
@@ -37,6 +236,8 @@ const chartH = H - pad.top - pad.bottom;
  */
 export function ActivityChart({ data, loading }: { data?: ActivityWeek[]; loading: boolean }) {
     const [hovered, setHovered] = useState<number | null>(null);
+    const [dialogHovered, setDialogHovered] = useState<number | null>(null);
+    const [open, setOpen] = useState(false);
 
     if (loading || !data) {
         return (
@@ -51,195 +252,50 @@ export function ActivityChart({ data, loading }: { data?: ActivityWeek[]; loadin
         );
     }
 
-    if (!data || data.length === 0) return null;
-
-    // Drop the last week if incomplete (less than 7 days)
-    const lastWeek = data[data.length - 1];
-    const weeks = lastWeek.days.length < 7 ? data.slice(0, -1) : data;
-
-    if (weeks.length === 0) return null;
-
-    const maxY = Math.max(...weeks.map((w) => w.total), 1);
-    const ticks = 4;
-
-    function x(i: number) {
-        return pad.left + (i / (weeks.length - 1)) * chartW;
-    }
-
-    function y(val: number) {
-        return pad.top + chartH - (val / maxY) * chartH;
-    }
-
-    // Line path
-    const linePath = weeks.map((w, i) => `${i === 0 ? "M" : "L"} ${x(i)} ${y(w.total)}`).join(" ");
-
-    // Area path (closed to baseline)
-    const areaPath = `${linePath} L ${x(weeks.length - 1)} ${y(0)} L ${x(0)} ${y(0)} Z`;
-
-    // Month labels at boundaries (skip if too close to previous)
-    const minLabelGap = 40;
-    const monthLabels: { x: number; label: string }[] = [];
-    let lastMonth = -1;
-    let lastLabelX = -Infinity;
-    for (let i = 0; i < weeks.length; i++) {
-        const month = new Date(weeks[i].week).getMonth();
-        if (month !== lastMonth && x(i) - lastLabelX >= minLabelGap) {
-            monthLabels.push({ x: x(i), label: monthsFr[month] });
-            lastMonth = month;
-            lastLabelX = x(i);
-        }
-    }
-
-    // Format date for tooltip
-    function formatDate(dateStr: string) {
-        const d = new Date(dateStr);
-        return `${d.getDate()} ${monthsFr[d.getMonth()]}`;
-    }
-
-    // Format week range (Monday → Sunday)
-    function formatWeekRange(week: (typeof weeks)[number]) {
-        const start = week.days[0]?.date ?? week.week;
-        const end = week.days[week.days.length - 1]?.date ?? week.week;
-        return `${formatDate(start)} — ${formatDate(end)}`;
-    }
+    const chart = prepareChartData(data);
+    if (!chart) return null;
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle className="text-sm font-medium">Contributions GitHub</CardTitle>
-            </CardHeader>
-            <CardContent className="p-0">
-                <svg viewBox={`0 0 ${W} ${H}`} width="100%" preserveAspectRatio="xMidYMid meet">
-                    {/* Grid lines */}
-                    {Array.from({ length: ticks + 1 }, (_, i) => {
-                        const val = Math.round((maxY / ticks) * i);
-                        const yPos = y(val);
-                        return (
-                            <g key={i}>
-                                <line
-                                    x1={pad.left}
-                                    x2={W - pad.right}
-                                    y1={yPos}
-                                    y2={yPos}
-                                    className="stroke-border"
-                                    strokeDasharray="4 4"
-                                    strokeWidth={1}
-                                />
-                                <text
-                                    x={pad.left - 8}
-                                    y={yPos + 4}
-                                    textAnchor="end"
-                                    fontSize={11}
-                                    className="fill-muted-foreground"
-                                >
-                                    {val}
-                                </text>
-                            </g>
-                        );
-                    })}
+        <>
+            <Card
+                className="group relative max-sm:cursor-pointer"
+                onClick={() => {
+                    if (window.innerWidth < 640) setOpen(true);
+                }}
+            >
+                <CardHeader>
+                    <CardTitle className="text-sm font-medium">Contributions GitHub</CardTitle>
+                </CardHeader>
+                <CardContent className="p-3 sm:p-2 lg:p-0">
+                    <ChartSvg chart={chart} hovered={hovered} setHovered={setHovered} />
+                </CardContent>
+                <Expand className="rounded-xl sm:hidden" />
+            </Card>
 
-                    {/* X-axis month labels */}
-                    {monthLabels.map(({ x: mx, label }) => (
-                        <text
-                            key={`${label}-${mx}`}
-                            x={mx}
-                            y={H - 6}
-                            textAnchor="middle"
-                            fontSize={11}
-                            className="fill-muted-foreground"
-                        >
-                            {label}
-                        </text>
-                    ))}
-
-                    {/* Area fill */}
-                    <path d={areaPath} fill="var(--color-chart-1)" opacity={0.15} />
-
-                    {/* Line stroke */}
-                    <path d={linePath} fill="none" stroke="var(--color-chart-1)" strokeWidth={2} />
-
-                    {/* Data points on hover */}
-                    {hovered !== null && (
-                        <>
-                            <line
-                                x1={x(hovered)}
-                                x2={x(hovered)}
-                                y1={pad.top}
-                                y2={pad.top + chartH}
-                                stroke="var(--color-chart-1)"
-                                strokeWidth={1}
-                                strokeDasharray="4 4"
-                                opacity={0.5}
-                            />
-                            <circle
-                                cx={x(hovered)}
-                                cy={y(weeks[hovered].total)}
-                                r={4}
-                                fill="var(--color-chart-1)"
-                            />
-                            {/* Tooltip background + text */}
-                            {(() => {
-                                const tooltipW = 220;
-                                const tooltipH = 36;
-                                const tx = Math.max(
-                                    pad.left,
-                                    Math.min(x(hovered) - tooltipW / 2, W - pad.right - tooltipW)
-                                );
-                                const ty = Math.max(
-                                    pad.top,
-                                    y(weeks[hovered].total) - tooltipH - 12
-                                );
-                                return (
-                                    <g>
-                                        <rect
-                                            x={tx}
-                                            y={ty}
-                                            width={tooltipW}
-                                            height={tooltipH}
-                                            rx={6}
-                                            className="fill-card stroke-border"
-                                        />
-                                        <text
-                                            x={tx + tooltipW / 2}
-                                            y={ty + 14}
-                                            textAnchor="middle"
-                                            fontSize={10}
-                                            className="fill-muted-foreground"
-                                        >
-                                            {formatWeekRange(weeks[hovered])}
-                                        </text>
-                                        <text
-                                            x={tx + tooltipW / 2}
-                                            y={ty + 28}
-                                            textAnchor="middle"
-                                            fontSize={11}
-                                            fontWeight={500}
-                                            className="fill-foreground"
-                                        >
-                                            {weeks[hovered].total} contributions
-                                        </text>
-                                    </g>
-                                );
-                            })()}
-                        </>
+            <Dialog open={open} onOpenChange={setOpen}>
+                <DialogContent
+                    className={cn(
+                        "flex items-center justify-center",
+                        "w-[100dvh] h-[100vw]",
+                        "p-0",
+                        "max-w-none max-h-none",
+                        "rotate-90 origin-center"
                     )}
-
-                    {/* Invisible hover rects */}
-                    {weeks.map((_, i) => (
-                        <rect
-                            key={i}
-                            x={x(i) - chartW / weeks.length / 2}
-                            y={pad.top}
-                            width={chartW / weeks.length}
-                            height={chartH}
-                            fill="transparent"
-                            onMouseEnter={() => setHovered(i)}
-                            onMouseLeave={() => setHovered(null)}
+                    showCloseButton
+                >
+                    <DialogHeader className="sr-only">
+                        <DialogTitle>Contributions GitHub</DialogTitle>
+                    </DialogHeader>
+                    <div className="w-full flex-1">
+                        <ChartSvg
+                            chart={chart}
+                            hovered={dialogHovered}
+                            setHovered={setDialogHovered}
                         />
-                    ))}
-                </svg>
-            </CardContent>
-        </Card>
+                    </div>
+                </DialogContent>
+            </Dialog>
+        </>
     );
 }
 
