@@ -71,7 +71,7 @@ function StatCard({ label, value, icon: Icon, loading, href }: StatItem) {
                 {loading ? (
                     <Skeleton className="h-8 w-16" />
                 ) : (
-                    <p className="text-3xl font-bold">{value}</p>
+                    <p className="text-2xl sm:text-3xl font-bold">{value}</p>
                 )}
             </CardContent>
         </Card>
@@ -111,7 +111,7 @@ export default function StatsPage() {
                             Activité GitHub
                         </h2>
                         <ActivityChart data={stats?.activity} loading={loading} />
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
                             <StatCard
                                 label="Contributions aujourd'hui"
                                 value={stats?.today ?? "—"}
@@ -138,7 +138,7 @@ export default function StatsPage() {
                         <h2 className="text-lg font-semibold mb-4 text-muted-foreground uppercase tracking-wide text-xs">
                             Portfolio
                         </h2>
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                             <StatCard
                                 label="Projets"
                                 value={projects.length}
@@ -166,7 +166,7 @@ export default function StatsPage() {
                         <h2 className="text-lg font-semibold mb-4 text-muted-foreground uppercase tracking-wide text-xs">
                             Technologies
                         </h2>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <StatCard
                                 label="Technologies"
                                 value={totalTech}
@@ -196,7 +196,7 @@ export default function StatsPage() {
                         <h2 className="text-lg font-semibold mb-4 text-muted-foreground uppercase tracking-wide text-xs">
                             Certifications & Badges
                         </h2>
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                             <StatCard
                                 label="Certifications"
                                 value={totalCertifications}
@@ -229,7 +229,7 @@ export default function StatsPage() {
                         <h2 className="text-lg font-semibold mb-4 text-muted-foreground uppercase tracking-wide text-xs">
                             Expérience
                         </h2>
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <StatCard
                                 label="Expérience Front-End"
                                 value={stats?.frontend ?? "8 ans"}
@@ -250,7 +250,7 @@ export default function StatsPage() {
                         <h2 className="text-lg font-semibold mb-4 text-muted-foreground uppercase tracking-wide text-xs">
                             Navigateur
                         </h2>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <StatCard
                                 label="Latence API"
                                 value={
