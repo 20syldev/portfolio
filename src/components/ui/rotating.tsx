@@ -62,7 +62,7 @@ export function Rotating({ template, variants, className = "" }: RotatingProps) 
     let slotIndex = 0;
 
     return (
-        <p className={className}>
+        <p className={`overflow-hidden ${className}`} data-nosnippet>
             {segments.map((segment, i) =>
                 segment.type === "static" ? (
                     <span key={i}>{segment.text}</span>
