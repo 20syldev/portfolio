@@ -13,7 +13,7 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { Meta } from "@/components/ui/meta";
-import { ProjectLinks } from "@/components/ui/links";
+import { Links } from "@/components/ui/links";
 import type { Project } from "@/data/projects";
 import type { ProjectStatus } from "@/hooks/status";
 import { hasProjectContent } from "@/lib/projects";
@@ -59,7 +59,7 @@ export function CardDialog({ project, version, status, onOpenChange }: CardDialo
                 </div>
 
                 <div className="flex flex-wrap gap-2 pt-4">
-                    {project && <ProjectLinks project={project} />}
+                    {project && <Links project={project} />}
                     {project && hasProjectContent(project.id) && (
                         <Button size="sm" variant="secondary" asChild>
                             <Link href={`/projet/${project.id}`}>

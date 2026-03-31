@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import type { Project } from "@/data/projects";
 
-interface ProjectLinksProps {
+interface LinksProps {
     project: Project;
     className?: string;
 }
@@ -17,7 +17,7 @@ interface ProjectLinksProps {
  * @param props.className - Optional wrapper class
  * @returns The rendered link buttons
  */
-export function ProjectLinks({ project, className }: ProjectLinksProps) {
+export function Links({ project, className }: LinksProps) {
     return (
         <div className={className ?? "flex flex-wrap gap-2"}>
             {project.github && (
