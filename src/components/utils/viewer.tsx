@@ -31,9 +31,7 @@ function useReactPdf() {
         let cancelled = false;
         Promise.all([
             import("react-pdf"),
-            // @ts-expect-error css modules have no type declarations
             import("react-pdf/dist/Page/AnnotationLayer.css"),
-            // @ts-expect-error css modules have no type declarations
             import("react-pdf/dist/Page/TextLayer.css"),
         ]).then(([reactPdf]) => {
             if (cancelled) return;
