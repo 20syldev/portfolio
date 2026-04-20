@@ -41,24 +41,6 @@ export const profile = {
     },
 };
 
-// Open source contributions (PRs, repositories)
-export const contributions = [
-    {
-        repo: "rsyslog/rsyslog",
-        title: "add split() function",
-        pr: "6384",
-        url: "https://github.com/rsyslog/rsyslog/pull/6384",
-        description: "Fonction RainerScript pour parser des chaînes délimitées en tableaux JSON",
-    },
-    {
-        repo: "rsyslog/rsyslog",
-        title: "add append_json() function",
-        pr: "6385",
-        url: "https://github.com/rsyslog/rsyslog/pull/6385",
-        description: "Fonction RainerScript pour construire dynamiquement des structures JSON",
-    },
-];
-
 // Pinned GitHub projects displayed on the homepage
 export const projects = [
     {
