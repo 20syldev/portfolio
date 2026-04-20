@@ -43,7 +43,8 @@ import {
     totalCompletionBadges,
     totalGdevBadges,
 } from "@/data/achievements";
-import { contributions, profile, projects } from "@/data/profile";
+import { contributions } from "@/data/contributions";
+import { profile, projects } from "@/data/profile";
 import { projects as allProjects } from "@/data/projects";
 import { useApi } from "@/hooks/api";
 import { useDragScroll } from "@/hooks/scroll";
@@ -273,6 +274,8 @@ function GitHubCard({
     loading?: boolean;
     className?: string;
 }) {
+    const [displayed] = useState(() => random.shuffle(contributions).slice(0, 2));
+
     return (
         <Card className={`card-hover ${className || ""}`}>
             <CardHeader>
@@ -298,19 +301,28 @@ function GitHubCard({
                     )}
                 </Link>
                 <div className="border-t pt-3 mt-2 space-y-1.5 text-xs">
-                    <div className="flex items-center gap-1.5 text-muted-foreground mb-2">
-                        <GitPullRequest className="h-3 w-3" />
-                        <span>Contributions importantes</span>
+                    <div className="flex items-center justify-between gap-1.5 text-muted-foreground mb-2">
+                        <div className="flex items-center gap-1.5">
+                            <GitPullRequest className="h-3 w-3" />
+                            <span>Contributions externes</span>
+                        </div>
+                        <Link
+                            href="/contributions"
+                            className="hover:text-primary transition-colors"
+                        >
+                            Voir les {contributions.length} contributions
+                        </Link>
                     </div>
-                    {contributions.map((pr) => (
+                    {displayed.map((pr) => (
                         <a
                             key={pr.url}
                             href={pr.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="block truncate hover:text-primary"
+                            className="flex items-center justify-between gap-2 hover:text-primary"
                         >
-                            <span className="text-muted-foreground">{pr.repo}:</span> {pr.title}
+                            <span className="truncate text-muted-foreground">{pr.repo}</span>
+                            <span className="shrink-0 truncate max-w-[45%]">{pr.title}</span>
                         </a>
                     ))}
                 </div>
@@ -396,7 +408,7 @@ function CertificationsCard({ className }: { className?: string }) {
                                                 width={60}
                                                 height={60}
                                                 className="rounded-md object-contain"
-                                                style={{ width: "auto", height: "auto" }}
+                                                style={{ width: 60, height: 60 }}
                                                 onLoad={() => handleImageLoad(cert.icon)}
                                             />
                                         </a>
