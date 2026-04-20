@@ -1,0 +1,129 @@
+"use client";
+
+import { ArrowLeft, Dot, GitMerge, GitPullRequestClosed, GitPullRequestDraft } from "lucide-react";
+import Link from "next/link";
+
+import { Footer } from "@/components/layout/footer";
+import { Nav } from "@/components/layout/nav";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { type Contribution, contributions } from "@/data/contributions";
+import { useSmoothScroll } from "@/hooks/scroll";
+import { tabs, urls } from "@/lib/nav";
+
+function StatusIcon({ status }: { status: Contribution["status"] }) {
+    if (status === "merged") {
+        return (
+            <span className="flex items-center justify-center w-4 h-4 rounded-full bg-purple-500/15 shrink-0">
+                <GitMerge className="h-2.5 w-2.5 text-purple-500" />
+            </span>
+        );
+    }
+    if (status === "closed") {
+        return (
+            <span className="flex items-center justify-center w-4 h-4 rounded-full bg-destructive/15 shrink-0">
+                <GitPullRequestClosed className="h-2.5 w-2.5 text-destructive" />
+            </span>
+        );
+    }
+    return (
+        <span className="flex items-center justify-center w-4 h-4 rounded-full bg-green-500/15 shrink-0">
+            <GitPullRequestDraft className="h-2.5 w-2.5 text-green-500" />
+        </span>
+    );
+}
+
+/**
+ * Dedicated page listing all external open-source contributions, grouped by repository.
+ *
+ * @returns The rendered contributions page
+ */
+export default function ContributionsPage() {
+    const { scrollRef } = useSmoothScroll<HTMLDivElement>();
+
+    const grouped = contributions.reduce<Record<string, Contribution[]>>((acc, c) => {
+        (acc[c.repo] ??= []).push(c);
+        return acc;
+    }, {});
+
+    return (
+        <div ref={scrollRef} className="flex flex-col h-dvh overflow-y-auto scrollbar-none">
+            <Nav currentTab={-1} tabs={tabs} links={urls} />
+
+            <main className="flex-1 container mx-auto px-4 pt-24 pb-12">
+                <div className="mb-8">
+                    <Link href="/repositories">
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                            <ArrowLeft className="h-4 w-4" />
+                        </Button>
+                    </Link>
+                </div>
+
+                <div className="mb-8 text-center">
+                    <h1 className="mb-2 text-4xl font-bold">Contributions externes</h1>
+                    <p className="text-xl text-muted-foreground">
+                        {contributions.length} pull requests <Dot className="inline h-5 w-5" />{" "}
+                        {Object.keys(grouped).length} projets
+                    </p>
+                </div>
+
+                <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
+                    {Object.entries(grouped).map(([repo, prs]) => (
+                        <div
+                            key={repo}
+                            className="rounded-lg border overflow-hidden break-inside-avoid"
+                        >
+                            <div className="px-4 py-3 bg-muted/40 border-b flex items-center justify-between gap-3">
+                                <a
+                                    href={`https://github.com/${repo}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="font-mono text-xs font-medium hover:text-primary transition-colors truncate"
+                                >
+                                    {repo}
+                                </a>
+                                <Badge variant="secondary" className="text-xs shrink-0">
+                                    {prs.length}
+                                </Badge>
+                            </div>
+                            <div className="divide-y divide-border">
+                                {prs.map((pr) => (
+                                    <div
+                                        key={pr.pr}
+                                        className="flex items-start gap-2.5 px-4 py-3 hover:bg-muted/30 transition-colors"
+                                    >
+                                        <div className="pt-0.5">
+                                            <StatusIcon status={pr.status} />
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <a
+                                                href={pr.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-sm font-medium hover:text-primary transition-colors line-clamp-2 leading-snug"
+                                            >
+                                                {pr.title}
+                                            </a>
+                                            <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                                                {pr.description}
+                                            </p>
+                                        </div>
+                                        <span className="text-xs text-muted-foreground shrink-0 pt-0.5">
+                                            #{pr.pr}
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </main>
+
+            <Footer />
+        </div>
+    );
+}
