@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { CardDialog } from "@/components/dialogs/card";
-import { ContributionsDialog } from "@/components/dialogs/contributions";
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
 import { Badge } from "@/components/ui/badge";
@@ -40,8 +39,6 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
         ? projects.find((p) => p.id === initialProjectId)
         : null;
     const [selectedProject, setSelectedProject] = useState<Project | null>(initialProject ?? null);
-    const [showContributions, setShowContributions] = useState(false);
-
     const getVersion = (projectId: string): string | undefined => {
         if (!versions) return undefined;
         const apiKey = getApiKey(projectId);
@@ -63,14 +60,15 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
                             <ArrowLeft className="h-4 w-4" />
                         </Button>
                     </Link>
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-muted-foreground hover:text-foreground transition-colors"
-                        onClick={() => setShowContributions(true)}
-                    >
-                        <GitPullRequest className="h-4 w-4" />
-                    </Button>
+                    <Link href="/contributions">
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                            <GitPullRequest className="h-4 w-4" />
+                        </Button>
+                    </Link>
                 </div>
                 <div className="mb-12 text-center">
                     <h1 className="mb-2 text-4xl font-bold">Projets personnels</h1>
@@ -152,8 +150,6 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
                 status={selectedProject ? getProjectStatus(selectedProject.id) : null}
                 onOpenChange={() => setSelectedProject(null)}
             />
-
-            <ContributionsDialog open={showContributions} onOpenChange={setShowContributions} />
         </div>
     );
 }
