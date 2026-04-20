@@ -3,7 +3,6 @@
 import { ArrowLeft, Award } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
@@ -30,6 +29,7 @@ interface GalleryProps {
     categories: CertificationCategory[];
     title: string;
     subtitle: string;
+    backHref?: string;
     relatedPages?: RelatedPage[];
 }
 
@@ -70,6 +70,7 @@ export function GalleryTooltipContent({ cert }: { cert: Certification }) {
                         width={tooltipSize}
                         height={tooltipSize}
                         className="rounded-[2.5px] object-contain"
+                        style={{ width: tooltipSize, height: tooltipSize }}
                     />
                     {cert.counter !== undefined && (
                         <span className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-[#4285F4] text-white text-[11px] font-bold w-6 h-6 rounded-full flex items-center justify-center">
@@ -113,8 +114,13 @@ export function GalleryTooltipContent({ cert }: { cert: Certification }) {
  * @param props.subtitle - Subheading (e.g. badge count)
  * @returns The rendered gallery page layout
  */
-export function Gallery({ categories, title, subtitle, relatedPages }: GalleryProps) {
-    const router = useRouter();
+export function Gallery({
+    categories,
+    title,
+    subtitle,
+    backHref = "/",
+    relatedPages,
+}: GalleryProps) {
     const [currentCategory, setCurrentCategory] = useState(0);
     const [relatedOpen, setRelatedOpen] = useState(false);
     const [loaded, setLoaded] = useState<Set<string>>(new Set());
@@ -148,16 +154,15 @@ export function Gallery({ categories, title, subtitle, relatedPages }: GalleryPr
             <div className="w-full max-w-7xl">
                 {/* Navigation */}
                 <div className="mb-8 flex justify-between items-center">
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-muted-foreground hover:text-foreground transition-colors"
-                        onClick={() =>
-                            window.history.length > 2 ? router.back() : router.push("/")
-                        }
-                    >
-                        <ArrowLeft className="h-4 w-4" />
-                    </Button>
+                    <Link href={backHref}>
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                            <ArrowLeft className="h-4 w-4" />
+                        </Button>
+                    </Link>
                     {relatedPages && relatedPages.length > 0 && (
                         <>
                             <Button
@@ -243,6 +248,10 @@ export function Gallery({ categories, title, subtitle, relatedPages }: GalleryPr
                                                         width={sizes.mobile}
                                                         height={sizes.mobile}
                                                         className={`${badgeRounding(item)} object-contain transition-opacity duration-300 ${loaded.has(item.icon) ? "opacity-100" : "opacity-0"}`}
+                                                        style={{
+                                                            width: sizes.mobile,
+                                                            height: sizes.mobile,
+                                                        }}
                                                         onLoad={() => handleImageLoad(item.icon)}
                                                     />
                                                     {item.counter !== undefined && (
@@ -342,6 +351,10 @@ export function Gallery({ categories, title, subtitle, relatedPages }: GalleryPr
                                                                 width={sizes.desktop}
                                                                 height={sizes.desktop}
                                                                 className={`${badgeRounding(item)} object-contain transition-opacity duration-300 ${loaded.has(item.icon) ? "opacity-100" : "opacity-0"}`}
+                                                                style={{
+                                                                    width: sizes.desktop,
+                                                                    height: sizes.desktop,
+                                                                }}
                                                                 onLoad={() =>
                                                                     handleImageLoad(item.icon)
                                                                 }
