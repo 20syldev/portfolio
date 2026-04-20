@@ -12,8 +12,8 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
-import { Meta } from "@/components/ui/meta";
 import { Links } from "@/components/ui/links";
+import { Meta } from "@/components/ui/meta";
 import type { Project } from "@/data/projects";
 import type { ProjectStatus } from "@/hooks/status";
 import { hasProjectContent } from "@/lib/projects";

@@ -2,8 +2,8 @@
 
 import { Documentation } from "@/components/detail/documentation";
 import { Badge } from "@/components/ui/badge";
-import { Meta } from "@/components/ui/meta";
 import { Links } from "@/components/ui/links";
+import { Meta } from "@/components/ui/meta";
 import type { Project } from "@/data/projects";
 import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
