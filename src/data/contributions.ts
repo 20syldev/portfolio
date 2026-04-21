@@ -146,7 +146,7 @@ export const contributions: Contribution[] = [
         description: "Alignement des colonnes dans les exports Markdown avec un padding uniforme",
         reason: "Les tables exportées en Markdown avaient des colonnes mal alignées selon la largeur du contenu",
         language: "TypeScript",
-        status: "open",
+        status: "merged",
     },
     {
         repo: "drawdb-io/drawdb",
