@@ -46,6 +46,16 @@ export default function ContributionsPage() {
         return acc;
     }, {});
 
+    const groups = Object.entries(grouped).sort((a, b) => b[1].length - a[1].length);
+    const NUM_COLS = 3;
+    const cols: [string, Contribution[]][][] = Array.from({ length: NUM_COLS }, () => []);
+    const heights = new Array(NUM_COLS).fill(0);
+    for (const group of groups) {
+        const shortest = heights.indexOf(Math.min(...heights));
+        cols[shortest].push(group);
+        heights[shortest] += group[1].length;
+    }
+
     return (
         <div ref={scrollRef} className="flex flex-col h-dvh overflow-y-auto scrollbar-none">
             <Nav currentTab={-1} tabs={tabs} links={urls} />
@@ -71,53 +81,54 @@ export default function ContributionsPage() {
                     </p>
                 </div>
 
-                <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
-                    {Object.entries(grouped).map(([repo, prs]) => (
-                        <div
-                            key={repo}
-                            className="rounded-lg border overflow-hidden break-inside-avoid"
-                        >
-                            <div className="px-4 py-3 bg-muted/40 border-b flex items-center justify-between gap-3">
-                                <a
-                                    href={`https://github.com/${repo}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="font-mono text-xs font-medium hover:text-primary transition-colors truncate"
-                                >
-                                    {repo}
-                                </a>
-                                <Badge variant="secondary" className="text-xs shrink-0">
-                                    {prs.length}
-                                </Badge>
-                            </div>
-                            <div className="divide-y divide-border">
-                                {prs.map((pr) => (
-                                    <div
-                                        key={pr.pr}
-                                        className="flex items-start gap-2.5 px-4 py-3 hover:bg-muted/30 transition-colors"
-                                    >
-                                        <div className="pt-0.5">
-                                            <StatusIcon status={pr.status} />
-                                        </div>
-                                        <div className="flex-1 min-w-0">
-                                            <a
-                                                href={pr.url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="text-sm font-medium hover:text-primary transition-colors line-clamp-2 leading-snug"
-                                            >
-                                                {pr.title}
-                                            </a>
-                                            <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
-                                                {pr.description}
-                                            </p>
-                                        </div>
-                                        <span className="text-xs text-muted-foreground shrink-0 pt-0.5">
-                                            #{pr.pr}
-                                        </span>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-start">
+                    {cols.map((col, i) => (
+                        <div key={i} className="flex flex-col gap-4">
+                            {col.map(([repo, prs]) => (
+                                <div key={repo} className="rounded-lg border overflow-hidden">
+                                    <div className="px-4 py-3 bg-muted/40 border-b flex items-center justify-between gap-3">
+                                        <a
+                                            href={`https://github.com/${repo}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="font-mono text-xs font-medium hover:text-primary transition-colors truncate"
+                                        >
+                                            {repo}
+                                        </a>
+                                        <Badge variant="secondary" className="text-xs shrink-0">
+                                            {prs.length}
+                                        </Badge>
                                     </div>
-                                ))}
-                            </div>
+                                    <div className="divide-y divide-border">
+                                        {prs.map((pr) => (
+                                            <div
+                                                key={pr.pr}
+                                                className="flex items-start gap-2.5 px-4 py-3 hover:bg-muted/30 transition-colors"
+                                            >
+                                                <div className="pt-0.5">
+                                                    <StatusIcon status={pr.status} />
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <a
+                                                        href={pr.url}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="text-sm font-medium hover:text-primary transition-colors line-clamp-2 leading-snug"
+                                                    >
+                                                        {pr.title}
+                                                    </a>
+                                                    <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                                                        {pr.description}
+                                                    </p>
+                                                </div>
+                                                <span className="text-xs text-muted-foreground shrink-0 pt-0.5">
+                                                    #{pr.pr}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     ))}
                 </div>
