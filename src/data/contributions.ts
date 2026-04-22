@@ -114,7 +114,7 @@ export const contributions: Contribution[] = [
         description: "Correction de la faute de frappe 'realtionship' dans la meta description",
         reason: "Typo dans le contenu SEO visible dans les aperçus de liens et résultats de recherche",
         language: "TypeScript",
-        status: "open",
+        status: "merged",
     },
     {
         repo: "drawdb-io/drawdb",
@@ -157,6 +157,28 @@ export const contributions: Contribution[] = [
             "Correction du sens de la clé étrangère lors d'un drag de la table parente vers l'enfant",
         reason: "La direction de la FK était inversée — créer une relation en partant de la table parente produisait une FK dans le mauvais sens",
         language: "TypeScript",
+        status: "open",
+    },
+    {
+        repo: "drawdb-io/drawdb",
+        title: "fix: add missing pipe delimiters in Markdown table rows",
+        pr: "1002",
+        url: "https://github.com/drawdb-io/drawdb/pull/1002",
+        description:
+            "Correction d'une régression introduite par #1000 — les lignes suivantes à la première n'avaient plus le délimiteur `|` de tête dans les exports Markdown",
+        reason: "Les tables Markdown exportées étaient malformées dès la deuxième ligne de données, cassant le rendu dans tous les viewers Markdown",
+        language: "TypeScript",
+        status: "merged",
+    },
+    {
+        repo: "AutoDarkMode/Windows-Auto-Night-Mode",
+        title: "Add PowerToys Light Switch conflict warning",
+        pr: "1218",
+        url: "https://github.com/AutoDarkMode/Windows-Auto-Night-Mode/pull/1218",
+        description:
+            "Détection du conflit avec PowerToys Light Switch — affiche une InfoBar d'avertissement dans les Settings si le service PowerToys.LightSwitchService est actif",
+        reason: "Les deux services se conflictent lors du changement automatique de thème, sans aucun avertissement pour l'utilisateur (issue #1120)",
+        language: "C#",
         status: "open",
     },
 ];
