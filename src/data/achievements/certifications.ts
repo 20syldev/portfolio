@@ -114,6 +114,7 @@ export const certifications: CertificationCategory[] = [
     {
         name: "Google Skill Badges",
         items: [
+            // Advanced
             {
                 name: "Google DeepMind: Train A Small Language Model",
                 icon: "/images/google/train-small-language-model.png",
@@ -123,6 +124,34 @@ export const certifications: CertificationCategory[] = [
                 date: "1 mars 2026",
                 shape: "rectangle",
             },
+            // Intermediate
+            {
+                name: "Secure Software Delivery",
+                icon: "/images/google/secure-software-delivery.png",
+                url: "https://www.credly.com/badges/b5d8a689-d909-445b-99b4-ac0a78dc907e",
+                level: "Intermediate",
+                provider: "google",
+                date: "22 avr. 2026",
+                shape: "rectangle",
+            },
+            {
+                name: "Create ML Models with BigQuery ML",
+                icon: "/images/google/create-ml-models-bigquery-ml.png",
+                url: "https://www.credly.com/badges/d21c72f2-26a6-4a85-bd0e-807a30c49668",
+                level: "Intermediate",
+                provider: "google",
+                date: "22 avr. 2026",
+                shape: "rectangle",
+            },
+            {
+                name: "Implement CI/CD Pipelines on Google Cloud",
+                icon: "/images/google/implement-cicd-pipelines.png",
+                url: "https://www.credly.com/badges/c4573072-3d89-40c2-bb97-c002dd2d8209",
+                level: "Intermediate",
+                provider: "google",
+                date: "22 avr. 2026",
+                shape: "rectangle",
+            },
             {
                 name: "Implement DevOps Workflows in Google Cloud",
                 icon: "/images/google/devops-workflows.png",
@@ -130,6 +159,16 @@ export const certifications: CertificationCategory[] = [
                 level: "Intermediate",
                 provider: "google",
                 date: "27 févr. 2026",
+                shape: "rectangle",
+            },
+            // Introductory
+            {
+                name: "Set Up an App Dev Environment on Google Cloud",
+                icon: "/images/google/set-up-app-dev-environment.png",
+                url: "https://www.credly.com/badges/67eabd10-5938-4eae-8cc1-fcc0f8121a7b",
+                level: "Introductory",
+                provider: "google",
+                date: "22 avr. 2026",
                 shape: "rectangle",
             },
             {
@@ -179,7 +218,7 @@ export const certifications: CertificationCategory[] = [
             {
                 name: "Professional SOE",
                 icon: "/images/google/psoe-prep.png",
-                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22640264",
                 provider: "google",
                 date: "27 févr. 2026",
             },
