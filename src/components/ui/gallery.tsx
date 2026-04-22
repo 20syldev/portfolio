@@ -70,7 +70,7 @@ export function GalleryTooltipContent({ cert }: { cert: Certification }) {
                         width={tooltipSize}
                         height={tooltipSize}
                         className="rounded-[2.5px] object-contain"
-                        style={{ width: tooltipSize, height: tooltipSize }}
+                        style={{ width: tooltipSize, height: "auto" }}
                     />
                     {cert.counter !== undefined && (
                         <span className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-[#4285F4] text-white text-[11px] font-bold w-6 h-6 rounded-full flex items-center justify-center">
@@ -124,12 +124,23 @@ export function Gallery({
     const [currentCategory, setCurrentCategory] = useState(0);
     const [relatedOpen, setRelatedOpen] = useState(false);
     const [loaded, setLoaded] = useState<Set<string>>(new Set());
+    const [aspectRatios, setAspectRatios] = useState<Record<string, string>>({});
     const scrollRef = useRef<HTMLDivElement>(null);
     useDragScroll(scrollRef);
 
-    const handleImageLoad = useCallback((icon: string) => {
-        setLoaded((prev) => new Set(prev).add(icon));
-    }, []);
+    const handleImageLoad = useCallback(
+        (icon: string, e: React.SyntheticEvent<HTMLImageElement>) => {
+            setLoaded((prev) => new Set(prev).add(icon));
+            const { naturalWidth, naturalHeight } = e.currentTarget;
+            if (naturalWidth > 0 && naturalHeight > 0 && naturalWidth !== naturalHeight) {
+                setAspectRatios((prev) => ({
+                    ...prev,
+                    [icon]: `${naturalWidth}/${naturalHeight}`,
+                }));
+            }
+        },
+        []
+    );
 
     const handleScroll = useCallback(() => {
         if (!scrollRef.current) return;
@@ -214,7 +225,7 @@ export function Gallery({
                         ref={scrollRef}
                         className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hide -mx-4 px-4"
                     >
-                        {categories.map((category) => (
+                        {categories.map((category, categoryIndex) => (
                             <div
                                 key={category.name}
                                 className="flex-shrink-0 w-full snap-center px-2"
@@ -223,9 +234,10 @@ export function Gallery({
                                     {category.name}
                                 </h3>
                                 <div className="grid grid-cols-2 gap-4">
-                                    {category.items.map((item) => {
+                                    {category.items.map((item, itemIndex) => {
                                         const sizes = badgeSizes[item.shape ?? "square"];
                                         const isExternal = !item.url.startsWith("/");
+                                        const ratio = aspectRatios[item.icon];
                                         return (
                                             <Link
                                                 key={item.name}
@@ -236,7 +248,14 @@ export function Gallery({
                                                 })}
                                                 className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-muted/50 transition-colors"
                                             >
-                                                <div className="relative">
+                                                <div
+                                                    className="relative"
+                                                    style={
+                                                        ratio
+                                                            ? { width: "100%", aspectRatio: ratio }
+                                                            : {}
+                                                    }
+                                                >
                                                     {!loaded.has(item.icon) && (
                                                         <Skeleton
                                                             className={`absolute inset-0 ${badgeRounding(item)}`}
@@ -249,10 +268,13 @@ export function Gallery({
                                                         height={sizes.mobile}
                                                         className={`${badgeRounding(item)} object-contain transition-opacity duration-300 ${loaded.has(item.icon) ? "opacity-100" : "opacity-0"}`}
                                                         style={{
-                                                            width: sizes.mobile,
-                                                            height: sizes.mobile,
+                                                            width: ratio ? "100%" : sizes.mobile,
+                                                            height: ratio ? "auto" : sizes.mobile,
                                                         }}
-                                                        onLoad={() => handleImageLoad(item.icon)}
+                                                        priority={categoryIndex === 0 && itemIndex === 0}
+                                                        onLoad={(e) =>
+                                                            handleImageLoad(item.icon, e)
+                                                        }
                                                     />
                                                     {item.counter !== undefined && (
                                                         <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-[#4285F4] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
@@ -324,6 +346,7 @@ export function Gallery({
                                 <div className="flex flex-wrap justify-center gap-4">
                                     {category.items.map((item) => {
                                         const sizes = badgeSizes[item.shape ?? "square"];
+                                        const ratio = aspectRatios[item.icon];
                                         return (
                                             <Tooltip key={item.name}>
                                                 <TooltipTrigger asChild>
@@ -339,7 +362,17 @@ export function Gallery({
                                                             width: sizes.container,
                                                         }}
                                                     >
-                                                        <div className="relative">
+                                                        <div
+                                                            className="relative"
+                                                            style={
+                                                                ratio
+                                                                    ? {
+                                                                          width: "100%",
+                                                                          aspectRatio: ratio,
+                                                                      }
+                                                                    : {}
+                                                            }
+                                                        >
                                                             {!loaded.has(item.icon) && (
                                                                 <Skeleton
                                                                     className={`absolute inset-0 ${badgeRounding(item)}`}
@@ -353,10 +386,12 @@ export function Gallery({
                                                                 className={`${badgeRounding(item)} object-contain transition-opacity duration-300 ${loaded.has(item.icon) ? "opacity-100" : "opacity-0"}`}
                                                                 style={{
                                                                     width: sizes.desktop,
-                                                                    height: sizes.desktop,
+                                                                    height: ratio
+                                                                        ? "auto"
+                                                                        : sizes.desktop,
                                                                 }}
-                                                                onLoad={() =>
-                                                                    handleImageLoad(item.icon)
+                                                                onLoad={(e) =>
+                                                                    handleImageLoad(item.icon, e)
                                                                 }
                                                             />
                                                             {item.counter !== undefined && (
