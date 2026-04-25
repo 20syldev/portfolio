@@ -271,7 +271,9 @@ export function Gallery({
                                                             width: ratio ? "100%" : sizes.mobile,
                                                             height: ratio ? "auto" : sizes.mobile,
                                                         }}
-                                                        priority={categoryIndex === 0 && itemIndex === 0}
+                                                        priority={
+                                                            categoryIndex === 0 && itemIndex === 0
+                                                        }
                                                         onLoad={(e) =>
                                                             handleImageLoad(item.icon, e)
                                                         }
