@@ -1,5 +1,19 @@
 // Projects developed during the work-study program at Zenetys
-export const projects = [
+export interface AlternanceProject {
+    id: string;
+    title: string;
+    description: string;
+    technologies: string[];
+    sections: { title: string; content: string }[];
+    image?: string;
+    video?: string;
+    iframe?: string;
+    github?: string;
+    link?: string;
+    projet?: string;
+}
+
+export const projects: AlternanceProject[] = [
     {
         id: "monitoring",
         title: "Outil de supervision",
@@ -59,20 +73,41 @@ export const projects = [
         id: "logvault",
         title: "LogVault - Service de gestion de Logs",
         description:
-            "LogVault est un service de sécurisation et de gestion de logs, développé par Zenetys. J'ai été impliqué dans le développement de l'interface utilisateur en Vue.js, et j'ai entièrement développé le site web.",
-        technologies: ["Vue.js", "Tailwind CSS"],
-        image: "/images/logvault-demo.png",
-        link: "https://logvault.io",
+            "LogVault est un service de sécurisation et de gestion de logs, développé par Zenetys. J'ai contribué au développement de l'interface utilisateur et de l'application web.",
+        technologies: ["Vue.js"],
+        link: "https://auth.logvault.io",
         sections: [
             {
                 title: "Qu'est ce que LogVault ?",
                 content:
-                    "LogVault permet de centraliser, sécuriser et analyser les logs de vos applications et infrastructures. Il possède une interface web intuitive permettant de visualiser les logs en temps réel, de les analyser via des graphiques.",
+                    "LogVault permet de centraliser, chiffrer et archiver les logs de vos applications et infrastructures, dans une optique de conformité réglementaire (RGPD, NIS2, DORA) et d'observabilité.",
             },
             {
-                title: "Interface moderne",
+                title: "Interface utilisateur",
                 content:
-                    "L'interface utilisateur est développée en Vue.js. Le site web utilise Tailwind CSS pour un design moderne, avec un mode clair et sombre automatique.",
+                    "L'interface utilisateur est développée en Vue.js. Elle fournit des tableaux de bord pour analyser et visualiser les logs collectés, indexés et archivés par la plateforme.",
+            },
+        ],
+    },
+    {
+        id: "logvault-io",
+        title: "LogVault.io - Site internet",
+        description:
+            "J'ai entièrement développé le site internet bilingue de LogVault avec Next.js et un template interne (@zenetys/template). Le site présente les offres SaaS et On-Premise.",
+        technologies: ["Next.js", "Tailwind CSS", "TypeScript"],
+        iframe: "https://www.logvault.io",
+        link: "https://logvault.io",
+        projet: "logvault",
+        sections: [
+            {
+                title: "Architecture data-driven",
+                content:
+                    "Le site est construit sur un template Next.js 16 développé en interne. Tout le contenu est configuré dans des fichiers de données et de traduction, sans texte en dur dans les composants.",
+            },
+            {
+                title: "Bilingue et moderne",
+                content:
+                    "Le site supporte le français et l'anglais via next-intl, avec dark mode automatique et animations Framer Motion. L'export est entièrement statique.",
             },
         ],
     },
