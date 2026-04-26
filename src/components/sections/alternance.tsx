@@ -290,6 +290,35 @@ export function Alternance() {
                                             className="mt-6"
                                         />
                                     )}
+
+                                    {project.iframe && (
+                                        <div
+                                            className="relative mt-6 overflow-hidden rounded-lg border"
+                                            style={{ height: "300px" }}
+                                        >
+                                            <iframe
+                                                src={project.iframe}
+                                                title={project.title}
+                                                className="pointer-events-none absolute top-0 left-0 origin-top-left"
+                                                style={{
+                                                    width: "200%",
+                                                    height: "600px",
+                                                    transform: "scale(0.5)",
+                                                }}
+                                            />
+                                            <a
+                                                href={project.iframe}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="absolute inset-0 flex items-end p-4"
+                                            >
+                                                <Button variant="secondary" size="sm">
+                                                    <ExternalLink className="h-3.5 w-3.5" />
+                                                    Ouvrir le site
+                                                </Button>
+                                            </a>
+                                        </div>
+                                    )}
                                 </CardContent>
                             </Card>
                         ))}
