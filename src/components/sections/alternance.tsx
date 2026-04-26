@@ -9,11 +9,14 @@ import { Footer } from "@/components/layout/footer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ContributionList } from "@/components/ui/contributions";
 import { Video } from "@/components/ui/video";
 import { projects } from "@/data/alternance";
+import { contributions } from "@/data/contributions";
 import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
 import { useSmoothScroll } from "@/hooks/scroll";
+import { random } from "@/lib/utils";
 
 const navSections = [
     { id: "zenetys", label: "Zenetys" },
@@ -31,8 +34,20 @@ export function Alternance() {
     const { versions } = useApi();
     const { scrollRef, scrollTo } = useSmoothScroll<HTMLDivElement>();
     const [active, setActive] = useState<string>(navSections[0].id);
+    const [displayed, setDisplayed] = useState<typeof contributions>([]);
     const navRef = useRef<HTMLDivElement>(null);
     const buttonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+
+    useEffect(() => {
+        const byRepo = Object.values(
+            contributions.reduce<Record<string, typeof contributions>>((acc, c) => {
+                (acc[c.repo] ??= []).push(c);
+                return acc;
+            }, {})
+        );
+        const onePer = byRepo.map((prs) => random.pick(prs));
+        setDisplayed(random.shuffle(onePer).slice(0, 4));
+    }, []);
 
     useEffect(() => {
         const container = scrollRef.current;
@@ -328,82 +343,8 @@ export function Alternance() {
                     <div id="contributions" className="mb-6 sm:mb-8">
                         <h2 className="text-xl sm:text-2xl font-bold">Contributions externes</h2>
                     </div>
-                    <div className="grid gap-4 md:grid-cols-2 mb-8">
-                        <Card>
-                            <CardHeader className="pb-2">
-                                <div className="flex items-center justify-between">
-                                    <CardTitle className="text-base">split()</CardTitle>
-                                    <a
-                                        href="https://github.com/rsyslog/rsyslog/pull/6384"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        <Badge
-                                            variant="outline"
-                                            className="cursor-pointer hover:bg-muted"
-                                        >
-                                            PR #6384
-                                        </Badge>
-                                    </a>
-                                </div>
-                                <div className="flex gap-2">
-                                    <Badge variant="secondary">rsyslog</Badge>
-                                    <Badge variant="secondary">C</Badge>
-                                </div>
-                            </CardHeader>
-                            <CardContent className="space-y-2">
-                                <p className="text-sm text-muted-foreground">
-                                    Nouvelle fonction RainerScript pour parser des chaînes
-                                    délimitées (CSV, tags, chemins) en tableaux JSON sans traitement
-                                    externe.
-                                </p>
-                                <code className="block rounded bg-muted px-2 py-1 text-xs">
-                                    split(string, separator) → JSON array
-                                </code>
-                                <p className="text-xs text-muted-foreground">
-                                    Gère les cas limites : entrées vides, délimiteurs consécutifs,
-                                    en début/fin de chaîne. Documentation et tests inclus.
-                                </p>
-                            </CardContent>
-                        </Card>
-                        <Card>
-                            <CardHeader className="pb-2">
-                                <div className="flex items-center justify-between">
-                                    <CardTitle className="text-base">append_json()</CardTitle>
-                                    <a
-                                        href="https://github.com/rsyslog/rsyslog/pull/6385"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        <Badge
-                                            variant="outline"
-                                            className="cursor-pointer hover:bg-muted"
-                                        >
-                                            PR #6385
-                                        </Badge>
-                                    </a>
-                                </div>
-                                <div className="flex gap-2">
-                                    <Badge variant="secondary">rsyslog</Badge>
-                                    <Badge variant="secondary">C</Badge>
-                                </div>
-                            </CardHeader>
-                            <CardContent className="space-y-2">
-                                <p className="text-sm text-muted-foreground">
-                                    Nouvelle fonction RainerScript pour construire dynamiquement des
-                                    structures JSON sans traitement externe.
-                                </p>
-                                <code className="block rounded bg-muted px-2 py-1 text-xs">
-                                    append_json(array, element) → JSON array
-                                    <br />
-                                    append_json(object, key, value) → JSON object
-                                </code>
-                                <p className="text-xs text-muted-foreground">
-                                    Retourne une nouvelle structure (immutable). Documentation et
-                                    tests inclus.
-                                </p>
-                            </CardContent>
-                        </Card>
+                    <div className="mb-8">
+                        <ContributionList contributions={displayed} columns />
                     </div>
                 </div>
                 <Footer />
