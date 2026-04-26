@@ -274,7 +274,11 @@ function GitHubCard({
     loading?: boolean;
     className?: string;
 }) {
-    const [displayed] = useState(() => random.shuffle(contributions).slice(0, 2));
+    const [displayed, setDisplayed] = useState<typeof contributions>([]);
+
+    useEffect(() => {
+        setDisplayed(random.shuffle(contributions).slice(0, 2));
+    }, []);
 
     return (
         <Card className={`card-hover ${className || ""}`}>
