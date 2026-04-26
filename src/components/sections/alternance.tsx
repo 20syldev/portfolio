@@ -1,7 +1,8 @@
 "use client";
 
-import { ExternalLink, Github } from "lucide-react";
+import { BookOpen, ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 import { Footer } from "@/components/layout/footer";
@@ -194,6 +195,29 @@ export function Alternance() {
                                                                 <Github className="mr-2 h-4 w-4" />
                                                                 GitHub
                                                             </a>
+                                                        </Button>
+                                                    </>
+                                                )}
+                                                {project.projet && (
+                                                    <>
+                                                        <Link
+                                                            href={`/projet/${project.projet}`}
+                                                            className="p-2 rounded-full hover:bg-muted transition-colors sm:hidden"
+                                                        >
+                                                            <BookOpen className="h-4 w-4" />
+                                                        </Link>
+                                                        <Button
+                                                            asChild
+                                                            variant="outline"
+                                                            size="sm"
+                                                            className="hidden sm:inline-flex"
+                                                        >
+                                                            <Link
+                                                                href={`/projet/${project.projet}`}
+                                                            >
+                                                                <BookOpen className="mr-2 h-4 w-4" />
+                                                                En savoir plus
+                                                            </Link>
                                                         </Button>
                                                     </>
                                                 )}
