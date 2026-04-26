@@ -1,6 +1,6 @@
 ---
 title: "GitHub Fetch Tool"
-description: "Outil CLI léger pour récupérer les releases GitHub, lister les assets binaires et les télécharger — sans authentification."
+description: "Outil CLI léger pour récupérer les releases GitHub, lister et installer les assets binaires, avec cache local et auto-mise à jour — sans authentification."
 category: linux
 slug: gft
 order: 2
@@ -23,6 +23,19 @@ curl -fsSL https://cdn.sylvain.sh/bash/gft@latest/install.sh | sh
 # Ou manuellement :
 cp gft /usr/local/bin/
 chmod +x /usr/local/bin/gft
+```
+
+### Mise à jour et désinstallation
+
+```bash
+# Mettre à jour gft vers la dernière version
+gft update
+
+# Désinstaller gft
+gft delete
+
+# Vérifier si une mise à jour est disponible
+gft --check-update
 ```
 
 ## Utilisation {#usage}
@@ -62,6 +75,30 @@ gft cli/cli --json
 
 # Comparer deux releases
 gft cli/cli v2.40.0..v2.50.0
+
+# Lister toutes les releases disponibles
+gft cli/cli --releases
+
+# Inclure les pre-releases dans la résolution du latest
+gft cli/cli --pre
+
+# Installer automatiquement le binaire dans le PATH
+gft cli/cli --install
+
+# Télécharger l'archive source (non-interactif, pour les scripts)
+gft cli/cli --source zip
+
+# Télécharger et vérifier l'intégrité SHA256
+gft cli/cli --get linux-amd64 --checksum
+
+# Ouvrir la page de release dans le navigateur
+gft cli/cli --open
+
+# Mettre à jour gft
+gft update
+
+# Désinstaller gft
+gft delete
 ```
 
 ## Alias {#alias}
@@ -72,17 +109,26 @@ gft cli/cli v2.40.0..v2.50.0
 
 - Détection automatique de la dernière release
 - Listage des assets binaires (`--assets`)
+- Listage de toutes les releases disponibles (`--releases`)
+- Inclusion des pre-releases (`--pre`)
 - Détection automatique de la plateforme (`--detect`) — trouve le bon binaire pour votre OS/arch
 - Téléchargement direct par pattern (`--get`)
+- Installation automatique de binaires dans le PATH (`--install`)
+- Téléchargement d'archives source non-interactif (`--source zip|tar`)
+- Vérification SHA256 après téléchargement (`--checksum`)
 - Affichage des notes de release (`--notes`)
 - Sortie JSON pour les scripts (`--json`)
 - Mode silencieux — juste la chaîne de version (`-q`)
 - Comparaison de versions (`v1.0..v2.0`)
 - Vérification des mises à jour (`--check-update`)
+- Auto-mise à jour intégrée (`gft update`)
+- Ouverture de la page release dans le navigateur (`--open`)
+- Cache local des réponses (`~/.config/gft/cache/`) avec TTL configurable via `GFT_CACHE_TTL`
 - Fonctionne sans authentification GitHub
 - Fallback transparent vers le CLI `gh` pour les dépôts privés (si disponible)
 - Respecte la convention `NO_COLOR` et la détection de pipe
 - Complétion Bash et Zsh
+- Page de manuel (`man gft`)
 
 ## Fonctionnement {#internals}
 
@@ -92,29 +138,48 @@ gft récupère directement les pages de releases GitHub, donc il :
 - N'a **aucun problème de rate limit** (scraping, pas API)
 - Fonctionne sur n'importe quelle machine avec `curl` et `bash`
 
+Les réponses sont mises en cache localement dans `~/.config/gft/cache/` pour éviter les requêtes réseau répétées (TTL par défaut : 300 secondes, configurable via `GFT_CACHE_TTL`). Utiliser `--no-cache` pour ignorer le cache ponctuellement, ou `--clear-cache` pour le vider entièrement.
+
 Lorsque le CLI `gh` est installé et authentifié, gft l'utilise en transparence comme fallback pour les dépôts privés et une sortie JSON plus riche. Pour compléter cet outillage, [mn](/help/linux/mn) offre un menu interactif pour gérer vos connexions SSH, repos locaux et alias Bash depuis le terminal.
+
+## Commandes {#commands}
+
+| Commande     | Description                                |
+| ------------ | ------------------------------------------ |
+| `gft update` | Mettre à jour gft vers la dernière version |
+| `gft delete` | Désinstaller gft                           |
 
 ## Options {#options}
 
-| Option            | Description                                            |
-| ----------------- | ------------------------------------------------------ |
-| `-h, --help`      | Afficher l'aide                                        |
-| `-v, --version`   | Afficher la version                                    |
-| `--check-update`  | Vérifier si une nouvelle version de gft est disponible |
-| `--assets`        | Lister les assets binaires de la release               |
-| `--detect`        | Détecter l'OS/arch, mettre en évidence l'asset idéal   |
-| `--get <pattern>` | Télécharger l'asset correspondant au pattern           |
-| `--notes`         | Afficher les notes de release                          |
-| `--json`          | Sortie au format JSON                                  |
-| `-q, --quiet`     | Afficher uniquement le tag de version                  |
-| `--no-color`      | Désactiver la sortie colorée                           |
+| Option                 | Description                                                |
+| ---------------------- | ---------------------------------------------------------- |
+| `-h, --help`           | Afficher l'aide                                            |
+| `-v, --version`        | Afficher la version                                        |
+| `--check-update`       | Vérifier si une nouvelle version de gft est disponible     |
+| `--upgrade`            | Mettre à jour gft vers la dernière version                 |
+| `--releases, --list`   | Lister toutes les releases disponibles                     |
+| `--assets`             | Lister les assets binaires de la release                   |
+| `--detect`             | Détecter l'OS/arch, mettre en évidence l'asset idéal       |
+| `--get <pattern>`      | Télécharger l'asset correspondant au pattern               |
+| `--install`            | Télécharger, extraire et installer le binaire dans le PATH |
+| `--source zip\|tar`    | Télécharger l'archive source (non-interactif)              |
+| `--checksum, --verify` | Vérifier l'intégrité SHA256 après téléchargement           |
+| `--notes`              | Afficher les notes de release                              |
+| `--json`               | Sortie au format JSON                                      |
+| `-q, --quiet`          | Afficher uniquement le tag de version                      |
+| `--pre, --prerelease`  | Inclure les pre-releases lors de la résolution du latest   |
+| `--open`               | Ouvrir la page de release dans le navigateur               |
+| `--no-color`           | Désactiver la sortie colorée                               |
+| `--no-cache`           | Ignorer le cache de réponses                               |
+| `--clear-cache`        | Vider tout le cache                                        |
 
 ## Variables d'environnement {#env}
 
-| Variable       | Description                                                    |
-| -------------- | -------------------------------------------------------------- |
-| `NO_COLOR`     | Définir à n'importe quelle valeur pour désactiver les couleurs |
-| `GITHUB_TOKEN` | Pour augmenter les limites d'API (5000/h vs 60/h)              |
+| Variable        | Description                                                    |
+| --------------- | -------------------------------------------------------------- |
+| `NO_COLOR`      | Définir à n'importe quelle valeur pour désactiver les couleurs |
+| `GITHUB_TOKEN`  | Pour augmenter les limites d'API (5000/h vs 60/h)              |
+| `GFT_CACHE_TTL` | Durée du cache en secondes (défaut : 300)                      |
 
 ## Exemple de sortie {#output}
 
