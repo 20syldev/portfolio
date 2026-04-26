@@ -37,6 +37,7 @@ export function Alternance() {
     const [displayed, setDisplayed] = useState<typeof contributions>([]);
     const navRef = useRef<HTMLDivElement>(null);
     const buttonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+    const mounted = useRef(false);
 
     useEffect(() => {
         const byRepo = Object.values(
@@ -68,6 +69,10 @@ export function Alternance() {
     }, [scrollRef]);
 
     useEffect(() => {
+        if (!mounted.current) {
+            mounted.current = true;
+            return;
+        }
         window.history.replaceState(null, "", `#${active}`);
     }, [active]);
 
