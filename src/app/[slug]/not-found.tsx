@@ -3,6 +3,11 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 
+/**
+ * 404 not found page for unknown slugs.
+ *
+ * @returns The rendered 404 page
+ */
 export default function NotFound() {
     return (
         <div className="flex min-h-screen flex-col items-center justify-center gap-6 p-4 text-center animate-fade-in">
