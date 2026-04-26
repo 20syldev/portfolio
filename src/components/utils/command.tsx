@@ -231,6 +231,12 @@ function CommandPreviewCard({ preview }: { preview: HoverPreview }) {
     );
 }
 
+/**
+ * Global command menu rendered as a portal over the page.
+ * Provides search, navigation, contact and shortcuts access.
+ *
+ * @returns The rendered command menu
+ */
 export function CommandMenu() {
     const { open, setOpen } = useCommand();
     const [search, setSearch] = React.useState("");
