@@ -11,6 +11,7 @@ export const projectOrder: string[] = [
     "minify",
     "wrkit",
     "portfolio",
+    "logvault",
     "lebonchar",
     "stadiumcompany",
     "password",
