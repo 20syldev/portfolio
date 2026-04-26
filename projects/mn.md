@@ -31,8 +31,9 @@ mn propose plusieurs modules accessibles directement depuis le menu principal ou
 - `mn funcs` — Fonctions shell avec synchronisation vers `~/.bash_functions`
 - `mn docs` — Documentation interne en Markdown
 - `mn config` — Configuration et rechargement de l'environnement
+- `mn help` — Aide
 
-Des alias courts sont aussi supportés : `mn r` (repos), `mn a` (alias), `mn f` (funcs), `mn d` (docs).
+Des alias courts sont aussi supportés : `mn r` (repos), `mn a` (alias), `mn f` (funcs), `mn d` (docs), `mn c` (config), `mn h` (help).
 
 ## Navigation {#navigation}
 
@@ -45,19 +46,18 @@ La navigation est conçue pour être rapide et intuitive :
 - `e` — Modifier l'entrée sélectionnée
 - `d` — Supprimer l'entrée sélectionnée
 - `v` — Voir les détails
-- `r` — Retour au menu principal
-- `q` — Quitter
+- `r` — Retour / quitter
 
 ## Fonctionnalités {#features}
 
-- **Connexions SSH** — Stockez vos serveurs avec label, IP, type de connexion et mot de passe optionnel
-- **Dépôts GitHub** — Créez des alias vers vos répertoires locaux et ouvrez-les dans VS Code
-- **Alias Bash** — Ajoutez, modifiez et supprimez des alias avec synchronisation automatique
-- **Fonctions shell** — Gérez vos fonctions Bash avec synchronisation
-- **Documentation** — Lisez vos fichiers Markdown directement dans le terminal
-- **Configuration** — Éditez les fichiers de configuration et rechargez votre environnement à la volée
+- **Connexions SSH/Custom** — stocker des serveurs avec label, IP, type (SSH ou commande personnalisée) et mot de passe optionnel
+- **Dépôts GitHub** — créer des alias vers vos répertoires locaux et les ouvrir dans VS Code
+- **Alias Bash** — ajouter, modifier, supprimer des alias avec synchronisation automatique vers `~/.bash_aliases`
+- **Fonctions shell** — gérer des fonctions Bash complexes avec synchronisation vers `~/.bash_functions`
+- **Documentation** — lire des fichiers Markdown internes directement dans le terminal
+- **Configuration** — éditer les fichiers de configuration et recharger l'environnement à la volée
 
 ## Format de données {#data}
 
-Toutes les données sont stockées dans des fichiers `.dat` utilisant `:::` comme séparateur.
+Toutes les données sont stockées dans `~/.config/mn/data/` dans des fichiers `.dat` avec `:::` comme séparateur.
 Les fichiers sont triés alphabétiquement et peuvent être modifiés manuellement.
