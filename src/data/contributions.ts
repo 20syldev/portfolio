@@ -179,6 +179,39 @@ export const contributions: Contribution[] = [
             "Détection du conflit avec PowerToys Light Switch — affiche une InfoBar d'avertissement dans les Settings si le service PowerToys.LightSwitchService est actif",
         reason: "Les deux services se conflictent lors du changement automatique de thème, sans aucun avertissement pour l'utilisateur (issue #1120)",
         language: "C#",
+        status: "merged",
+    },
+    {
+        repo: "phare/sloggo",
+        title: "fix(live): restore polling when no new logs are available",
+        pr: "14",
+        url: "https://github.com/phare/sloggo/pull/14",
+        description:
+            "Correction du polling live qui s'arrêtait définitivement après le premier intervalle sans nouveaux logs",
+        reason: "getPreviousPageParam retournait null sur un résultat vide, marquant hasPreviousPage à false et rendant les appels fetchPreviousPage() inopérants",
+        language: "TypeScript",
+        status: "open",
+    },
+    {
+        repo: "mintlify/components",
+        title: "fix(accordion): remove unintended clipboard copy on open",
+        pr: "234",
+        url: "https://github.com/mintlify/components/pull/234",
+        description:
+            "Suppression de la copie silencieuse de l'URL dans le presse-papiers à chaque ouverture/fermeture d'un accordion",
+        reason: "copyToClipboard(newUrl) écrasait le presse-papiers de l'utilisateur à son insu — le deep-link par hash fonctionne déjà via replaceState",
+        language: "TypeScript",
+        status: "open",
+    },
+    {
+        repo: "mintlify/components",
+        title: "fix(code-group): add TOML language preset to fix missing icon",
+        pr: "235",
+        url: "https://github.com/mintlify/components/pull/235",
+        description:
+            "Ajout du preset TOML dans SNIPPET_PRESETS pour corriger l'icône manquante dans CodeGroup",
+        reason: "L'absence d'entrée toml dans les presets faisait fallback sur l'icône YAML au lieu de TOML",
+        language: "TypeScript",
         status: "open",
     },
 ];
