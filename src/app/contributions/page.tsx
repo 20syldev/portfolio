@@ -1,37 +1,16 @@
 "use client";
 
-import { ArrowLeft, Dot, GitMerge, GitPullRequestClosed, GitPullRequestDraft } from "lucide-react";
+import { ArrowLeft, Dot } from "lucide-react";
 import Link from "next/link";
 
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ContributionStatus } from "@/components/ui/contributions";
 import { type Contribution, contributions } from "@/data/contributions";
 import { useSmoothScroll } from "@/hooks/scroll";
 import { tabs, urls } from "@/lib/nav";
-
-function StatusIcon({ status }: { status: Contribution["status"] }) {
-    if (status === "merged") {
-        return (
-            <span className="flex items-center justify-center w-4 h-4 rounded-full bg-purple-500/15 shrink-0">
-                <GitMerge className="h-2.5 w-2.5 text-purple-500" />
-            </span>
-        );
-    }
-    if (status === "closed") {
-        return (
-            <span className="flex items-center justify-center w-4 h-4 rounded-full bg-destructive/15 shrink-0">
-                <GitPullRequestClosed className="h-2.5 w-2.5 text-destructive" />
-            </span>
-        );
-    }
-    return (
-        <span className="flex items-center justify-center w-4 h-4 rounded-full bg-green-500/15 shrink-0">
-            <GitPullRequestDraft className="h-2.5 w-2.5 text-green-500" />
-        </span>
-    );
-}
 
 /**
  * Dedicated page listing all external open-source contributions, grouped by repository.
@@ -106,7 +85,7 @@ export default function ContributionsPage() {
                                                 className="flex items-start gap-2.5 px-4 py-3 hover:bg-muted/30 transition-colors"
                                             >
                                                 <div className="pt-0.5">
-                                                    <StatusIcon status={pr.status} />
+                                                    <ContributionStatus status={pr.status} />
                                                 </div>
                                                 <div className="flex-1 min-w-0">
                                                     <a
