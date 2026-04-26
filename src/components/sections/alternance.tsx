@@ -314,15 +314,15 @@ export function Alternance() {
                                     {project.iframe && (
                                         <div
                                             className="relative mt-6 overflow-hidden rounded-lg border"
-                                            style={{ height: "300px" }}
+                                            style={{ height: "500px" }}
                                         >
                                             <iframe
                                                 src={project.iframe}
                                                 title={project.title}
-                                                className="pointer-events-none absolute top-0 left-0 origin-top-left"
+                                                className="absolute top-0 left-0 origin-top-left"
                                                 style={{
                                                     width: "200%",
-                                                    height: "600px",
+                                                    height: "1000px",
                                                     transform: "scale(0.5)",
                                                 }}
                                             />
@@ -330,12 +330,10 @@ export function Alternance() {
                                                 href={project.iframe}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="absolute inset-0 flex items-end p-4"
+                                                className="absolute bottom-3 right-3 z-10 flex items-center gap-1.5 rounded-full bg-background/50 backdrop-blur-sm border px-3 py-1.5 text-xs font-medium hover:bg-background transition-colors"
                                             >
-                                                <Button variant="secondary" size="sm">
-                                                    <ExternalLink className="h-3.5 w-3.5" />
-                                                    Ouvrir le site
-                                                </Button>
+                                                <ExternalLink className="h-3 w-3" />
+                                                Ouvrir le site
                                             </a>
                                         </div>
                                     )}
