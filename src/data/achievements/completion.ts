@@ -189,6 +189,34 @@ export const completionBadges: CertificationCategory[] = [
         name: "Cloud & Sécurité",
         items: [
             {
+                name: "Put It All Together: Prepare for a Cloud Security Analyst Job",
+                icon: "/images/google/cloud-security-analyst-job.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/23824981",
+                provider: "google",
+                date: "27 avr. 2026",
+            },
+            {
+                name: "Detect, Respond, and Recover from Cloud Cybersecurity Attacks",
+                icon: "/images/google/detect-respond-recover-cybersecurity.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/23829130",
+                provider: "google",
+                date: "27 avr. 2026",
+            },
+            {
+                name: "Cloud Security Risks: Identify and Protect Against Threats",
+                icon: "/images/google/cloud-security-risks-threats.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/23827389",
+                provider: "google",
+                date: "27 avr. 2026",
+            },
+            {
+                name: "Strategies for Cloud Security Risk Management",
+                icon: "/images/google/cloud-security-risk-management.png",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/23824116",
+                provider: "google",
+                date: "27 avr. 2026",
+            },
+            {
                 name: "Model Armor: Securing AI Deployments",
                 icon: "/images/google/model-armor.png",
                 url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22814185",
