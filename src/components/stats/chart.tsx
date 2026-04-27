@@ -258,7 +258,7 @@ export function ActivityChart({ data, loading }: { data?: ActivityWeek[]; loadin
     return (
         <>
             <Card
-                className="group relative max-sm:cursor-pointer"
+                className="group relative pb-3 lg:pb-4 max-sm:cursor-pointer"
                 onClick={() => {
                     if (window.innerWidth < 640) setOpen(true);
                 }}
