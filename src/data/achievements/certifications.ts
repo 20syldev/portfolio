@@ -112,6 +112,19 @@ export const certifications: CertificationCategory[] = [
         ],
     },
     {
+        name: "Google Cloud Certificates",
+        items: [
+            {
+                name: "Google Cloud Cybersecurity Certificate",
+                icon: "/images/google/cloud-cybersecurity-certificate.png",
+                url: "https://www.credly.com/badges/1592a4eb-91d9-4301-a5b5-82457a6b58c1",
+                provider: "google",
+                date: "27 avr. 2026",
+                shape: "round",
+            },
+        ],
+    },
+    {
         name: "Google Skill Badges",
         items: [
             // Advanced
