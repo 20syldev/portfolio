@@ -103,6 +103,7 @@ export function Projects() {
                             return (
                                 <button
                                     key={project.id}
+                                    data-status={status ?? undefined}
                                     onClick={() => setSelectedProject(project)}
                                     className={`flex relative flex-col gap-2 rounded-lg p-4 text-left card-hover hover:cursor-pointer ${
                                         hasGradient
