@@ -218,11 +218,16 @@ function CommandPreviewCard({ preview }: { preview: HoverPreview }) {
                 )}
                 {tags && tags.length > 0 && (
                     <div className="flex flex-wrap gap-1">
-                        {tags.slice(0, 5).map((tag) => (
+                        {tags.slice(0, 3).map((tag) => (
                             <Badge key={tag} variant="outline" className="text-[10px] py-0">
                                 {tag}
                             </Badge>
                         ))}
+                        {tags.length > 3 && (
+                            <Badge variant="outline" className="text-[10px] py-0">
+                                +{tags.length - 3}
+                            </Badge>
+                        )}
                     </div>
                 )}
             </div>
