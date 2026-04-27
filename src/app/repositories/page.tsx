@@ -83,6 +83,7 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
                         return (
                             <button
                                 key={project.id}
+                                data-status={status ?? undefined}
                                 onClick={() => setSelectedProject(project)}
                                 className={`relative flex flex-col gap-2 rounded-lg p-4 text-left card-hover hover:cursor-pointer ${
                                     hasGradient
