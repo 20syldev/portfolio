@@ -71,14 +71,14 @@ export const completionBadges: CertificationCategory[] = [
             {
                 name: "MLOps with Vertex AI: Model Evaluation",
                 icon: "/images/google/mlops-model-evaluation.png",
-                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22583997",
                 provider: "google",
                 date: "26 févr. 2026",
             },
             {
                 name: "MLOps for Generative AI",
                 icon: "/images/google/mlops-generative-ai.png",
-                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11",
+                url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22583383",
                 provider: "google",
                 date: "26 févr. 2026",
             },
