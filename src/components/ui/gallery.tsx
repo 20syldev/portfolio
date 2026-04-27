@@ -46,6 +46,12 @@ const badgeRounding = (item: Certification) =>
           ? "rounded-xl"
           : "rounded-[2.5px]";
 
+const containerStyle = (item: Certification, ratio: string | undefined, size: number) => {
+    if (ratio) return { width: "100%", aspectRatio: ratio };
+    if (item.shape === "rectangle") return { width: "100%", aspectRatio: "3/2" };
+    return { width: size, height: size };
+};
+
 const maxContainer = 200;
 const tooltipSize = 220;
 
@@ -250,11 +256,11 @@ export function Gallery({
                                             >
                                                 <div
                                                     className="relative"
-                                                    style={
-                                                        ratio
-                                                            ? { width: "100%", aspectRatio: ratio }
-                                                            : {}
-                                                    }
+                                                    style={containerStyle(
+                                                        item,
+                                                        ratio,
+                                                        sizes.mobile
+                                                    )}
                                                 >
                                                     {!loaded.has(item.icon) && (
                                                         <Skeleton
@@ -267,10 +273,7 @@ export function Gallery({
                                                         width={sizes.mobile}
                                                         height={sizes.mobile}
                                                         className={`${badgeRounding(item)} object-contain transition-opacity duration-300 ${loaded.has(item.icon) ? "opacity-100" : "opacity-0"}`}
-                                                        style={{
-                                                            width: ratio ? "100%" : sizes.mobile,
-                                                            height: ratio ? "auto" : sizes.mobile,
-                                                        }}
+                                                        style={{ width: "100%", height: "100%" }}
                                                         priority={
                                                             categoryIndex === 0 && itemIndex === 0
                                                         }
@@ -366,14 +369,11 @@ export function Gallery({
                                                     >
                                                         <div
                                                             className="relative"
-                                                            style={
-                                                                ratio
-                                                                    ? {
-                                                                          width: "100%",
-                                                                          aspectRatio: ratio,
-                                                                      }
-                                                                    : {}
-                                                            }
+                                                            style={containerStyle(
+                                                                item,
+                                                                ratio,
+                                                                sizes.desktop
+                                                            )}
                                                         >
                                                             {!loaded.has(item.icon) && (
                                                                 <Skeleton
@@ -387,10 +387,8 @@ export function Gallery({
                                                                 height={sizes.desktop}
                                                                 className={`${badgeRounding(item)} object-contain transition-opacity duration-300 ${loaded.has(item.icon) ? "opacity-100" : "opacity-0"}`}
                                                                 style={{
-                                                                    width: sizes.desktop,
-                                                                    height: ratio
-                                                                        ? "auto"
-                                                                        : sizes.desktop,
+                                                                    width: "100%",
+                                                                    height: "100%",
                                                                 }}
                                                                 onLoad={(e) =>
                                                                     handleImageLoad(item.icon, e)
