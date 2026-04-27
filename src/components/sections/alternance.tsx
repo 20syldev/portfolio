@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, ExternalLink, Github } from "lucide-react";
+import { ArrowRight, BookOpen, ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -343,8 +343,18 @@ export function Alternance() {
                     </div>
 
                     {/* Contributions */}
-                    <div id="contributions" className="mb-6 sm:mb-8">
+                    <div
+                        id="contributions"
+                        className="mb-6 sm:mb-8 flex items-center justify-between"
+                    >
                         <h2 className="text-xl sm:text-2xl font-bold">Contributions externes</h2>
+                        <Link
+                            href="/contributions"
+                            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                            Voir les {contributions.length} contributions
+                            <ArrowRight className="h-4 w-4" />
+                        </Link>
                     </div>
                     <div className="mb-8">
                         <ContributionList contributions={displayed} columns />
