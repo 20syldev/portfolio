@@ -282,6 +282,7 @@ export function ActivityChart({ data, loading }: { data?: ActivityWeek[]; loadin
                         "rotate-90 origin-center"
                     )}
                     showCloseButton
+                    aria-describedby={undefined}
                 >
                     <DialogHeader className="sr-only">
                         <DialogTitle>Contributions GitHub</DialogTitle>
