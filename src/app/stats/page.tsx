@@ -9,7 +9,10 @@ import {
     Cpu,
     FileText,
     Gauge,
+    GitFork,
     Github,
+    GitMerge,
+    GitPullRequest,
     GraduationCap,
     Layers,
     Monitor,
@@ -32,6 +35,7 @@ import {
     totalGdevBadges,
     totalLabs,
 } from "@/data/achievements";
+import { contributions } from "@/data/contributions";
 import { docs } from "@/data/docs";
 import { projects } from "@/data/projects";
 import { techCategories } from "@/data/technologies";
@@ -43,6 +47,10 @@ import { tabs, urls } from "@/lib/nav";
 
 const totalTech = techCategories.reduce((acc, cat) => acc + cat.items.length, 0);
 const uniqueTags = new Set(projects.flatMap((p) => p.tags)).size;
+const totalContributions = contributions.length;
+const uniqueRepos = new Set(contributions.map((c) => c.repo)).size;
+const mergedPRs = contributions.filter((c) => c.status === "merged").length;
+const openPRs = contributions.filter((c) => c.status === "open").length;
 
 type StatItem = {
     label: string;
@@ -129,6 +137,39 @@ export default function StatsPage() {
                                 value={stats?.year ?? "—"}
                                 icon={Github}
                                 loading={loading || stats?.year == null}
+                            />
+                        </div>
+                    </section>
+
+                    {/* External contributions */}
+                    <section className="mb-8">
+                        <h2 className="text-lg font-semibold mb-4 text-muted-foreground uppercase tracking-wide text-xs">
+                            Contributions Externes
+                        </h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mt-4">
+                            <StatCard
+                                label="Pull requests"
+                                value={totalContributions}
+                                icon={GitPullRequest}
+                                href="/contributions"
+                            />
+                            <StatCard
+                                label="Projets contribués"
+                                value={uniqueRepos}
+                                icon={GitFork}
+                                href="/contributions"
+                            />
+                            <StatCard
+                                label="PRs fusionnées"
+                                value={mergedPRs}
+                                icon={GitMerge}
+                                href="/contributions"
+                            />
+                            <StatCard
+                                label="PRs ouvertes"
+                                value={openPRs}
+                                icon={GitPullRequest}
+                                href="/contributions"
                             />
                         </div>
                     </section>
