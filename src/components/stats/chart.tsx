@@ -246,7 +246,7 @@ export function ActivityChart({ data, loading }: { data?: ActivityWeek[]; loadin
                     <CardTitle className="text-sm font-medium">Contributions GitHub</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <Skeleton className="h-[320px] w-full rounded-lg" />
+                    <Skeleton className="aspect-[8/3] w-full rounded-lg" />
                 </CardContent>
             </Card>
         );
