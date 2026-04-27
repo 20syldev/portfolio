@@ -174,6 +174,27 @@ export default function StatsPage() {
                         </div>
                     </section>
 
+                    {/* Experience */}
+                    <section className="mb-8">
+                        <h2 className="text-lg font-semibold mb-4 text-muted-foreground uppercase tracking-wide text-xs">
+                            Expérience
+                        </h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <StatCard
+                                label="Expérience Front-End"
+                                value={stats?.frontend ?? "8 ans"}
+                                icon={Code2}
+                                loading={loading}
+                            />
+                            <StatCard
+                                label="Expérience Back-End"
+                                value={stats?.backend ?? "5 ans"}
+                                icon={Code2}
+                                loading={loading}
+                            />
+                        </div>
+                    </section>
+
                     {/* Portfolio */}
                     <section className="mb-8">
                         <h2 className="text-lg font-semibold mb-4 text-muted-foreground uppercase tracking-wide text-xs">
@@ -261,27 +282,6 @@ export default function StatsPage() {
                                 value={totalLabs}
                                 icon={BookOpen}
                                 href="/labs"
-                            />
-                        </div>
-                    </section>
-
-                    {/* Experience */}
-                    <section className="mb-8">
-                        <h2 className="text-lg font-semibold mb-4 text-muted-foreground uppercase tracking-wide text-xs">
-                            Expérience
-                        </h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <StatCard
-                                label="Expérience Front-End"
-                                value={stats?.frontend ?? "8 ans"}
-                                icon={Code2}
-                                loading={loading}
-                            />
-                            <StatCard
-                                label="Expérience Back-End"
-                                value={stats?.backend ?? "5 ans"}
-                                icon={Code2}
-                                loading={loading}
                             />
                         </div>
                     </section>
