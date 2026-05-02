@@ -10,10 +10,10 @@ import { Name } from "@/components/ui/name";
 import { Rotating } from "@/components/ui/rotating";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useFont } from "@/components/utils/font";
-import { useMultiTap } from "@/components/utils/konami";
 import { useViewer } from "@/components/utils/viewer";
 import { collapseHole, Result, Vortex } from "@/components/utils/vortex";
 import { profile } from "@/data/profile";
+import { useKonami, useMultiTap } from "@/hooks/konami";
 import { useDraggablePhysics } from "@/hooks/physics";
 import { useSparkle } from "@/hooks/sparkle";
 
@@ -77,6 +77,46 @@ export function Hero() {
     useSparkle(logoRef, isDragging);
     useMultiTap(logoRef);
 
+    const flyRef = useRef<HTMLDivElement>(null);
+    const flyAnimRef = useRef<Animation | null>(null);
+    const wasShakeRef = useRef(false);
+    const { activated, trigger } = useKonami();
+
+    useEffect(() => {
+        const el = flyRef.current;
+        if (!el) return;
+        const noMotion = document.body.classList.contains("no-motion");
+
+        if (activated && trigger === "shake") {
+            wasShakeRef.current = true;
+            settle.current?.();
+            flyAnimRef.current?.cancel();
+            if (noMotion) return;
+            flyAnimRef.current = el.animate(
+                [
+                    { transform: "translateY(0) scale(1) rotate(0deg)", opacity: "1" },
+                    { transform: "translateY(-120vh) scale(0.3) rotate(720deg)", opacity: "0" },
+                ],
+                { duration: 800, easing: "cubic-bezier(0.4, 0, 1, 1)", fill: "forwards" }
+            );
+        } else if (!activated && wasShakeRef.current) {
+            wasShakeRef.current = false;
+            flyAnimRef.current?.cancel();
+            if (noMotion) return;
+            flyAnimRef.current = el.animate(
+                [
+                    { transform: "translateY(-80vh) scale(0.5) rotate(360deg)", opacity: "0" },
+                    { transform: "translateY(0) scale(1) rotate(0deg)", opacity: "1" },
+                ],
+                { duration: 1000, easing: "cubic-bezier(0.34, 1.56, 0.64, 1)", fill: "forwards" }
+            );
+            flyAnimRef.current.finished.then(() => {
+                flyAnimRef.current?.cancel();
+                flyAnimRef.current = null;
+            });
+        }
+    }, [activated, trigger, settle]);
+
     useEffect(() => {
         const onTouch = (e: TouchEvent) => {
             if (e.touches.length < 5 || suckedRef.current) return;
@@ -115,16 +155,18 @@ export function Hero() {
     return (
         <div className="flex h-full flex-col items-center justify-center px-4 text-center">
             {/* Logo */}
-            <div ref={logoRef} className="relative inline-block">
-                <Image
-                    src="/favicon.ico"
-                    alt={profile.name}
-                    width={120}
-                    height={120}
-                    className="rounded-full shadow-lg pointer-events-none"
-                    draggable={false}
-                    priority
-                />
+            <div ref={flyRef}>
+                <div ref={logoRef} className="relative inline-block">
+                    <Image
+                        src="/favicon.ico"
+                        alt={profile.name}
+                        width={120}
+                        height={120}
+                        className="rounded-full shadow-lg pointer-events-none"
+                        draggable={false}
+                        priority
+                    />
+                </div>
             </div>
 
             {/* Nom & Titre */}
