@@ -120,8 +120,11 @@ export async function collapseHole(targetRect: DOMRect): Promise<void> {
         }
     );
 
-    await containerAnim.finished;
-    elementAnims.forEach((a) => a.cancel());
+    try {
+        await containerAnim.finished;
+    } finally {
+        elementAnims.forEach((a) => a.cancel());
+    }
 }
 
 /**
@@ -161,12 +164,23 @@ function reset() {
                 fill: "both",
             }
         );
-        anim.finished.then(() => {
+        const cleanup = () => {
             anim.cancel();
             el.style.transform = "";
             el.style.opacity = "";
-        });
+        };
+        anim.finished.then(cleanup).catch(cleanup);
     });
+
+    const maxDuration = elements.length * 50 + 450;
+    setTimeout(() => {
+        elements.forEach((el) => {
+            el.getAnimations().forEach((a) => a.cancel());
+            el.style.transform = "";
+            el.style.opacity = "";
+            el.style.transformOrigin = "";
+        });
+    }, maxDuration);
 }
 
 /**
