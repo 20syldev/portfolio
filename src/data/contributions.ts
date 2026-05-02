@@ -201,7 +201,7 @@ export const contributions: Contribution[] = [
             "Suppression de la copie silencieuse de l'URL dans le presse-papiers à chaque ouverture/fermeture d'un accordion",
         reason: "copyToClipboard(newUrl) écrasait le presse-papiers de l'utilisateur à son insu — le deep-link par hash fonctionne déjà via replaceState",
         language: "TypeScript",
-        status: "open",
+        status: "merged",
     },
     {
         repo: "mintlify/components",
@@ -212,6 +212,6 @@ export const contributions: Contribution[] = [
             "Ajout du preset TOML dans SNIPPET_PRESETS pour corriger l'icône manquante dans CodeGroup",
         reason: "L'absence d'entrée toml dans les presets faisait fallback sur l'icône YAML au lieu de TOML",
         language: "TypeScript",
-        status: "open",
+        status: "merged",
     },
 ];
