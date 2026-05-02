@@ -160,6 +160,11 @@ export function useScroll({
                 return;
             }
 
+            if (document.body.classList.contains("hole-active")) {
+                e.preventDefault();
+                return;
+            }
+
             const absX = Math.abs(e.deltaX);
             const absY = Math.abs(e.deltaY);
             const hasNativeScroll = getSectionsForTab(currentTab) === 1;
@@ -230,6 +235,7 @@ export function useScroll({
 
         const handleTouchStart = (e: TouchEvent) => {
             if (stateRef.current.isScrolling) return;
+            if (document.body.classList.contains("hole-active")) return;
 
             const touch = e.touches[0];
             const target = e.target as Element;
@@ -243,6 +249,7 @@ export function useScroll({
 
         const handleTouchMove = (e: TouchEvent) => {
             if (!touchStartRef.current || stateRef.current.isScrolling) return;
+            if (document.body.classList.contains("hole-active")) return;
 
             const touch = e.touches[0];
             const deltaX = touch.clientX - touchStartRef.current.x;
@@ -295,7 +302,11 @@ export function useScroll({
 
         // Touch end handler
         const handleTouchEnd = (e: TouchEvent) => {
-            if (!touchStartRef.current || stateRef.current.isScrolling) {
+            if (
+                !touchStartRef.current ||
+                stateRef.current.isScrolling ||
+                document.body.classList.contains("hole-active")
+            ) {
                 touchStartRef.current = null;
                 directionLockedRef.current = null;
                 return;
@@ -364,7 +375,8 @@ export function useScroll({
             if (
                 stateRef.current.isScrolling ||
                 e.altKey ||
-                document.querySelector("[role='dialog']")
+                document.querySelector("[role='dialog']") ||
+                document.body.classList.contains("hole-active")
             )
                 return;
 
