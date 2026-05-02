@@ -18,13 +18,23 @@ const konamiSequence = [
     "a",
 ];
 
-const tapCount = 7;
-const tapWindow = 3000;
-const shakeThreshold = 15;
-const shakeCount = 3;
-const shakeWindow = 2000;
+const shakeThreshold = 8;
+const shakeCount = 2;
+const shakeWindow = 1500;
 
-const KonamiContext = React.createContext<{ toggle: () => void }>({ toggle: () => {} });
+type Trigger = "konami" | "shake" | "tap";
+
+interface KonamiContextType {
+    toggle: (source?: Trigger) => void;
+    activated: boolean;
+    trigger: Trigger | null;
+}
+
+export const KonamiContext = React.createContext<KonamiContextType>({
+    toggle: () => {},
+    activated: false,
+    trigger: null,
+});
 
 /**
  * Provider for Konami Code Easter egg.
@@ -38,14 +48,21 @@ const KonamiContext = React.createContext<{ toggle: () => void }>({ toggle: () =
  */
 export function KonamiProvider({ children }: { children: React.ReactNode }) {
     const [activated, setActivated] = React.useState(false);
+    const [trigger, setTrigger] = React.useState<Trigger | null>(null);
     const indexRef = React.useRef(0);
     const { theme, setTheme } = useTheme();
     const themeRef = React.useRef(theme);
     const setThemeRef = React.useRef(setTheme);
     const previousThemeRef = React.useRef<string | undefined>(undefined);
 
-    const toggle = React.useCallback(() => setActivated((prev) => !prev), []);
-    const ctx = React.useMemo(() => ({ toggle }), [toggle]);
+    const toggle = React.useCallback((source?: Trigger) => {
+        setActivated((prev) => {
+            if (!prev && source) setTrigger(source);
+            if (prev) setTrigger(null);
+            return !prev;
+        });
+    }, []);
+    const ctx = React.useMemo(() => ({ toggle, activated, trigger }), [toggle, activated, trigger]);
 
     React.useEffect(() => {
         themeRef.current = theme;
@@ -58,7 +75,7 @@ export function KonamiProvider({ children }: { children: React.ReactNode }) {
                 indexRef.current++;
                 if (indexRef.current === konamiSequence.length) {
                     indexRef.current = 0;
-                    toggle();
+                    toggle("konami");
                 }
             } else {
                 indexRef.current = 0;
@@ -86,7 +103,7 @@ export function KonamiProvider({ children }: { children: React.ReactNode }) {
                 while (shakes.length > 0 && now - shakes[0] > shakeWindow) shakes.shift();
                 if (shakes.length >= shakeCount) {
                     shakes.length = 0;
-                    toggle();
+                    toggle("shake");
                 }
             }
         };
@@ -115,34 +132,4 @@ export function KonamiProvider({ children }: { children: React.ReactNode }) {
             <Matrix active={activated} onDrainComplete={restoreTheme} />
         </KonamiContext.Provider>
     );
-}
-
-/**
- * Hook that adds multi-tap Konami activation to an element.
- * Triggers after 7 taps within 3 seconds.
- *
- * @param ref - Ref to the element to attach tap detection to
- */
-export function useMultiTap(ref: React.RefObject<HTMLElement | null>) {
-    const { toggle } = React.useContext(KonamiContext);
-
-    React.useEffect(() => {
-        const el = ref.current;
-        if (!el) return;
-
-        const taps: number[] = [];
-
-        const handleClick = () => {
-            const now = Date.now();
-            taps.push(now);
-            while (taps.length > 0 && now - taps[0] > tapWindow) taps.shift();
-            if (taps.length >= tapCount) {
-                taps.length = 0;
-                toggle();
-            }
-        };
-
-        el.addEventListener("click", handleClick);
-        return () => el.removeEventListener("click", handleClick);
-    }, [ref, toggle]);
 }
