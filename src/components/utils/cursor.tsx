@@ -129,24 +129,32 @@ function Cursor() {
     const [isVisible, setIsVisible] = React.useState(false);
     const [isTouchDevice, setIsTouchDevice] = React.useState(false);
     const animationRef = React.useRef<number | undefined>(undefined);
+    const positionRef = React.useRef<{ x: number; y: number } | null>(null);
 
     React.useEffect(() => {
-        // Detect if device supports touch
         const hasTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
         setIsTouchDevice(hasTouch);
     }, []);
 
     React.useEffect(() => {
-        if (!enabled) return;
-
-        const handleMouseMove = (e: MouseEvent) => {
+        const handleMouseMove = (e: PointerEvent) => {
+            positionRef.current = { x: e.clientX, y: e.clientY };
+            if (!enabled) return;
             setMousePosition({ x: e.clientX, y: e.clientY });
-            if (!isVisible) setIsVisible(true);
+            setIsVisible(true);
         };
+        document.addEventListener("pointermove", handleMouseMove);
+        return () => document.removeEventListener("pointermove", handleMouseMove);
+    }, [enabled]);
 
-        document.addEventListener("mousemove", handleMouseMove);
-        return () => document.removeEventListener("mousemove", handleMouseMove);
-    }, [enabled, isVisible]);
+    React.useEffect(() => {
+        if (enabled && positionRef.current) {
+            setMousePosition(positionRef.current);
+            setCirclePosition(positionRef.current);
+            setIsVisible(true);
+        }
+        if (!enabled) setIsVisible(false);
+    }, [enabled]);
 
     React.useEffect(() => {
         if (!enabled) return;

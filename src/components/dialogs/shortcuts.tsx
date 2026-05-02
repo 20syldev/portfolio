@@ -62,7 +62,7 @@ export function ShortcutsDialog({
                                 onClick={handleClick}
                                 className={cn(
                                     "flex w-full items-center justify-between rounded-lg px-2 py-1.5 transition-colors hover:bg-muted/50 disabled:cursor-default max-md:justify-center",
-                                    s.id === "shortcuts" && "max-md:hidden"
+                                    (s.id === "shortcuts" || s.id === "cursor") && "max-md:hidden"
                                 )}
                             >
                                 <span className="flex items-center gap-4 text-sm">

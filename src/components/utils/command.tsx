@@ -392,12 +392,19 @@ export function CommandMenu() {
     const themeShortcut = formatShortcut(getShortcut("theme")!.keys);
 
     const personnalisationItems: CommandItemConfig[] = [
-        {
-            label: `${cursorEnabled ? "Désactiver" : "Activer"} le curseur personnalisé`,
-            icon: MousePointer2,
-            action: () => setCursorEnabled(!cursorEnabled),
-            shortcut: formatShortcut(getShortcut("cursor")!.keys),
-        },
+        ...(!(
+            typeof window !== "undefined" &&
+            ("ontouchstart" in window || navigator.maxTouchPoints > 0)
+        )
+            ? [
+                  {
+                      label: `${cursorEnabled ? "Désactiver" : "Activer"} le curseur personnalisé`,
+                      icon: MousePointer2,
+                      action: () => setCursorEnabled(!cursorEnabled),
+                      shortcut: formatShortcut(getShortcut("cursor")!.keys),
+                  } satisfies CommandItemConfig,
+              ]
+            : []),
         {
             label: `${motionEnabled ? "Désactiver" : "Activer"} les animations`,
             icon: Sparkles,
