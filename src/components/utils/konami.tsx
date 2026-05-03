@@ -18,9 +18,10 @@ const konamiSequence = [
     "a",
 ];
 
-const shakeThreshold = 8;
+const shakeThreshold = 10;
 const shakeCount = 2;
 const shakeWindow = 1500;
+const shakeMinGap = 300;
 
 type Trigger = "konami" | "shake" | "tap";
 
@@ -28,12 +29,14 @@ interface KonamiContextType {
     toggle: (source?: Trigger) => void;
     activated: boolean;
     trigger: Trigger | null;
+    shakeVectorRef: React.RefObject<{ x: number; y: number } | null>;
 }
 
 export const KonamiContext = React.createContext<KonamiContextType>({
     toggle: () => {},
     activated: false,
     trigger: null,
+    shakeVectorRef: { current: null },
 });
 
 /**
@@ -49,11 +52,12 @@ export const KonamiContext = React.createContext<KonamiContextType>({
 export function KonamiProvider({ children }: { children: React.ReactNode }) {
     const [activated, setActivated] = React.useState(false);
     const [trigger, setTrigger] = React.useState<Trigger | null>(null);
-    const indexRef = React.useRef(0);
     const { theme, setTheme } = useTheme();
+    const indexRef = React.useRef(0);
     const themeRef = React.useRef(theme);
     const setThemeRef = React.useRef(setTheme);
     const previousThemeRef = React.useRef<string | undefined>(undefined);
+    const shakeVectorRef = React.useRef<{ x: number; y: number } | null>(null);
 
     const toggle = React.useCallback((source?: Trigger) => {
         setActivated((prev) => {
@@ -62,7 +66,10 @@ export function KonamiProvider({ children }: { children: React.ReactNode }) {
             return !prev;
         });
     }, []);
-    const ctx = React.useMemo(() => ({ toggle, activated, trigger }), [toggle, activated, trigger]);
+    const ctx = React.useMemo(
+        () => ({ toggle, activated, trigger, shakeVectorRef }),
+        [toggle, activated, trigger]
+    );
 
     React.useEffect(() => {
         themeRef.current = theme;
@@ -99,10 +106,12 @@ export function KonamiProvider({ children }: { children: React.ReactNode }) {
 
             if (magnitude - 9.8 > shakeThreshold) {
                 const now = Date.now();
+                if (shakes.length > 0 && now - shakes[shakes.length - 1] < shakeMinGap) return;
                 shakes.push(now);
                 while (shakes.length > 0 && now - shakes[0] > shakeWindow) shakes.shift();
                 if (shakes.length >= shakeCount) {
                     shakes.length = 0;
+                    shakeVectorRef.current = { x: acc.x ?? 0, y: acc.y ?? 0 };
                     toggle("shake");
                 }
             }
