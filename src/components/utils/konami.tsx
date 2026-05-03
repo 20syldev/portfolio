@@ -39,7 +39,7 @@ export const KonamiContext = React.createContext<KonamiContextType>({
 /**
  * Provider for Konami Code Easter egg.
  * Listens for the Konami sequence (↑↑↓↓←→←→BA) and toggles Matrix rain effect.
- * Also supports mobile triggers: multi-tap on logo (via useKonamiTap) and device shake.
+ * Also supports mobile triggers: multi-tap on logo (via useMultiTap) and device shake.
  * Forces dark theme when activated.
  *
  * @param props - Provider props

@@ -177,12 +177,6 @@ export function SearchButton() {
 }
 
 /**
- * Command menu dialog accessible via Ctrl+K / Cmd+K.
- * Enables quick navigation, project access, external links and theme switching.
- *
- * @returns The rendered command dialog
- */
-/**
  * Tooltip card shown on hover for command items with rich data.
  *
  * @param props - Tooltip content props
