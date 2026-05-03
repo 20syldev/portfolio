@@ -56,6 +56,7 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
     const ref = useRef<HTMLDivElement>(null);
     const draggingRef = useRef(false);
     const settleRef = useRef<(() => void) | null>(null);
+    const impulseRef = useRef<((dvx: number, dvy: number, dav?: number) => void) | null>(null);
     const configRef = useRef(config);
 
     useEffect(() => {
@@ -126,6 +127,23 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
             animId = undefined;
         };
         settleRef.current = settle;
+
+        const impulse = (dvx: number, dvy: number, dav?: number) => {
+            if (dragging) return;
+            vx += dvx;
+            vy += dvy;
+            if (dav !== undefined) av += dav;
+            if (!originRect) cacheOrigin();
+            el.style.willChange = "translate, rotate";
+            el.style.zIndex = "50";
+            if (animId === undefined) {
+                lastTime = 0;
+                edgesHit = 0;
+                firstEdgeTime = 0;
+                animId = requestAnimationFrame(animateLoop);
+            }
+        };
+        impulseRef.current = impulse;
 
         const dragPendulum = (now: number) => {
             if (!dragging) return;
@@ -451,5 +469,5 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
         };
     }, []);
 
-    return { ref, isDragging: draggingRef, settle: settleRef };
+    return { ref, isDragging: draggingRef, settle: settleRef, impulse: impulseRef };
 }
