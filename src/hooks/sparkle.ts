@@ -19,6 +19,10 @@ const defaults = {
 /**
  * Spawns periodic 4-pointed star sparkles around a circular element.
  * Pauses while `isDragging` is true.
+ *
+ * @param containerRef - Ref to the element around which sparkles are spawned
+ * @param isDragging - Ref indicating whether the element is currently being dragged
+ * @param options - Optional sparkle configuration (interval, count, size, duration)
  */
 export function useSparkle(
     containerRef: RefObject<HTMLDivElement | null>,

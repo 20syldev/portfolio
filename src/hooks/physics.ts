@@ -47,6 +47,9 @@ const rotation = {
  * Hook that adds draggable physics to an element.
  * Uses separate CSS translate/rotate properties so transform-origin
  * only affects rotation (not translation). Grab point = pivot.
+ *
+ * @param options - Physics configuration (elasticity, gravity, friction, etc.)
+ * @returns Refs for the element, drag state, settle callback, and impulse callback
  */
 export function useDraggablePhysics(options?: PhysicsOptions) {
     const config = { ...defaults, ...options };
