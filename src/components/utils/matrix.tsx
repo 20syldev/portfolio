@@ -10,6 +10,7 @@ import * as React from "react";
  *
  * @param props - Component props
  * @param props.active - Whether the animation is currently running
+ * @param props.onDrainComplete - Called once all characters have fallen off screen after deactivation
  * @returns The rendered canvas element when active or draining, null otherwise
  */
 export function Matrix({

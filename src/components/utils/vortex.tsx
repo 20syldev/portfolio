@@ -54,6 +54,9 @@ function getVisibleElements(): HTMLElement[] {
  * Hole animation: container sucks toward singularity while elements fade out staggered.
  * The container transform-origin creates the visible epicenter — everything converges there.
  * Per-element opacity stagger adds visual rhythm on top.
+ *
+ * @param targetRect - Bounding rect of the singularity element (used as transform-origin)
+ * @returns Promise that resolves once the collapse animation completes
  */
 export async function collapseHole(targetRect: DOMRect): Promise<void> {
     const container = document.querySelector(".snap-container") as HTMLElement;
@@ -187,6 +190,13 @@ function reset() {
  * Blob that grows from the singularity to fill the screen.
  * Color is the opposite of the current theme for maximum contrast.
  * Starts small, morphs shape while expanding, becomes the ResultScreen background.
+ *
+ * @param props - Component props
+ * @param props.cx - Horizontal center of the singularity in viewport coordinates
+ * @param props.cy - Vertical center of the singularity in viewport coordinates
+ * @param props.theme - Current theme name ("dark" | "light") used to pick blob color
+ * @param props.onExpanded - Called once the blob has fully covered the screen
+ * @returns The rendered SVG blob element
  */
 export function Vortex({
     cx,
@@ -270,6 +280,11 @@ export function Vortex({
  * Transparent during animation, then bg appears. 3s wait → "Bravo" → 2s → ThumbsUp.
  * Click to reverse the hole and fade out overlay.
  * Rendered via portal outside snap-container.
+ *
+ * @param props - Component props
+ * @param props.theme - Current theme name used to style the overlay
+ * @param props.onReset - Called when the user clicks to close and reverse the animation
+ * @returns The rendered overlay portal
  */
 export function Result({ theme, onReset }: { theme: string; onReset: () => void }) {
     const [phase, setPhase] = useState<"anim" | "wait" | "show" | "done" | "closing">("anim");
