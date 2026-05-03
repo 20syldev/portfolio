@@ -70,6 +70,7 @@ export function Hero() {
         ref: logoRef,
         isDragging,
         settle,
+        impulse,
     } = useDraggablePhysics({
         circular: true,
         onAllEdges: handleAllEdges,
@@ -77,45 +78,22 @@ export function Hero() {
     useSparkle(logoRef, isDragging);
     useMultiTap(logoRef);
 
-    const flyRef = useRef<HTMLDivElement>(null);
-    const flyAnimRef = useRef<Animation | null>(null);
-    const wasShakeRef = useRef(false);
-    const { activated, trigger } = useKonami();
+    const { activated, trigger, shakeVectorRef } = useKonami();
 
     useEffect(() => {
-        const el = flyRef.current;
-        if (!el) return;
-        const noMotion = document.body.classList.contains("no-motion");
+        if (!activated || trigger !== "shake") return;
+        if (document.body.classList.contains("no-motion")) return;
 
-        if (activated && trigger === "shake") {
-            wasShakeRef.current = true;
-            settle.current?.();
-            flyAnimRef.current?.cancel();
-            if (noMotion) return;
-            flyAnimRef.current = el.animate(
-                [
-                    { transform: "translateY(0) scale(1) rotate(0deg)", opacity: "1" },
-                    { transform: "translateY(-120vh) scale(0.3) rotate(720deg)", opacity: "0" },
-                ],
-                { duration: 800, easing: "cubic-bezier(0.4, 0, 1, 1)", fill: "forwards" }
-            );
-        } else if (!activated && wasShakeRef.current) {
-            wasShakeRef.current = false;
-            flyAnimRef.current?.cancel();
-            if (noMotion) return;
-            flyAnimRef.current = el.animate(
-                [
-                    { transform: "translateY(-80vh) scale(0.5) rotate(360deg)", opacity: "0" },
-                    { transform: "translateY(0) scale(1) rotate(0deg)", opacity: "1" },
-                ],
-                { duration: 1000, easing: "cubic-bezier(0.34, 1.56, 0.64, 1)", fill: "forwards" }
-            );
-            flyAnimRef.current.finished.then(() => {
-                flyAnimRef.current?.cancel();
-                flyAnimRef.current = null;
-            });
+        const v = shakeVectorRef.current;
+        const mag = v ? Math.sqrt(v.x ** 2 + v.y ** 2) : 0;
+        if (mag > 1) {
+            const strength = Math.min(mag, 40);
+            impulse.current?.((v!.x / mag) * strength, -(v!.y / mag) * strength, v!.x * 0.3);
+        } else {
+            const a = Math.random() * Math.PI * 2;
+            impulse.current?.(Math.cos(a) * 25, Math.sin(a) * 25, 0);
         }
-    }, [activated, trigger, settle]);
+    }, [activated, trigger, impulse, shakeVectorRef]);
 
     useEffect(() => {
         const onTouch = (e: TouchEvent) => {
@@ -155,18 +133,16 @@ export function Hero() {
     return (
         <div className="flex h-full flex-col items-center justify-center px-4 text-center">
             {/* Logo */}
-            <div ref={flyRef}>
-                <div ref={logoRef} className="relative inline-block">
-                    <Image
-                        src="/favicon.ico"
-                        alt={profile.name}
-                        width={120}
-                        height={120}
-                        className="rounded-full shadow-lg pointer-events-none"
-                        draggable={false}
-                        priority
-                    />
-                </div>
+            <div ref={logoRef} className="relative inline-block">
+                <Image
+                    src="/favicon.ico"
+                    alt={profile.name}
+                    width={120}
+                    height={120}
+                    className="rounded-full shadow-lg pointer-events-none"
+                    draggable={false}
+                    priority
+                />
             </div>
 
             {/* Nom & Titre */}
