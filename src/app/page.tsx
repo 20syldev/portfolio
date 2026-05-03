@@ -25,8 +25,9 @@ const sections = 4;
  * @returns Tab index (0-based)
  */
 function getTab(path: string): number {
-    if (path === "/alternance/") return 1;
-    if (path === "/veille/") return 2;
+    const p = path.replace(/\/$/, "");
+    if (p === "/alternance") return 1;
+    if (p === "/veille") return 2;
     return 0;
 }
 
@@ -56,7 +57,7 @@ export default function HomePage() {
         }
         const url = urls[currentTab];
         const path = location.pathname;
-        if (!urls.includes(path)) return;
+        if (getTab(path) !== currentTab && path !== "/") return;
         if (path !== url) history.pushState(null, "", url);
         document.title = titles[currentTab];
     }, [currentTab]);
@@ -64,7 +65,8 @@ export default function HomePage() {
     // Sync tab when pathname changes
     useEffect(() => {
         if (!mounted.current) return;
-        if (!urls.includes(pathname)) return;
+        const normalized = pathname.replace(/\/$/, "");
+        if (!urls.some((u) => u.replace(/\/$/, "") === normalized)) return;
         const expected = getTab(pathname);
         if (expected !== currentTab) goToTab(expected);
     }, [pathname, currentTab, goToTab]);
