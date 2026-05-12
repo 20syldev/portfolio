@@ -47,12 +47,12 @@ const badgeRounding = (item: Certification) =>
           : "rounded-[2.5px]";
 
 const containerStyle = (item: Certification, ratio: string | undefined, size: number) => {
+    if (item.shape === "round") return { width: size, height: size };
     if (ratio) return { width: "100%", aspectRatio: ratio };
     if (item.shape === "rectangle") return { width: "100%", aspectRatio: "3/2" };
     return { width: size, height: size };
 };
 
-const maxContainer = 200;
 const tooltipSize = 220;
 
 /**
@@ -112,12 +112,85 @@ export function GalleryTooltipContent({ cert }: { cert: Certification }) {
 }
 
 /**
+ * Single badge item with image, label and optional level/type badges.
+ *
+ * @param props - Component props
+ * @param props.item - The certification to render
+ * @param props.size - Image size in pixels
+ * @param props.ratio - Aspect ratio override (e.g. "16/9")
+ * @param props.loaded - Whether the image has finished loading
+ * @param props.priority - Whether to use Next.js priority loading
+ * @param props.onLoad - Callback fired when the image loads
+ * @param props.labelClass - Extra classes for the label text
+ * @returns The rendered badge item
+ */
+function BadgeItem({
+    item,
+    size,
+    ratio,
+    loaded,
+    priority,
+    onLoad,
+    labelClass,
+}: {
+    item: Certification;
+    size: number;
+    ratio: string | undefined;
+    loaded: boolean;
+    priority?: boolean;
+    onLoad: (e: React.SyntheticEvent<HTMLImageElement>) => void;
+    labelClass?: string;
+}) {
+    const rounding = badgeRounding(item);
+    return (
+        <>
+            <div className="relative" style={containerStyle(item, ratio, size)}>
+                {!loaded && <Skeleton className={`absolute inset-0 ${rounding}`} />}
+                <Image
+                    src={item.icon}
+                    alt={item.name}
+                    width={size}
+                    height={size}
+                    className={`${rounding} object-contain transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
+                    style={{ width: "100%", height: "100%" }}
+                    priority={priority}
+                    onLoad={onLoad}
+                />
+                {item.counter !== undefined && (
+                    <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-[#4285F4] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                        {item.counter}
+                    </span>
+                )}
+            </div>
+            <span className={`text-xs text-center leading-tight line-clamp-2 ${labelClass ?? ""}`}>
+                {item.name}
+            </span>
+            {item.level && (
+                <Badge variant="outline" className="text-[10px] py-0">
+                    {item.level}
+                </Badge>
+            )}
+            {item.type && (
+                <Badge
+                    variant={item.type === "Examen" ? "default" : "outline"}
+                    className="text-[10px] py-0"
+                >
+                    {item.type}
+                </Badge>
+            )}
+        </>
+    );
+}
+
+/**
  * Full-page gallery for displaying categorised certification badges.
  *
  * @param props - Component props
  * @param props.categories - List of badge/certification categories to display
  * @param props.title - Page heading
  * @param props.subtitle - Subheading (e.g. badge count)
+ * @param props.backHref - URL for the back button (default: "/")
+ * @param props.relatedPages - Optional list of related gallery pages
  * @returns The rendered gallery page layout
  */
 export function Gallery({
@@ -131,7 +204,9 @@ export function Gallery({
     const [relatedOpen, setRelatedOpen] = useState(false);
     const [loaded, setLoaded] = useState<Set<string>>(new Set());
     const [aspectRatios, setAspectRatios] = useState<Record<string, string>>({});
+    const [panelHeight, setPanelHeight] = useState(0);
     const scrollRef = useRef<HTMLDivElement>(null);
+    const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
     useDragScroll(scrollRef);
 
     const handleImageLoad = useCallback(
@@ -165,6 +240,16 @@ export function Gallery({
         el.addEventListener("scroll", handleScroll, { passive: true });
         return () => el.removeEventListener("scroll", handleScroll);
     }, [handleScroll]);
+
+    useEffect(() => {
+        const measure = () => {
+            const h = contentRefs.current[currentCategory]?.scrollHeight ?? 0;
+            if (h > 0) setPanelHeight(h);
+        };
+        measure();
+        window.addEventListener("resize", measure);
+        return () => window.removeEventListener("resize", measure);
+    }, [currentCategory, loaded]);
 
     return (
         <div className="flex flex-col items-center">
@@ -228,94 +313,65 @@ export function Gallery({
                 {/* Mobile: Carousel */}
                 <div className="lg:hidden flex flex-col">
                     <div
-                        ref={scrollRef}
-                        className="flex snap-x snap-mandatory overflow-x-auto scrollbar-hide -mx-4 px-4"
+                        className="-mx-4 transition-[height] duration-300"
+                        style={{
+                            ...(panelHeight ? { height: panelHeight } : {}),
+                            overflowY: "clip",
+                        }}
                     >
-                        {categories.map((category, categoryIndex) => (
-                            <div
-                                key={category.name}
-                                className="flex-shrink-0 w-full snap-center px-2"
-                            >
-                                <h3 className="text-sm font-medium text-muted-foreground mb-4 text-center">
-                                    {category.name}
-                                </h3>
-                                <div className="grid grid-cols-2 gap-4">
-                                    {category.items.map((item, itemIndex) => {
-                                        const sizes = badgeSizes[item.shape ?? "square"];
-                                        const isExternal = !item.url.startsWith("/");
-                                        const ratio = aspectRatios[item.icon];
-                                        return (
-                                            <Link
-                                                key={item.name}
-                                                href={item.url}
-                                                {...(isExternal && {
-                                                    target: "_blank",
-                                                    rel: "noopener noreferrer",
-                                                })}
-                                                className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-muted/50 transition-colors"
-                                            >
-                                                <div
-                                                    className="relative"
-                                                    style={containerStyle(
-                                                        item,
-                                                        ratio,
-                                                        sizes.mobile
-                                                    )}
-                                                >
-                                                    {!loaded.has(item.icon) && (
-                                                        <Skeleton
-                                                            className={`absolute inset-0 ${badgeRounding(item)}`}
+                        <div
+                            ref={scrollRef}
+                            className="flex items-start snap-x snap-mandatory overflow-x-auto scrollbar-hide px-4"
+                        >
+                            {categories.map((category, categoryIndex) => (
+                                <div
+                                    key={category.name}
+                                    className="flex-shrink-0 w-full snap-center px-2"
+                                >
+                                    <div
+                                        ref={(el) => {
+                                            contentRefs.current[categoryIndex] = el;
+                                        }}
+                                    >
+                                        <h3 className="text-sm font-medium text-muted-foreground mb-4 text-center">
+                                            {category.name}
+                                        </h3>
+                                        <div className="grid grid-cols-2 gap-4">
+                                            {category.items.map((item, itemIndex) => {
+                                                const sizes = badgeSizes[item.shape ?? "square"];
+                                                const isExternal = !item.url.startsWith("/");
+                                                return (
+                                                    <Link
+                                                        key={item.name}
+                                                        href={item.url}
+                                                        {...(isExternal && {
+                                                            target: "_blank",
+                                                            rel: "noopener noreferrer",
+                                                        })}
+                                                        className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-muted/50 transition-colors mx-auto w-full"
+                                                        style={{ maxWidth: sizes.container }}
+                                                    >
+                                                        <BadgeItem
+                                                            item={item}
+                                                            size={sizes.mobile}
+                                                            ratio={aspectRatios[item.icon]}
+                                                            loaded={loaded.has(item.icon)}
+                                                            priority={
+                                                                categoryIndex === 0 &&
+                                                                itemIndex === 0
+                                                            }
+                                                            onLoad={(e) =>
+                                                                handleImageLoad(item.icon, e)
+                                                            }
                                                         />
-                                                    )}
-                                                    <Image
-                                                        src={item.icon}
-                                                        alt={item.name}
-                                                        width={sizes.mobile}
-                                                        height={sizes.mobile}
-                                                        className={`${badgeRounding(item)} object-contain transition-opacity duration-300 ${loaded.has(item.icon) ? "opacity-100" : "opacity-0"}`}
-                                                        style={{ width: "100%", height: "100%" }}
-                                                        priority={
-                                                            categoryIndex === 0 && itemIndex === 0
-                                                        }
-                                                        onLoad={(e) =>
-                                                            handleImageLoad(item.icon, e)
-                                                        }
-                                                    />
-                                                    {item.counter !== undefined && (
-                                                        <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-[#4285F4] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
-                                                            {item.counter}
-                                                        </span>
-                                                    )}
-                                                </div>
-                                                <span className="text-xs text-center leading-tight line-clamp-2">
-                                                    {item.name}
-                                                </span>
-                                                {item.level && (
-                                                    <Badge
-                                                        variant="outline"
-                                                        className="text-[10px] py-0"
-                                                    >
-                                                        {item.level}
-                                                    </Badge>
-                                                )}
-                                                {item.type && (
-                                                    <Badge
-                                                        variant={
-                                                            item.type === "Examen"
-                                                                ? "default"
-                                                                : "outline"
-                                                        }
-                                                        className="text-[10px] py-0"
-                                                    >
-                                                        {item.type}
-                                                    </Badge>
-                                                )}
-                                            </Link>
-                                        );
-                                    })}
+                                                    </Link>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
 
                     {/* Dot indicators */}
@@ -343,15 +399,14 @@ export function Gallery({
                 {/* Desktop: Stacked categories */}
                 <TooltipProvider>
                     <div className="hidden lg:flex flex-col gap-8">
-                        {categories.map((category) => (
+                        {categories.map((category, categoryIndex) => (
                             <div key={category.name}>
                                 <h3 className="text-sm font-medium text-muted-foreground mb-4 text-center">
                                     {category.name}
                                 </h3>
                                 <div className="flex flex-wrap justify-center gap-4">
-                                    {category.items.map((item) => {
+                                    {category.items.map((item, itemIndex) => {
                                         const sizes = badgeSizes[item.shape ?? "square"];
-                                        const ratio = aspectRatios[item.icon];
                                         return (
                                             <Tooltip key={item.name}>
                                                 <TooltipTrigger asChild>
@@ -363,66 +418,24 @@ export function Gallery({
                                                         })}
                                                         className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-muted/50 transition-colors"
                                                         style={{
-                                                            maxWidth: maxContainer,
+                                                            maxWidth: 200,
                                                             width: sizes.container,
                                                         }}
                                                     >
-                                                        <div
-                                                            className="relative"
-                                                            style={containerStyle(
-                                                                item,
-                                                                ratio,
-                                                                sizes.desktop
-                                                            )}
-                                                        >
-                                                            {!loaded.has(item.icon) && (
-                                                                <Skeleton
-                                                                    className={`absolute inset-0 ${badgeRounding(item)}`}
-                                                                />
-                                                            )}
-                                                            <Image
-                                                                src={item.icon}
-                                                                alt={item.name}
-                                                                width={sizes.desktop}
-                                                                height={sizes.desktop}
-                                                                className={`${badgeRounding(item)} object-contain transition-opacity duration-300 ${loaded.has(item.icon) ? "opacity-100" : "opacity-0"}`}
-                                                                style={{
-                                                                    width: "100%",
-                                                                    height: "100%",
-                                                                }}
-                                                                onLoad={(e) =>
-                                                                    handleImageLoad(item.icon, e)
-                                                                }
-                                                            />
-                                                            {item.counter !== undefined && (
-                                                                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-[#4285F4] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
-                                                                    {item.counter}
-                                                                </span>
-                                                            )}
-                                                        </div>
-                                                        <span className="text-xs text-muted-foreground text-center leading-tight line-clamp-2">
-                                                            {item.name}
-                                                        </span>
-                                                        {item.level && (
-                                                            <Badge
-                                                                variant="outline"
-                                                                className="text-[10px] py-0"
-                                                            >
-                                                                {item.level}
-                                                            </Badge>
-                                                        )}
-                                                        {item.type && (
-                                                            <Badge
-                                                                variant={
-                                                                    item.type === "Examen"
-                                                                        ? "default"
-                                                                        : "outline"
-                                                                }
-                                                                className="text-[10px] py-0"
-                                                            >
-                                                                {item.type}
-                                                            </Badge>
-                                                        )}
+                                                        <BadgeItem
+                                                            item={item}
+                                                            size={sizes.desktop}
+                                                            ratio={aspectRatios[item.icon]}
+                                                            loaded={loaded.has(item.icon)}
+                                                            priority={
+                                                                categoryIndex === 0 &&
+                                                                itemIndex === 0
+                                                            }
+                                                            onLoad={(e) =>
+                                                                handleImageLoad(item.icon, e)
+                                                            }
+                                                            labelClass="text-muted-foreground"
+                                                        />
                                                     </Link>
                                                 </TooltipTrigger>
                                                 <GalleryTooltipContent cert={item} />
