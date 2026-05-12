@@ -111,13 +111,7 @@ export function Technologies({ preview }: { preview?: boolean }) {
                                                     alt={tech.name}
                                                     width={36}
                                                     height={36}
-                                                    className={
-                                                        darkInvertIcons.includes(tech.name)
-                                                            ? "dark:invert"
-                                                            : darkInvertHueIcons.includes(tech.name)
-                                                              ? "invert-hue"
-                                                              : ""
-                                                    }
+                                                    className={`w-9 h-9 ${darkInvertIcons.includes(tech.name) ? "dark:invert" : darkInvertHueIcons.includes(tech.name) ? "invert-hue" : ""}`}
                                                 />
                                             </a>
                                             <span className="text-xs text-muted-foreground text-center leading-tight">
