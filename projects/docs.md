@@ -1,7 +1,7 @@
 ---
 name: Docs
 description: La documentation de mon API, pour les développeurs.
-longDescription: "Documentation complète de l'API construite avec VitePress (Vue.js). Interface moderne avec recherche, exemples de code et guides d'utilisation."
+longDescription: "Documentation complète de l'API construite avec VitePress (Vue.js). Interface moderne avec Playground interactif, snippets multi-langages, support multi-versions et bilingue."
 tags: ["Vue.js", "VitePress", "TS", "CSS", "MD"]
 github: "https://github.com/20syldev/docs"
 demo: "https://docs.sylvain.sh"
@@ -9,40 +9,46 @@ demo: "https://docs.sylvain.sh"
 
 ## À propos {#about}
 
-Voici la documentation de mon API Personnelle disponible sur [docs.sylvain.sh](https://docs.sylvain.sh).
-Elle permet de mieux comprendre comment fonctionne mon API et comment l'utiliser.
+Voici la documentation de mon [API personnelle](https://api.sylvain.sh), disponible sur [docs.sylvain.sh](https://docs.sylvain.sh).
+Elle couvre l'intégralité des endpoints avec des exemples interactifs, des snippets multi-langages et des guides d'intégration.
 
 ## Fonctionnalités {#features}
 
-Cette documentation a été spécialement conçue pour offrir une présentation claire et bien structurée de l'API, afin de faciliter son intégration dans vos projets.
+**Interface :**
 
-Initialement, la documentation était hébergée sur le domaine [api.sylvain.sh](https://api.sylvain.sh), mais j'ai décidé de la déplacer sur un domaine à part pour plusieurs raisons.
+- **Playground** interactif pour tester chaque endpoint directement depuis la documentation
+- **Panneau Try** par endpoint avec paramètres, validation et affichage des réponses (JSON, PNG, SVG)
+- **Snippets multi-langages** générés automatiquement via `useCodeSnippets`
+- **Changelog** par version avec séparation changements API / documentation
 
-Le nouvel emplacement permet de proposer une expérience utilisateur plus fluide avec des explications détaillées, des exemples de code pratiques, et une présentation soignée qui améliore la lisibilité.
+**Navigation :**
 
-L'objectif de cette nouvelle documentation est de vous fournir toutes les informations nécessaires pour utiliser l'API de manière optimale.
-Vous y trouverez des sections dédiées à chaque service de l'API, avec des descriptions des fonctionnalités, des paramètres d'entrée, et des exemples de requêtes et de réponses.
-
-J'ai également pris soin d'ajouter des explications sur l'architecture REST et sur le fonctionnement de chaque service.
-Vous pourrez ainsi comprendre en profondeur comment intégrer l'API dans vos applications, que ce soit pour des projets web, des applications mobiles ou d'autres solutions de développement.
+- **Support multi-versions** : `v1`, `v2`, `v3`, `v4` — chaque version reste accessible
+- **Bilingue** : interface disponible en `fr` et `en` via un système i18n à clés imbriquées
+- **Thème sombre** : mode clair et sombre intégré
+- **Recherche locale** : recherche instantanée dans toute la documentation
+- Sidebar avec **scroll automatique** vers le lien actif
 
 ## Stack technique {#tech}
 
-Le site de documentation est construit avec VitePress (Vue.js) et offre plusieurs fonctionnalités avancées :
+Construit avec **VitePress** (Vue.js) et **TypeScript**, le site utilise :
 
-- **Support multi-versions** : documentation disponible pour chaque version de l'API (v1, v2, v3)
-- **Bilingue** : interface disponible en français et en anglais
-- **Thème sombre** : mode clair et sombre intégré
-- **Recherche locale** : recherche instantanée dans toute la documentation
-- **Responsive** : interface adaptée à tous les appareils
+- `useVersion` — composable pour la gestion des chemins selon la version courante
+- `useCodeSnippets` — génération dynamique des exemples de requêtes
+- Registre centralisé des **métadonnées d'endpoints** (Playground, Try, Features)
+- Système **i18n** avec clés imbriquées typées (`nav.home`, `features.geo`…)
+- CSS organisé en `base` / `components` / `layout`, responsive **mobile-first**
 
 ## Composants personnalisés {#components}
 
-La documentation utilise des composants Vue.js personnalisés pour une meilleure présentation :
+La documentation utilise des composants Vue.js pour une meilleure présentation :
 
-- **Endpoint** : affichage formaté des endpoints API avec méthode et URL
-- **Method** : mise en forme des méthodes HTTP (GET, POST, etc.)
-- **Request** : exemples de requêtes interactifs
-- **Terminal** : simulation de terminal pour les exemples en ligne de commande
-- **Lang** : sélecteur de langue pour basculer entre français et anglais
-- **Version** : sélecteur de version de l'API
+- `<Endpoint>` — affichage formaté d'un endpoint avec méthode et URL
+- `<Method>` — badge coloré pour les méthodes HTTP (`GET`, `POST`, `PATCH`, `DELETE`)
+- `<Try>` — panneau interactif pour tester un endpoint avec ses paramètres
+- `<Examples>` — snippets de requête multi-langages générés dynamiquement
+- `<Playground>` — interface complète de test avec sélecteur d'endpoint
+- `<Terminal>` — simulation de terminal pour les exemples en ligne de commande
+- `<Features>` — cartes d'endpoints aléatoires sur la page d'accueil
+- `<Banner>` — bannières de migration sur les anciennes versions
+- `<Lang>` / `<Version>` — sélecteurs de langue et de version

@@ -1,34 +1,64 @@
 ---
 name: CDN
 description: Mon réseau de diffusion de données pour certains projets.
-longDescription: "Réseau de stockage et de diffusion de fichiers personnel développé avec Node.js et Express. Stocke et sert les scripts NPM, fichiers CSS, images et autres ressources."
-tags: ["Node.js", "Express", "Module"]
+longDescription: "Réseau de stockage et de diffusion de fichiers personnel développé en TypeScript avec Node.js et Express. Stocke et sert les paquets NPM, scripts Bash, fichiers de configuration, images et autres ressources."
+tags: ["Node.js", "TypeScript", "Express"]
 github: "https://github.com/20syldev/cdn"
 demo: "https://cdn.sylvain.sh"
 ---
 
 ## À propos {#about}
 
-Voici mon CDN personnel, il est développé avec Node.js et hébergé 24h/7j.
-Il sert à stocker et à servir des fichiers statiques, comme des fichiers CSS, JavaScript, etc.
+Voici mon CDN personnel, développé en **TypeScript** avec **Node.js** et hébergé **24h/7j** sur [cdn.sylvain.sh](https://cdn.sylvain.sh).
+Il centralise l'ensemble de mes paquets, scripts et fichiers de configuration pour les rendre accessibles partout, à tout moment.
 
-## Fonctionnalités {#features}
+## Paquets hébergés {#packages}
 
-Mon CDN est développé avec Node.js et Express.js, il a été créé pour stocker et servir mes fichiers statiques.
-Il est hébergé 24h/7j et est accessible depuis n'importe où dans le monde.
+**Scripts Bash :**
 
-**Avantages principaux :**
+- [`gft`](https://github.com/20syldev/gft) — GitHub Fetch Tool, téléchargement de releases GitHub sans authentification ([docs](/help/linux/gft))
 
-- **Intégration directe** : accessible facilement dans tous vos projets
-- **Performances stables** : serveur rapide et fiable, chargement instantané des fichiers
-- **Mises à jour automatiques** : accès aux dernières versions via des redirections automatiques
-- **Sans restriction** : utilisable pour des projets personnels ou professionnels
+```bash
+curl -fsSL https://cdn.sylvain.sh/bash/gft@latest/install.sh | sh
+```
 
-C'est grâce à ce projet que je peux stocker et centraliser mes scripts NPM, mes fichiers CSS, mes images, etc.
-Il est en constante évolution et je l'améliore régulièrement pour qu'il soit plus performant.
+- [`mn`](https://github.com/20syldev/mn) — Menu interactif en terminal pour SSH, repos, alias et fonctions ([docs](/help/linux/mn))
+
+```bash
+curl -fsSL https://cdn.sylvain.sh/bash/mn@latest/install.sh | sh
+```
+
+**Paquets NPM :**
+
+- [`@20syldev/api`](https://npmjs.com/package/@20syldev/api) — L'API personnelle utilisable directement en tant que module ([docs](/help/packages/api))
+- [`@20syldev/logger.ts`](https://npmjs.com/package/@20syldev/logger.ts) — Logger TypeScript structuré ([docs](/help/packages/logger))
+- [`@20syldev/minify.js`](https://npmjs.com/package/@20syldev/minify.js) — Minificateur de fichiers HTML, CSS et JavaScript ([docs](/help/packages/minify))
+- [`wrkit`](https://npmjs.com/package/wrkit) — Outil de gestion de projets en ligne de commande
+
+**Fichiers de configuration :**
+
+- [`tsconfig`](https://cdn.sylvain.sh/config/tsconfig@latest) — Configuration TypeScript partagée
+- [`eslint`](https://cdn.sylvain.sh/config/eslint@latest) — Configuration ESLint v9 (flat config) partagée
+- [`prettier`](https://cdn.sylvain.sh/config/prettier@latest) — Configuration Prettier partagée
 
 ## Utilisation {#usage}
 
-Les fichiers hébergés sur le CDN sont régulièrement mis à jour et accessibles à tous.
-Ils peuvent être intégrés directement dans vos projets en les référençant via leur URL sur [cdn.sylvain.sh](https://cdn.sylvain.sh).
-Le système de redirection permet de toujours accéder à la version la plus récente d'un fichier, sans avoir à modifier vos liens.
+Tous les paquets sont accessibles via leur URL sur [cdn.sylvain.sh](https://cdn.sylvain.sh) et régulièrement mis à jour.
+
+**Avantages principaux :**
+
+- **Résolution partielle** — accédez aux versions via des raccourcis comme `@4` ou `@4.9` sans spécifier la version complète
+- **Mises à jour automatiques** — `@latest` pointe toujours vers la dernière version disponible
+- **Intégration directe** — référencez les fichiers depuis n'importe quel projet sans configuration
+- **Sans restriction** — utilisable pour des projets personnels ou professionnels
+
+## Architecture {#architecture}
+
+Le CDN est développé en **TypeScript strict** avec **Node.js** et **Express.js**, et structuré autour d'une logique de résolution sémantique des versions :
+
+- `packages/bash/` — scripts Bash versionnés
+- `packages/npm/` — paquets NPM archivés
+- `packages/config/` — fichiers de configuration partagés
+- `src/lib/` — logique de comparaison et résolution des versions (`compareVersions`)
+
+La résolution partielle (`@3` → `@3.5.0`, `@1.0` → `@1.0.2`) est gérée côté serveur, ce qui permet d'utiliser des raccourcis stables dans vos scripts sans jamais modifier les liens.
