@@ -71,7 +71,7 @@ export const contributions: Contribution[] = [
             "Remplacement de browser.pages() par une itération par-target avec try/catch pour résister aux onglets gelés",
         reason: "Les onglets en arrière-plan frozen/discardés par Chrome ne répondent pas aux commandes CDP et faisaient planter l'énumération entière",
         language: "TypeScript",
-        status: "open",
+        status: "closed",
     },
     {
         repo: "vercel/next.js",
@@ -213,5 +213,16 @@ export const contributions: Contribution[] = [
         reason: "L'absence d'entrée toml dans les presets faisait fallback sur l'icône YAML au lieu de TOML",
         language: "TypeScript",
         status: "merged",
+    },
+    {
+        repo: "tiagozip/cap",
+        title: "fix(server): skip signal handler registration when using custom storage",
+        pr: "236",
+        url: "https://github.com/tiagozip/cap/pull/236",
+        description:
+            "Conditionnement de l'enregistrement des signal handlers (SIGINT, SIGTERM, SIGQUIT, beforeExit) au même guard que _loadTokens(), pour ne les activer qu'avec le stockage filesystem",
+        reason: "Sans cette garde, chaque instance Cap enregistrait des handlers inconditionnellement — causant des appels process.exit() parasites, des handlers concurrents et une accumulation de listeners",
+        language: "TypeScript",
+        status: "closed",
     },
 ];
