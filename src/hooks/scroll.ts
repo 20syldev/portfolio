@@ -491,8 +491,15 @@ export function useSmoothScroll<T extends HTMLElement>(
                 overscroll: delayed ? false : undefined,
             });
 
+            let lastScrollHeight = container.scrollHeight;
+
             function raf(time: number) {
                 lenisRef.current?.raf(time);
+                const sh = container.scrollHeight;
+                if (sh !== lastScrollHeight) {
+                    lastScrollHeight = sh;
+                    lenisRef.current?.resize();
+                }
                 rafIdRef.current = requestAnimationFrame(raf);
             }
 
