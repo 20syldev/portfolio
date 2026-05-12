@@ -15,7 +15,7 @@ import { projects } from "@/data/alternance";
 import { contributions } from "@/data/contributions";
 import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
-import { useSmoothScroll } from "@/hooks/scroll";
+import { useDragScroll, useSmoothScroll } from "@/hooks/scroll";
 import { random } from "@/lib/utils";
 
 const navSections = [
@@ -38,6 +38,8 @@ export function Alternance() {
     const navRef = useRef<HTMLDivElement>(null);
     const buttonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
     const mounted = useRef(false);
+
+    useDragScroll(navRef, false);
 
     useEffect(() => {
         const byRepo = Object.values(
@@ -88,12 +90,36 @@ export function Alternance() {
 
     useEffect(() => {
         const hash = window.location.hash.slice(1);
-        if (hash && navSections.some((s) => s.id === hash)) {
-            setActive(hash);
-            const timeout = setTimeout(() => scrollTo(`#${hash}`, -120), 200);
-            return () => clearTimeout(timeout);
-        }
-    }, [scrollTo]);
+        if (!hash || !navSections.some((s) => s.id === hash)) return;
+
+        setActive(hash);
+        const doScroll = () => scrollTo(`#${hash}`, -120);
+
+        doScroll();
+
+        const container = scrollRef.current;
+        if (!container) return;
+
+        const images = Array.from(container.querySelectorAll("img")).filter((img) => !img.complete);
+        if (images.length === 0) return;
+
+        let remaining = images.length;
+        const onSettle = () => {
+            if (--remaining === 0) doScroll();
+        };
+
+        images.forEach((img) => {
+            img.addEventListener("load", onSettle, { once: true });
+            img.addEventListener("error", onSettle, { once: true });
+        });
+
+        return () => {
+            images.forEach((img) => {
+                img.removeEventListener("load", onSettle);
+                img.removeEventListener("error", onSettle);
+            });
+        };
+    }, [scrollTo, scrollRef]);
 
     const scrollToSection = (id: string) => {
         setActive(id);
