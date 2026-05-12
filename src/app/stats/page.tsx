@@ -133,7 +133,7 @@ export default function StatsPage() {
                                 loading={loading || stats?.month == null}
                             />
                             <StatCard
-                                label="Contributions l'an dernier"
+                                label="Contributions (12 derniers mois)"
                                 value={stats?.year ?? "—"}
                                 icon={Github}
                                 loading={loading || stats?.year == null}
