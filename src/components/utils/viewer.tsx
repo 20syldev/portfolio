@@ -326,7 +326,7 @@ function ViewerDialog({ url, title, open, fullscreen, onOpenChange }: ViewerDial
                                     onLoadSuccess={({ numPages: total }) => setNumPages(total)}
                                     loading={
                                         <div className="flex items-center justify-center h-full text-muted-foreground text-sm">
-                                            Chargement…
+                                            Chargement...
                                         </div>
                                     }
                                     error={
@@ -350,7 +350,7 @@ function ViewerDialog({ url, title, open, fullscreen, onOpenChange }: ViewerDial
                             ) : (
                                 url && (
                                     <div className="flex items-center justify-center h-full text-muted-foreground text-sm">
-                                        Chargement…
+                                        Chargement...
                                     </div>
                                 )
                             )}
