@@ -36,7 +36,7 @@ Construit avec **VitePress** (Vue.js) et **TypeScript**, le site utilise :
 - `useVersion` — composable pour la gestion des chemins selon la version courante
 - `useCodeSnippets` — génération dynamique des exemples de requêtes
 - Registre centralisé des **métadonnées d'endpoints** (Playground, Try, Features)
-- Système **i18n** avec clés imbriquées typées (`nav.home`, `features.geo`…)
+- Système **i18n** avec clés imbriquées typées (`nav.home`, `features.geo`...)
 - CSS organisé en `base` / `components` / `layout`, responsive **mobile-first**
 
 ## Composants personnalisés {#components}

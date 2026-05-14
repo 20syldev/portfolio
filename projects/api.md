@@ -45,13 +45,13 @@ L'API propose de nombreux modules accessibles sous `/v4/`, couvrant des domaines
 - Encodage/décodage : `base64`, `URL`, `Morse`, `ROT-13`, `César`, `binaire`
 - Hachage : `SHA-256`, `SHA-512`, `MD5` — sortie hex ou base64
 - Conversions d'unités : longueur, poids, données, vitesse, température
-- Couleurs aléatoires et palettes harmonieuses (`complementary`, `triadic`…)
+- Couleurs aléatoires et palettes harmonieuses (`complementary`, `triadic`...)
 
 **Outils texte & cryptographie :**
 
 - `Slug`, statistiques de texte, `Lorem Ipsum`, nombre → lettres (FR/EN)
 - Test d'expressions régulières avec index, groupes capturants et nommés
-- Tokens sécurisés via `crypto.randomInt` (UUID, hex, alphanumérique…)
+- Tokens sécurisés via `crypto.randomInt` (UUID, hex, alphanumérique...)
 - Mots de passe avec jeux de caractères personnalisables et calcul d'**entropie**
 
 **Utilitaires divers :**
