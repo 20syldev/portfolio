@@ -86,7 +86,7 @@ export function useOverflow<T extends HTMLElement>(count: number, maxLines = 1) 
             let totalVisible = fullyVisible;
             let hiddenCount = items.length - totalVisible;
 
-            // Try to add one more item as truncated (with "…")
+            // Try to add one more item as truncated (with "...")
             if (hiddenCount > 0 && totalVisible < items.length) {
                 const gapBefore = totalVisible > lastLineStart ? colGap : 0;
                 const cSpace = hiddenCount > 1 ? colGap + counterWidth : 0;
