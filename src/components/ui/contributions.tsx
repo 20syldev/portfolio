@@ -1,7 +1,10 @@
+"use client";
+
 import { GitMerge, GitPullRequestClosed, GitPullRequestDraft } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { type Contribution } from "@/data/contributions";
+import { useExpand } from "@/hooks/expand";
 
 /**
  * Icon indicating the status of a contribution PR (merged, closed, or open).
@@ -29,6 +32,33 @@ export function ContributionStatus({ status }: { status: Contribution["status"] 
         <span className="flex items-center justify-center w-4 h-4 rounded-full bg-green-500/15 shrink-0 mt-0.5">
             <GitPullRequestDraft className="h-2.5 w-2.5 text-green-500" />
         </span>
+    );
+}
+
+/**
+ * Description text that clamps to 2 lines and expands smoothly on hover.
+ *
+ * @param props - Component props
+ * @param props.children - Text to display
+ * @param props.className - Additional classes applied to the paragraph
+ * @returns The rendered expandable description
+ */
+export function ExpandableText({ children, className }: { children: string; className?: string }) {
+    const { expanded, clamped, expandedHeight, wrapRef, pRef, onMouseEnter, onMouseLeave } =
+        useExpand();
+
+    return (
+        <div
+            ref={wrapRef}
+            className="mt-1 overflow-hidden transition-[max-height] duration-300 ease-in-out"
+            style={{ maxHeight: expanded ? expandedHeight + "px" : "2rem" }}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+        >
+            <p ref={pRef} className={`${className ?? ""}${clamped ? " line-clamp-2" : ""}`}>
+                {children}
+            </p>
+        </div>
     );
 }
 
@@ -87,9 +117,9 @@ export function ContributionList({
                                     >
                                         {pr.title}
                                     </a>
-                                    <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                                    <ExpandableText className="text-xs text-muted-foreground">
                                         {pr.description}
-                                    </p>
+                                    </ExpandableText>
                                 </div>
                                 <span className="text-xs text-muted-foreground shrink-0 pt-0.5">
                                     #{pr.pr}
