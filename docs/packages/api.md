@@ -82,7 +82,7 @@ L'API v4 expose les modules suivants, tous importables depuis `@20syldev/api/v4`
 | `captcha`     | Images captcha                                               |
 | `chat`        | Système de chat privé temporaire                             |
 | `color`       | Couleurs aléatoires (HEX, RGB, HSL, HSV)                     |
-| `convert`     | Conversions d'unités (longueur, poids, données, vitesse…)    |
+| `convert`     | Conversions d'unités (longueur, poids, données, vitesse...)  |
 | `credit`      | Cartes bancaires fictives Luhn-valides                       |
 | `cron`        | Parseur d'expressions cron + prochaines exécutions           |
 | `dice`        | Lanceur de dés en notation RPG (`2d6+3`)                     |

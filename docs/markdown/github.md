@@ -10,7 +10,7 @@ order: 2
 
 **GitHub Flavored Markdown** (GFM) est la variante du Markdown utilisée par GitHub. Elle étend la syntaxe standard CommonMark avec des fonctionnalités propres à l'environnement GitHub : alertes visuelles, listes de tâches, références aux issues, diagrammes, et plus.
 
-Ce guide couvre uniquement les **extensions GFM** — pour les bases du Markdown (titres, listes, liens, code…), consultez d'abord le [guide Markdown standard](/help/markdown/guide).
+Ce guide couvre uniquement les **extensions GFM** — pour les bases du Markdown (titres, listes, liens, code...), consultez d'abord le [guide Markdown standard](/help/markdown/guide).
 
 ### Où s'applique le GFM ?
 

@@ -8,8 +8,8 @@ order: 8
 
 ## Plumbing vs porcelain {#plumbing}
 
-- **Porcelain** : les commandes utilisateur (`add`, `commit`, `push`, `log`…) — conçues pour être simples
-- **Plumbing** : les commandes bas niveau (`hash-object`, `cat-file`, `ls-tree`, `rev-parse`…) — utilisées en interne par les commandes porcelain
+- **Porcelain** : les commandes utilisateur (`add`, `commit`, `push`, `log`...) — conçues pour être simples
+- **Plumbing** : les commandes bas niveau (`hash-object`, `cat-file`, `ls-tree`, `rev-parse`...) — utilisées en interne par les commandes porcelain
 
 Comprendre le plumbing permet de débuguer des situations complexes et de comprendre ce que Git fait sous le capot.
 

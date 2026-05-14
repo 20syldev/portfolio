@@ -20,7 +20,7 @@ order: 1
 
 ### Variantes et standards
 
-Il existe plusieurs variantes du Markdown. Ce guide couvre le **CommonMark**, qui est la spécification la plus largement adoptée. Pour les extensions spécifiques à GitHub (alertes, mentions, diagrammes…), consultez le [guide GitHub Flavored Markdown](/help/markdown/github).
+Il existe plusieurs variantes du Markdown. Ce guide couvre le **CommonMark**, qui est la spécification la plus largement adoptée. Pour les extensions spécifiques à GitHub (alertes, mentions, diagrammes...), consultez le [guide GitHub Flavored Markdown](/help/markdown/github).
 
 ## Titres {#headings}
 
