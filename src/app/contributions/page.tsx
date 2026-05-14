@@ -7,7 +7,7 @@ import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ContributionStatus } from "@/components/ui/contributions";
+import { ContributionStatus, ExpandableText } from "@/components/ui/contributions";
 import { type Contribution, contributions } from "@/data/contributions";
 import { useSmoothScroll } from "@/hooks/scroll";
 import { tabs, urls } from "@/lib/nav";
@@ -96,9 +96,9 @@ export default function ContributionsPage() {
                                                     >
                                                         {pr.title}
                                                     </a>
-                                                    <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                                                    <ExpandableText className="text-xs text-muted-foreground">
                                                         {pr.description}
-                                                    </p>
+                                                    </ExpandableText>
                                                 </div>
                                                 <span className="text-xs text-muted-foreground shrink-0 pt-0.5">
                                                     #{pr.pr}
