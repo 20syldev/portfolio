@@ -190,7 +190,7 @@ export const contributions: Contribution[] = [
             "Correction du polling live qui s'arrêtait définitivement après le premier intervalle sans nouveaux logs",
         reason: "getPreviousPageParam retournait null sur un résultat vide, marquant hasPreviousPage à false et rendant les appels fetchPreviousPage() inopérants",
         language: "TypeScript",
-        status: "open",
+        status: "merged",
     },
     {
         repo: "mintlify/components",
