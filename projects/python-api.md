@@ -2,7 +2,7 @@
 name: API Python
 description: Ancienne API Python précédant mon API Node.js.
 longDescription: "Première version de l'API personnelle développée en Python avec Flask. Remplacée par l'API Node.js actuelle. Endpoints publics sans limitation."
-tags: ["Python", "Flask"]
+tags: ["Python", "Flask", "HTML", "CSS"]
 github: "https://github.com/20syldev/python-api"
 archived: true
 ---

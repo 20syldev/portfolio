@@ -2,7 +2,7 @@
 name: NitroGen
 description: Bot Discord de génération de code Nitro aléatoires.
 longDescription: "Bot Discord générant des codes Nitro aléatoires avec un système de rôles par tiers et détection de statut VIP. Développé avec Discord.js."
-tags: ["Discord.js"]
+tags: ["Node.js", "Discord.js", "JS"]
 github: "https://github.com/20syldev/NitroGen"
 archived: true
 ---
