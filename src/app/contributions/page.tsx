@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, Dot } from "lucide-react";
+import { ArrowLeft, Dot, LineChart } from "lucide-react";
 import Link from "next/link";
 
 import { Footer } from "@/components/layout/footer";
@@ -40,7 +40,7 @@ export default function ContributionsPage() {
             <Nav currentTab={-1} tabs={tabs} links={urls} />
 
             <main className="flex-1 container mx-auto px-4 pt-24 pb-12">
-                <div className="mb-8">
+                <div className="mb-8 flex items-center justify-between">
                     <Link href="/repositories">
                         <Button
                             variant="ghost"
@@ -48,6 +48,15 @@ export default function ContributionsPage() {
                             className="text-muted-foreground hover:text-foreground transition-colors"
                         >
                             <ArrowLeft className="h-4 w-4" />
+                        </Button>
+                    </Link>
+                    <Link href="/stats">
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                            <LineChart className="h-4 w-4" />
                         </Button>
                     </Link>
                 </div>
