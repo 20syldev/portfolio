@@ -26,11 +26,11 @@ Vous pouvez aussi installer manuellement en exécutant `./install.sh` ou mettre 
 mn propose plusieurs modules accessibles directement depuis le menu principal ou via des raccourcis :
 
 - `mn conn` — Connexions SSH et commandes personnalisées
-- `mn repos` — Dépôts GitHub avec ouverture dans VS Code
+- `mn repos` — Dépôts GitHub avec ouverture dans l'éditeur configuré
 - `mn alias` — Alias Bash avec synchronisation automatique vers `~/.bash_aliases`
 - `mn funcs` — Fonctions shell avec synchronisation vers `~/.bash_functions`
 - `mn docs` — Documentation interne en Markdown
-- `mn config` — Configuration et rechargement de l'environnement
+- `mn config` — Configuration : éditeur, langue et rechargement de l'environnement
 - `mn help` — Aide
 
 Des alias courts sont aussi supportés : `mn r` (repos), `mn a` (alias), `mn f` (funcs), `mn d` (docs), `mn c` (config), `mn h` (help).
@@ -48,14 +48,18 @@ La navigation est conçue pour être rapide et intuitive :
 - `v` — Voir les détails
 - `r` — Retour / quitter
 
+Les menus de choix (langue, éditeur, type de connexion) utilisent la même navigation fléchée — `↑`/`↓` pour sélectionner, `Entrée` pour valider.
+
 ## Fonctionnalités {#features}
 
 - **Connexions SSH/Custom** — stocker des serveurs avec label, IP, type (SSH ou commande personnalisée) et mot de passe optionnel
-- **Dépôts GitHub** — créer des alias vers vos répertoires locaux et les ouvrir dans VS Code
+- **Dépôts GitHub** — créer des alias vers vos répertoires locaux et les ouvrir dans l'éditeur configuré (VS Code, vim, nano…)
 - **Alias Bash** — ajouter, modifier, supprimer des alias avec synchronisation automatique vers `~/.bash_aliases`
 - **Fonctions shell** — gérer des fonctions Bash complexes avec synchronisation vers `~/.bash_functions`
 - **Documentation** — lire des fichiers Markdown internes directement dans le terminal
 - **Configuration** — éditer les fichiers de configuration et recharger l'environnement à la volée
+- **Éditeur configurable** — vi, vim, nano, zed, VS Code ou personnalisé, choix à l'install ou via `mn config`
+- **Interface multilingue** — français et anglais, choisis à l'installation ou via `mn config`
 
 ## Format de données {#data}
 
