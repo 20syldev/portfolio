@@ -44,6 +44,10 @@ Exemples rapides :
 - `gft cli/cli --json` — Sortie JSON
 - `gft cli/cli --pre` — Inclure les pre-releases
 - `gft cli/cli v2.40.0..v2.50.0` — Comparer deux releases
+- `gft stash list` — Lister les stash git du repo courant
+- `gft stash show 1` — Voir le diff d'un stash
+- `gft stash drop 0` — Supprimer un stash (avec confirmation)
+- `gft stash clean -y` — Tout supprimer sans confirmation
 - `gft update` — Mettre à jour gft
 - `gft delete` — Désinstaller gft
 
@@ -67,6 +71,8 @@ Exemples rapides :
 - **Auto-mise à jour** intégrée — `gft update`
 - **Fallback gh CLI** transparent pour les repos privés
 - **Complétion Bash et Zsh** + page man intégrées
+- **Gestion de stash Git** — `gft stash list|show|drop|clean`
+- **Mode non-interactif** — `-y`/`--yes` pour ignorer les confirmations
 
 ## Pourquoi gft ? {#why}
 
