@@ -101,6 +101,22 @@ gft update
 gft delete
 ```
 
+### Gestion de stash Git {#stash}
+
+```bash
+# Lister les stash du repo courant
+gft stash list
+
+# Voir le diff d'un stash
+gft stash show 1
+
+# Supprimer un stash (avec confirmation)
+gft stash drop 0
+
+# Supprimer tous les stash sans confirmation
+gft stash clean -y
+```
+
 ## Alias {#alias}
 
 `gfv` est disponible comme alias de `gft`.
@@ -129,6 +145,7 @@ gft delete
 - Respecte la convention `NO_COLOR` et la détection de pipe
 - Complétion Bash et Zsh
 - Page de manuel (`man gft`)
+- Gestion de stash Git (`gft stash list|show|drop|clean`)
 
 ## Fonctionnement {#internals}
 
@@ -144,10 +161,11 @@ Lorsque le CLI `gh` est installé et authentifié, gft l'utilise en transparence
 
 ## Commandes {#commands}
 
-| Commande     | Description                                |
-| ------------ | ------------------------------------------ |
-| `gft update` | Mettre à jour gft vers la dernière version |
-| `gft delete` | Désinstaller gft                           |
+| Commande             | Description                                   |
+| -------------------- | --------------------------------------------- |
+| `gft update`         | Mettre à jour gft vers la dernière version    |
+| `gft delete`         | Désinstaller gft                              |
+| `gft stash [action]` | Gérer les stash git (list, show, drop, clean) |
 
 ## Options {#options}
 
@@ -172,6 +190,7 @@ Lorsque le CLI `gh` est installé et authentifié, gft l'utilise en transparence
 | `--no-color`           | Désactiver la sortie colorée                               |
 | `--no-cache`           | Ignorer le cache de réponses                               |
 | `--clear-cache`        | Vider tout le cache                                        |
+| `-y, --yes`            | Ignorer les demandes de confirmation                       |
 
 ## Variables d'environnement {#env}
 
