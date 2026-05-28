@@ -1,10 +1,25 @@
 ---
 title: "API"
-description: "API REST TypeScript/Node.js avec plus de 30 modules : images, données fictives, utilitaires réseau, cryptographie, temps réel et plus encore."
+description: "API REST TypeScript/Node.js avec plus de 40 modules : images, données fictives, utilitaires réseau, cryptographie, temps réel et plus encore."
 category: packages
 slug: api
 order: 3
 ---
+
+## Fonctionnement {#internals}
+
+L'API repose sur une architecture REST développée en **TypeScript strict** avec Node.js et Express. Elle est conçue pour être utilisable de deux façons :
+
+- **En tant que serveur** — tous les endpoints sont disponibles sur le port `3000`
+- **En tant que bibliothèque** — importez uniquement les modules dont vous avez besoin
+
+La **v4 est désormais figée**, la **v5 en hérite intégralement** et évolue avec les nouveaux modules.
+Le projet inclut plus de **300 tests** (unitaires + intégration HTTP) via `node:test` natif.
+
+## Prérequis {#prerequisites}
+
+- Node.js **>= 22.0.0**
+- `"type": "module"` dans `package.json`
 
 ## Installation {#install}
 
@@ -13,18 +28,6 @@ order: 3
 ```bash
 npm install @20syldev/api
 ```
-
-### Configuration requise
-
-Assurez-vous que `"type": "module"` est défini dans votre `package.json` :
-
-```json
-{
-    "type": "module"
-}
-```
-
-Node.js **>= 22.0.0** requis.
 
 ## Utilisation {#usage}
 
@@ -51,7 +54,7 @@ Tous les endpoints sont alors disponibles localement, comme sur [api.sylvain.sh]
 ### Option 2 : Importer des modules individuellement
 
 ```js
-import { color, token, username } from "@20syldev/api/v4";
+import { color, token, username } from "@20syldev/api/v5";
 
 // Générer une couleur aléatoire
 const couleur = color();
@@ -70,71 +73,16 @@ console.log(`Jeton: ${jeton}`);
 
 ## Modules disponibles {#modules}
 
-L'API v4 expose les modules suivants, tous importables depuis `@20syldev/api/v4` :
+L'API v5 expose plus de **40 modules** couvrant la génération d'images, la cryptographie, les données fictives, les utilitaires réseau, les mathématiques et plus encore.
 
-| Module        | Description                                                  |
-| ------------- | ------------------------------------------------------------ |
-| `address`     | Adresses postales aléatoires (FR, US, UK, DE, ES)            |
-| `agent`       | Analyse de User-Agent (navigateur, OS, appareil, bot)        |
-| `algorithms`  | Tri, fibonacci, factorielle, chiffres romains                |
-| `avatar`      | Avatars déterministes identicon ou pixel-art, PNG ou SVG     |
-| `barcode`     | Codes-barres Code128, EAN-13/8, UPC-A, Code39                |
-| `captcha`     | Images captcha                                               |
-| `chat`        | Système de chat privé temporaire                             |
-| `color`       | Couleurs aléatoires (HEX, RGB, HSL, HSV)                     |
-| `convert`     | Conversions d'unités (longueur, poids, données, vitesse...)  |
-| `credit`      | Cartes bancaires fictives Luhn-valides                       |
-| `cron`        | Parseur d'expressions cron + prochaines exécutions           |
-| `dice`        | Lanceur de dés en notation RPG (`2d6+3`)                     |
-| `domain`      | Informations de domaine aléatoires                           |
-| `encode`      | Encodage/décodage base64, URL, Morse, ROT-13, César, binaire |
-| `geo`         | Distance et cap GPS (Haversine)                              |
-| `hash`        | Hachage SHA-256/512/MD5                                      |
-| `ip`          | Analyse IPv4/IPv6                                            |
-| `levenshtein` | Distance entre chaînes de caractères                         |
-| `palette`     | Palettes de couleurs harmonieuses                            |
-| `password`    | Mots de passe sécurisés avec calcul d'entropie               |
-| `personal`    | Profil fictif complet                                        |
-| `placeholder` | Placeholders SVG (image ou skeleton animé)                   |
-| `qrcode`      | QR codes PNG personnalisables                                |
-| `regex`       | Test d'expressions régulières                                |
-| `statistics`  | Statistiques descriptives                                    |
-| `text`        | Slug, Lorem Ipsum, stats de texte, nombre → lettres          |
-| `tic_tac_toe` | Jeu de morpion via API REST                                  |
-| `time`        | Informations temporelles et countdown                        |
-| `token`       | Tokens sécurisés via `crypto.randomInt`                      |
-| `username`    | Noms d'utilisateur aléatoires                                |
-| `validate`    | Validation Luhn, IBAN, email                                 |
+La liste complète avec paramètres, exemples de requêtes et réponses est disponible sur [docs.sylvain.sh](https://docs.sylvain.sh) — ou consultez la [page de la documentation](/projet/docs) du portfolio pour en savoir plus sur l'outil.
 
 ## Exemples par module {#examples}
-
-### Couleurs
-
-```js
-import { color } from "@20syldev/api/v4";
-
-const c = color();
-console.log(c.hex); // → "#a3f29c"
-console.log(c.rgb); // → "rgb(163, 242, 156)"
-console.log(c.hsl); // → "hsl(115, 82%, 78%)"
-```
-
-### Tokens sécurisés
-
-```js
-import { token } from "@20syldev/api/v4";
-
-// Token hexadécimal de 16 caractères
-const hex = token(16, "hex");
-
-// UUID
-const id = token(0, "uuid");
-```
 
 ### Cartes bancaires fictives
 
 ```js
-import { credit } from "@20syldev/api/v4";
+import { credit } from "@20syldev/api/v5";
 
 const { cards } = credit("visa", 1, "full");
 console.log(cards[0].formatted); // → "4532 9876 5432 1098"
@@ -144,7 +92,7 @@ console.log(cards[0].cvv); // → "847"
 ### Expressions cron
 
 ```js
-import { cron } from "@20syldev/api/v4";
+import { cron } from "@20syldev/api/v5";
 
 const { description, next } = cron("0 9 * * 1-5", 3);
 console.log(description); // → "À 09:00, du lundi au vendredi"
@@ -154,28 +102,98 @@ console.log(next); // → ["2026-05-13T09:00:00.000Z", ...]
 ### Avatars
 
 ```js
-import { avatar } from "@20syldev/api/v4";
+import { avatar } from "@20syldev/api/v5";
 
 const { body } = avatar({ seed: "john", format: "svg", size: 200 });
 // body contient une chaîne SVG
 ```
 
-### Noms d'utilisateur
-
-```js
-import { username } from "@20syldev/api/v4";
-
-const user = username();
-console.log(user.username); // → "SkyWalker42"
-```
-
 ### Distance de Levenshtein
 
 ```js
-import { levenshtein } from "@20syldev/api/v4";
+import { levenshtein } from "@20syldev/api/v5";
 
 const distance = levenshtein("chat", "chien");
 console.log(distance); // → 4
+```
+
+### Évaluation d'expressions mathématiques
+
+```js
+import { evaluate } from "@20syldev/api/v5";
+
+const { result } = evaluate("sqrt(2) ^ 2 + pi", 4);
+console.log(result); // → 5.1416
+
+const { result: r2 } = evaluate("min(3, 7) * (2 + 5)", 0);
+console.log(r2); // → 21
+```
+
+### Opérations matricielles
+
+```js
+import { matrix } from "@20syldev/api/v5";
+
+const { result } = matrix(
+    "multiply",
+    [
+        [1, 2],
+        [3, 4],
+    ],
+    [
+        [5, 6],
+        [7, 8],
+    ]
+);
+console.log(result); // → [[19, 22], [43, 50]]
+
+const { result: det } = matrix("determinant", [
+    [1, 2],
+    [3, 4],
+]);
+console.log(det); // → -2
+```
+
+### Chiffrement symétrique
+
+```js
+import { symmetric } from "@20syldev/api/v5";
+
+const { encrypted } = symmetric("encrypt", "aes-256-gcm", "ma-clé-secrète", "texte à chiffrer");
+const { decrypted } = symmetric("decrypt", "aes-256-gcm", "ma-clé-secrète", encrypted);
+console.log(decrypted); // → "texte à chiffrer"
+```
+
+### Chiffrement asymétrique
+
+```js
+import { asymmetric } from "@20syldev/api/v5";
+
+// Générer une paire de clés RSA 2048 bits
+const { publicKey, privateKey } = asymmetric("keygen", "rsa-oaep-sha256", null, null, 2048);
+
+// Chiffrer avec la clé publique
+const { encrypted } = asymmetric("encrypt", "rsa-oaep-sha256", publicKey, "texte secret");
+
+// Déchiffrer avec la clé privée
+const { decrypted } = asymmetric("decrypt", "rsa-oaep-sha256", privateKey, encrypted);
+console.log(decrypted); // → "texte secret"
+```
+
+### Codes OTP
+
+```js
+import { otp } from "@20syldev/api/v5";
+
+// Générer un secret TOTP avec URI otpauth://
+const { secret, uri } = otp("secret", "sha1", 6, 30);
+
+// Générer un code TOTP à partir du secret
+const { code } = otp("generate", "sha1", 6, 30, secret);
+
+// Vérifier un code
+const { valid } = otp("verify", "sha1", 6, 30, secret, code);
+console.log(valid); // → true
 ```
 
 ## API HTTP {#http}
@@ -184,24 +202,44 @@ L'API est aussi utilisable directement via des requêtes HTTP sur [api.sylvain.s
 
 ```bash
 # Générer une couleur aléatoire
-curl https://api.sylvain.sh/v4/color
+curl https://api.sylvain.sh/v5/color
 
 # Générer un QR code
-curl "https://api.sylvain.sh/v4/qrcode?text=https://sylvain.sh"
+curl "https://api.sylvain.sh/v5/qrcode?text=https://sylvain.sh"
 
 # Générer un token
-curl -X POST "https://api.sylvain.sh/v4/token" \
+curl -X POST "https://api.sylvain.sh/v5/token" \
      -H "Content-Type: application/json" \
      -d '{"length": 16, "type": "hex"}'
 
 # Analyser une IP
-curl https://api.sylvain.sh/v4/ip?address=8.8.8.8
+curl https://api.sylvain.sh/v5/ip?address=8.8.8.8
 
 # Prochaines exécutions d'une expression cron
-curl "https://api.sylvain.sh/v4/cron?expression=0+9+*+*+1-5&count=3"
+curl "https://api.sylvain.sh/v5/cron?expr=0+9+*+*+1-5&count=3"
 
 # Carte bancaire fictive
-curl "https://api.sylvain.sh/v4/credit?brand=visa&count=1&format=full"
+curl "https://api.sylvain.sh/v5/credit?brand=visa&count=1&format=full"
+
+# Évaluer une expression mathématique
+curl "https://api.sylvain.sh/v5/evaluate?expr=sqrt(2)%5E2%2Bpi&precision=4"
+
+# Générer un graphique SVG
+curl -X POST "https://api.sylvain.sh/v5/chart" \
+     -H "Content-Type: application/json" \
+     -d '{"type": "bar", "data": {"labels": ["A", "B", "C"], "datasets": [
+       {"label": "Valeurs", "values": [10, 20, 30]}
+     ]}}'
+
+# Chiffrement symétrique AES-256-GCM
+curl -X POST "https://api.sylvain.sh/v5/symmetric" \
+     -H "Content-Type: application/json" \
+     -d '{"action": "encrypt", "algorithm": "aes-256-gcm", "key": "ma-cle-secrete", "text": "bonjour"}'
+
+# Générer un secret OTP
+curl -X POST "https://api.sylvain.sh/v5/otp" \
+     -H "Content-Type: application/json" \
+     -d '{"action": "secret"}'
 ```
 
 ## Limites d'utilisation {#limits}
@@ -214,22 +252,7 @@ curl "https://api.sylvain.sh/v4/credit?brand=visa&count=1&format=full"
 | **Business** | 19.99€/mois | 10 000         |
 
 La limite s'applique par adresse IP, avec une protection anti-burst de 50 req/10s.
-Les offres payantes sont disponibles sur la page [pricing](https://docs.sylvain.sh/latest/pricing).
-
-## Fonctionnement {#internals}
-
-L'API repose sur une architecture REST développée en **TypeScript strict** avec Node.js et Express. Elle est conçue pour être utilisable de deux façons :
-
-- **En tant que serveur** — tous les endpoints sont disponibles sur le port `3000`
-- **En tant que bibliothèque** — importez uniquement les modules dont vous avez besoin
-
-La **v3** reste disponible en JavaScript (figée), la **v4** évolue en TypeScript.
-Le projet inclut plus de **300 tests** (unitaires + intégration HTTP) via `node:test` natif.
-
-## Prérequis {#prerequisites}
-
-- Node.js **>= 22.0.0**
-- `"type": "module"` dans `package.json`
+Les offres payantes sont disponibles sur la page [pricing](https://docs.sylvain.sh/pricing).
 
 ## Tester localement {#local}
 
@@ -259,10 +282,6 @@ import "@20syldev/api";
 ```bash
 node index.js
 ```
-
-## Documentation externe {#docs}
-
-La documentation complète de tous les endpoints avec exemples de requêtes et réponses est disponible sur [docs.sylvain.sh](https://docs.sylvain.sh/latest).
 
 ## Dépannage {#troubleshooting}
 
