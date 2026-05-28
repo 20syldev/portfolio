@@ -69,16 +69,20 @@ Les raccourcis courts sont également supportés : `mn r` (repos), `mn a` (alias
 | `e`       | Modifier l'élément sélectionné  |
 | `d`       | Supprimer l'élément sélectionné |
 | `v`       | Voir les détails                |
-| `r`       | Retour / quitter                |
+| `r`       | Retour au menu principal        |
+| `q`       | Quitter                         |
+
+Les menus de choix (langue, éditeur, type de connexion) utilisent un sélecteur fléché — `↑`/`↓` pour naviguer, `Entrée` pour valider, `r`/`q` pour annuler. Les champs booléens utilisent `←`/`→` et `Espace` pour basculer.
 
 ## Fonctionnalités {#features}
 
 - **Connexions SSH/Custom** — stocker des serveurs avec label, IP, type de connexion (SSH ou commande personnalisée) et mot de passe optionnel, puis s'y connecter en une touche (voir le [guide SSH](/help/ssh/usage#mn) pour plus de détails)
-- **Repos GitHub** — créer des alias vers des répertoires locaux et les ouvrir dans VS Code directement (pour télécharger des releases GitHub depuis le terminal, voir [gft](/help/linux/gft))
+- **Repos GitHub** — créer des alias vers des répertoires locaux et les ouvrir dans l'éditeur configuré (VS Code, vim, nano…) directement (pour télécharger des releases GitHub depuis le terminal, voir [gft](/help/linux/gft))
 - **Alias Bash** — ajouter, modifier, supprimer des alias avec synchronisation automatique vers `~/.bash_aliases`
 - **Fonctions shell** — gérer des fonctions Bash complexes avec synchronisation vers `~/.bash_functions`
 - **Documentation** — lire des fichiers Markdown internes directement dans le terminal
 - **Configuration** — éditer les fichiers de configuration et recharger l'environnement à la volée
+- **Interface multilingue** — français et anglais, sélectionnable à l'installation ou via `mn config`
 
 ## Structure des fichiers {#structure}
 
@@ -98,6 +102,10 @@ Les raccourcis courts sont également supportés : `mn r` (repos), `mn a` (alias
 │   ├── funcs.sh       # Module fonctions
 │   ├── docs.sh        # Module documentation
 │   └── config.sh      # Module configuration
+├── lang/
+│   ├── fr.sh          # Langue française
+│   ├── en.sh          # English language
+│   └── index          # Index des langues disponibles (CDN)
 ├── data/
 │   ├── connexions.dat
 │   ├── repos.dat
@@ -145,9 +153,11 @@ mkcd:::mkdir -p "$1" && cd "$1";:::Créer un dossier et y entrer
 
 ### Changer l'éditeur par défaut
 
-```bash
-export EDITOR=vim   # ou code, nano, micro...
-```
+Choisir à l'installation, ou via `mn config` → **Change editor**. Presets disponibles : `vi`, `vim`, `nano`, `zed`, `code -n` ou une commande personnalisée. Le réglage est enregistré dans `~/.config/mn/.editor`.
+
+### Changer la langue
+
+Via `mn config` → **Change language**. Langues disponibles : **français** et **anglais**. Le système est piloté par les fichiers `lang/*.sh` — de nouvelles langues peuvent être publiées et récupérées via `mn update`.
 
 ### Modifier les couleurs
 
