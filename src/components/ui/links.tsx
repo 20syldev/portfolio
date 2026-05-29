@@ -1,5 +1,6 @@
 import { BookCheck, ExternalLink, Github, Package } from "lucide-react";
 import Link from "next/link";
+import React from "react";
 
 import { Button } from "@/components/ui/button";
 import type { Project } from "@/data/projects";
@@ -7,6 +8,7 @@ import type { Project } from "@/data/projects";
 interface LinksProps {
     project: Project;
     className?: string;
+    extra?: React.ReactNode;
 }
 
 /**
@@ -15,9 +17,10 @@ interface LinksProps {
  * @param props - Component props
  * @param props.project - Project with optional github, demo, npm and docs fields
  * @param props.className - Optional wrapper class
+ * @param props.extra - Optional extra button(s) appended after the project links
  * @returns The rendered link buttons
  */
-export function Links({ project, className }: LinksProps) {
+export function Links({ project, className, extra }: LinksProps) {
     return (
         <div className={className ?? "flex flex-wrap gap-2"}>
             {project.github && (
@@ -52,6 +55,7 @@ export function Links({ project, className }: LinksProps) {
                     </Link>
                 </Button>
             )}
+            {extra}
         </div>
     );
 }
