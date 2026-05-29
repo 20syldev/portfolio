@@ -132,6 +132,22 @@ export const certifications: CertificationCategory[] = [
         name: "Cisco Netacad",
         items: [
             {
+                name: "Career Preparation Workshop",
+                icon: "/images/cisco/career-preparation-workshop.png",
+                url: "https://www.credly.com/badges/0eb4c197-d340-4934-adab-fedcd4a5a670",
+                provider: "cisco",
+                type: "Atelier",
+                date: "8 mai 2026",
+            },
+            {
+                name: "Learn-A-Thon 2026",
+                icon: "/images/cisco/learnathon-2026.png",
+                url: "https://www.credly.com/badges/481b0992-390d-4ead-b650-53aae9670306",
+                provider: "cisco",
+                type: "Événement",
+                date: "29 avr. 2026",
+            },
+            {
                 name: "Network Technician Career Path",
                 icon: "/images/cisco/network-technician.png",
                 url: "https://www.credly.com/badges/b06b0410-76f2-47fc-933f-4bf38c2ba5e5",

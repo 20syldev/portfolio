@@ -3,7 +3,7 @@ export interface Certification {
     icon: string;
     url: string;
     level?: "Advanced" | "Intermediate" | "Introductory";
-    type?: "Cours" | "Examen";
+    type?: "Cours" | "Examen" | "Atelier" | "Événement";
     provider: "google" | "cisco";
     date?: string;
     shape?: "round" | "rectangle";
