@@ -58,17 +58,22 @@ export function CardDialog({ project, version, status, onOpenChange }: CardDialo
                     ))}
                 </div>
 
-                <div className="flex flex-wrap gap-2 pt-4">
-                    {project && <Links project={project} />}
-                    {project && hasProjectContent(project.id) && (
-                        <Button size="sm" variant="secondary" asChild>
-                            <Link href={`/projet/${project.id}`}>
-                                <BookOpen className="mr-2 h-4 w-4" />
-                                En savoir plus
-                            </Link>
-                        </Button>
-                    )}
-                </div>
+                {project && (
+                    <Links
+                        project={project}
+                        className="grid grid-cols-2 gap-2 [&>*:last-child:nth-child(odd)]:col-span-2 pt-4"
+                        extra={
+                            hasProjectContent(project.id) && (
+                                <Button size="sm" variant="secondary" asChild>
+                                    <Link href={`/projet/${project.id}`}>
+                                        <BookOpen className="mr-2 h-4 w-4" />
+                                        En savoir plus
+                                    </Link>
+                                </Button>
+                            )
+                        }
+                    />
+                )}
             </DialogContent>
         </Dialog>
     );
