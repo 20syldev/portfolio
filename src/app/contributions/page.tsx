@@ -90,11 +90,14 @@ export default function ContributionsPage() {
                                     <div className="divide-y divide-border">
                                         {prs.map((pr) => (
                                             <div
-                                                key={pr.pr}
+                                                key={pr.number}
                                                 className="flex items-start gap-2.5 px-4 py-3 hover:bg-muted/30 transition-colors"
                                             >
                                                 <div className="pt-0.5">
-                                                    <ContributionStatus status={pr.status} />
+                                                    <ContributionStatus
+                                                        type={pr.type}
+                                                        status={pr.status}
+                                                    />
                                                 </div>
                                                 <div className="flex-1 min-w-0">
                                                     <a
@@ -110,7 +113,7 @@ export default function ContributionsPage() {
                                                     </ExpandableText>
                                                 </div>
                                                 <span className="text-xs text-muted-foreground shrink-0 pt-0.5">
-                                                    #{pr.pr}
+                                                    #{pr.number}
                                                 </span>
                                             </div>
                                         ))}
