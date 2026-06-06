@@ -1,37 +1,89 @@
 "use client";
 
-import { GitMerge, GitPullRequestClosed, GitPullRequestDraft } from "lucide-react";
+import {
+    CircleCheck,
+    CircleDot,
+    CircleX,
+    GitMerge,
+    GitPullRequestClosed,
+    GitPullRequestDraft,
+} from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { type Contribution } from "@/data/contributions";
 import { useExpand } from "@/hooks/expand";
 
+const STATUS_LABELS: Record<Contribution["type"], Record<string, string>> = {
+    pr: {
+        open: "Pull request ouverte",
+        closed: "Pull request fermée",
+        merged: "Pull request mergée",
+        resolved: "Pull request mergée",
+    },
+    issue: {
+        open: "Issue ouverte",
+        closed: "Issue fermée",
+        merged: "Issue résolue",
+        resolved: "Issue résolue",
+    },
+};
+
 /**
- * Icon indicating the status of a contribution PR (merged, closed, or open).
+ * Icon indicating the status of a contribution (merged, resolved, closed, or open).
  *
  * @param props - Component props
- * @param props.status - The PR status
+ * @param props.type - Whether this is a PR or an issue
+ * @param props.status - The contribution status
  * @returns The rendered status icon
  */
-export function ContributionStatus({ status }: { status: Contribution["status"] }) {
+export function ContributionStatus({
+    type,
+    status,
+}: {
+    type: Contribution["type"];
+    status: Contribution["status"];
+}) {
+    let icon: React.ReactNode;
     if (status === "merged") {
-        return (
+        icon = (
             <span className="flex items-center justify-center w-4 h-4 rounded-full bg-purple-500/15 shrink-0 mt-0.5">
                 <GitMerge className="h-2.5 w-2.5 text-purple-500" />
             </span>
         );
-    }
-    if (status === "closed") {
-        return (
+    } else if (status === "resolved") {
+        icon = (
+            <span className="flex items-center justify-center w-4 h-4 rounded-full bg-purple-500/15 shrink-0 mt-0.5">
+                <CircleCheck className="h-2.5 w-2.5 text-purple-500" />
+            </span>
+        );
+    } else if (status === "closed") {
+        icon = (
             <span className="flex items-center justify-center w-4 h-4 rounded-full bg-destructive/15 shrink-0 mt-0.5">
-                <GitPullRequestClosed className="h-2.5 w-2.5 text-destructive" />
+                {type === "issue" ? (
+                    <CircleX className="h-2.5 w-2.5 text-destructive" />
+                ) : (
+                    <GitPullRequestClosed className="h-2.5 w-2.5 text-destructive" />
+                )}
+            </span>
+        );
+    } else {
+        icon = (
+            <span className="flex items-center justify-center w-4 h-4 rounded-full bg-green-500/15 shrink-0 mt-0.5">
+                {type === "issue" ? (
+                    <CircleDot className="h-2.5 w-2.5 text-green-500" />
+                ) : (
+                    <GitPullRequestDraft className="h-2.5 w-2.5 text-green-500" />
+                )}
             </span>
         );
     }
+
     return (
-        <span className="flex items-center justify-center w-4 h-4 rounded-full bg-green-500/15 shrink-0 mt-0.5">
-            <GitPullRequestDraft className="h-2.5 w-2.5 text-green-500" />
-        </span>
+        <Tooltip>
+            <TooltipTrigger asChild>{icon}</TooltipTrigger>
+            <TooltipContent>{STATUS_LABELS[type][status]}</TooltipContent>
+        </Tooltip>
     );
 }
 
@@ -102,11 +154,11 @@ export function ContributionList({
                     <div className="divide-y divide-border">
                         {prs.map((pr) => (
                             <div
-                                key={pr.pr}
+                                key={pr.number}
                                 className="flex items-start gap-2.5 px-4 py-3 hover:bg-muted/30 transition-colors"
                             >
                                 <div className="pt-0.5">
-                                    <ContributionStatus status={pr.status} />
+                                    <ContributionStatus type={pr.type} status={pr.status} />
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <a
@@ -122,7 +174,7 @@ export function ContributionList({
                                     </ExpandableText>
                                 </div>
                                 <span className="text-xs text-muted-foreground shrink-0 pt-0.5">
-                                    #{pr.pr}
+                                    #{pr.number}
                                 </span>
                             </div>
                         ))}
