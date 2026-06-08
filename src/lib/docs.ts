@@ -2,6 +2,7 @@ import { type Doc, docs } from "@/data/docs";
 
 const categoryNames: Record<string, string> = {
     cryptography: "Cryptographie",
+    design: "Design System",
     frameworks: "Frameworks",
     git: "Git",
     github: "GitHub",
