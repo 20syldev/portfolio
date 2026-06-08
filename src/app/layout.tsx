@@ -127,13 +127,35 @@ const jsonLd = {
             description:
                 "Développeur Front-end depuis 8 ans et Back-end depuis 5 ans. Portfolio présentant mes projets et compétences.",
             inLanguage: "fr-FR",
+            author: { "@id": "https://sylvain.sh/#person" },
         },
         {
             "@type": "Person",
             "@id": "https://sylvain.sh/#person",
             name: "Sylvain L.",
             url: "https://sylvain.sh",
+            email: "contact@sylvain.sh",
             jobTitle: "Développeur Full Stack",
+            worksFor: {
+                "@type": "Organization",
+                name: "Zenetys",
+            },
+            alumniOf: {
+                "@type": "EducationalOrganization",
+                name: "Ensitech",
+            },
+            knowsAbout: [
+                "Développement web",
+                "Front-end",
+                "Back-end",
+                "Cybersécurité",
+                "Intelligence artificielle",
+            ],
+            sameAs: [
+                "https://github.com/20syldev",
+                "https://linkedin.com/in/sylvainlmb",
+                "https://g.dev/20syl",
+            ],
         },
     ],
 };
