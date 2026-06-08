@@ -23,7 +23,7 @@ L'application couvre l'ensemble du cycle de vie d'un questionnaire, de sa créat
 **Principales fonctionnalités :**
 
 - **Authentification** : inscription et connexion sur les deux plateformes
-- **Gestion CRUD** : création, modification et suppression de questionnaires, questions et réponses
+- **Gestion CRUD** (Create, Read, Update, Delete) : création, modification et suppression de questionnaires, questions et réponses
 - **Types de questions** : vrai/faux ou choix multiples avec pondération
 - **Publication et fork** : partage et duplication de questionnaires entre utilisateurs
 - **Mode joueur** : passage interactif des quiz avec scoring en temps réel
@@ -66,11 +66,12 @@ Les scripts SQL de création du schéma (`schema.sql`) et d'insertion des donné
 ### Présentation
 
 L'application desktop est développée en C# avec Avalonia UI, un framework cross-platform compatible Windows, Linux et macOS.
+Avalonia UI a été choisi pour sa capacité à partager un seul code C# sur les trois OS, là où WPF (l'alternative Microsoft) est limité à Windows.
 Elle a été conçue pour offrir une expérience complète de gestion et de passage de questionnaires sans nécessiter de connexion internet, en communiquant directement avec la base PostgreSQL.
 
 ### Architecture
 
-Le projet suit une architecture MVC avec une couche d'accès aux données (DAL) basée sur le pattern Repository :
+Le projet suit une architecture **MVC** (Modèle-Vue-Contrôleur — séparation entre les données, l'affichage et la logique de contrôle) avec une couche d'accès aux données **DAL** (Data Access Layer — couche intermédiaire qui isole l'application de la base de données) basée sur le pattern Repository :
 
 ```
 desktop/
@@ -83,7 +84,7 @@ desktop/
 
 ### Interface utilisateur
 
-L'interface a été conçue from scratch avec Avalonia UI et le pattern MVVM, garantissant une séparation claire entre la logique métier et la présentation.
+L'interface a été conçue from scratch avec Avalonia UI et le pattern **MVVM** (Modèle-Vue-VueModèle — variante du MVC où le VueModèle gère l'état et le binding entre la vue et le modèle), garantissant une séparation claire entre la logique métier et la présentation.
 La navigation s'organise entre les vues principales : liste des questionnaires, création, passage guidé et résultats.
 Les formulaires sont dynamiques et s'adaptent au nombre et au type de questions.
 
@@ -132,11 +133,12 @@ dotnet watch
 ### Présentation
 
 L'interface web est construite avec Laravel 12 et Tailwind CSS, offrant un accès distant aux questionnaires depuis n'importe quel navigateur moderne.
-Elle complète l'application desktop en fournissant une vue centralisée des résultats et en exposant une API REST consommée par la partie C#.
+Laravel a été retenu pour son écosystème complet (authentification, ORM, migrations, API) et sa convention MVC qui structure naturellement le code sans configuration excessive.
+Elle complète l'application desktop en fournissant une vue centralisée des résultats et en exposant une [API REST](/projet/api#rest) consommée par la partie C#.
 
 ### Architecture
 
-Le projet suit une architecture MVC avec une couche service pour la logique métier :
+Le projet suit une architecture MVC (voir [Application Desktop > Architecture](#desktop)) avec une couche service pour la logique métier :
 
 ```
 web/
@@ -155,9 +157,9 @@ web/
 
 ### Authentification
 
-Le système d'authentification repose sur Laravel Breeze, offrant inscription, connexion et déconnexion.
-Les routes sont protégées par middleware, limitant l'accès aux utilisateurs connectés.
-Les mots de passe sont hachés avec bcrypt et les formulaires sont protégés contre les attaques CSRF.
+Le système d'authentification repose sur Laravel Breeze (kit de démarrage officiel fournissant l'authentification prête à l'emploi : routes, contrôleurs et vues préconfigurés), offrant inscription, connexion et déconnexion.
+Les routes sont protégées par middleware (filtres exécutés avant chaque requête pour vérifier l'accès), limitant la navigation aux utilisateurs connectés.
+Les mots de passe sont hachés avec bcrypt et les formulaires sont protégés contre les attaques [CSRF](/help/hacking/web#csrf) (Cross-Site Request Forgery — requêtes frauduleuses envoyées au nom d'un utilisateur authentifié sans son consentement).
 
 ### Interface web
 
@@ -167,14 +169,14 @@ Les formulaires sont validés côté serveur via les Form Requests de Laravel.
 
 ### API REST et interopérabilité
 
-L'application expose une API REST sécurisée via Laravel Sanctum (authentification par token).
+L'application expose une [API REST](/projet/api#rest) sécurisée via Laravel Sanctum (système d'authentification par token API léger, adapté aux SPA et aux applications mobiles).
 Les endpoints permettent la lecture et l'écriture des questionnaires et résultats, assurant l'interopérabilité entre la partie web et l'application desktop C#.
 La base de données PostgreSQL est partagée entre les deux composantes du projet.
 
 ### Statistiques et résultats
 
 Le tableau de bord centralise les résultats de tous les questionnaires : scores, taux de réussite et historique par utilisateur.
-Les requêtes sont optimisées via Eloquent ORM pour agréger les données efficacement.
+Les requêtes sont optimisées via Eloquent ORM (Object-Relational Mapping — interface qui permet de manipuler la base de données via des objets PHP au lieu de requêtes SQL brutes) pour agréger les données efficacement.
 
 ### Technologies détaillées
 
