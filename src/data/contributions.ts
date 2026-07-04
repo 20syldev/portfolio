@@ -102,7 +102,7 @@ export const contributions: Contribution[] = [
         reason: "L'arrêt abrupt du transport causait un faux message d'erreur dans l'hôte MCP à chaque fin de session",
         language: "TypeScript",
         type: "pr",
-        status: "open",
+        status: "merged",
     },
     {
         repo: "antfu/nuxt-mcp-dev",
