@@ -2,7 +2,7 @@
 name: Flowers
 description: Visualiseur de données en temps réel pour toute API JSON.
 longDescription: "Visualiseur de données en temps réel développé avec Next.js 16, Tailwind CSS 4 et Radix UI. Détection automatique des types de données, filtrage avancé, presets, comparaison côte à côte et le tout sans serveur."
-tags: ["Next.js", "Radix UI", "Tailwind CSS", "TS"]
+tags: ["Next.js", "Tailwind CSS", "TypeScript", "JSON"]
 github: "https://github.com/20syldev/flowers"
 demo: "https://flowers.sylvain.sh"
 ---

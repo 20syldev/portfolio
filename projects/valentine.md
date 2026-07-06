@@ -2,7 +2,7 @@
 name: Valentine
 description: Challenges de cybersécurité pour la Saint-Valentin.
 longDescription: Jeu interactif de 12 défis en cybersécurité de difficulté croissante. SQL injection, XSS, cryptographie, réseaux et plus. Développé avec React 19, TypeScript et Tailwind CSS v4.
-tags: ["React", "TS", "Tailwind CSS", "Vite"]
+tags: ["React", "TypeScript", "Tailwind CSS", "Vite"]
 github: "https://github.com/20syldev/valentine"
 demo: "https://valentine.sylvain.sh"
 ---

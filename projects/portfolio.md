@@ -2,7 +2,7 @@
 name: Portfolio
 description: Mon site web, avec des informations sur mes projets.
 longDescription: "Site web portfolio développé avec Next.js 16, Tailwind CSS 4 et Radix UI. Design responsive avec mode clair/sombre, animations fluides, easter eggs et modes de personnalisation avancés."
-tags: ["Next.js", "Radix UI", "Tailwind CSS", "TS", "MD"]
+tags: ["Next.js", "Radix UI", "Tailwind CSS", "TypeScript", "MD"]
 github: "https://github.com/20syldev/portfolio"
 demo: "https://sylvain.sh"
 ---

@@ -2,7 +2,7 @@
 name: LogVault
 description: Site marketing bilingue pour une solution SaaS de gestion de logs par ZENETYS.
 longDescription: Site marketing Next.js bilingue (FR/EN) pour LogVault — une solution SaaS de centralisation, chiffrement et archivage de logs à destination des entreprises.
-tags: ["Next.js", "Tailwind CSS", "TS"]
+tags: ["Next.js", "TypeScript", "Radix UI", "Logs"]
 demo: "/alternance#logvault-io"
 ---
 

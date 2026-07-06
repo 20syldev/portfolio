@@ -2,7 +2,7 @@
 name: WrkIT
 description: Bot Discord de la classe de BTS SIO.
 longDescription: "Bot Discord pour le serveur BTS SIO, hébergé 24h/7j. Gestion du planning, des événements et des embeds avec un statut dynamique. Développé en TypeScript avec Discord.js."
-tags: ["Node.js", "Discord.js", "TS"]
+tags: ["Node.js", "Discord.js", "TypeScript"]
 github: "https://github.com/20syldev/WrkIT"
 demo: "https://wrkit.sylvain.sh"
 npm: "https://npmjs.com/wrkit"

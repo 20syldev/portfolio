@@ -2,7 +2,7 @@
 name: Docs
 description: La documentation de mon API, pour les développeurs.
 longDescription: "Documentation complète de l'API construite avec VitePress (Vue.js). Interface moderne avec Playground interactif, panneaux Try paramétrés, snippets multi-langages, support multi-versions (v1–v5) et bilingue."
-tags: ["Vue.js", "VitePress", "TS", "CSS", "MD"]
+tags: ["Vue.js", "VitePress", "TypeScript", "CSS", "MD"]
 github: "https://github.com/20syldev/docs"
 demo: "https://docs.sylvain.sh"
 ---
