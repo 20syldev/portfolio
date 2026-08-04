@@ -14,7 +14,9 @@ L'API repose sur une architecture REST développée en **TypeScript strict** ave
 - **En tant que bibliothèque** — importez uniquement les modules dont vous avez besoin
 
 La **v4 est désormais figée**, la **v5 en hérite intégralement** et évolue avec les nouveaux modules.
-Le projet inclut plus de **300 tests** (unitaires + intégration HTTP) via `node:test` natif.
+Le projet inclut plus de **800 tests** (unitaires + intégration HTTP) via `node:test` natif.
+
+Le paquet npm est **générique** : les endpoints personnels vivent dans un système de **plugins optionnels** chargés depuis `./plugins/index.js` s'il existe, et sont exclus de la distribution npm.
 
 ## Prérequis {#prerequisites}
 
@@ -73,7 +75,9 @@ console.log(`Jeton: ${jeton}`);
 
 ## Modules disponibles {#modules}
 
-L'API v5 expose plus de **40 modules** couvrant la génération d'images, la cryptographie, les données fictives, les utilitaires réseau, les mathématiques et plus encore.
+L'API v5 expose **46 endpoints** (32 `GET`, 11 `POST`, 1 `PATCH`, 2 `DELETE`) couvrant la génération d'images, la cryptographie, les données fictives, les utilitaires réseau, les mathématiques et plus encore.
+
+La plupart des modules s'importent comme des fonctions, mais `algorithms`, `chart`, `matrix` et `text` sont exportés en tant qu'**espaces de noms** — on appelle alors l'opération voulue (`matrix.multiply(...)`, `chart.bar(...)`).
 
 La liste complète avec paramètres, exemples de requêtes et réponses est disponible sur [docs.sylvain.sh](https://docs.sylvain.sh) — ou consultez la [page de la documentation](/projet/docs) du portfolio pour en savoir plus sur l'outil.
 
@@ -113,9 +117,34 @@ const { body } = avatar({ seed: "john", format: "svg", size: 200 });
 ```js
 import { levenshtein } from "@20syldev/api/v5";
 
-const distance = levenshtein("chat", "chien");
-console.log(distance); // → 4
+const { distance } = levenshtein("chat", "chien");
+console.log(distance); // → 3
 ```
+
+### Décodage de JWT
+
+```js
+import { jwt } from "@20syldev/api/v5";
+
+const { header, payload, signature } = jwt(
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.abc"
+);
+console.log(header); // → { alg: "HS256", typ: "JWT" }
+console.log(payload); // → { sub: "1234567890" }
+```
+
+La signature n'est **pas vérifiée** : ce module sert à l'inspection, pas à la validation de sécurité.
+
+### Conversion de casse
+
+```js
+import { caseConvert } from "@20syldev/api/v5";
+
+const { result } = caseConvert("hello world", "snake");
+console.log(result); // → "hello_world"
+```
+
+Cibles disponibles : `camel`, `pascal`, `snake`, `kebab`, `constant`, `title`, `sentence`, `upper`, `lower`.
 
 ### Évaluation d'expressions mathématiques
 
@@ -134,8 +163,7 @@ console.log(r2); // → 21
 ```js
 import { matrix } from "@20syldev/api/v5";
 
-const { result } = matrix(
-    "multiply",
+const { result } = matrix.multiply(
     [
         [1, 2],
         [3, 4],
@@ -147,22 +175,27 @@ const { result } = matrix(
 );
 console.log(result); // → [[19, 22], [43, 50]]
 
-const { result: det } = matrix("determinant", [
+const { result: det } = matrix.determinant([
     [1, 2],
     [3, 4],
 ]);
 console.log(det); // → -2
 ```
 
+Opérations disponibles : `add`, `subtract`, `multiply`, `scalar`, `transpose`, `determinant`, `inverse`, `identity`.
+
 ### Chiffrement symétrique
 
 ```js
 import { symmetric } from "@20syldev/api/v5";
 
-const { encrypted } = symmetric("encrypt", "aes-256-gcm", "ma-clé-secrète", "texte à chiffrer");
-const { decrypted } = symmetric("decrypt", "aes-256-gcm", "ma-clé-secrète", encrypted);
+// symmetric(action, text, key, algorithm?) — aes-256-gcm par défaut
+const { result: encrypted } = symmetric("encrypt", "texte à chiffrer", "ma-clé-secrète");
+const { result: decrypted } = symmetric("decrypt", encrypted, "ma-clé-secrète");
 console.log(decrypted); // → "texte à chiffrer"
 ```
+
+Algorithmes acceptés : `aes-256-gcm`, `aes-256-cbc`, `aes-128-gcm`. La clé doit faire au moins 8 caractères.
 
 ### Chiffrement asymétrique
 
@@ -170,15 +203,17 @@ console.log(decrypted); // → "texte à chiffrer"
 import { asymmetric } from "@20syldev/api/v5";
 
 // Générer une paire de clés RSA 2048 bits
-const { publicKey, privateKey } = asymmetric("keygen", "rsa-oaep-sha256", null, null, 2048);
+const { publicKey, privateKey } = asymmetric("keygen", { modulusLength: 2048 });
 
 // Chiffrer avec la clé publique
-const { encrypted } = asymmetric("encrypt", "rsa-oaep-sha256", publicKey, "texte secret");
+const { result: encrypted } = asymmetric("encrypt", { text: "texte secret", publicKey });
 
 // Déchiffrer avec la clé privée
-const { decrypted } = asymmetric("decrypt", "rsa-oaep-sha256", privateKey, encrypted);
+const { result: decrypted } = asymmetric("decrypt", { text: encrypted, privateKey });
 console.log(decrypted); // → "texte secret"
 ```
+
+`modulusLength` (`2048` ou `4096`) ne s'applique qu'à `keygen`. L'algorithme par défaut est `rsa-oaep-sha256`.
 
 ### Codes OTP
 
@@ -186,15 +221,17 @@ console.log(decrypted); // → "texte secret"
 import { otp } from "@20syldev/api/v5";
 
 // Générer un secret TOTP avec URI otpauth://
-const { secret, uri } = otp("secret", "sha1", 6, 30);
+const { secret, uri } = otp("secret", { label: "sylvain", issuer: "Portfolio" });
 
 // Générer un code TOTP à partir du secret
-const { code } = otp("generate", "sha1", 6, 30, secret);
+const { code, remaining } = otp("generate", { secret });
 
 // Vérifier un code
-const { valid } = otp("verify", "sha1", 6, 30, secret, code);
+const { valid, drift } = otp("verify", { secret, code });
 console.log(valid); // → true
 ```
+
+Options disponibles : `algorithm` (`sha1` par défaut), `digits` (`6`), `period` (`30`) et `counter` pour le mode HOTP.
 
 ## API HTTP {#http}
 
@@ -240,19 +277,64 @@ curl -X POST "https://api.sylvain.sh/v5/symmetric" \
 curl -X POST "https://api.sylvain.sh/v5/otp" \
      -H "Content-Type: application/json" \
      -d '{"action": "secret"}'
+
+# Décoder un JWT
+curl -X POST "https://api.sylvain.sh/v5/jwt" \
+     -H "Content-Type: application/json" \
+     -d '{"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjMifQ.abc"}'
+
+# Convertir la casse d'une chaîne
+curl "https://api.sylvain.sh/v5/case?text=hello+world&to=snake"
 ```
+
+### Raccourcis {#shortcuts}
+
+Trois routes utilitaires existent en dehors du versioning :
+
+```bash
+curl https://api.sylvain.sh/health   # état, uptime, mémoire, connexions
+curl https://api.sylvain.sh/logs     # journal des requêtes récentes
+curl https://api.sylvain.sh/auth     # palier et limites du token fourni
+```
+
+Le préfixe `/latest` redirige vers la version courante en `307`, ce qui **préserve la méthode et le corps** de la requête — `POST /latest/token` fonctionne donc aussi bien que `GET /latest/color`, chemin imbriqué et query string compris.
+
+## Authentification {#auth}
+
+L'API est utilisable **sans compte** : sans token, les requêtes sont traitées avec les limites de l'offre gratuite.
+Pour bénéficier d'une offre payante, transmettez votre clé dans le header `Authorization` :
+
+```bash
+curl -H "Authorization: Bearer VOTRE_CLE_API" https://api.sylvain.sh/v5/infos
+```
+
+L'endpoint `GET /auth` indique à quel palier correspond un token et quelles limites s'y appliquent :
+
+```bash
+curl -H "Authorization: Bearer VOTRE_CLE_API" https://api.sylvain.sh/auth
+```
+
+```json
+{
+    "authenticated": true,
+    "tier": "pro",
+    "limits": { "hourly": 6000, "burst": 120 }
+}
+```
+
+Sans token, la réponse renvoie le palier `default` plutôt qu'une erreur. Un token invalide renvoie un `401`.
 
 ## Limites d'utilisation {#limits}
 
-| Plan         | Prix        | Requêtes/heure |
-| ------------ | ----------- | -------------- |
-| **Gratuit**  | Gratuit     | 2 000          |
-| **Advanced** | 0.99€/mois  | 3 500          |
-| **Pro**      | 9.99€/mois  | 6 000          |
-| **Business** | 19.99€/mois | 10 000         |
+| Plan         | Prix        | Requêtes/heure | Burst/10s |
+| ------------ | ----------- | -------------- | --------- |
+| **Gratuit**  | Gratuit     | 2 000          | 50        |
+| **Advanced** | 0.99€/mois  | 3 500          | 80        |
+| **Pro**      | 9.99€/mois  | 6 000          | 120       |
+| **Business** | 19.99€/mois | 10 000         | 200       |
 
-La limite s'applique par adresse IP, avec une protection anti-burst de 50 req/10s.
-Les offres payantes sont disponibles sur la page [pricing](https://docs.sylvain.sh/pricing).
+La limite s'applique par adresse IP (ou par token si vous êtes authentifié), avec une protection anti-burst propre à chaque palier.
+Un plafond global de 50 000 req/heure protège l'instance dans son ensemble. Les offres payantes sont disponibles sur la page [pricing](https://docs.sylvain.sh/pricing).
 
 ## Tester localement {#local}
 
