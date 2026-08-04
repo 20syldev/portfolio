@@ -30,9 +30,9 @@ L'API v5 couvre un large spectre de domaines, tous accessibles sans dépendances
 
 **Utilitaires réseau** — analyse de User-Agent, d'adresses IP (v4/v6), inspection des en-têtes HTTP, calcul de distance GPS (Haversine).
 
-**Cryptographie** — chiffrement symétrique AES avec dérivation `scrypt`, chiffrement asymétrique RSA-OAEP, codes OTP conformes RFC 4226/6238, tokens via `crypto.randomInt`, mots de passe avec calcul d'entropie.
+**Cryptographie** — chiffrement symétrique AES avec dérivation `scrypt`, chiffrement asymétrique RSA-OAEP, codes OTP conformes RFC 4226/6238, décodage de JWT, tokens via `crypto.randomInt`, mots de passe avec calcul d'entropie.
 
-**Mathématiques & données** — évaluation d'expressions via un parser Pratt, opérations matricielles jusqu'à 20×20, encodage/décodage multi-formats, hachage, statistiques descriptives, conversions d'unités.
+**Mathématiques & données** — évaluation d'expressions via un parser Pratt, opérations matricielles jusqu'à 20×20, encodage/décodage multi-formats, conversion de casse, hachage, statistiques descriptives, conversions d'unités.
 
 **Temps réel** — chat privé temporaire et morpion jouables entièrement via l'API REST.
 
@@ -67,15 +67,20 @@ L'API v5 est développée en **TypeScript strict** avec une architecture modulai
 - `src/storage/` — stockage en mémoire pour le chat, le morpion et le rate limiter
 
 La **v4 est désormais figée**, la **v5 en hérite intégralement** et évolue avec les nouveaux modules.
-Le projet inclut une suite de **plus de 300 tests** (unitaires + intégration HTTP) via `node:test` natif.
+Le projet inclut une suite de **plus de 800 tests** (unitaires + intégration HTTP) via `node:test` natif.
+
+Le cœur de l'API est **générique** : mes endpoints personnels ont été sortis du paquet publié vers un système de **plugins optionnels**, chargés au démarrage depuis `./plugins/index.js` uniquement si le fichier existe. Le module NPM ne contient donc que des endpoints réutilisables.
+
+Enfin, le préfixe `/latest` redirige vers la version courante avec un `307`, ce qui préserve la méthode et le corps de la requête — les appels `POST`, `PATCH` et `DELETE` sont donc redirigés correctement, pas seulement les `GET`.
 
 ## Sécurité {#security}
 
-- **Rate limiting** — `2000 req/heure` par IP, protection anti-burst (`50 req/10s`)
+- **Rate limiting par palier** — `2000 req/heure` par IP en accès libre, jusqu'à `10 000` avec un token, protection anti-burst calibrée par offre (`50` à `200 req/10s`) et plafond global de `50 000 req/heure`
+- **Authentification Bearer** — token optionnel dans le header `Authorization`, avec l'endpoint `GET /auth` pour vérifier son palier et ses limites
 - **Headers de sécurité** — `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`
 - **Protection SSRF** — `/hyperplanning` force `HTTPS` et bloque les IP privées
 - **Body limit** — `10 kb` pour `express.json()` et `express.urlencoded()`
-- **Filtrage des erreurs** — paths et stack traces masqués dans les réponses d'erreur
+- **Filtrage des erreurs** — paths et stack traces masqués dans les réponses d'erreur, endpoints inconnus renvoyés en `404` JSON structuré
 
 ## Commencez dès maintenant {#start}
 
@@ -88,9 +93,16 @@ curl https://api.sylvain.sh/v5/username
 curl https://api.sylvain.sh/v5/token -X POST -H "Content-Type: application/json" -d '{"length": 32}'
 ```
 
+Ou sans vous soucier du numéro de version, `/latest` pointe toujours vers la dernière :
+
+```bash
+curl https://api.sylvain.sh/latest/color
+```
+
 3. Ou installez le module NPM pour l'utiliser dans votre code
 
 ## Limites d'utilisation {#limits}
 
-L'API est **gratuite** avec un quota de **2000 requêtes par heure**.
-Des plans avec des limites plus élevées sont disponibles sur la page [pricing](https://docs.sylvain.sh/pricing) de la documentation.
+L'API est **gratuite** avec un quota de **2000 requêtes par heure**, sans inscription ni token.
+Des plans avec des limites plus élevées (jusqu'à 10 000 req/heure) sont disponibles sur la page [pricing](https://docs.sylvain.sh/pricing) de la documentation.
+L'endpoint `GET /auth` permet de vérifier à tout moment le palier associé à un token et les limites qui s'y appliquent.

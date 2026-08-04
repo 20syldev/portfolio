@@ -21,7 +21,8 @@ Elle couvre l'intégralité des endpoints avec des exemples interactifs, des sni
     - URL de l'endpoint cliquable vers la page de documentation
     - Support des **paramètres de chemin** (ex. `:country`) résolus dynamiquement
     - Inputs avec **placeholder contextuel** et bouton d'envoi désactivé tant que les champs requis sont vides
-- **Snippets multi-langages** générés automatiquement via `useCodeSnippets` — corps POST en **JSON**
+- **Snippets multi-langages** générés automatiquement via `useCodeSnippets` — **cURL**, **JavaScript**, **Python** et **PHP**, corps POST en **JSON**
+- **Bouton de copie** injecté automatiquement sur chaque bloc de code
 - **Changelog** par version avec séparation changements API / documentation
 
 **Navigation :**
@@ -38,7 +39,7 @@ Elle couvre l'intégralité des endpoints avec des exemples interactifs, des sni
 Construit avec **VitePress** (Vue.js) et **TypeScript**, le site utilise :
 
 - `useVersion` — composable pour la gestion des chemins selon la version courante
-- `useCodeSnippets` — génération dynamique des exemples de requêtes (cURL, JS, Python)
+- `useCodeSnippets` — génération dynamique des exemples de requêtes (cURL, JavaScript, Python, PHP)
 - Registre centralisé des **métadonnées d'endpoints** (Playground, Try, Features)
 - Système **i18n** avec clés imbriquées typées (`nav.home`, `features.geo`...)
 - Icônes **Lucide** avec classe utilitaire `.icon-inline` partagée
@@ -51,9 +52,13 @@ La documentation utilise des composants Vue.js pour une meilleure présentation 
 - `<Endpoint>` — affichage formaté d'un endpoint avec méthode et URL
 - `<Method>` — badge coloré pour les méthodes HTTP (`GET`, `POST`, `PATCH`, `DELETE`)
 - `<Try>` — panneau interactif pour tester un endpoint avec ses paramètres
+- `<Panel>` — socle partagé du Try et du Playground : paramètres, snippets et réponse
+- `<Request>` — bloc de requête formaté avec badge de méthode
 - `<Examples>` — snippets de requête multi-langages générés dynamiquement
 - `<Playground>` — interface complète de test avec sélecteur d'endpoint
 - `<Terminal>` — simulation de terminal pour les exemples en ligne de commande
 - `<Features>` — cartes d'endpoints aléatoires sur la page d'accueil
 - `<Banner>` — bannières de migration sur les anciennes versions
-- `<Lang>` / `<Version>` — sélecteurs de langue et de version
+- `<Copy>` — injection des boutons de copie sur les blocs de code
+- `<Lang>` / `<Version>` / `<Extra>` — sélecteurs de langue, de version et menu du header
+- `<Layout>` / `<Footer>` / `<NotFound>` — habillage global, pied de page et page 404
