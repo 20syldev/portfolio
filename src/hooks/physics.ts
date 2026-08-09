@@ -371,14 +371,15 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
         };
 
         const isInside = (ex: number, ey: number) => {
-            const o = originRect;
-            if (!o) return true;
-            const cx = o.left + x + o.width / 2;
-            const cy = o.top + y + o.height / 2;
-            const r = Math.min(o.width, o.height) / 2;
+            const r = el.getBoundingClientRect();
+            if (!r.width || !r.height) return true;
+
+            const cx = r.left + r.width / 2;
+            const cy = r.top + r.height / 2;
+            const radius = Math.min(r.width, r.height) / 2;
             const dx = ex - cx;
             const dy = ey - cy;
-            return dx * dx + dy * dy <= r * r;
+            return dx * dx + dy * dy <= radius * radius;
         };
 
         const onHover = (e: PointerEvent) => {
