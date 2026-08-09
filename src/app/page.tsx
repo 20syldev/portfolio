@@ -2,7 +2,7 @@
 
 import { ChevronDown } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
@@ -41,43 +41,64 @@ export default function HomePage() {
     const pathname = usePathname();
     const mounted = useRef(false);
 
-    const { containerRef, currentTab, currentSection, goToTab, goToSection } = useScroll({
+    const {
+        containerRef,
+        tabsRef,
+        sectionsRef,
+        tabsStyle,
+        sectionsStyle,
+        currentTab,
+        currentSection,
+        goToTab,
+        goToSection,
+    } = useScroll({
         totalTabs: tabs.length,
         sections,
         threshold: 10,
-        scrollDuration: 500,
+        scrollDuration: 600,
         initialTab: getTab(pathname),
     });
 
-    // Sync URL when tab changes
+    const [veilleReady, setVeilleReady] = useState(() => getTab(pathname) === 2);
+    useEffect(() => {
+        if (veilleReady || currentTab < 1) return;
+
+        const id = setTimeout(() => setVeilleReady(true), 800);
+        return () => clearTimeout(id);
+    }, [currentTab, veilleReady]);
+
     useEffect(() => {
         if (!mounted.current) {
             mounted.current = true;
             return;
         }
+
         const url = urls[currentTab];
         const path = location.pathname;
         if (getTab(path) !== currentTab && path !== "/") return;
         if (path !== url) history.pushState(null, "", url);
+
         document.title = titles[currentTab];
     }, [currentTab]);
 
-    // Sync tab when pathname changes
     useEffect(() => {
         if (!mounted.current) return;
+
         const normalized = pathname.replace(/\/$/, "");
         if (!urls.some((u) => u.replace(/\/$/, "") === normalized)) return;
+
         const expected = getTab(pathname);
         if (expected !== currentTab) goToTab(expected);
     }, [pathname, currentTab, goToTab]);
 
-    // Hash navigation
     useEffect(() => {
         const scrollToHash = () => {
             const id = location.hash.slice(1);
             if (!id) return;
+
             const el = document.getElementById(id);
             if (!el) return;
+
             const rect = el.getBoundingClientRect();
             if (rect.left >= 0 && rect.left < innerWidth) {
                 el.scrollIntoView({ behavior: "smooth" });
@@ -88,11 +109,48 @@ export default function HomePage() {
         return () => removeEventListener("hashchange", scrollToHash);
     }, []);
 
+    const panels = useMemo(
+        () => (
+            <div ref={tabsRef} className="snap-tabs" style={tabsStyle}>
+                <div className="snap-tab">
+                    <div ref={sectionsRef} className="snap-sections" style={sectionsStyle}>
+                        <section className="snap-section">
+                            <Hero />
+                        </section>
+
+                        <section className="snap-section">
+                            <Technologies preview />
+                        </section>
+
+                        <section className="snap-section">
+                            <Projects />
+                        </section>
+
+                        <section className="snap-section flex flex-col px-4 lg:px-8">
+                            <div className="flex flex-1 items-center justify-center">
+                                <div className="w-full max-w-6xl xl:max-w-[1400px]">
+                                    <Cards />
+                                </div>
+                            </div>
+                            <Footer />
+                        </section>
+                    </div>
+                </div>
+
+                <div className="snap-tab">
+                    <Alternance />
+                </div>
+
+                <div className="snap-tab">{veilleReady && <Veille />}</div>
+            </div>
+        ),
+        [veilleReady, tabsRef, sectionsRef, tabsStyle, sectionsStyle]
+    );
+
     return (
         <div ref={containerRef} className="snap-container">
             <Nav currentTab={currentTab} tabs={tabs} onTabChange={goToTab} />
 
-            {/* Section dots - desktop */}
             {currentTab === 0 && (
                 <div className="fixed right-3 top-1/2 z-50 -translate-y-1/2 hidden sm:flex flex-col gap-2">
                     {Array.from({ length: sections }).map((_, index) => (
@@ -114,7 +172,6 @@ export default function HomePage() {
                 </div>
             )}
 
-            {/* Scroll indicator */}
             {currentTab === 0 && currentSection < sections - 1 && (
                 <button
                     onClick={() => goToSection(currentSection + 1)}
@@ -126,49 +183,7 @@ export default function HomePage() {
                 </button>
             )}
 
-            {/* Horizontal tabs container */}
-            <div className="snap-tabs" style={{ transform: `translateX(-${currentTab * 100}vw)` }}>
-                {/* Tab 1: Accueil */}
-                <div className="snap-tab">
-                    <div
-                        className="snap-sections"
-                        style={{ transform: `translateY(-${currentSection * 100}dvh)` }}
-                    >
-                        {/* Section 1: Hero */}
-                        <section className="snap-section">
-                            <Hero />
-                        </section>
-
-                        {/* Section 2: Technologies */}
-                        <section className="snap-section">
-                            <Technologies preview />
-                        </section>
-
-                        {/* Section 3: Projects */}
-                        <section className="snap-section">
-                            <Projects />
-                        </section>
-
-                        {/* Section 4: Cards + Footer */}
-                        <section className="snap-section flex flex-col px-4 lg:px-8">
-                            <div className="flex flex-1 items-center justify-center">
-                                <div className="w-full max-w-6xl xl:max-w-[1400px]">
-                                    <Cards />
-                                </div>
-                            </div>
-                            <Footer />
-                        </section>
-                    </div>
-                </div>
-
-                {/* Tab 2: Alternance */}
-                <div className="snap-tab">
-                    <Alternance />
-                </div>
-
-                {/* Tab 3: Veille */}
-                <div className="snap-tab">{currentTab === 2 && <Veille />}</div>
-            </div>
+            {panels}
         </div>
     );
 }
