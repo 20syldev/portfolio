@@ -70,7 +70,7 @@ export function Veille() {
             ref={scrollRef}
             className="h-dvh overflow-y-auto overflow-x-hidden scrollbar-none flex flex-col"
         >
-            <div className="px-4 pt-24 pb-12 flex-1">
+            <div data-lenis-prevent-horizontal className="px-4 pt-24 pb-12 flex-1">
                 <div className="container mx-auto max-w-4xl">
                     <div className="mb-8 text-center">
                         <h1 className="mb-2 text-4xl font-bold">Veilles Technologiques</h1>

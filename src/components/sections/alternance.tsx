@@ -16,6 +16,7 @@ import { contributions } from "@/data/contributions";
 import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
 import { useDragScroll, useSmoothScroll } from "@/hooks/scroll";
+import { isOnScreen } from "@/lib/gesture";
 import { random } from "@/lib/utils";
 
 const navSections = [
@@ -71,12 +72,13 @@ export function Alternance() {
     }, [scrollRef]);
 
     useEffect(() => {
-        if (!mounted.current) {
-            mounted.current = true;
-            return;
+        const first = !mounted.current;
+        mounted.current = true;
+
+        if (!first && isOnScreen(scrollRef.current)) {
+            window.history.replaceState(null, "", `#${active}`);
         }
-        window.history.replaceState(null, "", `#${active}`);
-    }, [active]);
+    }, [active, scrollRef]);
 
     useEffect(() => {
         const button = buttonRefs.current.get(active);
@@ -128,7 +130,7 @@ export function Alternance() {
 
     return (
         <div ref={scrollRef} className="h-dvh overflow-y-auto overflow-x-hidden scrollbar-none">
-            <div className="px-4 sm:px-6 pt-28 sm:pt-24">
+            <div data-lenis-prevent-horizontal className="px-4 sm:px-6 pt-28 sm:pt-24">
                 <div className="container mx-auto max-w-4xl">
                     {/* Header */}
                     <div className="mb-6 sm:mb-8 text-center">
