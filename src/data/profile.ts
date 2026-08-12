@@ -79,22 +79,91 @@ export interface ContactLink {
     label: string;
     url?: string;
     action?: "copy" | "pdf" | "route";
+    detail?: string;
+    counter?: "tech" | "certifications" | "badges" | "completion" | "veille";
 }
 
 // Contact links with icons, labels and optional actions
 export const contacts: ContactLink[] = [
-    { icon: "mail", label: profile.links.email, action: "copy" },
-    { icon: "github", label: profile.social.github, url: profile.links.github },
-    { icon: "cv", label: "CV", action: "pdf", url: profile.links.cv },
-    { icon: "sponsors", label: "Sponsors", url: profile.links.sponsors },
-    { icon: "linkedin", label: profile.social.linkedin, url: profile.links.linkedin },
-    { icon: "discord", label: profile.social.discord, url: profile.links.discord },
+    {
+        icon: "mail",
+        label: profile.links.email,
+        action: "copy",
+        detail: "Copier mon adresse e-mail",
+    },
+    {
+        icon: "github",
+        label: profile.social.github,
+        url: profile.links.github,
+        detail: "Mes dépôts et mon activité",
+    },
+    {
+        icon: "cv",
+        label: "CV",
+        action: "pdf",
+        url: profile.links.cv,
+        detail: "Ouvrir mon CV au format PDF",
+    },
+    {
+        icon: "sponsors",
+        label: "Sponsors",
+        url: profile.links.sponsors,
+        detail: "Soutenir mon travail open source",
+    },
+    {
+        icon: "linkedin",
+        label: profile.social.linkedin,
+        url: profile.links.linkedin,
+        detail: "Mon parcours professionnel",
+    },
+    {
+        icon: "discord",
+        label: profile.social.discord,
+        url: profile.links.discord,
+        detail: "Me joindre directement",
+    },
 ];
 
 // Internal page links displayed in the contact dialog
 export const pageLinks: ContactLink[] = [
-    { icon: "wrench", label: "Technologies", url: "/tech", action: "route" },
-    { icon: "award", label: "Certifications", url: "/certifications", action: "route" },
-    { icon: "badge", label: "Badges", url: "/badges", action: "route" },
-    { icon: "check", label: "Complétions", url: "/completion", action: "route" },
+    {
+        icon: "wrench",
+        label: "Technologies",
+        url: "/tech",
+        action: "route",
+        detail: "Langages, frameworks et outils du quotidien",
+        counter: "tech",
+    },
+    {
+        icon: "veille",
+        label: "Veille",
+        url: "/veille",
+        action: "route",
+        detail: "Ce que je suis dans l'écosystème",
+        counter: "veille",
+    },
+    {
+        icon: "award",
+        label: "Certifications",
+        url: "/certifications",
+        action: "route",
+        detail: "Certifications obtenues et vérifiables",
+        counter: "certifications",
+    },
+    {
+        icon: "badge",
+        label: "Badges",
+        url: "/badges",
+        action: "route",
+        detail: "Badges du profil Google Developer",
+        counter: "badges",
+    },
+    {
+        icon: "check",
+        label: "Complétions",
+        url: "/completion",
+        action: "route",
+        detail: "Modules et parcours terminés",
+        counter: "completion",
+    },
 ];
