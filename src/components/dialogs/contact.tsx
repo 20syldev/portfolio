@@ -5,17 +5,21 @@ import {
     BadgeCheck,
     Check,
     CircleCheck,
+    Compass,
     Copy,
     FileText,
     Github,
+    GraduationCap,
     Heart,
     Linkedin,
     Mail,
+    Newspaper,
     Wrench,
 } from "lucide-react";
 import type { MouseEvent } from "react";
 import * as React from "react";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -25,8 +29,12 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { useViewer } from "@/components/utils/viewer";
+import { totalCertifications, totalCompletionBadges, totalGdevBadges } from "@/data/achievements";
 import type { ContactLink } from "@/data/profile";
 import { contacts, pageLinks, profile } from "@/data/profile";
+import { techCategories } from "@/data/technologies";
+import { veilles } from "@/data/veille";
+import { cn } from "@/lib/utils";
 
 const links: Record<string, React.ReactNode> = {
     mail: <Mail className="h-4 w-4 shrink-0" />,
@@ -42,8 +50,22 @@ const links: Record<string, React.ReactNode> = {
     award: <Award className="h-4 w-4 shrink-0" />,
     badge: <BadgeCheck className="h-4 w-4 shrink-0" />,
     check: <CircleCheck className="h-4 w-4 shrink-0" />,
+    graduation: <GraduationCap className="h-4 w-4 shrink-0" />,
+    veille: <Newspaper className="h-4 w-4 shrink-0" />,
     wrench: <Wrench className="h-4 w-4 shrink-0" />,
 };
+
+const totalTech = techCategories.reduce((acc, cat) => acc + cat.items.length, 0);
+
+const counters: Record<NonNullable<ContactLink["counter"]>, number> = {
+    tech: totalTech,
+    veille: veilles.length,
+    certifications: totalCertifications,
+    badges: totalGdevBadges,
+    completion: totalCompletionBadges,
+};
+
+const btnClass = "justify-start gap-3 p-3 h-auto text-muted-foreground";
 
 interface ContactDialogProps {
     open: boolean;
@@ -52,18 +74,59 @@ interface ContactDialogProps {
 }
 
 /**
+ * Inner layout shared by every dialog button: icon, label, optional detail line and counter.
+ * The detail line and the counter are only rendered above the md breakpoint.
+ *
+ * @param props - Component props
+ * @param props.contact - Contact link configuration
+ * @param props.trailing - Optional node rendered at the end of the row
+ * @returns The rendered button content
+ */
+function ContactContent({
+    contact,
+    trailing,
+}: {
+    contact: ContactLink;
+    trailing?: React.ReactNode;
+}) {
+    const count = contact.counter ? counters[contact.counter] : undefined;
+
+    return (
+        <>
+            {links[contact.icon]}
+            <span className="min-w-0 flex-1 text-left">
+                <span className={cn("block truncate text-sm", contact.detail && "text-foreground")}>
+                    {contact.label}
+                </span>
+                {contact.detail && (
+                    <span className="block truncate text-xs font-normal">{contact.detail}</span>
+                )}
+            </span>
+            {count !== undefined && (
+                <Badge
+                    variant="secondary"
+                    className="inline-flex px-1.5 py-0 text-[10px] font-normal"
+                >
+                    {count}
+                </Badge>
+            )}
+            {trailing}
+        </>
+    );
+}
+
+/**
  * Renders a contact action button with appropriate behavior.
- * Supports copy-to-clipboard, PDF viewer, and external link actions.
+ * Supports copy-to-clipboard, PDF viewer, internal route and external link actions.
  *
  * @param props - Component props
  * @param props.contact - Contact link configuration with action type
+ * @param props.onNavigate - Called before an internal navigation so the dialog can close
  * @returns The rendered contact button
  */
 function ContactButton({ contact, onNavigate }: { contact: ContactLink; onNavigate?: () => void }) {
     const [copied, setCopied] = React.useState(false);
     const { openPdf } = useViewer();
-
-    const btnClass = "justify-start gap-3 p-3 h-auto text-muted-foreground";
 
     if (contact.action === "copy") {
         return (
@@ -76,13 +139,16 @@ function ContactButton({ contact, onNavigate }: { contact: ContactLink; onNaviga
                     setTimeout(() => setCopied(false), 2000);
                 }}
             >
-                {links[contact.icon]}
-                <span className="text-sm flex-1 truncate text-left">{contact.label}</span>
-                {copied ? (
-                    <Check className="h-4 w-4 shrink-0 text-green-500" />
-                ) : (
-                    <Copy className="h-4 w-4 shrink-0" />
-                )}
+                <ContactContent
+                    contact={contact}
+                    trailing={
+                        copied ? (
+                            <Check className="h-4 w-4 shrink-0 text-green-500" />
+                        ) : (
+                            <Copy className="h-4 w-4 shrink-0" />
+                        )
+                    }
+                />
             </Button>
         );
     }
@@ -91,8 +157,7 @@ function ContactButton({ contact, onNavigate }: { contact: ContactLink; onNaviga
         return (
             <Button variant="outline" asChild className={btnClass} onClick={() => onNavigate?.()}>
                 <a href={contact.url}>
-                    {links[contact.icon]}
-                    {contact.label}
+                    <ContactContent contact={contact} />
                 </a>
             </Button>
         );
@@ -105,8 +170,7 @@ function ContactButton({ contact, onNavigate }: { contact: ContactLink; onNaviga
                 className={btnClass}
                 onClick={(e: MouseEvent) => openPdf(contact.url!, contact.label, e)}
             >
-                {links[contact.icon]}
-                {contact.label}
+                <ContactContent contact={contact} />
             </Button>
         );
     }
@@ -114,10 +178,26 @@ function ContactButton({ contact, onNavigate }: { contact: ContactLink; onNaviga
     return (
         <Button variant="outline" asChild className={btnClass}>
             <a href={contact.url} target="_blank" rel="noopener noreferrer">
-                {links[contact.icon]}
-                {contact.label}
+                <ContactContent contact={contact} />
             </a>
         </Button>
+    );
+}
+
+/**
+ * Heading of a link group.
+ *
+ * @param props - Component props
+ * @param props.icon - Leading icon of the group
+ * @param props.label - Group label
+ * @returns The rendered group heading
+ */
+function GroupTitle({ icon, label }: { icon: React.ReactNode; label: string }) {
+    return (
+        <h3 className="flex items-center gap-2 text-sm font-medium">
+            {icon}
+            {label}
+        </h3>
     );
 }
 
@@ -157,10 +237,12 @@ export function ContactDialog({ open, onOpenChange, autoFocusClose }: ContactDia
         return () => window.removeEventListener("popstate", onPopState);
     }, [onOpenChange]);
 
+    const close = () => onOpenChange(false);
+
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent
-                className="p-4 sm:p-6 sm:max-w-md lg:max-w-lg"
+                className="p-4 sm:p-6 sm:max-w-lg md:max-w-2xl lg:max-w-3xl grid-rows-[auto_minmax(0,1fr)] max-sm:inset-0 max-sm:top-0 max-sm:left-0 max-sm:h-dvh max-sm:w-screen max-sm:max-w-none max-sm:translate-x-0 max-sm:translate-y-0 max-sm:rounded-none max-sm:border-0 sm:max-h-[calc(100dvh-2rem)]"
                 autoFocusClose={autoFocusClose}
             >
                 <DialogHeader>
@@ -170,17 +252,27 @@ export function ContactDialog({ open, onOpenChange, autoFocusClose }: ContactDia
                     <DialogDescription>{profile.title}</DialogDescription>
                 </DialogHeader>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    {contacts.map((contact) => (
-                        <ContactButton key={contact.icon} contact={contact} />
-                    ))}
-                    {pageLinks.map((link) => (
-                        <ContactButton
-                            key={link.icon}
-                            contact={link}
-                            onNavigate={() => onOpenChange(false)}
-                        />
-                    ))}
+                <div className="-mx-1 min-h-0 overflow-y-auto overscroll-contain px-1">
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                        <div className="flex flex-col gap-2 [&>a]:flex-1 [&>button]:flex-1">
+                            <GroupTitle
+                                icon={<Mail className="h-4 w-4 text-primary" />}
+                                label="Me contacter"
+                            />
+                            {contacts.map((contact) => (
+                                <ContactButton key={contact.icon} contact={contact} />
+                            ))}
+                        </div>
+                        <div className="flex flex-col gap-2 md:border-l md:pl-6 [&>a]:flex-1 [&>button]:flex-1">
+                            <GroupTitle
+                                icon={<Compass className="h-4 w-4 text-primary" />}
+                                label="Explorer"
+                            />
+                            {pageLinks.map((link) => (
+                                <ContactButton key={link.icon} contact={link} onNavigate={close} />
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </DialogContent>
         </Dialog>
