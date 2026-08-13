@@ -14,8 +14,6 @@ export interface ActivityWeek {
 }
 
 interface Stats {
-    frontend?: string;
-    backend?: string;
     today?: string;
     month?: string;
     year?: string;
@@ -83,8 +81,6 @@ export function useApi(): CachedData & { loading: boolean } {
                     cachedData = {
                         stats: raw
                             ? {
-                                  frontend: raw[2] || undefined,
-                                  backend: raw[3] || undefined,
                                   today: String(todayCount),
                                   month: String(monthCount),
                                   year: String(yearCount),
