@@ -37,6 +37,7 @@ import {
 } from "@/data/achievements";
 import { contributions } from "@/data/contributions";
 import { docs } from "@/data/docs";
+import { profile } from "@/data/profile";
 import { projects } from "@/data/projects";
 import { techCategories } from "@/data/technologies";
 import { veilles } from "@/data/veille";
@@ -182,15 +183,13 @@ export default function StatsPage() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <StatCard
                                 label="Expérience Front-End"
-                                value={stats?.frontend ?? "8 ans"}
+                                value={profile.experience.frontend}
                                 icon={Code2}
-                                loading={loading}
                             />
                             <StatCard
                                 label="Expérience Back-End"
-                                value={stats?.backend ?? "5 ans"}
+                                value={profile.experience.backend}
                                 icon={Code2}
-                                loading={loading}
                             />
                         </div>
                     </section>
