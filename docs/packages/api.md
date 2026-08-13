@@ -1,6 +1,6 @@
 ---
 title: "API"
-description: "API REST TypeScript/Node.js avec plus de 40 modules : images, données fictives, utilitaires réseau, cryptographie, temps réel et plus encore."
+description: "Package Node.js/TypeScript utilisable en bibliothèque ou en serveur REST, avec plus de 40 modules : images, données fictives, utilitaires réseau, cryptographie, temps réel et plus encore."
 category: packages
 slug: api
 order: 3
@@ -8,15 +8,36 @@ order: 3
 
 ## Fonctionnement {#internals}
 
-L'API repose sur une architecture REST développée en **TypeScript strict** avec Node.js et Express. Elle est conçue pour être utilisable de deux façons :
+`@20syldev/api` est un **package** développé en **TypeScript strict** avec Node.js et Express, conçu pour être utilisable de deux façons :
 
-- **En tant que serveur** — tous les endpoints sont disponibles sur le port `3000`
 - **En tant que bibliothèque** — importez uniquement les modules dont vous avez besoin
+- **En tant que serveur** — le package embarque son application Express, tous les endpoints sont alors disponibles sur le port `3000`
+
+[api.sylvain.sh](https://api.sylvain.sh) n'est qu'un **déploiement** de ce package parmi d'autres : le vôtre expose exactement les mêmes routes.
 
 La **v4 est désormais figée**, la **v5 en hérite intégralement** et évolue avec les nouveaux modules.
 Le projet inclut plus de **800 tests** (unitaires + intégration HTTP) via `node:test` natif.
 
-Le paquet npm est **générique** : les endpoints personnels vivent dans un système de **plugins optionnels** chargés depuis `./plugins/index.js` s'il existe, et sont exclus de la distribution npm.
+## Plugins {#plugins}
+
+Le package publié est **entièrement générique** : il ne contient aucun endpoint lié à mes projets ou à mes domaines.
+
+Au démarrage, l'application tente d'importer `./plugins/index.js`. Si le fichier existe, chaque routeur Express qu'il exporte par défaut est monté ; sinon, l'API démarre normalement.
+
+```ts
+// src/plugins/index.ts
+import { type Router } from "express";
+
+import website from "./website.js";
+
+const plugins: Router[] = [website];
+
+export default plugins;
+```
+
+Chaque plugin est un `Router` Express classique, libre de déclarer ses propres routes et d'utiliser les utilitaires internes du projet. Le dossier compilé `dist/plugins/` est exclu de la distribution npm via `.npmignore`.
+
+C'est ainsi que fonctionne mon instance : la branche `deploy` du dépôt reprend `master` à l'identique et n'ajoute qu'un dossier `src/plugins/` contenant un plugin `website`, qui sert les métadonnées de mon portfolio. Rien de tout cela n'arrive dans le package que vous installez.
 
 ## Prérequis {#prerequisites}
 
@@ -33,27 +54,7 @@ npm install @20syldev/api
 
 ## Utilisation {#usage}
 
-### Option 1 : Démarrer un serveur local
-
-```bash
-npm run build && npm start
-```
-
-```
-API is running on
-    - http://127.0.0.1:3000
-    - http://localhost:3000
-```
-
-Pour le développement avec rechargement automatique :
-
-```bash
-npm run dev
-```
-
-Tous les endpoints sont alors disponibles localement, comme sur [api.sylvain.sh](https://api.sylvain.sh).
-
-### Option 2 : Importer des modules individuellement
+### Option 1 : Importer des modules individuellement
 
 ```js
 import { color, token, username } from "@20syldev/api/v5";
@@ -72,6 +73,26 @@ console.log(`Utilisateur: ${utilisateur.username}`);
 const jeton = token(16, "hex");
 console.log(`Jeton: ${jeton}`);
 ```
+
+### Option 2 : Démarrer votre propre serveur
+
+```bash
+npm run build && npm start
+```
+
+```
+API is running on
+    - http://127.0.0.1:3000
+    - http://localhost:3000
+```
+
+Pour le développement avec rechargement automatique :
+
+```bash
+npm run dev
+```
+
+Tous les endpoints sont alors disponibles localement, exactement comme sur [api.sylvain.sh](https://api.sylvain.sh) — c'est le même code.
 
 ## Modules disponibles {#modules}
 
@@ -325,6 +346,8 @@ curl -H "Authorization: Bearer VOTRE_CLE_API" https://api.sylvain.sh/auth
 Sans token, la réponse renvoie le palier `default` plutôt qu'une erreur. Un token invalide renvoie un `401`.
 
 ## Limites d'utilisation {#limits}
+
+Ces paliers s'appliquent à **mon instance publique** [api.sylvain.sh](https://api.sylvain.sh). Sur votre propre déploiement, les valeurs se configurent dans `src/config/plans.ts`.
 
 | Plan         | Prix        | Requêtes/heure | Burst/10s |
 | ------------ | ----------- | -------------- | --------- |
