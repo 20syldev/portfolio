@@ -30,7 +30,7 @@ curl -fsSL https://cdn.sylvain.sh/bash/mn@latest/install.sh | sh
 
 **Paquets NPM :**
 
-- [`@20syldev/api`](https://npmjs.com/package/@20syldev/api) — L'API personnelle utilisable directement en tant que module ([docs](/help/packages/api))
+- [`@20syldev/api`](https://npmjs.com/package/@20syldev/api) — Une API REST complète, importable en tant que module ou hébergeable telle quelle ([docs](/help/packages/api))
 - [`@20syldev/logger.ts`](https://npmjs.com/package/@20syldev/logger.ts) — Logger TypeScript structuré ([docs](/help/packages/logger))
 - [`@20syldev/minify.js`](https://npmjs.com/package/@20syldev/minify.js) — Minificateur de fichiers HTML, CSS et JavaScript ([docs](/help/packages/minify))
 - [`wrkit`](https://npmjs.com/package/wrkit) — Outil de gestion de projets en ligne de commande
