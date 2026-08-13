@@ -306,7 +306,7 @@ function ParcoursSection({ entry }: { entry: ParcoursEntry }) {
                     {entry.skills && (
                         <div className="mt-3 flex flex-wrap items-center gap-1.5">
                             {entry.skillsNote ? (
-                                <div className="flex flex-wrap gap-1">
+                                <>
                                     {entry.skills.map((skill) => (
                                         <Badge
                                             key={skill}
@@ -315,19 +315,19 @@ function ParcoursSection({ entry }: { entry: ParcoursEntry }) {
                                             className="group relative px-1.5 py-0 text-[10px] xl:text-xs"
                                         >
                                             <button type="button">
-                                                <span className="opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
+                                                <span className="opacity-0 transition-opacity group-hover:opacity-100 group-focus:opacity-100">
                                                     {skill}
                                                 </span>
                                                 <span
                                                     aria-hidden
-                                                    className="absolute inset-0 flex items-center justify-center transition-opacity group-hover:opacity-0 group-focus-visible:opacity-0"
+                                                    className="absolute inset-0 flex items-center justify-center transition-opacity group-hover:opacity-0 group-focus:opacity-0"
                                                 >
                                                     <Sparkles className="h-3 w-3" />
                                                 </span>
                                             </button>
                                         </Badge>
                                     ))}
-                                </div>
+                                </>
                             ) : (
                                 <Tags tags={entry.skills} maxVisible={5} />
                             )}
@@ -337,7 +337,7 @@ function ParcoursSection({ entry }: { entry: ParcoursEntry }) {
                                         <button
                                             type="button"
                                             aria-label={entry.skillsNote}
-                                            className="ml-0.5 text-muted-foreground/70 transition-colors hover:text-foreground"
+                                            className="text-muted-foreground/70 transition-colors hover:text-foreground"
                                         >
                                             <CircleQuestionMark className="h-3.5 w-3.5" />
                                         </button>
