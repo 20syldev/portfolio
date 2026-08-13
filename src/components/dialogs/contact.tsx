@@ -3,10 +3,12 @@
 import {
     Award,
     BadgeCheck,
+    Briefcase,
     Check,
     CircleCheck,
     Compass,
     Copy,
+    Dot,
     FileText,
     Github,
     GraduationCap,
@@ -28,8 +30,11 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
+import { Period } from "@/components/ui/period";
 import { useViewer } from "@/components/utils/viewer";
 import { totalCertifications, totalCompletionBadges, totalGdevBadges } from "@/data/achievements";
+import type { ParcoursEntry } from "@/data/parcours";
+import { alternance, parcours } from "@/data/parcours";
 import type { ContactLink } from "@/data/profile";
 import { contacts, pageLinks, profile } from "@/data/profile";
 import { techCategories } from "@/data/technologies";
@@ -55,7 +60,15 @@ const links: Record<string, React.ReactNode> = {
     wrench: <Wrench className="h-4 w-4 shrink-0" />,
 };
 
+const work = alternance.find((entry) => entry.current) ?? alternance[0];
+const formation = parcours.find((entry) => entry.status === "current") ?? parcours[0];
 const totalTech = techCategories.reduce((acc, cat) => acc + cat.items.length, 0);
+
+const formationStatus: Record<ParcoursEntry["status"], string> = {
+    upcoming: "À venir",
+    current: "En cours",
+    done: "Terminé",
+};
 
 const counters: Record<NonNullable<ContactLink["counter"]>, number> = {
     tech: totalTech,
@@ -250,6 +263,24 @@ export function ContactDialog({ open, onOpenChange, autoFocusClose }: ContactDia
                         <span className="animate-shine">{profile.name}</span>
                     </DialogTitle>
                     <DialogDescription>{profile.title}</DialogDescription>
+                    <div className="hidden flex-col gap-1 text-xs text-muted-foreground lg:flex">
+                        <span className="flex flex-wrap items-center gap-1.5">
+                            <Badge variant="secondary" className="font-normal">
+                                <Briefcase />
+                                Alternance chez {work.company}
+                            </Badge>
+                            <Period from={work.from} to={work.to} />
+                        </span>
+                        <span className="flex flex-wrap items-center gap-1.5">
+                            <Badge variant="outline" className="font-normal">
+                                <GraduationCap />
+                                {formation.school}
+                            </Badge>
+                            <Period from={formation.from} to={formation.to} />
+                            <Dot className="h-4 w-4 shrink-0" />
+                            {formationStatus[formation.status]}
+                        </span>
+                    </div>
                 </DialogHeader>
 
                 <div className="-mx-1 min-h-0 overflow-y-auto overscroll-contain px-1">
