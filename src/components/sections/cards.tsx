@@ -31,6 +31,7 @@ import {
 } from "@/data/achievements";
 import { contributions } from "@/data/contributions";
 import { alternance, parcours } from "@/data/parcours";
+import { profile } from "@/data/profile";
 import { useApi } from "@/hooks/api";
 import { useDragScroll } from "@/hooks/scroll";
 import { random } from "@/lib/utils";
@@ -69,19 +70,9 @@ const count = 3;
  * Displays the two most recent formations, the work-study company and years of experience.
  *
  * @param props - Component properties.
- * @param props.stats - API stats for experience years.
- * @param props.loading - Whether API data is still loading.
  * @param props.className - Optional CSS class.
  */
-function ParcoursCard({
-    stats,
-    loading,
-    className,
-}: {
-    stats: ReturnType<typeof useApi>["stats"];
-    loading?: boolean;
-    className?: string;
-}) {
+function ParcoursCard({ className }: { className?: string }) {
     return (
         <Card className={`card-hover relative ${className || ""}`}>
             <Link
@@ -137,23 +128,11 @@ function ParcoursCard({
                 <div className="border-t pt-3 space-y-1 text-xs">
                     <div className="flex justify-between">
                         <span className="text-muted-foreground">Front-End</span>
-                        <span className="font-medium">
-                            {loading ? (
-                                <Skeleton className="inline-block h-3 w-10 align-middle" />
-                            ) : (
-                                stats?.frontend || "8 ans"
-                            )}
-                        </span>
+                        <span className="font-medium">{profile.experience.frontend}</span>
                     </div>
                     <div className="flex justify-between">
                         <span className="text-muted-foreground">Back-End</span>
-                        <span className="font-medium">
-                            {loading ? (
-                                <Skeleton className="inline-block h-3 w-10 align-middle" />
-                            ) : (
-                                stats?.backend || "5 ans"
-                            )}
-                        </span>
+                        <span className="font-medium">{profile.experience.backend}</span>
                     </div>
                 </div>
             </CardContent>
@@ -421,7 +400,7 @@ export function Cards() {
                 className="flex snap-x snap-mandatory overflow-x-auto py-3 scrollbar-hide lg:hidden"
             >
                 <div className="flex-shrink-0 w-full snap-center flex justify-center px-4">
-                    <ParcoursCard stats={stats} loading={loading} className="w-full max-w-lg" />
+                    <ParcoursCard className="w-full max-w-lg" />
                 </div>
                 <div className="flex-shrink-0 w-full snap-center flex justify-center px-4">
                     <GitHubCard stats={stats} loading={loading} className="w-full max-w-lg" />
@@ -449,7 +428,7 @@ export function Cards() {
 
             {/* Desktop grid */}
             <div className="hidden lg:grid gap-4 lg:grid-cols-3 xl:gap-8">
-                <ParcoursCard stats={stats} loading={loading} />
+                <ParcoursCard />
                 <GitHubCard stats={stats} loading={loading} />
                 <CertificationsCard />
             </div>
