@@ -10,15 +10,7 @@ export const profile = {
             ["apps", "bots", "scripts", "à la cryptographie", "à l'open source"],
         ],
     },
-    education: {
-        school: "Ensitech",
-        degree: "BTS SIO SLAM",
-        duration: "2 ans",
-        email: "contact@sylvain.sh",
-    },
     work: {
-        company: "Zenetys",
-        role: "Développeur Web",
         email: "slambert@zenetys.com",
     },
     experience: {
@@ -40,39 +32,6 @@ export const profile = {
         discord: "20syl",
     },
 };
-
-// Pinned GitHub projects displayed on the homepage
-export const projects = [
-    {
-        name: "Planning",
-        repo: "planning",
-        branch: "master",
-        icon: "calendar",
-        description: "UI de planning simplifiée",
-        link: "https://planning.sylvain.sh/",
-    },
-    {
-        name: "StadiumCompany",
-        repo: "stadiumcompany",
-        branch: "master",
-        icon: "chart",
-        description: "App desktop et web de gestion de questionnaires",
-    },
-    {
-        name: "PPE C#",
-        repo: "PPE-csharp",
-        branch: "master",
-        icon: "database",
-        description: "Gestionnaire de clients en C# avec PostGreSQL",
-    },
-    {
-        name: "FlyRadars",
-        repo: "flyradars",
-        branch: "master",
-        icon: "plane",
-        description: "Interface de gestion de données d'aviation",
-    },
-];
 
 export interface ContactLink {
     icon: string;
@@ -126,6 +85,13 @@ export const contacts: ContactLink[] = [
 
 // Internal page links displayed in the contact dialog
 export const pageLinks: ContactLink[] = [
+    {
+        icon: "graduation",
+        label: "Parcours",
+        url: "/parcours",
+        action: "route",
+        detail: "Écoles, alternance et projets encadrés",
+    },
     {
         icon: "wrench",
         label: "Technologies",
