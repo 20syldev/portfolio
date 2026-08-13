@@ -140,10 +140,10 @@ const jsonLd = {
                 "@type": "Organization",
                 name: "Zenetys",
             },
-            alumniOf: {
-                "@type": "EducationalOrganization",
-                name: "Ensitech",
-            },
+            alumniOf: [
+                { "@type": "EducationalOrganization", name: "IPSSI" },
+                { "@type": "EducationalOrganization", name: "Ensitech" },
+            ],
             knowsAbout: [
                 "Développement web",
                 "Front-end",
