@@ -6,9 +6,9 @@ import {
     BookOpen,
     Briefcase,
     ChartBar,
-    FilePenLine,
     FileText,
     FolderOpen,
+    GraduationCap,
     Home,
     Keyboard,
     LayoutList,
@@ -361,10 +361,10 @@ export function CommandMenu() {
     const profilItems: CommandItemConfig[] = [
         { label: "À propos de moi", icon: UserRound, action: () => setContactOpen(true) },
         {
-            label: "Tableau de synthèse E5",
-            icon: FilePenLine,
-            action: () =>
-                openPdf("/E5 - Tableau Synthèse - Sylvain L.pdf", "Tableau de synthèse E5"),
+            label: "Mon parcours",
+            icon: GraduationCap,
+            action: () => router.push("/parcours"),
+            keywords: ["formation", "école", "ensitech", "ipssi", "bts", "diplôme", "bac"],
         },
         { label: "CV", icon: FileText, action: () => openPdf("/CV.pdf", "CV") },
     ];
