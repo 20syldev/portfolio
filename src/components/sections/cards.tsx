@@ -2,20 +2,12 @@
 
 import {
     Award,
-    BookOpen,
     Briefcase,
     BriefcaseBusiness,
-    CalendarDays,
-    ChartBar,
-    Database,
     Dot,
-    Download,
     Github,
     GitPullRequest,
-    Globe,
     GraduationCap,
-    LucideBookOpenText,
-    Plane,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,14 +16,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Sparkline } from "@/components/stats/chart";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
 import { GalleryTooltipContent } from "@/components/ui/gallery";
+import { Period } from "@/components/ui/period";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import {
@@ -44,8 +30,7 @@ import {
     totalGdevBadges,
 } from "@/data/achievements";
 import { contributions } from "@/data/contributions";
-import { profile, projects } from "@/data/profile";
-import { projects as allProjects } from "@/data/projects";
+import { alternance, parcours } from "@/data/parcours";
 import { useApi } from "@/hooks/api";
 import { useDragScroll } from "@/hooks/scroll";
 import { random } from "@/lib/utils";
@@ -75,18 +60,13 @@ function pickRandomCerts(
     return { items: random.shuffle(pool).slice(0, n), poolIndex: i };
 }
 
-const iconMap = {
-    calendar: CalendarDays,
-    chart: ChartBar,
-    database: Database,
-    plane: Plane,
-};
-
+const latestParcours = parcours.slice(0, 2);
+const currentWork = alternance.find((work) => work.current) ?? alternance[0];
 const count = 3;
 
 /**
- * Education and work experience card.
- * Displays school, degree, work experience and years of experience.
+ * Education and work experience card, linking to the full path on /parcours.
+ * Displays the two most recent formations, the work-study company and years of experience.
  *
  * @param props - Component properties.
  * @param props.stats - API stats for experience years.
@@ -103,131 +83,56 @@ function ParcoursCard({
     className?: string;
 }) {
     return (
-        <Card className={`card-hover ${className || ""}`}>
+        <Card className={`card-hover relative ${className || ""}`}>
+            <Link
+                href="/parcours/"
+                aria-label="Voir mon parcours"
+                className="absolute inset-0 z-0 rounded-xl"
+            />
             <CardHeader className="pb-2">
                 <CardTitle className="flex items-center gap-2 text-sm lg:text-base xl:text-lg font-medium">
                     <GraduationCap className="h-4 w-4 lg:h-5 lg:w-5 xl:h-6 xl:w-6 text-primary" />
                     Parcours
                 </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3 lg:space-y-4 xl:space-y-5 text-sm lg:text-base xl:text-lg">
-                <div className="flex items-center justify-between">
-                    <div>
-                        <p className="font-medium">{profile.education.school}</p>
-                        <p className="text-xs text-muted-foreground">
-                            {profile.education.degree} ({profile.education.duration})
-                        </p>
-                    </div>
-                    <Dialog>
-                        <DialogTrigger asChild>
-                            <Button variant="outline" size="sm" className="h-7 text-xs">
-                                Projets
-                                <LucideBookOpenText className="ml-1 h-3 w-3" />
-                            </Button>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-xl" aria-describedby={undefined}>
-                            <DialogHeader>
-                                <DialogTitle>Projets Ensitech</DialogTitle>
-                            </DialogHeader>
-                            <div className="space-y-3">
-                                {projects.map((project) => {
-                                    const Icon = iconMap[project.icon as keyof typeof iconMap];
-                                    return (
-                                        <div
-                                            key={project.repo}
-                                            className="flex items-center gap-4 p-3 rounded-lg border"
-                                        >
-                                            <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-muted">
-                                                <Icon className="h-5 w-5 text-primary" />
-                                            </div>
-                                            <div className="flex-1">
-                                                <p className="font-medium">{project.name}</p>
-                                                <p className="text-xs text-muted-foreground">
-                                                    {project.description}
-                                                </p>
-                                            </div>
-                                            <div className="flex gap-2">
-                                                {allProjects.some((p) => p.id === project.repo) && (
-                                                    <Button
-                                                        asChild
-                                                        variant="outline"
-                                                        size="icon"
-                                                        className="h-8 w-8"
-                                                    >
-                                                        <Link href={`/projet/${project.repo}`}>
-                                                            <BookOpen className="h-4 w-4" />
-                                                        </Link>
-                                                    </Button>
-                                                )}
-                                                {project.link && (
-                                                    <Button
-                                                        asChild
-                                                        variant="outline"
-                                                        size="icon"
-                                                        className="h-8 w-8"
-                                                    >
-                                                        <a
-                                                            href={project.link}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                        >
-                                                            <Globe className="h-4 w-4" />
-                                                        </a>
-                                                    </Button>
-                                                )}
-                                                {project.repo && (
-                                                    <Button
-                                                        asChild
-                                                        variant="outline"
-                                                        size="icon"
-                                                        className="h-8 w-8"
-                                                    >
-                                                        <a
-                                                            href={`https://github.com/20syldev/${project.repo}`}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                        >
-                                                            <Github className="h-4 w-4" />
-                                                        </a>
-                                                    </Button>
-                                                )}
-                                                {project.repo && project.branch && (
-                                                    <Button
-                                                        asChild
-                                                        variant="outline"
-                                                        size="icon"
-                                                        className="h-8 w-8"
-                                                    >
-                                                        <a
-                                                            href={`https://github.com/20syldev/${project.repo}/archive/refs/heads/${project.branch}.zip`}
-                                                            download
-                                                        >
-                                                            <Download className="h-4 w-4" />
-                                                        </a>
-                                                    </Button>
-                                                )}
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </DialogContent>
-                    </Dialog>
+            <CardContent className="space-y-3 text-sm lg:text-base xl:text-lg">
+                <div className="space-y-2">
+                    {latestParcours.map((entry) => (
+                        <div key={entry.id} className="flex items-baseline justify-between gap-2">
+                            <p className="min-w-0 truncate">
+                                <span className="font-medium">{entry.school}</span>
+                                <span className="ml-2 text-xs text-muted-foreground">
+                                    {entry.short}
+                                </span>
+                            </p>
+                            <span className="text-xs text-muted-foreground whitespace-nowrap shrink-0">
+                                <Period
+                                    from={entry.start.slice(0, 4)}
+                                    to={entry.end.slice(0, 4)}
+                                    iconClassName="h-2.5 w-2.5"
+                                />
+                            </span>
+                        </div>
+                    ))}
                 </div>
                 <div className="border-t pt-3">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                            <Briefcase className="h-3.5 w-3.5 text-muted-foreground" />
-                            <span className="font-medium">{profile.work.company}</span>
+                    <div className="flex items-center justify-between gap-2">
+                        <div className="flex min-w-0 items-center gap-2">
+                            <Briefcase className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+                            <p className="min-w-0 truncate">
+                                <span className="font-medium">{currentWork.company}</span>
+                                <span className="ml-2 text-xs text-muted-foreground">
+                                    {currentWork.role}
+                                </span>
+                            </p>
                         </div>
-                        <Link href="/alternance/" scroll={false}>
-                            <Button variant="outline" size="sm" className="h-7 text-xs">
+                        <Link href="/alternance/" scroll={false} className="relative z-10 shrink-0">
+                            <Button variant="outline" size="sm" className="h-6 px-2 text-xs">
                                 Projets
                                 <BriefcaseBusiness className="ml-1 h-3 w-3" />
                             </Button>
                         </Link>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-1">{profile.work.role}</p>
                 </div>
                 <div className="border-t pt-3 space-y-1 text-xs">
                     <div className="flex justify-between">
