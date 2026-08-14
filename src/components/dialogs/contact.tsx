@@ -283,7 +283,7 @@ export function ContactDialog({ open, onOpenChange, autoFocusClose }: ContactDia
                     </div>
                 </DialogHeader>
 
-                <div className="-mx-1 min-h-0 overflow-y-auto overscroll-contain px-1 pb-4 sm:pb-1">
+                <div className="-mx-1 min-h-0 overflow-y-auto overscroll-contain px-1 pb-4 max-sm:pr-3 sm:pb-1">
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                         <div className="flex flex-col gap-2 [&>a]:flex-1 [&>button]:flex-1">
                             <GroupTitle
