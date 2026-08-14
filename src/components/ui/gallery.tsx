@@ -242,13 +242,18 @@ export function Gallery({
     }, [handleScroll]);
 
     useEffect(() => {
+        const el = contentRefs.current[currentCategory];
+        if (!el) return;
+
         const measure = () => {
-            const h = contentRefs.current[currentCategory]?.scrollHeight ?? 0;
+            const h = el.scrollHeight;
             if (h > 0) setPanelHeight(h);
         };
         measure();
-        window.addEventListener("resize", measure);
-        return () => window.removeEventListener("resize", measure);
+
+        const observer = new ResizeObserver(measure);
+        observer.observe(el);
+        return () => observer.disconnect();
     }, [currentCategory, loaded]);
 
     return (
