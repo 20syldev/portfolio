@@ -823,7 +823,7 @@ export function useDragScroll<T extends HTMLElement>(ref: React.RefObject<T | nu
             const overflows = el.scrollWidth > el.clientWidth;
             if (overflows) {
                 el.style.cursor = "grab";
-                el.style.touchAction = "pan-x";
+                el.style.touchAction = "pan-x pan-y";
                 el.addEventListener("mousedown", handleMouseDown);
                 el.addEventListener("touchstart", handleTouchStart, { passive: true });
                 el.addEventListener("touchmove", handleTouchMove, { passive: true });
