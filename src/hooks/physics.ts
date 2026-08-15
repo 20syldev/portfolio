@@ -118,6 +118,11 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
         };
 
         const settle = () => {
+            // The drag pendulum can still hold a frame when settling comes from elsewhere
+            if (dragAnimId !== undefined) {
+                cancelAnimationFrame(dragAnimId);
+                dragAnimId = undefined;
+            }
             x = y = vx = vy = angle = av = 0;
             el.style.translate = "";
             el.style.rotate = "";
