@@ -49,13 +49,14 @@ const rotation = {
  * only affects rotation (not translation). Grab point = pivot.
  *
  * @param options - Physics configuration (elasticity, gravity, friction, etc.)
- * @returns Refs for the element, drag state, settle callback, and impulse callback
+ * @returns Refs for the element, drag state, on-screen state, settle and impulse callbacks
  */
 export function useDraggablePhysics(options?: PhysicsOptions) {
     const config = { ...defaults, ...options };
     const ref = useRef<HTMLDivElement>(null);
     const draggingRef = useRef(false);
     const settleRef = useRef<(() => void) | null>(null);
+    const visibleRef = useRef(true);
     const impulseRef = useRef<((dvx: number, dvy: number, dav?: number) => void) | null>(null);
     const configRef = useRef(config);
 
@@ -118,7 +119,6 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
         };
 
         const settle = () => {
-            // The drag pendulum can still hold a frame when settling comes from elsewhere
             if (dragAnimId !== undefined) {
                 cancelAnimationFrame(dragAnimId);
                 dragAnimId = undefined;
@@ -414,6 +414,7 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
 
         const visibility = new IntersectionObserver(
             ([entry]) => {
+                visibleRef.current = entry.isIntersecting;
                 if (!entry.isIntersecting && (animId !== undefined || dragging)) {
                     if (dragging) {
                         dragging = false;
@@ -475,5 +476,11 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
         };
     }, []);
 
-    return { ref, isDragging: draggingRef, settle: settleRef, impulse: impulseRef };
+    return {
+        ref,
+        isDragging: draggingRef,
+        isVisible: visibleRef,
+        settle: settleRef,
+        impulse: impulseRef,
+    };
 }
