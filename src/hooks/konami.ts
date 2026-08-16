@@ -10,7 +10,7 @@ const tapWindow = 3000;
 /**
  * Hook to access Konami activation state and trigger.
  *
- * @returns The Konami context — activated state, trigger source, and shakeVectorRef
+ * @returns The Konami context — activated state, trigger source, and shake target ref
  */
 export function useKonami() {
     return React.useContext(KonamiContext);
