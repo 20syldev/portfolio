@@ -245,7 +245,7 @@ export function KonamiProvider({ children }: { children: React.ReactNode }) {
     React.useEffect(() => {
         activatedRef.current = activated;
         if (activated) {
-            previousThemeRef.current = themeRef.current;
+            if (previousThemeRef.current === undefined) previousThemeRef.current = themeRef.current;
             setThemeRef.current("dark");
         }
     }, [activated]);
