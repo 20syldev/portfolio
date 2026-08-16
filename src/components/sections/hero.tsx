@@ -69,6 +69,7 @@ export function Hero() {
     const {
         ref: logoRef,
         isDragging,
+        isVisible,
         settle,
         impulse,
     } = useDraggablePhysics({
@@ -78,22 +79,24 @@ export function Hero() {
     useSparkle(logoRef, isDragging);
     useMultiTap(logoRef);
 
-    const { activated, trigger, shakeVectorRef } = useKonami();
+    const { shakeTargetRef } = useKonami();
 
     useEffect(() => {
-        if (!activated || trigger !== "shake") return;
-        if (document.body.classList.contains("no-motion")) return;
-
-        const v = shakeVectorRef.current;
-        const mag = v ? Math.sqrt(v.x ** 2 + v.y ** 2) : 0;
-        if (mag > 1) {
-            const strength = Math.min(mag, 40);
-            impulse.current?.((v!.x / mag) * strength, -(v!.y / mag) * strength, v!.x * 0.3);
-        } else {
-            const a = Math.random() * Math.PI * 2;
-            impulse.current?.(Math.cos(a) * 25, Math.sin(a) * 25, 0);
-        }
-    }, [activated, trigger, impulse, shakeVectorRef]);
+        shakeTargetRef.current = {
+            ready: () =>
+                isVisible.current &&
+                !suckedRef.current &&
+                !document.body.classList.contains("no-motion"),
+            nudge: (x, y, progress, force) => {
+                const strength = (3 + progress * 5) * force;
+                impulse.current?.(x * strength, y * strength, x * (1 + progress * 4));
+            },
+            launch: (x, y, force) => impulse.current?.(x * 5 * force, y * 5 * force, x * 10),
+        };
+        return () => {
+            shakeTargetRef.current = null;
+        };
+    }, [shakeTargetRef, impulse, isVisible]);
 
     useEffect(() => {
         const onTouch = (e: TouchEvent) => {
