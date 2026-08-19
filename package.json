@@ -7,6 +7,7 @@
         "build": "npm run generate && next build && mkdir -p out/assets && cp -r public/legacy/*/ out/assets/",
         "start": "npx serve out -p 2147",
         "generate": "tsx scripts/generate.ts",
+        "icon": "tsx scripts/icon.ts",
         "format": "./scripts/format.sh",
         "check": "tsc --noEmit",
         "lint": "eslint"
