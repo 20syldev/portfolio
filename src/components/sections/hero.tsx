@@ -1,6 +1,6 @@
 "use client";
 
-import { FileText, Github, Linkedin } from "lucide-react";
+import { FileUser, Github, Linkedin } from "lucide-react";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -217,7 +217,7 @@ export function Hero() {
                                 className="h-12 w-12 rounded-full"
                                 onClick={(e) => openPdf(profile.links.cv, "CV", e)}
                             >
-                                <FileText className="h-5 w-5" />
+                                <FileUser className="h-5 w-5" />
                             </Button>
                         </TooltipTrigger>
                         <TooltipContent>CV</TooltipContent>

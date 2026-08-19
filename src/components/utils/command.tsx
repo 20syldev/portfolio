@@ -7,6 +7,7 @@ import {
     Briefcase,
     ChartBar,
     FileText,
+    FileUser,
     FolderOpen,
     GraduationCap,
     Home,
@@ -366,7 +367,7 @@ export function CommandMenu() {
             action: () => router.push("/parcours"),
             keywords: ["formation", "école", "ensitech", "ipssi", "bts", "diplôme", "bac"],
         },
-        { label: "CV", icon: FileText, action: () => openPdf("/CV.pdf", "CV") },
+        { label: "CV", icon: FileUser, action: () => openPdf("/CV.pdf", "CV") },
     ];
 
     const shortcutsCommandItem = (
