@@ -10,9 +10,10 @@ import { MetaBadges } from "@/components/ui/meta";
 import { Skeleton } from "@/components/ui/skeleton";
 import { StatusBadge } from "@/components/ui/status";
 import { Tags } from "@/components/ui/tags";
-import { type Project, projects } from "@/data/projects";
+import { projects } from "@/data/projects";
 import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
+import { useCard } from "@/hooks/card";
 import { useStatus } from "@/hooks/status";
 
 /** Card height in pixels for row calculation */
@@ -77,7 +78,7 @@ function useProjectGrid() {
 export function Projects() {
     const { versions, loading } = useApi();
     const getProjectStatus = useStatus();
-    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+    const { project: selected, open, close } = useCard();
     const { cols, count } = useProjectGrid();
 
     const getVersion = (projectId: string): string | undefined => {
@@ -104,7 +105,7 @@ export function Projects() {
                                 <button
                                     key={project.id}
                                     data-status={status ?? undefined}
-                                    onClick={() => setSelectedProject(project)}
+                                    onClick={() => open(project)}
                                     className={`flex relative flex-col gap-2 rounded-lg p-4 text-left card-hover hover:cursor-pointer ${
                                         hasGradient
                                             ? "gradient-border glow-hover"
@@ -174,10 +175,10 @@ export function Projects() {
             </div>
 
             <CardDialog
-                project={selectedProject}
-                version={selectedProject ? getVersion(selectedProject.id) : undefined}
-                status={selectedProject ? getProjectStatus(selectedProject.id) : null}
-                onOpenChange={() => setSelectedProject(null)}
+                project={selected}
+                version={selected ? getVersion(selected.id) : undefined}
+                status={selected ? getProjectStatus(selected.id) : null}
+                onOpenChange={close}
             />
         </>
     );
