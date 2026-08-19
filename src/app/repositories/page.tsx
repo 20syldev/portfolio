@@ -2,7 +2,6 @@
 
 import { ArrowLeft, GitPullRequest } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 
 import { CardDialog } from "@/components/dialogs/card";
 import { Footer } from "@/components/layout/footer";
@@ -13,9 +12,10 @@ import { MetaBadges } from "@/components/ui/meta";
 import { Skeleton } from "@/components/ui/skeleton";
 import { StatusBadge } from "@/components/ui/status";
 import { Tags } from "@/components/ui/tags";
-import { type Project, projects } from "@/data/projects";
+import { projects } from "@/data/projects";
 import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
+import { useCard } from "@/hooks/card";
 import { useSmoothScroll } from "@/hooks/scroll";
 import { useStatus } from "@/hooks/status";
 import { tabs, urls } from "@/lib/nav";
@@ -35,10 +35,7 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
     const { scrollRef } = useSmoothScroll<HTMLDivElement>();
     const { versions, loading } = useApi();
     const getProjectStatus = useStatus();
-    const initialProject = initialProjectId
-        ? projects.find((p) => p.id === initialProjectId)
-        : null;
-    const [selectedProject, setSelectedProject] = useState<Project | null>(initialProject ?? null);
+    const { project: selected, open, close } = useCard(initialProjectId);
     const getVersion = (projectId: string): string | undefined => {
         if (!versions) return undefined;
         const apiKey = getApiKey(projectId);
@@ -84,7 +81,7 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
                             <button
                                 key={project.id}
                                 data-status={status ?? undefined}
-                                onClick={() => setSelectedProject(project)}
+                                onClick={() => open(project)}
                                 className={`relative flex flex-col gap-2 rounded-lg p-4 text-left card-hover hover:cursor-pointer ${
                                     hasGradient
                                         ? "gradient-border glow-hover"
@@ -146,10 +143,10 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
             <Footer />
 
             <CardDialog
-                project={selectedProject}
-                version={selectedProject ? getVersion(selectedProject.id) : undefined}
-                status={selectedProject ? getProjectStatus(selectedProject.id) : null}
-                onOpenChange={() => setSelectedProject(null)}
+                project={selected}
+                version={selected ? getVersion(selected.id) : undefined}
+                status={selected ? getProjectStatus(selected.id) : null}
+                onOpenChange={close}
             />
         </div>
     );
