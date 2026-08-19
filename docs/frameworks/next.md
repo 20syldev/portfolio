@@ -34,7 +34,8 @@ portfolio/
 ├── projects/                # Fiches projets en Markdown
 ├── veille/                  # Articles de veille technologique
 ├── scripts/
-│   └── generate.ts          # Compile le Markdown en JSON
+│   ├── generate.ts          # Compile le Markdown en JSON
+│   └── icon.ts              # Génère les icônes rondes de signature
 ├── public/                  # Assets statiques (images, favicon, etc.)
 ├── src/
 │   ├── app/                 # Routes Next.js (App Router)
@@ -55,7 +56,7 @@ portfolio/
 | `docs/`           | Documentation Markdown, organisée par catégorie et sous-catégorie |
 | `projects/`       | Fiches projets avec frontmatter (nom, tags, liens, etc.)          |
 | `veille/`         | Articles de veille technologique en Markdown                      |
-| `scripts/`        | Script de génération des données (Markdown → JSON)                |
+| `scripts/`        | Scripts de génération (données Markdown → JSON, icônes)           |
 | `src/app/`        | Pages et routes de l'application                                  |
 | `src/components/` | Composants React organisés par rôle                               |
 | `src/data/`       | Interfaces TypeScript + JSON généré                               |
@@ -119,6 +120,7 @@ Avec cette option, seules les routes retournées par `generateStaticParams()` so
 | `npm run build`    | Génère les données + build de production + copie des assets |
 | `npm run start`    | Sert le dossier `out/` localement (preview du build)        |
 | `npm run generate` | Compile les Markdown en JSON (données uniquement)           |
+| `npm run icon`     | Génère une icône ronde depuis un glyphe Lucide ou un SVG    |
 | `npm run check`    | Vérification TypeScript (`tsc --noEmit`)                    |
 | `npm run lint`     | Linting ESLint                                              |
 | `npm run format`   | Formatage du code                                           |
