@@ -53,8 +53,19 @@ async function lucideGlyph(name: string): Promise<Glyph> {
 }
 
 /**
- * Reads a glyph from an SVG file, keeping its own painting attributes.
- * Icons carrying no color of their own (Simple Icons, Font Awesome) are filled.
+ * Turns every painted color of a markup into the inherited ink.
+ * Transparent parts are left alone, as they carve the shape of the glyph.
+ *
+ * @param markup - SVG markup to repaint
+ * @returns The markup painted with currentColor
+ */
+function ink(markup: string): string {
+    return markup.replace(/(fill|stroke)="(?!none")[^"]*"/g, '$1="currentColor"');
+}
+
+/**
+ * Reads a glyph from an SVG file and makes it follow the signature color.
+ * Icons carrying no color of their own (Simple Icons) are filled instead.
  *
  * @param file - Path to the SVG file
  * @returns The glyph root tag and its inner markup
@@ -64,11 +75,14 @@ function fileGlyph(file: string): Glyph {
     const [, tag, inner] = svg.match(/(<svg[^>]*>)([\s\S]*)<\/svg>/) ?? [];
     if (!tag || !inner) throw new Error(`No SVG content found in ${file}`);
     if (!tag.includes("viewBox")) throw new Error(`No viewBox found in ${file}`);
+    if (svg.includes("currentColor")) return { tag, inner };
 
-    return {
-        tag: svg.includes("currentColor") ? tag : tag.replace("<svg", '<svg fill="currentColor"'),
-        inner,
-    };
+    const painted = { tag: ink(tag), inner: ink(inner) };
+    if (painted.tag.includes("currentColor") || painted.inner.includes("currentColor")) {
+        return painted;
+    }
+
+    return { tag: tag.replace("<svg", '<svg fill="currentColor"'), inner };
 }
 
 /**
