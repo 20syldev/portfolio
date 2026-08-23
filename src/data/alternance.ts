@@ -21,6 +21,7 @@ export const projects: AlternanceProject[] = [
             "HYOAI (Host Your Own AI) est une interface de chat web open-source développée chez Zenetys pour dialoguer avec n'importe quel LLM compatible OpenAI. J'ai développé cette application entièrement statique, exécutée dans le navigateur et sans backend.",
         technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
         image: "/images/hyoai-demo.png",
+        github: "https://github.com/zenetys/hyoai",
         link: "https://tools.zenetys.com/hyoai/",
         projet: "hyoai",
         sections: [
@@ -121,6 +122,7 @@ export const projects: AlternanceProject[] = [
         description:
             "LogVault est un service de sécurisation et de gestion de logs, développé par Zenetys. J'ai contribué au développement de l'interface utilisateur et de l'application web.",
         technologies: ["Vue.js"],
+        github: "https://github.com/zenetys/logcenter",
         link: "https://auth.logvault.io",
         sections: [
             {
