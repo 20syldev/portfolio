@@ -137,8 +137,8 @@ export function Alternance() {
                 <div className="container mx-auto max-w-4xl">
                     {/* Header */}
                     <div className="mb-6 sm:mb-8 text-center">
-                        <h1 className="mb-3 text-3xl sm:text-4xl font-bold">Alternance</h1>
-                        <p className="text-lg sm:text-xl text-muted-foreground">
+                        <h1 className="mb-2 text-4xl font-bold">Alternance</h1>
+                        <p className="text-xl text-muted-foreground">
                             Développement Web chez Zenetys
                         </p>
                     </div>
