@@ -337,6 +337,7 @@ export function Alternance() {
                                     {project.video && (
                                         <Video
                                             src={project.video}
+                                            poster={project.poster}
                                             title={`Démo: ${project.title}`}
                                             className="mt-6"
                                         />

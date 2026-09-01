@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 interface VideoProps {
     src: string;
     title: string;
+    poster?: string;
     className?: string;
 }
 
@@ -27,10 +28,11 @@ function formatTime(seconds: number): string {
  * @param props - Component props
  * @param props.src - Video source URL
  * @param props.title - Video title displayed as tooltip
+ * @param props.poster - Optional still shown before the video is fetched
  * @param props.className - Optional CSS class for the thumbnail
  * @returns The rendered video player with dialog
  */
-export function Video({ src, title, className }: VideoProps) {
+export function Video({ src, title, poster, className }: VideoProps) {
     const [open, setOpen] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
@@ -41,6 +43,7 @@ export function Video({ src, title, className }: VideoProps) {
     const [showControls, setShowControls] = useState(true);
     const [isDragging, setIsDragging] = useState(false);
     const [hasAudio, setHasAudio] = useState(true);
+    const [inView, setInView] = useState(false);
 
     const videoRef = useRef<HTMLVideoElement>(null);
     const thumbnailRef = useRef<HTMLVideoElement>(null);
@@ -52,18 +55,40 @@ export function Video({ src, title, className }: VideoProps) {
     // Handle dialog open/close
     const handleOpenChange = useCallback((isOpen: boolean) => {
         setOpen(isOpen);
-        if (isOpen) {
-            thumbnailRef.current?.pause();
-        } else {
+        if (!isOpen) {
             if (videoRef.current) {
                 videoRef.current.pause();
                 videoRef.current.currentTime = 0;
             }
             setIsPlaying(false);
             setCurrentTime(0);
-            thumbnailRef.current?.play().catch(() => {});
         }
     }, []);
+
+    // Track whether the thumbnail is on screen, it stays unloaded until then
+    useEffect(() => {
+        const thumbnail = thumbnailRef.current;
+        if (!thumbnail) return;
+
+        const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), {
+            rootMargin: "200px",
+        });
+        observer.observe(thumbnail);
+
+        return () => observer.disconnect();
+    }, []);
+
+    // The thumbnail only loops while visible and while the dialog is closed
+    useEffect(() => {
+        const thumbnail = thumbnailRef.current;
+        if (!thumbnail) return;
+
+        if (inView && !open) {
+            thumbnail.play().catch(() => {});
+        } else {
+            thumbnail.pause();
+        }
+    }, [inView, open]);
 
     // Auto-play when dialog opens
     useEffect(() => {
@@ -303,9 +328,16 @@ export function Video({ src, title, className }: VideoProps) {
                     )}
                     aria-label={`Lire la vidéo: ${title}`}
                 >
-                    <video ref={thumbnailRef} autoPlay muted loop playsInline className="w-full">
-                        <source src={src} type="video/mp4" />
-                    </video>
+                    <video
+                        ref={thumbnailRef}
+                        src={inView ? src : undefined}
+                        poster={poster}
+                        preload="none"
+                        muted
+                        loop
+                        playsInline
+                        className="w-full aspect-video object-cover"
+                    />
 
                     <Expand />
                 </button>
