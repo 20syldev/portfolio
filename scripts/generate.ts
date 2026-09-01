@@ -16,6 +16,7 @@ interface ProjectMeta {
     tags: string[];
     github?: string;
     demo?: string;
+    article?: string;
     npm?: string;
     docs?: string;
     image?: string;
