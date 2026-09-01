@@ -6,12 +6,14 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 import { Footer } from "@/components/layout/footer";
+import { ArticleList } from "@/components/ui/articles";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ContributionList } from "@/components/ui/contributions";
 import { Video } from "@/components/ui/video";
 import { projects } from "@/data/alternance";
+import { articles, blog } from "@/data/articles";
 import { contributions } from "@/data/contributions";
 import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
@@ -23,6 +25,7 @@ const navSections = [
     { id: "zenetys", label: "Zenetys" },
     ...projects.map((p) => ({ id: p.id, label: p.title.split(" - ")[0].split(".")[0] })),
     { id: "contributions", label: "Contributions" },
+    { id: "articles", label: "Articles" },
 ];
 
 /**
@@ -384,8 +387,28 @@ export function Alternance() {
                             <ArrowRight className="h-4 w-4" />
                         </Link>
                     </div>
-                    <div className="mb-8">
+                    <div className="mb-8 sm:mb-12">
                         <ContributionList contributions={displayed} columns />
+                    </div>
+
+                    {/* Articles */}
+                    <div id="articles" className="mb-6 sm:mb-8 flex items-center justify-between">
+                        <h2 className="text-xl sm:text-2xl font-bold">Articles mis en forme</h2>
+                        <a
+                            href={blog}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                            Le blog Zenetys
+                            <ArrowRight className="h-4 w-4" />
+                        </a>
+                    </div>
+                    <div className="mb-8">
+                        <ArticleList
+                            articles={articles}
+                            note="Rédaction by Zenetys, mise en forme et intégration web de mon côté."
+                        />
                     </div>
                 </div>
                 <Footer />
