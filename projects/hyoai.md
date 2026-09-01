@@ -42,15 +42,40 @@ Un même client parle à plusieurs types d'endpoints, sélectionnables depuis le
 ## Fonctionnalités {#features}
 
 - **Conversations locales** — index léger, une clé `localStorage` par conversation, écritures debouncées pendant le streaming, jauge d'usage et import/export JSON
+- **Recherche** — recherche plein texte dans l'historique local, avec un extrait de contexte autour de chaque correspondance
 - **Branches** — éditer un message ou régénérer une réponse crée une version alternative navigable
 - **Citer & répondre** — citer un message entier ou une simple sélection de texte pour ancrer la question suivante
 - **Raisonnement** — le `reasoning_content` s'affiche dans un bloc repliable, avec des statistiques par message (tokens, tok/s, durée)
-- **Mode comparaison** — lancer le même prompt sur deux modèles côte à côte, chaque panneau gardant son propre choix de raisonnement
+- **Mode comparaison** — lancer le même prompt sur jusqu'à quatre modèles, la grille passant d'un panneau à deux côte à côte puis à 2×2, chacun gardant son propre choix de raisonnement
+- **Compactage automatique** — quand la fenêtre de contexte se remplit, les tours les plus anciens sont résumés, une fraction de la fenêtre restant réservée au résumé
 - **Markdown & sources** — tables, coloration syntaxique et citations de sources rendues en ligne
-- **Images** — coller ou glisser-déposer, redimensionnées côté client avant l'envoi (format vision OpenAI)
+- **Pièces jointes** — images (redimensionnées côté client, format vision OpenAI), PDF, audio (mp3, wav) et fichiers texte, au collage comme au glisser-déposer
+- **Réglages d'échantillonnage** — un champ laissé vide n'est pas envoyé et l'endpoint applique son propre défaut ; les noms de paramètres suivent le type d'endpoint (`repetition_penalty` pour vLLM, `repeat_penalty` et `dry_*` pour llama.cpp)
+- **Raccourcis clavier** — `Ctrl/Cmd+K` pour la palette, `Ctrl/Cmd+B` pour la barre latérale, `Ctrl/Cmd+Shift+O` pour une nouvelle conversation
 - **Responsive** — sur mobile, les menus s'ouvrent en drawers par le bas (poignée, swipe, safe-area), et l'ensemble reste accessible au clavier via les primitives Radix
+
+## Widget embarquable {#embed}
+
+Au-delà de l'application complète, HYOAI s'embarque dans une page tierce sous forme de widget en iframe, avec son propre stockage isolé.
+Un pont `postMessage` relie la page hôte au widget : l'hôte pousse à chaud un prompt système, une langue ou un thème, injecte un tour de conversation, ou lance une commande en mode « headless » dont la réponse lui est renvoyée en streaming.
+Le guide [`docs/embed.md`](https://github.com/zenetys/hyoai/blob/master/docs/embed.md) couvre les paramètres d'URL, l'isolation du stockage, la poignée de main, le dimensionnement et les points de sécurité.
+
+## Intégrations {#integrations}
+
+`config.json` accepte un tableau `integrations` qui branche des actions de l'interface sur des endpoints HTTP externes, sans toucher au code : ajouter un endpoint est une simple édition de configuration.
+Chaque entrée vise tout ou partie des modèles et déclenche un `POST` JSON. Le type `feedback` ajoute par exemple des pouces haut et bas sous chaque réponse, qui transmettent la note et le message concerné.
+Une entrée inconnue ou malformée est ignorée plutôt que de faire échouer toute la configuration.
 
 ## Stack technique {#tech}
 
-Construit avec **Next.js** (App Router, export statique en production), **React 19** et **TypeScript strict**, HYOAI utilise **Tailwind CSS v4**, **shadcn/ui** (primitives Radix), next-themes (avec deux skins `soft` et `flat`), next-intl (FR/EN), react-markdown et lz-string.
+Construit avec **Next.js** (App Router, export statique en production), **React 19** et **TypeScript strict**, HYOAI utilise **Tailwind CSS v4** et **shadcn/ui** (primitives Radix via le paquet unifié `radix-ui`).
+S'y ajoutent next-themes avec six skins commutables (`flat`, `soft`, `contrast`, `warm`, `forest`, `dim`), next-intl (FR/EN, sans routing), react-markdown avec remark-gfm et rehype-highlight, pdfjs-dist pour la lecture des PDF, react-hook-form et zod pour les formulaires de réglages, et lz-string pour la compression des conversations.
 Le projet est publié sous licence **Apache 2.0**.
+
+## Ressources {#resources}
+
+- **Code source** — [github.com/zenetys/hyoai](https://github.com/zenetys/hyoai), publié en open source par ZENETYS
+- **Démo en ligne** — [tools.zenetys.com/hyoai](https://tools.zenetys.com/hyoai/)
+- **Guide d'intégration** — [`docs/embed.md`](https://github.com/zenetys/hyoai/blob/master/docs/embed.md), pour embarquer HYOAI dans une page tierce
+- **Article** — [HYOAI : un client de chat IA sans backend, dans le navigateur](https://www.zenetys.com/hyoai-un-client-de-chat-ia-sans-backend-dans-le-navigateur/), sur le blog ZENETYS
+- **Démo vidéo** — une présentation de 30 secondes est disponible sur la [page alternance](/alternance#hyoai)
