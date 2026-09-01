@@ -74,9 +74,7 @@ export default function HomePage() {
         }
 
         const url = urls[currentTab];
-        const path = location.pathname;
-        if (getTab(path) !== currentTab && path !== "/") return;
-        if (path !== url) history.pushState(null, "", url);
+        if (location.pathname !== url) history.pushState(null, "", url);
 
         document.title = titles[currentTab];
     }, [currentTab]);
@@ -90,6 +88,18 @@ export default function HomePage() {
         const expected = getTab(pathname);
         if (expected !== currentTab) goToTab(expected);
     }, [pathname, currentTab, goToTab]);
+
+    useEffect(() => {
+        // Back and forward move between the entries pushed above, and popping
+        // the entry the document loaded on does not always reach usePathname
+        const sync = () => {
+            const expected = getTab(location.pathname);
+            if (expected !== currentTab) goToTab(expected);
+        };
+
+        addEventListener("popstate", sync);
+        return () => removeEventListener("popstate", sync);
+    }, [currentTab, goToTab]);
 
     useEffect(() => {
         const scrollToHash = () => {
