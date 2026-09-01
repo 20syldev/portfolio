@@ -1,4 +1,4 @@
-import { BookCheck, ExternalLink, Github, Package } from "lucide-react";
+import { BookCheck, ExternalLink, Github, Newspaper, Package } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -12,10 +12,10 @@ interface LinksProps {
 }
 
 /**
- * Renders external link buttons (GitHub, Demo, NPM, Guide complet) for a project.
+ * Renders external link buttons (GitHub, Demo, Article, NPM, Guide complet) for a project.
  *
  * @param props - Component props
- * @param props.project - Project with optional github, demo, npm and docs fields
+ * @param props.project - Project with optional github, demo, article, npm and docs fields
  * @param props.className - Optional wrapper class
  * @param props.extra - Optional extra button(s) appended after the project links
  * @returns The rendered link buttons
@@ -36,6 +36,14 @@ export function Links({ project, className, extra }: LinksProps) {
                     <a href={project.demo} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="mr-2 h-4 w-4" />
                         Démo
+                    </a>
+                </Button>
+            )}
+            {project.article && (
+                <Button asChild size="sm" variant="outline">
+                    <a href={project.article} target="_blank" rel="noopener noreferrer">
+                        <Newspaper className="mr-2 h-4 w-4" />
+                        Article
                     </a>
                 </Button>
             )}
