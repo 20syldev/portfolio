@@ -53,7 +53,7 @@ export const gdevBadges: CertificationCategory[] = [
             },
             {
                 name: "Niveau premium du programme Google Developer",
-                icon: "/icons/google/innovators-plus.svg",
+                icon: "/icons/google/innovators-plus.webp",
                 url: "https://developers.google.com/profile/badges/community/innovators/cloud/innovators_plus",
                 provider: "google",
                 date: "19 févr. 2026",
@@ -77,7 +77,7 @@ export const gdevBadges: CertificationCategory[] = [
             },
             {
                 name: "Communauté de développeurs Firebase Studio",
-                icon: "/icons/google/firebase-studio.svg",
+                icon: "/icons/google/firebase-studio.webp",
                 url: "https://developers.google.com/profile/badges/community/firebasestudio/firebase-studio",
                 provider: "google",
                 date: "1 sept. 2025",
@@ -85,7 +85,7 @@ export const gdevBadges: CertificationCategory[] = [
             },
             {
                 name: "Membre de la communauté Google Cloud et NVIDIA",
-                icon: "/icons/google/nvidia-community.svg",
+                icon: "/icons/google/nvidia-community.webp",
                 url: "https://developers.google.com/profile/badges/nvidia-developer",
                 provider: "google",
                 date: "1 sept. 2025",
@@ -117,7 +117,7 @@ export const gdevBadges: CertificationCategory[] = [
             },
             {
                 name: "Membre de Women Techmakers",
-                icon: "/icons/google/wtm-member.svg",
+                icon: "/icons/google/wtm-member.webp",
                 url: "https://developers.google.com/profile/badges/community/wtm/member",
                 provider: "google",
                 date: "27 juin 2024",
@@ -133,7 +133,7 @@ export const gdevBadges: CertificationCategory[] = [
             },
             {
                 name: "Abonné à Google Developer Experts",
-                icon: "/icons/google/gde-follower.svg",
+                icon: "/icons/google/gde-follower.webp",
                 url: "https://developers.google.com/profile/badges/community/gde/follower",
                 provider: "google",
                 date: "27 juin 2024",
@@ -146,7 +146,7 @@ export const gdevBadges: CertificationCategory[] = [
         items: [
             {
                 name: "I/O 2026 – Inscription",
-                icon: "/icons/google/io-2026.svg",
+                icon: "/icons/google/io-2026.webp",
                 url: "https://developers.google.com/profile/badges/events/io/2026/registered",
                 provider: "google",
                 date: "6 mars 2026",
@@ -154,7 +154,7 @@ export const gdevBadges: CertificationCategory[] = [
             },
             {
                 name: "Google Skills",
-                icon: "/icons/google/google-skills.svg",
+                icon: "/icons/google/google-skills.webp",
                 url: "https://developers.google.com/profile/badges/skillsboost/earned-badge",
                 provider: "google",
                 date: "26 févr. 2026",
@@ -162,7 +162,7 @@ export const gdevBadges: CertificationCategory[] = [
             },
             {
                 name: "I/O 2025 – Enregistré",
-                icon: "/icons/google/io-2025.svg",
+                icon: "/icons/google/io-2025.webp",
                 url: "https://developers.google.com/profile/badges/events/io/2025/registered",
                 provider: "google",
                 date: "21 févr. 2025",
@@ -170,7 +170,7 @@ export const gdevBadges: CertificationCategory[] = [
             },
             {
                 name: "Tâches Cloud Run | Configurer",
-                icon: "/icons/google/cloud-run-configure.svg",
+                icon: "/icons/google/cloud-run-configure.webp",
                 url: "https://developers.google.com/profile/badges/events/io/2022/cloud/3-configure",
                 provider: "google",
                 date: "21 févr. 2025",
@@ -186,7 +186,7 @@ export const gdevBadges: CertificationCategory[] = [
             },
             {
                 name: "Créer une mise en page de base",
-                icon: "/icons/google/android-basic-layout.svg",
+                icon: "/icons/google/android-basic-layout.webp",
                 url: "https://developers.google.com/profile/badges/playlists/android/android-basics-kotlin-pathway-three",
                 provider: "google",
                 date: "27 juin 2024",
@@ -194,7 +194,7 @@ export const gdevBadges: CertificationCategory[] = [
             },
             {
                 name: "Apprentissage",
-                icon: "/icons/google/learnings.svg",
+                icon: "/icons/google/learnings.webp",
                 url: "/labs",
                 provider: "google",
                 date: "27 juin 2024",
@@ -208,7 +208,7 @@ export const gdevBadges: CertificationCategory[] = [
         items: [
             {
                 name: "Utilisateur des forums Looker",
-                icon: "/icons/google/looker-forum.svg",
+                icon: "/icons/google/looker-forum.webp",
                 url: "https://developers.google.com/profile/badges/community/forums/user/looker",
                 provider: "google",
                 date: "27 févr. 2026",
@@ -216,7 +216,7 @@ export const gdevBadges: CertificationCategory[] = [
             },
             {
                 name: "Utilisateur des forums AppSheet",
-                icon: "/icons/google/appsheet-forum.svg",
+                icon: "/icons/google/appsheet-forum.webp",
                 url: "https://developers.google.com/profile/badges/community/forums/user/appsheet",
                 provider: "google",
                 date: "27 févr. 2026",
@@ -248,7 +248,7 @@ export const gdevBadges: CertificationCategory[] = [
             },
             {
                 name: "Utilisateur Project IDX",
-                icon: "/icons/google/project-idx.svg",
+                icon: "/icons/google/project-idx.webp",
                 url: "https://developers.google.com/profile/badges/activity/idx/idx-user",
                 provider: "google",
                 date: "4 nov. 2024",
@@ -264,7 +264,7 @@ export const gdevBadges: CertificationCategory[] = [
             },
             {
                 name: "Rejoindre le programme Google Developers",
-                icon: "/icons/google/google-developers-profile.svg",
+                icon: "/icons/google/google-developers-profile.webp",
                 url: "https://developers.google.com/profile/badges/profile/created-profile",
                 provider: "google",
                 date: "12 oct. 2023",
