@@ -33,12 +33,12 @@ export const projects: AlternanceProject[] = [
             {
                 title: "Multi-backend et raisonnement",
                 content:
-                    "Un même client parle à plusieurs endpoints, locaux ou distants, sélectionnables depuis le menu des modèles. Quand un modèle le déclare, un toggle de raisonnement et un sélecteur d'effort apparaissent, chaque backend mappant ces réglages sur son propre format de requête. Le mode comparaison permet de lancer un même prompt sur deux modèles côte à côte.",
+                    "Un même client parle à plusieurs endpoints, locaux ou distants, sélectionnables depuis le menu des modèles. Quand un modèle le déclare, un toggle de raisonnement et un sélecteur d'effort apparaissent, chaque backend mappant ces réglages sur son propre format de requête. Le mode comparaison permet de lancer un même prompt sur jusqu'à quatre modèles à la fois.",
             },
             {
                 title: "L'interface",
                 content:
-                    "L'interface gère les conversations en local avec branches et versions alternatives, la citation de messages, le rendu Markdown avec coloration syntaxique et sources, ainsi que l'envoi d'images. L'expérience est responsive, avec des drawers tactiles sur mobile, et accessible au clavier via les primitives Radix.",
+                    "L'interface gère les conversations en local avec branches, versions alternatives et recherche plein texte, la citation de messages, le rendu Markdown avec coloration syntaxique et sources, ainsi que l'envoi d'images, de PDF, d'audio et de fichiers texte. L'expérience est responsive, avec des drawers tactiles sur mobile, et accessible au clavier via les primitives Radix.",
             },
         ],
     },
