@@ -7,6 +7,7 @@ export interface AlternanceProject {
     sections: { title: string; content: string }[];
     image?: string;
     video?: string;
+    poster?: string;
     iframe?: string;
     github?: string;
     link?: string;
@@ -145,6 +146,7 @@ export const projects: AlternanceProject[] = [
             "Lyah est une application de chat collaboratif commencée en Mars 2025. J'ai designé et développé l'interface utilisateur, en utilisant HTML, CSS et JavaScript. L'API est développée en Node.js, et utilise un système de WebSocket pour la communication en temps réel.",
         technologies: ["Node.js", "WebSocket", "PostgreSQL", "HTML", "CSS", "JS"],
         video: "/videos/lyah-demo.mp4",
+        poster: "/videos/lyah-poster.webp",
         sections: [
             {
                 title: "L'interface de chat",
@@ -175,6 +177,7 @@ export const projects: AlternanceProject[] = [
             "En début d'année 2024, j'ai entrepris la refonte complète de l'interface utilisateur pour ZPKI, un outil de gestion de certificats OpenSSL. La complexité m'a conduit à recréer entièrement l'application en deux mois.",
         technologies: ["Node.js", "Bootstrap", "Shell/Bash", "OpenSSL"],
         video: "/videos/zpki-demo.mp4",
+        poster: "/videos/zpki-poster.webp",
         github: "https://github.com/zenetys/zpki",
         link: "https://tools.zenetys.com/zpki",
         sections: [
