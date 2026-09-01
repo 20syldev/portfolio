@@ -3,14 +3,16 @@ name: HYOAI
 description: Interface de chat 100% navigateur pour tout LLM compatible OpenAI, par ZENETYS.
 longDescription: "Interface de chat statique et sans serveur pour n'importe quel LLM compatible OpenAI (llama.cpp, vLLM, Ollama...), développée et open-sourcée par ZENETYS. Le navigateur communique directement avec le serveur d'inférence et les conversations ne quittent jamais la machine."
 tags: ["Next.js", "TypeScript", "LLM", "Chat"]
+github: "https://github.com/zenetys/hyoai"
 demo: "https://tools.zenetys.com/hyoai/"
+article: "https://www.zenetys.com/hyoai-un-client-de-chat-ia-sans-backend-dans-le-navigateur/"
 ---
 
 ## À propos {#about}
 
 HYOAI (**H**ost **Y**our **O**wn **AI**) est une interface de chat pour dialoguer avec n'importe quel LLM compatible OpenAI, développée et open-sourcée par [ZENETYS](https://www.zenetys.com).
 C'est un front-end **100% statique** : aucun backend, rien à déployer ni à sécuriser côté serveur. Le navigateur communique directement avec l'API de votre serveur d'inférence (llama.cpp, vLLM, Ollama, ou tout endpoint compatible OpenAI).
-Une démo est disponible sur [tools.zenetys.com/hyoai](https://tools.zenetys.com/hyoai/).
+Une démo est disponible sur [tools.zenetys.com/hyoai](https://tools.zenetys.com/hyoai/), le code est publié sur [github.com/zenetys/hyoai](https://github.com/zenetys/hyoai) et le projet est présenté dans un [article sur le blog ZENETYS](https://www.zenetys.com/hyoai-un-client-de-chat-ia-sans-backend-dans-le-navigateur/).
 
 ## Pourquoi ce projet ? {#why}
 
