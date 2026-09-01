@@ -7,7 +7,7 @@ export const certifications: CertificationCategory[] = [
         items: [
             {
                 name: "Google Cloud Cybersecurity Certificate",
-                icon: "/images/google/cloud-cybersecurity-certificate.png",
+                icon: "/images/google/cloud-cybersecurity-certificate.webp",
                 url: "https://www.credly.com/badges/1592a4eb-91d9-4301-a5b5-82457a6b58c1",
                 provider: "google",
                 date: "27 avr. 2026",
@@ -21,7 +21,7 @@ export const certifications: CertificationCategory[] = [
             // Advanced
             {
                 name: "Google DeepMind: Train A Small Language Model",
-                icon: "/images/google/train-small-language-model.png",
+                icon: "/images/google/train-small-language-model.webp",
                 url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22689277",
                 level: "Advanced",
                 provider: "google",
@@ -31,7 +31,7 @@ export const certifications: CertificationCategory[] = [
             // Intermediate
             {
                 name: "Secure Software Delivery",
-                icon: "/images/google/secure-software-delivery.png",
+                icon: "/images/google/secure-software-delivery.webp",
                 url: "https://www.credly.com/badges/b5d8a689-d909-445b-99b4-ac0a78dc907e",
                 level: "Intermediate",
                 provider: "google",
@@ -40,7 +40,7 @@ export const certifications: CertificationCategory[] = [
             },
             {
                 name: "Create ML Models with BigQuery ML",
-                icon: "/images/google/create-ml-models-bigquery-ml.png",
+                icon: "/images/google/create-ml-models-bigquery-ml.webp",
                 url: "https://www.credly.com/badges/d21c72f2-26a6-4a85-bd0e-807a30c49668",
                 level: "Intermediate",
                 provider: "google",
@@ -49,7 +49,7 @@ export const certifications: CertificationCategory[] = [
             },
             {
                 name: "Implement CI/CD Pipelines on Google Cloud",
-                icon: "/images/google/implement-cicd-pipelines.png",
+                icon: "/images/google/implement-cicd-pipelines.webp",
                 url: "https://www.credly.com/badges/c4573072-3d89-40c2-bb97-c002dd2d8209",
                 level: "Intermediate",
                 provider: "google",
@@ -58,7 +58,7 @@ export const certifications: CertificationCategory[] = [
             },
             {
                 name: "Implement DevOps Workflows in Google Cloud",
-                icon: "/images/google/devops-workflows.png",
+                icon: "/images/google/devops-workflows.webp",
                 url: "https://www.credly.com/badges/68f43845-92ca-41af-960a-2bc0f598c848",
                 level: "Intermediate",
                 provider: "google",
@@ -68,7 +68,7 @@ export const certifications: CertificationCategory[] = [
             // Introductory
             {
                 name: "Set Up an App Dev Environment on Google Cloud",
-                icon: "/images/google/set-up-app-dev-environment.png",
+                icon: "/images/google/set-up-app-dev-environment.webp",
                 url: "https://www.credly.com/badges/67eabd10-5938-4eae-8cc1-fcc0f8121a7b",
                 level: "Introductory",
                 provider: "google",
@@ -77,7 +77,7 @@ export const certifications: CertificationCategory[] = [
             },
             {
                 name: "Implementing Cloud Load Balancing for Compute Engine",
-                icon: "/images/google/cloud-load-balancing.png",
+                icon: "/images/google/cloud-load-balancing.webp",
                 url: "https://www.credly.com/badges/1829f571-f02f-45cc-a063-b37fef29658c",
                 level: "Introductory",
                 provider: "google",
@@ -86,7 +86,7 @@ export const certifications: CertificationCategory[] = [
             },
             {
                 name: "Prompt Design in Vertex AI",
-                icon: "/images/google/prompt-design-vertex-ai.png",
+                icon: "/images/google/prompt-design-vertex-ai.webp",
                 url: "https://www.credly.com/badges/7578fd92-2734-43c0-ba36-8bc46d785f73",
                 level: "Introductory",
                 provider: "google",
@@ -100,28 +100,28 @@ export const certifications: CertificationCategory[] = [
         items: [
             {
                 name: "Professional Cloud Architect",
-                icon: "/images/google/cloud-architect-prep.png",
+                icon: "/images/google/cloud-architect-prep.webp",
                 url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22642407",
                 provider: "google",
                 date: "27 févr. 2026",
             },
             {
                 name: "Professional Data Engineer",
-                icon: "/images/google/data-engineer-prep.png",
+                icon: "/images/google/data-engineer-prep.webp",
                 url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22640929",
                 provider: "google",
                 date: "27 févr. 2026",
             },
             {
                 name: "Professional Cloud Database Engineer",
-                icon: "/images/google/cloud-database-prep.png",
+                icon: "/images/google/cloud-database-prep.webp",
                 url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22640817",
                 provider: "google",
                 date: "27 févr. 2026",
             },
             {
                 name: "Professional SOE",
-                icon: "/images/google/psoe-prep.png",
+                icon: "/images/google/psoe-prep.webp",
                 url: "https://www.skills.google/public_profiles/939ce067-28f4-4438-af09-dbec49217d11/badges/22640264",
                 provider: "google",
                 date: "27 févr. 2026",
@@ -133,7 +133,7 @@ export const certifications: CertificationCategory[] = [
         items: [
             {
                 name: "Career Preparation Workshop",
-                icon: "/images/cisco/career-preparation-workshop.png",
+                icon: "/images/cisco/career-preparation-workshop.webp",
                 url: "https://www.credly.com/badges/0eb4c197-d340-4934-adab-fedcd4a5a670",
                 provider: "cisco",
                 type: "Atelier",
@@ -141,7 +141,7 @@ export const certifications: CertificationCategory[] = [
             },
             {
                 name: "Learn-A-Thon 2026",
-                icon: "/images/cisco/learnathon-2026.png",
+                icon: "/images/cisco/learnathon-2026.webp",
                 url: "https://www.credly.com/badges/481b0992-390d-4ead-b650-53aae9670306",
                 provider: "cisco",
                 type: "Événement",
@@ -149,7 +149,7 @@ export const certifications: CertificationCategory[] = [
             },
             {
                 name: "Network Technician Career Path",
-                icon: "/images/cisco/network-technician.png",
+                icon: "/images/cisco/network-technician.webp",
                 url: "https://www.credly.com/badges/b06b0410-76f2-47fc-933f-4bf38c2ba5e5",
                 provider: "cisco",
                 type: "Examen",
@@ -157,7 +157,7 @@ export const certifications: CertificationCategory[] = [
             },
             {
                 name: "JavaScript Essentials 1",
-                icon: "/images/cisco/js-essentials-1.png",
+                icon: "/images/cisco/js-essentials-1.webp",
                 url: "https://www.credly.com/badges/4b236d77-452a-4bc5-ac3a-fc53b368f336",
                 provider: "cisco",
                 type: "Cours",
@@ -165,7 +165,7 @@ export const certifications: CertificationCategory[] = [
             },
             {
                 name: "JavaScript Essentials 2",
-                icon: "/images/cisco/js-essentials-2.png",
+                icon: "/images/cisco/js-essentials-2.webp",
                 url: "https://www.credly.com/badges/0544832b-b42f-499e-812b-3b241bb40250",
                 provider: "cisco",
                 type: "Cours",
@@ -173,7 +173,7 @@ export const certifications: CertificationCategory[] = [
             },
             {
                 name: "Python Essentials 1",
-                icon: "/images/cisco/python-essentials-1.png",
+                icon: "/images/cisco/python-essentials-1.webp",
                 url: "https://www.credly.com/badges/66947f3a-ea7b-4614-b91b-14e6b128fae4",
                 provider: "cisco",
                 type: "Cours",
@@ -181,7 +181,7 @@ export const certifications: CertificationCategory[] = [
             },
             {
                 name: "Python Essentials 2",
-                icon: "/images/cisco/python-essentials-2.png",
+                icon: "/images/cisco/python-essentials-2.webp",
                 url: "https://www.credly.com/badges/e876fe88-58b3-43d2-aaee-d618af2e8949",
                 provider: "cisco",
                 type: "Cours",
@@ -189,7 +189,7 @@ export const certifications: CertificationCategory[] = [
             },
             {
                 name: "Network Addressing and Basic Troubleshooting",
-                icon: "/images/cisco/network-addressing-troubleshooting.png",
+                icon: "/images/cisco/network-addressing-troubleshooting.webp",
                 url: "https://www.credly.com/badges/0004a466-04da-4a78-b0e9-0c9738ade127",
                 provider: "cisco",
                 type: "Cours",
@@ -197,7 +197,7 @@ export const certifications: CertificationCategory[] = [
             },
             {
                 name: "Network Support and Security",
-                icon: "/images/cisco/network-support-security.png",
+                icon: "/images/cisco/network-support-security.webp",
                 url: "https://www.credly.com/badges/63b8bfaf-6a31-4ae8-ba1c-1c3f4ae5e34a",
                 provider: "cisco",
                 type: "Cours",
@@ -205,7 +205,7 @@ export const certifications: CertificationCategory[] = [
             },
             {
                 name: "Networking Basics",
-                icon: "/images/cisco/networking-basics.png",
+                icon: "/images/cisco/networking-basics.webp",
                 url: "https://www.credly.com/badges/6e963931-ca53-4c7b-bf38-be1e0e83a98a",
                 provider: "cisco",
                 type: "Cours",
@@ -213,7 +213,7 @@ export const certifications: CertificationCategory[] = [
             },
             {
                 name: "Industrial Networking Essentials",
-                icon: "/images/cisco/industrial-networking-essentials.png",
+                icon: "/images/cisco/industrial-networking-essentials.webp",
                 url: "https://www.credly.com/badges/7cd54b7d-63c9-4570-9a96-a9d237909564",
                 provider: "cisco",
                 type: "Cours",
@@ -221,7 +221,7 @@ export const certifications: CertificationCategory[] = [
             },
             {
                 name: "Digital Safety and Security Awareness",
-                icon: "/images/cisco/digital-safety-security.png",
+                icon: "/images/cisco/digital-safety-security.webp",
                 url: "https://www.credly.com/badges/7df4d18d-c13b-46e4-a645-8902a3f77fd5",
                 provider: "cisco",
                 type: "Cours",
@@ -229,7 +229,7 @@ export const certifications: CertificationCategory[] = [
             },
             {
                 name: "Introduction to Cybersecurity",
-                icon: "/images/cisco/intro-cybersecurity.png",
+                icon: "/images/cisco/intro-cybersecurity.webp",
                 url: "https://www.credly.com/badges/9d51764b-29e5-4dd0-9747-48554d1ac198",
                 provider: "cisco",
                 type: "Cours",
@@ -237,7 +237,7 @@ export const certifications: CertificationCategory[] = [
             },
             {
                 name: "Introduction to Modern AI",
-                icon: "/images/cisco/intro-modern-ai.png",
+                icon: "/images/cisco/intro-modern-ai.webp",
                 url: "https://www.credly.com/badges/20af48cb-7b8a-4779-aa14-5e4b9a0998c8",
                 provider: "cisco",
                 type: "Cours",
@@ -245,7 +245,7 @@ export const certifications: CertificationCategory[] = [
             },
             {
                 name: "Introduction to IoT",
-                icon: "/images/cisco/intro-iot.png",
+                icon: "/images/cisco/intro-iot.webp",
                 url: "https://www.credly.com/badges/3d2213ec-1d55-4f12-9cfb-1ac4540d16da",
                 provider: "cisco",
                 type: "Cours",
