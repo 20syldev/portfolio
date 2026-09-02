@@ -1,3 +1,4 @@
+// Contributions to open-source projects, including pull requests and issues.
 export interface Contribution {
     repo: string;
     title: string;
