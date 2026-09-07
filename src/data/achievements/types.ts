@@ -4,7 +4,7 @@ export interface Certification {
     url: string;
     level?: "Advanced" | "Intermediate" | "Introductory";
     type?: "Cours" | "Examen" | "Atelier" | "Événement";
-    provider: "google" | "cisco";
+    provider: "anthropic" | "google" | "cisco";
     date?: string;
     shape?: "round" | "rectangle";
     counter?: number;

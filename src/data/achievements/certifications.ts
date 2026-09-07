@@ -1,7 +1,118 @@
 import type { CertificationCategory } from "./types";
 
-// Certifications data (Netacad + Skill Badges + Study Guides)
+// Certifications data (Claude Academy + Netacad + Skill Badges + Study Guides)
 export const certifications: CertificationCategory[] = [
+    {
+        name: "Claude Academy",
+        items: [
+            // Claude
+            {
+                name: "Claude 101",
+                icon: "/images/anthropic/claude-101.webp",
+                url: "https://academy.claude.com/badges/d5041b99-cdb4-453d-8a49-0be95ca7df6f",
+                provider: "anthropic",
+                type: "Cours",
+                date: "7 sept. 2026",
+                shape: "rectangle",
+            },
+            {
+                name: "AI Fluency: Framework & Foundations",
+                icon: "/images/anthropic/ai-fluency-framework-foundations.webp",
+                url: "https://academy.claude.com/badges/837689dc-6705-43bd-80a5-393d980bb5a1",
+                provider: "anthropic",
+                type: "Cours",
+                date: "7 sept. 2026",
+                shape: "rectangle",
+            },
+            {
+                name: "AI Capabilities and Limitations",
+                icon: "/images/anthropic/ai-capabilities-and-limitations.webp",
+                url: "https://academy.claude.com/badges/fd9f2f44-b772-4a2f-8df2-76817412e376",
+                provider: "anthropic",
+                type: "Cours",
+                date: "7 sept. 2026",
+                shape: "rectangle",
+            },
+            // Claude Platform
+            {
+                name: "Claude Platform 101",
+                icon: "/images/anthropic/claude-platform-101.webp",
+                url: "https://academy.claude.com/badges/b1c1f50f-236b-4756-99a5-2d522df089f2",
+                provider: "anthropic",
+                type: "Cours",
+                date: "7 sept. 2026",
+                shape: "rectangle",
+            },
+            // Claude Code
+            {
+                name: "Claude Code 101",
+                icon: "/images/anthropic/claude-code-101.webp",
+                url: "https://academy.claude.com/badges/b6414f47-9a1a-45d6-aef3-e31a897b203a",
+                provider: "anthropic",
+                type: "Cours",
+                date: "7 sept. 2026",
+                shape: "rectangle",
+            },
+            {
+                name: "Claude Code in Action",
+                icon: "/images/anthropic/claude-code-in-action.webp",
+                url: "https://academy.claude.com/badges/51bd67bd-115f-437c-8fcd-e03e7d528bc6",
+                provider: "anthropic",
+                type: "Cours",
+                date: "7 sept. 2026",
+                shape: "rectangle",
+            },
+            // MCP
+            {
+                name: "Introduction to Model Context Protocol",
+                icon: "/images/anthropic/introduction-to-model-context-protocol.webp",
+                url: "https://academy.claude.com/badges/d6ae30c8-0ede-4a52-84ad-8f7e68aaf0b0",
+                provider: "anthropic",
+                type: "Cours",
+                date: "7 sept. 2026",
+                shape: "rectangle",
+            },
+            {
+                name: "Model Context Protocol: Advanced Topics",
+                icon: "/images/anthropic/model-context-protocol-advanced-topics.webp",
+                url: "https://academy.claude.com/badges/e7527b81-30a8-4d90-a48d-0073eaf08c37",
+                provider: "anthropic",
+                type: "Cours",
+                date: "7 sept. 2026",
+                shape: "rectangle",
+            },
+            // Cowork
+            {
+                name: "Introduction to Claude Cowork",
+                icon: "/images/anthropic/introduction-to-claude-cowork.webp",
+                url: "https://academy.claude.com/badges/7baf59c5-fdce-44b4-915f-423424c24a49",
+                provider: "anthropic",
+                type: "Cours",
+                date: "7 sept. 2026",
+                shape: "rectangle",
+            },
+            // AI Fluency
+            {
+                name: "AI Fluency for Creative Work",
+                icon: "/images/anthropic/ai-fluency-for-creative-work.webp",
+                url: "https://academy.claude.com/badges/23432b39-ff21-4db9-b9ad-f183d318b758",
+                provider: "anthropic",
+                type: "Cours",
+                date: "7 sept. 2026",
+                shape: "rectangle",
+            },
+            // Agents
+            {
+                name: "Building Effective Human Agent Teams (Beta)",
+                icon: "/images/anthropic/building-effective-human-agent-teams.webp",
+                url: "https://academy.claude.com/badges/1079d98d-d30b-49f6-8287-488747b4ce18",
+                provider: "anthropic",
+                type: "Cours",
+                date: "7 sept. 2026",
+                shape: "rectangle",
+            },
+        ],
+    },
     {
         name: "Google Cloud Certificates",
         items: [
