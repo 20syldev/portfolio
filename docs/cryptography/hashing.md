@@ -154,11 +154,14 @@ Git utilise SHA-1 pour identifier chaque objet (commit, arbre, blob) :
 # Show the SHA-1 hash of the last commit
 git rev-parse HEAD
 # a3f8c21e5b7d4c9f2e1a0b8c7d6e5f4a3b2c1d0e
+
+# Create a repository using SHA-256 object names instead
+git init --object-format=sha256
 ```
 
 Chaque commit est identifié par le hash de son contenu. Si un seul octet change, le hash change — c'est ainsi que Git détecte les modifications (voir [Git internals](/help/git/internals) pour les détails).
 
-> **Note** : Git migre progressivement vers SHA-256 pour plus de sécurité (SHA-1 a des collisions connues depuis 2017).
+> **Note** : Git migre progressivement vers SHA-256 (SHA-1 a des collisions connues depuis 2017) et sait créer des dépôts dans ce format depuis la version 2.29. Mais **il n'existe aucune interopérabilité entre un dépôt SHA-256 et un dépôt SHA-1** — ni clone, ni push, ni pull de l'un vers l'autre — et les forges comme GitHub ne les acceptent pas encore. Ces dépôts restent donc confinés à un usage local.
 
 ### Signatures numériques {#digital-signatures}
 

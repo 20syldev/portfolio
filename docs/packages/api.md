@@ -252,7 +252,9 @@ const { valid, drift } = otp("verify", { secret, code });
 console.log(valid); // → true
 ```
 
-Options disponibles : `algorithm` (`sha1` par défaut), `digits` (`6`), `period` (`30`) et `counter` pour le mode HOTP.
+Options disponibles : `algorithm` (`sha1` par défaut, `sha256` et `sha512` acceptés), `digits` (`6`), `period` (`30`) et `counter` pour le mode HOTP.
+
+Gardez `sha1` sauf si vous maîtrisez les deux extrémités : la plupart des applications d'authentification (Google Authenticator en tête) ignorent le champ `algorithm` de l'URI `otpauth://` et calculent toujours en SHA-1 — les codes affichés ne correspondraient alors pas aux vôtres. Ce n'est pas une faiblesse pour autant : HMAC-SHA1 n'est pas concerné par les [collisions SHA-1](/help/cryptography/hashing#collision).
 
 ## API HTTP {#http}
 
