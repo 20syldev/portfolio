@@ -39,12 +39,12 @@ const badgeSizes = {
     rectangle: { mobile: 160, desktop: 220, container: 240 },
 } as const;
 
-const badgeRounding = (item: Certification) =>
-    item.shape === "round"
-        ? "rounded-full"
-        : item.provider === "cisco"
-          ? "rounded-xl"
-          : "rounded-[2.5px]";
+const badgeRounding = (item: Certification) => {
+    if (item.shape === "round") return "rounded-full";
+    if (item.provider === "cisco") return "rounded-xl";
+    if (item.provider === "anthropic") return "rounded-lg";
+    return "rounded-[2.5px]";
+};
 
 const containerStyle = (item: Certification, ratio: string | undefined, size: number) => {
     if (item.shape === "round") return { width: size, height: size };
@@ -53,6 +53,17 @@ const containerStyle = (item: Certification, ratio: string | undefined, size: nu
     return { width: size, height: size };
 };
 
+const providerLabels: Record<Certification["provider"], string> = {
+    google: "Google Cloud",
+    cisco: "Cisco Networking Academy",
+    anthropic: "Claude Academy",
+};
+
+/**
+ * Number of badges to load with Next.js priority loading for faster initial render.
+ * Tooltip size in pixels for the tooltip image.
+ */
+const priorityCount = 6;
 const tooltipSize = 220;
 
 /**
@@ -86,9 +97,7 @@ export function GalleryTooltipContent({ cert }: { cert: Certification }) {
                 </div>
                 <div className="text-center space-y-1">
                     <p className="font-medium text-sm leading-tight">{cert.name}</p>
-                    <p className="text-xs text-muted-foreground">
-                        {cert.provider === "cisco" ? "Cisco Networking Academy" : "Google Cloud"}
-                    </p>
+                    <p className="text-xs text-muted-foreground">{providerLabels[cert.provider]}</p>
                     {cert.date && (
                         <p className="text-xs text-muted-foreground">Obtenu le {cert.date}</p>
                     )}
@@ -363,7 +372,7 @@ export function Gallery({
                                                             loaded={loaded.has(item.icon)}
                                                             priority={
                                                                 categoryIndex === 0 &&
-                                                                itemIndex === 0
+                                                                itemIndex < priorityCount
                                                             }
                                                             onLoad={(e) =>
                                                                 handleImageLoad(item.icon, e)
@@ -434,7 +443,7 @@ export function Gallery({
                                                             loaded={loaded.has(item.icon)}
                                                             priority={
                                                                 categoryIndex === 0 &&
-                                                                itemIndex === 0
+                                                                itemIndex < priorityCount
                                                             }
                                                             onLoad={(e) =>
                                                                 handleImageLoad(item.icon, e)
