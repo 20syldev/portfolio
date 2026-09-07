@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Certifications - Sylvain L.",
-    description: "Mes certifications Cisco Netacad et Google Cloud.",
+    description: "Mes certifications Claude Academy, Cisco Netacad et Google Cloud.",
     openGraph: {
         title: "Certifications - Sylvain L.",
-        description: "Mes certifications Cisco Netacad et Google Cloud.",
+        description: "Mes certifications Claude Academy, Cisco Netacad et Google Cloud.",
         type: "website",
     },
 };
