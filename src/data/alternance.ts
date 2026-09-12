@@ -180,6 +180,7 @@ export const projects: AlternanceProject[] = [
         poster: "/videos/zpki-poster.webp",
         github: "https://github.com/zenetys/zpki",
         link: "https://tools.zenetys.com/zpki",
+        projet: "zpki",
         sections: [
             {
                 title: "Fonctionnalités principales",
