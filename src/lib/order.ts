@@ -10,6 +10,7 @@ export const projectOrder: string[] = [
     "logger",
     "portfolio",
     "hyoai",
+    "zpki",
     "zeportal",
     "logvault",
     "wrkit",
