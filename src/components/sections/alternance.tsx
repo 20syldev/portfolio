@@ -249,10 +249,10 @@ export function Alternance() {
                                                         </Button>
                                                     </>
                                                 )}
-                                                {project.projet && (
+                                                {project.projectId && (
                                                     <>
                                                         <Link
-                                                            href={`/projet/${project.projet}`}
+                                                            href={`/projet/${project.projectId}`}
                                                             className="p-2 rounded-full hover:bg-muted transition-colors sm:hidden"
                                                         >
                                                             <BookOpen className="h-4 w-4" />
@@ -264,7 +264,7 @@ export function Alternance() {
                                                             className="hidden sm:inline-flex"
                                                         >
                                                             <Link
-                                                                href={`/projet/${project.projet}`}
+                                                                href={`/projet/${project.projectId}`}
                                                             >
                                                                 <BookOpen className="mr-2 h-4 w-4" />
                                                                 En savoir plus
