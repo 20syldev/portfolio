@@ -11,7 +11,7 @@ export interface AlternanceProject {
     iframe?: string;
     github?: string;
     link?: string;
-    projet?: string;
+    projectId?: string;
 }
 
 export const projects: AlternanceProject[] = [
@@ -25,7 +25,7 @@ export const projects: AlternanceProject[] = [
         poster: "/videos/hyoai-poster.webp",
         github: "https://github.com/zenetys/hyoai",
         link: "https://tools.zenetys.com/hyoai/",
-        projet: "hyoai",
+        projectId: "hyoai",
         sections: [
             {
                 title: "Une architecture 100% navigateur",
@@ -52,7 +52,7 @@ export const projects: AlternanceProject[] = [
         technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
         image: "/images/zeportal-demo.webp",
         link: "https://tools.zenetys.com",
-        projet: "zeportal",
+        projectId: "zeportal",
         sections: [
             {
                 title: "Une refonte de Vue vers Next.js",
@@ -104,7 +104,7 @@ export const projects: AlternanceProject[] = [
         technologies: ["Next.js", "Tailwind CSS", "TypeScript"],
         image: "/images/logvault-demo.webp",
         link: "https://logvault.io",
-        projet: "logvault",
+        projectId: "logvault",
         sections: [
             {
                 title: "Architecture data-driven",
@@ -180,7 +180,7 @@ export const projects: AlternanceProject[] = [
         poster: "/videos/zpki-poster.webp",
         github: "https://github.com/zenetys/zpki",
         link: "https://tools.zenetys.com/zpki",
-        projet: "zpki",
+        projectId: "zpki",
         sections: [
             {
                 title: "Fonctionnalités principales",
