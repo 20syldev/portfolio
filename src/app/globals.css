@@ -109,6 +109,20 @@
         background: oklch(0.6 0.2 280);
         color: white;
     }
+    p,
+    li,
+    figcaption,
+    blockquote {
+        text-wrap: pretty;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        text-wrap: balance;
+    }
 }
 
 /* Motion Preferences */
