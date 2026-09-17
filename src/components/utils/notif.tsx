@@ -28,7 +28,7 @@ function parseMarkdown(text: string): React.ReactNode[] {
                 <a
                     key={i}
                     href={linkMatch[2]}
-                    className="text-primary underline underline-offset-4 hover:text-primary/80 transition-colors"
+                    className="text-primary underline underline-offset-4 -mx-1.5 px-1.5 py-0.5 rounded-sm transition-colors hover:bg-primary hover:text-primary-foreground hover:no-underline focus-visible:bg-primary focus-visible:text-primary-foreground focus-visible:no-underline focus-visible:outline-none"
                 >
                     {linkMatch[1]}
                 </a>

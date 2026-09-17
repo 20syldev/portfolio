@@ -120,7 +120,7 @@ export function VeilleContent({ content }: VeilleContentProps) {
                                                 href={link.url}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="text-primary underline underline-offset-4 hover:text-primary/80 transition-colors text-sm"
+                                                className="text-primary underline underline-offset-4 -mx-1.5 px-1.5 py-0.5 rounded-sm transition-colors hover:bg-primary hover:text-primary-foreground hover:no-underline focus-visible:bg-primary focus-visible:text-primary-foreground focus-visible:no-underline focus-visible:outline-none text-sm"
                                             >
                                                 {link.text}
                                             </a>

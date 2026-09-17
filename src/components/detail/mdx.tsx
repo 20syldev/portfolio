@@ -108,7 +108,7 @@ export const mdxComponents = {
                 href={href}
                 target={anchor ? undefined : "_blank"}
                 rel={anchor ? undefined : "noopener noreferrer"}
-                className="text-primary underline underline-offset-4 hover:text-primary/80 transition-colors"
+                className="text-primary underline underline-offset-4 -mx-1.5 px-1.5 py-0.5 rounded-sm transition-colors hover:bg-primary hover:text-primary-foreground hover:no-underline focus-visible:bg-primary focus-visible:text-primary-foreground focus-visible:no-underline focus-visible:outline-none"
                 {...props}
             >
                 {children}
