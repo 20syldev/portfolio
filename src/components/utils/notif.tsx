@@ -4,6 +4,7 @@ import * as React from "react";
 
 import { Notification } from "@/components/ui/notification";
 import { useApi } from "@/hooks/api";
+import { linkStyles, linkTint } from "@/lib/styles";
 
 /**
  * Parses markdown syntax in a string and returns React nodes.
@@ -28,7 +29,8 @@ function parseMarkdown(text: string): React.ReactNode[] {
                 <a
                     key={i}
                     href={linkMatch[2]}
-                    className="text-primary underline underline-offset-4 -mx-1.5 px-1.5 py-0.5 rounded-sm transition-colors hover:bg-primary hover:text-primary-foreground hover:no-underline focus-visible:bg-primary focus-visible:text-primary-foreground focus-visible:no-underline focus-visible:outline-none"
+                    className={linkStyles}
+                    style={linkTint(linkMatch[1], linkMatch[2])}
                 >
                     {linkMatch[1]}
                 </a>

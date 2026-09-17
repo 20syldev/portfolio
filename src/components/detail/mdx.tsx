@@ -4,6 +4,7 @@ import { Check, Copy } from "lucide-react";
 import { type ComponentPropsWithoutRef, type ReactNode, useRef, useState } from "react";
 
 import { useDragScroll } from "@/hooks/scroll";
+import { linkStyles, linkTint } from "@/lib/styles";
 import { cn } from "@/lib/utils";
 
 /**
@@ -108,7 +109,8 @@ export const mdxComponents = {
                 href={href}
                 target={anchor ? undefined : "_blank"}
                 rel={anchor ? undefined : "noopener noreferrer"}
-                className="text-primary underline underline-offset-4 -mx-1.5 px-1.5 py-0.5 rounded-sm transition-colors hover:bg-primary hover:text-primary-foreground hover:no-underline focus-visible:bg-primary focus-visible:text-primary-foreground focus-visible:no-underline focus-visible:outline-none"
+                className={linkStyles}
+                style={linkTint(children, href)}
                 {...props}
             >
                 {children}

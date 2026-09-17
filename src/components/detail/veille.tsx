@@ -3,6 +3,9 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
+import { linkStyles, linkTint } from "@/lib/styles";
+import { cn } from "@/lib/utils";
+
 import { mdxComponents } from "./mdx";
 
 interface SourceCategory {
@@ -120,7 +123,8 @@ export function VeilleContent({ content }: VeilleContentProps) {
                                                 href={link.url}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="text-primary underline underline-offset-4 -mx-1.5 px-1.5 py-0.5 rounded-sm transition-colors hover:bg-primary hover:text-primary-foreground hover:no-underline focus-visible:bg-primary focus-visible:text-primary-foreground focus-visible:no-underline focus-visible:outline-none text-sm"
+                                                className={cn(linkStyles, "text-sm")}
+                                                style={linkTint(link.text, link.url)}
                                             >
                                                 {link.text}
                                             </a>
