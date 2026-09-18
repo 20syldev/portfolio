@@ -25,6 +25,17 @@ export function useMotion() {
 }
 
 /**
+ * Reads the motion preference without requiring a provider.
+ * Falls back to enabled when no provider is mounted, so a component rendered above
+ * MotionProvider keeps its default behaviour instead of throwing.
+ *
+ * @returns Whether motion is enabled
+ */
+export function useMotionEnabled() {
+    return React.useContext(MotionContext)?.enabled ?? true;
+}
+
+/**
  * Provider for motion/animations control.
  * Disables all CSS animations and transitions site-wide via Alt+M shortcut.
  * Persists state in localStorage.

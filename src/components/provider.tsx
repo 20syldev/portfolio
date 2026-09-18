@@ -9,7 +9,7 @@ import { FontDialog } from "@/components/dialogs/font";
 import { CursorProvider } from "@/components/utils/cursor";
 import { FontProvider } from "@/components/utils/font";
 import { KonamiProvider } from "@/components/utils/konami";
-import { MotionProvider } from "@/components/utils/motion";
+import { MotionProvider, useMotionEnabled } from "@/components/utils/motion";
 import { NotifProvider } from "@/components/utils/notif";
 import { ViewerProvider } from "@/components/utils/viewer";
 import { XrayProvider } from "@/components/utils/xray";
@@ -23,7 +23,11 @@ import { XrayProvider } from "@/components/utils/xray";
  * @returns The rendered provider with smooth scroll functionality
  */
 function LenisProvider({ children }: { children: React.ReactNode }) {
+    const motion = useMotionEnabled();
+
     useEffect(() => {
+        if (!motion) return;
+
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -43,7 +47,7 @@ function LenisProvider({ children }: { children: React.ReactNode }) {
             cancelAnimationFrame(rafId);
             lenis.destroy();
         };
-    }, []);
+    }, [motion]);
 
     return <>{children}</>;
 }
@@ -61,21 +65,21 @@ export function ThemeProvider({
 }: React.ComponentProps<typeof NextThemesProvider>) {
     return (
         <NextThemesProvider {...props}>
-            <LenisProvider>
-                <CursorProvider>
-                    <FontProvider>
-                        <FontDialog />
-                        <ViewerProvider>
-                            <KonamiProvider>
-                                <MotionProvider>
+            <MotionProvider>
+                <LenisProvider>
+                    <CursorProvider>
+                        <FontProvider>
+                            <FontDialog />
+                            <ViewerProvider>
+                                <KonamiProvider>
                                     <XrayProvider>{children}</XrayProvider>
-                                </MotionProvider>
-                            </KonamiProvider>
-                        </ViewerProvider>
-                    </FontProvider>
-                    <NotifProvider />
-                </CursorProvider>
-            </LenisProvider>
+                                </KonamiProvider>
+                            </ViewerProvider>
+                        </FontProvider>
+                        <NotifProvider />
+                    </CursorProvider>
+                </LenisProvider>
+            </MotionProvider>
         </NextThemesProvider>
     );
 }
