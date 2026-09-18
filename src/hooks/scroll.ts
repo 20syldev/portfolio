@@ -3,6 +3,7 @@
 import Lenis from "lenis";
 import { CSSProperties, useCallback, useEffect, useRef, useState } from "react";
 
+import { useMotionEnabled } from "@/components/utils/motion";
 import {
     Axis,
     clamp,
@@ -123,7 +124,6 @@ export function useScroll({
 
             containerRef.current?.classList.add("snap-moving");
 
-            // Not from an effect, so the transition starts in the same tick
             applyBase(clampedTab, clampedSection);
             isScrollingRef.current = true;
             setState({ currentTab: clampedTab, currentSection: clampedSection });
@@ -657,9 +657,11 @@ export function useSmoothScroll<T extends HTMLElement>({
     const lenisRef = useRef<Lenis | null>(null);
     const rafIdRef = useRef<number | null>(null);
     const observerRef = useRef<ResizeObserver | null>(null);
+    const motion = useMotionEnabled();
+    const active = enabled && motion;
 
     useEffect(() => {
-        if (!enabled) {
+        if (!active) {
             // Cleanup when disabled
             if (rafIdRef.current) {
                 cancelAnimationFrame(rafIdRef.current);
@@ -735,10 +737,26 @@ export function useSmoothScroll<T extends HTMLElement>({
                 lenisRef.current = null;
             }
         };
-    }, [enabled, delayed, delayDuration]);
+    }, [active, delayed, delayDuration]);
 
     const scrollTo = useCallback((target: string | HTMLElement, offset = 0) => {
-        lenisRef.current?.scrollTo(target, { offset });
+        if (lenisRef.current) {
+            lenisRef.current.scrollTo(target, { offset });
+            return;
+        }
+
+        const container = containerRef.current;
+        const element =
+            typeof target === "string" ? document.querySelector<HTMLElement>(target) : target;
+        if (!container || !element) return;
+
+        const top =
+            element.getBoundingClientRect().top -
+            container.getBoundingClientRect().top +
+            container.scrollTop +
+            offset;
+
+        container.scrollTo({ top, behavior: "auto" });
     }, []);
 
     return { scrollRef: containerRef, scrollTo };
