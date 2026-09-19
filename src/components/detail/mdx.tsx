@@ -45,7 +45,7 @@ export const mdxComponents = {
                 className="text-2xl font-semibold mt-10 mb-4 pt-6 border-t border-border first:border-t-0 first:mt-0 first:pt-0 scroll-mt-20"
                 {...props}
             >
-                {text}
+                <span className="target-mark">{text}</span>
             </h2>
         );
     },
@@ -57,7 +57,7 @@ export const mdxComponents = {
                 className="text-lg font-medium mt-6 mb-3 first:mt-0"
                 {...props}
             >
-                {text}
+                <span className="target-mark">{text}</span>
             </h3>
         );
     },
@@ -65,7 +65,7 @@ export const mdxComponents = {
         const { id, text } = parseHeadingId(children);
         return (
             <h4 id={id ?? undefined} className="text-base font-medium mt-4 mb-2" {...props}>
-                {text}
+                <span className="target-mark">{text}</span>
             </h4>
         );
     },
@@ -73,7 +73,7 @@ export const mdxComponents = {
         const { id, text } = parseHeadingId(children);
         return (
             <h5 id={id ?? undefined} className="text-sm font-medium mt-4 mb-2" {...props}>
-                {text}
+                <span className="target-mark">{text}</span>
             </h5>
         );
     },

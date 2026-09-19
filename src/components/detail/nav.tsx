@@ -2,7 +2,9 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
+import { useMotionEnabled } from "@/components/utils/motion";
 import { useDragScroll } from "@/hooks/scroll";
+import { markAnchor } from "@/lib/anchor";
 import { cn } from "@/lib/utils";
 
 interface Section {
@@ -63,6 +65,7 @@ export function DetailNav({
     const observer = useRef<IntersectionObserver | null>(null);
     const buttonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
     const scrollRef = useRef<HTMLDivElement>(null);
+    const motion = useMotionEnabled();
 
     useDragScroll(scrollRef, false);
 
@@ -155,6 +158,7 @@ export function DetailNav({
         } else {
             document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
         }
+        markAnchor(id, motion ? undefined : 0);
     };
 
     useEffect(() => {

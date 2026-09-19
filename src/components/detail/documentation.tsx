@@ -1,12 +1,14 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { type ReactNode, useEffect } from "react";
 
 import { DetailContent } from "@/components/detail/content";
 import { DetailNav } from "@/components/detail/nav";
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
+import { useMotionEnabled } from "@/components/utils/motion";
 import { useSmoothScroll } from "@/hooks/scroll";
+import { markAnchor } from "@/lib/anchor";
 import { tabs, urls } from "@/lib/nav";
 
 interface DocumentationProps {
@@ -25,6 +27,25 @@ interface DocumentationProps {
  */
 export function Documentation({ header, content }: DocumentationProps) {
     const { scrollRef, scrollTo } = useSmoothScroll<HTMLDivElement>();
+    const motion = useMotionEnabled();
+
+    useEffect(() => {
+        let cancel: (() => void) | undefined;
+
+        const mark = () => {
+            cancel?.();
+            const id = decodeURIComponent(window.location.hash.slice(1));
+            cancel = id ? markAnchor(id, motion ? undefined : 0) : undefined;
+        };
+
+        mark();
+        window.addEventListener("hashchange", mark);
+
+        return () => {
+            cancel?.();
+            window.removeEventListener("hashchange", mark);
+        };
+    }, [motion]);
 
     return (
         <div
