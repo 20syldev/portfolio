@@ -130,10 +130,50 @@
     .animate-sparkle {
         display: none;
     }
+    [data-marked] .target-mark {
+        animation: none;
+    }
     .snap-tabs,
     .snap-sections {
         transition: none;
     }
+}
+
+/* Anchor Target */
+@keyframes target-mark {
+    0% {
+        background-position: left center;
+        background-size: 0% 100%;
+    }
+    25% {
+        background-position: left center;
+        background-size: 100% 100%;
+    }
+    70% {
+        background-position: right center;
+        background-size: 100% 100%;
+    }
+    100% {
+        background-position: right center;
+        background-size: 0% 100%;
+    }
+}
+.target-mark {
+    border-radius: var(--radius-sm);
+    background-image: linear-gradient(
+        color-mix(in oklab, oklch(0.6 0.2 280) 40%, transparent),
+        color-mix(in oklab, oklch(0.6 0.2 280) 40%, transparent)
+    );
+    -webkit-box-decoration-break: clone;
+    background-position: left center;
+    background-repeat: no-repeat;
+    box-decoration-break: clone;
+    background-size: 0% 100%;
+    padding-inline: 0.375rem;
+    margin-inline: -0.375rem;
+}
+[data-marked] .target-mark {
+    animation: target-mark 2.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* Keyframes */
@@ -309,6 +349,9 @@
 }
 .no-motion .animate-sparkle {
     display: none !important;
+}
+.no-motion [data-marked] .target-mark {
+    animation: none !important;
 }
 
 /* Hover Effects */
