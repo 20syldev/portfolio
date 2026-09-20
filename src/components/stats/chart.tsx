@@ -149,20 +149,26 @@ function ChartSvg({
             {hovered !== null && (
                 <>
                     <line
-                        x1={x(hovered)}
-                        x2={x(hovered)}
+                        x1={0}
+                        x2={0}
                         y1={pad.top}
                         y2={pad.top + chartH}
                         stroke="var(--color-chart-1)"
                         strokeWidth={1}
                         strokeDasharray="4 4"
                         opacity={0.5}
+                        className="chart-track"
+                        style={{ transform: `translateX(${x(hovered)}px)` }}
                     />
                     <circle
-                        cx={x(hovered)}
-                        cy={y(weeks[hovered].total)}
+                        cx={0}
+                        cy={0}
                         r={4}
                         fill="var(--color-chart-1)"
+                        className="chart-track"
+                        style={{
+                            transform: `translate(${x(hovered)}px, ${y(weeks[hovered].total)}px)`,
+                        }}
                     />
                     {/* Tooltip background + text */}
                     {(() => {
@@ -174,34 +180,39 @@ function ChartSvg({
                         );
                         const ty = Math.max(pad.top, y(weeks[hovered].total) - tooltipH - 12);
                         return (
-                            <g>
-                                <rect
-                                    x={tx}
-                                    y={ty}
-                                    width={tooltipW}
-                                    height={tooltipH}
-                                    rx={6}
-                                    className="fill-card stroke-border"
-                                />
-                                <text
-                                    x={tx + tooltipW / 2}
-                                    y={ty + 14}
-                                    textAnchor="middle"
-                                    fontSize={10}
-                                    className="fill-muted-foreground"
-                                >
-                                    {formatWeekRange(weeks[hovered])}
-                                </text>
-                                <text
-                                    x={tx + tooltipW / 2}
-                                    y={ty + 28}
-                                    textAnchor="middle"
-                                    fontSize={11}
-                                    fontWeight={500}
-                                    className="fill-foreground"
-                                >
-                                    {weeks[hovered].total} contributions
-                                </text>
+                            <g
+                                className="chart-track"
+                                style={{ transform: `translate(${tx}px, ${ty}px)` }}
+                            >
+                                <g className="chart-tooltip">
+                                    <rect
+                                        x={0}
+                                        y={0}
+                                        width={tooltipW}
+                                        height={tooltipH}
+                                        rx={6}
+                                        className="fill-card stroke-border"
+                                    />
+                                    <text
+                                        x={tooltipW / 2}
+                                        y={14}
+                                        textAnchor="middle"
+                                        fontSize={10}
+                                        className="fill-muted-foreground"
+                                    >
+                                        {formatWeekRange(weeks[hovered])}
+                                    </text>
+                                    <text
+                                        x={tooltipW / 2}
+                                        y={28}
+                                        textAnchor="middle"
+                                        fontSize={11}
+                                        fontWeight={500}
+                                        className="fill-foreground"
+                                    >
+                                        {weeks[hovered].total} contributions
+                                    </text>
+                                </g>
                             </g>
                         );
                     })()}
@@ -345,29 +356,31 @@ export function Sparkline({
     const line = weeks.map((d, i) => `${i === 0 ? "M" : "L"} ${sx(i)} ${sy(d.total)}`).join(" ");
     const area = `${line} L ${sx(weeks.length - 1)} ${sy(0)} L ${sx(0)} ${sy(0)} Z`;
 
+    const xPct = (i: number) => (sx(i) / w) * 100;
+    const yPct = (val: number) => (sy(val) / h) * 100;
+
     return (
         <div className={`relative ${className || ""}`}>
             <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" className="w-full h-full">
                 <path d={area} fill="var(--color-chart-1)" opacity={0.15} />
-                <path d={line} fill="none" stroke="var(--color-chart-1)" strokeWidth={1.5} />
+                <path
+                    d={line}
+                    fill="none"
+                    stroke="var(--color-chart-1)"
+                    strokeWidth={1.5}
+                    vectorEffect="non-scaling-stroke"
+                />
                 {interactive && hovered !== null && (
-                    <>
-                        <line
-                            x1={sx(hovered)}
-                            x2={sx(hovered)}
-                            y1={0}
-                            y2={h}
-                            stroke="var(--color-chart-1)"
-                            strokeWidth={1}
-                            opacity={0.4}
-                        />
-                        <circle
-                            cx={sx(hovered)}
-                            cy={sy(weeks[hovered].total)}
-                            r={3}
-                            fill="var(--color-chart-1)"
-                        />
-                    </>
+                    <line
+                        x1={sx(hovered)}
+                        x2={sx(hovered)}
+                        y1={0}
+                        y2={h}
+                        stroke="var(--color-chart-1)"
+                        strokeWidth={1}
+                        opacity={0.4}
+                        vectorEffect="non-scaling-stroke"
+                    />
                 )}
                 {interactive &&
                     weeks.map((_, i) => (
@@ -384,15 +397,21 @@ export function Sparkline({
                     ))}
             </svg>
             {interactive && hovered !== null && (
-                <div
-                    className="absolute -top-8 pointer-events-none bg-card border rounded-md px-2 py-1 text-[10px] text-foreground shadow-sm whitespace-nowrap"
-                    style={{
-                        left: `${(hovered / (weeks.length - 1)) * 100}%`,
-                        transform: "translateX(-50%)",
-                    }}
-                >
-                    {weeks[hovered].total} contributions
-                </div>
+                <>
+                    <span
+                        className="chart-track absolute size-1.5 rounded-full bg-[var(--color-chart-1)] pointer-events-none -translate-x-1/2 -translate-y-1/2"
+                        style={{
+                            left: `${xPct(hovered)}%`,
+                            top: `${yPct(weeks[hovered].total)}%`,
+                        }}
+                    />
+                    <div
+                        className="chart-track chart-tooltip absolute -top-8 pointer-events-none bg-card border rounded-md px-2 py-1 text-[10px] text-foreground shadow-sm whitespace-nowrap -translate-x-1/2"
+                        style={{ left: `${xPct(hovered)}%` }}
+                    >
+                        {weeks[hovered].total} contributions
+                    </div>
+                </>
             )}
         </div>
     );
