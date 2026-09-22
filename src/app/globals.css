@@ -263,22 +263,22 @@
 
 @keyframes sparkle {
     0% {
-        opacity: 0;
         transform: scale(0) rotate(0deg) translate(0, 0);
+        opacity: 0;
     }
     20% {
-        opacity: 1;
         transform: scale(1.2) rotate(var(--sparkle-rot)) translate(0, 0);
+        opacity: 1;
     }
     50% {
-        opacity: 0.9;
         transform: scale(0.8) rotate(var(--sparkle-rot))
             translate(calc(var(--sparkle-dx) * 0.5), calc(var(--sparkle-dy) * 0.5));
+        opacity: 0.9;
     }
     100% {
-        opacity: 0;
         transform: scale(0) rotate(calc(var(--sparkle-rot) * 2))
             translate(var(--sparkle-dx), var(--sparkle-dy));
+        opacity: 0;
     }
 }
 
@@ -300,18 +300,18 @@
 }
 
 .animate-sparkle {
-    position: absolute;
+    clip-path: polygon(50% 0%, 60% 35%, 100% 50%, 60% 65%, 50% 100%, 40% 65%, 0% 50%, 40% 35%);
+    filter: drop-shadow(0 0 3px oklch(0.6 0.2 280 / 60%));
+    background: oklch(0.6 0.2 280);
     width: var(--sparkle-size, 10px);
     height: var(--sparkle-size, 10px);
-    pointer-events: none;
     animation: sparkle 0.8s ease-out both;
-    clip-path: polygon(50% 0%, 60% 35%, 100% 50%, 60% 65%, 50% 100%, 40% 65%, 0% 50%, 40% 35%);
-    background: oklch(0.6 0.2 280);
-    filter: drop-shadow(0 0 3px oklch(0.6 0.2 280 / 60%));
+    pointer-events: none;
+    position: absolute;
 }
 .dark .animate-sparkle {
-    background: oklch(0.95 0.02 280);
     filter: drop-shadow(0 0 4px oklch(0.85 0.15 280 / 70%));
+    background: oklch(0.95 0.02 280);
 }
 
 .animate-shine {
@@ -325,11 +325,11 @@
         currentColor 63%,
         currentColor 100%
     );
-    background-size: 300% 100%;
     background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     animation: shine 5s ease-in-out infinite;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: 300% 100%;
 }
 
 /* Custom cursor */
