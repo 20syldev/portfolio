@@ -139,25 +139,23 @@
     }
 }
 
-/* Anchor Target */
-@keyframes target-mark {
-    0% {
-        background-position: left center;
-        background-size: 0% 100%;
-    }
-    25% {
-        background-position: left center;
-        background-size: 100% 100%;
-    }
-    70% {
-        background-position: right center;
-        background-size: 100% 100%;
-    }
-    100% {
-        background-position: right center;
-        background-size: 0% 100%;
-    }
+/* No-Motion Mode */
+.no-motion *,
+.no-motion *::before,
+.no-motion *::after {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
 }
+.no-motion .animate-sparkle {
+    display: none !important;
+}
+.no-motion [data-marked] .target-mark {
+    animation: none !important;
+}
+
+/* Anchor Target */
 .target-mark {
     border-radius: var(--radius-sm);
     background-image: linear-gradient(
@@ -177,16 +175,6 @@
 }
 
 /* Charts */
-@keyframes tooltip-in {
-    from {
-        transform: translateY(3px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
 .chart-tooltip {
     animation: tooltip-in 140ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -282,6 +270,36 @@
     }
 }
 
+@keyframes target-mark {
+    0% {
+        background-position: left center;
+        background-size: 0% 100%;
+    }
+    25% {
+        background-position: left center;
+        background-size: 100% 100%;
+    }
+    70% {
+        background-position: right center;
+        background-size: 100% 100%;
+    }
+    100% {
+        background-position: right center;
+        background-size: 0% 100%;
+    }
+}
+
+@keyframes tooltip-in {
+    from {
+        transform: translateY(3px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 /* Animation Classes */
 .animate-header-in {
     animation: header-in 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -357,22 +375,6 @@
 }
 .xray * > * > * > * > * {
     outline-color: oklch(0.7 0.2 340 / 40%) !important;
-}
-
-/* No-Motion Mode */
-.no-motion *,
-.no-motion *::before,
-.no-motion *::after {
-    animation-duration: 0s !important;
-    animation-delay: 0s !important;
-    transition-duration: 0s !important;
-    transition-delay: 0s !important;
-}
-.no-motion .animate-sparkle {
-    display: none !important;
-}
-.no-motion [data-marked] .target-mark {
-    animation: none !important;
 }
 
 /* Hover Effects */
