@@ -128,14 +128,14 @@
 /* Motion Preferences */
 @media (prefers-reduced-motion: reduce) {
     .animate-sparkle {
-        display: none;
+        display: none !important;
     }
     [data-marked] .target-mark {
-        animation: none;
+        animation: none !important;
     }
     .snap-tabs,
     .snap-sections {
-        transition: none;
+        transition: none !important;
     }
 }
 
