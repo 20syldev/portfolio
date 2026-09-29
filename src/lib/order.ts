@@ -9,6 +9,7 @@ export const projectOrder: string[] = [
     "flowers",
     "logger",
     "portfolio",
+    "zwebsite",
     "hyoai",
     "zpki",
     "zeportal",
