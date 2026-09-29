@@ -137,7 +137,8 @@ export const parcours: ParcoursEntry[] = [
                 icon: "bot",
                 from: "septembre 2024",
                 to: "aujourd'hui",
-                description: "Bot Discord de la classe de BTS SIO, hébergé en continu",
+                description:
+                    "Bot Discord né pour la classe de BTS SIO, qui évolue en bot de travail générique",
                 link: "https://wrkit.sylvain.sh",
             },
             {
