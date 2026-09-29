@@ -75,7 +75,6 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     {projects.map((project) => {
                         const status = getProjectStatus(project.id);
-                        const hasGradient = status === "new" || status === "updated";
 
                         return (
                             <button
@@ -83,7 +82,7 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
                                 data-status={status ?? undefined}
                                 onClick={() => open(project)}
                                 className={`relative flex flex-col gap-2 rounded-lg p-4 text-left card-hover hover:cursor-pointer ${
-                                    hasGradient
+                                    status
                                         ? "gradient-border glow-hover"
                                         : "border bg-card transition-colors hover:bg-muted/50"
                                 } ${project.archived || project.paused ? "inactive" : ""}`}
