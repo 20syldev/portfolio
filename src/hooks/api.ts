@@ -25,9 +25,10 @@ type Versions = Record<string, string>;
 interface CachedData {
     stats: Stats | null;
     versions: Versions | null;
+    newProjects: string[];
     patchedProjects: string[];
     updatedProjects: string[];
-    newProjects: string[];
+    wipProjects: string[];
     notifTag: string | null;
     notifActive: boolean;
 }
@@ -38,9 +39,10 @@ let fetchPromise: Promise<CachedData> | null = null;
 const defaultData: CachedData = {
     stats: null,
     versions: null,
+    newProjects: [],
     patchedProjects: [],
     updatedProjects: [],
-    newProjects: [],
+    wipProjects: [],
     notifTag: null,
     notifActive: false,
 };
@@ -88,9 +90,10 @@ export function useApi(): CachedData & { loading: boolean } {
                               }
                             : null,
                         versions: api?.versions || null,
-                        patchedProjects: api?.patched_projects || [],
-                        updatedProjects: api?.updated_projects || [],
-                        newProjects: api?.new_projects || [],
+                        newProjects: api?.new || [],
+                        patchedProjects: api?.patched || [],
+                        updatedProjects: api?.updated || [],
+                        wipProjects: api?.wip || [],
                         notifTag: api?.tag || null,
                         notifActive: api?.active || false,
                     };
