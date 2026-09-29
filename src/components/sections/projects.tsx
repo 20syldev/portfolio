@@ -16,7 +16,7 @@ import { useApi } from "@/hooks/api";
 import { useCard } from "@/hooks/card";
 import { useStatus } from "@/hooks/status";
 
-/** Card height in pixels for row calculation */
+// Card height in pixels for row calculation
 const cardHeight = 124;
 
 /**

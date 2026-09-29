@@ -8,7 +8,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { darkInvertHueIcons, darkInvertIcons, techCategories } from "@/data/technologies";
 import { useDragScroll } from "@/hooks/scroll";
 
-/** Approximate height of one row of tech icons in the carousel */
+// Approximate height of one row of tech icons in the carousel
 const itemRowHeight = 100;
 
 /**
