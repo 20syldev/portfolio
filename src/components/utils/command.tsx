@@ -60,6 +60,7 @@ import { formatShortcut, getShortcut } from "@/data/shortcuts";
 import { veilles } from "@/data/veille";
 import { type ProjectStatus, useStatus } from "@/hooks/status";
 import { getCategoryName } from "@/lib/docs";
+import { projectPath } from "@/lib/projects";
 import { cn } from "@/lib/utils";
 
 const statusIcon: Record<Exclude<ProjectStatus, null>, React.ElementType> = {
@@ -517,7 +518,7 @@ export function CommandMenu() {
                     key={project.id}
                     value={project.name}
                     keywords={[project.description, ...project.tags]}
-                    onSelect={() => runCommand(() => router.push(`/projet/${project.id}`))}
+                    onSelect={() => runCommand(() => router.push(projectPath(project)))}
                     onMouseEnter={(e) =>
                         handleHover(e, {
                             title: project.name,
@@ -619,7 +620,7 @@ export function CommandMenu() {
                 key={project.id}
                 value={project.name}
                 keywords={[project.description, ...project.tags]}
-                onSelect={() => runCommand(() => router.push(`/projet/${project.id}`))}
+                onSelect={() => runCommand(() => router.push(projectPath(project)))}
                 onMouseEnter={(e) =>
                     handleHover(e, {
                         title: project.name,
