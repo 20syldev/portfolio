@@ -25,6 +25,16 @@ export function hasProjectContent(projectId: string): boolean {
 }
 
 /**
+ * Builds the internal URL of a project: its page when it has content, its card otherwise.
+ *
+ * @param project - The project to link to
+ * @returns The project page or card pathname
+ */
+export function projectPath(project: Project): string {
+    return project.hasContent ? `/projet/${project.id}` : `/card/${project.id}/`;
+}
+
+/**
  * Finds a project by its identifier.
  *
  * @param projectId - The unique project identifier
