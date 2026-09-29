@@ -99,7 +99,6 @@ export function Projects() {
                     >
                         {previewProjects.map((project) => {
                             const status = getProjectStatus(project.id);
-                            const hasGradient = status === "new" || status === "updated";
 
                             return (
                                 <button
@@ -107,7 +106,7 @@ export function Projects() {
                                     data-status={status ?? undefined}
                                     onClick={() => open(project)}
                                     className={`flex relative flex-col gap-2 rounded-lg p-4 text-left card-hover hover:cursor-pointer ${
-                                        hasGradient
+                                        status
                                             ? "gradient-border glow-hover"
                                             : "border bg-card transition-colors hover:bg-muted/50"
                                     } ${project.archived || project.paused ? "inactive" : ""}`}

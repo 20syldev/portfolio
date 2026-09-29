@@ -6,6 +6,7 @@ import {
     BookOpen,
     Briefcase,
     ChartBar,
+    Construction,
     FileText,
     FileUser,
     FolderOpen,
@@ -63,8 +64,9 @@ import { cn } from "@/lib/utils";
 
 const statusIcon: Record<Exclude<ProjectStatus, null>, React.ElementType> = {
     new: Sparkles,
-    updated: RefreshCw,
     patched: Wrench,
+    updated: RefreshCw,
+    wip: Construction,
 };
 
 type CommandItemConfig = {

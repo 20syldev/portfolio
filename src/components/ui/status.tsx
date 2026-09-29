@@ -1,4 +1,4 @@
-import { RefreshCw, Sparkles, Wrench } from "lucide-react";
+import { Construction, RefreshCw, Sparkles, Wrench } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { type ProjectStatus } from "@/hooks/status";
@@ -18,20 +18,25 @@ const config = {
         icon: Sparkles,
         className: "badge-new",
     },
-    updated: {
-        label: "Mis à jour",
-        icon: RefreshCw,
-        className: "badge-updated",
-    },
     patched: {
         label: "Patché",
         icon: Wrench,
         className: "badge-patched",
     },
+    updated: {
+        label: "Mis à jour",
+        icon: RefreshCw,
+        className: "badge-updated",
+    },
+    wip: {
+        label: "En cours",
+        icon: Construction,
+        className: "badge-wip",
+    },
 };
 
 /**
- * Displays a colored badge indicating the project status (new, updated, patched).
+ * Displays a colored badge indicating the project status (new, patched, updated, wip).
  *
  * @param props - Component props
  * @param props.status - Project status to display
