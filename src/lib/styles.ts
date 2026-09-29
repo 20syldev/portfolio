@@ -30,10 +30,11 @@ export const linkStyles = [
 
 /**
  * Signature violet, shared with the selection highlight and the sparkle trail.
- * Text colour for the tints that are too light to carry white.
+ * Text colour for the tints that are too light to carry white, kept to the dark theme
+ * where it still inverts the light link text.
  */
 const own = "oklch(0.55 0.2 280)";
-const ink = "#101010";
+const ink = "light-dark(#fff, #101010)";
 
 /**
  * Bubble colour per keyword, matched case-insensitively against the link label *and* its
@@ -47,16 +48,20 @@ const ink = "#101010";
  *
  * Foregrounds are picked from the measured WCAG contrast against each background, never
  * assumed: #42b883 and #17b8ce fail badly under white and need dark ink instead.
+ *
+ * Dark ink would not invert the already dark link text of the light theme, so those tints
+ * resolve through `light-dark()` to a deeper shade of the same hue that carries white
+ * (4.6:1), or to the brand's own dark variant when it has one, as PHP does.
  */
 const tints: ReadonlyArray<readonly [keyword: string, color: string, ink: string]> = [
     ["sylvain.sh", own, "#fff"],
     ["@20syldev", own, "#fff"],
-    ["zenetys", "#17b8ce", ink],
+    ["zenetys", "light-dark(#048192, #17b8ce)", ink],
     ["typescript", "#3178c6", "#fff"],
-    ["vue", "#42b883", ink],
+    ["vue", "light-dark(#068658, #42b883)", ink],
     ["node", "#43853d", "#fff"],
     ["react", "#087ea4", "#fff"],
-    ["php", "#777bb3", ink],
+    ["php", "light-dark(#4f5b93, #777bb3)", ink],
     ["npm", "#cb3837", "#fff"],
 ];
 
