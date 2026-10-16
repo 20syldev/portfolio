@@ -22,11 +22,13 @@ export const pdfs: Record<string, string> = {
     "/CV.pdf": "/cv/",
 };
 
-// Non-project redirects
+// Non-project redirects, including the short links of projects that were renamed
 const extraRedirects: Record<string, string> = {
     discord: "https://discord.com/users/607163002755481602",
     git: "https://github.com/20syldev",
     status: "https://status.sylvain.sh",
+    readme: "https://peek.sylvain.sh",
+    digit: "https://neuron.sylvain.sh",
 };
 
 // Redirects from sylvain.sh/[slug] to target URL
@@ -52,6 +54,8 @@ export function getRedirectTitle(slug: string): string {
         discord: "Discord",
         git: "GitHub",
         status: "Status",
+        readme: "Peek",
+        digit: "Neuron",
     };
     return extraNames[slug] || slug;
 }
