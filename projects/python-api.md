@@ -19,7 +19,7 @@ L'API était développée avec **Flask** et offrait plusieurs endpoints accessib
 - Génération de tokens sécurisés
 - Récupération de données diverses
 - Tous les endpoints étaient publics et sans limitation de requêtes
-- Hébergée 24h/7j avec une documentation sur [docs.sylvain.sh](https://docs.sylvain.sh)
+- Hébergée 24h/7j avec une documentation dédiée
 
 ## Exemples d'utilisation {#usage}
 
@@ -40,4 +40,4 @@ L'API Python a été remplacée par une version Node.js pour plusieurs raisons :
 - **Limitation de requêtes** : la nouvelle version intègre un système de rate limiting (2000 requêtes/heure) pour une meilleure stabilité
 - **Documentation** : migration vers VitePress pour une documentation plus complète et multilingue
 
-La version actuelle est disponible sur [api.sylvain.sh](https://api.sylvain.sh) avec sa documentation sur [docs.sylvain.sh](https://docs.sylvain.sh).
+La version actuelle s'appelle [Moxon](/projet/moxon) : elle est disponible sur [api.moxon.dev](https://api.moxon.dev) avec sa documentation sur [moxon.dev](https://moxon.dev).

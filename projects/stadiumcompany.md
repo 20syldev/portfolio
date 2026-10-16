@@ -134,7 +134,7 @@ dotnet watch
 
 L'interface web est construite avec Laravel 12 et Tailwind CSS, offrant un accès distant aux questionnaires depuis n'importe quel navigateur moderne.
 Laravel a été retenu pour son écosystème complet (authentification, ORM, migrations, API) et sa convention MVC qui structure naturellement le code sans configuration excessive.
-Elle complète l'application desktop en fournissant une vue centralisée des résultats et en exposant une [API REST](/projet/api#rest) consommée par la partie C#.
+Elle complète l'application desktop en fournissant une vue centralisée des résultats et en exposant une [API REST](/projet/moxon#rest) consommée par la partie C#.
 
 ### Architecture
 
@@ -169,7 +169,7 @@ Les formulaires sont validés côté serveur via les Form Requests de Laravel.
 
 ### API REST et interopérabilité
 
-L'application expose une [API REST](/projet/api#rest) sécurisée via Laravel Sanctum (système d'authentification par token API léger, adapté aux SPA et aux applications mobiles).
+L'application expose une [API REST](/projet/moxon#rest) sécurisée via Laravel Sanctum (système d'authentification par token API léger, adapté aux SPA et aux applications mobiles).
 Les endpoints permettent la lecture et l'écriture des questionnaires et résultats, assurant l'interopérabilité entre la partie web et l'application desktop C#.
 La base de données PostgreSQL est partagée entre les deux composantes du projet.
 

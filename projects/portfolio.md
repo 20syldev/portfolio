@@ -110,4 +110,4 @@ Certaines routes ne sont pas accessibles depuis la navigation principale, mais r
 - `/me` : ouvre le formulaire de contact directement, pratique pour partager le lien
 - `/cv` : affiche le CV en plein écran dans la visionneuse PDF intégrée
 - `/stats` : page de métriques en direct — latence API, FPS, temps de chargement, mémoire JS, nombre de nœuds DOM
-- `/discord`, `/git`, `/status` et chaque identifiant de projet (`/api`, `/docs`...)
+- `/discord`, `/git`, `/status` et chaque identifiant de projet (`/moxon`, `/docs`...)
