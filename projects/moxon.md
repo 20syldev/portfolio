@@ -129,7 +129,7 @@ L'instance qui tourne sur [api.moxon.dev](https://api.moxon.dev) est construite 
 Il expose, depuis une variable d'environnement, les données propres à ce portfolio — versions et statuts des projets, message de la bannière de notification — et ajoute à la même réponse le graphe de contributions GitHub, mis en cache pendant 10 minutes.
 Cette instance répond aussi sur `api.sylvain.sh`, mon domaine personnel, qui pointe vers le même serveur.
 
-Tout le reste — les plus de 40 endpoints publics et le rate limiting — vient du code du dépôt `moxondev/api`, sans modification ; la documentation, elle, a son propre projet ([Docs](/projet/docs)).
+Tout le reste — les plus de 40 endpoints publics et le rate limiting — vient du code du dépôt `moxondev/api`, sans modification ; la documentation, elle, a son propre projet ([Moxon Docs](/projet/docs)).
 Vous pouvez donc faire tourner chez vous la même API, à ce plugin près.
 
 ## Sécurité {#security}

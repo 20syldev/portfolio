@@ -1,64 +1,62 @@
 ---
-name: Docs
-description: La documentation de mon API, pour les développeurs.
-longDescription: "Documentation complète de l'API construite avec VitePress (Vue.js). Interface moderne avec Playground interactif, panneaux Try paramétrés, snippets multi-langages, support multi-versions (v1–v5) et bilingue."
-tags: ["Vue.js", "VitePress", "TypeScript", "CSS", "MD"]
-github: "https://github.com/20syldev/docs"
-demo: "https://docs.sylvain.sh"
+name: Moxon Docs
+description: La documentation de Moxon, mon API, pour les développeurs.
+longDescription: "Documentation de l'API Moxon construite avec Next.js : un panneau Try et un Playground qui appellent vraiment l'API, des exemples de code en quatre langages, une palette de recherche au clavier, les versions de la v1 à la v6 et une interface bilingue FR/EN avec thème clair, sombre ou système."
+tags: ["Next.js", "TypeScript", "Tailwind CSS", "Playground"]
+github: "https://github.com/moxondev/docs"
+demo: "https://moxon.dev"
 ---
 
 ## À propos {#about}
 
-Voici la documentation de mon [API personnelle](https://api.sylvain.sh), disponible sur [docs.sylvain.sh](https://docs.sylvain.sh).
-Elle couvre l'intégralité des endpoints avec des exemples interactifs, des snippets multi-langages et des guides d'intégration.
+Voici la documentation de [Moxon](/projet/moxon), mon API et package Node.js, disponible sur [moxon.dev](https://moxon.dev).
+Elle couvre plus de 40 endpoints répartis en catégories, avec de quoi les tester en direct, des exemples de code et les pages des versions précédentes de l'API.
 
 ## Fonctionnalités {#features}
 
-**Interface :**
+**Tester :**
 
-- **Playground** interactif pour tester chaque endpoint directement depuis la documentation, filtré selon la version active
-- **Panneau Try** par endpoint avec paramètres, validation et affichage des réponses (JSON, PNG, SVG)
-    - URL de l'endpoint cliquable vers la page de documentation
-    - Support des **paramètres de chemin** (ex. `:country`) résolus dynamiquement
-    - Inputs avec **placeholder contextuel** et bouton d'envoi désactivé tant que les champs requis sont vides
-- **Snippets multi-langages** générés automatiquement via `useCodeSnippets` — **cURL**, **JavaScript**, **Python** et **PHP**, corps POST en **JSON**
-- **Bouton de copie** injecté automatiquement sur chaque bloc de code
-- **Changelog** par version avec séparation changements API / documentation
+- **Panneau Try** sur les endpoints des versions v4 à v6 (hors `hyperplanning` en v6, déprécié) : un formulaire construit à partir des paramètres envoie une vraie requête à [api.moxon.dev](https://api.moxon.dev) et affiche le statut, la durée, la taille, les en-têtes et la réponse (JSON coloré, texte ou image)
+    - `Ctrl` + `Entrée` envoie la requête, et un champ obligatoire vide est signalé et reçoit le focus au clic, plutôt que de bloquer le bouton
+    - le `Retry-After` d'une réponse `429` est lu et affiché sous la forme « Réessayez dans N s »
+- **Playground** pour les versions v4 à v6, avec un sélecteur d'endpoint dont le choix est conservé dans l'adresse (`?endpoint=hash`) pour partager un lien direct
+- **Exemples de code** en **cURL**, **JavaScript**, **Python** et **PHP**, générés dans le panneau Try et le Playground à partir de la requête qui part vraiment, et sur chaque page à partir d'un exemple de la documentation
+- **Copie** en un clic d'un bloc de code, de l'URL de base ou, sur mobile, de la réponse, et « Copier en Markdown » pour reprendre une page entière depuis un ordinateur
 
-**Navigation :**
+**Naviguer :**
 
-- **Support multi-versions** : `v1`, `v2`, `v3`, `v4`, `v5` — chaque version reste accessible
-- **Sélecteur de version** dérivé automatiquement des fichiers sidebar — sans maintenance manuelle
-- **Bilingue** : interface disponible en `fr` et `en` via un système i18n à clés imbriquées
-- **Thème sombre** : mode clair et sombre intégré
-- **Recherche locale** : recherche instantanée dans toute la documentation
-- Sidebar avec **scroll automatique** vers le lien actif
+- **Palette de recherche** (`Ctrl` + `K` ou `/`) : un index MiniSearch par version et par langue, construit dans le navigateur, avec les filtres `post:` et `get:`, la recherche par route (`/uuid`) ou par code d'erreur HTTP (`429`), les cinq derniers résultats ouverts, une suggestion « vouliez-vous dire » et, sur ordinateur, un aperçu à côté des résultats
+- **Barre latérale** : filtre d'endpoints, catégories repliables avec leur compteur, méthodes `GET` et `POST` et pictogrammes de statut (expérimental, déprécié)
+- **Versions** de la v1 à la v6, avec un bandeau de migration sur la v5, un bandeau « version obsolète » sur la v4 et un bandeau « version retirée » sur les versions v1 à v3, qui ne sont plus servies par l'API
+- **Bilingue** : anglais à la racine, français sous `/fr/`, la langue du navigateur étant détectée à la première visite de la page d'accueil
+- **Thème** clair, sombre ou système, sans flash au chargement, avec des raccourcis clavier pour la langue, la version et le thème
+- **Mobile** : un menu en feuille plein écran et une barre « Essayer la requête » qui ouvre le panneau Try dans une feuille
+- **Anciennes adresses** : celles de l'ancien site redirigent vers les nouvelles, et la page 404 propose la recherche et une suggestion
+
+## Des pages en données {#content}
+
+Les pages ne sont plus écrites en Markdown : chaque page est un module TypeScript typé, composé de blocs (paragraphes, tableaux de paramètres et de champs, exemples, panneau Try, encarts) rendus par un jeu fixe de composants.
+Chaque texte porte sa version anglaise et sa version française, et un script de vérification échoue si une traduction manque.
+La navigation, la recherche, le Playground et les exemples de code sont tirés de ces mêmes modules, si bien que la route, la méthode et les paramètres d'un endpoint ne sont déclarés qu'une seule fois, sans registre séparé.
+
+## Pourquoi Next.js {#why}
+
+L'ancien site, construit avec VitePress, comptait près de 500 fichiers Markdown et un registre d'endpoints qui dupliquait les pages.
+Passer à Next.js m'a permis de déclarer la route et les paramètres de chaque endpoint une seule fois et d'en dériver le reste.
+Le revers, que je surveille avec un script qui mesure le poids du premier chargement, est qu'un runtime React pèse plus lourd qu'une page de texte.
 
 ## Stack technique {#tech}
 
-Construit avec **VitePress** (Vue.js) et **TypeScript**, le site utilise :
+Construit avec **Next.js 16** (App Router, export statique pour GitHub Pages), **React 19** et **TypeScript** en mode strict, le site utilise :
 
-- `useVersion` — composable pour la gestion des chemins selon la version courante
-- `useCodeSnippets` — génération dynamique des exemples de requêtes (cURL, JavaScript, Python, PHP)
-- Registre centralisé des **métadonnées d'endpoints** (Playground, Try, Features)
-- Système **i18n** avec clés imbriquées typées (`nav.home`, `features.geo`...)
-- Icônes **Lucide** avec classe utilitaire `.icon-inline` partagée
-- CSS organisé en `base` / `components` / `layout`, responsive **mobile-first**
+- **Tailwind CSS v4** et **shadcn/ui** (new-york, primitives Radix), avec une seule feuille de style globale et des tokens sémantiques
+- **next-intl** pour les textes de l'interface, un fichier JSON par espace de noms avec une parité FR/EN vérifiée, et **next-themes** pour le thème
+- **MiniSearch** pour la recherche, **cmdk** pour la palette, **vaul** pour les feuilles mobiles et **Lucide** pour les icônes
+- une **coloration syntaxique maison**, appliquée côté serveur aux blocs de code des pages et chargée dans le navigateur seulement avec le panneau Try, plutôt qu'une bibliothèque tierce
+- une identité encre et jaune (`#fde68a`), avec les polices Geist, Geist Mono et Bricolage Grotesque
+- plus de 700 tests via le runner natif de Node.js, et une commande `check` qui enchaîne les types, le lint, les liens et les traductions
 
-## Composants personnalisés {#components}
+## Déploiement {#deploy}
 
-La documentation utilise des composants Vue.js pour une meilleure présentation :
-
-- `<Endpoint>` — affichage formaté d'un endpoint avec méthode et URL
-- `<Method>` — badge coloré pour les méthodes HTTP (`GET`, `POST`, `PATCH`, `DELETE`)
-- `<Try>` — panneau interactif pour tester un endpoint avec ses paramètres
-- `<Panel>` — socle partagé du Try et du Playground : paramètres, snippets et réponse
-- `<Request>` — bloc de requête formaté avec badge de méthode
-- `<Examples>` — snippets de requête multi-langages générés dynamiquement
-- `<Playground>` — interface complète de test avec sélecteur d'endpoint
-- `<Terminal>` — simulation de terminal pour les exemples en ligne de commande
-- `<Features>` — cartes d'endpoints aléatoires sur la page d'accueil
-- `<Banner>` — bannières de migration sur les anciennes versions
-- `<Copy>` — injection des boutons de copie sur les blocs de code
-- `<Lang>` / `<Version>` / `<Extra>` — sélecteurs de langue, de version et menu du header
-- `<Layout>` / `<Footer>` / `<NotFound>` — habillage global, pied de page et page 404
+Le site est exporté en statique et publié sur GitHub Pages à chaque push sur `master`.
+Comme un export statique ne peut pas envoyer de redirection `301`, les anciennes adresses du site VitePress et leurs formes courtes sont des pages de redirection générées au build.
