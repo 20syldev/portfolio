@@ -39,7 +39,7 @@ const ink = "light-dark(#fff, #101010)";
 /**
  * Bubble colour per keyword, matched case-insensitively against the link label *and* its
  * hostname, so "TypeScript Handbook" is tinted wherever it points and a prose label such as
- * "la doc" still picks up its tint from `docs.sylvain.sh`.
+ * "la doc" still picks up its tint from `moxon.dev`.
  *
  * Matched in order, so the first entry wins for a link naming several ("Vue.js GitHub
  * Repository"). Every colour is the real brand colour: an approximation would not be
@@ -56,6 +56,7 @@ const ink = "light-dark(#fff, #101010)";
 const tints: ReadonlyArray<readonly [keyword: string, color: string, ink: string]> = [
     ["sylvain.sh", own, "#fff"],
     ["@20syldev", own, "#fff"],
+    ["moxon", own, "#fff"],
     ["zenetys", "light-dark(#048192, #17b8ce)", ink],
     ["typescript", "#3178c6", "#fff"],
     ["vue", "light-dark(#068658, #42b883)", ink],
