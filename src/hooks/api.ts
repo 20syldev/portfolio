@@ -22,13 +22,35 @@ interface Stats {
 
 type Versions = Record<string, string>;
 
+/**
+ * Statuses the site draws as a badge.
+ * "archived" also exists in the API but is read from the project frontmatter at build time,
+ * where it drives the sort order and the inactive style.
+ */
+const statusNames = ["new", "patched", "updated", "wip"] as const;
+
+export type StatusName = (typeof statusNames)[number];
+
+interface ApiProject {
+    label?: string;
+    status?: string;
+}
+
+interface ApiNotice {
+    tag?: string;
+    active?: boolean;
+}
+
+interface ApiResponse {
+    stats?: { activity?: ActivityWeek[] };
+    projects?: Record<string, ApiProject | null>;
+    notice?: ApiNotice;
+}
+
 interface CachedData {
     stats: Stats | null;
     versions: Versions | null;
-    newProjects: string[];
-    patchedProjects: string[];
-    updatedProjects: string[];
-    wipProjects: string[];
+    statuses: Record<string, StatusName>;
     notifTag: string | null;
     notifActive: boolean;
 }
@@ -39,19 +61,46 @@ let fetchPromise: Promise<CachedData> | null = null;
 const defaultData: CachedData = {
     stats: null,
     versions: null,
-    newProjects: [],
-    patchedProjects: [],
-    updatedProjects: [],
-    wipProjects: [],
+    statuses: {},
     notifTag: null,
     notifActive: false,
 };
 
 /**
- * Fetches and caches portfolio API data including stats, versions and project updates.
+ * Narrows a raw value from the API to a known status.
+ *
+ * @param value - Raw status name from the API
+ * @returns Whether the value is a known status
+ */
+function isStatus(value: unknown): value is StatusName {
+    return statusNames.some((name) => name === value);
+}
+
+/**
+ * Reads the version labels and statuses from the `projects` map of the API response.
+ * Entries without a label or with an unknown status simply contribute nothing.
+ *
+ * @param projects - Raw `projects` map, keyed by API project key
+ * @returns Version labels and statuses, both keyed by API project key
+ */
+function readProjects(
+    projects: ApiResponse["projects"]
+): Pick<CachedData, "versions" | "statuses"> {
+    const versions: Versions = {};
+    const statuses: Record<string, StatusName> = {};
+
+    for (const [key, project] of Object.entries(projects ?? {})) {
+        if (typeof project?.label === "string") versions[key] = project.label;
+        if (isStatus(project?.status)) statuses[key] = project.status;
+    }
+    return { versions, statuses };
+}
+
+/**
+ * Fetches and caches portfolio API data including stats, versions, project statuses and the notice.
  * Concurrent callers share a single in-flight request to avoid duplicate fetches.
  *
- * @returns API data with stats, versions, project lists and loading state
+ * @returns API data with stats, versions, project statuses, notice and loading state
  */
 export function useApi(): CachedData & { loading: boolean } {
     const [data, setData] = useState<CachedData>(cachedData || defaultData);
@@ -63,7 +112,7 @@ export function useApi(): CachedData & { loading: boolean } {
         if (!fetchPromise) {
             fetchPromise = fetch("https://api.sylvain.sh/latest/website")
                 .then((res) => res.json())
-                .then((api) => {
+                .then((api: ApiResponse | null) => {
                     const raw = api?.stats;
                     const activity: ActivityWeek[] = raw?.activity || [];
 
@@ -89,13 +138,9 @@ export function useApi(): CachedData & { loading: boolean } {
                                   activity,
                               }
                             : null,
-                        versions: api?.versions || null,
-                        newProjects: api?.new || [],
-                        patchedProjects: api?.patched || [],
-                        updatedProjects: api?.updated || [],
-                        wipProjects: api?.wip || [],
-                        notifTag: api?.tag || null,
-                        notifActive: api?.active || false,
+                        ...readProjects(api?.projects),
+                        notifTag: api?.notice?.tag || null,
+                        notifActive: api?.notice?.active || false,
                     };
                     return cachedData;
                 })
