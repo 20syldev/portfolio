@@ -80,9 +80,9 @@ npm run generate && next dev --hostname 0.0.0.0 --port 2146
 
 **Exemples :**
 
-- `sylvain.sh/api` - Redirection vers api.sylvain.sh
-- `sylvain.sh/card/api` - Carte du projet API
-- `sylvain.sh/projet/api` - Vue complète du projet API
+- `sylvain.sh/moxon` - Redirection vers api.moxon.dev
+- `sylvain.sh/card/moxon` - Carte du projet Moxon
+- `sylvain.sh/projet/moxon` - Vue complète du projet Moxon
 
 ---
 
