@@ -6,6 +6,7 @@ tags: ["Next.js", "TypeScript", "LLM", "Chat"]
 github: "https://github.com/zenetys/hyoai"
 demo: "https://tools.zenetys.com/hyoai/"
 article: "https://www.zenetys.com/hyoai-un-client-de-chat-ia-sans-backend-dans-le-navigateur/"
+work: true
 ---
 
 ## À propos {#about}

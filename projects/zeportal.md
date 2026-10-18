@@ -4,6 +4,7 @@ description: Portail centralisant les outils et démos web de ZENETYS, avec visi
 longDescription: "Portail Next.js centralisant les outils et démos web de ZENETYS. Chaque outil s'ouvre dans une visionneuse iframe intégrée ou dans un nouvel onglet selon son type, avec un registre configurable en JSON, une interface bilingue FR/EN et un thème clair/sombre."
 tags: ["Next.js", "TypeScript", "JSON", "Hub"]
 demo: "https://tools.zenetys.com"
+work: true
 ---
 
 ## À propos {#about}

@@ -5,6 +5,7 @@ longDescription: "Gestionnaire de PKI développé et open-sourcé par ZENETYS : 
 tags: ["Node.js", "Bash", "OpenSSL", "PKI"]
 github: "https://github.com/zenetys/zpki"
 demo: "https://tools.zenetys.com/zpki/"
+work: true
 ---
 
 ## À propos {#about}
