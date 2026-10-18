@@ -22,6 +22,7 @@ interface ProjectMeta {
     image?: string;
     archived?: boolean;
     paused?: boolean;
+    work?: boolean;
     lastUpdated?: string;
     version?: string;
 }
