@@ -10,7 +10,7 @@ work: true
 ## À propos {#about}
 
 Zenetys Tools est le portail qui centralise les outils et démos web de [ZENETYS](https://www.zenetys.com), disponible sur [tools.zenetys.com](https://tools.zenetys.com).
-Il regroupe au même endroit les applications maison — ZPKI, HYOAI et d'autres. Chaque outil s'ouvre dans une visionneuse intégrée au portail ou dans un nouvel onglet, selon son type.
+Il regroupe au même endroit les applications maison — ZPKI, HYOAI, Ztable et d'autres. Chaque outil s'ouvre dans une visionneuse intégrée au portail ou dans un nouvel onglet, selon son type.
 J'ai entièrement reconstruit son interface en la migrant de **Vue.js vers Next.js**.
 
 ## La refonte {#rework}
