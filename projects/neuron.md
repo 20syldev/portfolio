@@ -1,5 +1,5 @@
 ---
-name: neuron
+name: Neuron
 description: Essai interactif sur les réseaux de neurones, de l'encre au sens, sans serveur.
 longDescription: "Essai interactif sur les réseaux de neurones développé avec Next.js 16, React 19 et Tailwind CSS 4 : un chiffre manuscrit reconnu en direct par un réseau 784-256-256-10, puis l'attention d'un transformer expliquée au fil d'un essai de quinze chapitres. Tout le calcul se fait dans le navigateur, en français et en anglais."
 tags: ["Next.js", "TypeScript", "Neural Network", "Essay"]
@@ -9,7 +9,7 @@ demo: "https://neuron.sylvain.sh"
 
 ## À propos {#about}
 
-neuron est un essai interactif sur les réseaux de neurones, publié sur [neuron.sylvain.sh](https://neuron.sylvain.sh) sous le titre « De l'encre au sens ».
+Neuron est un essai interactif sur les réseaux de neurones, publié sur [neuron.sylvain.sh](https://neuron.sylvain.sh) sous le titre « De l'encre au sens ».
 Il montre d'abord comment un réseau reconnaît un chiffre dessiné à la main, puis comment un transformer lit une phrase en décidant quels mots s'écoutent.
 Tout tourne dans le navigateur : pas de serveur, pas de compte, aucune donnée envoyée. Il remplace l'ancien projet **digit**, un petit réseau de neurones en JavaScript qui reconnaissait les chiffres manuscrits.
 
@@ -61,7 +61,7 @@ L'essai est disponible en **anglais** (servi à `/`) et en **français** (servi 
 
 ## Stack technique {#tech}
 
-Construit avec **Next.js 16** (App Router, export statique), **React 19** et **TypeScript strict**, neuron utilise **Tailwind CSS v4** et **shadcn/ui** (new-york, primitives Radix via `radix-ui`).
+Construit avec **Next.js 16** (App Router, export statique), **React 19** et **TypeScript strict**, Neuron utilise **Tailwind CSS v4** et **shadcn/ui** (new-york, primitives Radix via `radix-ui`).
 S'y ajoutent next-intl pour les deux langues (`localePrefix: "as-needed"`, sans middleware), next-themes et lucide-react.
 Les polices Bricolage Grotesque, Manrope et Geist Mono sont auto-hébergées par `next/font/google` au build.
 
