@@ -1,0 +1,56 @@
+/* Base */
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+        scrollbar-color: oklch(0.7 0 0 / 30%) transparent;
+        scrollbar-width: thin;
+    }
+    html,
+    body {
+        @apply bg-background text-foreground;
+        overflow: hidden;
+        height: 100%;
+    }
+    ::selection {
+        background: oklch(0.6 0.2 280);
+        color: white;
+    }
+    p,
+    li,
+    figcaption,
+    blockquote {
+        text-wrap: pretty;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        text-wrap: balance;
+    }
+}
+
+/* Anchor Scroll Margin */
+[id] {
+    scroll-margin-top: 150px;
+}
+
+/* Anchor Target */
+.target-mark {
+    border-radius: var(--radius-sm);
+    background-image: linear-gradient(
+        color-mix(in oklab, oklch(0.6 0.2 280) 40%, transparent),
+        color-mix(in oklab, oklch(0.6 0.2 280) 40%, transparent)
+    );
+    -webkit-box-decoration-break: clone;
+    background-position: left center;
+    background-repeat: no-repeat;
+    box-decoration-break: clone;
+    background-size: 0% 100%;
+    padding-inline: 0.375rem;
+    margin-inline: -0.375rem;
+}
+[data-marked] .target-mark {
+    animation: target-mark 2.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}

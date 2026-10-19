@@ -1,0 +1,26 @@
+/* Custom cursor */
+.cursor-none {
+    cursor: none !important;
+}
+.cursor-none *,
+.cursor-none *::before,
+.cursor-none *::after {
+    cursor: none !important;
+}
+
+/* X-Ray Mode */
+.xray * {
+    outline: 1px solid oklch(0.7 0.2 280 / 40%) !important;
+}
+.xray * > * {
+    outline-color: oklch(0.7 0.2 200 / 40%) !important;
+}
+.xray * > * > * {
+    outline-color: oklch(0.7 0.2 140 / 40%) !important;
+}
+.xray * > * > * > * {
+    outline-color: oklch(0.7 0.2 60 / 40%) !important;
+}
+.xray * > * > * > * > * {
+    outline-color: oklch(0.7 0.2 340 / 40%) !important;
+}

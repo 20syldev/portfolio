@@ -1,0 +1,42 @@
+/* Scrollbar Utilities */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+    display: none;
+}
+
+/* Webkit Scrollbar */
+::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: oklch(0.7 0 0 / 30%);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.6 0 0 / 50%);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: oklch(0.5 0 0 / 30%);
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.6 0 0 / 50%);
+}
+.dark * {
+    scrollbar-color: oklch(0.5 0 0 / 30%) transparent;
+}
