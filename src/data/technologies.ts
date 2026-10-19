@@ -13,6 +13,32 @@ export const darkInvertIcons = [
 // Icons requiring a hue rotation filter in dark mode
 export const darkInvertHueIcons = ["YAML"];
 
+// Favorites of the moment: they get a golden tooltip and a burst of confetti on hover
+export const favoriteTechs = [
+    "TypeScript",
+    "Next.js",
+    "Node.js",
+    "Tailwind CSS",
+    "SQLite",
+    "PostgreSQL",
+    "VS Code",
+    "Vim",
+    "Git",
+    "JSON",
+    "Linux",
+    "npm",
+];
+
+/**
+ * Tells whether a technology is one of the favorites of the moment.
+ *
+ * @param name - Technology name, as written in the tech categories
+ * @returns True if the technology is a favorite
+ */
+export function isFavoriteTech(name: string): boolean {
+    return favoriteTechs.includes(name);
+}
+
 // Categorized tech stack displayed on the /technologies page
 export const techCategories = [
     {
