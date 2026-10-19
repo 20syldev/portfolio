@@ -1,5 +1,5 @@
 /**
- * Animation length, kept in sync with the `target-mark` keyframes in globals.css.
+ * Animation length, kept in sync with the `target-mark` keyframes in appearance/motion.css.
  * Time the smooth scroll needs to settle before the mark is worth watching.
  */
 const duration = 2800;
