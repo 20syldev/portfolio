@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 import { projects } from "@/data/projects";
+import { renamedProjects } from "@/data/redirects";
 import { getProject, getProjectContent } from "@/lib/projects";
 
 import { Doc } from "./doc";
@@ -14,15 +15,21 @@ interface Props {
 
 /**
  * Generates static parameters for all project documentation pages at build time.
+ * The former IDs of renamed projects are included, they redirect to the current page.
  *
  * @returns Array of project ID parameter objects for projects with content
  */
 export async function generateStaticParams() {
-    return projects.filter((p) => p.hasContent).map((p) => ({ id: p.id }));
+    const current = projects.filter((p) => p.hasContent).map((p) => p.id);
+    const former = Object.entries(renamedProjects)
+        .filter(([, id]) => current.includes(id))
+        .map(([oldId]) => oldId);
+    return [...current, ...former].map((id) => ({ id }));
 }
 
 /**
  * Generates metadata for the project documentation page.
+ * A former ID of a renamed project only gets a placeholder title, as its page redirects.
  *
  * @param props - Page props
  * @param props.params - Dynamic route parameters containing the project ID
@@ -31,6 +38,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { id } = await params;
     const project = getProject(id);
+
+    if (renamedProjects[id]) {
+        return { title: "Redirection..." };
+    }
 
     if (!project) {
         return { title: "Projet non trouvé" };
@@ -49,6 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 /**
  * Full-page project documentation view with sidebar navigation.
+ * A former ID of a renamed project redirects to the page of its current ID.
  *
  * @param props - Page props
  * @param props.params - Dynamic route parameters containing the project ID
@@ -56,6 +68,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
  */
 export default async function Page({ params }: Props) {
     const { id } = await params;
+    if (renamedProjects[id]) redirect(`/projet/${renamedProjects[id]}`);
+
     const project = getProject(id);
     const content = getProjectContent(id);
 
