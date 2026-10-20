@@ -1,6 +1,6 @@
 ---
 name: WrkIT
-description: Bot Discord de travail générique, en cours de refonte.
+description: Bot Discord né pour la classe de BTS SIO, devenu un bot de travail générique en cours de refonte.
 longDescription: "Bot Discord de travail générique, hébergé 24h/7j et en cours de refonte. Création d'embeds, gestion des événements et des messages, avec un statut dynamique. Développé en TypeScript avec Discord.js."
 tags: ["Node.js", "Discord.js", "TypeScript"]
 github: "https://github.com/20syldev/WrkIT"

@@ -1,6 +1,6 @@
 ---
 name: StadiumCompany
-description: "Application de gestion de questionnaires en double plateforme."
+description: "Projet Personnel Encadré : application de gestion de questionnaires en double plateforme."
 longDescription: "Application complète de gestion de questionnaires développée en C# (Avalonia UI) et PHP (Laravel), partageant une base PostgreSQL. Projet réalisé dans le cadre du PPE BTS SIO SLAM."
 tags: ["C#", "PHP", "PostgreSQL", "Avalonia", "Laravel", "Vue.js"]
 github: "https://github.com/20syldev/stadiumcompany"

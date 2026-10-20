@@ -1,6 +1,6 @@
 ---
 name: Planning
-description: Interface de planning HyperPlanning.
+description: Interface de planning HyperPlanning pour les SLAM et SISR.
 longDescription: Interface personnalisée pour consulter les emplois du temps HyperPlanning. Navigation fluide jour/semaine avec sauvegarde des préférences.
 tags: ["HTML", "CSS", "JS"]
 github: "https://github.com/20syldev/planning"
