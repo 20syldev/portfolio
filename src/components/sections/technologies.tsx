@@ -4,12 +4,50 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { FavoriteTip } from "@/components/ui/favorite";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { darkInvertHueIcons, darkInvertIcons, techCategories } from "@/data/technologies";
+import {
+    darkInvertHueIcons,
+    darkInvertIcons,
+    isFavoriteTech,
+    techCategories,
+} from "@/data/technologies";
 import { useDragScroll } from "@/hooks/scroll";
 
 // Approximate height of one row of tech icons in the carousel
 const itemRowHeight = 100;
+
+const mobileLinkClass =
+    "rounded-lg hover:bg-muted/50 transition-colors w-16 h-16 flex items-center justify-center";
+const desktopLinkClass = "p-1.5 rounded-lg hover:bg-muted transition-colors";
+
+/**
+ * Icon of a technology, inverted or hue-rotated in dark mode when it needs it.
+ *
+ * @param props - Component props
+ * @param props.name - Technology name, used as the alternative text
+ * @param props.icon - Path of the icon file
+ * @param props.large - When true, renders the larger size used in the mobile carousel
+ * @returns The rendered icon
+ */
+function TechIcon({ name, icon, large }: { name: string; icon: string; large?: boolean }) {
+    const size = large ? 36 : 24;
+    const filter = darkInvertIcons.includes(name)
+        ? "dark:invert"
+        : darkInvertHueIcons.includes(name)
+          ? "invert-hue"
+          : "";
+
+    return (
+        <Image
+            src={icon}
+            alt={name}
+            width={size}
+            height={size}
+            className={`${large ? "w-9 h-9" : "w-6 h-6"} ${filter}`}
+        />
+    );
+}
 
 /**
  * Hook to calculate how many tech items fit in the carousel based on viewport height.
@@ -40,6 +78,7 @@ function useTechCarousel() {
  * Displays all technologies organized by category with icons.
  * Mobile: carousel with one category at a time showing icons + names.
  * Desktop: grid layout with all categories visible.
+ * Favorite technologies are rendered through FavoriteTip, with a golden tooltip and confetti.
  *
  * @param props - Component props
  * @param props.preview - When true, renders a condensed version for homepage preview (default: false)
@@ -99,21 +138,26 @@ export function Technologies({ preview }: { preview?: boolean }) {
                                             key={tech.name}
                                             className="flex flex-col items-center gap-1.5 p-2"
                                         >
-                                            <a
-                                                href={tech.url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="rounded-lg hover:bg-muted/50 transition-colors w-16 h-16 flex items-center justify-center"
-                                                aria-label={tech.name}
-                                            >
-                                                <Image
-                                                    src={tech.icon}
-                                                    alt={tech.name}
-                                                    width={36}
-                                                    height={36}
-                                                    className={`w-9 h-9 ${darkInvertIcons.includes(tech.name) ? "dark:invert" : darkInvertHueIcons.includes(tech.name) ? "invert-hue" : ""}`}
-                                                />
-                                            </a>
+                                            {isFavoriteTech(tech.name) ? (
+                                                <FavoriteTip
+                                                    name={tech.name}
+                                                    href={tech.url}
+                                                    className={mobileLinkClass}
+                                                    label={tech.name}
+                                                >
+                                                    <TechIcon {...tech} large />
+                                                </FavoriteTip>
+                                            ) : (
+                                                <a
+                                                    href={tech.url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className={mobileLinkClass}
+                                                    aria-label={tech.name}
+                                                >
+                                                    <TechIcon {...tech} large />
+                                                </a>
+                                            )}
                                             <span className="text-xs text-muted-foreground text-center leading-tight">
                                                 {tech.name}
                                             </span>
@@ -171,29 +215,34 @@ export function Technologies({ preview }: { preview?: boolean }) {
                                     {category.name}
                                 </h3>
                                 <div className="flex flex-wrap justify-center gap-1.5">
-                                    {category.items.map((tech) => (
-                                        <Tooltip key={tech.name}>
-                                            <TooltipTrigger asChild>
-                                                <a
-                                                    href={tech.url}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="p-1.5 rounded-lg hover:bg-muted transition-colors"
-                                                >
-                                                    <Image
-                                                        src={tech.icon}
-                                                        alt={tech.name}
-                                                        width={24}
-                                                        height={24}
-                                                        className={`w-6 h-6 ${darkInvertIcons.includes(tech.name) ? "dark:invert" : darkInvertHueIcons.includes(tech.name) ? "invert-hue" : ""}`}
-                                                    />
-                                                </a>
-                                            </TooltipTrigger>
-                                            <TooltipContent>
-                                                <p>{tech.name}</p>
-                                            </TooltipContent>
-                                        </Tooltip>
-                                    ))}
+                                    {category.items.map((tech) =>
+                                        isFavoriteTech(tech.name) ? (
+                                            <FavoriteTip
+                                                key={tech.name}
+                                                name={tech.name}
+                                                href={tech.url}
+                                                className={desktopLinkClass}
+                                            >
+                                                <TechIcon {...tech} />
+                                            </FavoriteTip>
+                                        ) : (
+                                            <Tooltip key={tech.name}>
+                                                <TooltipTrigger asChild>
+                                                    <a
+                                                        href={tech.url}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className={desktopLinkClass}
+                                                    >
+                                                        <TechIcon {...tech} />
+                                                    </a>
+                                                </TooltipTrigger>
+                                                <TooltipContent>
+                                                    <p>{tech.name}</p>
+                                                </TooltipContent>
+                                            </Tooltip>
+                                        )
+                                    )}
                                 </div>
                             </div>
                         ))}
