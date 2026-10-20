@@ -1,0 +1,53 @@
+/* Confetti */
+.confetti-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    overflow: hidden;
+    pointer-events: none;
+}
+.confetti {
+    position: absolute;
+    width: var(--confetti-size, 8px);
+    height: var(--confetti-size, 8px);
+    background: var(--confetti-color, oklch(0.82 0.16 88));
+    animation: confetti 1s cubic-bezier(0.2, 0.7, 0.4, 1) both;
+    will-change: transform, opacity;
+}
+.confetti-star {
+    clip-path: polygon(50% 0%, 60% 35%, 100% 50%, 60% 65%, 50% 100%, 40% 65%, 0% 50%, 40% 35%);
+    width: calc(var(--confetti-size, 8px) * 1.6);
+    height: calc(var(--confetti-size, 8px) * 1.6);
+}
+.confetti-chip {
+    width: calc(var(--confetti-size, 8px) * 0.55);
+    height: calc(var(--confetti-size, 8px) * 1.2);
+    border-radius: 1px;
+}
+.confetti-dot {
+    border-radius: 50%;
+    box-shadow: 0 0 5px var(--confetti-color, oklch(0.82 0.16 88));
+}
+
+/* Favorite Tooltip */
+.favorite-tip {
+    color: oklch(0.3 0.07 70);
+    background: linear-gradient(135deg, oklch(0.98 0.04 98), oklch(0.92 0.11 92));
+    box-shadow: 0 6px 16px -6px oklch(0.75 0.16 80 / 45%);
+}
+.favorite-tip .fill-foreground {
+    fill: oklch(0.92 0.11 92);
+    background: oklch(0.92 0.11 92);
+}
+.dark .favorite-tip {
+    color: oklch(0.95 0.06 95);
+    background: linear-gradient(135deg, oklch(0.3 0.05 85), oklch(0.22 0.04 80));
+    box-shadow: 0 0 18px -6px oklch(0.8 0.16 88 / 40%);
+}
+.dark .favorite-tip .fill-foreground {
+    fill: oklch(0.22 0.04 80);
+    background: oklch(0.22 0.04 80);
+}
+[data-favorite][data-state$="open"] {
+    background-image: radial-gradient(circle, oklch(0.92 0.12 95 / 28%), transparent 75%);
+}

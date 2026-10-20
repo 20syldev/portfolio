@@ -1,6 +1,7 @@
 /* Motion Preferences */
 @media (prefers-reduced-motion: reduce) {
-    .animate-sparkle {
+    .animate-sparkle,
+    .confetti-layer {
         display: none !important;
     }
     [data-marked] .target-mark {
@@ -21,7 +22,8 @@
     transition-duration: 0s !important;
     transition-delay: 0s !important;
 }
-.no-motion .animate-sparkle {
+.no-motion .animate-sparkle,
+.no-motion .confetti-layer {
     display: none !important;
 }
 .no-motion [data-marked] .target-mark {
@@ -89,6 +91,31 @@
     70%,
     100% {
         background-position: 0% center;
+    }
+}
+
+@keyframes confetti {
+    0% {
+        transform: translate(-50%, -50%) translate(0, 0) scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        transform: translate(-50%, -50%)
+            translate(calc(var(--confetti-dx) * 0.3), calc(var(--confetti-dy) * 0.3)) scale(1.2)
+            rotate(calc(var(--confetti-rot) * 0.15));
+        opacity: 1;
+    }
+    45% {
+        transform: translate(-50%, -50%)
+            translate(calc(var(--confetti-dx) * 0.9), var(--confetti-dy)) scale(1)
+            rotate(calc(var(--confetti-rot) * 0.55));
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%)
+            translate(var(--confetti-dx), calc(var(--confetti-dy) + var(--confetti-fall)))
+            scale(0.7) rotate(var(--confetti-rot));
+        opacity: 0;
     }
 }
 

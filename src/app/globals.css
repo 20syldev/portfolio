@@ -5,6 +5,7 @@
 @import "./appearance/base.css";
 @import "./appearance/motion.css";
 @import "./appearance/card.css";
+@import "./appearance/favorite.css";
 @import "./appearance/mode.css";
 @import "./appearance/snap.css";
 @import "./appearance/scrollbar.css";
