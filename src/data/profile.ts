@@ -1,3 +1,16 @@
+// Year each activity started, as stated on LinkedIn
+const startedIn = { frontend: 2016, backend: 2018 };
+
+/**
+ * Formats the number of years elapsed between a given year and the current one.
+ *
+ * @param year - Year the activity started
+ * @returns The duration in French, e.g. "10 ans"
+ */
+function yearsSince(year: number): string {
+    return `${new Date().getFullYear() - year} ans`;
+}
+
 // Main profile data (identity, education, experience, links)
 export const profile = {
     name: "Sylvain L.",
@@ -14,8 +27,8 @@ export const profile = {
         email: "slambert@zenetys.com",
     },
     experience: {
-        frontend: "8 ans",
-        backend: "5 ans",
+        frontend: yearsSince(startedIn.frontend),
+        backend: yearsSince(startedIn.backend),
     },
     links: {
         github: "https://github.com/20syldev",
