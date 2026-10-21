@@ -15,7 +15,6 @@ import { Video } from "@/components/ui/video";
 import { projects } from "@/data/alternance";
 import { articles, blog } from "@/data/articles";
 import { contributions } from "@/data/contributions";
-import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
 import { useDragScroll, useSmoothScroll } from "@/hooks/scroll";
 import { isOnScreen } from "@/lib/gesture";
@@ -216,9 +215,9 @@ export function Alternance() {
                                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                                         <CardTitle className="text-xl">{project.title}</CardTitle>
                                         <div className="flex items-center gap-2 flex-wrap">
-                                            {versions?.[getApiKey(project.id)] && (
+                                            {versions?.[project.id] && (
                                                 <Badge variant="outline" className="text-xs">
-                                                    {versions[getApiKey(project.id)]}
+                                                    {versions[project.id]}
                                                 </Badge>
                                             )}
                                             <div className="flex items-center gap-2">

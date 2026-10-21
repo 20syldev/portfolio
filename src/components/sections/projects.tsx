@@ -11,7 +11,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { StatusBadge } from "@/components/ui/status";
 import { Tags } from "@/components/ui/tags";
 import { projects } from "@/data/projects";
-import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
 import { useCard } from "@/hooks/card";
 import { useStatus } from "@/hooks/status";
@@ -83,8 +82,7 @@ export function Projects() {
 
     const getVersion = (projectId: string): string | undefined => {
         if (!versions) return undefined;
-        const apiKey = getApiKey(projectId);
-        return versions[apiKey];
+        return versions[projectId];
     };
 
     const previewProjects = projects.slice(0, count);
