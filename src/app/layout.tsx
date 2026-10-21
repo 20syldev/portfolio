@@ -14,6 +14,7 @@ import {
 
 import { ThemeProvider } from "@/components/provider";
 import { CommandProvider } from "@/components/utils/command";
+import { profile } from "@/data/profile";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -81,11 +82,12 @@ const fira = Fira_Code({
     weight: ["400", "500", "700"],
 });
 
+const experience = `Développeur Front-end depuis ${profile.experience.frontend} et Back-end depuis ${profile.experience.backend}.`;
+
 export const metadata: Metadata = {
     metadataBase: new URL("https://sylvain.sh"),
     title: "Sylvain L. - Développeur Full Stack",
-    description:
-        "Développeur Front-end depuis 8 ans et Back-end depuis 5 ans. Portfolio présentant mes projets et compétences.",
+    description: `${experience} Portfolio présentant mes projets et compétences.`,
     keywords: ["développeur", "full stack", "web", "react", "node.js", "javascript"],
     authors: [{ name: "Sylvain L." }],
     alternates: {
@@ -101,7 +103,7 @@ export const metadata: Metadata = {
     manifest: "/site.webmanifest",
     openGraph: {
         title: "Sylvain L. - Développeur Full Stack",
-        description: "Développeur Front-end depuis 8 ans et Back-end depuis 5 ans.",
+        description: experience,
         url: "https://sylvain.sh",
         siteName: "Sylvain L.",
         locale: "fr_FR",
@@ -111,7 +113,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "Sylvain L. - Développeur Full Stack",
-        description: "Développeur Front-end depuis 8 ans et Back-end depuis 5 ans.",
+        description: experience,
         images: ["/images/card.png"],
     },
 };
@@ -124,8 +126,7 @@ const jsonLd = {
             "@id": "https://sylvain.sh/#website",
             url: "https://sylvain.sh",
             name: "Sylvain L.",
-            description:
-                "Développeur Front-end depuis 8 ans et Back-end depuis 5 ans. Portfolio présentant mes projets et compétences.",
+            description: `${experience} Portfolio présentant mes projets et compétences.`,
             inLanguage: "fr-FR",
             author: { "@id": "https://sylvain.sh/#person" },
         },
