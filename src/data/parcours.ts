@@ -4,11 +4,10 @@ export interface ParcoursProject {
     repo: string;
     branch: string;
     icon: string;
-    description: string;
+    description?: string;
     from?: string;
     to?: string;
     tags?: string[];
-    link?: string;
 }
 
 export interface ParcoursEntry {
@@ -98,8 +97,6 @@ export const parcours: ParcoursEntry[] = [
                 icon: "chart",
                 from: "décembre 2025",
                 to: "juin 2026",
-                description:
-                    "Projet Personnel Encadré de gestion de questionnaires, en double plateforme",
             },
             {
                 name: "LeBonChar",
@@ -108,7 +105,6 @@ export const parcours: ParcoursEntry[] = [
                 icon: "car",
                 from: "juin 2025",
                 description: "Plateforme de vente de véhicules d'occasion, projet MVC d'examen",
-                link: "https://lebonchar.sylvain.sh",
             },
             {
                 name: "PPE C#",
@@ -137,9 +133,6 @@ export const parcours: ParcoursEntry[] = [
                 icon: "bot",
                 from: "septembre 2024",
                 to: "aujourd'hui",
-                description:
-                    "Bot Discord né pour la classe de BTS SIO, qui évolue en bot de travail générique",
-                link: "https://wrkit.sylvain.sh",
             },
             {
                 name: "Planning",
@@ -148,8 +141,6 @@ export const parcours: ParcoursEntry[] = [
                 icon: "calendar",
                 from: "décembre 2025",
                 to: "mars 2026",
-                description: "Interface de planning HyperPlanning pour les SLAM et SISR",
-                link: "https://planning.sylvain.sh/",
             },
         ],
     },
