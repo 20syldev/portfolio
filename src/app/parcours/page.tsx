@@ -27,7 +27,9 @@ import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { MetaBadges } from "@/components/ui/meta";
 import { Period } from "@/components/ui/period";
+import { StatusBadge } from "@/components/ui/status";
 import { Tags } from "@/components/ui/tags";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useViewer } from "@/components/utils/viewer";
@@ -43,6 +45,7 @@ import { projects as allProjects } from "@/data/projects";
 import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
 import { useSmoothScroll } from "@/hooks/scroll";
+import { useStatus } from "@/hooks/status";
 import { tabs, urls } from "@/lib/nav";
 
 const iconMap = {
@@ -109,6 +112,9 @@ function rolesFor(entry: ParcoursEntry): ParcoursWork[] {
 /**
  * Card for a single school project.
  * Links to the project documentation when it exists, plus demo, GitHub and archive.
+ * Tags, demo, repository and archived or paused state come from the project page when there is
+ * one, so the card follows the project. The description is the school project's own when it
+ * sets one, otherwise the page's.
  *
  * @param props - Component properties
  * @param props.project - The school project to display
@@ -120,26 +126,46 @@ function ProjectCard({ project }: { project: ParcoursProject }) {
     const doc = allProjects.find((p) => p.id === project.repo);
     const documented = doc !== undefined;
     const tags = doc?.tags ?? project.tags;
+    const description = project.description ?? doc?.description;
+    const inactive = doc?.archived || doc?.paused;
+    const link = doc?.demo;
+    const github = doc?.github ?? `https://github.com/20syldev/${project.repo}`;
 
     const { versions } = useApi();
     const version = versions?.[getApiKey(project.repo)];
+    const status = useStatus()(project.repo);
 
     return (
-        <div className="card-hover flex flex-col gap-3 rounded-lg border p-4">
+        <div
+            className={`card-hover flex flex-col gap-3 rounded-lg border p-4 ${
+                inactive ? "inactive" : ""
+            }`}
+        >
             <div className="flex items-start gap-3">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted">
                     <Icon className="h-5 w-5 text-primary" aria-hidden />
                 </div>
                 <div className="min-w-0 flex-1">
-                    <p className="flex justify-between items-center gap-2 font-medium leading-tight">
-                        {project.name}
-                        {version && (
-                            <Badge variant="outline" className="text-[10px] font-normal">
-                                {version}
-                            </Badge>
-                        )}
-                    </p>
-                    <p className="mt-1 text-xs text-muted-foreground">{project.description}</p>
+                    <div className="flex items-center justify-between gap-2">
+                        <p className="font-medium leading-tight">{project.name}</p>
+                        <div className="flex shrink-0 items-center gap-1.5">
+                            <MetaBadges project={doc} variant="compact" />
+                            {status && (
+                                <StatusBadge
+                                    status={status}
+                                    github={doc?.github}
+                                    npm={doc?.npm}
+                                    variant="inline"
+                                />
+                            )}
+                            {version && (
+                                <Badge variant="outline" className="text-[10px] font-normal">
+                                    {version}
+                                </Badge>
+                            )}
+                        </div>
+                    </div>
+                    <p className="mt-1 text-xs text-muted-foreground">{description}</p>
                 </div>
             </div>
 
@@ -164,10 +190,10 @@ function ProjectCard({ project }: { project: ParcoursProject }) {
                             </Link>
                         </Button>
                     )}
-                    {project.link && (
+                    {link && (
                         <Button asChild variant="outline" size="icon" className="h-8 w-8">
                             <a
-                                href={project.link}
+                                href={link}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label={`Voir ${project.name} en ligne`}
@@ -178,7 +204,7 @@ function ProjectCard({ project }: { project: ParcoursProject }) {
                     )}
                     <Button asChild variant="outline" size="icon" className="h-8 w-8">
                         <a
-                            href={`https://github.com/20syldev/${project.repo}`}
+                            href={github}
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label={`Code source de ${project.name}`}
@@ -188,7 +214,7 @@ function ProjectCard({ project }: { project: ParcoursProject }) {
                     </Button>
                     <Button asChild variant="outline" size="icon" className="h-8 w-8">
                         <a
-                            href={`https://github.com/20syldev/${project.repo}/archive/refs/heads/${project.branch}.zip`}
+                            href={`${github}/archive/refs/heads/${project.branch}.zip`}
                             download
                             aria-label={`Télécharger l'archive de ${project.name}`}
                         >
