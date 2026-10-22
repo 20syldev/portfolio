@@ -42,7 +42,6 @@ import {
     type ParcoursWork,
 } from "@/data/parcours";
 import { projects as allProjects } from "@/data/projects";
-import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
 import { useSmoothScroll } from "@/hooks/scroll";
 import { useStatus } from "@/hooks/status";
@@ -132,7 +131,7 @@ function ProjectCard({ project }: { project: ParcoursProject }) {
     const github = doc?.github ?? `https://github.com/20syldev/${project.repo}`;
 
     const { versions } = useApi();
-    const version = versions?.[getApiKey(project.repo)];
+    const version = versions?.[project.repo];
     const status = useStatus()(project.repo);
 
     return (

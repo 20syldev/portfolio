@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import { Links } from "@/components/ui/links";
 import { Meta } from "@/components/ui/meta";
 import type { Project } from "@/data/projects";
-import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
 import { useStatus } from "@/hooks/status";
 
@@ -25,7 +24,7 @@ interface DocProps {
 export function Doc({ project, content }: DocProps) {
     const { versions } = useApi();
     const getProjectStatus = useStatus();
-    const version = versions?.[getApiKey(project.id)];
+    const version = versions?.[project.id];
 
     const header = (
         <>

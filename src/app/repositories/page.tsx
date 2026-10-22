@@ -14,7 +14,6 @@ import { StatusBadge } from "@/components/ui/status";
 import { Tags } from "@/components/ui/tags";
 import { projects as alternanceProjects } from "@/data/alternance";
 import { type Project, projects } from "@/data/projects";
-import { getApiKey } from "@/data/redirects";
 import { useApi } from "@/hooks/api";
 import { useCard } from "@/hooks/card";
 import { useSmoothScroll } from "@/hooks/scroll";
@@ -49,8 +48,7 @@ export default function RepositoriesPage({ initialProjectId }: RepositoriesPageP
     const { project: selected, open, close } = useCard(initialProjectId);
     const getVersion = (projectId: string): string | undefined => {
         if (!versions) return undefined;
-        const apiKey = getApiKey(projectId);
-        return versions[apiKey];
+        return versions[projectId];
     };
 
     const renderProject = (project: Project) => {
