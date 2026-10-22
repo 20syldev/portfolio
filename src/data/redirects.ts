@@ -1,22 +1,5 @@
 import { projects } from "@/data/projects";
 
-// Mapping project IDs to their API keys
-const keyId: Record<string, string> = {
-    "python-api": "python_api",
-    "old-database": "old_database",
-    "drawio-plugin": "drawio_plugin",
-};
-
-/**
- * Converts a project identifier to its corresponding API key.
- *
- * @param projectId - The project identifier to convert
- * @returns The mapped API key, or the original identifier if no mapping exists
- */
-export function getApiKey(projectId: string): string {
-    return keyId[projectId] || projectId;
-}
-
 // Mapping PDF file paths to their route slugs
 export const pdfs: Record<string, string> = {
     "/CV.pdf": "/cv/",

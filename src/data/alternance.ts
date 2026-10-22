@@ -200,7 +200,7 @@ export const projects: AlternanceProject[] = [
         ],
     },
     {
-        id: "drawio-plugin",
+        id: "drawio-ext",
         title: "Draw.io Plugin pour YaNA",
         description:
             "Ce plugin améliore l'usage de Draw.io pour visualiser et gérer des infrastructures réseau à l'aide des données de YaNA et Kompot.",
