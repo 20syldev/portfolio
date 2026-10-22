@@ -119,18 +119,18 @@ export const projects: AlternanceProject[] = [
         ],
     },
     {
-        id: "logvault",
-        title: "LogVault - Service de gestion de Logs",
+        id: "logcenter",
+        title: "LogCenter - Service de gestion de Logs",
         description:
-            "LogVault est un service de sécurisation et de gestion de logs, développé par Zenetys. J'ai contribué au développement de l'interface utilisateur et de l'application web.",
+            "LogCenter est un service de sécurisation et de gestion de logs, développé par Zenetys et proposé en SaaS sous le nom LogVault. J'ai contribué au développement de l'interface utilisateur et de l'application web.",
         technologies: ["Vue.js"],
         github: "https://github.com/zenetys/logcenter",
         link: "https://auth.logvault.io",
         sections: [
             {
-                title: "Qu'est ce que LogVault ?",
+                title: "Qu'est ce que LogCenter ?",
                 content:
-                    "LogVault permet de centraliser, chiffrer et archiver les logs de vos applications et infrastructures, dans une optique de conformité réglementaire (RGPD, NIS2, DORA) et d'observabilité.",
+                    "LogCenter permet de centraliser, chiffrer et archiver les logs de vos applications et infrastructures, dans une optique de conformité réglementaire (RGPD, NIS2, DORA) et d'observabilité. Le logiciel est public sous le nom LogCenter, et Zenetys l'héberge en SaaS sous le nom LogVault.",
             },
             {
                 title: "Interface utilisateur",
