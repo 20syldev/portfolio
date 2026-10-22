@@ -90,8 +90,6 @@ export default function HomePage() {
     }, [pathname, currentTab, goToTab]);
 
     useEffect(() => {
-        // Back and forward move between the entries pushed above, and popping
-        // the entry the document loaded on does not always reach usePathname
         const sync = () => {
             const expected = getTab(location.pathname);
             if (expected !== currentTab) goToTab(expected);
