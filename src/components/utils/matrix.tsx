@@ -26,8 +26,10 @@ export function Matrix({
     const onDrainCompleteRef = React.useRef(onDrainComplete);
     const [visible, setVisible] = React.useState(false);
 
-    activeRef.current = active;
-    onDrainCompleteRef.current = onDrainComplete;
+    React.useEffect(() => {
+        activeRef.current = active;
+        onDrainCompleteRef.current = onDrainComplete;
+    }, [active, onDrainComplete]);
 
     React.useEffect(() => {
         if (active) setVisible(true);
