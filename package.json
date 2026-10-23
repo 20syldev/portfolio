@@ -1,6 +1,6 @@
 {
     "name": "portfolio",
-    "version": "5.0.0",
+    "version": "5.0.1",
     "private": true,
     "scripts": {
         "dev": "npm run generate && next dev -H 127.0.0.1 -p 2146",
