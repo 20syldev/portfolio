@@ -1,9 +1,8 @@
 ---
 name: GemSync
 description: "La solution pour une configuration DNS rapide et efficace."
-longDescription: "Service de configuration DNS et d'hébergement web personnalisé. Prise en charge complète de la mise en ligne de votre site avec explications et support."
+longDescription: "Service de configuration DNS et d'hébergement web personnalisé. Le service prenait en charge toute la mise en ligne du site, avec explications et support."
 tags: ["HTML", "CSS", "JS"]
-demo: "https://gemsync.xyz"
 archived: true
 ---
 
@@ -11,6 +10,7 @@ archived: true
 
 GemSync était un service permettant de prendre contact avec des professionnels afin de configurer votre site en quelques clics.
 La gestion de votre site Internet facilitée, avec un hébergement personnalisé et des explications claires.
+Le projet est aujourd'hui archivé : le site n'est plus en ligne.
 
 ## Fonctionnalités {#features}
 

@@ -1,9 +1,8 @@
 ---
 name: GitSite
 description: "Ma plateforme d'hébergement web abordable et intuitive."
-longDescription: "Plateforme d'hébergement web abordable basée sur GitHub. Hébergement sur sous-domaine personnalisé avec un processus en 4 étapes. Site en ligne 24h/24."
+longDescription: "Plateforme d'hébergement web abordable basée sur GitHub. Hébergement sur sous-domaine personnalisé avec un processus en 4 étapes. Le site était en ligne 24h/24."
 tags: ["HTML", "CSS", "JS"]
-demo: "https://gitsite.dev"
 archived: true
 ---
 
@@ -11,6 +10,7 @@ archived: true
 
 Ma plateforme d'hébergement web abordable, idéale pour les personnes ne maîtrisant pas l'hébergement de sites.
 Avec des tarifs compétitifs, GitSite simplifie la mise en ligne de votre site grâce à un processus intuitif.
+Le projet est aujourd'hui archivé : le site n'est plus en ligne.
 
 ## Fonctionnalités {#features}
 
