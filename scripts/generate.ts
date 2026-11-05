@@ -395,7 +395,6 @@ function generateSitemap(): void {
         { path: "/repositories/", priority: "0.8", changefreq: "monthly" },
         { path: "/alternance/", priority: "0.8", changefreq: "monthly" },
         { path: "/help/", priority: "0.7", changefreq: "weekly" },
-        { path: "/cv/", priority: "0.7", changefreq: "monthly" },
         { path: "/me/", priority: "0.7", changefreq: "monthly" },
         { path: "/parcours/", priority: "0.7", changefreq: "monthly" },
         { path: "/tech/", priority: "0.6", changefreq: "monthly" },
