@@ -108,6 +108,6 @@ La palette de commandes (`Ctrl + K` ou `Cmd + K`) permet d'accéder rapidement �
 Certaines routes ne sont pas accessibles depuis la navigation principale, mais restent utilisables directement par URL :
 
 - `/me` : ouvre le formulaire de contact directement, pratique pour partager le lien
-- `/cv` : affiche le CV en plein écran dans la visionneuse PDF intégrée
+- `/cv` : affiche le CV en HTML, et sa version PDF est générée à partir de la même page à chaque déploiement
 - `/stats` : page de métriques en direct — latence API, FPS, temps de chargement, mémoire JS, nombre de nœuds DOM
 - `/discord`, `/git`, `/status` et chaque identifiant de projet (`/moxon`, `/docs`...)
