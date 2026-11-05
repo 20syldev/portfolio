@@ -4,13 +4,14 @@ description: Interface pour les logs de mon API.
 longDescription: "Interface de visualisation en temps réel des logs générés par l'API. Récupère et affiche les données JSON de manière structurée et lisible."
 tags: ["Next.js", "Radix UI", "Tailwind CSS", "TypeScript"]
 github: "https://github.com/20syldev/logs"
-demo: "https://logs.sylvain.sh"
+archived: true
 ---
 
 ## À propos {#about}
 
 Ce site permet de visualiser en temps réel les logs générés par mon [API](https://api.sylvain.sh).
 Les données au format JSON sont récupérées et une vue structurée des logs est générée.
+Le projet est aujourd'hui archivé : le site n'est plus en ligne et le code reste consultable sur GitHub.
 
 ## Fonctionnalités {#features}
 
