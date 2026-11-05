@@ -36,7 +36,7 @@ export const profile = {
         discord: "https://discord.com/users/607163002755481602",
         sponsors: "https://github.com/sponsors/20syldev",
         google: "https://g.dev/20syl",
-        cv: "/CV.pdf",
+        cv: "/cv/",
         cvPdf: "/CV.pdf",
         email: "contact@sylvain.sh",
     },
@@ -73,9 +73,9 @@ export const contacts: ContactLink[] = [
     {
         icon: "cv",
         label: "CV",
-        action: "pdf",
+        action: "route",
         url: profile.links.cv,
-        detail: "Ouvrir mon CV au format PDF",
+        detail: "Voir mon CV, téléchargeable en PDF",
     },
     {
         icon: "sponsors",
