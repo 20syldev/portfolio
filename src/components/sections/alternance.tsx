@@ -1,10 +1,10 @@
 "use client";
 
 import { ArrowRight, BookOpen, ExternalLink, Github } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
+import { Figure, Lightbox } from "@/components/detail/showcase";
 import { Footer } from "@/components/layout/footer";
 import { ArticleList } from "@/components/ui/articles";
 import { Badge } from "@/components/ui/badge";
@@ -15,10 +15,22 @@ import { Video } from "@/components/ui/video";
 import { projects } from "@/data/alternance";
 import { articles, blog } from "@/data/articles";
 import { contributions } from "@/data/contributions";
+import mediaData from "@/data/media.json";
+import type { ContentImage } from "@/data/projects";
 import { useApi } from "@/hooks/api";
 import { useDragScroll, useSmoothScroll } from "@/hooks/scroll";
 import { isOnScreen } from "@/lib/gesture";
 import { random } from "@/lib/utils";
+
+// An entry can be missing while the dev server runs on a media.json older than alternance.ts
+const media: Partial<Record<string, ContentImage>> = mediaData;
+
+// In reading order: the full-size view pages through every screenshot
+const screenshots = projects.flatMap((project) => {
+    const image = project.screenshot && media[project.screenshot.ref];
+    return image ? [{ id: project.id, image }] : [];
+});
+const screenshotImages = screenshots.map((screenshot) => screenshot.image);
 
 const navSections = [
     { id: "zenetys", label: "Zenetys" },
@@ -38,6 +50,7 @@ export function Alternance() {
     const { scrollRef, scrollTo } = useSmoothScroll<HTMLDivElement>();
     const [active, setActive] = useState<string>(navSections[0].id);
     const [displayed, setDisplayed] = useState<typeof contributions>([]);
+    const [zoomed, setZoomed] = useState<number | null>(null);
     const navRef = useRef<HTMLDivElement>(null);
     const buttonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
     const mounted = useRef(false);
@@ -124,6 +137,18 @@ export function Alternance() {
             });
         };
     }, [scrollTo, scrollRef]);
+
+    const renderScreenshot = (id: string) => {
+        const index = screenshots.findIndex((screenshot) => screenshot.id === id);
+        if (index === -1) return null;
+        return (
+            <Figure
+                image={screenshots[index].image}
+                onOpen={() => setZoomed(index)}
+                className="my-0"
+            />
+        );
+    };
 
     const scrollToSection = (id: string) => {
         setActive(id);
@@ -321,17 +346,7 @@ export function Alternance() {
                                         </div>
                                     ))}
 
-                                    {project.image && (
-                                        <div className="mt-6 overflow-hidden rounded-lg border">
-                                            <Image
-                                                src={project.image}
-                                                alt={project.title}
-                                                width={800}
-                                                height={450}
-                                                className="w-full"
-                                            />
-                                        </div>
-                                    )}
+                                    {renderScreenshot(project.id)}
 
                                     {project.video && (
                                         <Video
@@ -413,6 +428,8 @@ export function Alternance() {
                 </div>
                 <Footer />
             </div>
+
+            <Lightbox images={screenshotImages} index={zoomed} onIndexChange={setZoomed} />
         </div>
     );
 }
