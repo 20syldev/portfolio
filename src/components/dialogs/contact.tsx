@@ -18,7 +18,6 @@ import {
     Newspaper,
     Wrench,
 } from "lucide-react";
-import type { MouseEvent } from "react";
 import * as React from "react";
 
 import { Badge } from "@/components/ui/badge";
@@ -31,7 +30,6 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { Period } from "@/components/ui/period";
-import { useViewer } from "@/components/utils/viewer";
 import { totalCertifications, totalCompletionBadges, totalGdevBadges } from "@/data/achievements";
 import type { ParcoursEntry } from "@/data/parcours";
 import { alternance, parcours } from "@/data/parcours";
@@ -144,7 +142,7 @@ function ContactContent({
 
 /**
  * Renders a contact action button with appropriate behavior.
- * Supports copy-to-clipboard, PDF viewer, internal route and external link actions.
+ * Supports copy-to-clipboard, internal route and external link actions.
  *
  * @param props - Component props
  * @param props.contact - Contact link configuration with action type
@@ -153,7 +151,6 @@ function ContactContent({
  */
 function ContactButton({ contact, onNavigate }: { contact: ContactLink; onNavigate?: () => void }) {
     const [copied, setCopied] = React.useState(false);
-    const { openPdf } = useViewer();
 
     if (contact.action === "copy") {
         return (
@@ -186,18 +183,6 @@ function ContactButton({ contact, onNavigate }: { contact: ContactLink; onNaviga
                 <a href={contact.url}>
                     <ContactContent contact={contact} />
                 </a>
-            </Button>
-        );
-    }
-
-    if (contact.action === "pdf") {
-        return (
-            <Button
-                variant="outline"
-                className={btnClass}
-                onClick={(e: MouseEvent) => openPdf(contact.url!, contact.label, e)}
-            >
-                <ContactContent contact={contact} />
             </Button>
         );
     }
