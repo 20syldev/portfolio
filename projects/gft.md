@@ -16,7 +16,7 @@ GFT (**G**itHub **F**etch **T**ool) est un outil en ligne de commande léger pou
 L'installation se fait en une seule commande via curl :
 
 ```bash
-curl -fsSL https://cdn.sylvain.sh/bash/gft@latest/install.sh | sh
+curl -fsSL https://dropr.sylvain.sh/bash/gft@latest/install.sh | sh
 ```
 
 Vous pouvez aussi installer manuellement en copiant le script dans `/usr/local/bin/`.

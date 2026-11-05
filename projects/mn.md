@@ -16,7 +16,7 @@ mn (**M**a**n**ual) est un menu interactif en terminal pour gérer les connexion
 L'installation se fait en une seule commande via curl :
 
 ```bash
-curl -fsSL https://cdn.sylvain.sh/bash/mn@latest/install.sh | bash
+curl -fsSL https://dropr.sylvain.sh/bash/mn@latest/install.sh | bash
 ```
 
 La commande ouvre un menu interactif pour configurer la langue et l'éditeur (compatible `| sh`, affiche alors un menu numéroté). Vous pouvez aussi installer manuellement via `./install.sh`. Relancer la même commande met à jour une installation existante.
