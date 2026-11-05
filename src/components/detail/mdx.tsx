@@ -2,6 +2,7 @@
 
 import { Check, Copy } from "lucide-react";
 import { type ComponentPropsWithoutRef, type ReactNode, useRef, useState } from "react";
+import type { ExtraProps } from "react-markdown";
 
 import { useDragScroll } from "@/hooks/scroll";
 import { linkStyles, linkTint } from "@/lib/styles";
@@ -34,6 +35,28 @@ function parseHeadingId(children: ReactNode): { id: string | null; text: ReactNo
         }
     }
     return { id: null, text: children };
+}
+
+/**
+ * Paragraph that renders no <p> when it only holds an image.
+ * The image becomes a figure, which cannot sit inside a paragraph.
+ *
+ * @param props - Component props
+ * @param props.children - Paragraph content
+ * @param props.node - Markdown node, read to detect a paragraph made of a single image
+ * @returns The paragraph, or its bare children when it only holds an image
+ */
+function Paragraph({ children, node, ...props }: ComponentPropsWithoutRef<"p"> & ExtraProps) {
+    const nodes = node?.children.filter((c) => c.type !== "text" || c.value.trim());
+    if (nodes?.length === 1 && nodes[0].type === "element" && nodes[0].tagName === "img") {
+        return <>{children}</>;
+    }
+
+    return (
+        <p className="text-muted-foreground leading-7 mb-4 last:mb-0" {...props}>
+            {children}
+        </p>
+    );
 }
 
 export const mdxComponents = {
@@ -77,11 +100,7 @@ export const mdxComponents = {
             </h5>
         );
     },
-    p: ({ children, ...props }: ComponentPropsWithoutRef<"p">) => (
-        <p className="text-muted-foreground leading-7 mb-4 last:mb-0" {...props}>
-            {children}
-        </p>
-    ),
+    p: Paragraph,
     ul: ({ children, ...props }: ComponentPropsWithoutRef<"ul">) => (
         <ul className="list-disc list-inside space-y-2 mb-4 text-muted-foreground" {...props}>
             {children}

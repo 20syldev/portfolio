@@ -70,8 +70,15 @@ function DialogOverlay({
 
 /**
  * Main dialog content panel centered on screen with optional close button.
+ * The onOpenAutoFocus of the caller runs first, while focus has not moved yet, so it can read
+ * the element focused before the dialog opened; autoFocusClose then takes over unless it prevented.
  *
- * @param props - Radix Dialog content props with optional showCloseButton
+ * @param props - Radix Dialog content props
+ * @param props.className - Classes merged onto the panel
+ * @param props.children - Dialog body
+ * @param props.showCloseButton - Renders the corner close button, true by default
+ * @param props.autoFocusClose - Moves focus to the close button on open, false by default
+ * @param props.onOpenAutoFocus - Called before the focus moves, can prevent the default
  * @returns The rendered dialog content
  */
 function DialogContent({
@@ -95,17 +102,13 @@ function DialogContent({
                     "bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-300 outline-none sm:max-w-lg",
                     className
                 )}
-                onOpenAutoFocus={
-                    autoFocusClose
-                        ? (e) => {
-                              e.preventDefault();
-                              const target = e.currentTarget as HTMLElement | null;
-                              target
-                                  ?.querySelector<HTMLButtonElement>("[data-slot='dialog-close']")
-                                  ?.focus();
-                          }
-                        : onOpenAutoFocus
-                }
+                onOpenAutoFocus={(e) => {
+                    onOpenAutoFocus?.(e);
+                    if (!autoFocusClose || e.defaultPrevented) return;
+                    e.preventDefault();
+                    const target = e.currentTarget as HTMLElement | null;
+                    target?.querySelector<HTMLButtonElement>("[data-slot='dialog-close']")?.focus();
+                }}
                 {...props}
             >
                 {children}

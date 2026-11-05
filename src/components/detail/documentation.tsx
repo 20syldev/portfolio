@@ -7,6 +7,7 @@ import { DetailNav } from "@/components/detail/nav";
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
 import { useMotionEnabled } from "@/components/utils/motion";
+import type { ContentImage } from "@/data/projects";
 import { useSmoothScroll } from "@/hooks/scroll";
 import { markAnchor } from "@/lib/anchor";
 import { tabs, urls } from "@/lib/nav";
@@ -14,6 +15,7 @@ import { tabs, urls } from "@/lib/nav";
 interface DocumentationProps {
     header: ReactNode;
     content: string;
+    images?: ContentImage[];
 }
 
 /**
@@ -23,9 +25,10 @@ interface DocumentationProps {
  * @param props - Component props
  * @param props.header - Custom header content
  * @param props.content - Markdown content to render
+ * @param props.images - Images placed in the content, resolved at build time
  * @returns The rendered documentation page
  */
-export function Documentation({ header, content }: DocumentationProps) {
+export function Documentation({ header, content, images }: DocumentationProps) {
     const { scrollRef, scrollTo } = useSmoothScroll<HTMLDivElement>();
     const motion = useMotionEnabled();
 
@@ -80,7 +83,7 @@ export function Documentation({ header, content }: DocumentationProps) {
                         content={content}
                     />
 
-                    <DetailContent content={content} />
+                    <DetailContent content={content} images={images} />
                 </main>
             </div>
 
