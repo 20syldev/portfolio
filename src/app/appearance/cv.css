@@ -1,0 +1,32 @@
+/* Named page, so the A4 size and zero margin never leak to other routes printed later */
+@page cv {
+    size: A4;
+    margin: 0;
+}
+
+@media print {
+    /* The site clips html and body to the viewport; let the document flow onto paper */
+    html,
+    body {
+        height: auto;
+        overflow: visible;
+        background: var(--color-white);
+    }
+
+    /* Beat the inline font scale of the font preferences, the sheet must fit one page */
+    html {
+        font-size: 100% !important;
+    }
+
+    /* Page and header intros start at opacity 0 and would print faded */
+    .animate-page-in,
+    .animate-header-in {
+        animation: none !important;
+    }
+
+    .cv-sheet {
+        page: cv;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+}

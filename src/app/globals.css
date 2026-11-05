@@ -9,5 +9,12 @@
 @import "./appearance/mode.css";
 @import "./appearance/snap.css";
 @import "./appearance/scrollbar.css";
+@import "./appearance/cv.css";
 
 @custom-variant dark (&:is(.dark *));
+
+@custom-variant wide {
+    @media (width >= 48rem), print {
+        @slot;
+    }
+}

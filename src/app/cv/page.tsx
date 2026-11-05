@@ -1,26 +1,18 @@
-"use client";
+import { cvTitle } from "@/data/cv";
 
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-
-import { useViewer } from "@/components/utils/viewer";
+import { Frame } from "./frame";
+import { Sheet } from "./sheet";
 
 /**
- * CV viewer page component.
- * Opens the CV PDF in fullscreen mode on mount and redirects to home on close.
+ * CV page: the bento sheet rendered on the server, inside the site frame.
+ * The same page is printed to /CV.pdf by scripts/cv.ts.
  *
- * @returns null (PDF is displayed in dialog overlay)
+ * @returns The rendered CV page
  */
 export default function CvPage() {
-    const { openPdf } = useViewer();
-    const router = useRouter();
-
-    useEffect(() => {
-        openPdf("/CV.pdf", "CV", {
-            fullscreen: true,
-            onClose: () => router.push("/"),
-        });
-    }, [openPdf, router]);
-
-    return null;
+    return (
+        <Frame pdfName={`${cvTitle}.pdf`}>
+            <Sheet />
+        </Frame>
+    );
 }

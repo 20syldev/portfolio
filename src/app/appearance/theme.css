@@ -4,6 +4,8 @@
     --color-foreground: var(--foreground);
     --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
     --font-mono: var(--font-fira-code), ui-monospace, monospace;
+    --font-cv-display: var(--font-funnel-display), ui-sans-serif, system-ui, sans-serif;
+    --font-cv-sans: var(--font-funnel-sans), ui-sans-serif, system-ui, sans-serif;
     --color-chart-1: var(--chart-1);
     --color-ring: var(--ring);
     --color-input: var(--input);
@@ -21,6 +23,15 @@
     --color-popover: var(--popover);
     --color-card-foreground: var(--card-foreground);
     --color-card: var(--card);
+    --color-cv-ink: #13291d;
+    --color-cv-text: #3a443d;
+    --color-cv-muted: #4a5a4e;
+    --color-cv-accent: #2f6b3a;
+    --color-cv-green: #c6e6a1;
+    --color-cv-blue: #bcdcf4;
+    --color-cv-yellow: #ffdf78;
+    --color-cv-pink: #f7c2cf;
+    --color-cv-paper: #f2f2ed;
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
