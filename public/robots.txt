@@ -69,7 +69,7 @@ User-agent: Yeti
 User-agent: YioopBot
 User-agent: yoozBot
 User-agent: YoudaoBot
-Disallow:
+Disallow: /CV.pdf
 User-agent: *
 Disallow: /
 
