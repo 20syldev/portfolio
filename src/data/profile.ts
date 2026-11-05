@@ -37,6 +37,7 @@ export const profile = {
         sponsors: "https://github.com/sponsors/20syldev",
         google: "https://g.dev/20syl",
         cv: "/CV.pdf",
+        cvPdf: "/CV.pdf",
         email: "contact@sylvain.sh",
     },
     social: {
