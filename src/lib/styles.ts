@@ -37,14 +37,15 @@ const own = "oklch(0.55 0.2 280)";
 const ink = "light-dark(#fff, #101010)";
 
 /**
- * Bubble colour per keyword, matched case-insensitively against the link label *and* its
+ * Bubble colour per keyword, matched case-insensitively against the link label and its
  * hostname, so "TypeScript Handbook" is tinted wherever it points and a prose label such as
  * "la doc" still picks up its tint from `moxon.dev`.
  *
  * Matched in order, so the first entry wins for a link naming several ("Vue.js GitHub
- * Repository"). Every colour is the real brand colour: an approximation would not be
- * recognised, and an unrecognised tint is only noise. Names whose brand *is* neutral —
- * GitHub, Next.js — keep the default bubble on purpose.
+ * Repository"). See {@link linkTint} for which of the label and the host is read first.
+ * Every colour is the real brand colour: an approximation would not be recognised, and an
+ * unrecognised tint is only noise. Names whose brand is neutral, such as GitHub and Next.js,
+ * keep the default bubble on purpose.
  *
  * Foregrounds are picked from the measured WCAG contrast against each background, never
  * assumed: #42b883 and #17b8ce fail badly under white and need dark ink instead.
@@ -56,7 +57,7 @@ const ink = "light-dark(#fff, #101010)";
 const tints: ReadonlyArray<readonly [keyword: string, color: string, ink: string]> = [
     ["sylvain.sh", own, "#fff"],
     ["@20syldev", own, "#fff"],
-    ["moxon", own, "#fff"],
+    ["moxon", "#fde68a", "#0f1115"],
     ["zenetys", "light-dark(#048192, #17b8ce)", ink],
     ["typescript", "#3178c6", "#fff"],
     ["vue", "light-dark(#068658, #42b883)", ink],
@@ -82,8 +83,11 @@ function textOf(node: ReactNode): string {
 /**
  * Resolves the bubble tint for a link from the words it shows and the host it points at.
  *
+ * An absolute link reads its host first (every npm package stays red whatever its scope), a
+ * relative one its label first (a project name on `/projet/<id>`); the host is the fallback.
+ *
  * @param label - Link content, plain text or React nodes
- * @param href - Link destination, used when the label itself names nothing
+ * @param href - Link destination, an anchor or a missing value leaving the host empty
  * @returns Style object carrying the tint variables, or undefined for the neutral bubble
  */
 export function linkTint(label: ReactNode, href?: string): CSSProperties | undefined {
@@ -96,8 +100,10 @@ export function linkTint(label: ReactNode, href?: string): CSSProperties | undef
         }
     }
 
-    const haystack = `${textOf(label)} ${host}`.toLowerCase();
-    const match = tints.find(([keyword]) => haystack.includes(keyword));
+    const find = (haystack: string) => tints.find(([keyword]) => haystack.includes(keyword));
+    const absolute = /^[a-z][a-z\d+.-]*:/i.test(href ?? "");
+    const match =
+        (absolute && find(host)) || find(textOf(label).toLowerCase()) || find(host.toLowerCase());
     if (!match) return undefined;
 
     return { "--link-tint": match[1], "--link-tint-fg": match[2] } as CSSProperties;
