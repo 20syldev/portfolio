@@ -40,6 +40,62 @@ export interface ParcoursWork {
     current?: boolean;
 }
 
+// Ordered by interest rather than by date: the active project first, the least notable last
+const btsProjects: ParcoursProject[] = [
+    {
+        name: "WrkIT",
+        repo: "wrkit",
+        branch: "master",
+        icon: "bot",
+        from: "septembre 2024",
+        to: "aujourd'hui",
+    },
+    {
+        name: "StadiumCompany",
+        repo: "stadiumcompany",
+        branch: "master",
+        icon: "chart",
+        from: "décembre 2025",
+        to: "juin 2026",
+    },
+    {
+        name: "LeBonChar",
+        repo: "lebonchar",
+        branch: "master",
+        icon: "car",
+        from: "juin 2025",
+        description: "Plateforme de vente de véhicules d'occasion, projet MVC d'examen",
+    },
+    {
+        name: "PPE C#",
+        repo: "PPE-csharp",
+        branch: "master",
+        icon: "database",
+        from: "décembre 2025",
+        to: "janvier 2026",
+        description:
+            "Application desktop de gestion de clients, avec authentification à deux facteurs",
+        tags: ["C#", "Avalonia", "PostgreSQL", ".NET 8", "2FA"],
+    },
+    {
+        name: "Planning",
+        repo: "planning",
+        branch: "master",
+        icon: "calendar",
+        from: "décembre 2025",
+        to: "mars 2026",
+    },
+    {
+        name: "FlyRadars",
+        repo: "flyradars",
+        branch: "master",
+        icon: "plane",
+        from: "janvier 2026",
+        description: "Interface de gestion de données pour le suivi de vols",
+        tags: ["TypeScript", "React", "Express", "PostgreSQL", "Vite"],
+    },
+];
+
 export const parcours: ParcoursEntry[] = [
     {
         id: "ipssi",
@@ -89,60 +145,7 @@ export const parcours: ParcoursEntry[] = [
             label: "Tableau de synthèse E5",
             file: "/E5 - Tableau Synthèse - Sylvain L.pdf",
         },
-        projects: [
-            {
-                name: "StadiumCompany",
-                repo: "stadiumcompany",
-                branch: "master",
-                icon: "chart",
-                from: "décembre 2025",
-                to: "juin 2026",
-            },
-            {
-                name: "LeBonChar",
-                repo: "lebonchar",
-                branch: "master",
-                icon: "car",
-                from: "juin 2025",
-                description: "Plateforme de vente de véhicules d'occasion, projet MVC d'examen",
-            },
-            {
-                name: "PPE C#",
-                repo: "PPE-csharp",
-                branch: "master",
-                icon: "database",
-                from: "décembre 2025",
-                to: "janvier 2026",
-                description:
-                    "Application desktop de gestion de clients, avec authentification à deux facteurs",
-                tags: ["C#", "Avalonia", "PostgreSQL", ".NET 8", "2FA"],
-            },
-            {
-                name: "FlyRadars",
-                repo: "flyradars",
-                branch: "master",
-                icon: "plane",
-                from: "janvier 2026",
-                description: "Interface de gestion de données pour le suivi de vols",
-                tags: ["TypeScript", "React", "Express", "PostgreSQL", "Vite"],
-            },
-            {
-                name: "WrkIT",
-                repo: "wrkit",
-                branch: "master",
-                icon: "bot",
-                from: "septembre 2024",
-                to: "aujourd'hui",
-            },
-            {
-                name: "Planning",
-                repo: "planning",
-                branch: "master",
-                icon: "calendar",
-                from: "décembre 2025",
-                to: "mars 2026",
-            },
-        ],
+        projects: btsProjects,
     },
 ];
 
