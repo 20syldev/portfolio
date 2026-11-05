@@ -11,6 +11,13 @@ docs: "linux/mn"
 
 mn (**M**a**n**ual) est un menu interactif en terminal pour gérer les connexions SSH, dépôts GitHub, alias Bash, fonctions shell et documentation personnelle — le tout au même endroit.
 
+## mn devient tote {#tote}
+
+mn évolue en [tote](/projet/tote) : les mêmes connexions, dépôts, alias et fonctions, réécrits en Go avec une interface plein écran et des thèmes clair et sombre.
+tote est en cours de développement. La reprise des données de mn passera par un script séparé, documenté à la sortie de tote 1.0.0. D'ici là, mn reste installable et fonctionne comme avant.
+
+![Les mêmes connexions dans mn, puis dans tote, son successeur](/images/projects/mn/evolution)
+
 ## Installation {#install}
 
 L'installation se fait en une seule commande via curl :
@@ -36,6 +43,8 @@ mn propose plusieurs modules accessibles directement depuis le menu principal ou
 
 Des alias courts sont aussi supportés : `mn r` (repos), `mn a` (alias), `mn f` (funcs), `mn d` (docs), `mn c` (config), `mn h` (help).
 
+![Menu principal de mn, avec ses modules et ceux des plugins](/images/projects/mn/home)
+
 ## Navigation {#navigation}
 
 La navigation est conçue pour être rapide et intuitive :
@@ -53,6 +62,8 @@ La navigation est conçue pour être rapide et intuitive :
 
 Les menus de choix (langue, éditeur, type de connexion) utilisent la même navigation fléchée — `↑`/`↓` pour sélectionner, `Entrée` pour valider.
 
+![Connexions SSH, avec leurs alias, et la commande lancée pour la ligne sélectionnée](/images/projects/mn/connections)
+
 ## Fonctionnalités {#features}
 
 - **Connexions SSH/Custom** — stocker des serveurs avec label, IP, type (SSH ou commande personnalisée) et mot de passe optionnel
@@ -67,6 +78,8 @@ Les menus de choix (langue, éditeur, type de connexion) utilisent la même navi
 - **Éditeur configurable** — vi, vim, nano, zed, VS Code ou personnalisé, choix à l'install ou via `mn config`
 - **Interface multilingue** — français et anglais, choisis à l'installation ou via `mn config`
 - **Modules auto-enregistrés** — menu principal construit dynamiquement par priorité, extensible via plugins
+
+![Alias Bash, synchronisés vers ~/.bash_aliases](/images/projects/mn/aliases)
 
 ## Format de données {#data}
 
