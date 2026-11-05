@@ -106,7 +106,14 @@ export default async function Page({ params }: Props) {
     if (doc && doc.hasContent) {
         const content = getDocContent(category, slugStr);
         if (content) {
-            return <HelpDoc title={doc.title} description={doc.description} content={content} />;
+            return (
+                <HelpDoc
+                    title={doc.title}
+                    description={doc.description}
+                    content={content}
+                    images={doc.images}
+                />
+            );
         }
     }
 

@@ -54,5 +54,5 @@ export function Doc({ project, content }: DocProps) {
         </>
     );
 
-    return <Documentation header={header} content={content} />;
+    return <Documentation header={header} content={content} images={project.images} />;
 }
