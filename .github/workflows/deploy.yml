@@ -37,6 +37,9 @@ jobs:
             - name: Build with Next.js
               run: npm run build
 
+            - name: Generate the CV PDF
+              run: npm run cv
+
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v5
               with:
