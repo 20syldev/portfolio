@@ -5,7 +5,6 @@ export interface AlternanceProject {
     description: string;
     technologies: string[];
     sections: { title: string; content: string }[];
-    image?: string;
     screenshot?: { ref: string; alt: string };
     video?: string;
     poster?: string;
@@ -51,7 +50,6 @@ export const projects: AlternanceProject[] = [
         description:
             "Zenetys Tools est le portail qui centralise les outils et démos web de Zenetys, disponible sur tools.zenetys.com. J'ai entièrement reconstruit son interface en la migrant de Vue.js vers Next.js.",
         technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
-        image: "/images/zeportal-demo.webp",
         screenshot: {
             ref: "/images/zeportal-demo.webp",
             alt: "Accueil de Zenetys Tools, avec les outils en cartes et la description de HYOAI dépliée",
@@ -82,7 +80,6 @@ export const projects: AlternanceProject[] = [
         description:
             "J'ai recréé de zéro l'interface utilisateur et l'API de l'outil de supervision de Zenetys. Il était auparavant disponible à l'aide de Kibana, mais j'ai développé une solution plus intégrée et personnalisable.",
         technologies: ["Node.js", "ElasticSearch", "HTML", "CSS", "JS"],
-        image: "/images/monitoring-demo.webp",
         screenshot: {
             ref: "/images/monitoring-demo.webp",
             alt: "Alertes en cours, détails d'une alerte et tickets, avec les données clients masquées",
@@ -111,7 +108,6 @@ export const projects: AlternanceProject[] = [
         description:
             "J'ai entièrement développé le site internet bilingue de LogVault avec Next.js et un template interne (@zenetys/template). Le site présente les offres SaaS et On-Premise.",
         technologies: ["Next.js", "Tailwind CSS", "TypeScript"],
-        image: "/images/logvault-demo.webp",
         screenshot: {
             ref: "/images/logvault-demo.webp",
             alt: "Page d'accueil de LogVault.io, qui présente l'offre SaaS",
