@@ -1,10 +1,5 @@
 import { projects } from "@/data/projects";
 
-// Mapping PDF file paths to their route slugs
-export const pdfs: Record<string, string> = {
-    "/CV.pdf": "/cv/",
-};
-
 // Former project IDs mapped to their current ID
 export const renamedProjects: Record<string, string> = {
     api: "moxon",

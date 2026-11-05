@@ -51,7 +51,7 @@ export interface ContactLink {
     icon: string;
     label: string;
     url?: string;
-    action?: "copy" | "pdf" | "route";
+    action?: "copy" | "route";
     detail?: string;
     counter?: "tech" | "certifications" | "badges" | "completion" | "veille";
 }
