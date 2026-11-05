@@ -2,8 +2,9 @@
 export const projectOrder: string[] = [
     "moxon",
     "docs",
-    "cdn",
+    "dropr",
     "gft",
+    "tote",
     "mn",
     "wispen",
     "logger",
