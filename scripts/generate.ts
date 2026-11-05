@@ -4,6 +4,8 @@ import * as path from "path";
 import matter from "gray-matter";
 import sharp from "sharp";
 
+import { projects as alternanceProjects } from "../src/data/alternance";
+import type { ContentImage } from "../src/data/projects";
 import { projectOrder } from "../src/lib/order";
 
 import { buildIco } from "./ico";
@@ -28,6 +30,7 @@ interface ProjectMeta {
 }
 
 interface GeneratedProject extends ProjectMeta {
+    images?: ContentImage[];
     hasContent: boolean;
     content?: string;
 }
@@ -56,6 +59,7 @@ interface DocMeta {
 }
 
 interface GeneratedDoc extends DocMeta {
+    images?: ContentImage[];
     hasContent: boolean;
     content?: string;
 }
@@ -68,15 +72,67 @@ const veilleOutput = path.join(process.cwd(), "src", "data", "veille.json");
 
 const docsSource = path.join(process.cwd(), "docs");
 const docsOutput = path.join(process.cwd(), "src", "data", "docs.json");
+const mediaOutput = path.join(process.cwd(), "src", "data", "media.json");
+
+const publicDir = path.join(process.cwd(), "public");
+
+// Markdown image with a local path, e.g. ![Caption](/images/projects/name/home)
+const markdownImage = /!\[([^\]]*)\]\((\/[^)\s]+)\)/g;
+
+/**
+ * Resolves one local image: a file under public/, or a base whose `-light.webp` and
+ * `-dark.webp` variants both exist; the page then shows the one matching the theme.
+ * Exits when the file is missing or the image has no alt.
+ *
+ * @param owner - Page or entry the image belongs to, used in error messages
+ * @param ref - Path of the image, as written in the source
+ * @param alt - Alternative text, also shown as the caption
+ * @returns The image with its dark variant and pixel size
+ */
+async function resolveImage(owner: string, ref: string, alt: string): Promise<ContentImage> {
+    const exists = (file: string) => fs.existsSync(path.join(publicDir, file));
+    const light = `${ref}-light.webp`;
+    const dark = `${ref}-dark.webp`;
+    const paired = exists(light) && exists(dark);
+    const file = paired ? light : ref;
+
+    if (!alt || !exists(file)) {
+        console.error(`Error: image ${ref} of ${owner} is missing in public/ or has no alt`);
+        process.exit(1);
+    }
+
+    // Width and height let the page reserve the space before the image loads
+    const { width = 0, height = 0 } = await sharp(path.join(publicDir, file)).metadata();
+    return { ref, src: file, ...(paired && { dark }), alt, width, height };
+}
+
+/**
+ * Resolves the local images of a markdown page, ignoring code blocks and inline code.
+ *
+ * @param pageId - Page ID, used in error messages
+ * @param content - Markdown content of the page
+ * @returns The images, in reading order and without duplicates
+ */
+async function resolveImages(pageId: string, content: string): Promise<ContentImage[]> {
+    const prose = content.replace(/```[\s\S]*?```/g, "").replace(/`[^`\n]*`/g, "");
+    const images: ContentImage[] = [];
+
+    for (const [, alt, ref] of prose.matchAll(markdownImage)) {
+        if (images.some((image) => image.ref === ref)) continue;
+        images.push(await resolveImage(pageId, ref, alt));
+    }
+
+    return images;
+}
 
 /**
  * Generates the projects JSON file from markdown sources.
- * Reads all .md files from the projects directory, parses frontmatter and content,
- * sorts by archived status and order, and outputs to src/data/projects.json.
+ * Reads all .md files from the projects directory, parses frontmatter and content, resolves
+ * the content images, sorts by archived status and order, and outputs to src/data/projects.json.
  *
- * @returns void
+ * @returns Promise that resolves when the file is written
  */
-function generateProjects(): void {
+async function generateProjects(): Promise<void> {
     const projects: GeneratedProject[] = [];
 
     // Check that the source directory exists
@@ -105,6 +161,7 @@ function generateProjects(): void {
 
         const meta = parsed.data as Omit<ProjectMeta, "id">;
         const content = parsed.content.trim();
+        const images = await resolveImages(projectId, content);
 
         // Detect if content exists (after frontmatter)
         const hasContent = content.length > 0;
@@ -112,6 +169,7 @@ function generateProjects(): void {
         projects.push({
             id: projectId,
             ...meta,
+            ...(images.length > 0 && { images }),
             hasContent,
             ...(hasContent && { content }),
         } as GeneratedProject);
@@ -219,14 +277,14 @@ function findMarkdownFiles(dir: string, fileList: string[] = []): string[] {
 /**
  * Generates the documentation JSON file from markdown sources.
  * Reads all .md files from the docs directory recursively, parses frontmatter and content,
- * automatically detects category from folder structure, sorts by category and order,
- * and outputs to src/data/docs.json.
+ * automatically detects category from folder structure, resolves the images placed in the
+ * content, sorts by category and order, and outputs to src/data/docs.json.
  *
  * Structure expected: docs/<category>/<slug>.md
  *
- * @returns void
+ * @returns Promise that resolves when the file is written
  */
-function generateDocs(): void {
+async function generateDocs(): Promise<void> {
     const docs: GeneratedDoc[] = [];
 
     // Check that the source directory exists
@@ -264,6 +322,7 @@ function generateDocs(): void {
 
         const meta = parsed.data as Partial<Omit<DocMeta, "id">>;
         const content = parsed.content.trim();
+        const images = await resolveImages(docId, content);
 
         // Detect if content exists (after frontmatter)
         const hasContent = content.length > 0;
@@ -276,6 +335,7 @@ function generateDocs(): void {
             title: meta.title ?? slug,
             description: meta.description ?? "",
             order: meta.order,
+            ...(images.length > 0 && { images }),
             hasContent,
             ...(hasContent && { content }),
         });
@@ -388,7 +448,6 @@ ${urls.join("\n")}
 }
 
 const faviconSource = path.join(process.cwd(), "public", "images", "logo.png");
-const publicDir = path.join(process.cwd(), "public");
 
 /**
  * Generates favicon variants from the source logo image.
@@ -434,8 +493,37 @@ async function generateFavicons(): Promise<void> {
     console.log(`Generated ${variants.length} favicon variants + favicon.ico to ${publicDir}`);
 }
 
-generateProjects();
-generateVeilles();
-generateDocs();
-generateSitemap();
-generateFavicons();
+/**
+ * Generates the media JSON file: the images declared in the TypeScript data (the projects of
+ * the work-study page), resolved like the markdown images and keyed by their path.
+ *
+ * @returns Promise that resolves when the file is written
+ */
+async function generateMedia(): Promise<void> {
+    const media: Record<string, ContentImage> = {};
+
+    for (const project of alternanceProjects) {
+        if (!project.screenshot) continue;
+        const { ref, alt } = project.screenshot;
+        media[ref] = await resolveImage(project.id, ref, alt);
+    }
+
+    fs.writeFileSync(mediaOutput, JSON.stringify(media, null, 4), "utf-8");
+    console.log(`Generated ${Object.keys(media).length} media entries to ${mediaOutput}`);
+}
+
+/**
+ * Runs every generator in order. The sitemap reads the JSON files written before it.
+ *
+ * @returns Promise that resolves when every file is generated
+ */
+async function main(): Promise<void> {
+    await generateProjects();
+    generateVeilles();
+    await generateDocs();
+    await generateMedia();
+    generateSitemap();
+    await generateFavicons();
+}
+
+main();
