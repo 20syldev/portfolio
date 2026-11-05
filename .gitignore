@@ -3,11 +3,12 @@ out/
 .next/
 *.tsbuildinfo
 next-env.d.ts
-src/data/projects.json
-src/data/veille.json
-src/data/docs.json
 public/sitemap.xml
 public/favicon.ico
 public/favicon-*.png
 public/apple-touch-icon.png
 public/android-chrome-*.png
+src/data/docs.json
+src/data/media.json
+src/data/projects.json
+src/data/veille.json
