@@ -91,7 +91,7 @@ npm run generate && next dev --hostname 0.0.0.0 --port 2146
 | URL               | Description                      |
 | ----------------- | -------------------------------- |
 | `/me`             | Ouvre la popup "À propos de moi" |
-| `/cv`             | Ouvre le CV en plein écran       |
+| `/cv`             | Affiche le CV, export PDF inclus |
 | `/tech`           | Affiche toutes les technologies  |
 | `/certifications` | Affiche les certifications       |
 | `/badges`         | Affiche les badges               |
