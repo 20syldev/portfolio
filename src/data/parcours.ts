@@ -51,7 +51,7 @@ export const parcours: ParcoursEntry[] = [
         end: "2027-10-31",
         from: "octobre 2026",
         to: "octobre 2027",
-        status: "upcoming",
+        status: "current",
         description:
             "Poursuite d'études en alternance sur un Bachelor orienté conception d'applications, avec une spécialisation en intelligence artificielle.",
         skills: [
@@ -60,7 +60,7 @@ export const parcours: ParcoursEntry[] = [
             "Conception d'applications",
             "Gestion de projet",
         ],
-        skillsNote: "Compétences visées par le Bachelor, la formation débute en octobre 2026.",
+        skillsNote: "Compétences visées par le Bachelor, en cours depuis octobre 2026.",
     },
     {
         id: "ensitech",
