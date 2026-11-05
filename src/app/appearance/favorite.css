@@ -36,8 +36,8 @@
     box-shadow: 0 6px 16px -6px oklch(0.75 0.16 80 / 45%);
 }
 .favorite-tip .fill-foreground {
-    fill: oklch(0.92 0.11 92);
-    background: oklch(0.92 0.11 92);
+    fill: oklch(0.944 0.083 94.6);
+    background: oklch(0.944 0.083 94.6);
 }
 .dark .favorite-tip {
     color: oklch(0.95 0.06 95);
@@ -45,8 +45,8 @@
     box-shadow: 0 0 18px -6px oklch(0.8 0.16 88 / 40%);
 }
 .dark .favorite-tip .fill-foreground {
-    fill: oklch(0.22 0.04 80);
-    background: oklch(0.22 0.04 80);
+    fill: oklch(0.252 0.044 82);
+    background: oklch(0.252 0.044 82);
 }
 [data-favorite][data-state$="open"] {
     background-image: radial-gradient(circle, oklch(0.92 0.12 95 / 28%), transparent 75%);
