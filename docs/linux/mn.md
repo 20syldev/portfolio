@@ -11,7 +11,7 @@ order: 3
 ### Via curl (recommandée)
 
 ```bash
-curl -fsSL https://cdn.sylvain.sh/bash/mn@latest/install.sh | bash
+curl -fsSL https://dropr.sylvain.sh/bash/mn@latest/install.sh | bash
 ```
 
 L'installeur démarre un TUI interactif (sélecteurs fléchés) pour choisir la langue et l'éditeur — utiliser `| sh` fonctionne également mais affiche un menu numéroté à la place. Si exécuté depuis le dépôt source, les fichiers sont copiés localement au lieu d'être téléchargés. Un log d'installation est sauvegardé dans `/tmp/`.
@@ -31,7 +31,7 @@ mn update
 Ou en relançant la commande d'installation — l'installeur détecte une installation existante et met à jour les fichiers sans toucher aux données :
 
 ```bash
-curl -fsSL https://cdn.sylvain.sh/bash/mn@latest/install.sh | bash
+curl -fsSL https://dropr.sylvain.sh/bash/mn@latest/install.sh | bash
 ```
 
 ## Désinstallation {#uninstall}
@@ -43,7 +43,7 @@ mn uninstall
 Ou via `mn config` → **Uninstall**, ou via curl :
 
 ```bash
-curl -fsSL https://cdn.sylvain.sh/bash/mn@latest/delete.sh | bash
+curl -fsSL https://dropr.sylvain.sh/bash/mn@latest/delete.sh | bash
 ```
 
 Un menu checkbox permet de choisir ce qui est supprimé : **Core** (binaires, lib, modules), **Config** (langue, éditeur, CDN), **Data** (fichiers `.dat`) et/ou **Plugins**. Les composantes non cochées sont conservées.
@@ -186,7 +186,7 @@ Via `mn config` → **Change language**. Langues disponibles : **français** et 
 
 ### Changer la source CDN
 
-Via `mn config` → **[C]**, ou en définissant la variable `MN_CDN`. Le réglage est enregistré dans `~/.config/mn/.cdn`. Par défaut : `https://cdn.sylvain.sh/bash`. Utilisé par `mn update` et `mn plugin install`.
+Via `mn config` → **[C]**, ou en définissant la variable `MN_CDN`. Le réglage est enregistré dans `~/.config/mn/.cdn`. Par défaut : `https://dropr.sylvain.sh/bash`. Utilisé par `mn update` et `mn plugin install`.
 
 ### Modifier les couleurs
 
