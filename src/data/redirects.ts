@@ -3,6 +3,7 @@ import { projects } from "@/data/projects";
 // Former project IDs mapped to their current ID
 export const renamedProjects: Record<string, string> = {
     api: "moxon",
+    cdn: "dropr",
     digit: "neuron",
     readme: "peek",
     whiteboard: "wispen",
