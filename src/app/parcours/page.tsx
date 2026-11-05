@@ -32,7 +32,6 @@ import { Period } from "@/components/ui/period";
 import { StatusBadge } from "@/components/ui/status";
 import { Tags } from "@/components/ui/tags";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { useViewer } from "@/components/utils/viewer";
 import {
     alternance,
     bac,
@@ -283,7 +282,6 @@ function WorkRole({ work }: { work: ParcoursWork }) {
  */
 function ParcoursSection({ entry }: { entry: ParcoursEntry }) {
     const roles = rolesFor(entry);
-    const { openPdf } = useViewer();
 
     return (
         <section id={entry.id} className="relative">
@@ -391,16 +389,15 @@ function ParcoursSection({ entry }: { entry: ParcoursEntry }) {
                             Projets réalisés
                         </h3>
                         {entry.document && (
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                className="h-7 text-xs"
-                                onClick={(e) =>
-                                    openPdf(entry.document!.file, entry.document!.label, e)
-                                }
-                            >
-                                {entry.document.label}
-                                <FileText className="ml-1 h-3 w-3" />
+                            <Button variant="outline" size="sm" className="h-7 text-xs" asChild>
+                                <a
+                                    href={encodeURI(entry.document.file)}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {entry.document.label}
+                                    <FileText className="ml-1 h-3 w-3" />
+                                </a>
                             </Button>
                         )}
                     </div>
