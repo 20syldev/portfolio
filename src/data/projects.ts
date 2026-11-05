@@ -1,5 +1,19 @@
 import projectsData from "./projects.json";
 
+/**
+ * Image placed in a markdown page, resolved at build time by scripts/generate.ts.
+ * `ref` is the path written in the markdown. When `dark` is set, `src` is the light
+ * variant and the page shows the one matching the theme.
+ */
+export interface ContentImage {
+    ref: string;
+    src: string;
+    dark?: string;
+    alt: string;
+    width: number;
+    height: number;
+}
+
 export interface Project {
     id: string;
     name: string;
@@ -12,6 +26,7 @@ export interface Project {
     npm?: string;
     docs?: string;
     image?: string;
+    images?: ContentImage[];
     archived?: boolean;
     paused?: boolean;
     work?: boolean;

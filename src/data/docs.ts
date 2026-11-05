@@ -1,4 +1,5 @@
 import docsData from "./docs.json";
+import type { ContentImage } from "./projects";
 
 export interface Doc {
     id: string;
@@ -7,6 +8,7 @@ export interface Doc {
     category: string;
     slug: string;
     order?: number;
+    images?: ContentImage[];
     hasContent: boolean;
     content?: string;
 }
