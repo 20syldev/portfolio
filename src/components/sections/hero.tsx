@@ -2,6 +2,7 @@
 
 import { FileUser, Github, Linkedin } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -10,7 +11,6 @@ import { Name } from "@/components/ui/name";
 import { Rotating } from "@/components/ui/rotating";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useFont } from "@/components/utils/font";
-import { useViewer } from "@/components/utils/viewer";
 import { collapseHole, Result, Vortex } from "@/components/utils/vortex";
 import { profile } from "@/data/profile";
 import { useKonami, useMultiTap } from "@/hooks/konami";
@@ -24,7 +24,6 @@ import { useSparkle } from "@/hooks/sparkle";
  * @returns The rendered hero section
  */
 export function Hero() {
-    const { openPdf } = useViewer();
     const { setDialogOpen } = useFont();
     const { theme, resolvedTheme, setTheme } = useTheme();
     const themeRef = useRef(theme);
@@ -212,12 +211,14 @@ export function Hero() {
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <Button
+                                asChild
                                 size="icon"
                                 variant="ghost"
                                 className="h-12 w-12 rounded-full"
-                                onClick={(e) => openPdf(profile.links.cv, "CV", e)}
                             >
-                                <FileUser className="h-5 w-5" />
+                                <Link href={profile.links.cv} aria-label="CV">
+                                    <FileUser className="h-5 w-5" />
+                                </Link>
                             </Button>
                         </TooltipTrigger>
                         <TooltipContent>CV</TooltipContent>

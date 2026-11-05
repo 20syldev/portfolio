@@ -51,7 +51,6 @@ import {
 import { useCursor } from "@/components/utils/cursor";
 import { useFont } from "@/components/utils/font";
 import { useMotion } from "@/components/utils/motion";
-import { useViewer } from "@/components/utils/viewer";
 import { useXray } from "@/components/utils/xray";
 import { projects as alternanceProjects } from "@/data/alternance";
 import { docs } from "@/data/docs";
@@ -254,7 +253,6 @@ export function CommandMenu() {
     const { dialogOpen: fontDialogOpen, setDialogOpen: setFontDialogOpen } = useFont();
     const { enabled: motionEnabled, setEnabled: setMotionEnabled } = useMotion();
     const { enabled: xrayEnabled, setEnabled: setXrayEnabled } = useXray();
-    const { openPdf } = useViewer();
     const getProjectStatus = useStatus();
 
     React.useEffect(() => {
@@ -370,7 +368,7 @@ export function CommandMenu() {
             action: () => router.push("/parcours"),
             keywords: ["formation", "école", "ensitech", "ipssi", "bts", "diplôme", "bac"],
         },
-        { label: "CV", icon: FileUser, action: () => openPdf("/CV.pdf", "CV") },
+        { label: "CV", icon: FileUser, action: () => router.push("/cv") },
     ];
 
     const shortcutsCommandItem = (
