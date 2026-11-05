@@ -1,16 +1,17 @@
 ---
 name: Wispen
 description: Tableau blanc open source, sans compte, qui tourne entièrement dans le navigateur.
-longDescription: "Tableau blanc libre et sans serveur, en cours de développement, construit avec Next.js 16, React 19 et TypeScript : formes arrondies, flèches qui suivent les formes, pages multiples, sauvegarde locale dans IndexedDB et exports PNG, SVG, PDF, Excalidraw et draw.io. L'application est installable en PWA et fonctionne hors ligne."
+longDescription: "Tableau blanc libre et sans serveur, construit avec Next.js 16, React 19 et TypeScript : formes arrondies, flèches qui suivent les formes, pages multiples, sauvegarde locale dans IndexedDB et exports PNG, SVG, PDF, Excalidraw et draw.io. L'application est installable en PWA et fonctionne hors ligne."
 tags: ["Next.js", "TypeScript", "Diagrams", "PWA"]
 github: "https://github.com/20syldev/wispen"
+demo: "https://wispen.sylvain.sh"
 ---
 
 ## À propos {#about}
 
 Wispen est un tableau blanc **open source**, **simple** et **sans compte** : un espace de travail vierge, une grille en option, et c'est tout.
 Il n'y a ni abonnement, ni site vitrine, ni serveur. L'application tourne entièrement dans le navigateur et les documents restent sur la machine de l'utilisateur.
-Le projet s'appelait auparavant **whiteboard**. Il est **en cours de développement** : il n'est pas encore en ligne et continue d'évoluer.
+Le projet s'appelait auparavant **whiteboard**. Sa première version stable, la **1.0.0**, est en ligne sur [wispen.sylvain.sh](https://wispen.sylvain.sh).
 L'interface est disponible en français et en anglais, avec un mode clair et un mode sombre, automatique ou manuel, et un canevas blanc ou teinté.
 
 ## Fonctionnalités {#features}
