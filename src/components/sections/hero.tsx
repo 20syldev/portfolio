@@ -144,6 +144,7 @@ export function Hero() {
                     className="rounded-full shadow-lg pointer-events-none"
                     draggable={false}
                     preload
+                    fetchPriority="high"
                 />
             </div>
 
