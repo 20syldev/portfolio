@@ -32,7 +32,6 @@ interface ProjectMeta {
 interface GeneratedProject extends ProjectMeta {
     images?: ContentImage[];
     hasContent: boolean;
-    content?: string;
 }
 
 interface VeilleMeta {
@@ -46,7 +45,6 @@ interface VeilleMeta {
 
 interface GeneratedVeille extends VeilleMeta {
     hasContent: boolean;
-    content?: string;
 }
 
 interface DocMeta {
@@ -61,17 +59,19 @@ interface DocMeta {
 interface GeneratedDoc extends DocMeta {
     images?: ContentImage[];
     hasContent: boolean;
-    content?: string;
 }
 
 const projectsSource = path.join(process.cwd(), "projects");
-const projectsOutput = path.join(process.cwd(), "src", "data", "projects.json");
+const projectsOutput = path.join(process.cwd(), "src", "data", "projects-index.json");
+const projectsContentOutput = path.join(process.cwd(), "src", "data", "projects-content.json");
 
 const veilleSource = path.join(process.cwd(), "veille");
-const veilleOutput = path.join(process.cwd(), "src", "data", "veille.json");
+const veilleOutput = path.join(process.cwd(), "src", "data", "veille-index.json");
+const veilleContentOutput = path.join(process.cwd(), "src", "data", "veille-content.json");
 
 const docsSource = path.join(process.cwd(), "docs");
-const docsOutput = path.join(process.cwd(), "src", "data", "docs.json");
+const docsOutput = path.join(process.cwd(), "src", "data", "docs-index.json");
+const docsContentOutput = path.join(process.cwd(), "src", "data", "docs-content.json");
 const mediaOutput = path.join(process.cwd(), "src", "data", "media.json");
 
 const publicDir = path.join(process.cwd(), "public");
@@ -128,12 +128,13 @@ async function resolveImages(pageId: string, content: string): Promise<ContentIm
 /**
  * Generates the projects JSON file from markdown sources.
  * Reads all .md files from the projects directory, parses frontmatter and content, resolves
- * the content images, sorts by archived status and order, and outputs to src/data/projects.json.
+ * the content images, sorts by archived status and order, and outputs to src/data/projects-index.json.
  *
  * @returns Promise that resolves when the file is written
  */
 async function generateProjects(): Promise<void> {
     const projects: GeneratedProject[] = [];
+    const contents: Record<string, string> = {};
 
     // Check that the source directory exists
     if (!fs.existsSync(projectsSource)) {
@@ -165,13 +166,13 @@ async function generateProjects(): Promise<void> {
 
         // Detect if content exists (after frontmatter)
         const hasContent = content.length > 0;
+        if (hasContent) contents[projectId] = content;
 
         projects.push({
             id: projectId,
             ...meta,
             ...(images.length > 0 && { images }),
             hasContent,
-            ...(hasContent && { content }),
         } as GeneratedProject);
     }
 
@@ -186,6 +187,7 @@ async function generateProjects(): Promise<void> {
 
     // Write the JSON file
     fs.writeFileSync(projectsOutput, JSON.stringify(projects, null, 4), "utf-8");
+    fs.writeFileSync(projectsContentOutput, JSON.stringify(contents), "utf-8");
 
     console.log(`Generated ${projects.length} projects to ${projectsOutput}`);
     console.log(`  - ${projects.filter((p) => p.hasContent).length} with content`);
@@ -195,12 +197,13 @@ async function generateProjects(): Promise<void> {
 /**
  * Generates the veille (tech watch) JSON file from markdown sources.
  * Reads all .md files from the veille directory, parses frontmatter and content,
- * sorts by order, and outputs to src/data/veille.json.
+ * sorts by order, and outputs to src/data/veille-index.json.
  *
  * @returns void
  */
 function generateVeilles(): void {
     const veilles: GeneratedVeille[] = [];
+    const contents: Record<string, string> = {};
 
     // Check that the source directory exists
     if (!fs.existsSync(veilleSource)) {
@@ -231,12 +234,12 @@ function generateVeilles(): void {
 
         // Detect if content exists (after frontmatter)
         const hasContent = content.length > 0;
+        if (hasContent) contents[veilleId] = content;
 
         veilles.push({
             id: veilleId,
             ...meta,
             hasContent,
-            ...(hasContent && { content }),
         } as GeneratedVeille);
     }
 
@@ -245,6 +248,7 @@ function generateVeilles(): void {
 
     // Write the JSON file
     fs.writeFileSync(veilleOutput, JSON.stringify(veilles, null, 4), "utf-8");
+    fs.writeFileSync(veilleContentOutput, JSON.stringify(contents), "utf-8");
 
     console.log(`Generated ${veilles.length} veille entries to ${veilleOutput}`);
     console.log(`  - ${veilles.filter((v) => v.hasContent).length} with content`);
@@ -278,7 +282,7 @@ function findMarkdownFiles(dir: string, fileList: string[] = []): string[] {
  * Generates the documentation JSON file from markdown sources.
  * Reads all .md files from the docs directory recursively, parses frontmatter and content,
  * automatically detects category from folder structure, resolves the images placed in the
- * content, sorts by category and order, and outputs to src/data/docs.json.
+ * content, sorts by category and order, and outputs to src/data/docs-index.json.
  *
  * Structure expected: docs/<category>/<slug>.md
  *
@@ -286,6 +290,7 @@ function findMarkdownFiles(dir: string, fileList: string[] = []): string[] {
  */
 async function generateDocs(): Promise<void> {
     const docs: GeneratedDoc[] = [];
+    const contents: Record<string, string> = {};
 
     // Check that the source directory exists
     if (!fs.existsSync(docsSource)) {
@@ -326,6 +331,7 @@ async function generateDocs(): Promise<void> {
 
         // Detect if content exists (after frontmatter)
         const hasContent = content.length > 0;
+        if (hasContent) contents[docId] = content;
 
         // Frontmatter metadata takes priority over inferred values
         docs.push({
@@ -337,7 +343,6 @@ async function generateDocs(): Promise<void> {
             order: meta.order,
             ...(images.length > 0 && { images }),
             hasContent,
-            ...(hasContent && { content }),
         });
     }
 
@@ -351,6 +356,7 @@ async function generateDocs(): Promise<void> {
 
     // Write the JSON file
     fs.writeFileSync(docsOutput, JSON.stringify(docs, null, 4), "utf-8");
+    fs.writeFileSync(docsContentOutput, JSON.stringify(contents), "utf-8");
 
     console.log(`Generated ${docs.length} docs to ${docsOutput}`);
     console.log(`  - ${docs.filter((d) => d.hasContent).length} with content`);

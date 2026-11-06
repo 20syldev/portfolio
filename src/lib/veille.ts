@@ -1,17 +1,6 @@
 import { type Veille, veilles } from "@/data/veille";
 
 /**
- * Retrieves the markdown content of a veille article by its identifier.
- *
- * @param veilleId - The unique veille identifier
- * @returns The veille markdown content, or null if not found
- */
-export function getVeilleContent(veilleId: string): string | null {
-    const veille = veilles.find((v) => v.id === veilleId);
-    return veille?.content ?? null;
-}
-
-/**
  * Checks whether a veille article has associated markdown content.
  *
  * @param veilleId - The unique veille identifier

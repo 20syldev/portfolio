@@ -1,4 +1,4 @@
-import docsData from "./docs.json";
+import docsData from "./docs-index.json";
 import type { ContentImage } from "./projects";
 
 export interface Doc {
@@ -10,8 +10,7 @@ export interface Doc {
     order?: number;
     images?: ContentImage[];
     hasContent: boolean;
-    content?: string;
 }
 
-// Documentation entries loaded from docs.json
+// Documentation entries loaded from docs-index.json
 export const docs: Doc[] = docsData as Doc[];

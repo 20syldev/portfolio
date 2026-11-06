@@ -42,18 +42,6 @@ export function getDoc(category: string, slug: string | string[]): Doc | undefin
 }
 
 /**
- * Retrieves the markdown content of a doc by category and slug.
- *
- * @param category - The doc category
- * @param slug - The doc slug or slug array
- * @returns The doc markdown content, or null if not found
- */
-export function getDocContent(category: string, slug: string | string[]): string | null {
-    const doc = getDoc(category, slug);
-    return doc?.content ?? null;
-}
-
-/**
  * Retrieves all docs for a given category.
  *
  * @param category - The category to filter by

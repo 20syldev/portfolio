@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { docs } from "@/data/docs";
-import { getCategoryName, getDoc, getDocContent, getDocsBySubcategory } from "@/lib/docs";
+import { getDocContent } from "@/lib/content";
+import { getCategoryName, getDoc, getDocsBySubcategory } from "@/lib/docs";
 
 import { Listing } from "../listing";
 
@@ -104,7 +105,7 @@ export default async function Page({ params }: Props) {
     // Try to find a doc with this exact slug
     const doc = getDoc(category, slugStr);
     if (doc && doc.hasContent) {
-        const content = getDocContent(category, slugStr);
+        const content = getDocContent(doc.id);
         if (content) {
             return (
                 <HelpDoc

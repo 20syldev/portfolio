@@ -1,4 +1,4 @@
-import veilleData from "./veille.json";
+import veilleData from "./veille-index.json";
 
 export interface Veille {
     id: string;
@@ -8,8 +8,7 @@ export interface Veille {
     url?: string;
     order?: number;
     hasContent: boolean;
-    content?: string;
 }
 
-// Technology watch entries loaded from veille.json
+// Technology watch entries loaded from veille-index.json
 export const veilles: Veille[] = veilleData as Veille[];

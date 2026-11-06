@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { veilles } from "@/data/veille";
-import { getVeille, getVeilleContent } from "@/lib/veille";
+import { getVeilleContent } from "@/lib/content";
+import { getVeille } from "@/lib/veille";
 
 import { Doc } from "./doc";
 

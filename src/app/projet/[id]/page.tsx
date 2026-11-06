@@ -3,7 +3,8 @@ import { notFound, redirect } from "next/navigation";
 
 import { projects } from "@/data/projects";
 import { renamedProjects } from "@/data/redirects";
-import { getProject, getProjectContent } from "@/lib/projects";
+import { getProjectContent } from "@/lib/content";
+import { getProject } from "@/lib/projects";
 
 import { Doc } from "./doc";
 

@@ -3,17 +3,6 @@ import { type Project, projects } from "@/data/projects";
 export { projectOrder } from "@/lib/order";
 
 /**
- * Retrieves the markdown content of a project by its identifier.
- *
- * @param projectId - The unique project identifier
- * @returns The project markdown content, or null if not found
- */
-export function getProjectContent(projectId: string): string | null {
-    const project = projects.find((p) => p.id === projectId);
-    return project?.content ?? null;
-}
-
-/**
  * Checks whether a project has associated markdown content.
  *
  * @param projectId - The unique project identifier

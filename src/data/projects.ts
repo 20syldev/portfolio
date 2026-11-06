@@ -1,4 +1,4 @@
-import projectsData from "./projects.json";
+import projectsData from "./projects-index.json";
 
 /**
  * Image placed in a markdown page, resolved at build time by scripts/generate.ts.
@@ -33,8 +33,7 @@ export interface Project {
     lastUpdated?: string;
     version?: string;
     hasContent: boolean;
-    content?: string;
 }
 
-// Project entries loaded from projects.json
+// Project entries loaded from projects-index.json
 export const projects: Project[] = projectsData as Project[];
