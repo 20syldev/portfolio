@@ -64,7 +64,7 @@ npm run generate && next dev --hostname 0.0.0.0 --port 2146
 | `npm run dev`      | Lance le serveur de développement sur le port 2146 |
 | `npm run build`    | Compile le projet pour la production               |
 | `npm run start`    | Démarre le serveur de production                   |
-| `npm run generate` | Génère les fichiers de données des projets         |
+| `npm run generate` | Génère les données, le plan du site et les icônes  |
 | `npm run check`    | Vérifie le typage TypeScript                       |
 | `npm run lint`     | Vérifie le code avec ESLint                        |
 
