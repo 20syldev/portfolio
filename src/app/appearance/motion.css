@@ -40,14 +40,12 @@
     }
 }
 
-@keyframes header-in {
+@keyframes slide-in {
     0% {
-        transform: translateY(50%);
-        opacity: 0;
+        transform: translateY(12px);
     }
     100% {
         transform: translateY(0);
-        opacity: 1;
     }
 }
 
@@ -172,7 +170,11 @@
 
 /* Animation Classes */
 .animate-header-in {
-    animation: header-in 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: slide-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-page-first {
+    animation: slide-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-page-in {

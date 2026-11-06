@@ -18,8 +18,9 @@
         font-size: 100% !important;
     }
 
-    /* Page and header intros start at opacity 0 and would print faded */
+    /* Page and header intros would print caught mid-animation */
     .animate-page-in,
+    .animate-page-first,
     .animate-header-in {
         animation: none !important;
     }
