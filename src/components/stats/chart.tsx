@@ -1,10 +1,13 @@
 "use client";
 
+import { X } from "lucide-react";
 import { useState } from "react";
 
+import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Expand } from "@/components/ui/expand";
+import { Sideways, sidewaysFrame } from "@/components/ui/sideways";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { ActivityWeek } from "@/hooks/api";
 import { cn } from "@/lib/utils";
@@ -285,25 +288,30 @@ export function ActivityChart({ data, loading }: { data?: ActivityWeek[]; loadin
 
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogContent
-                    className={cn(
-                        "flex items-center justify-center",
-                        "w-[100dvh] h-[100vw]",
-                        "p-0",
-                        "max-w-none max-h-none",
-                        "rotate-90 origin-center"
-                    )}
-                    showCloseButton
                     aria-describedby={undefined}
+                    showCloseButton={false}
+                    className={cn("grid-cols-[minmax(0,1fr)] gap-3 rounded-xl p-2", sidewaysFrame)}
                 >
-                    <DialogHeader className="sr-only">
-                        <DialogTitle>Contributions GitHub</DialogTitle>
-                    </DialogHeader>
-                    <div className="w-full flex-1">
+                    <Sideways ratio={W / H}>
                         <ChartSvg
                             chart={chart}
                             hovered={dialogHovered}
                             setHovered={setDialogHovered}
                         />
+                    </Sideways>
+                    <div className="flex items-center gap-2 pl-2 text-sm text-muted-foreground">
+                        <DialogTitle className="min-w-0 flex-1 truncate text-sm font-normal">
+                            Contributions GitHub
+                        </DialogTitle>
+                        <DialogClose
+                            aria-label="Fermer"
+                            className={cn(
+                                buttonVariants({ variant: "ghost", size: "icon" }),
+                                "shrink-0"
+                            )}
+                        >
+                            <X className="h-4 w-4" />
+                        </DialogClose>
                     </div>
                 </DialogContent>
             </Dialog>
