@@ -2,7 +2,7 @@
 
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { ThemeToggle } from "@/components/layout/theme";
 import { Button } from "@/components/ui/button";
@@ -11,8 +11,7 @@ import { Name } from "@/components/ui/name";
 import { CommandMenu, SearchButton } from "@/components/utils/command";
 import { useFont } from "@/components/utils/font";
 import { profile } from "@/data/profile";
-
-let hasAnimated = false;
+import { useFirstVisit } from "@/hooks/entrance";
 
 interface NavProps {
     currentTab: number;
@@ -37,11 +36,7 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
     const isHome = currentTab === 0;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { setDialogOpen } = useFont();
-    const [animate] = useState(!hasAnimated);
-
-    useEffect(() => {
-        hasAnimated = true;
-    }, []);
+    const animate = useFirstVisit();
 
     return (
         <header
