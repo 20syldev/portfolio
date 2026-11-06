@@ -103,7 +103,7 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
                                         ? `px-3 py-1 md:px-4 md:py-2 text-xs md:text-sm rounded-full ${
                                               currentTab === index
                                                   ? "bg-background text-foreground shadow-sm"
-                                                  : "text-muted-foreground hover:text-foreground hover:bg-background/50"
+                                                  : "text-tab-foreground hover:text-foreground hover:bg-background/50"
                                           }`
                                         : `px-4 py-2 text-sm ${
                                               currentTab === index
