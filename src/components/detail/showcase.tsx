@@ -151,7 +151,7 @@ export function Lightbox({ images, index, onIndexChange }: LightboxProps) {
                 }}
             >
                 <DialogTitle className="sr-only">{current.alt}</DialogTitle>
-                <Sideways ratio={current.width / current.height} active={sideways}>
+                <Sideways ratio={current.width / current.height} reserve="5rem" active={sideways}>
                     <Shot
                         image={current}
                         className={cn(

@@ -292,7 +292,7 @@ export function ActivityChart({ data, loading }: { data?: ActivityWeek[]; loadin
                     showCloseButton={false}
                     className={cn("grid-cols-[minmax(0,1fr)] gap-3 rounded-xl p-2", sidewaysFrame)}
                 >
-                    <Sideways ratio={W / H}>
+                    <Sideways ratio={W / H} reserve="5rem">
                         <ChartSvg
                             chart={chart}
                             hovered={dialogHovered}
