@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Sideways, sidewaysFrame } from "@/components/ui/sideways";
 import type { ContentImage } from "@/data/projects";
 import { cn } from "@/lib/utils";
 
@@ -121,6 +122,8 @@ export function Lightbox({ images, index, onIndexChange }: LightboxProps) {
     const current = images[index ?? shown] ?? images[0];
     if (!current) return null;
 
+    const sideways = current.width > current.height;
+
     const step = (delta: number) => {
         if (index !== null) onIndexChange((index + delta + count) % count);
     };
@@ -131,7 +134,10 @@ export function Lightbox({ images, index, onIndexChange }: LightboxProps) {
                 aria-describedby={undefined}
                 autoFocusClose
                 showCloseButton={false}
-                className="gap-3 rounded-xl p-2 sm:max-w-[min(92vw,1400px)] sm:p-3"
+                className={cn(
+                    "grid-cols-[minmax(0,1fr)] gap-3 rounded-xl p-2 sm:max-w-[min(92vw,1400px)] sm:p-3",
+                    sideways && sidewaysFrame
+                )}
                 onOpenAutoFocus={() => {
                     opener.current = document.activeElement as HTMLElement | null;
                 }}
@@ -145,10 +151,16 @@ export function Lightbox({ images, index, onIndexChange }: LightboxProps) {
                 }}
             >
                 <DialogTitle className="sr-only">{current.alt}</DialogTitle>
-                <Shot
-                    image={current}
-                    className="mx-auto h-auto max-h-[calc(100dvh-8rem)] w-auto max-w-full rounded-lg"
-                />
+                <Sideways ratio={current.width / current.height} active={sideways}>
+                    <Shot
+                        image={current}
+                        className={cn(
+                            "mx-auto h-auto max-h-[calc(100dvh-8rem)] w-auto max-w-full rounded-lg",
+                            sideways &&
+                                "max-sm:portrait:mx-0 max-sm:portrait:max-h-none max-sm:portrait:w-full"
+                        )}
+                    />
+                </Sideways>
                 <div className="flex items-center gap-2 pl-2 text-sm text-muted-foreground">
                     <span aria-live="polite" className="min-w-0 flex-1 truncate">
                         {current.alt}
