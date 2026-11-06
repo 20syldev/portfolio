@@ -339,7 +339,7 @@ export function Alternance() {
 
                                     {project.sections.map((section, index) => (
                                         <div key={index}>
-                                            <h4 className="mb-2 font-semibold">{section.title}</h4>
+                                            <h3 className="mb-2 font-semibold">{section.title}</h3>
                                             <p className="text-sm text-muted-foreground">
                                                 {section.content}
                                             </p>
