@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Dialog, DialogOverlay, DialogPortal } from "@/components/ui/dialog";
 import { Expand } from "@/components/ui/expand";
+import { Sideways, sidewaysFrame } from "@/components/ui/sideways";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
@@ -20,6 +21,23 @@ function formatTime(seconds: number): string {
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+}
+
+/**
+ * Position of a pointer along a bar, as a fraction of the bar length between 0 and 1.
+ * A bar turned a quarter turn is longer than wide on screen and runs from top to bottom.
+ *
+ * @param rect - Box of the bar on screen
+ * @param clientX - Horizontal position of the pointer
+ * @param clientY - Vertical position of the pointer
+ * @returns Fraction of the bar reached by the pointer
+ */
+function fractionAlong(rect: DOMRect, clientX: number, clientY: number): number {
+    const fraction =
+        rect.height > rect.width
+            ? (clientY - rect.top) / rect.height
+            : (clientX - rect.left) / rect.width;
+    return Math.max(0, Math.min(1, fraction));
 }
 
 /**
@@ -44,6 +62,7 @@ export function Video({ src, title, poster, className }: VideoProps) {
     const [isDragging, setIsDragging] = useState(false);
     const [hasAudio, setHasAudio] = useState(true);
     const [inView, setInView] = useState(false);
+    const [ratio, setRatio] = useState(16 / 9);
 
     const videoRef = useRef<HTMLVideoElement>(null);
     const thumbnailRef = useRef<HTMLVideoElement>(null);
@@ -154,7 +173,7 @@ export function Video({ src, title, poster, className }: VideoProps) {
         (e: React.MouseEvent<HTMLDivElement>) => {
             if (!videoRef.current || !progressRef.current) return;
             const rect = progressRef.current.getBoundingClientRect();
-            const percent = (e.clientX - rect.left) / rect.width;
+            const percent = fractionAlong(rect, e.clientX, e.clientY);
             const newTime = percent * duration;
             videoRef.current.currentTime = newTime;
             setCurrentTime(newTime);
@@ -167,8 +186,8 @@ export function Video({ src, title, poster, className }: VideoProps) {
         (e: MouseEvent | TouchEvent) => {
             if (!videoRef.current || !progressRef.current || !isDragging) return;
             const rect = progressRef.current.getBoundingClientRect();
-            const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
-            const percent = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+            const point = "touches" in e ? e.touches[0] : e;
+            const percent = fractionAlong(rect, point.clientX, point.clientY);
             const newTime = percent * duration;
             videoRef.current.currentTime = newTime;
             setCurrentTime(newTime);
@@ -254,6 +273,8 @@ export function Video({ src, title, poster, className }: VideoProps) {
     const handleLoadedMetadata = useCallback(() => {
         if (videoRef.current) {
             setDuration(videoRef.current.duration);
+            const { videoWidth, videoHeight } = videoRef.current;
+            if (videoWidth > 0 && videoHeight > 0) setRatio(videoWidth / videoHeight);
             // Detect if video has audio track
             const video = videoRef.current as HTMLVideoElement & {
                 mozHasAudio?: boolean;
@@ -314,6 +335,7 @@ export function Video({ src, title, poster, className }: VideoProps) {
     }, [open, togglePlay, toggleFullscreen, toggleMute, duration]);
 
     const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
+    const sideways = ratio > 1 && !isFullscreen;
 
     return (
         <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -356,199 +378,209 @@ export function Video({ src, title, poster, className }: VideoProps) {
                         "data-[state=open]:animate-in data-[state=closed]:animate-out",
                         "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
                         "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
-                        "duration-200"
+                        "duration-200",
+                        sideways && "max-sm:portrait:grid",
+                        sideways && sidewaysFrame
                     )}
                 >
                     <DialogPrimitive.Title className="sr-only">{title}</DialogPrimitive.Title>
 
                     {/* Video container - adapts to video size */}
-                    <div
-                        ref={containerRef}
-                        className={cn(
-                            "relative bg-black",
-                            isFullscreen && "w-screen h-screen flex items-center justify-center"
-                        )}
-                        onClick={togglePlay}
-                        onMouseMove={resetControlsTimeout}
-                        onTouchStart={resetControlsTimeout}
-                        onTouchEnd={resetControlsTimeout}
-                    >
-                        {/* Close button */}
-                        <button
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setOpen(false);
-                            }}
+                    <Sideways ratio={ratio} active={sideways}>
+                        <div
+                            ref={containerRef}
                             className={cn(
-                                "absolute top-2 right-2 z-20",
-                                "flex h-8 w-8 items-center justify-center rounded-full",
-                                "bg-black/50 text-white backdrop-blur-sm",
-                                "hover:bg-black/70 transition-all",
-                                "focus-visible:ring-2 focus-visible:ring-white",
-                                showControls ? "opacity-100" : "opacity-0 pointer-events-none"
+                                "relative bg-black",
+                                sideways && "max-sm:portrait:w-full",
+                                isFullscreen && "w-screen h-screen flex items-center justify-center"
                             )}
-                            aria-label="Fermer"
+                            onClick={togglePlay}
+                            onMouseMove={resetControlsTimeout}
+                            onTouchStart={resetControlsTimeout}
+                            onTouchEnd={resetControlsTimeout}
                         >
-                            <X className="h-4 w-4" />
-                        </button>
+                            {/* Close button */}
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setOpen(false);
+                                }}
+                                className={cn(
+                                    "absolute top-2 right-2 z-20",
+                                    "flex h-8 w-8 items-center justify-center rounded-full",
+                                    "bg-black/50 text-white backdrop-blur-sm",
+                                    "hover:bg-black/70 transition-all",
+                                    "focus-visible:ring-2 focus-visible:ring-white",
+                                    showControls ? "opacity-100" : "opacity-0 pointer-events-none"
+                                )}
+                                aria-label="Fermer"
+                            >
+                                <X className="h-4 w-4" />
+                            </button>
 
-                        <video
-                            ref={videoRef}
-                            playsInline
-                            className={cn(
-                                "max-w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)] block",
-                                isFullscreen && "max-w-full max-h-full w-auto h-auto"
+                            <video
+                                ref={videoRef}
+                                playsInline
+                                className={cn(
+                                    "max-w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)] block",
+                                    sideways &&
+                                        "max-sm:portrait:h-auto max-sm:portrait:max-h-none max-sm:portrait:w-full max-sm:portrait:max-w-none",
+                                    isFullscreen && "max-w-full max-h-full w-auto h-auto"
+                                )}
+                                onTimeUpdate={handleTimeUpdate}
+                                onLoadedMetadata={handleLoadedMetadata}
+                                onPlay={handlePlay}
+                                onPause={handlePause}
+                                onEnded={handleEnded}
+                            >
+                                <source src={src} type="video/mp4" />
+                                Votre navigateur ne supporte pas la lecture de vidéos.
+                            </video>
+
+                            {/* Center pause indicator */}
+                            {!isPlaying && (
+                                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-black/40 backdrop-blur-sm">
+                                        <Pause className="h-8 w-8 text-white" fill="currentColor" />
+                                    </div>
+                                </div>
                             )}
-                            onTimeUpdate={handleTimeUpdate}
-                            onLoadedMetadata={handleLoadedMetadata}
-                            onPlay={handlePlay}
-                            onPause={handlePause}
-                            onEnded={handleEnded}
-                        >
-                            <source src={src} type="video/mp4" />
-                            Votre navigateur ne supporte pas la lecture de vidéos.
-                        </video>
 
-                        {/* Center pause indicator */}
-                        {!isPlaying && (
-                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-black/40 backdrop-blur-sm">
-                                    <Pause className="h-8 w-8 text-white" fill="currentColor" />
+                            {/* Custom Controls */}
+                            <div
+                                className={cn(
+                                    "absolute bottom-0 left-0 right-0 p-4 pt-8",
+                                    "bg-gradient-to-t from-black/80 to-transparent",
+                                    "transition-opacity duration-300",
+                                    showControls ? "opacity-100" : "opacity-0 pointer-events-none"
+                                )}
+                            >
+                                {/* Progress bar */}
+                                <div
+                                    ref={progressRef}
+                                    className="relative h-1.5 bg-white/30 rounded-full cursor-pointer mb-3 group/progress"
+                                    onClick={handleProgressClick}
+                                    onMouseDown={handleDragStart}
+                                    onTouchStart={handleDragStart}
+                                >
+                                    {/* Progress fill */}
+                                    <div
+                                        className="absolute top-0 left-0 h-full bg-primary rounded-full"
+                                        style={{ width: `${progress}%` }}
+                                    />
+                                    {/* Drag handle */}
+                                    <div
+                                        className={cn(
+                                            "absolute top-1/2 -translate-y-1/2 h-3.5 w-3.5",
+                                            "bg-white rounded-full shadow-md",
+                                            "opacity-0 group-hover/progress:opacity-100 transition-opacity",
+                                            isDragging && "opacity-100"
+                                        )}
+                                        style={{ left: `calc(${progress}% - 7px)` }}
+                                    />
+                                </div>
+
+                                {/* Controls row */}
+                                <div className="flex items-center gap-3 text-white">
+                                    {/* Play/Pause */}
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            togglePlay();
+                                        }}
+                                        className="p-1.5 hover:bg-white/20 rounded-full transition-colors"
+                                        aria-label={isPlaying ? "Pause" : "Lecture"}
+                                    >
+                                        <span className="w-5 h-5 flex items-center justify-center">
+                                            {isPlaying ? (
+                                                <Pause className="h-5 w-5" fill="currentColor" />
+                                            ) : (
+                                                <Play className="h-5 w-5" fill="currentColor" />
+                                            )}
+                                        </span>
+                                    </button>
+
+                                    {/* Time */}
+                                    <span className="text-sm font-mono tabular-nums">
+                                        {formatTime(currentTime)} / {formatTime(duration)}
+                                    </span>
+
+                                    <div className="flex-1" />
+
+                                    {/* Volume (hidden on mobile, disabled if no audio) */}
+                                    <Tooltip>
+                                        <TooltipTrigger asChild>
+                                            <div
+                                                className={cn(
+                                                    "hidden sm:flex items-center gap-2",
+                                                    !hasAudio && "opacity-40"
+                                                )}
+                                            >
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        if (hasAudio) toggleMute();
+                                                    }}
+                                                    className="p-1.5 hover:bg-white/20 rounded-full transition-colors"
+                                                    aria-label={
+                                                        !hasAudio
+                                                            ? "Pas de son"
+                                                            : isMuted
+                                                              ? "Activer le son"
+                                                              : "Couper le son"
+                                                    }
+                                                >
+                                                    {!hasAudio || isMuted || volume === 0 ? (
+                                                        <VolumeX className="h-5 w-5" />
+                                                    ) : (
+                                                        <Volume2 className="h-5 w-5" />
+                                                    )}
+                                                </button>
+                                                <input
+                                                    type="range"
+                                                    min="0"
+                                                    max="1"
+                                                    step="0.1"
+                                                    value={isMuted ? 0 : volume}
+                                                    onChange={handleVolumeChange}
+                                                    onClick={(e) => e.stopPropagation()}
+                                                    className="w-20 h-1 accent-white cursor-pointer"
+                                                    aria-label="Volume"
+                                                    disabled={!hasAudio}
+                                                />
+                                            </div>
+                                        </TooltipTrigger>
+                                        {!hasAudio && (
+                                            <TooltipContent>
+                                                <p>Cette vidéo n'a pas de son</p>
+                                            </TooltipContent>
+                                        )}
+                                    </Tooltip>
+
+                                    {/* Fullscreen */}
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            toggleFullscreen();
+                                        }}
+                                        className={cn(
+                                            "p-1.5 hover:bg-white/20 rounded-full transition-colors",
+                                            sideways && "max-sm:portrait:hidden"
+                                        )}
+                                        aria-label={
+                                            isFullscreen ? "Quitter le plein écran" : "Plein écran"
+                                        }
+                                    >
+                                        {isFullscreen ? (
+                                            <Minimize className="h-5 w-5" />
+                                        ) : (
+                                            <Maximize className="h-5 w-5" />
+                                        )}
+                                    </button>
                                 </div>
                             </div>
-                        )}
-
-                        {/* Custom Controls */}
-                        <div
-                            className={cn(
-                                "absolute bottom-0 left-0 right-0 p-4 pt-8",
-                                "bg-gradient-to-t from-black/80 to-transparent",
-                                "transition-opacity duration-300",
-                                showControls ? "opacity-100" : "opacity-0 pointer-events-none"
-                            )}
-                        >
-                            {/* Progress bar */}
-                            <div
-                                ref={progressRef}
-                                className="relative h-1.5 bg-white/30 rounded-full cursor-pointer mb-3 group/progress"
-                                onClick={handleProgressClick}
-                                onMouseDown={handleDragStart}
-                                onTouchStart={handleDragStart}
-                            >
-                                {/* Progress fill */}
-                                <div
-                                    className="absolute top-0 left-0 h-full bg-primary rounded-full"
-                                    style={{ width: `${progress}%` }}
-                                />
-                                {/* Drag handle */}
-                                <div
-                                    className={cn(
-                                        "absolute top-1/2 -translate-y-1/2 h-3.5 w-3.5",
-                                        "bg-white rounded-full shadow-md",
-                                        "opacity-0 group-hover/progress:opacity-100 transition-opacity",
-                                        isDragging && "opacity-100"
-                                    )}
-                                    style={{ left: `calc(${progress}% - 7px)` }}
-                                />
-                            </div>
-
-                            {/* Controls row */}
-                            <div className="flex items-center gap-3 text-white">
-                                {/* Play/Pause */}
-                                <button
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        togglePlay();
-                                    }}
-                                    className="p-1.5 hover:bg-white/20 rounded-full transition-colors"
-                                    aria-label={isPlaying ? "Pause" : "Lecture"}
-                                >
-                                    <span className="w-5 h-5 flex items-center justify-center">
-                                        {isPlaying ? (
-                                            <Pause className="h-5 w-5" fill="currentColor" />
-                                        ) : (
-                                            <Play className="h-5 w-5" fill="currentColor" />
-                                        )}
-                                    </span>
-                                </button>
-
-                                {/* Time */}
-                                <span className="text-sm font-mono tabular-nums">
-                                    {formatTime(currentTime)} / {formatTime(duration)}
-                                </span>
-
-                                <div className="flex-1" />
-
-                                {/* Volume (hidden on mobile, disabled if no audio) */}
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <div
-                                            className={cn(
-                                                "hidden sm:flex items-center gap-2",
-                                                !hasAudio && "opacity-40"
-                                            )}
-                                        >
-                                            <button
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    if (hasAudio) toggleMute();
-                                                }}
-                                                className="p-1.5 hover:bg-white/20 rounded-full transition-colors"
-                                                aria-label={
-                                                    !hasAudio
-                                                        ? "Pas de son"
-                                                        : isMuted
-                                                          ? "Activer le son"
-                                                          : "Couper le son"
-                                                }
-                                            >
-                                                {!hasAudio || isMuted || volume === 0 ? (
-                                                    <VolumeX className="h-5 w-5" />
-                                                ) : (
-                                                    <Volume2 className="h-5 w-5" />
-                                                )}
-                                            </button>
-                                            <input
-                                                type="range"
-                                                min="0"
-                                                max="1"
-                                                step="0.1"
-                                                value={isMuted ? 0 : volume}
-                                                onChange={handleVolumeChange}
-                                                onClick={(e) => e.stopPropagation()}
-                                                className="w-20 h-1 accent-white cursor-pointer"
-                                                aria-label="Volume"
-                                                disabled={!hasAudio}
-                                            />
-                                        </div>
-                                    </TooltipTrigger>
-                                    {!hasAudio && (
-                                        <TooltipContent>
-                                            <p>Cette vidéo n'a pas de son</p>
-                                        </TooltipContent>
-                                    )}
-                                </Tooltip>
-
-                                {/* Fullscreen */}
-                                <button
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        toggleFullscreen();
-                                    }}
-                                    className="p-1.5 hover:bg-white/20 rounded-full transition-colors"
-                                    aria-label={
-                                        isFullscreen ? "Quitter le plein écran" : "Plein écran"
-                                    }
-                                >
-                                    {isFullscreen ? (
-                                        <Minimize className="h-5 w-5" />
-                                    ) : (
-                                        <Maximize className="h-5 w-5" />
-                                    )}
-                                </button>
-                            </div>
                         </div>
-                    </div>
+                    </Sideways>
                 </DialogPrimitive.Content>
             </DialogPortal>
         </Dialog>

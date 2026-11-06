@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
  * another, so a wide picture can be turned on its side inside it.
  */
 export const sidewaysFrame =
-    "max-sm:portrait:h-[calc(100dvh-1rem)] max-sm:portrait:w-[calc(100vw-1rem)] max-sm:portrait:max-w-none max-sm:portrait:grid-rows-[minmax(0,1fr)_auto]";
+    "max-sm:portrait:h-[calc(100dvh-1rem)] max-sm:portrait:w-[calc(100vw-1rem)] max-sm:portrait:max-h-none max-sm:portrait:max-w-none max-sm:portrait:grid-rows-[minmax(0,1fr)_auto]";
 
 interface SidewaysProps {
     ratio: number;
