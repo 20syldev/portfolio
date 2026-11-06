@@ -79,6 +79,9 @@ const publicDir = path.join(process.cwd(), "public");
 // Markdown image with a local path, e.g. ![Caption](/images/projects/name/home)
 const markdownImage = /!\[([^\]]*)\]\((\/[^)\s]+)\)/g;
 
+// Video path inside a markdown image, played by the page instead of being resolved
+const markdownVideo = /\.mp4$/;
+
 /**
  * Resolves one local image: a file under public/, or a base whose `-light.webp` and
  * `-dark.webp` variants both exist; the page then shows the one matching the theme.
@@ -108,6 +111,7 @@ async function resolveImage(owner: string, ref: string, alt: string): Promise<Co
 
 /**
  * Resolves the local images of a markdown page, ignoring code blocks and inline code.
+ * A `.mp4` reference is a video: it is checked but not returned.
  *
  * @param pageId - Page ID, used in error messages
  * @param content - Markdown content of the page
@@ -119,6 +123,18 @@ async function resolveImages(pageId: string, content: string): Promise<ContentIm
 
     for (const [, alt, ref] of prose.matchAll(markdownImage)) {
         if (images.some((image) => image.ref === ref)) continue;
+
+        // A video is played by the page, so it only has to exist
+        if (markdownVideo.test(ref)) {
+            if (!alt || !fs.existsSync(path.join(publicDir, ref))) {
+                console.error(
+                    `Error: video ${ref} of ${pageId} is missing in public/ or has no alt`
+                );
+                process.exit(1);
+            }
+            continue;
+        }
+
         images.push(await resolveImage(pageId, ref, alt));
     }
 
