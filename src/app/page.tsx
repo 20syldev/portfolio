@@ -149,7 +149,7 @@ export default function HomePage() {
 
     const panels = useMemo(
         () => (
-            <div ref={tabsRef} className="snap-tabs" style={tabsStyle}>
+            <div ref={tabsRef} role="main" className="snap-tabs" style={tabsStyle}>
                 <div className="snap-tab">
                     <div ref={sectionsRef} className="snap-sections" style={sectionsStyle}>
                         <section className="snap-section">
