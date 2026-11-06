@@ -6,7 +6,8 @@ import * as React from "react";
  * Matrix rain canvas animation overlay.
  * Renders falling katakana/hex characters in green on a transparent canvas.
  * When deactivated, stops spawning new characters and lets existing ones
- * fall off screen before unmounting the canvas.
+ * fall off screen before unmounting the canvas. Mounted lazily, it can first render after the
+ * activation was already switched off, and then reports the drain complete at once.
  *
  * @param props - Component props
  * @param props.active - Whether the animation is currently running
@@ -34,6 +35,10 @@ export function Matrix({
     React.useEffect(() => {
         if (active) setVisible(true);
     }, [active]);
+
+    React.useEffect(() => {
+        if (!activeRef.current) onDrainCompleteRef.current?.();
+    }, []);
 
     React.useEffect(() => {
         if (!visible) {

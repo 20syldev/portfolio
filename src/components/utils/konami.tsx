@@ -1,9 +1,14 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useTheme } from "next-themes";
 import * as React from "react";
 
-import { Matrix } from "@/components/utils/matrix";
+import { useOnce } from "@/hooks/once";
+
+const Matrix = dynamic(() => import("@/components/utils/matrix").then((m) => m.Matrix), {
+    ssr: false,
+});
 
 const konamiSequence = [
     "ArrowUp",
@@ -250,10 +255,12 @@ export function KonamiProvider({ children }: { children: React.ReactNode }) {
         }
     }, [activated]);
 
+    const matrixLoaded = useOnce(activated);
+
     return (
         <KonamiContext.Provider value={ctx}>
             {children}
-            <Matrix active={activated} onDrainComplete={restoreTheme} />
+            {matrixLoaded && <Matrix active={activated} onDrainComplete={restoreTheme} />}
         </KonamiContext.Provider>
     );
 }

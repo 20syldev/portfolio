@@ -1,6 +1,7 @@
 "use client";
 
 import { FileUser, Github, Linkedin } from "lucide-react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "next-themes";
@@ -11,11 +12,15 @@ import { Name } from "@/components/ui/name";
 import { Rotating } from "@/components/ui/rotating";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useFont } from "@/components/utils/font";
-import { collapseHole, Result, Vortex } from "@/components/utils/vortex";
 import { profile } from "@/data/profile";
 import { useKonami, useMultiTap } from "@/hooks/konami";
 import { useDraggablePhysics } from "@/hooks/physics";
 import { useSparkle } from "@/hooks/sparkle";
+
+const loadVortex = () => import("@/components/utils/vortex");
+
+const Vortex = dynamic(() => loadVortex().then((m) => m.Vortex), { ssr: false });
+const Result = dynamic(() => loadVortex().then((m) => m.Result), { ssr: false });
 
 /**
  * Simplified hero section.
@@ -54,7 +59,7 @@ export function Hero() {
             cy: rect.top + rect.height / 2,
         });
         setSucked(true);
-        collapseHole(rect);
+        loadVortex().then((m) => m.collapseHole(rect));
     }, []);
 
     const handleAllEdges = useCallback(
@@ -76,6 +81,11 @@ export function Hero() {
         onAllEdges: handleAllEdges,
     });
     useSparkle(logoRef, isDragging);
+
+    useEffect(() => {
+        if (isDragging) loadVortex();
+    }, [isDragging]);
+
     useMultiTap(logoRef);
 
     const { shakeTargetRef } = useKonami();
