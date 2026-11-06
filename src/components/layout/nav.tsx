@@ -165,6 +165,8 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
                             variant="ghost"
                             size="icon"
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+                            aria-expanded={isMenuOpen}
                             className="h-8 w-8 md:hidden"
                         >
                             <span className="relative h-4 w-4">
@@ -255,6 +257,8 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
                         variant="ghost"
                         size="icon"
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+                        aria-expanded={isMenuOpen}
                         className="h-9 w-9"
                     >
                         <span className="relative h-4 w-4">

@@ -182,7 +182,7 @@ function GitHubCard({
                 >
                     @20syldev
                 </a>
-                <Link href="/stats">
+                <Link href="/stats" aria-label="Statistiques GitHub">
                     {loading ? (
                         <Skeleton className="h-[75px] w-full rounded" />
                     ) : (
@@ -295,6 +295,7 @@ function CertificationsCard({ className }: { className?: string }) {
                                             href={cert.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
+                                            aria-label={cert.name}
                                             className="relative w-[60px] h-[60px] flex items-center justify-center"
                                         >
                                             {!loaded.has(cert.icon) && (

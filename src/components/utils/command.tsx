@@ -173,7 +173,13 @@ export function SearchButton() {
     const { setOpen } = useCommand();
 
     return (
-        <Button variant="ghost" size="icon" onClick={() => setOpen(true)} className="h-9 w-9">
+        <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setOpen(true)}
+            aria-label="Rechercher"
+            className="h-9 w-9"
+        >
             <Search className="h-4 w-4" />
         </Button>
     );

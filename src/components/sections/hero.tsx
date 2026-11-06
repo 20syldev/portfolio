@@ -178,6 +178,7 @@ export function Hero() {
                             >
                                 <a
                                     href={profile.links.github}
+                                    aria-label="GitHub"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
@@ -198,6 +199,7 @@ export function Hero() {
                             >
                                 <a
                                     href={profile.links.linkedin}
+                                    aria-label="LinkedIn"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >

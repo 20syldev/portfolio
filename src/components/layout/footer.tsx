@@ -74,6 +74,7 @@ export function Footer() {
                         >
                             <a
                                 href={profile.links.github}
+                                aria-label="GitHub"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
@@ -88,6 +89,7 @@ export function Footer() {
                         >
                             <a
                                 href={profile.links.linkedin}
+                                aria-label="LinkedIn"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
@@ -98,6 +100,7 @@ export function Footer() {
                             variant="ghost"
                             size="icon-sm"
                             onClick={() => setContactOpen(true)}
+                            aria-label="Me contacter"
                             className="text-muted-foreground hover:text-foreground"
                         >
                             <UserRound className="h-5 w-5" />
