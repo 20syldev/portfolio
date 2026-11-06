@@ -14,6 +14,8 @@ ZPKI est un gestionnaire de **PKI** (infrastructure à clés publiques) dévelop
 L'outil se découpe en trois couches : un **CLI Bash** qui enveloppe OpenSSL, une **API Node.js** qui expose ses actions en HTTP, et une **interface web** pour piloter l'ensemble depuis un navigateur.
 J'ai développé l'interface et l'API, le CLI étant un travail collectif de l'équipe. Une démo est disponible sur [tools.zenetys.com/zpki](https://tools.zenetys.com/zpki/) et le code est publié sur [github.com/zenetys/zpki](https://github.com/zenetys/zpki).
 
+![Démonstration de l'interface de ZPKI](/videos/zpki-demo.mp4)
+
 ## Pourquoi ce projet ? {#why}
 
 Gérer une autorité de certification à la main revient à enchaîner des commandes `openssl` longues et faciles à rater : générer la clé, écrire le fichier de configuration, produire la CSR, la signer avec les bonnes extensions, mettre à jour l'index puis régénérer la CRL — le tout en ressaisissant la passphrase à chaque étape.

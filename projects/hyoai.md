@@ -16,6 +16,8 @@ C'est un front-end **100% statique** : pas de backend propre, rien à déployer 
 Une démo est disponible sur [tools.zenetys.com/hyoai](https://tools.zenetys.com/hyoai/), le code est publié sur [github.com/zenetys/hyoai](https://github.com/zenetys/hyoai) et le projet est présenté dans un [article sur le blog ZENETYS](https://www.zenetys.com/hyoai-un-client-de-chat-ia-sans-backend-dans-le-navigateur/).
 La version 1.2.0 y a ajouté l'appel d'outils, et la 1.3.0 les serveurs MCP.
 
+![Démonstration de HYOAI](/videos/hyoai-demo.mp4)
+
 ## Pourquoi ce projet ? {#why}
 
 Évaluer, comparer et benchmarker des LLM fait partie du travail de ZENETYS pour ses choix techniques et ceux de ses clients.
