@@ -34,6 +34,7 @@ import { alternance, parcours } from "@/data/parcours";
 import { profile } from "@/data/profile";
 import { useApi } from "@/hooks/api";
 import { useDragScroll } from "@/hooks/scroll";
+import { useVisible } from "@/hooks/visible";
 import { random } from "@/lib/utils";
 
 const certPool: Certification[] = certifications.flatMap((cat) => cat.items);
@@ -230,12 +231,20 @@ function CertificationsCard({ className }: { className?: string }) {
     const [displayed, setDisplayed] = useState<Certification[]>([]);
     const [visible, setVisible] = useState(true);
     const [loaded, setLoaded] = useState<Set<string>>(new Set());
+    const [started, setStarted] = useState(false);
     const lastPoolIndex = useRef<number | undefined>(undefined);
+    const cardRef = useRef<HTMLDivElement>(null);
+    const active = useVisible(cardRef);
 
     useEffect(() => {
         const initial = pickRandomCerts(certDisplayCount);
         setDisplayed(initial.items);
         lastPoolIndex.current = initial.poolIndex;
+    }, []);
+
+    useEffect(() => {
+        if (!active) return;
+        setStarted(true);
 
         let timeout: ReturnType<typeof setTimeout>;
         const timer = setInterval(() => {
@@ -252,15 +261,16 @@ function CertificationsCard({ className }: { className?: string }) {
         return () => {
             clearInterval(timer);
             clearTimeout(timeout);
+            setVisible(true);
         };
-    }, []);
+    }, [active]);
 
     const handleImageLoad = useCallback((icon: string) => {
         setLoaded((prev) => new Set(prev).add(icon));
     }, []);
 
     return (
-        <Card className={`card-hover flex flex-col ${className || ""}`}>
+        <Card ref={cardRef} className={`card-hover flex flex-col ${className || ""}`}>
             <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-sm lg:text-base xl:text-lg font-medium">
                     <Award className="h-4 w-4 lg:h-5 lg:w-5 xl:h-6 xl:w-6 text-primary" />
@@ -290,15 +300,17 @@ function CertificationsCard({ className }: { className?: string }) {
                                             {!loaded.has(cert.icon) && (
                                                 <Skeleton className="absolute inset-0 rounded-md" />
                                             )}
-                                            <Image
-                                                src={cert.icon}
-                                                alt={cert.name}
-                                                width={60}
-                                                height={60}
-                                                className="rounded-md object-contain"
-                                                style={{ width: 60, height: 60 }}
-                                                onLoad={() => handleImageLoad(cert.icon)}
-                                            />
+                                            {started && (
+                                                <Image
+                                                    src={cert.icon}
+                                                    alt={cert.name}
+                                                    width={60}
+                                                    height={60}
+                                                    className="rounded-md object-contain"
+                                                    style={{ width: 60, height: 60 }}
+                                                    onLoad={() => handleImageLoad(cert.icon)}
+                                                />
+                                            )}
                                         </a>
                                     </TooltipTrigger>
                                     <GalleryTooltipContent cert={cert} />
