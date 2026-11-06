@@ -5,6 +5,7 @@ out/
 next-env.d.ts
 public/sitemap.xml
 public/favicon.ico
+public/avatar.webp
 public/favicon-*.png
 public/apple-touch-icon.png
 public/android-chrome-*.png

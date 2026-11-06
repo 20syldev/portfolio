@@ -456,8 +456,8 @@ const faviconSource = path.join(process.cwd(), "public", "images", "logo.png");
 
 /**
  * Generates favicon variants from the source logo image.
- * Creates properly sized PNG favicons, apple touch icon, and android chrome icons
- * from the high-resolution source logo.
+ * Creates properly sized PNG favicons, apple touch icon, android chrome icons and the
+ * WebP avatar of the home page from the high-resolution source logo.
  *
  * @returns Promise that resolves when all favicons are generated
  */
@@ -482,6 +482,12 @@ async function generateFavicons(): Promise<void> {
             .toFile(path.join(publicDir, variant.name));
     }
 
+    // Avatar of the home page, twice the size it is shown at, as a light WebP
+    await sharp(faviconSource)
+        .resize(240, 240)
+        .webp({ quality: 85 })
+        .toFile(path.join(publicDir, "avatar.webp"));
+
     // Generate a true multi-resolution favicon.ico
     fs.writeFileSync(
         path.join(publicDir, "favicon.ico"),
@@ -495,7 +501,9 @@ async function generateFavicons(): Promise<void> {
         )
     );
 
-    console.log(`Generated ${variants.length} favicon variants + favicon.ico to ${publicDir}`);
+    console.log(
+        `Generated ${variants.length} favicon variants + favicon.ico + avatar.webp to ${publicDir}`
+    );
 }
 
 /**
