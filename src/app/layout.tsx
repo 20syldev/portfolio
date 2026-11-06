@@ -27,12 +27,14 @@ const inter = Inter({
     variable: "--font-inter",
     subsets: ["latin"],
     weight: ["400", "500", "600", "700", "800"],
+    preload: false,
 });
 
 const lexend = Lexend({
     variable: "--font-lexend",
     subsets: ["latin"],
     weight: ["400", "500", "600", "700", "800"],
+    preload: false,
 });
 
 const montserrat = Montserrat({
@@ -40,6 +42,7 @@ const montserrat = Montserrat({
     subsets: ["latin"],
     weight: ["400", "500", "600", "700", "800"],
     style: ["normal", "italic"],
+    preload: false,
 });
 
 const raleway = Raleway({
@@ -47,6 +50,7 @@ const raleway = Raleway({
     subsets: ["latin"],
     weight: ["400", "500", "600", "700", "800"],
     style: ["normal", "italic"],
+    preload: false,
 });
 
 const dm = DM_Sans({
@@ -54,6 +58,7 @@ const dm = DM_Sans({
     subsets: ["latin"],
     weight: ["400", "500", "600", "700", "800"],
     style: ["normal", "italic"],
+    preload: false,
 });
 
 const jakarta = Plus_Jakarta_Sans({
@@ -61,6 +66,7 @@ const jakarta = Plus_Jakarta_Sans({
     subsets: ["latin"],
     weight: ["400", "500", "600", "700", "800"],
     style: ["normal", "italic"],
+    preload: false,
 });
 
 const poppins = Poppins({
@@ -68,18 +74,21 @@ const poppins = Poppins({
     subsets: ["latin"],
     weight: ["400", "500", "600", "700", "800"],
     style: ["normal", "italic"],
+    preload: false,
 });
 
 const fredoka = Fredoka({
     variable: "--font-fredoka",
     subsets: ["latin"],
     weight: ["400", "500", "600", "700"],
+    preload: false,
 });
 
 const fira = Fira_Code({
     variable: "--font-fira-code",
     subsets: ["latin"],
     weight: ["400", "500", "700"],
+    preload: false,
 });
 
 const experience = `Développeur Front-end depuis ${profile.experience.frontend} et Back-end depuis ${profile.experience.backend}.`;
