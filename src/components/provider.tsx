@@ -5,7 +5,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import * as React from "react";
 import { useEffect } from "react";
 
-import { FontDialog } from "@/components/dialogs/font";
+import { LazyFontDialog } from "@/components/dialogs/lazy";
 import { CursorProvider } from "@/components/utils/cursor";
 import { FontProvider } from "@/components/utils/font";
 import { KonamiProvider } from "@/components/utils/konami";
@@ -68,7 +68,7 @@ export function ThemeProvider({
                 <LenisProvider>
                     <CursorProvider>
                         <FontProvider>
-                            <FontDialog />
+                            <LazyFontDialog />
                             <KonamiProvider>
                                 <XrayProvider>{children}</XrayProvider>
                             </KonamiProvider>

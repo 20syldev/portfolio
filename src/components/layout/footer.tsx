@@ -4,7 +4,7 @@ import { Dot, Github, Linkedin, UserRound } from "lucide-react";
 import Link from "next/link";
 import * as React from "react";
 
-import { ContactDialog } from "@/components/dialogs/contact";
+import { LazyContactDialog } from "@/components/dialogs/lazy";
 import { Button } from "@/components/ui/button";
 import { profile } from "@/data/profile";
 
@@ -108,7 +108,7 @@ export function Footer() {
                     </div>
                 </div>
             </div>
-            <ContactDialog open={contactOpen} onOpenChange={setContactOpen} />
+            <LazyContactDialog open={contactOpen} onOpenChange={setContactOpen} />
         </footer>
     );
 }
