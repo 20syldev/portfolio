@@ -188,7 +188,7 @@ export default function HomePage() {
             <Nav currentTab={currentTab} tabs={tabs} onTabChange={goToTab} />
 
             {currentTab === 0 && (
-                <div className="fixed right-3 top-1/2 z-50 -translate-y-1/2 hidden sm:flex flex-col gap-2">
+                <div className="fixed right-3 top-1/2 z-50 -translate-y-1/2 hidden sm:flex flex-col gap-4.5">
                     {Array.from({ length: sections }).map((_, index) => (
                         <button
                             key={index}
