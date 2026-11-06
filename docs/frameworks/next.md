@@ -132,12 +132,12 @@ Le script `scripts/generate.ts` est au coeur du système de contenu. Il :
 1. **Lit** tous les fichiers `.md` dans `docs/`, `projects/` et `veille/`
 2. **Parse** le frontmatter (métadonnées YAML en haut de chaque fichier) avec `gray-matter`
 3. **Extrait** la catégorie depuis la structure de dossiers
-4. **Génère** des fichiers JSON dans `src/data/` :
-    - `docs.json` — Documentation
-    - `projects.json` — Projets
-    - `veille.json` — Veille technologique
+4. **Génère** des fichiers JSON dans `src/data/`, chacun en deux parties, un index et le contenu :
+    - `docs-index.json` et `docs-content.json` — Documentation
+    - `projects-index.json` et `projects-content.json` — Projets
+    - `veille-index.json` et `veille-content.json` — Veille technologique
 
-Ce JSON est ensuite importé par les composants React au build.
+Les index (titre, description, slug, images) sont importés par les composants React. Le contenu Markdown n'est lu que par la page serveur qui l'affiche, pour ne pas alourdir le JavaScript de chaque page.
 
 ### Le processus de build
 
@@ -286,7 +286,7 @@ npm run generate
 npm run dev
 ```
 
-Le script détecte automatiquement le nouveau fichier, l'ajoute à `docs.json`, et la page est accessible à `/help/<catégorie>/<slug>`. Pour comprendre comment ce Markdown est transformé en interface, consultez le guide [React Markdown](/help/frameworks/react).
+Le script détecte automatiquement le nouveau fichier, l'ajoute à `docs-index.json`, et la page est accessible à `/help/<catégorie>/<slug>`. Pour comprendre comment ce Markdown est transformé en interface, consultez le guide [React Markdown](/help/frameworks/react).
 
 ## Slugs et sous-catégories {#slugs}
 
