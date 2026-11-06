@@ -8,7 +8,10 @@ public/favicon.ico
 public/favicon-*.png
 public/apple-touch-icon.png
 public/android-chrome-*.png
-src/data/docs.json
+src/data/docs-index.json
 src/data/media.json
-src/data/projects.json
-src/data/veille.json
+src/data/projects-index.json
+src/data/veille-index.json
+src/data/docs-content.json
+src/data/projects-content.json
+src/data/veille-content.json
