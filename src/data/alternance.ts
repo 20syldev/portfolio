@@ -19,7 +19,7 @@ export const projects: AlternanceProject[] = [
         id: "hyoai",
         title: "HYOAI - Interface de chat pour LLM",
         description:
-            "HYOAI (Host Your Own AI) est une interface de chat web open-source développée chez Zenetys pour dialoguer avec n'importe quel LLM compatible OpenAI. J'ai développé cette application entièrement statique, exécutée dans le navigateur et sans backend.",
+            "HYOAI (Host Your Own AI) est une interface de chat web open-source développée chez Zenetys pour dialoguer avec tout LLM compatible OpenAI. J'ai développé cette application entièrement statique, exécutée dans le navigateur et sans backend propre.",
         technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
         video: "/videos/hyoai-demo.mp4",
         poster: "/videos/hyoai-poster.webp",
@@ -30,17 +30,22 @@ export const projects: AlternanceProject[] = [
             {
                 title: "Une architecture 100% navigateur",
                 content:
-                    "HYOAI est un front-end entièrement statique : aucun backend, rien à héberger ni à sécuriser côté serveur. Le navigateur communique directement avec l'API du serveur d'inférence (llama.cpp, vLLM, Ollama ou toute API compatible OpenAI), et les conversations ne quittent jamais la machine — elles sont stockées compressées dans le localStorage.",
+                    "HYOAI est un front-end statique : pas de backend propre, rien à héberger ni à sécuriser côté serveur en dehors des fichiers statiques. Le navigateur communique directement avec l'API du serveur d'inférence (llama.cpp, vLLM, Ollama ou toute API compatible OpenAI qui autorise l'origine de la page), et les conversations ne sont stockées que dans le navigateur, compressées dans le localStorage.",
             },
             {
-                title: "Multi-backend et raisonnement",
+                title: "Multi-backend et comparaison",
                 content:
-                    "Un même client parle à plusieurs endpoints, locaux ou distants, sélectionnables depuis le menu des modèles. Quand un modèle le déclare, un toggle de raisonnement et un sélecteur d'effort apparaissent, chaque backend mappant ces réglages sur son propre format de requête. Le mode comparaison permet de lancer un même prompt sur jusqu'à quatre modèles à la fois.",
+                    "Un même client parle à plusieurs endpoints, locaux ou distants, sélectionnables depuis le menu des modèles. Le mode comparaison lance un même prompt sur jusqu'à quatre modèles à la fois, et un modèle dont le serveur ne répond plus est signalé plutôt que remplacé par un autre. Quand la configuration le déclare, un interrupteur de réflexion et un sélecteur d'effort apparaissent.",
+            },
+            {
+                title: "Outils, MCP et plugins",
+                content:
+                    "Les modèles peuvent appeler des outils : chaque appel s'affiche avec ses arguments et attend l'approbation de l'utilisateur. Une horloge est livrée avec l'application, et les serveurs MCP déclarés dans la configuration apportent leurs propres outils. Les plugins, ajoutés au moment du build, permettent de brancher des types de serveur propres à un déploiement sans toucher au noyau.",
             },
             {
                 title: "L'interface",
                 content:
-                    "L'interface gère les conversations en local avec branches, versions alternatives et recherche plein texte, la citation de messages, le rendu Markdown avec coloration syntaxique et sources, ainsi que l'envoi d'images, de PDF, d'audio et de fichiers texte. L'expérience est responsive, avec des drawers tactiles sur mobile, et accessible au clavier via les primitives Radix.",
+                    "L'interface gère les conversations en local avec branches, versions alternatives et recherche, la citation de réponses, le rendu Markdown avec coloration syntaxique, formules KaTeX, diagrammes Mermaid et sources, l'export en quatre formats, ainsi que l'envoi d'images, de PDF, d'audio et de fichiers texte. L'expérience est responsive, avec des drawers tactiles sur mobile, et accessible au clavier via les primitives Radix.",
             },
         ],
     },
@@ -99,6 +104,32 @@ export const projects: AlternanceProject[] = [
                 title: "L'API",
                 content:
                     "L'API permet de récupérer des données de la base ElasticSearch, et de les exposer via des endpoints REST. J'ai utilisé Node.js pour développer l'API, c'est plus rapide et plus léger que d'autres solutions.",
+            },
+        ],
+    },
+    {
+        id: "zwebsite",
+        title: "Zenetys Website - Refonte de zenetys.com",
+        description:
+            "J'ai mené la refonte complète du site de Zenetys, en français et en anglais : un site Next.js statique en grille bento, noté 100 sur ordinateur et 99 sur mobile par PageSpeed Insights, et l'éditeur intégré qui permet à l'équipe de le faire vivre sans toucher au code.",
+        technologies: ["Next.js", "TypeScript", "Fastify", "SQLite"],
+        link: "https://www.zenetys.com",
+        projectId: "zwebsite",
+        sections: [
+            {
+                title: "Un site rapide sans JavaScript critique",
+                content:
+                    "Chaque page est rendue au build par l'export statique de Next.js et servie comme un simple fichier. Les composants serveur sont la règle, les polices sont auto-hébergées, les images sont préparées au build en plusieurs largeurs WebP et aucun service tiers n'est chargé avant consentement : le chemin critique ne dépend pas du JavaScript.",
+            },
+            {
+                title: "Un éditeur pour l'équipe",
+                content:
+                    "Le contenu vit dans un backend Fastify et SQLite, exporté au build. L'éditeur intégré gère les pages en blocs, la publication avec une version candidate et un retour arrière en un clic, la médiathèque, les couleurs du site avec leur contraste, les listes (technologies, services, équipe, témoignages), les redirections et les droits.",
+            },
+            {
+                title: "Bilingue et référencé",
+                content:
+                    "Le site est bilingue avec next-intl, indexé en plein texte avec Pagefind et accompagné d'un blog avec un flux RSS par langue. Il remplace l'ancien site WordPress, dont toutes les anciennes adresses sont redirigées.",
             },
         ],
     },
