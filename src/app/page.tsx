@@ -33,7 +33,8 @@ function getTab(path: string): number {
 
 /**
  * Home page with horizontal tab navigation and vertical section scrolling.
- * Contains Hero, Technologies, Projects, Cards, Alternance and Veille tabs.
+ * Contains Hero, Technologies, Projects, Cards, Alternance and Veille tabs. The Alternance and
+ * Veille tabs mount after the first interaction, or at once when the page opens on them.
  *
  * @returns The rendered home page
  */
@@ -58,6 +59,35 @@ export default function HomePage() {
         scrollDuration: 600,
         initialTab: getTab(pathname),
     });
+
+    const [alternanceReady, setAlternanceReady] = useState(() => getTab(pathname) === 1);
+    useEffect(() => {
+        if (alternanceReady) return;
+        if (currentTab > 0) {
+            setAlternanceReady(true);
+            return;
+        }
+
+        const events = ["pointermove", "pointerdown", "keydown", "wheel", "touchstart"] as const;
+        let cancel = () => {};
+        const mount = () => setAlternanceReady(true);
+        const start = () => {
+            events.forEach((name) => removeEventListener(name, start));
+            if (typeof requestIdleCallback === "function") {
+                const id = requestIdleCallback(mount, { timeout: 1500 });
+                cancel = () => cancelIdleCallback(id);
+            } else {
+                const id = setTimeout(mount, 300);
+                cancel = () => clearTimeout(id);
+            }
+        };
+
+        events.forEach((name) => addEventListener(name, start, { passive: true }));
+        return () => {
+            events.forEach((name) => removeEventListener(name, start));
+            cancel();
+        };
+    }, [currentTab, alternanceReady]);
 
     const [veilleReady, setVeilleReady] = useState(() => getTab(pathname) === 2);
     useEffect(() => {
@@ -145,14 +175,12 @@ export default function HomePage() {
                     </div>
                 </div>
 
-                <div className="snap-tab">
-                    <Alternance />
-                </div>
+                <div className="snap-tab">{alternanceReady && <Alternance />}</div>
 
                 <div className="snap-tab">{veilleReady && <Veille />}</div>
             </div>
         ),
-        [veilleReady, tabsRef, sectionsRef, tabsStyle, sectionsStyle]
+        [alternanceReady, veilleReady, tabsRef, sectionsRef, tabsStyle, sectionsStyle]
     );
 
     return (
