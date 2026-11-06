@@ -137,13 +137,13 @@ export function Hero() {
             {/* Logo */}
             <div ref={logoRef} className="relative inline-block">
                 <Image
-                    src="/favicon.ico"
+                    src="/avatar.webp"
                     alt={profile.name}
                     width={120}
                     height={120}
                     className="rounded-full shadow-lg pointer-events-none"
                     draggable={false}
-                    priority
+                    preload
                 />
             </div>
 
