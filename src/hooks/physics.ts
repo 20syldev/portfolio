@@ -329,6 +329,10 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
 
         const onPointerMove = (e: PointerEvent) => {
             if (!dragging) return;
+            if (e.buttons === 0) {
+                onPointerUp();
+                return;
+            }
 
             x = dragStartOx + (e.clientX - dragStartMx);
             y = dragStartOy + (e.clientY - dragStartMy);
@@ -444,25 +448,35 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
             e.stopPropagation();
         };
 
+        const onHide = () => {
+            if (document.hidden) onPointerUp();
+        };
+
         const circular = configRef.current.circular;
         el.addEventListener("pointerdown", onPointerDown);
+        el.addEventListener("lostpointercapture", onPointerUp);
         if (circular) el.addEventListener("pointermove", onHover);
         el.addEventListener("touchstart", onTouchStart, { passive: true });
         window.addEventListener("pointermove", onPointerMove);
         window.addEventListener("pointerup", onPointerUp);
         window.addEventListener("pointercancel", onPointerUp);
+        window.addEventListener("blur", onPointerUp);
         window.addEventListener("resize", onResize);
+        document.addEventListener("visibilitychange", onHide);
 
         return () => {
             visibility.disconnect();
             observer.disconnect();
             el.removeEventListener("pointerdown", onPointerDown);
+            el.removeEventListener("lostpointercapture", onPointerUp);
             if (circular) el.removeEventListener("pointermove", onHover);
             el.removeEventListener("touchstart", onTouchStart);
             window.removeEventListener("pointermove", onPointerMove);
             window.removeEventListener("pointerup", onPointerUp);
             window.removeEventListener("pointercancel", onPointerUp);
+            window.removeEventListener("blur", onPointerUp);
             window.removeEventListener("resize", onResize);
+            document.removeEventListener("visibilitychange", onHide);
             if (resizeRaf !== undefined) cancelAnimationFrame(resizeRaf);
             stop();
             el.style.translate = "";

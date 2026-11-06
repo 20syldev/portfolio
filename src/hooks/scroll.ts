@@ -780,6 +780,7 @@ export function useDragScroll<T extends HTMLElement>(ref: React.RefObject<T | nu
         if (!el) return;
 
         const handleMouseDown = (e: MouseEvent) => {
+            if (e.button !== 0) return;
             isDragging.current = true;
             startX.current = e.pageX;
             scrollStart.current = el.scrollLeft;
@@ -790,6 +791,10 @@ export function useDragScroll<T extends HTMLElement>(ref: React.RefObject<T | nu
 
         const handleMouseMove = (e: MouseEvent) => {
             if (!isDragging.current) return;
+            if (e.buttons === 0) {
+                handleMouseUp();
+                return;
+            }
             e.preventDefault();
             const delta = e.pageX - startX.current;
             el.scrollLeft = scrollStart.current - delta;
@@ -811,6 +816,12 @@ export function useDragScroll<T extends HTMLElement>(ref: React.RefObject<T | nu
                 }, 300);
             }
         };
+
+        const handleHide = () => {
+            if (document.hidden) handleMouseUp();
+        };
+
+        const handleDragStart = (e: DragEvent) => e.preventDefault();
 
         let touchStartX = 0;
         let touchStartY = 0;
@@ -843,6 +854,7 @@ export function useDragScroll<T extends HTMLElement>(ref: React.RefObject<T | nu
                 el.style.cursor = "grab";
                 el.style.touchAction = "pan-x pan-y";
                 el.addEventListener("mousedown", handleMouseDown);
+                el.addEventListener("dragstart", handleDragStart);
                 el.addEventListener("touchstart", handleTouchStart, { passive: true });
                 el.addEventListener("touchmove", handleTouchMove, { passive: true });
                 window.addEventListener("mousemove", handleMouseMove);
@@ -851,6 +863,7 @@ export function useDragScroll<T extends HTMLElement>(ref: React.RefObject<T | nu
                 el.style.cursor = "";
                 el.style.touchAction = "";
                 el.removeEventListener("mousedown", handleMouseDown);
+                el.removeEventListener("dragstart", handleDragStart);
                 el.removeEventListener("touchstart", handleTouchStart);
                 el.removeEventListener("touchmove", handleTouchMove);
                 window.removeEventListener("mousemove", handleMouseMove);
@@ -858,13 +871,19 @@ export function useDragScroll<T extends HTMLElement>(ref: React.RefObject<T | nu
             }
         };
 
+        window.addEventListener("blur", handleMouseUp);
+        document.addEventListener("visibilitychange", handleHide);
+
         updateOverflowState();
         const observer = new ResizeObserver(updateOverflowState);
         observer.observe(el);
 
         return () => {
             observer.disconnect();
+            window.removeEventListener("blur", handleMouseUp);
+            document.removeEventListener("visibilitychange", handleHide);
             el.removeEventListener("mousedown", handleMouseDown);
+            el.removeEventListener("dragstart", handleDragStart);
             el.removeEventListener("touchstart", handleTouchStart);
             el.removeEventListener("touchmove", handleTouchMove);
             window.removeEventListener("mousemove", handleMouseMove);
