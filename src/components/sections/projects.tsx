@@ -89,8 +89,8 @@ export function Projects() {
 
     return (
         <>
-            <div className="flex h-full flex-col px-4 overflow-y-hidden">
-                <div className="flex flex-1 min-h-0 flex-col items-center justify-center gap-6 overflow-y-auto scrollbar-none">
+            <div className="flex h-full flex-col px-4 pt-bar pb-chevron overflow-y-hidden">
+                <div className="flex flex-1 min-h-0 flex-col items-center justify-center-safe gap-6 overflow-y-auto pt-3 scrollbar-none">
                     <div
                         className="grid w-full max-w-7xl gap-4 stagger-children px-2"
                         style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { type RefObject, useCallback, useEffect, useRef, useState } from "react";
 
 import { FavoriteTip } from "@/components/ui/favorite";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -15,7 +15,10 @@ import {
 import { useDragScroll } from "@/hooks/scroll";
 
 // Approximate height of one row of tech icons in the carousel
-const itemRowHeight = 100;
+const itemRowHeight = 101;
+
+// Height of the title, the category name, the dots and the link around the icons of the carousel
+const carouselOverhead = 114;
 
 const mobileLinkClass =
     "rounded-lg hover:bg-muted/50 transition-colors w-16 h-16 flex items-center justify-center";
@@ -51,16 +54,21 @@ function TechIcon({ name, icon, large }: { name: string; icon: string; large?: b
 
 /**
  * Hook to calculate how many tech items fit in the carousel based on viewport height.
- * Mirrors the pattern used in the Projects section.
+ * Mirrors the pattern used in the Projects section, and keeps out the room reserved for the bar.
+ *
+ * @param ref - Ref to the section content, whose paddings are the room kept for the bar and chevron
+ * @returns Number of items shown per category
  */
-function useTechCarousel() {
+function useTechCarousel(ref: RefObject<HTMLElement | null>) {
     const [itemsPerCategory, setItemsPerCategory] = useState(6);
 
     useEffect(() => {
         const calculate = () => {
-            // Fixed overhead: py-20 + title + category name + dots + "voir tout" link
-            const overhead = 240;
-            const availableHeight = window.innerHeight - overhead;
+            const style = ref.current ? getComputedStyle(ref.current) : null;
+            const reserved = style
+                ? parseFloat(style.paddingTop) + parseFloat(style.paddingBottom)
+                : 0;
+            const availableHeight = window.innerHeight - reserved - carouselOverhead;
             const rows = Math.min(5, Math.max(2, Math.floor(availableHeight / itemRowHeight)));
             setItemsPerCategory(rows * 3);
         };
@@ -68,7 +76,7 @@ function useTechCarousel() {
         calculate();
         window.addEventListener("resize", calculate);
         return () => window.removeEventListener("resize", calculate);
-    }, []);
+    }, [ref]);
 
     return itemsPerCategory;
 }
@@ -85,7 +93,8 @@ function useTechCarousel() {
  * @returns The rendered technologies section
  */
 export function Technologies({ preview }: { preview?: boolean }) {
-    const itemsPerCategory = useTechCarousel();
+    const contentRef = useRef<HTMLDivElement>(null);
+    const itemsPerCategory = useTechCarousel(contentRef);
     const mobileCategories = preview ? techCategories.slice(0, 4) : techCategories;
     const [currentCategory, setCurrentCategory] = useState(0);
     const scrollRef = useRef<HTMLDivElement>(null);
@@ -111,8 +120,11 @@ export function Technologies({ preview }: { preview?: boolean }) {
     }, [handleScroll]);
 
     return (
-        <div className="flex h-full flex-col items-center px-4 py-20">
-            <div className="w-full max-w-4xl flex-1 flex flex-col justify-center">
+        <div
+            ref={contentRef}
+            className={`flex min-h-full flex-col items-center px-4 ${preview ? "pt-bar pb-chevron" : "pt-page pb-20"}`}
+        >
+            <div className="w-full max-w-4xl flex-1 flex flex-col justify-center-safe">
                 <h2 className="text-2xl font-bold text-center mb-6 lg:mb-8">Technologies</h2>
 
                 {/* Mobile/Tablet: Carousel */}

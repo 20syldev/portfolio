@@ -143,7 +143,7 @@ export function Hero() {
     }, [settle, previousTheme]);
 
     return (
-        <div className="flex h-full flex-col items-center justify-center px-4 text-center">
+        <div className="flex min-h-full flex-col items-center justify-center-safe px-4 pt-bar pb-chevron text-center">
             {/* Logo */}
             <div ref={logoRef} className="relative inline-block">
                 <Image

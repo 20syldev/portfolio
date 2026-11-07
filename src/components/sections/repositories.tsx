@@ -100,7 +100,7 @@ export function Repositories({ initialProjectId }: RepositoriesProps) {
 
     return (
         <div ref={scrollRef} className="flex flex-col h-dvh overflow-y-auto scrollbar-none">
-            <div className="flex-1 container mx-auto px-4 pt-24 pb-12">
+            <div className="flex-1 container mx-auto px-4 pt-page pb-12">
                 <div className="mb-12 text-center">
                     <h1 className="mb-2 text-4xl font-bold">Projets</h1>
                     <p className="text-xl text-muted-foreground">
