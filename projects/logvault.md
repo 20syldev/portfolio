@@ -19,6 +19,8 @@ Le site présente les deux offres de la gamme :
 
 La mise en ligne du service est annoncée dans un [article sur le blog ZENETYS](https://www.zenetys.com/mise-en-ligne-de-logvault-io/).
 
+![Page d'accueil de LogVault.io, qui présente l'offre SaaS](/images/projects/logvault/home.webp)
+
 ## Stack {#stack}
 
 - **Next.js 16** avec App Router et export statique
