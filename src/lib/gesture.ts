@@ -149,25 +149,6 @@ export function ownsGesture(element: Element | null, boundary: Element): boolean
 }
 
 /**
- * Checks whether an element is the one currently on screen, by testing its
- * center against the viewport. Pager tabs stay mounted off screen, so a
- * component can never assume it is the one the user is looking at.
- *
- * @param el - Element to test
- * @returns True if the element is centered within the viewport
- */
-export function isOnScreen(el: Element | null): boolean {
-    if (!el) return false;
-
-    const { left, top, width, height } = el.getBoundingClientRect();
-    if (!width || !height) return false;
-
-    const cx = left + width / 2;
-    const cy = top + height / 2;
-    return cx >= 0 && cx < window.innerWidth && cy >= 0 && cy < window.innerHeight;
-}
-
-/**
  * Picks the touch that started the gesture out of a touch list.
  *
  * @param list - Touch list from the event
