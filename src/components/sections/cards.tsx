@@ -118,7 +118,11 @@ function ParcoursCard({ className }: { className?: string }) {
                                 </span>
                             </p>
                         </div>
-                        <Link href="/alternance/" scroll={false} className="relative z-10 shrink-0">
+                        <Link
+                            href="/repositories/"
+                            scroll={false}
+                            className="relative z-10 shrink-0"
+                        >
                             <Button variant="outline" size="sm" className="h-6 px-2 text-xs">
                                 Projets
                                 <BriefcaseBusiness className="ml-1 h-3 w-3" />
