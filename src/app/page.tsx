@@ -110,6 +110,15 @@ export default function HomePage() {
     }, [currentTab]);
 
     useEffect(() => {
+        const panels = tabsRef.current?.children;
+        if (!panels) return;
+
+        Array.from(panels).forEach((panel, index) => {
+            (panel as HTMLElement).inert = index !== currentTab;
+        });
+    }, [currentTab, tabsRef]);
+
+    useEffect(() => {
         if (!mounted.current) return;
 
         const normalized = pathname.replace(/\/$/, "");
