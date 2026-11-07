@@ -89,6 +89,7 @@ export const projects: AlternanceProject[] = [
             ref: "/images/monitoring-demo.webp",
             alt: "Alertes en cours, détails d'une alerte et tickets, avec les données clients masquées",
         },
+        projectId: "monitoring",
         sections: [
             {
                 title: "L'interface utilisateur",
@@ -166,6 +167,7 @@ export const projects: AlternanceProject[] = [
         technologies: ["Vue.js"],
         github: "https://github.com/zenetys/logcenter",
         link: "https://auth.logvault.io",
+        projectId: "logcenter",
         sections: [
             {
                 title: "Qu'est ce que LogCenter ?",
@@ -187,6 +189,7 @@ export const projects: AlternanceProject[] = [
         technologies: ["Node.js", "WebSocket", "PostgreSQL", "HTML", "CSS", "JS"],
         video: "/videos/lyah-demo.mp4",
         poster: "/videos/lyah-poster.webp",
+        projectId: "lyah",
         sections: [
             {
                 title: "L'interface de chat",
@@ -241,21 +244,22 @@ export const projects: AlternanceProject[] = [
     },
     {
         id: "drawio-ext",
-        title: "Draw.io Plugin pour YaNA",
+        title: "Plugin Draw.io pour YaNa",
         description:
-            "Ce plugin améliore l'usage de Draw.io pour visualiser et gérer des infrastructures réseau à l'aide des données de YaNA et Kompot.",
+            "Ce plugin améliore l'usage de Draw.io pour visualiser et gérer des infrastructures réseau à l'aide des données de YaNa et Kompot.",
         technologies: ["JavaScript", "Draw.io API"],
         github: "https://github.com/20syldev/drawio-ext",
+        projectId: "drawio-ext",
         sections: [
             {
                 title: "Fonctionnalités principales",
                 content:
-                    "Création automatique de schémas à partir des équipements réseau. Mise à jour des informations en fonction des données de YaNA avec changement de couleur selon le statut. Ajout, suppression et modification des équipements tout en conservant les positions manuelles.",
+                    "Création automatique de schémas à partir des équipements réseau. Mise à jour des informations en fonction des données de YaNa avec changement de couleur selon le statut. Ajout, suppression et modification des équipements tout en conservant les positions manuelles.",
             },
             {
                 title: "Gestion simplifiée",
                 content:
-                    "Le plugin utilise les données de YaNA pour ajouter des switchs, tracer automatiquement les connexions réseau, afficher les VLANs et donner un style distinctif aux liens en fonction de la vitesse et du mode duplex.",
+                    "Le plugin utilise les données de YaNa pour ajouter des switchs, tracer automatiquement les connexions réseau, afficher les VLANs et donner un style distinctif aux liens en fonction de la vitesse et du mode duplex.",
             },
         ],
     },
