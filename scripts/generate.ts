@@ -415,7 +415,7 @@ function generateSitemap(): void {
     const staticPages = [
         { path: "/", priority: "1.0", changefreq: "weekly" },
         { path: "/repositories/", priority: "0.8", changefreq: "monthly" },
-        { path: "/alternance/", priority: "0.8", changefreq: "monthly" },
+        { path: "/articles/", priority: "0.6", changefreq: "monthly" },
         { path: "/help/", priority: "0.7", changefreq: "weekly" },
         { path: "/me/", priority: "0.7", changefreq: "monthly" },
         { path: "/parcours/", priority: "0.7", changefreq: "monthly" },
