@@ -102,7 +102,7 @@ export function VeilleContent({ content }: VeilleContentProps) {
                 <>
                     <h2
                         id="sources"
-                        className="text-2xl font-semibold mt-10 mb-4 pt-6 border-t border-border scroll-mt-20"
+                        className="text-2xl font-semibold mt-10 mb-4 pt-6 border-t border-border"
                     >
                         Sources
                     </h2>

@@ -65,7 +65,7 @@ export const mdxComponents = {
         return (
             <h2
                 id={id ?? undefined}
-                className="text-2xl font-semibold mt-10 mb-4 pt-6 border-t border-border first:border-t-0 first:mt-0 first:pt-0 scroll-mt-20"
+                className="text-2xl font-semibold mt-10 mb-4 pt-6 border-t border-border first:border-t-0 first:mt-0 first:pt-0"
                 {...props}
             >
                 <span className="target-mark">{text}</span>

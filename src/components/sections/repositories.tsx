@@ -109,7 +109,7 @@ export function Repositories({ initialProjectId }: RepositoriesProps) {
                     </p>
                 </div>
 
-                <section id="zenetys" className="scroll-mt-24">
+                <section id="zenetys">
                     <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-4">
                         <h2 className="text-2xl font-bold">Zenetys</h2>
                         <span className="text-right text-sm text-muted-foreground">
@@ -144,7 +144,7 @@ export function Repositories({ initialProjectId }: RepositoriesProps) {
                     </div>
                 </section>
 
-                <section id="personnels" className="mt-16 scroll-mt-24">
+                <section id="personnels" className="mt-16">
                     <div className="mb-6 flex flex-wrap items-baseline justify-between gap-x-4">
                         <h2 className="text-2xl font-bold">Personnels</h2>
                         <span className="text-right text-sm text-muted-foreground">
