@@ -6,10 +6,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
-import { Alternance } from "@/components/sections/alternance";
 import { Cards } from "@/components/sections/cards";
 import { Hero } from "@/components/sections/hero";
 import { Projects } from "@/components/sections/projects";
+import { Repositories } from "@/components/sections/repositories";
 import { Technologies } from "@/components/sections/technologies";
 import { Veille } from "@/components/sections/veille";
 import { useScroll } from "@/hooks/scroll";
@@ -26,15 +26,15 @@ const sections = 4;
  */
 function getTab(path: string): number {
     const p = path.replace(/\/$/, "");
-    if (p === "/alternance") return 1;
+    if (p === "/repositories" || p === "/alternance") return 1;
     if (p === "/veille") return 2;
     return 0;
 }
 
 /**
  * Home page with horizontal tab navigation and vertical section scrolling.
- * Contains Hero, Technologies, Projects, Cards, Alternance and Veille tabs. The Alternance and
- * Veille tabs mount after the first interaction, or at once when the page opens on them.
+ * Contains Hero, Technologies, Projects, Cards, Projets and Veille tabs. The Projets and Veille
+ * tabs mount after the first interaction, or at once when the page opens on them.
  *
  * @returns The rendered home page
  */
@@ -60,17 +60,17 @@ export default function HomePage() {
         initialTab: getTab(pathname),
     });
 
-    const [alternanceReady, setAlternanceReady] = useState(() => getTab(pathname) === 1);
+    const [repositoriesReady, setRepositoriesReady] = useState(() => getTab(pathname) === 1);
     useEffect(() => {
-        if (alternanceReady) return;
+        if (repositoriesReady) return;
         if (currentTab > 0) {
-            setAlternanceReady(true);
+            setRepositoriesReady(true);
             return;
         }
 
         const events = ["pointermove", "pointerdown", "keydown", "wheel", "touchstart"] as const;
         let cancel = () => {};
-        const mount = () => setAlternanceReady(true);
+        const mount = () => setRepositoriesReady(true);
         const start = () => {
             events.forEach((name) => removeEventListener(name, start));
             if (typeof requestIdleCallback === "function") {
@@ -87,7 +87,7 @@ export default function HomePage() {
             events.forEach((name) => removeEventListener(name, start));
             cancel();
         };
-    }, [currentTab, alternanceReady]);
+    }, [currentTab, repositoriesReady]);
 
     const [veilleReady, setVeilleReady] = useState(() => getTab(pathname) === 2);
     useEffect(() => {
@@ -121,6 +121,8 @@ export default function HomePage() {
 
     useEffect(() => {
         const sync = () => {
+            if (location.pathname.startsWith("/card/")) return;
+
             const expected = getTab(location.pathname);
             if (expected !== currentTab) goToTab(expected);
         };
@@ -175,12 +177,12 @@ export default function HomePage() {
                     </div>
                 </div>
 
-                <div className="snap-tab">{alternanceReady && <Alternance />}</div>
+                <div className="snap-tab">{repositoriesReady && <Repositories />}</div>
 
                 <div className="snap-tab">{veilleReady && <Veille />}</div>
             </div>
         ),
-        [alternanceReady, veilleReady, tabsRef, sectionsRef, tabsStyle, sectionsStyle]
+        [repositoriesReady, veilleReady, tabsRef, sectionsRef, tabsStyle, sectionsStyle]
     );
 
     return (

@@ -1,18 +1,27 @@
 "use client";
 
-import RepositoriesPage from "@/app/repositories/page";
+import { Nav } from "@/components/layout/nav";
+import { Repositories } from "@/components/sections/repositories";
+import { tabs, urls } from "@/lib/nav";
 
 interface CardProps {
     projectId: string;
 }
 
 /**
- * Client component wrapping RepositoriesPage with a pre-selected project.
+ * Client component showing the projects list with a pre-selected project.
  *
  * @param props - Component props
  * @param props.projectId - ID of the project to display
- * @returns The rendered repositories page with the project selected
+ * @returns The rendered projects list with the project selected
  */
 export function Card({ projectId }: CardProps) {
-    return <RepositoriesPage initialProjectId={projectId} />;
+    return (
+        <>
+            <Nav currentTab={1} tabs={tabs} links={urls} />
+            <main>
+                <Repositories initialProjectId={projectId} />
+            </main>
+        </>
+    );
 }
