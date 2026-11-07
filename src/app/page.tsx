@@ -228,7 +228,7 @@ export default function HomePage() {
             {currentTab === 0 && currentSection < sections - 1 && (
                 <button
                     onClick={() => goToSection(currentSection + 1)}
-                    className="fixed left-1/2 z-50 -translate-x-1/2 animate-float"
+                    className="fixed left-1/2 z-50 -translate-x-1/2 animate-float short:hidden"
                     style={{ bottom: "max(1.5rem, env(safe-area-inset-bottom, 1.5rem))" }}
                     aria-label="Section suivante"
                 >

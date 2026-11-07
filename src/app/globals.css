@@ -8,6 +8,7 @@
 @import "./appearance/favorite.css";
 @import "./appearance/mode.css";
 @import "./appearance/snap.css";
+@import "./appearance/bar.css";
 @import "./appearance/scrollbar.css";
 @import "./appearance/cv.css";
 
@@ -15,6 +16,32 @@
 
 @custom-variant wide {
     @media (width >= 48rem), print {
+        @slot;
+    }
+}
+
+@custom-variant compact {
+    @media (height <= 560px) {
+        @slot;
+    }
+}
+
+@custom-variant short {
+    @media (height <= 420px) {
+        @slot;
+    }
+}
+
+@custom-variant hoverable {
+    @media (hover: hover) and (pointer: fine) {
+        &:hover:not(:disabled) {
+            @slot;
+        }
+    }
+}
+
+@custom-variant pressed {
+    &:active:not(:disabled) {
         @slot;
     }
 }

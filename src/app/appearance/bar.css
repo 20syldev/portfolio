@@ -1,0 +1,76 @@
+/* Bar Spacing */
+@theme inline {
+    --spacing-bar: var(--bar-h);
+    --spacing-page: calc(var(--bar-h) + 1.5rem);
+    --spacing-chevron: var(--chevron-h);
+}
+
+/* Bar Variables: the unit follows the font preference, but never grows past what the window holds */
+:root {
+    --bar-unit: min(1rem, 3.4vw);
+    --bar-top: calc(1.5 * var(--bar-unit));
+    --bar-pill: calc(3 * var(--bar-unit));
+    --bar-gap: var(--bar-unit);
+    --bar-tab-y: calc(0.5 * var(--bar-unit));
+    --bar-tab-x: var(--bar-unit);
+    --bar-tab-size: calc(0.875 * var(--bar-unit));
+    --bar-icon: calc(2.25 * var(--bar-unit));
+    --bar-h: calc(var(--bar-top) + var(--bar-pill) + var(--bar-gap));
+    --chevron-h: calc(max(1.5rem, env(safe-area-inset-bottom, 0px)) + 2rem);
+}
+
+/* Phones: smaller pill, narrower tabs on the narrowest ones */
+@media (max-width: 767.98px) {
+    :root {
+        --bar-unit: min(1rem, 5.2vw);
+        --bar-top: var(--bar-unit);
+        --bar-pill: calc(2.5 * var(--bar-unit));
+        --bar-gap: calc(0.75 * var(--bar-unit));
+        --bar-tab-y: calc(0.25 * var(--bar-unit));
+        --bar-tab-x: calc(0.75 * var(--bar-unit));
+        --bar-tab-size: calc(0.75 * var(--bar-unit));
+        --bar-icon: calc(2 * var(--bar-unit));
+    }
+}
+@media (max-width: 419.98px) {
+    :root {
+        --bar-tab-x: calc(0.625 * var(--bar-unit));
+        --bar-icon: calc(1.75 * var(--bar-unit));
+    }
+}
+
+/* Compact: low windows, the pill gets lower and loses the wordmark (see the compact variant) */
+@media (max-height: 560px) {
+    :root {
+        --bar-top: calc(0.625 * var(--bar-unit));
+        --bar-pill: calc(2.375 * var(--bar-unit));
+        --bar-gap: calc(0.5 * var(--bar-unit));
+        --bar-tab-y: calc(0.25 * var(--bar-unit));
+        --bar-tab-x: calc(0.75 * var(--bar-unit));
+        --bar-tab-size: calc(0.8125 * var(--bar-unit));
+        --bar-icon: calc(1.75 * var(--bar-unit));
+    }
+}
+@media (max-height: 560px) and (max-width: 767.98px) {
+    :root {
+        --bar-top: calc(0.5 * var(--bar-unit));
+        --bar-pill: calc(2.25 * var(--bar-unit));
+        --bar-tab-y: calc(0.1875 * var(--bar-unit));
+        --bar-tab-x: calc(0.6875 * var(--bar-unit));
+        --bar-tab-size: calc(0.75 * var(--bar-unit));
+    }
+}
+
+/* Minimal: very low windows, such as a phone held sideways, where the chevron is hidden */
+@media (max-height: 420px) {
+    :root {
+        --bar-top: calc(0.375 * var(--bar-unit));
+        --bar-pill: calc(2 * var(--bar-unit));
+        --bar-gap: calc(0.5 * var(--bar-unit));
+        --bar-tab-y: calc(0.125 * var(--bar-unit));
+        --bar-tab-x: calc(0.625 * var(--bar-unit));
+        --bar-tab-size: calc(0.75 * var(--bar-unit));
+        --bar-icon: calc(1.625 * var(--bar-unit));
+        --chevron-h: 0.75rem;
+    }
+}

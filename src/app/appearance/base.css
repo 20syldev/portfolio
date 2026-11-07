@@ -33,7 +33,7 @@
 
 /* Anchor Scroll Margin */
 [id] {
-    scroll-margin-top: 150px;
+    scroll-margin-top: calc(var(--bar-h) + 4rem);
 }
 
 /* Anchor Target */
