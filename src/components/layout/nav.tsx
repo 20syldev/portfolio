@@ -1,12 +1,8 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 
 import { ThemeToggle } from "@/components/layout/theme";
-import { Button } from "@/components/ui/button";
-import { Collapsible } from "@/components/ui/collapsible";
 import { Name } from "@/components/ui/name";
 import { CommandMenu, SearchButton } from "@/components/utils/command";
 import { useFont } from "@/components/utils/font";
@@ -21,12 +17,12 @@ interface NavProps {
 }
 
 /**
- * Adaptive navigation header with morphing animation.
- * Compact centered pill on homepage, expands to full header bar on other tabs.
- * Includes hamburger menu on mobile.
+ * Floating pill header shown on every page.
+ * The wordmark is left out on the home page, on phones and in low windows. Its size and its glass
+ * surface come from appearance/bar.css and appearance/glass.css.
  *
  * @param props - Component props
- * @param props.currentTab - Currently active tab index
+ * @param props.currentTab - Currently active tab index, or -1 on pages outside the tabs
  * @param props.tabs - Array of tab labels
  * @param props.onTabChange - Optional callback when a tab is selected
  * @param props.links - Optional array of URLs for link-based navigation
@@ -34,247 +30,84 @@ interface NavProps {
  */
 export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
     const isHome = currentTab === 0;
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { setDialogOpen } = useFont();
     const animate = useFirstVisit();
 
     return (
         <header
-            className={`fixed top-0 left-0 right-0 z-50 pointer-events-none ${animate ? "animate-header-in" : ""}`}
+            className={`fixed inset-x-0 top-0 z-50 pointer-events-none ${animate ? "animate-header-in" : ""}`}
         >
-            {/* Global command dialog */}
             <CommandMenu />
 
-            <div
-                className={`
-                    pointer-events-auto
-                    transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
-                    ${
-                        isHome
-                            ? "relative mt-4 md:mt-6 mx-auto w-fit rounded-full bg-muted/80 backdrop-blur-sm border border-border/50"
-                            : "relative mt-0 mx-0 w-full rounded-none bg-background/80 backdrop-blur-sm border-b border-border/50"
-                    }
-                `}
-            >
+            <div className="glass pointer-events-auto relative mx-auto mt-(--bar-top) flex h-(--bar-pill) w-fit max-w-[calc(100%-1rem)] items-center gap-1 rounded-full px-1.5">
                 <div
-                    className={`
-                    flex items-center
-                    transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
-                    ${isHome ? "justify-center px-1 md:px-1.5 md:py-1" : "justify-between px-4 md:px-6 h-16"}
-                `}
+                    inert={isHome}
+                    className={`hidden md:grid compact:hidden transition-[grid-template-columns,margin,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+                        isHome ? "-mr-1 grid-cols-[0fr] opacity-0" : "grid-cols-[1fr] opacity-100"
+                    }`}
                 >
-                    {/* Logo - visible on non-home pages (desktop + mobile) */}
-                    <Link
-                        href={links?.[0] ?? "/"}
-                        onClick={
-                            onTabChange
-                                ? (e) => {
-                                      e.preventDefault();
-                                      onTabChange(0);
-                                  }
-                                : undefined
-                        }
-                        onDoubleClick={(e) => {
-                            e.preventDefault();
-                            setDialogOpen(true);
-                        }}
-                        className={`
-                            text-xl font-bold whitespace-nowrap select-none
-                            transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
-                            ${isHome ? "w-0 opacity-0 overflow-hidden" : "w-auto opacity-100"}
-                        `}
-                    >
-                        <Name>{profile.name}</Name>
-                    </Link>
-
-                    {/* Navigation tabs - pills on home (always visible), hidden on mobile for other pages */}
-                    <nav
-                        className={`
-                        flex items-center gap-1
-                        transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
-                        ${isHome ? "" : "hidden md:flex"}
-                    `}
-                    >
-                        {tabs.map((tab, index) => {
-                            const className = `
-                                transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]
-                                ${
-                                    isHome
-                                        ? `px-3 py-1 md:px-4 md:py-2 text-xs md:text-sm rounded-full ${
-                                              currentTab === index
-                                                  ? "bg-background text-foreground shadow-sm"
-                                                  : "text-tab-foreground hover:text-foreground hover:bg-background/50"
-                                          }`
-                                        : `px-4 py-2 text-sm ${
-                                              currentTab === index
-                                                  ? "text-foreground font-medium"
-                                                  : "text-muted-foreground hover:text-foreground"
-                                          }`
-                                }
-                            `;
-
-                            if (links) {
-                                return (
-                                    <Link key={tab} href={links[index]} className={className}>
-                                        {tab}
-                                    </Link>
-                                );
+                    <div className="min-w-0 overflow-hidden">
+                        <Link
+                            href={links?.[0] ?? "/"}
+                            onClick={
+                                onTabChange
+                                    ? (e) => {
+                                          e.preventDefault();
+                                          onTabChange(0);
+                                      }
+                                    : undefined
                             }
+                            onDoubleClick={(e) => {
+                                e.preventDefault();
+                                setDialogOpen(true);
+                            }}
+                            className="block pl-3.5 pr-3 text-xl font-bold whitespace-nowrap select-none"
+                        >
+                            <Name>{profile.name}</Name>
+                        </Link>
+                    </div>
+                </div>
 
+                <nav aria-label="Navigation principale" className="flex items-center gap-1">
+                    {tabs.map((tab, index) => {
+                        const active = currentTab === index;
+                        const className = `glass-tab rounded-full px-(--bar-tab-x) py-(--bar-tab-y) text-(length:--bar-tab-size) leading-[1.4] whitespace-nowrap ${
+                            active
+                                ? "font-medium text-foreground"
+                                : "text-tab-foreground hover:text-foreground"
+                        }`;
+
+                        if (links) {
                             return (
-                                <button
+                                <Link
                                     key={tab}
-                                    onClick={() => onTabChange?.(index)}
+                                    href={links[index]}
+                                    aria-current={active ? "page" : undefined}
                                     className={className}
                                 >
                                     {tab}
-                                </button>
+                                </Link>
                             );
-                        })}
-                    </nav>
+                        }
 
-                    {/* Actions container - right side for non-home pages */}
-                    <div
-                        className={`
-                        flex items-center gap-1 h-8
-                        transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
-                        ${isHome ? "w-0 opacity-0 overflow-hidden" : "w-auto opacity-100"}
-                    `}
-                    >
-                        {/* Desktop: SearchButton + ThemeToggle */}
-                        <div className="hidden md:flex items-center gap-1">
-                            <SearchButton />
-                            <ThemeToggle />
-                        </div>
+                        return (
+                            <button
+                                key={tab}
+                                onClick={() => onTabChange?.(index)}
+                                aria-current={active ? "page" : undefined}
+                                className={className}
+                            >
+                                {tab}
+                            </button>
+                        );
+                    })}
+                </nav>
 
-                        {/* Mobile: actions appear when menu is open */}
-                        <div
-                            className={`flex md:hidden items-center gap-1 transition-opacity duration-300 ${isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-                        >
-                            <SearchButton />
-                            <ThemeToggle />
-                        </div>
+                <span aria-hidden className="mx-1 h-[55%] w-px bg-border/50" />
 
-                        {/* Mobile: hamburger */}
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-                            aria-expanded={isMenuOpen}
-                            className="h-8 w-8 md:hidden"
-                        >
-                            <span className="relative h-4 w-4">
-                                <Menu
-                                    className={`h-4 w-4 absolute inset-0 transition-all duration-300 ${isMenuOpen ? "rotate-90 opacity-0" : "rotate-0 opacity-100"}`}
-                                />
-                                <X
-                                    className={`h-4 w-4 absolute inset-0 transition-all duration-300 ${isMenuOpen ? "rotate-0 opacity-100" : "-rotate-90 opacity-0"}`}
-                                />
-                            </span>
-                        </Button>
-                    </div>
-                </div>
-
-                {/* Mobile menu - non-home pages only */}
-                <Collapsible open={!isHome && isMenuOpen} className="md:hidden">
-                    <nav className="border-t border-border/50">
-                        <div className="flex flex-col p-2">
-                            {tabs.map((tab, index) => {
-                                const isActive = currentTab === index;
-
-                                if (links) {
-                                    return (
-                                        <Link
-                                            key={tab}
-                                            href={links[index]}
-                                            onClick={() => setIsMenuOpen(false)}
-                                            className={`
-                                                px-4 py-3 text-sm rounded-lg transition-colors
-                                                ${
-                                                    isActive
-                                                        ? "bg-muted/60 backdrop-blur-[2px] text-foreground font-medium"
-                                                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                                                }
-                                            `}
-                                        >
-                                            {tab}
-                                        </Link>
-                                    );
-                                }
-
-                                return (
-                                    <button
-                                        key={tab}
-                                        onClick={() => {
-                                            onTabChange?.(index);
-                                            setIsMenuOpen(false);
-                                        }}
-                                        className={`
-                                            px-4 py-3 text-sm rounded-lg transition-colors text-left
-                                            ${
-                                                isActive
-                                                    ? "bg-muted/60 backdrop-blur-[2px] text-foreground font-medium"
-                                                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                                            }
-                                        `}
-                                    >
-                                        {tab}
-                                    </button>
-                                );
-                            })}
-                        </div>
-                    </nav>
-                </Collapsible>
-            </div>
-
-            {/* Floating actions - desktop on home, mobile hamburger on home */}
-            <div
-                className={`
-                    fixed right-4 md:right-6 top-4 md:top-7 flex items-center gap-1 pointer-events-auto
-                    transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
-                    ${
-                        isHome
-                            ? "opacity-100 translate-y-0"
-                            : "opacity-0 -translate-y-2 pointer-events-none"
-                    }
-                `}
-            >
-                {/* Desktop: show actions directly */}
-                <div className="hidden md:flex items-center gap-1">
+                <div className="flex items-center gap-0.5 [&_button]:size-(--bar-icon)">
                     <SearchButton />
                     <ThemeToggle />
-                </div>
-
-                {/* Mobile: show hamburger for actions */}
-                <div className="md:hidden flex flex-col items-center gap-1">
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-                        aria-expanded={isMenuOpen}
-                        className="h-9 w-9"
-                    >
-                        <span className="relative h-4 w-4">
-                            <Menu
-                                className={`h-4 w-4 absolute inset-0 transition-all duration-300 ${isMenuOpen ? "rotate-90 opacity-0" : "rotate-0 opacity-100"}`}
-                            />
-                            <X
-                                className={`h-4 w-4 absolute inset-0 transition-all duration-300 ${isMenuOpen ? "rotate-0 opacity-100" : "-rotate-90 opacity-0"}`}
-                            />
-                        </span>
-                    </Button>
-                    <div
-                        className={`flex flex-col items-center gap-1 ${isMenuOpen ? "" : "pointer-events-none"}`}
-                        style={{
-                            opacity: isMenuOpen ? 1 : 0,
-                            transition: "opacity 300ms ease-out",
-                        }}
-                    >
-                        <SearchButton />
-                        <ThemeToggle />
-                    </div>
                 </div>
             </div>
         </header>
