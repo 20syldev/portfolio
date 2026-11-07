@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Projets - Sylvain L.",
-    description: "Explorez mes projets open source et documentations associées.",
+    description:
+        "Mes projets réalisés chez Zenetys et mes projets personnels, open source ou non, avec leur documentation.",
     openGraph: {
         title: "Projets - Sylvain L.",
-        description: "Explorez mes projets open source et documentations associées.",
+        description:
+            "Mes projets réalisés chez Zenetys et mes projets personnels, open source ou non, avec leur documentation.",
         type: "website",
     },
 };
