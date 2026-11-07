@@ -13,6 +13,8 @@ Il se compose de deux blocs : une **API Node.js** qui lit les alertes dans Elast
 Les alertes proviennent de la chaîne d'ingestion existante de l'équipe ; j'ai développé de zéro l'interface et l'API. Elles étaient auparavant consultables avec Kibana, et je voulais une solution plus intégrée et personnalisable.
 L'outil est interne : il n'a ni démo publique ni code publié.
 
+![Tableau de bord de Monitoring : alertes en cours, derniers retours à la normale, tickets du support et activité récente, avec des données fictives](/images/projects/monitoring/home.webp)
+
 ## Pourquoi ce projet ? {#why}
 
 Kibana sait afficher des documents Elasticsearch, mais pas organiser le travail d'un opérateur de supervision : repérer ce qui est urgent, dire qu'on s'en occupe, laisser une trace pour l'équipe, ouvrir le bon graphique.
