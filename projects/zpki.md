@@ -79,4 +79,3 @@ Le projet est publié sous licence **MIT**.
 
 - **Code source** — [github.com/zenetys/zpki](https://github.com/zenetys/zpki), publié en open source par ZENETYS
 - **Démo en ligne** — [tools.zenetys.com/zpki](https://tools.zenetys.com/zpki/)
-- **Démo vidéo** — une présentation est disponible sur la [page alternance](/alternance#zpki)

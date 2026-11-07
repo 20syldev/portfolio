@@ -19,7 +19,7 @@ Le design utilise **Next.js 16** (App Router) avec **Tailwind CSS 4** et **Radix
 
 **Navigation :**
 
-- **Défilement 2D** : navigation horizontale entre 3 onglets (Accueil, Alternance, Veille) et verticale entre les sections
+- **Défilement 2D** : navigation horizontale entre 3 onglets (Accueil, Projets, Veille) et verticale entre les sections
 - Support **molette**, **swipe tactile** et **touches fléchées** du clavier
 - **Indicateurs de section** : pastilles verticales qui s'allongent selon la section active
 - **Transitions de page** instantanées avec un glissement vers le haut à chaque changement de route
