@@ -4,7 +4,6 @@ import * as path from "path";
 import matter from "gray-matter";
 import sharp from "sharp";
 
-import { projects as alternanceProjects } from "../src/data/alternance";
 import type { ContentImage } from "../src/data/projects";
 import { projectOrder } from "../src/lib/order";
 
@@ -72,7 +71,6 @@ const veilleContentOutput = path.join(process.cwd(), "src", "data", "veille-cont
 const docsSource = path.join(process.cwd(), "docs");
 const docsOutput = path.join(process.cwd(), "src", "data", "docs-index.json");
 const docsContentOutput = path.join(process.cwd(), "src", "data", "docs-content.json");
-const mediaOutput = path.join(process.cwd(), "src", "data", "media.json");
 
 const publicDir = path.join(process.cwd(), "public");
 
@@ -523,25 +521,6 @@ async function generateFavicons(): Promise<void> {
 }
 
 /**
- * Generates the media JSON file: the images declared in the TypeScript data (the projects of
- * the work-study page), resolved like the markdown images and keyed by their path.
- *
- * @returns Promise that resolves when the file is written
- */
-async function generateMedia(): Promise<void> {
-    const media: Record<string, ContentImage> = {};
-
-    for (const project of alternanceProjects) {
-        if (!project.screenshot) continue;
-        const { ref, alt } = project.screenshot;
-        media[ref] = await resolveImage(project.id, ref, alt);
-    }
-
-    fs.writeFileSync(mediaOutput, JSON.stringify(media, null, 4), "utf-8");
-    console.log(`Generated ${Object.keys(media).length} media entries to ${mediaOutput}`);
-}
-
-/**
  * Runs every generator in order. The sitemap reads the JSON files written before it.
  *
  * @returns Promise that resolves when every file is generated
@@ -550,7 +529,6 @@ async function main(): Promise<void> {
     await generateProjects();
     generateVeilles();
     await generateDocs();
-    await generateMedia();
     generateSitemap();
     await generateFavicons();
 }
