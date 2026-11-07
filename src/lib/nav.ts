@@ -1,7 +1,7 @@
-export const tabs = ["Accueil", "Alternance", "Veille"];
-export const urls = ["/", "/alternance/", "/veille/"];
+export const tabs = ["Accueil", "Projets", "Veille"];
+export const urls = ["/", "/repositories/", "/veille/"];
 export const titles = [
     "Sylvain L. - Développeur Full Stack",
-    "Alternance - Sylvain L.",
+    "Projets - Sylvain L.",
     "Veilles Technologiques - Sylvain L.",
 ];
