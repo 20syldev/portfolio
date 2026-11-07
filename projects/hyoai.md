@@ -5,7 +5,7 @@ longDescription: "Interface de chat statique et sans serveur pour n'importe quel
 tags: ["Next.js", "TypeScript", "LLM", "Chat"]
 github: "https://github.com/zenetys/hyoai"
 demo: "https://tools.zenetys.com/hyoai/"
-article: "https://www.zenetys.com/hyoai-un-client-de-chat-ia-sans-backend-dans-le-navigateur/"
+article: "https://www.zenetys.com/actu/hyoai-un-client-de-chat-ia-sans-backend-dans-le-navigateur/"
 work: true
 ---
 
@@ -13,7 +13,7 @@ work: true
 
 HYOAI (**H**ost **Y**our **O**wn **AI**) est une interface de chat pour dialoguer avec n'importe quel LLM compatible OpenAI, développée et open-sourcée par [ZENETYS](https://www.zenetys.com).
 C'est un front-end **100% statique** : pas de backend propre, rien à déployer ni à sécuriser côté serveur en dehors des fichiers statiques. Le navigateur communique directement avec l'API de votre serveur d'inférence (llama.cpp, vLLM, Ollama, ou tout endpoint compatible OpenAI qui autorise l'origine de la page).
-Une démo est disponible sur [tools.zenetys.com/hyoai](https://tools.zenetys.com/hyoai/), le code est publié sur [github.com/zenetys/hyoai](https://github.com/zenetys/hyoai) et le projet est présenté dans un [article sur le blog ZENETYS](https://www.zenetys.com/hyoai-un-client-de-chat-ia-sans-backend-dans-le-navigateur/).
+Une démo est disponible sur [tools.zenetys.com/hyoai](https://tools.zenetys.com/hyoai/), le code est publié sur [github.com/zenetys/hyoai](https://github.com/zenetys/hyoai) et le projet est présenté dans un [article sur le blog ZENETYS](https://www.zenetys.com/actu/hyoai-un-client-de-chat-ia-sans-backend-dans-le-navigateur/).
 La version 1.2.0 y a ajouté l'appel d'outils, et la 1.3.0 les serveurs MCP.
 
 ![Démonstration de HYOAI](/videos/hyoai-demo.mp4)
@@ -122,4 +122,4 @@ Plusieurs apports de la 1.0.2 viennent de pull requests de la communauté, créd
 - **Code source** — [github.com/zenetys/hyoai](https://github.com/zenetys/hyoai), publié en open source par ZENETYS
 - **Démo en ligne** — [tools.zenetys.com/hyoai](https://tools.zenetys.com/hyoai/)
 - **Guides** — [`docs/`](https://github.com/zenetys/hyoai/tree/master/docs) : modèles, outils, MCP, comparaison, tour de l'interface et [`embed.md`](https://github.com/zenetys/hyoai/blob/master/docs/embed.md) pour embarquer HYOAI dans une page tierce
-- **Article** — [HYOAI : un client de chat IA sans backend, dans le navigateur](https://www.zenetys.com/hyoai-un-client-de-chat-ia-sans-backend-dans-le-navigateur/), sur le blog ZENETYS
+- **Article** — [HYOAI : un client de chat IA sans backend, dans le navigateur](https://www.zenetys.com/actu/hyoai-un-client-de-chat-ia-sans-backend-dans-le-navigateur/), sur le blog ZENETYS
