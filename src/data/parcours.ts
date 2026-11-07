@@ -159,7 +159,7 @@ export const alternance: ParcoursWork[] = [
         end: "2027-10-31",
         from: "août 2026",
         to: "octobre 2027",
-        href: "/alternance/",
+        href: "/repositories/",
         current: true,
     },
     {
@@ -170,7 +170,7 @@ export const alternance: ParcoursWork[] = [
         end: "2026-08-28",
         from: "septembre 2024",
         to: "août 2026",
-        href: "/alternance/",
+        href: "/repositories/",
     },
 ];
 
