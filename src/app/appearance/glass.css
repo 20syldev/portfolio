@@ -1,0 +1,249 @@
+/* Glass Registered Properties */
+@property --glass-glow {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
+}
+
+/* Glass Variables */
+:root {
+    --glass-rest: color-mix(in oklab, var(--muted) 58%, transparent);
+    --glass-solid: color-mix(in oklab, var(--muted) 86%, transparent);
+    --glass-bent: color-mix(in oklab, var(--muted) 40%, transparent);
+    --glass-plate: color-mix(in oklab, var(--muted) 80%, transparent);
+    --glass-blur: 18px;
+    --glass-bent-blur: 4px;
+    --glass-saturate: 1.7;
+    --glass-bright: 1.04;
+    --glass-shadow: 0 10px 26px -14px rgb(0 0 0 / 0.2), 0 1px 4px -1px rgb(0 0 0 / 0.06);
+    --glass-capsule: rgb(0 0 0 / 0.075);
+    --glass-tab-hover: rgb(0 0 0 / 0.045);
+    --glass-glow-rest: 0;
+    --glass-glow-near: 0.55;
+    --glass-plate-edge: 26px;
+}
+.dark {
+    --glass-rest: color-mix(in oklab, var(--muted) 52%, transparent);
+    --glass-solid: color-mix(in oklab, var(--muted) 89%, transparent);
+    --glass-bent: color-mix(in oklab, var(--muted) 38%, transparent);
+    --glass-plate: color-mix(in oklab, var(--muted) 86%, transparent);
+    --glass-bright: 0.92;
+    --glass-shadow: 0 12px 28px -14px rgb(0 0 0 / 0.6), 0 1px 4px -1px rgb(0 0 0 / 0.3);
+    --glass-capsule: rgb(255 255 255 / 0.12);
+    --glass-tab-hover: rgb(255 255 255 / 0.07);
+    --glass-glow-rest: 0;
+    --glass-glow-near: 0.08;
+}
+
+/* Glass Pill: plain CSS glass, what every browser without refraction gets */
+.glass {
+    --spacing: calc(0.25 * var(--bar-unit));
+    --text-xl: calc(1.25 * var(--bar-unit));
+    --glass-x: 22%;
+    --glass-y: -8%;
+    --glass-tint: var(--glass-rest);
+    isolation: isolate;
+    background: var(--glass-tint);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate))
+        brightness(var(--glass-bright));
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate))
+        brightness(var(--glass-bright));
+    box-shadow: var(--glass-shadow);
+    transition:
+        background-color 0.28s ease,
+        --glass-glow 0.35s ease;
+}
+header[data-solid] .glass {
+    --glass-tint: var(--glass-solid);
+}
+
+/* Glass Layers: the glow sits above the legibility plate and below the labels */
+.glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    --glass-a: calc(
+        var(--glass-glow-rest) + (var(--glass-glow-near) - var(--glass-glow-rest)) *
+            var(--glass-glow)
+    );
+    background: radial-gradient(
+        220px 120px at var(--glass-x) var(--glass-y),
+        rgb(255 255 255 / var(--glass-a)),
+        rgb(255 255 255 / calc(var(--glass-a) * 0.8)) 14%,
+        rgb(255 255 255 / calc(var(--glass-a) * 0.56)) 28%,
+        rgb(255 255 255 / calc(var(--glass-a) * 0.32)) 44%,
+        rgb(255 255 255 / calc(var(--glass-a) * 0.14)) 60%,
+        rgb(255 255 255 / calc(var(--glass-a) * 0.04)) 80%,
+        transparent
+    );
+}
+.glass > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Glass Fade: lighter than the page fade it replaces, the pill carries most of the legibility */
+.glass-fade {
+    height: 84px;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.28s ease;
+    background: linear-gradient(
+        to bottom,
+        color-mix(in oklab, var(--background) 55%, transparent) 0%,
+        color-mix(in oklab, var(--background) 34%, transparent) 45%,
+        color-mix(in oklab, var(--background) 10%, transparent) 80%,
+        transparent 100%
+    );
+}
+header[data-solid] .glass-fade {
+    opacity: 1;
+}
+
+/* Glass Tabs: flat capsule for the active one, flat tint on hover */
+.glass-tab {
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+.glass-tab[aria-current="page"] {
+    background: var(--glass-capsule);
+}
+@media (hover: hover) {
+    .glass-tab:not([aria-current="page"]):hover {
+        background: var(--glass-tab-hover);
+    }
+}
+
+/* Glass Focus: the default grey rings are too faint on a light pill */
+.glass :focus-visible {
+    outline: 2px solid var(--foreground);
+    outline-offset: 2px;
+    box-shadow: none;
+}
+
+/* Glass Hit Areas: targets stay at least 24 px tall, and taller under a coarse pointer */
+.glass-tab,
+.glass > div > button {
+    position: relative;
+}
+.glass-tab::after,
+.glass > div > button::after {
+    content: "";
+    position: absolute;
+    inset: -3px 0;
+}
+@media (pointer: coarse) {
+    .glass-tab::after,
+    .glass > div > button::after {
+        inset: -10px 0;
+    }
+}
+
+/* Glass Refraction: desktop Chromium only, header[data-refract] is set once the filter exists */
+@supports (backdrop-filter: url(#glass-refract) blur(1px)) {
+    header[data-refract] .glass {
+        --glass-tint: var(--glass-bent);
+        -webkit-backdrop-filter: url(#glass-refract) blur(var(--glass-bent-blur))
+            saturate(var(--glass-saturate)) brightness(var(--glass-bright));
+        backdrop-filter: url(#glass-refract) blur(var(--glass-bent-blur))
+            saturate(var(--glass-saturate)) brightness(var(--glass-bright));
+    }
+    header[data-refract] .glass::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: inherit;
+        pointer-events: none;
+        background: var(--glass-plate);
+        opacity: 0;
+        transition: opacity 0.28s ease;
+        mask: linear-gradient(
+            90deg,
+            transparent 0,
+            #000 var(--glass-plate-edge),
+            #000 calc(100% - var(--glass-plate-edge)),
+            transparent 100%
+        );
+    }
+    header[data-refract][data-solid] .glass::after {
+        opacity: 1;
+    }
+}
+
+/* Glass While Sliding: no live blur during a home slide, the pill turns solid until it settles */
+.snap-container.snap-moving .glass {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+.snap-container.snap-moving header:not([data-refract]) .glass {
+    --glass-tint: var(--glass-solid);
+}
+.snap-container.snap-moving header[data-refract] .glass::after {
+    opacity: 1;
+}
+
+/* Glass Fallbacks: no backdrop filter at all */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass,
+    header[data-solid] .glass,
+    header[data-refract] .glass {
+        --glass-tint: var(--muted);
+    }
+}
+
+/* Glass Fallbacks: reduced transparency, more contrast and forced colors */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+    .glass {
+        --glass-tint: var(--muted) !important;
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
+        border: 1px solid var(--foreground);
+        box-shadow: none;
+    }
+    .glass::before,
+    .glass::after {
+        display: none !important;
+    }
+    .glass-tab[aria-current="page"] {
+        background: var(--background);
+        box-shadow: inset 0 0 0 1px var(--foreground);
+    }
+}
+@media (forced-colors: active) {
+    .glass {
+        --glass-tint: Canvas !important;
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
+        border: 1px solid CanvasText;
+        box-shadow: none;
+    }
+    .glass::before,
+    .glass::after {
+        display: none !important;
+    }
+    .glass :focus-visible {
+        outline-color: Highlight;
+    }
+    .glass-tab {
+        color: LinkText;
+    }
+    .glass-tab[aria-current="page"] {
+        background: Highlight;
+        color: HighlightText;
+        box-shadow: none;
+        forced-color-adjust: none;
+    }
+}
+
+/* Glass Motion */
+@media (prefers-reduced-motion: reduce) {
+    .glass-tab {
+        transition: none;
+    }
+}

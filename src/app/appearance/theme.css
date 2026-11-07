@@ -24,6 +24,9 @@
     --color-popover: var(--popover);
     --color-card-foreground: var(--card-foreground);
     --color-card: var(--card);
+    --color-glass-capsule: var(--glass-capsule);
+    --color-glass-tab-hover: var(--glass-tab-hover);
+    --color-hover-fill: var(--ui-hover-fill);
     --color-cv-ink: #13291d;
     --color-cv-text: #3a443d;
     --color-cv-muted: #4a5a4e;
@@ -81,7 +84,7 @@
     --secondary-foreground: oklch(0.985 0 0);
     --muted: oklch(0.269 0 0);
     --muted-foreground: oklch(0.708 0 0);
-    --tab-foreground: oklch(0.708 0 0);
+    --tab-foreground: oklch(0.8 0 0);
     --accent: oklch(0.269 0 0);
     --accent-foreground: oklch(0.985 0 0);
     --destructive: oklch(0.704 0.191 22.216);
