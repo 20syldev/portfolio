@@ -110,6 +110,12 @@ export default function HomePage() {
     }, [currentTab]);
 
     useEffect(() => {
+        const normalized = pathname.replace(/\/$/, "");
+        const index = urls.findIndex((u) => u.replace(/\/$/, "") === normalized);
+        if (index !== -1) document.title = titles[index];
+    }, [pathname]);
+
+    useEffect(() => {
         const panels = tabsRef.current?.children;
         if (!panels) return;
 
