@@ -33,7 +33,7 @@ export function Frame({ children, pdfName }: { children: ReactNode; pdfName: str
                 <Nav currentTab={-1} tabs={tabs} links={urls} />
             </div>
 
-            <main className="flex-1 container mx-auto px-4 pt-24 pb-12 print:m-0 print:max-w-none print:p-0">
+            <main className="flex-1 container mx-auto px-4 pt-page pb-12 print:m-0 print:max-w-none print:p-0">
                 <div className="mx-auto mb-6 flex max-w-[794px] items-center justify-between print:hidden">
                     <Button
                         variant="ghost"

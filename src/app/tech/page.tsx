@@ -17,7 +17,7 @@ export default function TechPage() {
     return (
         <div ref={scrollRef} className="flex flex-col h-dvh overflow-y-auto scrollbar-none">
             <Nav currentTab={-1} tabs={tabs} links={urls} />
-            <main className="flex-1 container mx-auto pt-8">
+            <main className="flex-1 container mx-auto">
                 <Technologies />
             </main>
             <Footer />

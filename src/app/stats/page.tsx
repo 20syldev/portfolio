@@ -107,7 +107,7 @@ export default function StatsPage() {
     return (
         <div ref={scrollRef} className="flex flex-col h-dvh overflow-y-auto scrollbar-none">
             <Nav currentTab={-1} tabs={tabs} links={urls} />
-            <main className="flex-1 container mx-auto px-4 pt-24 pb-12">
+            <main className="flex-1 container mx-auto px-4 pt-page pb-12">
                 <div className="max-w-4xl mx-auto">
                     <div className="mb-10 text-center">
                         <h1 className="mb-2 text-4xl font-bold">Statistiques</h1>

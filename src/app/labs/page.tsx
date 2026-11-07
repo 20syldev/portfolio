@@ -21,7 +21,7 @@ export default function LabsPage() {
     return (
         <div ref={scrollRef} className="flex flex-col h-dvh overflow-y-auto scrollbar-none">
             <Nav currentTab={-1} tabs={tabs} links={urls} />
-            <main className="flex-1 container mx-auto px-4 pt-24 pb-12">
+            <main className="flex-1 container mx-auto px-4 pt-page pb-12">
                 <div className="flex flex-col items-center">
                     <div className="w-full max-w-3xl">
                         {/* Navigation */}

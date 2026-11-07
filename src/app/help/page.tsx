@@ -79,7 +79,7 @@ export default function HelpPage() {
         <div ref={scrollRef} className="flex flex-col h-dvh overflow-y-auto scrollbar-none">
             <Nav currentTab={-1} tabs={tabs} links={urls} />
 
-            <main className="flex-1 container mx-auto px-4 pt-24 pb-12">
+            <main className="flex-1 container mx-auto px-4 pt-page pb-12">
                 <div className="mb-8 flex items-center justify-between">
                     <Link href="/">
                         <Button

@@ -41,7 +41,7 @@ export function Doc({ veille, content }: DocProps) {
             <Nav currentTab={2} tabs={tabs} links={urls} />
 
             {/* Header */}
-            <div className="border-b pt-16">
+            <div className="border-b pt-bar">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
                     <div className="flex items-start justify-between gap-4">
                         <div className="space-y-2">
@@ -76,7 +76,7 @@ export function Doc({ veille, content }: DocProps) {
             {/* Content */}
             <div className="max-w-7xl mx-auto flex flex-1 w-full">
                 <DetailNav
-                    className="hidden md:flex sticky top-16 h-[calc(100vh-4rem)] border-r-0"
+                    className="hidden md:flex sticky top-bar h-[calc(100dvh-var(--bar-h))] border-r-0"
                     scrollContainerRef={scrollRef}
                     scrollTo={scrollTo}
                     content={navContent}
@@ -84,7 +84,7 @@ export function Doc({ veille, content }: DocProps) {
 
                 <main className="flex-1 min-w-0 px-4 sm:px-6 lg:px-8 md:py-6">
                     <DetailNav
-                        className="md:hidden sticky top-16 z-10 -mx-6 mb-6"
+                        className="md:hidden sticky top-bar z-10 -mx-6 mb-6"
                         mobile
                         scrollContainerRef={scrollRef}
                         scrollTo={scrollTo}

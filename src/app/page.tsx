@@ -181,8 +181,8 @@ export default function HomePage() {
                             <Projects />
                         </section>
 
-                        <section className="snap-section flex flex-col px-4 lg:px-8">
-                            <div className="flex flex-1 items-center justify-center">
+                        <section className="snap-section flex flex-col px-4 pt-bar lg:px-8">
+                            <div className="flex flex-1 items-center-safe justify-center">
                                 <div className="w-full max-w-6xl xl:max-w-[1400px]">
                                     <Cards />
                                 </div>
