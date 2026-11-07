@@ -1,13 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import { useRef } from "react";
 
+import { RefractionFilter } from "@/components/layout/refraction";
 import { ThemeToggle } from "@/components/layout/theme";
 import { Name } from "@/components/ui/name";
 import { CommandMenu, SearchButton } from "@/components/utils/command";
 import { useFont } from "@/components/utils/font";
 import { profile } from "@/data/profile";
 import { useFirstVisit } from "@/hooks/entrance";
+import { useGlow } from "@/hooks/glow";
+import { useRefraction } from "@/hooks/refraction";
+import { useSolid } from "@/hooks/solid";
 
 interface NavProps {
     currentTab: number;
@@ -18,8 +23,8 @@ interface NavProps {
 
 /**
  * Floating pill header shown on every page.
- * The wordmark is left out on the home page, on phones and in low windows. Its size and its glass
- * surface come from appearance/bar.css and appearance/glass.css.
+ * The wordmark is left out on the home page, on phones and in low windows. The glass goes solid
+ * once content scrolls under it, and bends the backdrop on desktop Chromium.
  *
  * @param props - Component props
  * @param props.currentTab - Currently active tab index, or -1 on pages outside the tabs
@@ -32,14 +37,26 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
     const isHome = currentTab === 0;
     const { setDialogOpen } = useFont();
     const animate = useFirstVisit();
+    const headerRef = useRef<HTMLElement>(null);
+    const pillRef = useRef<HTMLDivElement>(null);
+    useSolid(headerRef);
+    useGlow(pillRef);
+    const bend = useRefraction(pillRef);
 
     return (
         <header
+            ref={headerRef}
+            data-refract={bend ? "" : undefined}
             className={`fixed inset-x-0 top-0 z-50 pointer-events-none ${animate ? "animate-header-in" : ""}`}
         >
             <CommandMenu />
 
-            <div className="glass pointer-events-auto relative mx-auto mt-(--bar-top) flex h-(--bar-pill) w-fit max-w-[calc(100%-1rem)] items-center gap-1 rounded-full px-1.5">
+            <div aria-hidden className="glass-fade absolute inset-x-0 top-0" />
+
+            <div
+                ref={pillRef}
+                className="glass pointer-events-auto relative mx-auto mt-(--bar-top) flex h-(--bar-pill) w-fit max-w-[calc(100%-1rem)] items-center gap-1 rounded-full px-1.5"
+            >
                 <div
                     inert={isHome}
                     className={`hidden md:grid compact:hidden transition-[grid-template-columns,margin,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
@@ -110,6 +127,8 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
                     <ThemeToggle />
                 </div>
             </div>
+
+            {bend && <RefractionFilter {...bend} />}
         </header>
     );
 }
