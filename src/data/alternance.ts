@@ -86,8 +86,8 @@ export const projects: AlternanceProject[] = [
             "J'ai recréé de zéro l'interface utilisateur et l'API de l'outil de supervision de Zenetys. Il était auparavant disponible à l'aide de Kibana, mais j'ai développé une solution plus intégrée et personnalisable.",
         technologies: ["Node.js", "ElasticSearch", "HTML", "CSS", "JS"],
         screenshot: {
-            ref: "/images/monitoring-demo.webp",
-            alt: "Alertes en cours, détails d'une alerte et tickets, avec les données clients masquées",
+            ref: "/images/projects/monitoring/home.webp",
+            alt: "Tableau de bord de Monitoring : alertes en cours, derniers retours à la normale, tickets du support et activité récente, avec des données fictives",
         },
         projectId: "monitoring",
         sections: [
