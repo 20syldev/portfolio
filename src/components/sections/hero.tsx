@@ -143,7 +143,7 @@ export function Hero() {
     }, [settle, previousTheme]);
 
     return (
-        <div className="flex min-h-full flex-col items-center justify-center-safe px-4 pt-bar pb-chevron text-center">
+        <div className="flex min-h-full flex-col items-center-safe justify-center-safe px-4 pt-bar pb-chevron text-center short:flex-row short:gap-8 short:text-left">
             {/* Logo */}
             <div ref={logoRef} className="relative inline-block">
                 <Image
@@ -158,86 +158,85 @@ export function Hero() {
                 />
             </div>
 
-            {/* Nom & Titre */}
-            <div className="mt-6 space-y-1">
-                <h1
-                    className="text-3xl font-bold cursor-pointer select-none"
-                    onClick={() => setDialogOpen(true)}
-                >
-                    <Name>{profile.name}</Name>
-                </h1>
-                <p className="text-lg text-muted-foreground">{profile.title}</p>
-            </div>
-
-            {/* Description */}
-            <Rotating
-                template={profile.description.template}
-                variants={profile.description.variants}
-                className="mt-4 max-w-md text-sm text-muted-foreground"
-            />
-
-            {/* Icônes */}
-            <TooltipProvider>
-                <div className="mt-8 flex">
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Button
-                                asChild
-                                size="icon"
-                                variant="ghost"
-                                className="h-12 w-12 rounded-full"
-                            >
-                                <a
-                                    href={profile.links.github}
-                                    aria-label="GitHub"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <Github className="h-5 w-5" />
-                                </a>
-                            </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>GitHub</TooltipContent>
-                    </Tooltip>
-
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Button
-                                asChild
-                                size="icon"
-                                variant="ghost"
-                                className="h-12 w-12 rounded-full"
-                            >
-                                <a
-                                    href={profile.links.linkedin}
-                                    aria-label="LinkedIn"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <Linkedin className="h-5 w-5" />
-                                </a>
-                            </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>LinkedIn</TooltipContent>
-                    </Tooltip>
-
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Button
-                                asChild
-                                size="icon"
-                                variant="ghost"
-                                className="h-12 w-12 rounded-full"
-                            >
-                                <Link href={profile.links.cv} aria-label="CV">
-                                    <FileUser className="h-5 w-5" />
-                                </Link>
-                            </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>CV</TooltipContent>
-                    </Tooltip>
+            <div className="flex flex-col items-center short:items-start">
+                <div className="mt-6 space-y-1 short:mt-0">
+                    <h1
+                        className="text-3xl font-bold cursor-pointer select-none"
+                        onClick={() => setDialogOpen(true)}
+                    >
+                        <Name>{profile.name}</Name>
+                    </h1>
+                    <p className="text-lg text-muted-foreground">{profile.title}</p>
                 </div>
-            </TooltipProvider>
+
+                <Rotating
+                    template={profile.description.template}
+                    variants={profile.description.variants}
+                    className="mt-4 max-w-md text-sm text-muted-foreground short:mt-2"
+                />
+
+                <TooltipProvider>
+                    <div className="mt-8 flex short:mt-3">
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button
+                                    asChild
+                                    size="icon"
+                                    variant="ghost"
+                                    className="h-12 w-12 rounded-full"
+                                >
+                                    <a
+                                        href={profile.links.github}
+                                        aria-label="GitHub"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <Github className="h-5 w-5" />
+                                    </a>
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>GitHub</TooltipContent>
+                        </Tooltip>
+
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button
+                                    asChild
+                                    size="icon"
+                                    variant="ghost"
+                                    className="h-12 w-12 rounded-full"
+                                >
+                                    <a
+                                        href={profile.links.linkedin}
+                                        aria-label="LinkedIn"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <Linkedin className="h-5 w-5" />
+                                    </a>
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>LinkedIn</TooltipContent>
+                        </Tooltip>
+
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button
+                                    asChild
+                                    size="icon"
+                                    variant="ghost"
+                                    className="h-12 w-12 rounded-full"
+                                >
+                                    <Link href={profile.links.cv} aria-label="CV">
+                                        <FileUser className="h-5 w-5" />
+                                    </Link>
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>CV</TooltipContent>
+                        </Tooltip>
+                    </div>
+                </TooltipProvider>
+            </div>
 
             {/* Hole Easter Egg */}
             {sucked && (
