@@ -9,7 +9,6 @@ import {
     GitPullRequestDraft,
 } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { type Contribution } from "@/data/contributions";
 import { useExpand } from "@/hooks/expand";
@@ -110,77 +109,6 @@ export function ExpandableText({ children, className }: { children: string; clas
             <p ref={pRef} className={`${className ?? ""}${clamped ? " line-clamp-2" : ""}`}>
                 {children}
             </p>
-        </div>
-    );
-}
-
-/**
- * List of contributions grouped by repository.
- *
- * @param props - Component props
- * @param props.contributions - Contributions to display
- * @param props.columns - Whether to use a two-column grid layout
- * @returns The rendered contribution list
- */
-export function ContributionList({
-    contributions,
-    columns,
-}: {
-    contributions: Contribution[];
-    columns?: boolean;
-}) {
-    const grouped = contributions.reduce<Record<string, Contribution[]>>((acc, c) => {
-        (acc[c.repo] ??= []).push(c);
-        return acc;
-    }, {});
-
-    return (
-        <div className={columns ? "grid gap-4 md:grid-cols-2" : "flex flex-col gap-4"}>
-            {Object.entries(grouped).map(([repo, prs]) => (
-                <div key={repo} className="rounded-lg border overflow-hidden">
-                    <div className="px-4 py-3 bg-muted/40 border-b flex items-center justify-between gap-3">
-                        <a
-                            href={`https://github.com/${repo}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="font-mono text-xs font-medium hover:text-primary transition-colors truncate"
-                        >
-                            {repo}
-                        </a>
-                        <Badge variant="secondary" className="text-xs shrink-0">
-                            {prs.length}
-                        </Badge>
-                    </div>
-                    <div className="divide-y divide-border">
-                        {prs.map((pr) => (
-                            <div
-                                key={pr.number}
-                                className="flex items-start gap-2.5 px-4 py-3 hover:bg-muted/30 transition-colors"
-                            >
-                                <div className="pt-0.5">
-                                    <ContributionStatus type={pr.type} status={pr.status} />
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <a
-                                        href={pr.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-sm font-medium hover:text-primary transition-colors line-clamp-2 leading-snug"
-                                    >
-                                        {pr.title}
-                                    </a>
-                                    <ExpandableText className="text-xs text-muted-foreground">
-                                        {pr.description}
-                                    </ExpandableText>
-                                </div>
-                                <span className="text-xs text-muted-foreground shrink-0 pt-0.5">
-                                    #{pr.number}
-                                </span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            ))}
         </div>
     );
 }
