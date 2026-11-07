@@ -169,19 +169,22 @@ export default function HomePage() {
             <div ref={tabsRef} role="main" className="snap-tabs" style={tabsStyle}>
                 <div className="snap-tab">
                     <div ref={sectionsRef} className="snap-sections" style={sectionsStyle}>
-                        <section className="snap-section">
+                        <section data-lenis-prevent className="snap-section">
                             <Hero />
                         </section>
 
-                        <section className="snap-section">
+                        <section data-lenis-prevent className="snap-section">
                             <Technologies preview />
                         </section>
 
-                        <section className="snap-section">
+                        <section data-lenis-prevent className="snap-section">
                             <Projects />
                         </section>
 
-                        <section className="snap-section flex flex-col px-4 pt-bar lg:px-8">
+                        <section
+                            data-lenis-prevent
+                            className="snap-section flex flex-col px-4 pt-bar lg:px-8"
+                        >
                             <div className="flex flex-1 items-center-safe justify-center">
                                 <div className="w-full max-w-6xl xl:max-w-[1400px]">
                                     <Cards />
