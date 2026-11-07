@@ -43,7 +43,7 @@ Le site propose un mode clair et sombre, que vous pouvez choisir manuellement ou
 
 **Animations et transitions :**
 
-- **Barre de navigation morphique** : compacte et centrée sur l'accueil, elle s'étire en barre pleine largeur avec logo et boutons d'action sur les autres pages
+- **Barre de navigation flottante** : une pastille de verre sur toutes les pages, qui devient plus opaque quand le contenu défile dessous, réfracte l'arrière-plan sur Chrome de bureau et se glisse hors de l'écran quand une page défile vers le bas sur téléphone
 - **Animations en cascade** : les éléments enfants apparaissent en décalé, créant un effet de vague à l'entrée
 - **Bordures animées** : les projets récents ou mis à jour affichent un dégradé en rotation continue
 - **Effet de brillance** sur le nom de l'auteur, qui traverse le texte en boucle
