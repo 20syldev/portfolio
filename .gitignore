@@ -10,7 +10,6 @@ public/favicon-*.png
 public/apple-touch-icon.png
 public/android-chrome-*.png
 src/data/docs-index.json
-src/data/media.json
 src/data/projects-index.json
 src/data/veille-index.json
 src/data/docs-content.json
