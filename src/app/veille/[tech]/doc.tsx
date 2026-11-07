@@ -84,7 +84,7 @@ export function Doc({ veille, content }: DocProps) {
 
                 <main className="flex-1 min-w-0 px-4 sm:px-6 lg:px-8 md:py-6">
                     <DetailNav
-                        className="md:hidden sticky top-bar z-10 -mx-6 mb-6"
+                        className="md:hidden sticky top-stick z-10 -mx-6 mb-6 transition-[top] duration-300 motion-reduce:transition-none"
                         mobile
                         scrollContainerRef={scrollRef}
                         scrollTo={scrollTo}

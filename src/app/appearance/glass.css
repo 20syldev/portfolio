@@ -51,7 +51,9 @@
     box-shadow: var(--glass-shadow);
     transition:
         background-color 0.28s ease,
-        --glass-glow 0.35s ease;
+        --glass-glow 0.35s ease,
+        translate 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.2s ease;
 }
 header[data-solid] .glass {
     --glass-tint: var(--glass-solid);
@@ -241,9 +243,25 @@ header[data-solid] .glass-fade {
     }
 }
 
+/* Glass Hiding: phones only, the root attribute is set by the hide hook while a page scrolls down */
+:root[data-bar-hidden] .glass {
+    translate: 0 calc(-100% - var(--bar-top));
+    pointer-events: none;
+}
+:root[data-bar-hidden] .glass-fade {
+    opacity: 0;
+}
+
 /* Glass Motion */
 @media (prefers-reduced-motion: reduce) {
     .glass-tab {
         transition: none;
+    }
+    .glass {
+        transition: opacity 0.2s ease;
+    }
+    :root[data-bar-hidden] .glass {
+        translate: none;
+        opacity: 0;
     }
 }

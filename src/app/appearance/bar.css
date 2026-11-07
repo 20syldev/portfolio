@@ -19,6 +19,15 @@
     --chevron-h: calc(max(1.5rem, env(safe-area-inset-bottom, 0px)) + 2rem);
 }
 
+/* Bar Hidden: sticky elements below the pill move up while it is slid away on a phone */
+@utility top-stick {
+    top: var(--bar-h);
+
+    :root[data-bar-hidden] & {
+        top: 0;
+    }
+}
+
 /* Phones: smaller pill, narrower tabs on the narrowest ones */
 @media (max-width: 767.98px) {
     :root {
