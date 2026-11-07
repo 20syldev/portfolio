@@ -1,19 +1,12 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Alternance - Sylvain L.",
-    description:
-        "Présentation de mon alternance chez Zenetys — projets réalisés et contributions open source.",
-    openGraph: {
-        title: "Alternance - Sylvain L.",
-        description:
-            "Présentation de mon alternance chez Zenetys — projets réalisés et contributions open source.",
-        type: "website",
-    },
+    title: "Redirection - Sylvain L.",
+    robots: { index: false },
 };
 
 /**
- * Layout for the alternance section providing metadata.
+ * Layout for the former alternance page providing metadata.
  *
  * @param props - Layout props
  * @param props.children - Page content

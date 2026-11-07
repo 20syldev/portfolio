@@ -26,7 +26,7 @@ const sections = 4;
  */
 function getTab(path: string): number {
     const p = path.replace(/\/$/, "");
-    if (p === "/repositories" || p === "/alternance") return 1;
+    if (p === "/repositories") return 1;
     if (p === "/veille") return 2;
     return 0;
 }
