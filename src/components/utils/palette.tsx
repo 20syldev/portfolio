@@ -48,7 +48,6 @@ import { useCommand } from "@/components/utils/command";
 import { useCursor } from "@/components/utils/cursor";
 import { useFont } from "@/components/utils/font";
 import { useMotion } from "@/components/utils/motion";
-import { projects as alternanceProjects } from "@/data/alternance";
 import { docs } from "@/data/docs";
 import { projects } from "@/data/projects";
 import { formatShortcut, getShortcut } from "@/data/shortcuts";
@@ -431,13 +430,22 @@ export function Palette({
     const pageItems = (
         <>
             <CommandItem
-                value="Alternance"
-                keywords={["zenetys", "développement", "web"]}
-                onSelect={() => runCommand(() => router.push("/alternance/"))}
+                value="Projets Zenetys"
+                keywords={["alternance", "entreprise", "développement", "web"]}
+                onSelect={() => runCommand(() => router.push("/repositories/"))}
             >
                 <Briefcase className="mr-2 h-4 w-4" />
-                Alternance
-                <span className="ml-2 text-xs text-muted-foreground">Zenetys</span>
+                Projets Zenetys
+                <span className="ml-2 text-xs text-muted-foreground">Alternance</span>
+            </CommandItem>
+            <CommandItem
+                value="Articles Zenetys"
+                keywords={["blog", "article", "mise en forme", "intégration"]}
+                onSelect={() => runCommand(() => router.push("/articles/"))}
+            >
+                <Newspaper className="mr-2 h-4 w-4" />
+                Articles Zenetys
+                <span className="ml-2 text-xs text-muted-foreground">Blog</span>
             </CommandItem>
             <CommandItem
                 value="Veilles technologiques"
@@ -529,29 +537,6 @@ export function Palette({
             </CommandItem>
         ));
 
-    const alternanceItems = alternanceProjects.map((project) => (
-        <CommandItem
-            key={project.id}
-            value={project.title}
-            keywords={[project.description, ...project.technologies]}
-            onSelect={() => runCommand(() => router.push(`/alternance/#${project.id}`))}
-            onMouseEnter={(e) =>
-                handleHover(e, {
-                    title: project.title,
-                    description: project.description,
-                    tags: project.technologies,
-                })
-            }
-            onMouseLeave={clearHover}
-        >
-            <Briefcase className="mr-2 h-4 w-4" />
-            {project.title}
-            <span className="ml-2 text-xs text-muted-foreground truncate">
-                {project.technologies.slice(0, 3).join(", ")}
-            </span>
-        </CommandItem>
-    ));
-
     return (
         <>
             <CommandDialog
@@ -601,7 +586,6 @@ export function Palette({
                             {docItems}
                             {veilleItems}
                             {remainingProjectItems}
-                            {alternanceItems}
                         </CommandGroup>
                     ) : (
                         <>
