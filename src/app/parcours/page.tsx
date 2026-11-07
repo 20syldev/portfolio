@@ -439,11 +439,11 @@ export default function ParcoursPage() {
                             <ArrowLeft className="h-4 w-4" />
                         </Button>
                     </Link>
-                    <Link href="/alternance/" scroll={false} className="absolute right-0 top-1">
+                    <Link href="/repositories/" scroll={false} className="absolute right-0 top-1">
                         <Button
                             variant="ghost"
                             size="sm"
-                            aria-label="Projets réalisés en alternance"
+                            aria-label="Projets réalisés chez Zenetys"
                             className="text-muted-foreground hover:text-foreground transition-colors"
                         >
                             <BriefcaseBusiness className="h-4 w-4" />
