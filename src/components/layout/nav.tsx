@@ -11,6 +11,7 @@ import { useFont } from "@/components/utils/font";
 import { profile } from "@/data/profile";
 import { useFirstVisit } from "@/hooks/entrance";
 import { useGlow } from "@/hooks/glow";
+import { useHide } from "@/hooks/hide";
 import { useRefraction } from "@/hooks/refraction";
 import { useSolid } from "@/hooks/solid";
 
@@ -24,7 +25,7 @@ interface NavProps {
 /**
  * Floating pill header shown on every page.
  * The wordmark is left out on the home page, on phones and in low windows. The glass goes solid
- * once content scrolls under it, and bends the backdrop on desktop Chromium.
+ * once content scrolls under it, and on phones the pill slides away while a page scrolls down.
  *
  * @param props - Component props
  * @param props.currentTab - Currently active tab index, or -1 on pages outside the tabs
@@ -40,6 +41,7 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
     const headerRef = useRef<HTMLElement>(null);
     const pillRef = useRef<HTMLDivElement>(null);
     useSolid(headerRef);
+    useHide(headerRef, !isHome, currentTab);
     useGlow(pillRef);
     const bend = useRefraction(pillRef);
 
