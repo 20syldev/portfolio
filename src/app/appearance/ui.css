@@ -388,3 +388,59 @@ input[type="range"]:not([aria-label="Volume"]) {
 [data-slot="badge"][data-status="paused"] {
     color: var(--st-pause-ink);
 }
+
+/* UI Slide: one capsule glides between the items of a list, under the pointer or on the selection */
+.slide-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: var(--slide-w, 0px);
+    height: var(--slide-h, 0px);
+    transform: translate(var(--slide-x, 0px), var(--slide-y, 0px));
+    border-radius: 9999px;
+    background: var(--glass-tab-hover);
+    opacity: var(--slide-o, 0);
+    pointer-events: none;
+    transition:
+        transform 0.18s cubic-bezier(0.25, 1, 0.5, 1),
+        width 0.18s cubic-bezier(0.25, 1, 0.5, 1),
+        height 0.18s cubic-bezier(0.25, 1, 0.5, 1),
+        opacity 0.15s ease;
+}
+.slide-indicator[data-snap] {
+    transition: opacity 0.2s ease;
+}
+:has(> .slide-indicator) {
+    position: relative;
+    isolation: isolate;
+}
+:has(> .slide-indicator[data-mode="pointer"]) > button {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+}
+:has(> .slide-indicator[data-mode="pointer"]) > button[aria-current="true"] {
+    background: var(--glass-capsule);
+}
+:has(> .slide-indicator[data-mode="selection"]) [data-slot="command-item"] {
+    position: relative;
+    z-index: 1;
+}
+:has(> .slide-indicator[data-mode="selection"])
+    [data-slot="command-item"][data-selected="true"]:not(:active) {
+    background: transparent;
+}
+.slide-indicator[data-mode="selection"] {
+    background: var(--glass-capsule);
+}
+@media (prefers-reduced-motion: reduce) {
+    .slide-indicator {
+        transition: opacity 0.15s ease;
+    }
+}
+@media (forced-colors: active) {
+    .slide-indicator {
+        display: none;
+    }
+}
