@@ -1,9 +1,10 @@
 "use client";
 
 import Lenis from "lenis";
-import { CSSProperties, useCallback, useEffect, useRef, useState } from "react";
+import { CSSProperties, startTransition, useCallback, useEffect, useRef, useState } from "react";
 
 import { useMotionEnabled } from "@/components/utils/motion";
+import { Flight, flightSpeed, launchEase, translate } from "@/lib/flight";
 import {
     Axis,
     clamp,
@@ -12,9 +13,11 @@ import {
     findVerticalScroll,
     hasHorizontalScroll,
     isDiscreteWheel,
+    isNewSwipe,
     ownsGesture,
     prefersNoMotion,
     rubberBand,
+    settledEvent,
     settleDuration,
     tuning,
 } from "@/lib/gesture";
@@ -28,12 +31,14 @@ interface UseScrollOptions {
     totalTabs: number;
     sections?: number;
     threshold?: number;
-    scrollDuration?: number;
     initialTab?: number;
 }
 
 // Who drives the gesture, latched once and never flipped mid gesture
 type DragMode = "native" | "tab" | "section";
+
+// The two translated layers of the pager
+type Layer = "tabs" | "sections";
 
 interface DragState {
     source: "touch" | "wheel";
@@ -58,16 +63,26 @@ interface DragState {
 }
 
 /**
+ * What a gesture hands over to the settle of the layer it was dragging: the layer, the duration in
+ * ms, the release velocity in px/ms and the translation at release in px. A missing field falls
+ * back to the default of the situation.
+ */
+interface Motion {
+    layer: Layer;
+    duration?: number;
+    velocity?: number;
+    from?: number;
+}
+
+/**
  * Hook for tab and section-based scroll navigation.
- * Touch and trackpad gestures follow the finger one to one, with rubber
- * band resistance at the edges; a notched mouse wheel and the keyboard
- * keep moving one page at a time.
+ * Touch and trackpad gestures follow the fingers with rubber band resistance at the edges; a
+ * notched mouse wheel and the keyboard move one page at a time.
  *
  * @param options - Scroll configuration options
  * @param options.totalTabs - Total number of navigable tabs
  * @param options.sections - Number of sections in the first tab (default: 1)
  * @param options.threshold - Minimum notched wheel delta to navigate (default: 50)
- * @param options.scrollDuration - Duration of programmatic scroll animation in ms (default: 600)
  * @param options.initialTab - Initial active tab index (default: 0)
  * @returns Scroll state, element refs and navigation methods
  */
@@ -75,7 +90,6 @@ export function useScroll({
     totalTabs,
     sections = 1,
     threshold = 50,
-    scrollDuration = 600,
     initialTab = 0,
 }: UseScrollOptions) {
     const getSectionsForTab = useCallback((tab: number) => (tab === 0 ? sections : 1), [sections]);
@@ -89,120 +103,245 @@ export function useScroll({
     const sectionsRef = useRef<HTMLDivElement>(null);
     const dragRef = useRef<DragState | null>(null);
     const frameRef = useRef<number | null>(null);
-    const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const wheelTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const clickGuardRef = useRef(Number.NEGATIVE_INFINITY);
-    const isScrollingRef = useRef(false);
-    const stateRef = useRef(state);
-
-    useEffect(() => {
-        stateRef.current = state;
-    }, [state]);
+    const targetRef = useRef({ tab: initialTab, section: 0 });
+    const flightsRef = useRef<Record<Layer, Flight | null>>({ tabs: null, sections: null });
+    const stepRef = useRef({ time: Number.NEGATIVE_INFINITY, dir: 0 });
+    const pendingTabRef = useRef<number | null>(null);
 
     const [initialStyles] = useState<{ tabs: CSSProperties; sections: CSSProperties }>(() => ({
         tabs: { transform: `translate3d(-${initialTab * 100}vw, 0, 0)` },
         sections: { transform: "translate3d(0, 0, 0)" },
     }));
 
-    const applyBase = useCallback((tab: number, section: number) => {
-        if (tabsRef.current) {
-            tabsRef.current.style.transform = `translate3d(-${tab * 100}vw, 0, 0)`;
-        }
-        if (sectionsRef.current) {
-            sectionsRef.current.style.transform = `translate3d(0, -${section * 100}dvh, 0)`;
-        }
+    const isFlying = useCallback(
+        () => !!(flightsRef.current.tabs || flightsRef.current.sections),
+        []
+    );
+
+    const settleMoving = useCallback(() => {
+        const { tabs, sections: vertical } = flightsRef.current;
+        if ((tabs && !tabs.done) || (vertical && !vertical.done)) return;
+        if (dragRef.current?.el) return;
+        containerRef.current?.classList.remove("snap-moving");
     }, []);
 
-    const commit = useCallback(
-        (tab: number, section: number, duration: number) => {
-            const clampedTab = clamp(tab, 0, totalTabs - 1);
-            const clampedSection = clamp(section, 0, getSectionsForTab(clampedTab) - 1);
+    const dropFlight = useCallback((layer: Layer) => {
+        const flight = flightsRef.current[layer];
+        if (!flight) return;
 
-            const ms = `${duration}ms`;
-            if (tabsRef.current) tabsRef.current.style.transitionDuration = ms;
-            if (sectionsRef.current) sectionsRef.current.style.transitionDuration = ms;
+        if (flight.timer) clearTimeout(flight.timer);
+        flight.anim.cancel();
+        flightsRef.current[layer] = null;
+    }, []);
 
-            containerRef.current?.classList.add("snap-moving");
+    const layerEl = useCallback(
+        (layer: Layer) => (layer === "tabs" ? tabsRef.current : sectionsRef.current),
+        []
+    );
 
-            applyBase(clampedTab, clampedSection);
-            isScrollingRef.current = true;
-            setState({ currentTab: clampedTab, currentSection: clampedSection });
+    const grab = useCallback(
+        (layer: Layer, axis: Axis) => {
+            const flight = flightsRef.current[layer];
+            const el = layerEl(layer);
+            if (!flight || !el) return;
 
-            if (scrollTimeoutRef.current) {
-                clearTimeout(scrollTimeoutRef.current);
+            const position = currentTranslate(el, axis);
+            dropFlight(layer);
+            el.style.transform = translate(axis, position);
+        },
+        [layerEl, dropFlight]
+    );
+
+    const settle = useCallback(
+        (layer: Layer, index: number, previous: number, motion?: Motion): boolean => {
+            const el = layerEl(layer);
+            const container = containerRef.current;
+            if (!el || !container) return false;
+
+            const axis: Axis = layer === "tabs" ? "x" : "y";
+            const page = axis === "x" ? container.clientWidth : container.clientHeight;
+            const to = -index * page;
+            const flight = flightsRef.current[layer];
+
+            let from = motion?.from ?? -previous * page;
+            let velocity = motion?.velocity;
+            if (flight) {
+                from = currentTranslate(el, axis);
+                velocity = flightSpeed(flight);
+                dropFlight(layer);
             }
 
-            scrollTimeoutRef.current = setTimeout(() => {
-                scrollTimeoutRef.current = null;
-                isScrollingRef.current = false;
-                containerRef.current?.classList.remove("snap-moving");
+            el.style.transform =
+                axis === "x"
+                    ? `translate3d(-${index * 100}vw, 0, 0)`
+                    : `translate3d(0, -${index * 100}dvh, 0)`;
 
-                if (tabsRef.current) tabsRef.current.style.transitionDuration = "";
-                if (sectionsRef.current) sectionsRef.current.style.transitionDuration = "";
-            }, duration);
+            const distance = Math.abs(to - from);
+            const duration =
+                motion?.duration ??
+                (prefersNoMotion() ? 0 : flight ? settleDuration(distance, page) : tuning.duration);
+            if (duration <= 0 || distance < 0.5) return false;
+
+            const launch =
+                velocity === undefined
+                    ? (distance / duration) * tuning.keyStart
+                    : velocity * Math.sign(to - from);
+            const ease = launchEase(launch, duration, distance);
+            const anim = el.animate(
+                [{ transform: translate(axis, from) }, { transform: translate(axis, to) }],
+                { duration, easing: `cubic-bezier(${ease.join(", ")})` }
+            );
+
+            const next: Flight = { anim, from, to, duration, ease, done: false, timer: null };
+            flightsRef.current[layer] = next;
+            next.timer = setTimeout(() => {
+                if (flightsRef.current[layer] !== next) return;
+                next.done = true;
+                settleMoving();
+            }, duration * tuning.visualEnd);
+            anim.onfinish = () => {
+                if (flightsRef.current[layer] !== next) return;
+                if (next.timer) clearTimeout(next.timer);
+                flightsRef.current[layer] = null;
+                settleMoving();
+                if (!isFlying()) window.dispatchEvent(new Event(settledEvent));
+            };
+            return true;
         },
-        [totalTabs, getSectionsForTab, applyBase]
+        [layerEl, settleMoving, dropFlight, isFlying]
     );
 
-    const scrollTo = useCallback(
-        (tab: number, section: number) => {
-            if (isScrollingRef.current) return;
-            commit(tab, section, prefersNoMotion() ? 0 : scrollDuration);
+    const commit = useCallback(
+        (tab: number, section: number, motion?: Motion) => {
+            const clampedTab = clamp(tab, 0, totalTabs - 1);
+            const clampedSection = clamp(section, 0, getSectionsForTab(clampedTab) - 1);
+            const previous = targetRef.current;
+            targetRef.current = { tab: clampedTab, section: clampedSection };
+            pendingTabRef.current = null;
+
+            const flying = [
+                settle(
+                    "tabs",
+                    clampedTab,
+                    previous.tab,
+                    motion?.layer === "tabs" ? motion : undefined
+                ),
+                settle(
+                    "sections",
+                    clampedSection,
+                    previous.section,
+                    motion?.layer === "sections" ? motion : undefined
+                ),
+            ];
+
+            if (flying.some(Boolean)) containerRef.current?.classList.add("snap-moving");
+            else {
+                settleMoving();
+                if (!isFlying()) window.dispatchEvent(new Event(settledEvent));
+            }
+
+            startTransition(() =>
+                setState((prev) =>
+                    prev.currentTab === clampedTab && prev.currentSection === clampedSection
+                        ? prev
+                        : { currentTab: clampedTab, currentSection: clampedSection }
+                )
+            );
         },
-        [commit, scrollDuration]
+        [totalTabs, getSectionsForTab, settle, settleMoving, isFlying]
     );
+
+    const allowStep = useCallback((dir: number) => {
+        const now = performance.now();
+        const last = stepRef.current;
+        if (now - last.time < (dir === last.dir ? tuning.chain : tuning.reverse)) return false;
+
+        stepRef.current = { time: now, dir };
+        return true;
+    }, []);
 
     const goToTab = useCallback(
         (tab: number) => {
-            scrollTo(tab, 0);
+            const target = targetRef.current;
+            if (tab === target.tab && target.section === 0) return;
+            commit(tab, 0);
         },
-        [scrollTo]
+        [commit]
     );
 
     const goToSection = useCallback(
         (section: number) => {
-            scrollTo(stateRef.current.currentTab, section);
+            const target = targetRef.current;
+            if (section === target.section) return;
+            commit(target.tab, section);
         },
-        [scrollTo]
+        [commit]
     );
 
-    const nextSection = useCallback(() => {
-        const { currentTab, currentSection } = stateRef.current;
-        const maxSection = getSectionsForTab(currentTab) - 1;
-        if (currentSection < maxSection) {
-            scrollTo(currentTab, currentSection + 1);
-        }
-    }, [scrollTo, getSectionsForTab]);
+    const syncTab = useCallback(
+        (tab: number, force = false) => {
+            if (tab === targetRef.current.tab) {
+                pendingTabRef.current = null;
+                return;
+            }
+            if (isFlying() && !force) {
+                pendingTabRef.current = tab;
+                return;
+            }
+            commit(tab, 0);
+        },
+        [commit, isFlying]
+    );
 
-    const prevSection = useCallback(() => {
-        const { currentTab, currentSection } = stateRef.current;
-        if (currentSection > 0) {
-            scrollTo(currentTab, currentSection - 1);
-        }
-    }, [scrollTo]);
+    const pageStep = useCallback(
+        (axis: Axis, forward: boolean) => {
+            const { tab, section } = targetRef.current;
+            const step = forward ? 1 : -1;
 
-    const nextTab = useCallback(() => {
-        const { currentTab } = stateRef.current;
-        if (currentTab < totalTabs - 1) {
-            scrollTo(currentTab + 1, 0);
-        }
-    }, [scrollTo, totalTabs]);
+            if (axis === "x") {
+                const next = tab + step;
+                if (next < 0 || next >= totalTabs || !allowStep(step * 2)) return;
+                commit(next, 0);
+                return;
+            }
 
-    const prevTab = useCallback(() => {
-        const { currentTab } = stateRef.current;
-        if (currentTab > 0) {
-            scrollTo(currentTab - 1, 0);
-        }
-    }, [scrollTo]);
+            const next = section + step;
+            if (next < 0 || next >= getSectionsForTab(tab) || !allowStep(step)) return;
+            commit(tab, next);
+        },
+        [commit, allowStep, getSectionsForTab, totalTabs]
+    );
 
-    const navRef = useRef({ commit, nextTab, prevTab, nextSection, prevSection });
+    const nextSection = useCallback(() => pageStep("y", true), [pageStep]);
+    const prevSection = useCallback(() => pageStep("y", false), [pageStep]);
+    const nextTab = useCallback(() => pageStep("x", true), [pageStep]);
+    const prevTab = useCallback(() => pageStep("x", false), [pageStep]);
+
+    const navRef = useRef({ commit, nextTab, prevTab, nextSection, prevSection, grab });
     useEffect(() => {
-        navRef.current = { commit, nextTab, prevTab, nextSection, prevSection };
+        navRef.current = { commit, nextTab, prevTab, nextSection, prevSection, grab };
     });
+
+    useEffect(() => {
+        const applyPending = () => {
+            const tab = pendingTabRef.current;
+            if (tab !== null) navRef.current.commit(tab, 0);
+        };
+
+        addEventListener(settledEvent, applyPending);
+        return () => removeEventListener(settledEvent, applyPending);
+    }, []);
 
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
+
+        let padLocked = false;
+        let padRecent: number[] = [];
+        let padPeak = 0;
+        let lastWheel = Number.NEGATIVE_INFINITY;
 
         const cancelFrame = () => {
             if (frameRef.current !== null) {
@@ -213,10 +352,7 @@ export function useScroll({
 
         const write = (drag: DragState) => {
             if (!drag.el) return;
-            drag.el.style.transform =
-                drag.axis === "x"
-                    ? `translate3d(${drag.offset}px, 0, 0)`
-                    : `translate3d(0, ${drag.offset}px, 0)`;
+            drag.el.style.transform = translate(drag.axis ?? "y", drag.offset);
         };
 
         const flush = () => {
@@ -232,7 +368,7 @@ export function useScroll({
         const isActive = (drag: DragState | null): boolean =>
             !!drag && !!drag.el && (drag.mode === "tab" || drag.mode === "section");
 
-        const finish = (drag: DragState, tab: number, section: number) => {
+        const finish = (drag: DragState, tab: number, section: number, velocity?: number) => {
             cancelFrame();
             dragRef.current = null;
             if (drag.moved && drag.source === "touch") clickGuardRef.current = performance.now();
@@ -241,8 +377,12 @@ export function useScroll({
             const remaining = Math.abs(rest - drag.offset);
             const duration = prefersNoMotion() ? 0 : settleDuration(remaining, drag.page);
 
-            drag.el?.classList.remove("snap-dragging");
-            navRef.current.commit(tab, section, duration);
+            navRef.current.commit(tab, section, {
+                layer: drag.axis === "x" ? "tabs" : "sections",
+                duration,
+                velocity,
+                from: drag.offset,
+            });
         };
 
         const abort = () => {
@@ -254,14 +394,14 @@ export function useScroll({
                 return;
             }
 
-            const { currentTab, currentSection } = stateRef.current;
-            if (drag.axis === "x") finish(drag, drag.base, currentSection);
-            else finish(drag, currentTab, drag.base);
+            const { tab, section } = targetRef.current;
+            if (drag.axis === "x") finish(drag, drag.base, section);
+            else finish(drag, tab, drag.base);
         };
 
         const lockAxis = (drag: DragState, deltaX: number, deltaY: number) => {
             const axis: Axis = Math.abs(deltaX) > Math.abs(deltaY) * tuning.axisBias ? "x" : "y";
-            const { currentTab } = stateRef.current;
+            const { tab: currentTab } = targetRef.current;
 
             drag.axis = axis;
             drag.lockDelta = drag.source === "touch" ? (axis === "x" ? deltaX : deltaY) : 0;
@@ -297,27 +437,23 @@ export function useScroll({
                 return;
             }
 
+            navRef.current.grab(axis === "x" ? "tabs" : "sections", axis);
             drag.startOffset = currentTranslate(drag.el, axis);
             drag.offset = drag.startOffset;
             drag.base = clamp(Math.round(-drag.startOffset / drag.page), 0, drag.count - 1);
-            drag.el.classList.add("snap-dragging");
             write(drag);
 
             container.classList.add("snap-moving");
-
-            if (scrollTimeoutRef.current) {
-                clearTimeout(scrollTimeoutRef.current);
-                scrollTimeoutRef.current = null;
-                isScrollingRef.current = false;
-            }
         };
 
         const track = (drag: DragState, delta: number) => {
             const now = performance.now();
-            const dt = now - drag.lastTime;
-            if (dt <= 0) return;
+            const raw = now - drag.lastTime;
+            if (raw <= 0) return;
+
+            const dt = drag.source === "wheel" ? Math.max(raw, tuning.pad.minDt) : raw;
             const instant = (delta - drag.delta) / dt;
-            drag.velocity = dt > tuning.flickIdle ? instant : drag.velocity * 0.7 + instant * 0.3;
+            drag.velocity = raw > tuning.flickIdle ? instant : drag.velocity * 0.7 + instant * 0.3;
             drag.lastTime = now;
         };
 
@@ -337,29 +473,35 @@ export function useScroll({
             schedule();
         };
 
+        const settleDrag = (drag: DragState, target: number, velocity: number) => {
+            const { section: currentSection } = targetRef.current;
+            if (drag.axis === "x") {
+                // Changing tab resets the section, same as nextTab/prevTab
+                finish(drag, target, target === drag.base ? currentSection : 0, velocity);
+            } else {
+                finish(drag, targetRef.current.tab, target, velocity);
+            }
+        };
+
         const release = (drag: DragState) => {
-            const { currentTab, currentSection } = stateRef.current;
             const idle = performance.now() - drag.lastTime > tuning.flickIdle;
             const velocity = idle ? 0 : drag.velocity;
-            const dist = drag.offset + drag.base * drag.page;
+
+            // A trackpad swipe may have grabbed a page in flight: only what the fingers did counts
+            const dist = drag.source === "wheel" ? drag.delta : drag.offset + drag.base * drag.page;
 
             const flick =
                 Math.abs(velocity) > tuning.flickVelocity &&
                 Math.abs(dist) > tuning.flickDistance &&
                 Math.sign(velocity) === Math.sign(dist);
-            const ratio = drag.source === "touch" ? tuning.commitRatio : tuning.wheel.commitRatio;
+            const ratio = drag.source === "touch" ? tuning.commitRatio : tuning.pad.earlyRatio;
             const dragged = Math.abs(dist) > drag.page * ratio;
 
             let target = drag.base;
             if (flick || dragged) target = drag.base + (dist < 0 ? 1 : -1);
             target = clamp(target, 0, drag.count - 1);
 
-            if (drag.axis === "x") {
-                // Changing tab resets the section, same as nextTab/prevTab
-                finish(drag, target, target === drag.base ? currentSection : 0);
-            } else {
-                finish(drag, currentTab, target);
-            }
+            settleDrag(drag, target, velocity);
         };
 
         const start = (
@@ -400,6 +542,8 @@ export function useScroll({
 
             // The draggable logo and friends drive their own gesture
             if (ownsGesture(e.target as Element, container)) return;
+
+            abort();
 
             const touch = e.touches[0];
             const drag = start("touch", touch.identifier, e.target as Element);
@@ -456,6 +600,10 @@ export function useScroll({
 
         const endWheelGesture = () => {
             wheelTimeoutRef.current = null;
+            padLocked = false;
+            padRecent = [];
+            padPeak = 0;
+
             const drag = dragRef.current;
             if (!drag || drag.source !== "wheel") return;
             if (isActive(drag)) release(drag);
@@ -464,15 +612,11 @@ export function useScroll({
 
         const restartWheelIdle = () => {
             if (wheelTimeoutRef.current) clearTimeout(wheelTimeoutRef.current);
-            wheelTimeoutRef.current = setTimeout(endWheelGesture, tuning.wheel.idle);
+            wheelTimeoutRef.current = setTimeout(endWheelGesture, tuning.pad.silence);
         };
 
         const handleNotch = (e: WheelEvent) => {
-            const { currentTab } = stateRef.current;
-            if (isScrollingRef.current) {
-                e.preventDefault();
-                return;
-            }
+            const { tab: currentTab } = targetRef.current;
 
             const absX = Math.abs(e.deltaX);
             const absY = Math.abs(e.deltaY);
@@ -495,36 +639,86 @@ export function useScroll({
             }
         };
 
+        const lockPad = () => {
+            padLocked = true;
+            padRecent = [];
+        };
+
+        const commitEarly = (drag: DragState, e: WheelEvent) => {
+            // The direction is what the fingers did, never where the page was grabbed
+            const target = clamp(drag.base + (drag.delta < 0 ? 1 : -1), 0, drag.count - 1);
+            if (target === drag.base) return;
+
+            const travelled = Math.abs(drag.delta) / drag.page;
+            const size = Math.abs(drag.axis === "x" ? e.deltaX : e.deltaY);
+            padPeak = Math.max(padPeak, size);
+
+            const early = travelled >= tuning.pad.earlyRatio;
+            const peaked = travelled >= tuning.pad.peakMin && size <= padPeak * tuning.pad.peakDrop;
+            if (!early && !peaked) return;
+
+            const speed = clamp(
+                Math.abs(drag.velocity),
+                tuning.pad.launchMin,
+                tuning.pad.launchMax
+            );
+            lockPad();
+            settleDrag(drag, target, speed * Math.sign(drag.delta));
+        };
+
         const handlePan = (e: WheelEvent) => {
             let drag = dragRef.current;
 
             if (!drag) {
                 drag = start("wheel", -1, e.target as Element);
                 dragRef.current = drag;
+                padPeak = 0;
             }
 
-            if (!drag.axis) {
+            let delta: number;
+            if (drag.axis) {
+                delta = drag.delta - (drag.axis === "x" ? e.deltaX : e.deltaY) * tuning.pad.follow;
+            } else {
                 // Accumulate first, so one tiny event cannot lock the axis
                 drag.startX -= e.deltaX;
                 drag.startY -= e.deltaY;
                 if (
-                    Math.abs(drag.startX) < tuning.wheel.lock &&
-                    Math.abs(drag.startY) < tuning.wheel.lock
+                    Math.abs(drag.startX) < tuning.pad.lock &&
+                    Math.abs(drag.startY) < tuning.pad.lock
                 ) {
                     return;
                 }
                 lockAxis(drag, drag.startX, drag.startY);
+                delta = (drag.axis === "x" ? drag.startX : drag.startY) * tuning.pad.follow;
             }
 
             if (!isActive(drag)) return;
             e.preventDefault();
 
-            const delta = drag.delta + (drag.axis === "x" ? -e.deltaX : -e.deltaY);
             track(drag, delta);
             applyDelta(drag, delta);
+            commitEarly(drag, e);
+        };
+
+        const handleLocked = (e: WheelEvent) => {
+            const size = Math.max(Math.abs(e.deltaX), Math.abs(e.deltaY));
+
+            if (!isNewSwipe(padRecent, size)) {
+                padRecent.push(size);
+                if (padRecent.length > tuning.pad.reaccelWindow) padRecent.shift();
+                e.preventDefault();
+                return;
+            }
+
+            padLocked = false;
+            padRecent = [];
+            handlePan(e);
         };
 
         const handleWheel = (e: WheelEvent) => {
+            // Pinch to zoom arrives as a wheel event with the ctrl key down
+            if (e.ctrlKey) return;
+
             const drag = dragRef.current;
             if (drag?.source === "touch") return;
 
@@ -533,9 +727,13 @@ export function useScroll({
                 return;
             }
 
+            const now = performance.now();
+            const gap = now - lastWheel;
+            lastWheel = now;
             restartWheelIdle();
 
-            if (!drag && isDiscreteWheel(e)) handleNotch(e);
+            if (padLocked) handleLocked(e);
+            else if (!drag && isDiscreteWheel(e, gap)) handleNotch(e);
             else handlePan(e);
         };
 
@@ -566,7 +764,6 @@ export function useScroll({
                 clearTimeout(wheelTimeoutRef.current);
                 wheelTimeoutRef.current = null;
             }
-            dragRef.current?.el?.classList.remove("snap-dragging");
             dragRef.current = null;
             container.classList.remove("snap-moving");
         };
@@ -575,7 +772,6 @@ export function useScroll({
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (
-                isScrollingRef.current ||
                 dragRef.current ||
                 e.altKey ||
                 document.querySelector("[role='dialog']") ||
@@ -608,10 +804,14 @@ export function useScroll({
     }, [nextSection, prevSection, nextTab, prevTab]);
 
     useEffect(() => {
+        const flights = flightsRef.current;
         return () => {
-            if (scrollTimeoutRef.current) {
-                clearTimeout(scrollTimeoutRef.current);
+            for (const flight of [flights.tabs, flights.sections]) {
+                if (flight?.timer) clearTimeout(flight.timer);
+                flight?.anim.cancel();
             }
+            flights.tabs = null;
+            flights.sections = null;
         };
     }, []);
 
@@ -625,6 +825,7 @@ export function useScroll({
         currentSection: state.currentSection,
         goToTab,
         goToSection,
+        syncTab,
         nextSection,
         prevSection,
         nextTab,

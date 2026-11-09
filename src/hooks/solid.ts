@@ -1,5 +1,6 @@
 import { type RefObject, useEffect } from "react";
 
+import { settledEvent } from "@/lib/gesture";
 import { reachesTop } from "@/lib/scroller";
 
 const threshold = 8;
@@ -7,7 +8,8 @@ const threshold = 8;
 /**
  * Hook marking a header as solid once content scrolls under it.
  * Scrollers are read when they move, and once at mount for a page that opened already scrolled by
- * an anchor. Transforms are watched too, since a home section leaving the screen is not a scroll.
+ * an anchor. The home pager announces each settle, since a section leaving the screen is not a
+ * scroll and a Web Animation never fires transitionend.
  *
  * @param ref - Ref to the header element that receives `data-solid`
  */
@@ -44,10 +46,6 @@ export function useSolid(ref: RefObject<HTMLElement | null>) {
             sync();
         };
 
-        const onTransition = (event: TransitionEvent) => {
-            if (event.propertyName === "transform") sync();
-        };
-
         const seed = requestAnimationFrame(() => {
             for (const el of document.querySelectorAll("*")) {
                 if (el.scrollTop > threshold) scrolled.add(el);
@@ -56,13 +54,13 @@ export function useSolid(ref: RefObject<HTMLElement | null>) {
         });
 
         document.addEventListener("scroll", onScroll, { capture: true, passive: true });
-        document.addEventListener("transitionend", onTransition, true);
+        addEventListener(settledEvent, sync);
         addEventListener("resize", sync);
 
         return () => {
             cancelAnimationFrame(seed);
             document.removeEventListener("scroll", onScroll, true);
-            document.removeEventListener("transitionend", onTransition, true);
+            removeEventListener(settledEvent, sync);
             removeEventListener("resize", sync);
         };
     }, [ref]);
