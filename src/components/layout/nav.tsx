@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useRef } from "react";
 
 import { RefractionFilter } from "@/components/layout/refraction";
-import { ThemeToggle } from "@/components/layout/theme";
 import { Name } from "@/components/ui/name";
 import { CommandMenu, SearchButton } from "@/components/utils/command";
 import { useFont } from "@/components/utils/font";
@@ -12,6 +11,7 @@ import { profile } from "@/data/profile";
 import { useFirstVisit } from "@/hooks/entrance";
 import { useGlow } from "@/hooks/glow";
 import { useHide } from "@/hooks/hide";
+import { useHover } from "@/hooks/hover";
 import { useRefraction } from "@/hooks/refraction";
 import { useSolid } from "@/hooks/solid";
 
@@ -40,9 +40,11 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
     const animate = useFirstVisit();
     const headerRef = useRef<HTMLElement>(null);
     const pillRef = useRef<HTMLDivElement>(null);
+    const hoverRef = useRef<HTMLSpanElement>(null);
     useSolid(headerRef);
     useHide(headerRef, !isHome, currentTab);
     useGlow(pillRef);
+    useHover(pillRef, hoverRef);
     const bend = useRefraction(pillRef);
 
     return (
@@ -59,6 +61,8 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
                 ref={pillRef}
                 className="glass pointer-events-auto relative mx-auto mt-(--bar-top) flex h-(--bar-pill) w-fit max-w-[calc(100%-1rem)] items-center gap-1 rounded-full px-1.5"
             >
+                <span ref={hoverRef} aria-hidden className="glass-hover" />
+
                 <div
                     inert={isHome}
                     className={`hidden md:grid compact:hidden transition-[grid-template-columns,margin,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
@@ -126,7 +130,6 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
 
                 <div className="flex items-center gap-0.5 [&_button]:size-(--bar-icon)">
                     <SearchButton />
-                    <ThemeToggle />
                 </div>
             </div>
 
