@@ -33,7 +33,7 @@ export function Tags({ tags, maxVisible = 3 }: TagsProps) {
             {!expanded && hiddenCount > 0 && (
                 <Badge
                     variant="outline"
-                    className="text-[10px] xl:text-xs px-1.5 py-0 cursor-pointer hover:bg-muted"
+                    className="text-[10px] xl:text-xs px-1.5 py-0 cursor-pointer"
                     onClick={(e) => {
                         e.stopPropagation();
                         setExpanded(true);

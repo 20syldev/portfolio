@@ -16,22 +16,18 @@ const config = {
     new: {
         label: "Nouveau",
         icon: Sparkles,
-        className: "badge-new",
     },
     patched: {
         label: "Patché",
         icon: Wrench,
-        className: "badge-patched",
     },
     updated: {
         label: "Mis à jour",
         icon: RefreshCw,
-        className: "badge-updated",
     },
     wip: {
         label: "En cours",
         icon: Construction,
-        className: "badge-wip",
     },
 };
 
@@ -52,7 +48,7 @@ export function StatusBadge({ status, github, npm, variant = "absolute" }: Statu
     const href = npm ?? (github ? `${github}/releases/latest` : undefined);
 
     const badge = (
-        <Badge className={`gap-2 text-xs h-5 text-white border-0 ${cfg.className}`}>
+        <Badge data-status={status} className="gap-2 text-xs h-5 border-0">
             <Icon className="h-3 w-3" />
             {cfg.label}
         </Badge>

@@ -36,10 +36,7 @@ export function Meta({ version, status, project }: MetaProps) {
                         className="inline-flex"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <Badge
-                            variant="outline"
-                            className="text-xs h-5 hover:bg-muted transition-colors"
-                        >
+                        <Badge variant="outline" className="text-xs h-5">
                             {version}
                         </Badge>
                     </a>
@@ -95,7 +92,7 @@ export function MetaBadges({ project, variant = "full" }: MetaBadgesProps) {
                 {paused && (
                     <Tooltip>
                         <TooltipTrigger asChild>
-                            <Badge className="text-xs bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                            <Badge data-status="paused" className="text-xs bg-amber-500/10">
                                 <Clock className="h-3 w-3" />
                             </Badge>
                         </TooltipTrigger>
@@ -117,7 +114,8 @@ export function MetaBadges({ project, variant = "full" }: MetaBadgesProps) {
             {paused && (
                 <Badge
                     variant="secondary"
-                    className="text-xs bg-amber-500/10 text-amber-600 dark:text-amber-400 gap-1"
+                    data-status="paused"
+                    className="text-xs bg-amber-500/10 gap-1"
                 >
                     <Clock className="h-2.5 w-2.5" />
                     En pause

@@ -103,10 +103,8 @@ export function Projects() {
                                     key={project.id}
                                     data-status={status ?? undefined}
                                     onClick={() => open(project)}
-                                    className={`flex relative flex-col gap-2 rounded-lg p-4 text-left card-hover hover:cursor-pointer ${
-                                        status
-                                            ? "gradient-border glow-hover"
-                                            : "border bg-card transition-colors hover:bg-muted/50"
+                                    className={`flex relative flex-col gap-2 p-4 text-left card-hover hover:cursor-pointer ${
+                                        status ? "gradient-border glow-hover" : "border"
                                     } ${project.archived || project.paused ? "inactive" : ""}`}
                                 >
                                     {/* Status Badge */}
@@ -135,7 +133,7 @@ export function Projects() {
                                                         onClick={(e) => e.stopPropagation()}
                                                     >
                                                         <Badge
-                                                            className="py-0 text-xs font-normal hover:bg-muted transition-colors"
+                                                            className="py-0 text-xs font-normal"
                                                             variant="outline"
                                                         >
                                                             {getVersion(project.id)}

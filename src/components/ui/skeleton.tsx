@@ -8,6 +8,10 @@ import { cn } from "@/lib/utils";
  */
 export function Skeleton({ className, ...props }: React.ComponentProps<"span">) {
     return (
-        <span className={cn("block rounded-full bg-muted animate-pulse", className)} {...props} />
+        <span
+            data-slot="skeleton"
+            className={cn("block rounded-full bg-glass-capsule animate-pulse", className)}
+            {...props}
+        />
     );
 }

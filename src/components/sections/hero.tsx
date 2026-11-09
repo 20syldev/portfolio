@@ -183,7 +183,7 @@ export function Hero() {
                                     asChild
                                     size="icon"
                                     variant="ghost"
-                                    className="h-12 w-12 rounded-full"
+                                    className="h-12 w-12 rounded-full transition-all hover:bg-accent dark:hover:bg-accent/50"
                                 >
                                     <a
                                         href={profile.links.github}
@@ -204,7 +204,7 @@ export function Hero() {
                                     asChild
                                     size="icon"
                                     variant="ghost"
-                                    className="h-12 w-12 rounded-full"
+                                    className="h-12 w-12 rounded-full transition-all hover:bg-accent dark:hover:bg-accent/50"
                                 >
                                     <a
                                         href={profile.links.linkedin}
@@ -225,7 +225,7 @@ export function Hero() {
                                     asChild
                                     size="icon"
                                     variant="ghost"
-                                    className="h-12 w-12 rounded-full"
+                                    className="h-12 w-12 rounded-full transition-all hover:bg-accent dark:hover:bg-accent/50"
                                 >
                                     <Link href={profile.links.cv} aria-label="CV">
                                         <FileUser className="h-5 w-5" />

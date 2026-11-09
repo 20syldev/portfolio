@@ -51,10 +51,8 @@ export function Repositories({ initialProjectId }: RepositoriesProps) {
                 key={project.id}
                 data-status={status ?? undefined}
                 onClick={() => open(project)}
-                className={`relative flex flex-col gap-2 rounded-lg p-4 text-left card-hover hover:cursor-pointer ${
-                    status
-                        ? "gradient-border glow-hover"
-                        : "border bg-card transition-colors hover:bg-muted/50"
+                className={`relative flex flex-col gap-2 p-4 text-left card-hover hover:cursor-pointer ${
+                    status ? "gradient-border glow-hover" : "border"
                 } ${project.archived || project.paused ? "inactive" : ""}`}
             >
                 {status && (
@@ -74,10 +72,7 @@ export function Repositories({ initialProjectId }: RepositoriesProps) {
                                     rel="noopener noreferrer"
                                     onClick={(e) => e.stopPropagation()}
                                 >
-                                    <Badge
-                                        className="py-0 text-xs font-normal hover:bg-muted transition-colors"
-                                        variant="outline"
-                                    >
+                                    <Badge className="py-0 text-xs font-normal" variant="outline">
                                         {getVersion(project.id)}
                                     </Badge>
                                 </a>
