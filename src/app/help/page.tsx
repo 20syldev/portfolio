@@ -107,7 +107,7 @@ export default function HelpPage() {
                             <Link
                                 key={category}
                                 href={`/help/${category}`}
-                                className="flex flex-col gap-3 rounded-lg border bg-card p-6 transition-colors hover:bg-muted/50 card-hover min-w-0"
+                                className="flex flex-col gap-3 border p-6 card-hover min-w-0"
                             >
                                 <div className="flex items-center justify-between gap-3">
                                     <div className="flex items-center gap-3">

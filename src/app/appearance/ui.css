@@ -1,0 +1,390 @@
+/* UI identity: the capsule language of the bar on buttons, badges, cards and fields.
+   Buttons and badges are flat capsules with layered shadows, cards are glass panels, status badges keep
+   their gradients, and one focus ring follows the shape of whatever it surrounds. */
+
+/* UI Variables */
+:root {
+    --ui-radius-card: 1.25rem;
+    --ui-radius-panel: 1.5rem;
+    --ui-tint: var(--glass-rest);
+    --ui-tint-hover: var(--glass-solid);
+    --ui-sheen: radial-gradient(130% 70% at 14% -12%, var(--pop-sheen), transparent 62%);
+    --ui-edge: inset 0 1px 0 0 var(--pop-sheen);
+    --ui-card-shadow:
+        0 18px 36px -24px rgb(0 0 0 / 0.24), 0 6px 14px -10px rgb(0 0 0 / 0.12),
+        0 1px 3px -1px rgb(0 0 0 / 0.06);
+    --ui-card-shadow-hover:
+        0 30px 56px -26px rgb(0 0 0 / 0.32), 0 10px 22px -12px rgb(0 0 0 / 0.16),
+        0 1px 4px -1px rgb(0 0 0 / 0.08);
+    --ui-tile-shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 6px 16px -10px rgb(0 0 0 / 0.12);
+    --ui-chip-shadow: 0 1px 3px -1px rgb(0 0 0 / 0.14), 0 1px 1px -1px rgb(0 0 0 / 0.08);
+    --ui-hover-fill: color-mix(in oklab, var(--foreground) 13%, transparent);
+    --ui-focus-width: 2px;
+    --ui-focus-offset: 2px;
+    --ui-focus: var(--ui-focus-width) solid var(--foreground);
+}
+.dark {
+    --ui-edge: inset 0 1px 0 0 var(--pop-sheen);
+    --ui-card-shadow:
+        0 20px 40px -24px rgb(0 0 0 / 0.7), 0 6px 14px -10px rgb(0 0 0 / 0.5),
+        0 1px 3px -1px rgb(0 0 0 / 0.3);
+    --ui-card-shadow-hover:
+        0 32px 58px -26px rgb(0 0 0 / 0.8), 0 10px 22px -12px rgb(0 0 0 / 0.55),
+        0 1px 4px -1px rgb(0 0 0 / 0.35);
+    --ui-tile-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 6px 16px -10px rgb(0 0 0 / 0.5);
+    --ui-chip-shadow: 0 1px 3px -1px rgb(0 0 0 / 0.5), 0 1px 1px -1px rgb(0 0 0 / 0.3);
+}
+
+/* UI Transition: the capsule easing shared by the buttons, the springy part is the press */
+@utility transition-capsule {
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.25s ease,
+        transform 0.3s var(--pop-ease);
+}
+
+@utility transition-chip {
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.25s ease;
+}
+
+/* UI Focus: one ring for the whole direction, an outline (it follows border-radius, a box-shadow
+   ring does too but a wrapper's would not), 2px of --foreground, 2px away from the edge.
+   1. Tailwind's focus-visible:ring-[3px] and focus-visible:border-ring are neutralised: they are
+      box-shadow and border paints that used to stack under the outline as a grey halo. */
+:is([data-slot="button"], [data-slot="badge"]):focus-visible {
+    outline: var(--ui-focus);
+    outline-offset: var(--ui-focus-offset);
+    border-color: transparent;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-ring-offset-shadow: 0 0 #0000;
+}
+[data-slot="badge"]:focus-visible {
+    box-shadow: none;
+}
+[data-slot="badge"][data-variant="outline"]:focus-visible {
+    box-shadow: var(--ui-chip-shadow);
+}
+[data-slot="badge"][data-status]:not([data-status="paused"]):focus-visible {
+    box-shadow: 0 5px 10px -5px rgb(0 0 0 / 0.38);
+}
+/* 2. A focusable wrapper around a single Badge or Button (version link, status link, Link > Button)
+      draws nothing itself: the ring is painted on the shape inside, so it is a capsule exactly
+      where the capsule is, whatever the size and display of the wrapper box. */
+:is(a, button, [role="button"], [role="link"]):focus-visible:has(
+        > :is([data-slot="badge"], [data-slot="button"]):only-child
+    ) {
+    outline: none;
+}
+:is(a, button, [role="button"], [role="link"]):focus-visible
+    > :is([data-slot="badge"], [data-slot="button"]):only-child {
+    outline: var(--ui-focus);
+    outline-offset: var(--ui-focus-offset);
+}
+/* 3. Cards: the ring follows the card radius and sits 4px away (5px on the animated status ring,
+      which already overhangs the card by 2px, 3px when it widens on hover) */
+.card-hover:focus-visible {
+    outline: var(--ui-focus);
+    outline-offset: 4px;
+}
+.card-hover.gradient-border:focus-visible {
+    outline-offset: 5px;
+}
+/* 4. Every other focusable part gets the same ring through a zero-specificity fallback: the probe on
+      the real pages found 63 tooltip links, 22 doc links with outline-none, the project page index
+      buttons and the copy buttons still on the browser's own 1px, 50 % grey "auto" outline.
+      Anything more specific (the sections above, glass.css, popups.css) keeps priority. */
+:where(
+    a,
+    button,
+    summary,
+    select,
+    [role="button"],
+    [role="tab"],
+    [role="link"],
+    [tabindex]:not([tabindex="-1"])
+):focus-visible {
+    outline: var(--ui-focus);
+    outline-offset: var(--ui-focus-offset);
+}
+/* A bare text link or icon button has radius 0 (the "Section suivante" chevron), so its ring gets a soft one (a link that already has a radius keeps it,
+   the header name link sits in the capsule pill and gets the capsule) */
+:where(
+    :is(a, button):not(
+        [class*="rounded"],
+        [data-slot="button"],
+        [data-slot="badge"],
+        .card-hover,
+        .glass *
+    )
+):focus-visible {
+    border-radius: 0.375rem;
+}
+.glass a:focus-visible {
+    border-radius: 9999px;
+}
+/* 5. The font slider keeps its native range input invisible (opacity 0): the ring goes on the thumb */
+div:has(> input[type="range"]:focus-visible) > [data-slot="slider-thumb"] {
+    outline: var(--ui-focus);
+    outline-offset: var(--ui-focus-offset);
+}
+
+/* UI Badge Muted: a muted label inside a tinted badge uses the subtle ink to stay AA */
+[data-slot="badge"]:is([data-variant="secondary"], [data-variant="outline"]) .text-muted-foreground,
+[data-slot="badge"].text-muted-foreground {
+    color: var(--pop-subtle);
+}
+[data-slot="badge"][data-status]:not([data-status="paused"]) {
+    box-shadow: 0 5px 10px -5px rgb(0 0 0 / 0.38);
+}
+
+/* UI Card Panel: the shadcn Card becomes a glass panel, the shadow and the sheen of the popups */
+[data-slot="card"] {
+    border-color: transparent;
+    border-radius: var(--ui-radius-panel);
+    isolation: isolate;
+    color: var(--card-foreground);
+    background: var(--ui-sheen), var(--ui-tint);
+    -webkit-backdrop-filter: blur(14px) saturate(var(--glass-saturate));
+    backdrop-filter: blur(14px) saturate(var(--glass-saturate));
+    box-shadow: var(--ui-edge), var(--ui-card-shadow);
+}
+.snap-container.snap-moving [data-slot="card"] {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--ui-sheen), var(--ui-tint-hover);
+}
+
+/* UI Card Text: secondary text on the tint uses the existing tab-foreground to stay AA in light */
+:is([data-slot="card"], .card-hover) .text-muted-foreground {
+    color: var(--tab-foreground);
+}
+
+/* UI Card Tiles: project, help and parcours cards, a soft tint and a low shadow without live blur (many per page) */
+.card-hover:not(.gradient-border, [data-slot="card"]) {
+    border-color: transparent;
+    border-radius: var(--ui-radius-card);
+    background: var(--ui-tint);
+    box-shadow: var(--ui-tile-shadow);
+    transition:
+        transform 0.3s var(--pop-ease),
+        box-shadow 0.3s ease,
+        background-color 0.25s ease;
+}
+.card-hover[data-slot="card"] {
+    transition:
+        transform 0.3s var(--pop-ease),
+        box-shadow 0.3s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+    .card-hover:not(.gradient-border, [data-slot="card"]):hover {
+        background: var(--ui-tint-hover);
+    }
+    [data-slot="card"][class*="hover:border"]:hover {
+        background: var(--ui-sheen), var(--ui-tint-hover);
+        box-shadow: var(--ui-edge), var(--ui-card-shadow-hover);
+    }
+    .card-hover[data-slot="card"]:hover {
+        background: var(--ui-sheen), var(--ui-tint);
+    }
+}
+.card-hover:not(.gradient-border):active {
+    transform: translateY(0) scale(0.985);
+}
+
+/* UI Card Status: the animated ring stays, only the corner radius and the resting depth change */
+.gradient-border {
+    --radius-lg: var(--ui-radius-card);
+    border-radius: var(--ui-radius-card);
+}
+:where(.gradient-border) {
+    box-shadow: var(--ui-card-shadow);
+}
+.gradient-border:not(:hover) {
+    box-shadow: var(--ui-card-shadow);
+}
+.gradient-border:active {
+    transform: translateY(0) scale(0.985);
+}
+
+/* UI Range: native sliders follow the foreground colour */
+input[type="range"]:not([aria-label="Volume"]) {
+    accent-color: var(--foreground);
+}
+
+/* UI Motion */
+@media (prefers-reduced-motion: reduce) {
+    [data-slot="button"],
+    [data-slot="badge"],
+    .card-hover {
+        transition: none;
+    }
+    [data-slot="button"]:active:not(:disabled),
+    .card-hover:active,
+    .gradient-border:active {
+        transform: none;
+    }
+    [data-slot="skeleton"] {
+        animation: none;
+        opacity: 0.7;
+    }
+}
+
+/* UI Fallbacks: reduced transparency gives opaque panels and a quiet edge instead of blur */
+@media (prefers-reduced-transparency: reduce) {
+    [data-slot="card"],
+    .card-hover:not(.gradient-border) {
+        background: var(--card);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        box-shadow: 0 0 0 1px color-mix(in oklab, var(--foreground) 22%, transparent);
+    }
+    .snap-container.snap-moving [data-slot="card"] {
+        background: var(--card);
+    }
+}
+
+/* UI Contrast: real edges for every flat capsule and panel, text on plain surfaces */
+@media (prefers-contrast: more) {
+    [data-slot="button"]:is([data-variant="outline"], [data-variant="secondary"]),
+    [data-slot="badge"]:is([data-variant="outline"], [data-variant="secondary"]) {
+        border: 1px solid var(--foreground);
+        background: var(--background);
+        box-shadow: none;
+    }
+    [data-slot="button"][data-variant="default"],
+    [data-slot="button"][data-variant="destructive"] {
+        box-shadow: none;
+        border: 1px solid var(--foreground);
+    }
+    [data-slot="button"][data-variant="ghost"]:hover,
+    [data-slot="button"][data-variant="ghost"]:focus-visible {
+        background: transparent;
+        text-decoration: underline;
+    }
+    [data-slot="card"],
+    .card-hover:not(.gradient-border) {
+        border: 1px solid var(--foreground);
+        background: var(--card);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        box-shadow: none;
+    }
+    [data-slot="skeleton"] {
+        background: var(--muted-foreground);
+        opacity: 0.4;
+    }
+}
+
+/* UI Forced Colors: system colours, visible borders, the status ring becomes a plain edge */
+@media (forced-colors: active) {
+    [data-slot="button"],
+    [data-slot="badge"],
+    [data-slot="card"],
+    .card-hover:not(.gradient-border) {
+        box-shadow: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+    [data-slot="button"][data-variant="link"] {
+        border: 0;
+    }
+    [data-slot="button"]:not([data-variant="link"], [data-variant="ghost"]),
+    [data-slot="badge"],
+    [data-slot="card"],
+    .card-hover:not(.gradient-border) {
+        border: 1px solid ButtonText;
+    }
+    :focus-visible,
+    :is(a, button, [role="button"], [role="link"]):focus-visible
+        > :is([data-slot="badge"], [data-slot="button"]):only-child,
+    div:has(> input[type="range"]:focus-visible) > [data-slot="slider-thumb"] {
+        outline-color: Highlight;
+    }
+    .gradient-border {
+        border: 1px solid CanvasText;
+    }
+}
+
+/* UI Shadows Tokens: glass capsules, one inner sheen on top of the edge and no cast shadow */
+:root {
+    --ui-shadow-solid: inset 0 1px 0 rgb(255 255 255 / 0.22);
+    --ui-shadow-solid-hover: inset 0 1px 0 rgb(255 255 255 / 0.3);
+    --ui-shadow-solid-active: inset 0 1px 2px rgb(0 0 0 / 0.3), 0 1px 1px rgb(0 0 0 / 0.16);
+    --ui-shadow-outline: inset 0 1px 0 rgb(255 255 255 / 0.7);
+    --ui-shadow-outline-hover: inset 0 1px 0 rgb(255 255 255 / 0.7);
+    --ui-shadow-secondary: inset 0 1px 0 rgb(255 255 255 / 0.7);
+    --ui-shadow-secondary-hover: inset 0 1px 0 rgb(255 255 255 / 0.7);
+    --ui-shadow-ghost-hover: none;
+    --ui-shadow-pressed: inset 0 1px 2px rgb(0 0 0 / 0.14);
+}
+.dark {
+    --ui-shadow-solid: inset 0 1px 0 rgb(255 255 255 / 0.22);
+    --ui-shadow-solid-hover: inset 0 1px 0 rgb(255 255 255 / 0.3);
+    --ui-shadow-solid-active: inset 0 1px 3px rgb(0 0 0 / 0.35), 0 1px 1px rgb(0 0 0 / 0.4);
+    --ui-shadow-outline: inset 0 1px 0 rgb(255 255 255 / 0.12);
+    --ui-shadow-outline-hover: inset 0 1px 0 rgb(255 255 255 / 0.12);
+    --ui-shadow-secondary: inset 0 1px 0 rgb(255 255 255 / 0.12);
+    --ui-shadow-secondary-hover: inset 0 1px 0 rgb(255 255 255 / 0.12);
+    --ui-shadow-ghost-hover: none;
+    --ui-shadow-pressed: inset 0 1px 3px rgb(0 0 0 / 0.35);
+}
+
+/* UI Shadows Contrast: no decorative shadow in forced colors and high contrast */
+@media (forced-colors: active), (prefers-contrast: more) {
+    [data-slot="button"] {
+        box-shadow: none;
+    }
+}
+
+/* UI Status Tokens: from and to are the gradient stops, ink is the text colour, all AA on the lightest stop */
+:root {
+    --st-new-from: #07805c;
+    --st-new-to: #05684b;
+    --st-new-ink: #ffffff;
+    --st-patched-from: #fbbf24;
+    --st-patched-to: #fb923c;
+    --st-patched-ink: #431407;
+    --st-updated-from: #5b5fe8;
+    --st-updated-to: #4338ca;
+    --st-updated-ink: #ffffff;
+    --st-wip-from: #3f3f46;
+    --st-wip-to: #18181b;
+    --st-wip-ink: #facc15;
+    --st-pause-ink: oklch(0.45 0.1 65);
+}
+.dark {
+    --st-new-from: #07805c;
+    --st-new-to: #05684b;
+    --st-updated-from: #5b5fe8;
+    --st-updated-to: #3730a3;
+    --st-wip-from: #52525b;
+    --st-wip-to: #27272a;
+    --st-pause-ink: oklch(0.82 0.13 80);
+}
+
+/* UI Status: gradient and ink from the tokens */
+[data-slot="badge"][data-status="new"] {
+    background: linear-gradient(135deg, var(--st-new-from), var(--st-new-to));
+    color: var(--st-new-ink);
+}
+[data-slot="badge"][data-status="patched"] {
+    background: linear-gradient(135deg, var(--st-patched-from), var(--st-patched-to));
+    color: var(--st-patched-ink);
+}
+[data-slot="badge"][data-status="updated"] {
+    background: linear-gradient(135deg, var(--st-updated-from), var(--st-updated-to));
+    color: var(--st-updated-ink);
+}
+[data-slot="badge"][data-status="wip"] {
+    background: linear-gradient(135deg, var(--st-wip-from), var(--st-wip-to));
+    color: var(--st-wip-ink);
+}
+
+/* UI Status Paused: amber tint kept, text darkened to AA */
+[data-slot="badge"][data-status="paused"] {
+    color: var(--st-pause-ink);
+}

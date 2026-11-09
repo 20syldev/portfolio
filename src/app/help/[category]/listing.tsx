@@ -60,7 +60,7 @@ export function Listing({ category, docs, subcategories = [] }: ListingProps) {
                         <Link
                             key={`${category}-${subcat}`}
                             href={`/help/${category}/${subcat}`}
-                            className="flex flex-col gap-3 rounded-lg border bg-card p-6 transition-colors hover:bg-muted/50 card-hover"
+                            className="flex flex-col gap-3 border p-6 card-hover"
                         >
                             <div className="flex items-center gap-3">
                                 <FileText className="h-5 w-5 text-primary" />
@@ -81,7 +81,7 @@ export function Listing({ category, docs, subcategories = [] }: ListingProps) {
                         <Link
                             key={doc.id}
                             href={`/help/${doc.category}/${doc.slug}`}
-                            className="flex flex-col gap-3 rounded-lg border bg-card p-6 transition-colors hover:bg-muted/50 card-hover"
+                            className="flex flex-col gap-3 border p-6 card-hover"
                         >
                             <div className="flex items-center gap-3">
                                 <FileText className="h-5 w-5 text-primary" />
