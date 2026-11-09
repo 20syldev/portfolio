@@ -39,11 +39,18 @@ const badgeSizes = {
     rectangle: { mobile: 160, desktop: 220, container: 240 },
 } as const;
 
-const badgeRounding = (item: Certification) => {
+/**
+ * Corner radius class of a certification image, a share of the image itself so that the card, the
+ * tooltip and the gallery show the same curve at every size.
+ *
+ * @param item - The certification whose image is rounded
+ * @returns The Tailwind radius class matching the provider and the shape
+ */
+export const badgeRounding = (item: Certification) => {
     if (item.shape === "round") return "rounded-full";
-    if (item.provider === "cisco") return "rounded-xl";
-    if (item.provider === "anthropic") return "rounded-lg";
-    return "rounded-[2.5px]";
+    if (item.provider === "cisco") return "rounded-[7.5%]";
+    if (item.provider === "anthropic") return "rounded-[5%]";
+    return "rounded-[4%]";
 };
 
 const containerStyle = (item: Certification, ratio: string | undefined, size: number) => {
@@ -83,7 +90,7 @@ export function GalleryTooltipContent({ cert }: { cert: Certification }) {
                         alt={cert.name}
                         width={tooltipSize}
                         height={tooltipSize}
-                        className="rounded-[2.5px] object-contain"
+                        className={`${badgeRounding(cert)} object-contain`}
                         style={{ width: tooltipSize, height: "auto" }}
                     />
                     {cert.counter !== undefined && (

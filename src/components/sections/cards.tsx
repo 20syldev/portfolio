@@ -16,7 +16,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Sparkline } from "@/components/stats/chart";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { GalleryTooltipContent } from "@/components/ui/gallery";
+import { badgeRounding, GalleryTooltipContent } from "@/components/ui/gallery";
 import { Period } from "@/components/ui/period";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -311,8 +311,13 @@ function CertificationsCard({ className }: { className?: string }) {
                                                     alt={cert.name}
                                                     width={60}
                                                     height={60}
-                                                    className="rounded-md object-contain"
-                                                    style={{ width: 60, height: 60 }}
+                                                    className={`${badgeRounding(cert)} object-contain`}
+                                                    style={{
+                                                        width: "auto",
+                                                        height: "auto",
+                                                        maxWidth: 60,
+                                                        maxHeight: 60,
+                                                    }}
                                                     onLoad={() => handleImageLoad(cert.icon)}
                                                 />
                                             )}
