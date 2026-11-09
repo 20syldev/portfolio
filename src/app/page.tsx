@@ -2,7 +2,7 @@
 
 import { ChevronDown } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { startTransition, useEffect, useMemo, useRef, useState } from "react";
 
 import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
@@ -52,11 +52,11 @@ export default function HomePage() {
         currentSection,
         goToTab,
         goToSection,
+        syncTab,
     } = useScroll({
         totalTabs: tabs.length,
         sections,
         threshold: 10,
-        scrollDuration: 600,
         initialTab: getTab(pathname),
     });
 
@@ -70,7 +70,14 @@ export default function HomePage() {
 
         const events = ["pointermove", "pointerdown", "keydown", "wheel", "touchstart"] as const;
         let cancel = () => {};
-        const mount = () => setRepositoriesReady(true);
+        const mount = () => {
+            if (containerRef.current?.classList.contains("snap-moving")) {
+                const id = setTimeout(mount, 250);
+                cancel = () => clearTimeout(id);
+                return;
+            }
+            startTransition(() => setRepositoriesReady(true));
+        };
         const start = () => {
             events.forEach((name) => removeEventListener(name, start));
             if (typeof requestIdleCallback === "function") {
@@ -87,7 +94,7 @@ export default function HomePage() {
             events.forEach((name) => removeEventListener(name, start));
             cancel();
         };
-    }, [currentTab, repositoriesReady]);
+    }, [currentTab, repositoriesReady, containerRef]);
 
     const [veilleReady, setVeilleReady] = useState(() => getTab(pathname) === 2);
     useEffect(() => {
@@ -121,8 +128,18 @@ export default function HomePage() {
 
         Array.from(panels).forEach((panel, index) => {
             (panel as HTMLElement).inert = index !== currentTab;
+            (panel as HTMLElement).toggleAttribute("data-away", index !== currentTab);
         });
     }, [currentTab, tabsRef]);
+
+    useEffect(() => {
+        const items = sectionsRef.current?.children;
+        if (!items) return;
+
+        Array.from(items).forEach((item, index) => {
+            item.toggleAttribute("data-away", index !== currentSection);
+        });
+    }, [currentSection, sectionsRef]);
 
     useEffect(() => {
         if (!mounted.current) return;
@@ -130,21 +147,19 @@ export default function HomePage() {
         const normalized = pathname.replace(/\/$/, "");
         if (!urls.some((u) => u.replace(/\/$/, "") === normalized)) return;
 
-        const expected = getTab(pathname);
-        if (expected !== currentTab) goToTab(expected);
-    }, [pathname, currentTab, goToTab]);
+        syncTab(getTab(pathname));
+    }, [pathname, syncTab]);
 
     useEffect(() => {
         const sync = () => {
             if (location.pathname.startsWith("/card/")) return;
 
-            const expected = getTab(location.pathname);
-            if (expected !== currentTab) goToTab(expected);
+            syncTab(getTab(location.pathname), true);
         };
 
         addEventListener("popstate", sync);
         return () => removeEventListener("popstate", sync);
-    }, [currentTab, goToTab]);
+    }, [syncTab]);
 
     useEffect(() => {
         const scrollToHash = () => {

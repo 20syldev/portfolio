@@ -7,10 +7,6 @@
     [data-marked] .target-mark {
         animation: none !important;
     }
-    .snap-tabs,
-    .snap-sections {
-        transition: none !important;
-    }
 }
 
 /* No-Motion Mode */
