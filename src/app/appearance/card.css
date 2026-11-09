@@ -122,32 +122,6 @@
     inset: 0;
 }
 
-/* Badges */
-.badge-new {
-    background: linear-gradient(135deg, #34d399, #059669);
-}
-.badge-patched {
-    background: linear-gradient(135deg, #fbbf24, #fb923c);
-    color: #431407;
-}
-.badge-updated {
-    background: linear-gradient(135deg, #818cf8, #4338ca);
-}
-.badge-wip {
-    background: linear-gradient(135deg, #3f3f46, #18181b);
-    color: #facc15;
-}
-
-.dark .badge-new {
-    background: linear-gradient(135deg, #10b981, #047857);
-}
-.dark .badge-updated {
-    background: linear-gradient(135deg, #6366f1, #3730a3);
-}
-.dark .badge-wip {
-    background: linear-gradient(135deg, #52525b, #27272a);
-}
-
 /* Inactive */
 .inactive {
     opacity: 0.6 !important;
