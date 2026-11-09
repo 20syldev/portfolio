@@ -8,7 +8,6 @@
     --ui-radius-panel: 1.5rem;
     --ui-tint: var(--glass-rest);
     --ui-tint-hover: var(--glass-solid);
-    --ui-sheen: radial-gradient(130% 70% at 14% -12%, var(--pop-sheen), transparent 62%);
     --ui-edge: inset 0 1px 0 0 var(--pop-sheen);
     --ui-card-shadow:
         0 18px 36px -24px rgb(0 0 0 / 0.24), 0 6px 14px -10px rgb(0 0 0 / 0.12),
@@ -143,11 +142,12 @@ div:has(> input[type="range"]:focus-visible) > [data-slot="slider-thumb"] {
 
 /* UI Card Panel: the shadcn Card becomes a glass panel, the shadow and the sheen of the popups */
 [data-slot="card"] {
+    position: relative;
     border-color: transparent;
     border-radius: var(--ui-radius-panel);
     isolation: isolate;
     color: var(--card-foreground);
-    background: var(--ui-sheen), var(--ui-tint);
+    background: var(--ui-tint);
     -webkit-backdrop-filter: blur(14px) saturate(var(--glass-saturate));
     backdrop-filter: blur(14px) saturate(var(--glass-saturate));
     box-shadow: var(--ui-edge), var(--ui-card-shadow);
@@ -155,7 +155,40 @@ div:has(> input[type="range"]:focus-visible) > [data-slot="slider-thumb"] {
 .snap-container.snap-moving [data-slot="card"] {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
-    background: var(--ui-sheen), var(--ui-tint-hover);
+    background: var(--ui-tint-hover);
+}
+[data-slot="card"]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: radial-gradient(
+        circle 240px at var(--sheen-x, 50%) var(--sheen-y, 0%),
+        var(--pop-sheen),
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+[data-slot="card"][data-sheen="wide"]::before {
+    background: radial-gradient(
+        ellipse 70% 90% at var(--sheen-x, 50%) var(--sheen-y, 0%),
+        color-mix(in srgb, var(--pop-sheen) 55%, transparent) 0%,
+        color-mix(in srgb, var(--pop-sheen) 20%, transparent) 50%,
+        transparent 100%
+    );
+}
+@media (hover: hover) and (pointer: fine) {
+    [data-slot="card"]:hover::before {
+        opacity: 1;
+    }
+}
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more), (forced-colors: active) {
+    [data-slot="card"]::before {
+        display: none;
+    }
 }
 
 /* UI Card Text: secondary text on the tint uses the existing tab-foreground to stay AA in light */
@@ -184,11 +217,11 @@ div:has(> input[type="range"]:focus-visible) > [data-slot="slider-thumb"] {
         background: var(--ui-tint-hover);
     }
     [data-slot="card"][class*="hover:border"]:hover {
-        background: var(--ui-sheen), var(--ui-tint-hover);
+        background: var(--ui-tint-hover);
         box-shadow: var(--ui-edge), var(--ui-card-shadow-hover);
     }
     .card-hover[data-slot="card"]:hover {
-        background: var(--ui-sheen), var(--ui-tint);
+        background: var(--ui-tint);
     }
 }
 .card-hover:not(.gradient-border):active {
