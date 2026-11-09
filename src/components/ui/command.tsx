@@ -12,6 +12,7 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { useSmoothScroll } from "@/hooks/scroll";
+import { useSlide } from "@/hooks/slide";
 import { cn } from "@/lib/utils";
 
 /**
@@ -106,7 +107,7 @@ function CommandInput({
 }
 
 /**
- * Scrollable list container for command palette items with smooth scrolling.
+ * Scrollable list container for command palette items with smooth scrolling and a highlight that slides to the selected item.
  *
  * @param props - Command list primitive props
  * @returns The rendered command list
@@ -117,6 +118,9 @@ const CommandList = React.forwardRef<
 >(({ className, ...props }, ref) => {
     const { scrollRef } = useSmoothScroll<HTMLDivElement>({ delayed: true });
     const internalRef = React.useRef<HTMLDivElement>(null);
+    const [host, setHost] = React.useState<HTMLDivElement | null>(null);
+
+    useSlide(host, "[data-slot='command-item']", "selection");
 
     // Sync refs using useEffect to avoid mutation during render
     React.useEffect(() => {
@@ -147,7 +151,10 @@ const CommandList = React.forwardRef<
 
     return (
         <CommandPrimitive.List
-            ref={internalRef}
+            ref={(node) => {
+                internalRef.current = node;
+                setHost(node);
+            }}
             data-slot="command-list"
             data-lenis-prevent
             className={cn(

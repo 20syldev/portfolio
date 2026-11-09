@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import { useMotionEnabled } from "@/components/utils/motion";
 import { useDragScroll } from "@/hooks/scroll";
+import { useSlide } from "@/hooks/slide";
 import { markAnchor } from "@/lib/anchor";
 import { cn } from "@/lib/utils";
 
@@ -65,9 +66,11 @@ export function DetailNav({
     const observer = useRef<IntersectionObserver | null>(null);
     const buttonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
     const scrollRef = useRef<HTMLDivElement>(null);
+    const [side, setSide] = useState<HTMLElement | null>(null);
     const motion = useMotionEnabled();
 
     useDragScroll(scrollRef, false);
+    useSlide(side, "button");
 
     useEffect(() => {
         if (sections.length > 0 && !sections.find((s) => s.id === active)) {
@@ -207,7 +210,7 @@ export function DetailNav({
 
     return (
         <aside className={cn("w-auto max-w-200 flex-shrink-0 border-r border-border", className)}>
-            <nav className="sticky top-0 p-4 space-y-1">
+            <nav ref={setSide} className="sticky top-0 p-4 space-y-1">
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
                     Sur cette page
                 </p>
@@ -215,11 +218,12 @@ export function DetailNav({
                     <button
                         key={id}
                         onClick={() => scrollToSection(id)}
+                        aria-current={active === id ? "true" : undefined}
                         className={cn(
-                            "block w-full text-left px-3 py-1.5 text-sm rounded-md transition-colors",
+                            "block w-full text-left px-3.5 py-1.5 text-sm rounded-full transition-colors",
                             active === id
-                                ? "bg-muted text-foreground font-medium"
-                                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                                ? "text-foreground font-medium"
+                                : "text-muted-foreground hover:text-foreground"
                         )}
                     >
                         {title}
