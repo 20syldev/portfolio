@@ -144,7 +144,8 @@ function CommandPreviewCard({ preview }: { preview: HoverPreview }) {
 
     return ReactDOM.createPortal(
         <div
-            className="fixed z-[200] p-0 bg-background text-foreground border rounded-xl shadow-xl w-[220px] animate-in fade-in-0 zoom-in-95 duration-150 hidden md:block"
+            data-slot="command-preview"
+            className="fixed z-[200] w-[220px] animate-in fade-in-0 zoom-in-95 duration-150 hidden md:block"
             style={{
                 top: rect.top,
                 left: rect.right + 8,
@@ -204,12 +205,15 @@ export function Palette({
     const getProjectStatus = useStatus();
 
     /**
-     * Manages scroll readiness to ignore cmdk's initial scrollIntoView calls.
-     * Enables scroll detection after a short delay once the dialog opens.
+     * Clears the search and the hover preview whenever the palette closes, whichever way it closes.
+     * Also manages scroll readiness to ignore cmdk's initial scrollIntoView calls, enabling scroll
+     * detection after a short delay once the dialog opens.
      */
     React.useEffect(() => {
         if (!open) {
             setScrolled(false);
+            setSearch("");
+            setHoverPreview(null);
             scrollReadyRef.current = false;
             return;
         }
@@ -220,6 +224,14 @@ export function Palette({
             clearTimeout(timer);
             scrollReadyRef.current = false;
         };
+    }, [open]);
+
+    /**
+     * Opens straight in the large two-column layout from tablet width up, so the palette never
+     * changes size once it is on screen.
+     */
+    React.useLayoutEffect(() => {
+        if (open && matchMedia("(min-width: 768px)").matches) setScrolled(true);
     }, [open]);
 
     const scroll = React.useCallback(() => {
@@ -419,8 +431,8 @@ export function Palette({
                     onMouseLeave={clearHover}
                 >
                     <Icon className="mr-2 h-4 w-4" />
-                    {project.name}
-                    <span className="ml-2 text-xs text-muted-foreground">
+                    <span className="min-w-0 truncate">{project.name}</span>
+                    <span className="ml-2 min-w-0 shrink-4 text-xs text-muted-foreground truncate">
                         {project.tags.join(", ")}
                     </span>
                 </CommandItem>
@@ -475,8 +487,8 @@ export function Palette({
             onMouseLeave={clearHover}
         >
             <FileText className="mr-2 h-4 w-4" />
-            {doc.title}
-            <span className="ml-2 text-xs text-muted-foreground truncate">
+            <span className="min-w-0 truncate">{doc.title}</span>
+            <span className="ml-2 min-w-0 shrink-4 text-xs text-muted-foreground truncate">
                 {getCategoryName(doc.category)}
             </span>
         </CommandItem>
@@ -505,8 +517,8 @@ export function Palette({
             onMouseLeave={clearHover}
         >
             <Newspaper className="mr-2 h-4 w-4" />
-            {veille.title}
-            <span className="ml-2 text-xs text-muted-foreground truncate">
+            <span className="min-w-0 truncate">{veille.title}</span>
+            <span className="ml-2 min-w-0 shrink-4 text-xs text-muted-foreground truncate">
                 {veille.keywords?.slice(0, 3).join(", ") || ""}
             </span>
         </CommandItem>
@@ -530,8 +542,8 @@ export function Palette({
                 onMouseLeave={clearHover}
             >
                 <FolderOpen className="mr-2 h-4 w-4" />
-                {project.name}
-                <span className="ml-2 text-xs text-muted-foreground truncate">
+                <span className="min-w-0 truncate">{project.name}</span>
+                <span className="ml-2 min-w-0 shrink-4 text-xs text-muted-foreground truncate">
                     {project.tags.slice(0, 3).join(", ")}
                 </span>
             </CommandItem>
@@ -549,10 +561,7 @@ export function Palette({
                     }
                 }}
                 filter={commandFilter}
-                className={cn(
-                    "transition-all duration-300",
-                    scrolled && "md:max-w-[calc(100%-6rem)] lg:max-w-4xl"
-                )}
+                className={cn(scrolled && "md:max-w-[calc(100%-6rem)] lg:max-w-4xl")}
             >
                 <CommandInput
                     placeholder="Rechercher..."
@@ -561,7 +570,10 @@ export function Palette({
                 />
                 <CommandList
                     onScroll={scroll}
-                    className={cn("transition-all duration-300", scrolled && "!max-h-[500px]")}
+                    className={cn(
+                        "max-md:transition-[max-height] max-md:duration-300",
+                        scrolled && "!max-h-[min(500px,calc(100dvh-8rem))]"
+                    )}
                 >
                     <CommandEmpty>
                         {normalize(search).includes("sylvain") ? (
@@ -588,82 +600,53 @@ export function Palette({
                             {remainingProjectItems}
                         </CommandGroup>
                     ) : (
-                        <>
-                            {scrolled ? (
-                                <div className="hidden md:flex md:gap-2 md:p-2">
-                                    <div className="flex-1 space-y-2">
-                                        <div className="rounded-lg border">
-                                            <CommandGroup heading="Navigation">
-                                                {renderItems(navigationItems)}
-                                            </CommandGroup>
-                                        </div>
-                                        <div className="rounded-lg border">
-                                            <CommandGroup heading="Projets mis en avant">
-                                                {recentProjectItems}
-                                                <CommandItem
-                                                    onSelect={() =>
-                                                        runCommand(() =>
-                                                            router.push("/repositories")
-                                                        )
-                                                    }
-                                                >
-                                                    <FolderOpen className="mr-2 h-4 w-4" />
-                                                    Voir tout
-                                                </CommandItem>
-                                            </CommandGroup>
-                                        </div>
-                                    </div>
-                                    <div className="flex-1 space-y-2">
-                                        <div className="rounded-lg border">
-                                            <CommandGroup heading="Personnalisation">
-                                                {shortcutsCommandItem}
-                                                {renderItems(personnalisationItems)}
-                                            </CommandGroup>
-                                        </div>
-                                        <div className="rounded-lg border">
-                                            <CommandGroup heading="Profil">
-                                                {renderItems(profilItems)}
-                                            </CommandGroup>
-                                        </div>
-                                        <div className="rounded-lg border">
-                                            <CommandGroup heading="Réalisations">
-                                                {renderItems(realisationsItems)}
-                                            </CommandGroup>
-                                        </div>
-                                    </div>
+                        <div
+                            data-slot="command-columns"
+                            data-layout={scrolled ? "columns" : "single"}
+                        >
+                            <div data-slot="command-column">
+                                <div data-slot="command-panel">
+                                    <CommandGroup heading="Navigation">
+                                        {renderItems(navigationItems)}
+                                    </CommandGroup>
                                 </div>
-                            ) : null}
-                            <div className={cn(scrolled && "md:hidden")}>
-                                <CommandGroup heading="Navigation">
-                                    {renderItems(navigationItems)}
-                                </CommandGroup>
                                 <CommandSeparator />
-                                <CommandGroup heading="Projets mis en avant">
-                                    {recentProjectItems}
-                                    <CommandItem
-                                        onSelect={() =>
-                                            runCommand(() => router.push("/repositories"))
-                                        }
-                                    >
-                                        <FolderOpen className="mr-2 h-4 w-4" />
-                                        Voir tout
-                                    </CommandItem>
-                                </CommandGroup>
-                                <CommandSeparator />
-                                <CommandGroup heading="Personnalisation">
-                                    {shortcutsCommandItem}
-                                    {renderItems(personnalisationItems)}
-                                </CommandGroup>
-                                <CommandSeparator />
-                                <CommandGroup heading="Profil">
-                                    {renderItems(profilItems)}
-                                </CommandGroup>
-                                <CommandSeparator />
-                                <CommandGroup heading="Réalisations">
-                                    {renderItems(realisationsItems)}
-                                </CommandGroup>
+                                <div data-slot="command-panel">
+                                    <CommandGroup heading="Projets mis en avant">
+                                        {recentProjectItems}
+                                        <CommandItem
+                                            onSelect={() =>
+                                                runCommand(() => router.push("/repositories"))
+                                            }
+                                        >
+                                            <FolderOpen className="mr-2 h-4 w-4" />
+                                            Voir tout
+                                        </CommandItem>
+                                    </CommandGroup>
+                                </div>
                             </div>
-                        </>
+                            <div data-slot="command-column">
+                                <CommandSeparator />
+                                <div data-slot="command-panel">
+                                    <CommandGroup heading="Personnalisation">
+                                        {shortcutsCommandItem}
+                                        {renderItems(personnalisationItems)}
+                                    </CommandGroup>
+                                </div>
+                                <CommandSeparator />
+                                <div data-slot="command-panel">
+                                    <CommandGroup heading="Profil">
+                                        {renderItems(profilItems)}
+                                    </CommandGroup>
+                                </div>
+                                <CommandSeparator />
+                                <div data-slot="command-panel">
+                                    <CommandGroup heading="Réalisations">
+                                        {renderItems(realisationsItems)}
+                                    </CommandGroup>
+                                </div>
+                            </div>
+                        </div>
                     )}
                 </CommandList>
             </CommandDialog>

@@ -254,7 +254,8 @@ export function ContactDialog({ open, onOpenChange, autoFocusClose }: ContactDia
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent
-                className="p-4 sm:p-6 sm:max-w-lg md:max-w-2xl lg:max-w-3xl grid-rows-[auto_minmax(0,1fr)] max-sm:inset-0 max-sm:top-0 max-sm:left-0 max-sm:h-dvh max-sm:w-screen max-sm:max-w-none max-sm:translate-x-0 max-sm:translate-y-0 max-sm:rounded-none max-sm:border-0 sm:max-h-[calc(100dvh-2rem)]"
+                data-variant="sheet"
+                className="sm:max-w-lg md:max-w-2xl lg:max-w-3xl grid-rows-[auto_minmax(0,1fr)] max-sm:left-0 max-sm:w-screen max-sm:max-w-none max-sm:translate-x-0 max-sm:translate-y-0 max-sm:pt-6 sm:max-h-[calc(100dvh-2rem)]"
                 autoFocusClose={autoFocusClose}
             >
                 <DialogHeader>
@@ -282,7 +283,7 @@ export function ContactDialog({ open, onOpenChange, autoFocusClose }: ContactDia
                     </div>
                 </DialogHeader>
 
-                <div className="-mx-1 min-h-0 overflow-y-auto overscroll-contain px-1 pb-4 max-sm:pr-3 sm:pb-1">
+                <div className="scroll-fade -mx-1 min-h-0 overflow-y-auto overscroll-contain px-1 pb-4 max-sm:pr-3 sm:pb-1">
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                         <div className="flex flex-col gap-2 [&>a]:flex-1 [&>button]:flex-1">
                             <GroupTitle

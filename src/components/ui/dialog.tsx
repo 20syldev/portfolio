@@ -47,7 +47,7 @@ function DialogClose({ ...props }: React.ComponentProps<typeof DialogPrimitive.C
 }
 
 /**
- * Semi-transparent backdrop overlay behind the dialog content.
+ * Backdrop overlay behind the dialog content, veiled and blurred by popups.css.
  *
  * @param props - Radix Dialog overlay props
  * @returns The rendered overlay
@@ -60,7 +60,7 @@ function DialogOverlay({
         <DialogPrimitive.Overlay
             data-slot="dialog-overlay"
             className={cn(
-                "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50 duration-300",
+                "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 duration-300",
                 className
             )}
             {...props}
@@ -69,7 +69,7 @@ function DialogOverlay({
 }
 
 /**
- * Main dialog content panel centered on screen with optional close button.
+ * Main dialog content panel centered on screen with optional close button, glazed by popups.css.
  * The onOpenAutoFocus of the caller runs first, while focus has not moved yet, so it can read
  * the element focused before the dialog opened; autoFocusClose then takes over unless it prevented.
  *
@@ -99,7 +99,7 @@ function DialogContent({
                 data-slot="dialog-content"
                 data-lenis-prevent
                 className={cn(
-                    "bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-300 outline-none sm:max-w-lg",
+                    "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 p-5 duration-300 outline-none sm:max-w-lg sm:gap-4.5 sm:p-7",
                     className
                 )}
                 onOpenAutoFocus={(e) => {
@@ -115,7 +115,7 @@ function DialogContent({
                 {showCloseButton && (
                     <DialogPrimitive.Close
                         data-slot="dialog-close"
-                        className="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
+                        className="absolute top-4.5 right-4.5 inline-flex size-8.5 items-center justify-center outline-none disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
                     >
                         <XIcon />
                         <span className="sr-only">Close</span>
@@ -168,7 +168,7 @@ function DialogTitle({ className, ...props }: React.ComponentProps<typeof Dialog
     return (
         <DialogPrimitive.Title
             data-slot="dialog-title"
-            className={cn("text-lg leading-none font-semibold", className)}
+            className={cn("text-xl leading-[1.2] font-semibold tracking-[-0.012em]", className)}
             {...props}
         />
     );

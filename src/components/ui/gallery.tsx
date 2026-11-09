@@ -75,10 +75,7 @@ const tooltipSize = 220;
  */
 export function GalleryTooltipContent({ cert }: { cert: Certification }) {
     return (
-        <TooltipContent
-            side="top"
-            className="p-0 bg-background text-foreground border rounded-xl shadow-xl w-[250px]"
-        >
+        <TooltipContent side="top" data-variant="card" className="w-[250px]">
             <div className="flex flex-col items-center gap-3 p-4">
                 <div className="relative">
                     <Image

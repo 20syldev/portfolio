@@ -49,16 +49,15 @@ function TooltipTrigger({ ...props }: React.ComponentProps<typeof TooltipPrimiti
 }
 
 /**
- * Tooltip content popup with arrow and animated entrance.
- * The arrow sits in an absolutely positioned span, painted above the content, so that span is
- * clipped to leave only the half of the diamond outside the bubble.
+ * Tooltip content popup with animated entrance and no arrow, glazed by popups.css.
+ * The card variant is a wider glass card for rich content such as a certification.
  *
  * @param props - Radix Tooltip content props
  * @returns The rendered tooltip content
  */
 function TooltipContent({
     className,
-    sideOffset = 0,
+    sideOffset = 6,
     children,
     ...props
 }: React.ComponentProps<typeof TooltipPrimitive.Content>) {
@@ -68,13 +67,12 @@ function TooltipContent({
                 data-slot="tooltip-content"
                 sideOffset={sideOffset}
                 className={cn(
-                    "bg-foreground text-background [&>span[style*='position']]:[clip-path:inset(-1px_-2px_0)] animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-fit origin-(--radix-tooltip-content-transform-origin) rounded-md px-3 py-1.5 text-xs text-balance",
+                    "animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-fit origin-(--radix-tooltip-content-transform-origin) text-balance",
                     className
                 )}
                 {...props}
             >
                 {children}
-                <TooltipPrimitive.Arrow className="bg-foreground fill-foreground z-50 size-2.5 translate-y-[calc(-50%-1px)] rotate-45 rounded-[2px]" />
             </TooltipPrimitive.Content>
         </TooltipPrimitive.Portal>
     );

@@ -367,14 +367,15 @@ export function Video({ src, title, poster, className }: VideoProps) {
 
             {/* Dialog Content */}
             <DialogPortal>
-                <DialogOverlay className="bg-black/50 backdrop-blur-sm" />
+                <DialogOverlay />
                 <DialogPrimitive.Content
+                    data-slot="video-content"
                     aria-describedby={undefined}
                     className={cn(
                         "fixed z-50 bg-black",
                         "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
                         "max-w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)]",
-                        "rounded-xl overflow-hidden",
+                        "overflow-hidden",
                         "data-[state=open]:animate-in data-[state=closed]:animate-out",
                         "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
                         "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",

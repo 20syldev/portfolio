@@ -135,7 +135,7 @@ export function Lightbox({ images, index, onIndexChange }: LightboxProps) {
                 autoFocusClose
                 showCloseButton={false}
                 className={cn(
-                    "grid-cols-[minmax(0,1fr)] gap-3 rounded-xl p-2 sm:max-w-[min(92vw,1400px)] sm:p-3",
+                    "grid-cols-[minmax(0,1fr)] gap-3 p-2 sm:max-w-[min(92vw,1400px)] sm:gap-3 sm:p-3",
                     sideways && sidewaysFrame
                 )}
                 onOpenAutoFocus={() => {
