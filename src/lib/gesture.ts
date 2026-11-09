@@ -1,5 +1,7 @@
 export type Axis = "x" | "y";
 
+export const settledEvent = "snapsettled";
+
 export const tuning = {
     // Gesture recognition
     directionLock: 10, // Travel before the axis is locked (px)
@@ -13,13 +15,30 @@ export const tuning = {
     // Feel
     rubberBand: 0.55, // Edge resistance, lower is stiffer
     clickGuard: 250, // Click swallowed after a drag (ms)
-    settleMin: 220, // Shortest settle animation (ms)
+    duration: 600, // Duration of a notch, key or dot move (ms)
+    settleMin: 222, // Shortest settle animation (ms)
     settleMax: 600, // Longest settle animation (ms)
-    // Wheel only
-    wheel: {
-        commitRatio: 0.5, // Raised: a pause looks exactly like letting go
-        idle: 160, // Silence that ends a gesture (ms)
+    chain: 280, // Shortest gap between two same direction steps of a key or a notch (ms)
+    reverse: 80, // Shortest gap before a step back (ms)
+    keyStart: 1.4, // Launch of a key, notch or dot move that finds the page at rest, in distance per duration
+    visualEnd: 0.75, // Flight share after which the slide counts as visually done
+    slopeMin: 0.5, // Gentlest launch of a settle, in distance per duration
+    slopeMax: 7, // Sharpest launch of a settle, in distance per duration
+    // Trackpad only
+    pad: {
         lock: 6, // Accumulated travel before the axis is locked (px)
+        silence: 140, // Silence that ends a gesture and releases the lock (ms)
+        follow: 0.5, // Scale applied to the deltas while following
+        earlyRatio: 0.2, // Followed share of a page that commits early
+        peakMin: 0.06, // Followed share of a page before a speed peak may commit
+        peakDrop: 0.8, // Share of the peak speed that marks the peak as passed
+        reaccelRatio: 3, // Growth over the recent minimum that marks a new swipe
+        reaccelMin: 250, // Smallest delta that can mark a new swipe (px)
+        reaccelWindow: 5, // Events kept to find the recent minimum
+        notchGap: 150, // Quiet time before a large round delta may be a notch (ms)
+        minDt: 8, // Shortest interval used to estimate a speed (ms)
+        launchMin: 4, // Gentlest launch speed of a committed page (px/ms)
+        launchMax: 12, // Sharpest launch speed of a committed page (px/ms)
     },
 };
 
@@ -52,9 +71,9 @@ export function settleDuration(remaining: number, page: number): number {
 }
 
 /**
- * Reads the live translation of an element, mid transition included.
- * Must be called before the transition is removed, since removing it snaps
- * the computed value straight to its end state.
+ * Reads the live translation of an element, mid animation included.
+ * Must be called before the animation is cancelled, since cancelling it snaps
+ * the computed value straight to the inline end state.
  *
  * @param el - Element to measure
  * @param axis - Axis to read
@@ -178,16 +197,21 @@ export function prefersNoMotion(): boolean {
 /**
  * Checks whether a wheel event comes from a notched mouse wheel rather than
  * a trackpad. Notched wheels report lines, pages, or round pixel jumps of a
- * full notch, while trackpads emit many small fractional deltas.
+ * full notch, while trackpads emit many small fractional deltas. Some
+ * trackpads round their deltas, so a large round delta that follows another
+ * wheel event closely counts as a notch only when it is exactly 100 or 120.
  *
  * @param e - Wheel event to classify
+ * @param gap - Time since the previous wheel event in ms
  * @returns True for a notched mouse wheel
  */
-export function isDiscreteWheel(e: WheelEvent): boolean {
+export function isDiscreteWheel(e: WheelEvent, gap: number): boolean {
     if (e.deltaMode !== 0) return true;
 
-    const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-    return Math.abs(delta) >= 100 && Number.isInteger(delta);
+    const delta = Math.abs(Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX);
+    if (delta < 100 || !Number.isInteger(delta)) return false;
+
+    return gap > tuning.pad.notchGap || delta === 100 || delta === 120;
 }
 
 /**
@@ -200,4 +224,18 @@ export function isDiscreteWheel(e: WheelEvent): boolean {
  */
 export function clamp(value: number, min: number, max: number): number {
     return Math.max(min, Math.min(max, value));
+}
+
+/**
+ * Tells whether a wheel event restarts a trackpad gesture that is already locked: a delta that
+ * grows well above the recent minimum is a new swipe, a decaying tail never is.
+ *
+ * @param recent - Delta sizes of the latest events, newest last
+ * @param size - Delta size of the incoming event
+ * @returns True when the event starts a new swipe
+ */
+export function isNewSwipe(recent: number[], size: number): boolean {
+    if (recent.length === 0 || size < tuning.pad.reaccelMin) return false;
+
+    return size >= Math.min(...recent) * tuning.pad.reaccelRatio;
 }
