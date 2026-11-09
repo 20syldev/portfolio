@@ -12,6 +12,7 @@ import { KonamiProvider } from "@/components/utils/konami";
 import { MotionProvider, useMotionEnabled } from "@/components/utils/motion";
 import { NotifProvider } from "@/components/utils/notif";
 import { XrayProvider } from "@/components/utils/xray";
+import { useSheen } from "@/hooks/sheen";
 
 /**
  * Provider for Lenis smooth scrolling functionality.
@@ -52,6 +53,16 @@ function LenisProvider({ children }: { children: React.ReactNode }) {
 }
 
 /**
+ * Installs the sheen that follows the pointer over the glass cards.
+ *
+ * @returns Nothing, the hook does the work
+ */
+function Sheen() {
+    useSheen();
+    return null;
+}
+
+/**
  * Theme provider for the application.
  * Wraps next-themes to handle light/dark/system themes.
  *
@@ -74,6 +85,7 @@ export function ThemeProvider({
                             </KonamiProvider>
                         </FontProvider>
                         <NotifProvider />
+                        <Sheen />
                     </CursorProvider>
                 </LenisProvider>
             </MotionProvider>
