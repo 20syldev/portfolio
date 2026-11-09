@@ -1,0 +1,575 @@
+/* Popup Variables: the pill language of glass.css scaled up for dialogs, tooltips and the toast */
+:root {
+    --pop-tint: color-mix(in oklab, var(--popover) 70%, transparent);
+    --pop-tint-tip: color-mix(in oklab, var(--muted) 90%, transparent);
+    --pop-tint-card: color-mix(in oklab, var(--popover) 84%, transparent);
+    --pop-solid: color-mix(in oklab, var(--popover) 96%, var(--muted));
+    --pop-sheen: rgb(255 255 255 / 0.55);
+    --pop-scrim: rgb(24 24 28 / 0.16);
+    --pop-scrim-blur: 7px;
+    --pop-blur: 26px;
+    --pop-saturate: 1.7;
+    --pop-bright: 1.02;
+    --pop-subtle: oklch(0.4 0 0);
+    --pop-chip: var(--glass-tab-hover);
+    --pop-radius: 1.75rem;
+    --pop-radius-card: 1.5rem;
+    --pop-radius-panel: 1.25rem;
+    --pop-shadow:
+        0 34px 70px -28px rgb(0 0 0 / 0.34), 0 10px 26px -14px rgb(0 0 0 / 0.16),
+        0 1px 4px -1px rgb(0 0 0 / 0.06);
+    --pop-shadow-tip: 0 12px 28px -14px rgb(0 0 0 / 0.28), 0 1px 4px -1px rgb(0 0 0 / 0.08);
+    --pop-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+.dark {
+    --pop-tint: color-mix(in oklab, var(--muted) 58%, transparent);
+    --pop-tint-tip: color-mix(in oklab, var(--muted) 84%, transparent);
+    --pop-tint-card: color-mix(in oklab, var(--muted) 84%, transparent);
+    --pop-solid: color-mix(in oklab, var(--popover) 94%, var(--muted));
+    --pop-sheen: rgb(255 255 255 / 0.1);
+    --pop-scrim: rgb(0 0 0 / 0.4);
+    --pop-bright: 0.94;
+    --pop-subtle: oklch(0.86 0 0);
+    --pop-shadow:
+        0 36px 72px -28px rgb(0 0 0 / 0.75), 0 12px 28px -14px rgb(0 0 0 / 0.5),
+        0 1px 4px -1px rgb(0 0 0 / 0.3);
+    --pop-shadow-tip: 0 14px 30px -14px rgb(0 0 0 / 0.7), 0 1px 4px -1px rgb(0 0 0 / 0.3);
+}
+
+/* Popup Overlay: a light veil with a soft blur of the page, flat on phones */
+[data-slot="dialog-overlay"] {
+    background: var(--pop-scrim);
+    -webkit-backdrop-filter: blur(var(--pop-scrim-blur)) saturate(1.15);
+    backdrop-filter: blur(var(--pop-scrim-blur)) saturate(1.15);
+}
+@media (max-width: 639px) {
+    [data-slot="dialog-overlay"] {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+}
+
+/* Popup Surface: the dialog panel, a bigger sibling of the header pill */
+[data-slot="dialog-content"] {
+    isolation: isolate;
+    border-radius: var(--pop-radius);
+    color: var(--foreground);
+    background:
+        radial-gradient(130% 70% at 14% -12%, var(--pop-sheen), transparent 62%), var(--pop-tint);
+    -webkit-backdrop-filter: blur(var(--pop-blur)) saturate(var(--pop-saturate))
+        brightness(var(--pop-bright));
+    backdrop-filter: blur(var(--pop-blur)) saturate(var(--pop-saturate))
+        brightness(var(--pop-bright));
+    box-shadow: var(--pop-shadow);
+}
+
+/* Popup Idle Work: the page behind an open dialog is blurred, its looping animations rest */
+body:has([data-slot="dialog-overlay"])
+    :is(.animate-shine, .animate-pulse, .animate-sparkle, .animate-float):not(
+        [data-slot="dialog-content"] *
+    ),
+body:has([data-slot="dialog-overlay"])
+    .gradient-border:not([data-slot="dialog-content"] *)::before {
+    animation-play-state: paused;
+}
+
+/* Popup Muted Text: every secondary label stays AA on the tint */
+:is(
+        [data-slot="dialog-content"],
+        [data-slot="tooltip-content"],
+        [data-slot="command-preview"],
+        [data-slot="notification"]
+    )
+    .text-muted-foreground {
+    color: var(--pop-subtle);
+}
+:is(
+        [data-slot="dialog-content"],
+        [data-slot="tooltip-content"],
+        [data-slot="command-preview"],
+        [data-slot="notification"]
+    )
+    :is(button, a).text-muted-foreground:focus-visible {
+    color: var(--foreground);
+}
+@media (hover: hover) and (pointer: fine) {
+    :is(
+            [data-slot="dialog-content"],
+            [data-slot="tooltip-content"],
+            [data-slot="command-preview"],
+            [data-slot="notification"]
+        )
+        :is(button, a).text-muted-foreground:hover {
+        color: var(--foreground);
+    }
+}
+
+/* Popup Close: a flat round capsule, same family as the pill hover tint */
+[data-slot="dialog-close"] {
+    border-radius: 9999px;
+    background: var(--pop-chip);
+    color: var(--pop-subtle);
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.3s var(--pop-ease);
+}
+[data-slot="dialog-close"]:hover {
+    background: var(--glass-capsule);
+    color: var(--foreground);
+}
+[data-slot="dialog-close"]:active {
+    transform: scale(0.92);
+    box-shadow: none;
+}
+[data-slot="dialog-close"]:focus-visible {
+    outline: 2px solid var(--foreground);
+    outline-offset: 2px;
+    box-shadow: none;
+}
+
+/* Popup Controls: outline buttons, badges and panels lose their edge for flat tints */
+[data-slot="dialog-content"] [data-slot="button"] {
+    border-radius: 9999px;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.3s var(--pop-ease);
+}
+[data-slot="dialog-content"] [data-slot="button"]:active {
+    transform: scale(0.97);
+}
+[data-slot="dialog-content"]
+    [data-slot="button"]:is([data-variant="outline"], [data-variant="secondary"]):not(
+        :hover,
+        :focus-visible,
+        :active
+    ) {
+    border-color: transparent;
+    box-shadow: none;
+}
+[data-slot="dialog-content"]
+    [data-slot="button"][data-variant="outline"]:not(:hover, :focus-visible, :active),
+[data-slot="dialog-content"] [data-slot="button"][data-variant="secondary"]:not(:hover, :active) {
+    background: var(--pop-chip);
+}
+[data-slot="dialog-content"] :is(button, a):focus-visible {
+    outline: 2px solid var(--foreground);
+    outline-offset: 2px;
+}
+:is([data-slot="dialog-content"], [data-slot="tooltip-content"], [data-slot="command-preview"])
+    :is(
+        [data-slot="badge"][data-variant="outline"],
+        [data-slot="badge"][data-variant="secondary"][data-status="paused"]
+    ) {
+    border-color: transparent;
+    color: var(--pop-subtle);
+}
+:is([data-slot="dialog-content"], [data-slot="tooltip-content"], [data-slot="command-preview"])
+    :is(
+        [data-slot="badge"][data-variant="outline"]:not(:hover, :active),
+        [data-slot="badge"][data-variant="secondary"][data-status="paused"]
+    ) {
+    background: var(--pop-chip);
+}
+[data-slot="dialog-panel"],
+[data-slot="font-card"] {
+    border-radius: var(--pop-radius-panel);
+    background: var(--pop-chip);
+}
+[data-slot="font-card"][aria-pressed="true"] {
+    background: var(--glass-capsule);
+    box-shadow: inset 0 0 0 1.5px var(--foreground);
+}
+@media (hover: hover) and (pointer: fine) {
+    [data-slot="font-card"]:hover {
+        background: var(--glass-capsule);
+    }
+}
+
+/* Popup Keycaps: flat capsule chips, no bottom edge */
+:is([data-slot="dialog-content"], [data-slot="notification"]) kbd {
+    border: 0;
+    border-radius: 0.5rem;
+    background: var(--pop-chip);
+    color: var(--pop-subtle);
+    box-shadow: none;
+}
+
+/* Popup Palette: the command list lives straight on the glass */
+[data-slot="command"] {
+    background: transparent;
+    border-radius: inherit;
+}
+[data-slot="command-input-wrapper"] {
+    height: 3.125rem;
+    gap: 0.625rem;
+    padding-inline: 0.875rem 2.75rem;
+    box-shadow: 0 1px 0 0 color-mix(in oklab, var(--foreground) 6%, transparent);
+}
+[data-slot="command-input-wrapper"] svg {
+    opacity: 0.7;
+}
+[cmdk-input] {
+    font-size: 1rem;
+    letter-spacing: -0.005em;
+}
+[cmdk-input]::placeholder {
+    color: var(--pop-subtle);
+    opacity: 1;
+}
+[cmdk-group-heading] {
+    padding: 0.5rem 0.875rem 0.25rem;
+    color: var(--pop-subtle);
+    letter-spacing: 0.02em;
+    font-weight: 500;
+}
+[cmdk-list] {
+    padding: 0.25rem 0 0.125rem;
+}
+[cmdk-group] {
+    padding-inline: 0;
+}
+[data-slot="command-item"] {
+    gap: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 9999px;
+    color: var(--foreground);
+    white-space: nowrap;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+[data-slot="command-item"][data-selected="true"],
+[data-slot="command-item"]:active {
+    background: var(--glass-capsule);
+    color: var(--foreground);
+}
+@media (min-width: 768px) {
+    [data-layout="columns"] {
+        display: flex;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        animation: pop-columns 0.2s ease both;
+    }
+    [data-layout="columns"] > [data-slot="command-column"] {
+        display: flex;
+        flex: 1 1 0%;
+        flex-direction: column;
+        gap: 0.5rem;
+        min-width: 0;
+    }
+    [data-layout="columns"] [data-slot="command-separator"] {
+        display: none;
+    }
+    [data-layout="columns"]
+        > [data-slot="command-column"]
+        > [data-slot="command-panel"]:last-child {
+        flex: 1 1 auto;
+    }
+    [data-layout="columns"] [data-slot="command-panel"] {
+        padding: 0.25rem;
+        border-radius: var(--pop-radius-panel);
+        background: var(--pop-chip);
+    }
+}
+@keyframes pop-columns {
+    from {
+        opacity: 0;
+    }
+}
+[cmdk-empty] {
+    color: var(--pop-subtle);
+}
+[data-slot="dialog-content"][data-variant="palette"] [data-slot="dialog-close"] {
+    top: 0.5rem;
+    right: 0.625rem;
+}
+@media (max-width: 639px) {
+    [data-slot="command-input-wrapper"] {
+        height: 2.875rem;
+        padding-inline: 0.75rem 2.75rem;
+    }
+}
+
+/* Popup Tooltips: small glass capsules without an arrow */
+[data-slot="tooltip-content"] {
+    padding: 0.4375rem 0.9375rem;
+    border-radius: 9999px;
+    font-size: 0.78125rem;
+    line-height: 1.3;
+    color: var(--foreground);
+    background: var(--pop-tint-tip);
+    -webkit-backdrop-filter: blur(18px) saturate(var(--pop-saturate)) brightness(var(--pop-bright));
+    backdrop-filter: blur(18px) saturate(var(--pop-saturate)) brightness(var(--pop-bright));
+    box-shadow: var(--pop-shadow-tip);
+}
+
+/* Popup Cards: certification card and palette preview, rounded glass cards */
+[data-slot="tooltip-content"][data-variant="card"],
+[data-slot="command-preview"] {
+    padding: 0;
+    border-radius: var(--pop-radius-card);
+    overflow: hidden;
+    color: var(--foreground);
+    background:
+        radial-gradient(130% 60% at 14% -12%, var(--pop-sheen), transparent 62%),
+        var(--pop-tint-card);
+    -webkit-backdrop-filter: blur(22px) saturate(var(--pop-saturate)) brightness(var(--pop-bright));
+    backdrop-filter: blur(22px) saturate(var(--pop-saturate)) brightness(var(--pop-bright));
+    box-shadow: var(--pop-shadow);
+}
+[data-slot="tooltip-content"][data-variant="card"] img {
+    border-radius: 1rem;
+}
+
+/* Popup Favorite Tip: the gold of the favorite stars kept as a translucent wash */
+[data-slot="tooltip-content"].favorite-tip {
+    color: oklch(0.3 0.07 70);
+    background: linear-gradient(135deg, oklch(0.98 0.05 98 / 0.82), oklch(0.92 0.11 92 / 0.78));
+    box-shadow:
+        0 12px 28px -12px oklch(0.75 0.16 80 / 0.5),
+        0 1px 4px -1px rgb(0 0 0 / 0.06);
+}
+.dark [data-slot="tooltip-content"].favorite-tip {
+    color: oklch(0.95 0.06 95);
+    background: linear-gradient(135deg, oklch(0.34 0.06 85 / 0.8), oklch(0.24 0.045 80 / 0.78));
+    box-shadow:
+        0 0 22px -6px oklch(0.8 0.16 88 / 0.35),
+        0 12px 28px -14px rgb(0 0 0 / 0.6);
+}
+
+/* Popup Toast: bottom-right glass card, full width on phones */
+[data-slot="notification"] {
+    padding: 1rem 1.125rem 1rem 1.375rem;
+    border-radius: var(--pop-radius-card);
+    color: var(--foreground);
+    background:
+        radial-gradient(130% 80% at 14% -20%, var(--pop-sheen), transparent 62%), var(--pop-tint);
+    -webkit-backdrop-filter: blur(22px) saturate(var(--pop-saturate)) brightness(var(--pop-bright));
+    backdrop-filter: blur(22px) saturate(var(--pop-saturate)) brightness(var(--pop-bright));
+    box-shadow: var(--pop-shadow);
+}
+[data-slot="notification-close"] {
+    background: var(--pop-chip);
+    color: var(--pop-subtle);
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+[data-slot="notification-close"]:hover {
+    background: var(--glass-capsule);
+    color: var(--foreground);
+}
+
+/* Popup Media: lightbox, chart and video keep a dark-neutral stage inside the glass frame */
+[data-slot="dialog-content"] :is(figure, img) {
+    border-radius: 1.125rem;
+}
+[data-slot="video-content"] {
+    border-radius: var(--pop-radius);
+    box-shadow: var(--pop-shadow);
+}
+
+/* Popup Sheet: the contact dialog turns into a glass sheet on phones */
+@media (max-width: 639px) {
+    [data-slot="dialog-content"][data-variant="sheet"] {
+        top: 0.625rem;
+        height: calc(100dvh - 0.625rem);
+        border-radius: 2rem 2rem 0 0;
+    }
+}
+
+/* Popup Scroll Fade: a list that scrolls fades out at the cut edge so the cut is explained */
+@property --fade-top {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+}
+@property --fade-bottom {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+}
+@keyframes scroll-fade {
+    0% {
+        --fade-top: 0px;
+        --fade-bottom: var(--fade-size);
+    }
+    4% {
+        --fade-top: 0px;
+    }
+    12% {
+        --fade-top: var(--fade-size);
+    }
+    88% {
+        --fade-bottom: var(--fade-size);
+    }
+    100% {
+        --fade-top: var(--fade-size);
+        --fade-bottom: 0px;
+    }
+}
+@supports (animation-timeline: scroll()) {
+    .scroll-fade {
+        --fade-size: 1.75rem;
+        scroll-padding-block: var(--fade-size);
+        mask-image: linear-gradient(
+            to bottom,
+            transparent 0,
+            #000 var(--fade-top),
+            #000 calc(100% - var(--fade-bottom)),
+            transparent 100%
+        );
+        animation: scroll-fade linear both;
+        animation-timeline: scroll(self);
+    }
+}
+
+/* Popup Motion: a softer, springier entrance than the 300ms zoom */
+@media (prefers-reduced-motion: no-preference) {
+    [data-slot="dialog-content"][data-state="open"] {
+        animation-timing-function: var(--pop-ease);
+    }
+    [data-slot="tooltip-content"][data-state="delayed-open"],
+    [data-slot="tooltip-content"][data-state="instant-open"] {
+        animation-duration: 0.22s;
+        animation-timing-function: var(--pop-ease);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    [data-slot="dialog-overlay"],
+    [data-slot="dialog-content"],
+    [data-slot="video-content"],
+    [data-slot="tooltip-content"],
+    [data-slot="command-preview"],
+    [data-layout="columns"],
+    [data-slot="notification"] {
+        animation: none;
+    }
+    [data-slot="dialog-close"],
+    [data-slot="dialog-content"] [data-slot="button"] {
+        transition: none;
+        transform: none;
+    }
+}
+
+/* Popup Fallbacks: no blur and a solid surface when transparency is reduced */
+@media (prefers-reduced-transparency: reduce) {
+    [data-slot="dialog-content"],
+    [data-slot="tooltip-content"],
+    [data-slot="tooltip-content"][data-variant="card"],
+    [data-slot="command-preview"],
+    [data-slot="notification"] {
+        border: 1px solid color-mix(in oklab, var(--foreground) 30%, transparent);
+        background: var(--pop-solid);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+    [data-slot="dialog-overlay"] {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+    [data-slot="tooltip-content"].favorite-tip {
+        border: 1px solid color-mix(in oklab, var(--foreground) 30%, transparent);
+        background: linear-gradient(135deg, oklch(0.98 0.05 98), oklch(0.92 0.11 92));
+    }
+    .dark [data-slot="tooltip-content"].favorite-tip {
+        background: linear-gradient(135deg, oklch(0.34 0.06 85), oklch(0.24 0.045 80));
+    }
+}
+
+/* Popup Contrast: plain surface, visible edge and outlined chips */
+@media (prefers-contrast: more) {
+    [data-slot="dialog-content"],
+    [data-slot="video-content"],
+    [data-slot="tooltip-content"],
+    [data-slot="tooltip-content"][data-variant="card"],
+    [data-slot="command-preview"],
+    [data-slot="notification"] {
+        border: 1px solid var(--foreground);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+    [data-slot="dialog-content"],
+    [data-slot="tooltip-content"],
+    [data-slot="tooltip-content"][data-variant="card"],
+    :root [data-slot="tooltip-content"].favorite-tip,
+    [data-slot="command-preview"],
+    [data-slot="notification"] {
+        background: var(--popover);
+        color: var(--foreground);
+    }
+    [data-slot="dialog-overlay"] {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+    [data-slot="dialog-close"],
+    [data-slot="dialog-panel"],
+    [data-slot="font-card"],
+    [data-slot="dialog-content"]
+        [data-slot="button"]:is([data-variant="outline"], [data-variant="secondary"]),
+    :is([data-slot="dialog-content"], [data-slot="notification"]) kbd {
+        border: 1px solid var(--foreground);
+        background: transparent;
+        color: var(--foreground);
+    }
+    [data-slot="command-item"][data-selected="true"] {
+        outline: 2px solid var(--foreground);
+        outline-offset: -2px;
+    }
+}
+
+/* Popup Forced Colors: system colours and a visible border */
+@media (forced-colors: active) {
+    [data-slot="dialog-content"],
+    [data-slot="tooltip-content"],
+    [data-slot="tooltip-content"][data-variant="card"],
+    :root [data-slot="tooltip-content"].favorite-tip,
+    [data-slot="command-preview"],
+    [data-slot="notification"] {
+        background: Canvas;
+        color: CanvasText;
+    }
+    [data-slot="dialog-content"],
+    [data-slot="video-content"],
+    [data-slot="tooltip-content"],
+    [data-slot="tooltip-content"][data-variant="card"],
+    :root [data-slot="tooltip-content"].favorite-tip,
+    [data-slot="command-preview"],
+    [data-slot="notification"] {
+        border: 1px solid CanvasText;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        box-shadow: none;
+    }
+    [data-slot="dialog-overlay"] {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+    [data-slot="command-item"] {
+        outline: 0;
+    }
+    [data-slot="command-item"][data-selected="true"] {
+        outline: 2px solid Highlight;
+        outline-offset: -2px;
+    }
+    [data-slot="dialog-panel"],
+    [data-slot="font-card"] {
+        border: 1px solid ButtonText;
+    }
+    [data-slot="font-card"][aria-pressed="true"] {
+        outline: 2px solid Highlight;
+        outline-offset: -3px;
+    }
+    [data-slot="slider-track"] {
+        forced-color-adjust: none;
+        background: ButtonFace;
+        outline: 1px solid ButtonText;
+    }
+    [data-slot="slider-fill"],
+    [data-slot="slider-thumb"] {
+        forced-color-adjust: none;
+        background: Highlight;
+    }
+}

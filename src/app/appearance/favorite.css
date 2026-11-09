@@ -29,25 +29,7 @@
     box-shadow: 0 0 5px var(--confetti-color, oklch(0.82 0.16 88));
 }
 
-/* Favorite Tooltip */
-.favorite-tip {
-    color: oklch(0.3 0.07 70);
-    background: linear-gradient(135deg, oklch(0.98 0.04 98), oklch(0.92 0.11 92));
-    box-shadow: 0 6px 16px -6px oklch(0.75 0.16 80 / 45%);
-}
-.favorite-tip .fill-foreground {
-    fill: oklch(0.944 0.083 94.6);
-    background: oklch(0.944 0.083 94.6);
-}
-.dark .favorite-tip {
-    color: oklch(0.95 0.06 95);
-    background: linear-gradient(135deg, oklch(0.3 0.05 85), oklch(0.22 0.04 80));
-    box-shadow: 0 0 18px -6px oklch(0.8 0.16 88 / 40%);
-}
-.dark .favorite-tip .fill-foreground {
-    fill: oklch(0.252 0.044 82);
-    background: oklch(0.252 0.044 82);
-}
+/* Favorite Trigger */
 [data-favorite][data-state$="open"] {
     background-image: radial-gradient(circle, oklch(0.92 0.12 95 / 28%), transparent 75%);
 }
