@@ -106,7 +106,7 @@ header[data-solid] .glass-fade {
     opacity: 1;
 }
 
-/* Glass Tabs: flat capsule for the active one, flat tint on hover */
+/* Glass Tabs: flat capsule for the active one, one sliding tint for the hovered one */
 .glass-tab {
     transition:
         background-color 0.2s ease,
@@ -115,10 +115,32 @@ header[data-solid] .glass-fade {
 .glass-tab[aria-current="page"] {
     background: var(--glass-capsule);
 }
-@media (hover: hover) {
-    .glass-tab:not([aria-current="page"]):hover {
-        background: var(--glass-tab-hover);
-    }
+.glass-hover {
+    display: none;
+}
+.glass[data-hover] .glass-hover {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--hover-w, 0px);
+    height: var(--hover-h, 0px);
+    transform: translate(var(--hover-x, 0px), var(--hover-y, 0px));
+    border-radius: 9999px;
+    background: var(--glass-tab-hover);
+    opacity: var(--hover-o, 0);
+    pointer-events: none;
+    transition:
+        transform 0.18s cubic-bezier(0.25, 1, 0.5, 1),
+        width 0.18s cubic-bezier(0.25, 1, 0.5, 1),
+        height 0.18s cubic-bezier(0.25, 1, 0.5, 1),
+        opacity 0.15s ease;
+}
+.glass[data-hover] .glass-hover[data-snap] {
+    transition: opacity 0.2s ease;
+}
+.glass[data-hover] > div > button:hover {
+    background-color: transparent;
 }
 
 /* Glass Focus: the default grey rings are too faint on a light pill */
@@ -212,6 +234,9 @@ header[data-solid] .glass-fade {
     .glass::after {
         display: none !important;
     }
+    .glass[data-hover] .glass-hover {
+        background: var(--glass-capsule);
+    }
     .glass-tab[aria-current="page"] {
         background: var(--background);
         box-shadow: inset 0 0 0 1px var(--foreground);
@@ -232,8 +257,15 @@ header[data-solid] .glass-fade {
     .glass :focus-visible {
         outline-color: Highlight;
     }
+    .glass[data-hover] .glass-hover {
+        display: none;
+    }
     .glass-tab {
         color: LinkText;
+    }
+    .glass-tab:not([aria-current="page"]):hover,
+    .glass > div > button:hover {
+        outline: 1px solid Highlight;
     }
     .glass-tab[aria-current="page"] {
         background: Highlight;
@@ -256,6 +288,10 @@ header[data-solid] .glass-fade {
 @media (prefers-reduced-motion: reduce) {
     .glass-tab {
         transition: none;
+    }
+    .glass[data-hover] .glass-hover,
+    .glass[data-hover] .glass-hover[data-snap] {
+        transition: opacity 0.15s ease;
     }
     .glass {
         transition: opacity 0.2s ease;
