@@ -3,7 +3,7 @@
 
 # Site Web Personnel - Portfolio
 
-[![Version](https://custom-icon-badges.demolab.com/badge/Version%20:-v5.3.2-6479ee?logo=sylvain&labelColor=23272A)](https://github.com/20syldev/portfolio/releases/latest)
+[![Version](https://custom-icon-badges.demolab.com/badge/Version%20:-v5.4.0-6479ee?logo=sylvain&labelColor=23272A)](https://github.com/20syldev/portfolio/releases/latest)
 
 </div>
 
