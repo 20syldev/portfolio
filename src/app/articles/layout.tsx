@@ -4,6 +4,7 @@ export const metadata: Metadata = {
     title: "Articles - Sylvain L.",
     description:
         "Les articles du blog Zenetys que j'ai mis en forme et intégrés sur le site de l'entreprise.",
+    alternates: { canonical: "/articles/" },
     openGraph: {
         title: "Articles - Sylvain L.",
         description:

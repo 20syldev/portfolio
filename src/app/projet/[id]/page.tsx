@@ -41,7 +41,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const project = getProject(id);
 
     if (renamedProjects[id]) {
-        return { title: "Redirection..." };
+        return {
+            title: "Redirection...",
+            alternates: { canonical: `/projet/${renamedProjects[id]}/` },
+        };
     }
 
     if (!project) {
@@ -51,6 +54,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
         title: `${project.name} - Sylvain L.`,
         description: project.description,
+        alternates: { canonical: `/projet/${id}/` },
         openGraph: {
             title: `${project.name} - Sylvain L.`,
             description: project.description,

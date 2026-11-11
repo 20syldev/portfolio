@@ -4,6 +4,7 @@ export const metadata: Metadata = {
     title: "Statistiques - Sylvain L.",
     description:
         "Découvrez quelques statistiques intéressantes sur mon portfolio, mes contributions et mon activité en ligne.",
+    alternates: { canonical: "/stats/" },
     openGraph: {
         title: "Statistiques - Sylvain L.",
         description:

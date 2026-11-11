@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
     title: "Confidentialité - Sylvain L.",
     description: "Politique de confidentialité du site sylvain.sh.",
+    alternates: { canonical: "/confidentialite/" },
     openGraph: {
         title: "Confidentialité - Sylvain L.",
         description: "Politique de confidentialité du site sylvain.sh.",

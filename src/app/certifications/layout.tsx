@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
     title: "Certifications - Sylvain L.",
     description: "Mes certifications Claude Academy, Cisco Netacad et Google Cloud.",
+    alternates: { canonical: "/certifications/" },
     openGraph: {
         title: "Certifications - Sylvain L.",
         description: "Mes certifications Claude Academy, Cisco Netacad et Google Cloud.",

@@ -4,6 +4,7 @@ export const metadata: Metadata = {
     title: "Projets - Sylvain L.",
     description:
         "Mes projets réalisés chez Zenetys et mes projets personnels, open source ou non, avec leur documentation.",
+    alternates: { canonical: "/repositories/" },
     openGraph: {
         title: "Projets - Sylvain L.",
         description:

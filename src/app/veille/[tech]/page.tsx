@@ -40,6 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
         title: `Veille ${veille.title} - Sylvain L.`,
         description: veille.description,
+        alternates: { canonical: `/veille/${tech}/` },
         openGraph: {
             title: `Veille ${veille.title}`,
             description: veille.description,

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
     title: "Complétion - Sylvain L.",
     description: "Mes badges de complétion Google Cloud Skills Boost.",
+    alternates: { canonical: "/completion/" },
     openGraph: {
         title: "Complétion - Sylvain L.",
         description: "Mes badges de complétion Google Cloud Skills Boost.",

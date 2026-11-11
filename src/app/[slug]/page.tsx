@@ -27,8 +27,10 @@ export async function generateStaticParams() {
  */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
+    const target = redirects[slug];
     return {
         title: `Redirection vers ${getRedirectTitle(slug)}...`,
+        ...(target.startsWith("/") && { alternates: { canonical: `${target}/` } }),
     };
 }
 

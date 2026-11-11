@@ -64,6 +64,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         return {
             title: `${doc.title} - Aide - Sylvain L.`,
             description: doc.description,
+            alternates: { canonical: `/help/${category}/${slugStr}/` },
             openGraph: {
                 title: `${doc.title} - Aide - Sylvain L.`,
                 description: doc.description,
@@ -80,6 +81,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         return {
             title: `${displayName} - ${getCategoryName(category)} - Aide - Sylvain L.`,
             description,
+            alternates: { canonical: `/help/${category}/${slugStr}/` },
             openGraph: {
                 title: `${displayName} - ${getCategoryName(category)} - Aide - Sylvain L.`,
                 description,

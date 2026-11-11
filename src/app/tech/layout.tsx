@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
     title: "Technologies - Sylvain L.",
     description: "Liste des technologies que j'utilise.",
+    alternates: { canonical: "/tech/" },
     openGraph: {
         title: "Technologies - Sylvain L.",
         description: "Liste des technologies que j'utilise.",
