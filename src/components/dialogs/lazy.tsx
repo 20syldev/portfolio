@@ -8,18 +8,25 @@ import type { ShortcutsDialog } from "@/components/dialogs/shortcuts";
 import { useFont } from "@/components/utils/font";
 import { useOnce } from "@/hooks/once";
 
-const Contact = dynamic(() => import("@/components/dialogs/contact").then((m) => m.ContactDialog), {
-    ssr: false,
-});
+const loadContact = () => import("@/components/dialogs/contact").then((m) => m.ContactDialog);
+const loadShortcuts = () => import("@/components/dialogs/shortcuts").then((m) => m.ShortcutsDialog);
+const loadFont = () => import("@/components/dialogs/font").then((m) => m.FontDialog);
 
-const Shortcuts = dynamic(
-    () => import("@/components/dialogs/shortcuts").then((m) => m.ShortcutsDialog),
-    { ssr: false }
-);
+const Contact = dynamic(loadContact, { ssr: false });
 
-const Font = dynamic(() => import("@/components/dialogs/font").then((m) => m.FontDialog), {
-    ssr: false,
-});
+const Shortcuts = dynamic(loadShortcuts, { ssr: false });
+
+const Font = dynamic(loadFont, { ssr: false });
+
+/**
+ * Fetches the three lazy dialogs ahead of their first opening.
+ * Touch screens have no hover to warm them up, so the first tap would wait for the network.
+ */
+export function preloadDialogs() {
+    void loadContact();
+    void loadShortcuts();
+    void loadFont();
+}
 
 /**
  * Contact dialog fetched on its first opening.

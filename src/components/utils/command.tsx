@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { useTheme } from "next-themes";
 import * as React from "react";
 
-import { LazyContactDialog, LazyShortcutsDialog } from "@/components/dialogs/lazy";
+import { LazyContactDialog, LazyShortcutsDialog, preloadDialogs } from "@/components/dialogs/lazy";
 import { Button } from "@/components/ui/button";
 import { useCursor } from "@/components/utils/cursor";
 import { useFont } from "@/components/utils/font";
@@ -83,7 +83,9 @@ export function SearchButton() {
 
 /**
  * Global keyboard shortcuts and dialogs of the command palette.
- * Stays in the initial bundle for the shortcuts; the palette and both dialogs load on first use.
+ * Stays in the initial bundle for the shortcuts; the palette and the dialogs load on first use,
+ * or in advance at the first touch, key press or wheel turn so the first opening does not wait:
+ * the palette is even mounted closed by then, so its first opening is no longer a first mount.
  *
  * @returns The rendered shortcut listener and lazy dialogs
  */
@@ -96,12 +98,25 @@ export function CommandMenu() {
     const { dialogOpen: fontDialogOpen, setDialogOpen: setFontDialogOpen } = useFont();
     const { enabled: motionEnabled, setEnabled: setMotionEnabled } = useMotion();
     const { enabled: xrayEnabled, setEnabled: setXrayEnabled } = useXray();
-    const paletteLoaded = useOnce(open);
+    const [warmed, setWarmed] = React.useState(false);
+    const paletteLoaded = useOnce(open || warmed);
 
     const cycleTheme = React.useCallback(
         () => setTheme(theme === "system" ? "light" : theme === "light" ? "dark" : "system"),
         [theme, setTheme]
     );
+
+    React.useEffect(() => {
+        const events = ["pointerdown", "keydown", "wheel"] as const;
+        const warm = () => {
+            events.forEach((name) => removeEventListener(name, warm));
+            void loadPalette();
+            preloadDialogs();
+            setWarmed(true);
+        };
+        events.forEach((name) => addEventListener(name, warm, { passive: true }));
+        return () => events.forEach((name) => removeEventListener(name, warm));
+    }, []);
 
     React.useEffect(() => {
         const down = (e: KeyboardEvent) => {
