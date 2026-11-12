@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Footer } from "@/components/layout/footer";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { veilles } from "@/data/veille";
+import { type Veille as VeilleEntry, veilles } from "@/data/veille";
 import { useSmoothScroll } from "@/hooks/scroll";
 
 const filters = [
@@ -40,7 +40,39 @@ const filters = [
 ];
 
 /**
- * Tech Watch tab content.
+ * Card of a single veille, linking to its article page.
+ *
+ * @param props - Component props
+ * @param props.veille - The veille to display
+ * @param props.className - Classes put on the link, to place the card in a grid
+ * @returns The rendered veille card
+ */
+export function VeilleCard({ veille, className }: { veille: VeilleEntry; className?: string }) {
+    return (
+        <Link href={`/veille/${veille.id}`} className={className}>
+            <Card className="h-full transition-colors hover:border-primary">
+                <CardHeader>
+                    <CardTitle>{veille.title}</CardTitle>
+                    <CardDescription>{veille.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    {veille.keywords && (
+                        <div className="flex flex-wrap gap-1.5">
+                            {veille.keywords.map((keyword) => (
+                                <Badge key={keyword} variant="outline" className="text-xs">
+                                    {keyword}
+                                </Badge>
+                            ))}
+                        </div>
+                    )}
+                </CardContent>
+            </Card>
+        </Link>
+    );
+}
+
+/**
+ * Tech Watch page content.
  * Displays the list of veille cards with category filters.
  *
  * @returns The rendered veille section
@@ -99,37 +131,15 @@ export function Veille() {
                     ) : (
                         <div className="grid gap-6 md:grid-cols-2">
                             {filtered.map((veille, index) => (
-                                <Link
+                                <VeilleCard
                                     key={veille.id}
-                                    href={`/veille/${veille.id}`}
+                                    veille={veille}
                                     className={
                                         filtered.length % 2 !== 0 && index === filtered.length - 1
                                             ? "md:col-span-2 md:mx-auto md:w-[50%] md:max-w-[calc(50%-0.75rem)]"
                                             : ""
                                     }
-                                >
-                                    <Card className="h-full transition-colors hover:border-primary">
-                                        <CardHeader>
-                                            <CardTitle>{veille.title}</CardTitle>
-                                            <CardDescription>{veille.description}</CardDescription>
-                                        </CardHeader>
-                                        <CardContent>
-                                            {veille.keywords && (
-                                                <div className="flex flex-wrap gap-1.5">
-                                                    {veille.keywords.map((keyword) => (
-                                                        <Badge
-                                                            key={keyword}
-                                                            variant="outline"
-                                                            className="text-xs"
-                                                        >
-                                                            {keyword}
-                                                        </Badge>
-                                                    ))}
-                                                </div>
-                                            )}
-                                        </CardContent>
-                                    </Card>
-                                </Link>
+                                />
                             ))}
                         </div>
                     )}

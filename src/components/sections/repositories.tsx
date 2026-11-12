@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import { CardDialog } from "@/components/dialogs/card";
 import { Footer } from "@/components/layout/footer";
+import { VeilleCard } from "@/components/sections/veille";
 import { Badge } from "@/components/ui/badge";
 import { MetaBadges } from "@/components/ui/meta";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -13,6 +14,7 @@ import { Tags } from "@/components/ui/tags";
 import { articles } from "@/data/articles";
 import { contributions } from "@/data/contributions";
 import { type Project, projects } from "@/data/projects";
+import { veilles } from "@/data/veille";
 import { useApi } from "@/hooks/api";
 import { useCard } from "@/hooks/card";
 import { useSmoothScroll } from "@/hooks/scroll";
@@ -26,8 +28,8 @@ interface RepositoriesProps {
 }
 
 /**
- * Projets tab content: the projects done at Zenetys, then the personal ones, with the project
- * card dialogs.
+ * Projets tab content: the projects done at Zenetys, then the personal ones, then the first
+ * veilles, with the project card dialogs.
  *
  * @param props - Component props
  * @param props.initialProjectId - Optional project ID to open on load
@@ -149,6 +151,25 @@ export function Repositories({ initialProjectId }: RepositoriesProps) {
 
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                         {personalProjects.map(renderProject)}
+                    </div>
+                </section>
+
+                <section id="veille" className="mt-16">
+                    <div className="mb-6 flex flex-wrap items-baseline justify-between gap-x-4">
+                        <h2 className="text-2xl font-bold">Veille</h2>
+                        <Link
+                            href="/veille"
+                            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                        >
+                            Voir les {veilles.length} veilles
+                            <ArrowRight className="h-4 w-4" />
+                        </Link>
+                    </div>
+
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        {veilles.slice(0, 3).map((veille) => (
+                            <VeilleCard key={veille.id} veille={veille} />
+                        ))}
                     </div>
                 </section>
             </div>
