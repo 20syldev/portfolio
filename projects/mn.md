@@ -14,7 +14,7 @@ mn (**M**a**n**ual) est un menu interactif en terminal pour gérer les connexion
 ## mn devient tote {#tote}
 
 mn évolue en [tote](/projet/tote) : les mêmes connexions, dépôts, alias et fonctions, réécrits en Go avec une interface plein écran et des thèmes clair et sombre.
-tote est en cours de développement. La reprise des données de mn passera par un script séparé, documenté à la sortie de tote 1.0.0. D'ici là, mn reste installable et fonctionne comme avant.
+tote est publié depuis sa version 1.0.0. La reprise des données de mn passe par un script séparé, `scripts/import.sh`, qui montre d'abord ce qu'il importerait et n'écrit rien sans l'option `--apply`. mn reste installable et fonctionne comme avant.
 
 ![Les mêmes connexions dans mn, puis dans tote, son successeur](/images/projects/mn/evolution)
 
