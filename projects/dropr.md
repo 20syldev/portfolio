@@ -58,9 +58,9 @@ Chaque fichier est accessible via une URL versionnée de la forme `/<type>/<proj
 
 ```bash
 curl -O https://dropr.sylvain.sh/bash/gft@latest/gft              # un fichier
-curl https://dropr.sylvain.sh/bash/gft@1.0.6                      # les fichiers d'une version, avec leur taille
-curl "https://dropr.sylvain.sh/bash/gft@1.0.6?checksums"          # leurs empreintes SHA-256
-curl -OJ https://dropr.sylvain.sh/download/bash/gft@1.0.6         # la version entière, en gft-1.0.6.tar.gz
+curl https://dropr.sylvain.sh/bash/gft@1.1.0                      # les fichiers d'une version, avec leur taille
+curl "https://dropr.sylvain.sh/bash/gft@1.1.0?checksums"          # leurs empreintes SHA-256
+curl -OJ https://dropr.sylvain.sh/download/bash/gft@1.1.0         # la version entière, en gft-1.1.0.tar.gz
 ```
 
 **Fonctionnalités principales :**
@@ -82,6 +82,7 @@ Avec l'option `"ui": true`, un navigateur reçoit une page là où tout autre cl
 - **Pages** — les paquets par type, un projet avec ses versions, son mode d'emploi, son éventuelle dépréciation et le README de la dernière, une version avec ses fichiers, son archive et ses empreintes, et une recherche
 - **Markdown maison** — le README d'une version est rendu par un lecteur Markdown écrit pour le projet, qui écrit le HTML brut comme du texte, retire les commentaires et ne suit que les liens `http`, `https` et `mailto`
 - **Apparence** — un objet `ui` règle une couleur d'accent, un logo et un favicon ; l'accent colore les boutons et l'anneau de focus, et les liens reçoivent la teinte la plus proche qui reste lisible à 4,5:1 sur le thème clair comme sur le sombre
+- **Documentation intégrée** — avec `"ui": { "docs": true }`, l'instance sert les docs de Dropr (présentation, configuration, routes) à `/-/docs`, avec son accent, son logo et son favicon ; le chemin commence par un tiret, que ni un type ni un projet ne peut porter, si bien qu'il ne cache aucun paquet, et ces pages n'ont pas de forme JSON : tout client reçoit la page
 - **Sobriété** — chaque page est un seul document avec son style intégré, sans script ni police, et sa `Content-Security-Policy` ne laisse charger que son propre style, les images d'un README et le lien vers la recherche
 
 ## Ligne de commande et bibliothèque {#cli}
@@ -104,8 +105,9 @@ Dropr est développé en **TypeScript strict** (ESM) avec **Node.js 24** ou plus
 
 - `packages/` — versions publiées, rangées sous `packages/<type>/<projet>/<version>/`, chaque projet portant un `.versions.json` avec la date de chaque version
 - `src/lib/` — cœur sans API Node : routage, résolution des versions, empreintes, génération des archives tar, types MIME, réponses (dont le limiteur de débit de @moxon/limiter), pages et lecteur Markdown
+- `docs/` — les docs de Dropr en Markdown, que `scripts/docs.ts` transforme en un module généré (non versionné) avant le build, les vérifications et les tests, pour que le cœur, qui ne lit aucun disque, les embarque aussi
 - `src/` — ligne de commande et adaptateur Node : analyse des dossiers, lecture des fichiers, démarrage et configuration
 
 Les fichiers ne sont servis que depuis leur dossier de version : un lien symbolique n'est suivi que si sa cible reste à l'intérieur.
 Les archives sont générées en JavaScript, avec des entrées triées et datées de la sortie de la version : une même version produit donc exactement les mêmes octets à chaque déploiement.
-Le projet n'a que deux dépendances, [@moxon/limiter](https://github.com/moxondev/limiter) et [@20syldev/logger.ts](https://github.com/20syldev/logger.ts), plus de 400 tests, et il est publié sous licence **BSD 3-Clause**.
+Le projet n'a que deux dépendances, [@moxon/limiter](https://github.com/moxondev/limiter) et [@20syldev/logger.ts](https://github.com/20syldev/logger.ts), plus de 900 tests, et il est publié sous licence **BSD 3-Clause**.
