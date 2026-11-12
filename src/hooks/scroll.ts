@@ -386,6 +386,7 @@ export function useScroll({
         };
 
         const abort = () => {
+            container.classList.remove("snap-pending");
             const drag = dragRef.current;
             if (!drag) return;
             if (!isActive(drag)) {
@@ -403,6 +404,7 @@ export function useScroll({
             const axis: Axis = Math.abs(deltaX) > Math.abs(deltaY) * tuning.axisBias ? "x" : "y";
             const { tab: currentTab } = targetRef.current;
 
+            container.classList.remove("snap-pending");
             drag.axis = axis;
             drag.lockDelta = drag.source === "touch" ? (axis === "x" ? deltaX : deltaY) : 0;
 
@@ -550,6 +552,7 @@ export function useScroll({
             drag.startX = touch.clientX;
             drag.startY = touch.clientY;
             dragRef.current = drag;
+            container.classList.add("snap-pending");
         };
 
         const handleTouchMove = (e: TouchEvent) => {
@@ -588,6 +591,7 @@ export function useScroll({
             const drag = dragRef.current;
             if (!drag || drag.source !== "touch") return;
             if (!findTouch(e.changedTouches, drag.id)) return;
+            container.classList.remove("snap-pending");
 
             if (!isActive(drag)) {
                 dragRef.current = null;
@@ -895,6 +899,7 @@ export function useSmoothScroll<T extends HTMLElement>({
                 smoothWheel: true,
                 syncTouch: !delayed,
                 overscroll: delayed ? false : undefined,
+                prevent: () => !!container.closest(".snap-moving, .snap-pending"),
             });
 
             function raf(time: number) {
