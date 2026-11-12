@@ -54,6 +54,7 @@ export default function MentionsPage() {
                         <h2 className="text-xl font-semibold">Éditeur du site</h2>
                         <div className="text-sm text-muted-foreground space-y-1">
                             <p>Nom : Lambert Sylvain</p>
+                            <p>Directeur de la publication : Lambert Sylvain</p>
                             <p>
                                 Email : <ContactLink>{profile.links.email}</ContactLink>
                             </p>
@@ -63,7 +64,11 @@ export default function MentionsPage() {
                     <section className="space-y-3">
                         <h2 className="text-xl font-semibold">Hébergeur</h2>
                         <div className="text-sm text-muted-foreground space-y-1">
-                            <p>Nom : GitHub Pages</p>
+                            <p>Nom : GitHub Pages (GitHub, Inc.)</p>
+                            <p>
+                                Adresse postale : 88 Colin P. Kelly Jr. Street, San Francisco, CA
+                                94107, États-Unis
+                            </p>
                             <p>
                                 Adresse :{" "}
                                 <a
@@ -86,9 +91,34 @@ export default function MentionsPage() {
                     </section>
 
                     <section className="space-y-3">
+                        <h2 className="text-xl font-semibold">Hébergeur de l'API</h2>
+                        <div className="text-sm text-muted-foreground space-y-1">
+                            <p>
+                                Les services api.sylvain.sh et api.moxon.dev, deux noms pour un même
+                                serveur, sont hébergés par{" "}
+                                <a
+                                    href="https://render.com"
+                                    className="underline hover:text-foreground transition-colors"
+                                >
+                                    Render
+                                </a>
+                                .
+                            </p>
+                        </div>
+                    </section>
+
+                    <section className="space-y-3">
                         <h2 className="text-xl font-semibold">Nom de domaine</h2>
                         <div className="text-sm text-muted-foreground space-y-1">
-                            <p>Registrar : Namecheap, Inc.</p>
+                            <p>
+                                Registrar :{" "}
+                                <a
+                                    href="https://porkbun.com"
+                                    className="underline hover:text-foreground transition-colors"
+                                >
+                                    Porkbun LLC
+                                </a>
+                            </p>
                             <p>
                                 Domaine principal :{" "}
                                 <a

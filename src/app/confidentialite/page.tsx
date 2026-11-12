@@ -68,7 +68,10 @@ export default function ConfidentialitePage() {
                             (clair, sombre ou système), l'activation du curseur personnalisé, la
                             police de caractères choisie, la taille de police, l'activation des
                             animations, le mode X-Ray et la version de l'application. Rien d'autre
-                            n'est stocké.
+                            n'est stocké. Ces préférences restent dans votre navigateur et ne sont
+                            jamais envoyées nulle part. Vous pouvez les effacer à tout moment via
+                            les réglages de votre navigateur (données de sites ou « Effacer les
+                            données de navigation »), le site reprend alors ses réglages par défaut.
                         </p>
                     </section>
 
@@ -95,11 +98,53 @@ export default function ConfidentialitePage() {
                                         api.sylvain.sh
                                     </a>
                                 </code>
-                                , un service hébergé sur le même domaine, pour afficher des
-                                statistiques de projets. Aucune donnée personnelle n'est transmise
-                                lors de ces appels.
+                                , également accessible sous le nom{" "}
+                                <code className="text-xs bg-muted px-1 py-0.5 rounded">
+                                    api.moxon.dev
+                                </code>
+                                , un service que j'héberge chez{" "}
+                                <a
+                                    href="https://render.com"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="underline hover:text-foreground transition-colors"
+                                >
+                                    Render
+                                </a>
+                                , pour afficher des statistiques de projets et mesurer son temps de
+                                réponse. Aucune donnée personnelle n'est transmise lors de ces
+                                appels.
                             </p>
                         </div>
+                    </section>
+
+                    <section className="space-y-3">
+                        <h2 className="text-xl font-semibold">Hébergement et journaux serveur</h2>
+                        <p className="text-sm text-muted-foreground">
+                            Ce site est servi par GitHub Pages. Comme pour tout hébergeur, votre
+                            adresse IP et les informations techniques de votre navigateur peuvent
+                            être traitées par GitHub pour assurer la diffusion et la sécurité du
+                            service, selon{" "}
+                            <a
+                                href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="underline hover:text-foreground transition-colors"
+                            >
+                                sa propre politique de confidentialité
+                            </a>
+                            . Je n'ai aucun accès à ces journaux et je ne les exploite pas. Il en va
+                            de même pour l'API, hébergée chez Render.
+                        </p>
+                    </section>
+
+                    <section className="space-y-3">
+                        <h2 className="text-xl font-semibold">Liens externes</h2>
+                        <p className="text-sm text-muted-foreground">
+                            Ce site contient des liens vers des services tiers (GitHub, LinkedIn,
+                            Credly, Google Skills, etc.). Une fois sur ces sites, leur propre
+                            politique de confidentialité s'applique.
+                        </p>
                     </section>
 
                     <section className="space-y-3">
