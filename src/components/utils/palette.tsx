@@ -462,7 +462,7 @@ export function Palette({
             <CommandItem
                 value="Veilles technologiques"
                 keywords={["node.js", "typescript", "radix", "next.js", "vue.js"]}
-                onSelect={() => runCommand(() => router.push("/veilles/"))}
+                onSelect={() => runCommand(() => router.push("/veille/"))}
             >
                 <Newspaper className="mr-2 h-4 w-4" />
                 Veilles technologiques
@@ -506,7 +506,7 @@ export function Palette({
                 "technologique",
                 "technologiques",
             ]}
-            onSelect={() => runCommand(() => router.push(`/veilles/#${veille.id}`))}
+            onSelect={() => runCommand(() => router.push(`/veille/${veille.id}`))}
             onMouseEnter={(e) =>
                 handleHover(e, {
                     title: veille.title,
