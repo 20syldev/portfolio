@@ -38,7 +38,7 @@ export function Doc({ veille, content }: DocProps) {
             ref={scrollRef}
             className="h-dvh overflow-x-hidden overflow-y-auto scrollbar-none flex flex-col"
         >
-            <Nav currentTab={2} tabs={tabs} links={urls} />
+            <Nav currentTab={-1} tabs={tabs} links={urls} />
 
             {/* Header */}
             <div className="border-b pt-bar">

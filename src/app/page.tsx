@@ -8,10 +8,10 @@ import { Footer } from "@/components/layout/footer";
 import { Nav } from "@/components/layout/nav";
 import { Cards } from "@/components/sections/cards";
 import { Hero } from "@/components/sections/hero";
+import { Parcours } from "@/components/sections/parcours";
 import { Projects } from "@/components/sections/projects";
 import { Repositories } from "@/components/sections/repositories";
 import { Technologies } from "@/components/sections/technologies";
-import { Veille } from "@/components/sections/veille";
 import { useScroll } from "@/hooks/scroll";
 import { tabs, titles, urls } from "@/lib/nav";
 
@@ -27,13 +27,13 @@ const sections = 4;
 function getTab(path: string): number {
     const p = path.replace(/\/$/, "");
     if (p === "/repositories") return 1;
-    if (p === "/veille") return 2;
+    if (p === "/parcours") return 2;
     return 0;
 }
 
 /**
  * Home page with horizontal tab navigation and vertical section scrolling.
- * Contains Hero, Technologies, Projects, Cards, Projets and Veille tabs. The Projets and Veille
+ * Contains Hero, Technologies, Projects, Cards, Projets and Parcours tabs. The Projets and Parcours
  * tabs mount after the first interaction, or at once when the page opens on them.
  *
  * @returns The rendered home page
@@ -96,13 +96,13 @@ export default function HomePage() {
         };
     }, [currentTab, repositoriesReady, containerRef]);
 
-    const [veilleReady, setVeilleReady] = useState(() => getTab(pathname) === 2);
+    const [parcoursReady, setParcoursReady] = useState(() => getTab(pathname) === 2);
     useEffect(() => {
-        if (veilleReady || currentTab < 1) return;
+        if (parcoursReady || currentTab < 1) return;
 
-        const id = setTimeout(() => setVeilleReady(true), 800);
+        const id = setTimeout(() => setParcoursReady(true), 800);
         return () => clearTimeout(id);
-    }, [currentTab, veilleReady]);
+    }, [currentTab, parcoursReady]);
 
     useEffect(() => {
         if (!mounted.current) {
@@ -212,10 +212,12 @@ export default function HomePage() {
 
                 <div className="snap-tab">{repositoriesReady && <Repositories />}</div>
 
-                <div className="snap-tab">{veilleReady && <Veille />}</div>
+                <div className="snap-tab">
+                    {parcoursReady && <Parcours onProjects={() => goToTab(1)} />}
+                </div>
             </div>
         ),
-        [repositoriesReady, veilleReady, tabsRef, sectionsRef, tabsStyle, sectionsStyle]
+        [repositoriesReady, parcoursReady, goToTab, tabsRef, sectionsRef, tabsStyle, sectionsStyle]
     );
 
     return (
