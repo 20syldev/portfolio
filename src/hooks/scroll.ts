@@ -774,6 +774,29 @@ export function useScroll({
     }, [getSectionsForTab, threshold, totalTabs]);
 
     useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+
+        let timer: ReturnType<typeof setTimeout> | undefined;
+
+        const rest = () => container.removeAttribute("data-scrolling");
+        const handleScroll = () => {
+            if (!container.hasAttribute("data-scrolling")) {
+                container.setAttribute("data-scrolling", "");
+            }
+            clearTimeout(timer);
+            timer = setTimeout(rest, tuning.scrollRest);
+        };
+
+        container.addEventListener("scroll", handleScroll, { capture: true, passive: true });
+        return () => {
+            clearTimeout(timer);
+            container.removeEventListener("scroll", handleScroll, true);
+            rest();
+        };
+    }, []);
+
+    useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (
                 dragRef.current ||
