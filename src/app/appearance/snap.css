@@ -28,7 +28,7 @@
 
 /* Modal Cover: a dialog open on top leaves the tabs and sections out of view unpainted, their layers
    made the dialog stutter whenever it resized */
-body:has([data-slot="dialog-content"][data-state="open"]) :is(.snap-tab, .snap-section)[data-away] {
+html[data-modal] :is(.snap-tab, .snap-section)[data-away] {
     visibility: hidden;
 }
 

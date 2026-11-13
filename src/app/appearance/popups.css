@@ -64,12 +64,11 @@
 }
 
 /* Popup Idle Work: the page behind an open dialog is blurred, its looping animations rest */
-body:has([data-slot="dialog-overlay"])
+html[data-modal]
     :is(.animate-shine, .animate-pulse, .animate-sparkle, .animate-float):not(
         [data-slot="dialog-content"] *
     ),
-body:has([data-slot="dialog-overlay"])
-    .gradient-border:not([data-slot="dialog-content"] *)::before {
+html[data-modal] .gradient-border:not([data-slot="dialog-content"] *)::before {
     animation-play-state: paused;
 }
 
