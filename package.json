@@ -9,7 +9,7 @@
         "generate": "tsx scripts/generate.ts",
         "icon": "tsx scripts/icon.ts",
         "cv": "tsx scripts/cv.ts",
-        "format": "./scripts/format.sh",
+        "format": "prettier --write . && eslint --fix",
         "check": "tsc --noEmit",
         "lint": "eslint"
     },
