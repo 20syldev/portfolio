@@ -897,10 +897,9 @@ export function useSmoothScroll<T extends HTMLElement>({
                 content: content,
                 duration: 1.2,
                 easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                touchMultiplier: 2,
                 infinite: false,
                 smoothWheel: true,
-                syncTouch: !delayed,
+                syncTouch: false,
                 overscroll: delayed ? false : undefined,
                 prevent: () => !!container.closest(".snap-moving, .snap-pending"),
             });
