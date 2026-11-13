@@ -136,8 +136,17 @@ export function DetailNav({
             { root: useWindow ? null : container, rootMargin: "-10% 0px -70% 0px", threshold: 0 }
         );
 
+        let frame = 0;
+        const schedule = () => {
+            if (frame) return;
+            frame = requestAnimationFrame(() => {
+                frame = 0;
+                updateActiveSection();
+            });
+        };
+
         const scrollTarget = useWindow ? window : container!;
-        scrollTarget.addEventListener("scroll", updateActiveSection, { passive: true });
+        scrollTarget.addEventListener("scroll", schedule, { passive: true });
 
         const timeout = setTimeout(() => {
             for (const { id } of sections) {
@@ -149,8 +158,9 @@ export function DetailNav({
 
         return () => {
             clearTimeout(timeout);
+            cancelAnimationFrame(frame);
             observer.current?.disconnect();
-            scrollTarget.removeEventListener("scroll", updateActiveSection);
+            scrollTarget.removeEventListener("scroll", schedule);
         };
     }, [scrollContainerRef, sections]);
 
@@ -165,7 +175,7 @@ export function DetailNav({
     };
 
     useEffect(() => {
-        if (!active || mobile) return;
+        if (!active || mobile || window.location.hash === `#${active}`) return;
         window.history.replaceState(null, "", `#${active}`);
     }, [active, mobile]);
 

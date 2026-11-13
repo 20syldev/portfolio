@@ -57,37 +57,39 @@ export function Documentation({ header, content, images }: DocumentationProps) {
         >
             <Nav currentTab={-1} tabs={tabs} links={urls} />
 
-            {/* Custom header */}
-            <div className="border-b pt-bar">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">{header}</div>
-            </div>
+            <div data-scroll-content className="flex flex-1 flex-col">
+                {/* Custom header */}
+                <div className="border-b pt-bar">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">{header}</div>
+                </div>
 
-            {/* Content */}
-            <div className="max-w-7xl mx-auto flex flex-1 w-full">
-                {/* Desktop sidebar */}
-                <DetailNav
-                    className="hidden md:flex sticky top-bar h-[calc(100dvh-var(--bar-h))] border-r-0"
-                    scrollContainerRef={scrollRef}
-                    scrollTo={scrollTo}
-                    content={content}
-                />
-
-                {/* Main content */}
-                <main className="flex-1 min-w-0 px-4 sm:px-6 lg:px-8 md:py-6">
-                    {/* Mobile navigation */}
+                {/* Content */}
+                <div className="max-w-7xl mx-auto flex flex-1 w-full">
+                    {/* Desktop sidebar */}
                     <DetailNav
-                        className="md:hidden sticky top-stick z-10 -mx-6 mb-6 transition-[top] duration-300 motion-reduce:transition-none"
-                        mobile
+                        className="hidden md:flex sticky top-bar h-[calc(100dvh-var(--bar-h))] border-r-0"
                         scrollContainerRef={scrollRef}
                         scrollTo={scrollTo}
                         content={content}
                     />
 
-                    <DetailContent content={content} images={images} />
-                </main>
-            </div>
+                    {/* Main content */}
+                    <main className="flex-1 min-w-0 px-4 sm:px-6 lg:px-8 md:py-6">
+                        {/* Mobile navigation */}
+                        <DetailNav
+                            className="md:hidden sticky top-stick z-10 -mx-6 mb-6 transition-[top] duration-300 motion-reduce:transition-none"
+                            mobile
+                            scrollContainerRef={scrollRef}
+                            scrollTo={scrollTo}
+                            content={content}
+                        />
 
-            <Footer />
+                        <DetailContent content={content} images={images} />
+                    </main>
+                </div>
+
+                <Footer />
+            </div>
         </div>
     );
 }
