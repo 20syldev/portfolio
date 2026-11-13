@@ -845,7 +845,9 @@ interface UseSmoothScrollOptions {
 
 /**
  * Hook that adds Lenis smooth scrolling to a container element.
- * Supports both immediate and delayed initialization modes.
+ * Supports both immediate and delayed initialization modes. Lenis watches the element marked
+ * `data-scroll-content` for size changes, else the first child, so a page whose first child is a
+ * fixed header must mark the wrapper that holds the real content.
  *
  * @param options - Configuration options
  * @param options.enabled - Whether smooth scrolling is active (default: true)
@@ -885,7 +887,8 @@ export function useSmoothScroll<T extends HTMLElement>({
             if (!containerRef.current) return;
 
             const container = containerRef.current;
-            const content = container.firstElementChild as HTMLElement | null;
+            const content = (container.querySelector(":scope > [data-scroll-content]") ??
+                container.firstElementChild) as HTMLElement | null;
 
             if (!content) return;
 

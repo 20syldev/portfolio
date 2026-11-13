@@ -7,7 +7,8 @@ const threshold = 8;
 
 /**
  * Hook marking a header as solid once content scrolls under it.
- * Scrollers are read when they move, and once at mount for a page that opened already scrolled by
+ * A scroller is only looked at when it crosses the threshold, since a smooth scroller fires a
+ * scroll event on every frame, and once at mount for a page that opened already scrolled by
  * an anchor. The home pager announces each settle, since a section leaving the screen is not a
  * scroll and a Web Animation never fires transitionend.
  *
@@ -41,7 +42,10 @@ export function useSolid(ref: RefObject<HTMLElement | null>) {
             const target = event.target === document ? document.scrollingElement : event.target;
             if (!(target instanceof Element)) return;
 
-            if (target.scrollTop > threshold) scrolled.add(target);
+            const past = target.scrollTop > threshold;
+            if (past === scrolled.has(target)) return;
+
+            if (past) scrolled.add(target);
             else scrolled.delete(target);
             sync();
         };
