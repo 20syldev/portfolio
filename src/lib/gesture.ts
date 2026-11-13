@@ -15,6 +15,7 @@ export const tuning = {
     // Feel
     rubberBand: 0.55, // Edge resistance, lower is stiffer
     clickGuard: 250, // Click swallowed after a drag (ms)
+    scrollRest: 200, // Quiet time before a page counts as no longer scrolling (ms)
     duration: 600, // Duration of a notch, key or dot move (ms)
     settleMin: 222, // Shortest settle animation (ms)
     settleMax: 600, // Longest settle animation (ms)
