@@ -14,6 +14,7 @@ import { projects } from "@/data/projects";
 import { useApi } from "@/hooks/api";
 import { useCard } from "@/hooks/card";
 import { useStatus } from "@/hooks/status";
+import { sortByStatus } from "@/lib/projects";
 
 // Card height in pixels for row calculation
 const cardHeight = 124;
@@ -85,7 +86,10 @@ export function Projects() {
         return versions[projectId];
     };
 
-    const previewProjects = projects.slice(0, count);
+    const previewProjects = (loading ? projects : sortByStatus(projects, getProjectStatus)).slice(
+        0,
+        count
+    );
 
     return (
         <>
