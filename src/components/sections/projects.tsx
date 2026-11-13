@@ -16,8 +16,11 @@ import { useCard } from "@/hooks/card";
 import { useStatus } from "@/hooks/status";
 import { sortByStatus } from "@/lib/projects";
 
-// Card height in pixels for row calculation
+// Row stride in pixels (card height) for row calculation
 const cardHeight = 124;
+
+// Phone row stride: a 121px card plus the 16px grid gap
+const phoneCardHeight = 137;
 
 /**
  * Hook to calculate optimal grid layout based on viewport.
@@ -34,11 +37,13 @@ function useProjectGrid() {
             // Columns based on viewport width
             let cols: number;
             let headerOffset: number;
+            let rowHeight = cardHeight;
 
             if (width < 640) {
-                // Mobile: single column
+                // Mobile: single column, offset is the measured chrome around the cards
                 cols = 1;
-                headerOffset = 300;
+                headerOffset = 164;
+                rowHeight = phoneCardHeight;
             } else if (width < 1024) {
                 // Tablet (sm/md): 2 columns
                 cols = 2;
@@ -51,7 +56,7 @@ function useProjectGrid() {
 
             // Rows based on available height
             const availableHeight = height - headerOffset;
-            let rows = Math.floor(availableHeight / cardHeight);
+            let rows = Math.floor(availableHeight / rowHeight);
 
             // Clamp rows based on layout
             const maxRows = cols === 1 ? 5 : 4;
