@@ -54,7 +54,7 @@ import { formatShortcut, getShortcut } from "@/data/shortcuts";
 import { veilles } from "@/data/veille";
 import { type ProjectStatus, useStatus } from "@/hooks/status";
 import { getCategoryName } from "@/lib/docs";
-import { projectPath } from "@/lib/projects";
+import { projectPath, sortByStatus } from "@/lib/projects";
 import { cn } from "@/lib/utils";
 
 const statusIcon: Record<Exclude<ProjectStatus, null>, React.ElementType> = {
@@ -395,11 +395,6 @@ export function Palette({
         navigationItems.length +
         1;
 
-    const statusProjects = projects.filter((p) => getProjectStatus(p.id) !== null);
-    const fillerProjects = projects
-        .filter((p) => getProjectStatus(p.id) === null)
-        .slice(0, maxRecentProjects - statusProjects.length);
-
     const handleHover = (
         e: React.MouseEvent,
         data: { title: string; description?: string; tags?: string[] }
@@ -410,7 +405,7 @@ export function Palette({
 
     const clearHover = () => setHoverPreview(null);
 
-    const recentProjectItems = [...statusProjects, ...fillerProjects]
+    const recentProjectItems = sortByStatus(projects, getProjectStatus)
         .slice(0, maxRecentProjects)
         .map((project) => {
             const status = getProjectStatus(project.id);
