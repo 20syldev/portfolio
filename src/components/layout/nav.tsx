@@ -24,8 +24,9 @@ interface NavProps {
 
 /**
  * Floating pill header shown on every page.
- * The wordmark is left out on the home page, on phones and in low windows. The glass goes solid
- * once content scrolls under it, and on phones the pill slides away while a page scrolls down.
+ * The wordmark is left out on the home page, on phones and in low windows. The tabs share one
+ * width so the active pill keeps its size from one tab to the next. The glass goes solid once
+ * content scrolls under it, and on phones the pill slides away while a page scrolls down.
  *
  * @param props - Component props
  * @param props.currentTab - Currently active tab index, or -1 on pages outside the tabs
@@ -91,10 +92,13 @@ export function Nav({ currentTab, tabs, onTabChange, links }: NavProps) {
                     </div>
                 </div>
 
-                <nav aria-label="Navigation principale" className="flex items-center gap-1">
+                <nav
+                    aria-label="Navigation principale"
+                    className="grid grid-flow-col auto-cols-fr items-center gap-1"
+                >
                     {tabs.map((tab, index) => {
                         const active = currentTab === index;
-                        const className = `glass-tab rounded-full px-(--bar-tab-x) py-(--bar-tab-y) text-(length:--bar-tab-size) leading-[1.4] whitespace-nowrap ${
+                        const className = `glass-tab rounded-full text-center px-(--bar-tab-x) py-(--bar-tab-y) text-(length:--bar-tab-size) leading-[1.4] whitespace-nowrap ${
                             active
                                 ? "font-medium text-foreground"
                                 : "text-tab-foreground hover:text-foreground"
