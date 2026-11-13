@@ -4,6 +4,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { XIcon } from "lucide-react";
 import * as React from "react";
 
+import { useModalMark } from "@/hooks/modal";
 import { cn } from "@/lib/utils";
 
 /**
@@ -56,6 +57,8 @@ function DialogOverlay({
     className,
     ...props
 }: React.ComponentProps<typeof DialogPrimitive.Overlay>) {
+    useModalMark();
+
     return (
         <DialogPrimitive.Overlay
             data-slot="dialog-overlay"
