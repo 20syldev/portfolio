@@ -57,7 +57,7 @@
 }
 .gradient-border::before {
     border-radius: calc(var(--radius-lg) + 2px);
-    animation: gradient-rotate 3s linear infinite;
+    animation: gradient-rotate 3s steps(60) infinite;
     transition: all 0.2s ease;
     position: absolute;
     content: "";
