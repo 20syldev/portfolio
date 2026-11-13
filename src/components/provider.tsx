@@ -1,56 +1,16 @@
 "use client";
 
-import Lenis from "lenis";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import * as React from "react";
-import { useEffect } from "react";
 
 import { LazyFontDialog } from "@/components/dialogs/lazy";
 import { CursorProvider } from "@/components/utils/cursor";
 import { FontProvider } from "@/components/utils/font";
 import { KonamiProvider } from "@/components/utils/konami";
-import { MotionProvider, useMotionEnabled } from "@/components/utils/motion";
+import { MotionProvider } from "@/components/utils/motion";
 import { NotifProvider } from "@/components/utils/notif";
 import { XrayProvider } from "@/components/utils/xray";
 import { useSheen } from "@/hooks/sheen";
-
-/**
- * Provider for Lenis smooth scrolling functionality.
- * Integrates smooth scroll behavior with React and Next.js routing.
- *
- * @param props - Provider props
- * @param props.children - Child components to wrap with smooth scroll context
- * @returns The rendered provider with smooth scroll functionality
- */
-function LenisProvider({ children }: { children: React.ReactNode }) {
-    const motion = useMotionEnabled();
-
-    useEffect(() => {
-        if (!motion) return;
-
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            touchMultiplier: 2,
-            infinite: false,
-            smoothWheel: true,
-        });
-
-        function raf(time: number) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-
-        const rafId = requestAnimationFrame(raf);
-
-        return () => {
-            cancelAnimationFrame(rafId);
-            lenis.destroy();
-        };
-    }, [motion]);
-
-    return <>{children}</>;
-}
 
 /**
  * Installs the sheen that follows the pointer over the glass cards.
@@ -76,18 +36,16 @@ export function ThemeProvider({
     return (
         <NextThemesProvider {...props}>
             <MotionProvider>
-                <LenisProvider>
-                    <CursorProvider>
-                        <FontProvider>
-                            <LazyFontDialog />
-                            <KonamiProvider>
-                                <XrayProvider>{children}</XrayProvider>
-                            </KonamiProvider>
-                        </FontProvider>
-                        <NotifProvider />
-                        <Sheen />
-                    </CursorProvider>
-                </LenisProvider>
+                <CursorProvider>
+                    <FontProvider>
+                        <LazyFontDialog />
+                        <KonamiProvider>
+                            <XrayProvider>{children}</XrayProvider>
+                        </KonamiProvider>
+                    </FontProvider>
+                    <NotifProvider />
+                    <Sheen />
+                </CursorProvider>
             </MotionProvider>
         </NextThemesProvider>
     );
