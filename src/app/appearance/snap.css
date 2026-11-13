@@ -20,6 +20,12 @@
     animation-play-state: paused;
 }
 
+/* Scroll Rest: tabs and sections out of view are left unpainted while a page scrolls on the main thread */
+.snap-container[data-scrolling]:not(.snap-moving, .snap-pending)
+    :is(.snap-tab, .snap-section)[data-away] {
+    visibility: hidden;
+}
+
 /* Modal Cover: a dialog open on top leaves the tabs and sections out of view unpainted, their layers
    made the dialog stutter whenever it resized */
 body:has([data-slot="dialog-content"][data-state="open"]) :is(.snap-tab, .snap-section)[data-away] {
