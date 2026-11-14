@@ -10,6 +10,7 @@ import { MetaBadges } from "@/components/ui/meta";
 import { Skeleton } from "@/components/ui/skeleton";
 import { StatusBadge } from "@/components/ui/status";
 import { Tags } from "@/components/ui/tags";
+import { Tile } from "@/components/ui/tile";
 import { projects } from "@/data/projects";
 import { useApi } from "@/hooks/api";
 import { useCard } from "@/hooks/card";
@@ -108,63 +109,65 @@ export function Projects() {
                             const status = getProjectStatus(project.id);
 
                             return (
-                                <button
+                                <Tile
                                     key={project.id}
-                                    data-status={status ?? undefined}
-                                    onClick={() => open(project)}
-                                    className={`flex relative flex-col gap-2 p-4 text-left card-hover hover:cursor-pointer ${
-                                        status ? "gradient-border glow-hover" : "border"
-                                    } ${project.archived || project.paused ? "inactive" : ""}`}
+                                    asChild
+                                    status={status}
+                                    inactive={project.archived || project.paused}
+                                    className="relative gap-2 text-left hover:cursor-pointer"
                                 >
-                                    {/* Status Badge */}
-                                    {status && (
-                                        <StatusBadge
-                                            status={status}
-                                            github={project.github}
-                                            npm={project.npm}
-                                        />
-                                    )}
+                                    <button onClick={() => open(project)}>
+                                        {status && (
+                                            <StatusBadge
+                                                status={status}
+                                                github={project.github}
+                                                npm={project.npm}
+                                            />
+                                        )}
 
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium">{project.name}</span>
-                                        <div className="flex gap-1">
-                                            {loading ? (
-                                                <Skeleton className="h-5 w-10" />
-                                            ) : getVersion(project.id) ? (
-                                                project.npm || project.github ? (
-                                                    <a
-                                                        href={
-                                                            project.npm ??
-                                                            `${project.github}/releases/latest`
-                                                        }
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        onClick={(e) => e.stopPropagation()}
-                                                    >
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-sm font-medium">
+                                                {project.name}
+                                            </span>
+                                            <div className="flex gap-1">
+                                                {loading ? (
+                                                    <Skeleton className="h-5 w-10" />
+                                                ) : getVersion(project.id) ? (
+                                                    project.npm || project.github ? (
+                                                        <a
+                                                            href={
+                                                                project.npm ??
+                                                                `${project.github}/releases/latest`
+                                                            }
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            onClick={(e) => e.stopPropagation()}
+                                                        >
+                                                            <Badge
+                                                                className="py-0 text-xs font-normal"
+                                                                variant="outline"
+                                                            >
+                                                                {getVersion(project.id)}
+                                                            </Badge>
+                                                        </a>
+                                                    ) : (
                                                         <Badge
                                                             className="py-0 text-xs font-normal"
                                                             variant="outline"
                                                         >
                                                             {getVersion(project.id)}
                                                         </Badge>
-                                                    </a>
-                                                ) : (
-                                                    <Badge
-                                                        className="py-0 text-xs font-normal"
-                                                        variant="outline"
-                                                    >
-                                                        {getVersion(project.id)}
-                                                    </Badge>
-                                                )
-                                            ) : null}
-                                            <MetaBadges project={project} variant="compact" />
+                                                    )
+                                                ) : null}
+                                                <MetaBadges project={project} variant="compact" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <span className="line-clamp-2 text-xs text-muted-foreground">
-                                        {project.description}
-                                    </span>
-                                    <Tags tags={project.tags} />
-                                </button>
+                                        <span className="line-clamp-2 text-xs text-muted-foreground">
+                                            {project.description}
+                                        </span>
+                                        <Tags tags={project.tags} />
+                                    </button>
+                                </Tile>
                             );
                         })}
                     </div>
