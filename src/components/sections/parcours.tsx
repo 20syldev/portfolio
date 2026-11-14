@@ -29,6 +29,7 @@ import { MetaBadges } from "@/components/ui/meta";
 import { Period } from "@/components/ui/period";
 import { StatusBadge } from "@/components/ui/status";
 import { Tags } from "@/components/ui/tags";
+import { Tile } from "@/components/ui/tile";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import {
     alternance,
@@ -131,12 +132,7 @@ function ProjectCard({ project }: { project: ParcoursProject }) {
     const status = useStatus()(project.repo);
 
     return (
-        <div
-            data-status={status ?? undefined}
-            className={`card-hover flex flex-col gap-3 p-4 ${
-                status ? "gradient-border glow-hover" : "border"
-            } ${inactive ? "inactive" : ""}`}
-        >
+        <Tile status={status} inactive={inactive} className="gap-3">
             <div className="flex items-start gap-3">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted">
                     <Icon className="h-5 w-5 text-primary" aria-hidden />
@@ -219,7 +215,7 @@ function ProjectCard({ project }: { project: ParcoursProject }) {
                     </Button>
                 </div>
             </div>
-        </div>
+        </Tile>
     );
 }
 
