@@ -228,16 +228,16 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
             - name: Setup Pages
-              uses: actions/configure-pages@v4
+              uses: actions/configure-pages@v6
             - name: Upload artifact
-              uses: actions/upload-pages-artifact@v3
+              uses: actions/upload-pages-artifact@v5
               with:
                   path: "."
             - name: Deploy to GitHub Pages
               id: deployment
-              uses: actions/deploy-pages@v4
+              uses: actions/deploy-pages@v5
 ```
 
 Ce workflow se déclenche automatiquement à chaque push sur la branche `master`. Il télécharge votre code, configure GitHub Pages, et déploie le contenu du dépôt.

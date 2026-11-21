@@ -78,16 +78,16 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
 
             - name: Setup Node
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v7
               with:
-                  node-version: 20
+                  node-version: 24
                   cache: npm
 
             - name: Setup Pages
-              uses: actions/configure-pages@v4
+              uses: actions/configure-pages@v6
 
             - name: Install dependencies
               run: npm ci
@@ -96,7 +96,7 @@ jobs:
               run: npm run build
 
             - name: Upload artifact
-              uses: actions/upload-pages-artifact@v3
+              uses: actions/upload-pages-artifact@v5
               with:
                   path: out
 
@@ -109,7 +109,7 @@ jobs:
         steps:
             - name: Deploy to GitHub Pages
               id: deployment
-              uses: actions/deploy-pages@v4
+              uses: actions/deploy-pages@v5
 ```
 
 ## Explication détaillée {#details}
@@ -131,12 +131,12 @@ Si vous avez lu le guide [VitePress](/help/github/workflows/vitepress), voici le
 
 | Étape           | Action                             | Détail                                              |
 | --------------- | ---------------------------------- | --------------------------------------------------- |
-| **Checkout**    | `actions/checkout@v4`              | Clone le dépôt (shallow par défaut)                 |
-| **Setup Node**  | `actions/setup-node@v4`            | Installe Node.js 20 avec cache npm                  |
-| **Setup Pages** | `actions/configure-pages@v4`       | Configure l'environnement GitHub Pages              |
+| **Checkout**    | `actions/checkout@v7`              | Clone le dépôt (shallow par défaut)                 |
+| **Setup Node**  | `actions/setup-node@v7`            | Installe Node.js 24 avec cache npm                  |
+| **Setup Pages** | `actions/configure-pages@v6`       | Configure l'environnement GitHub Pages              |
 | **Install**     | `npm ci`                           | Installe les dépendances depuis `package-lock.json` |
 | **Build**       | `npm run build`                    | Compile le projet Next.js en HTML statique          |
-| **Upload**      | `actions/upload-pages-artifact@v3` | Envoie le dossier `out/` comme artifact             |
+| **Upload**      | `actions/upload-pages-artifact@v5` | Envoie le dossier `out/` comme artifact             |
 
 ### Que fait `npm run build` ?
 
@@ -202,7 +202,7 @@ Adaptez le workflow :
 
 ```yml
 - name: Upload artifact
-  uses: actions/upload-pages-artifact@v3
+  uses: actions/upload-pages-artifact@v5
   with:
       path: build
 ```
@@ -211,7 +211,7 @@ Adaptez le workflow :
 
 ```yml
 - name: Cache Next.js
-  uses: actions/cache@v4
+  uses: actions/cache@v6
   with:
       path: .next/cache
       key: nextjs-${{ hashFiles('package-lock.json') }}
@@ -242,7 +242,7 @@ Certaines fonctionnalités Next.js ne sont **pas disponibles** en mode export :
 | **Framework**   | Next.js (React)                    |
 | **Mode**        | Static Export (`output: "export"`) |
 | **Déclencheur** | Push sur `master` + manuel         |
-| **Node.js**     | 20                                 |
+| **Node.js**     | 24                                 |
 | **Build**       | `npm run build`                    |
 | **Sortie**      | `out/`                             |
 | **Déploiement** | GitHub Pages                       |

@@ -70,18 +70,18 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
               with:
                   fetch-depth: 0
 
             - name: Setup Node
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v7
               with:
-                  node-version: 20
+                  node-version: 24
                   cache: npm
 
             - name: Setup Pages
-              uses: actions/configure-pages@v4
+              uses: actions/configure-pages@v6
 
             - name: Install dependencies
               run: npm ci
@@ -90,7 +90,7 @@ jobs:
               run: npm run build
 
             - name: Upload artifact
-              uses: actions/upload-pages-artifact@v3
+              uses: actions/upload-pages-artifact@v5
               with:
                   path: src/.vitepress/dist
 
@@ -103,7 +103,7 @@ jobs:
         steps:
             - name: Deploy to GitHub Pages
               id: deployment
-              uses: actions/deploy-pages@v4
+              uses: actions/deploy-pages@v5
 ```
 
 ## Explication détaillée {#details}
@@ -153,12 +153,12 @@ Les étapes du build :
 
 | Étape           | Action                             | Détail                                                                   |
 | --------------- | ---------------------------------- | ------------------------------------------------------------------------ |
-| **Checkout**    | `actions/checkout@v4`              | Clone le dépôt avec `fetch-depth: 0` (historique complet pour les dates) |
-| **Setup Node**  | `actions/setup-node@v4`            | Installe Node.js 20 avec cache npm                                       |
-| **Setup Pages** | `actions/configure-pages@v4`       | Configure l'environnement GitHub Pages                                   |
+| **Checkout**    | `actions/checkout@v7`              | Clone le dépôt avec `fetch-depth: 0` (historique complet pour les dates) |
+| **Setup Node**  | `actions/setup-node@v7`            | Installe Node.js 24 avec cache npm                                       |
+| **Setup Pages** | `actions/configure-pages@v6`       | Configure l'environnement GitHub Pages                                   |
 | **Install**     | `npm ci`                           | Installe les dépendances (plus rapide et fiable que `npm install`)       |
 | **Build**       | `npm run build`                    | Compile le site VitePress                                                |
-| **Upload**      | `actions/upload-pages-artifact@v3` | Envoie le dossier `src/.vitepress/dist` comme artifact                   |
+| **Upload**      | `actions/upload-pages-artifact@v5` | Envoie le dossier `src/.vitepress/dist` comme artifact                   |
 
 > **`fetch-depth: 0`** : VitePress utilise les dates de commit git pour afficher "Dernière mise à jour" sur chaque page. Sans l'historique complet, ces dates seraient incorrectes.
 
@@ -191,7 +191,7 @@ Si votre configuration VitePress génère le site dans un dossier différent :
 
 ```yml
 - name: Upload artifact
-  uses: actions/upload-pages-artifact@v3
+  uses: actions/upload-pages-artifact@v5
   with:
       path: docs/.vitepress/dist # Adaptez selon votre structure
 ```
@@ -202,9 +202,9 @@ Le chemin dépend de votre `package.json`. Si votre script `build` est `vitepres
 
 ```yml
 - name: Setup Node
-  uses: actions/setup-node@v4
+  uses: actions/setup-node@v7
   with:
-      node-version: 22 # Ou 18, selon vos besoins
+      node-version: 22 # Ou 20, selon vos besoins
       cache: npm
 ```
 
@@ -225,7 +225,7 @@ Si votre build nécessite des variables d'environnement :
 | --------------- | -------------------------- |
 | **Framework**   | VitePress (Vue.js + Vite)  |
 | **Déclencheur** | Push sur `master` + manuel |
-| **Node.js**     | 20                         |
+| **Node.js**     | 24                         |
 | **Build**       | `npm run build`            |
 | **Sortie**      | `src/.vitepress/dist`      |
 | **Déploiement** | GitHub Pages               |
