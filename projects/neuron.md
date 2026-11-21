@@ -27,11 +27,17 @@ L'essai se compose d'un prologue, de deux parties, d'un interlude et d'un épilo
 La zone de dessin accepte la souris, le doigt ou le stylet, et le réseau **784-256-256-10** recalcule sa prédiction à chaque trait.
 Le tracé est recadré dans un carré de 20 x 20 puis placé dans une image de 28 x 28 de façon que son centre de masse tombe au centre, comme pour le jeu MNIST, avant d'être réduit en 784 valeurs entre 0 et 1.
 
+![Un tracé d'exemple, la prédiction du réseau et les dix probabilités de sortie, avec une confiance supérieure à 99,9 %](/images/projects/neuron/digit)
+
 Le réseau peut ensuite être ouvert :
 
 - **Valeurs des pixels** — une loupe déplaçable à la souris ou aux flèches affiche les valeurs d'un détail de 6 x 6 pixels
 - **Activations couche après couche** — les neurones allumés de chaque couche cachée, sur 256, jusqu'aux dix probabilités de sortie
 - **Inspecteur de neurone** — les 784 poids d'un neurone de la première couche replacés sur la grille 28 x 28, points pleins pour les poids excitateurs et anneaux pour les inhibiteurs
+
+![Le réseau 784-256-256-10 couche après couche : chaque point est un neurone, sa surface son activation, jusqu'au chiffre retenu en sortie](/images/projects/neuron/layers)
+
+![Un neurone de la première couche (le 71) : ses 784 poids replacés sur la grille du dessin, points pleins pour ce qu'il excite, anneaux pour ce qu'il freine](/images/projects/neuron/inspector)
 
 L'inférence est écrite à la main dans `src/lib/mlp.ts`, sans bibliothèque de calcul. Les poids sont stockés dans `public/models/digit.bin`, en entiers 16 bits little-endian à l'échelle 1e-4, soit 269 322 paramètres chargés une seule fois.
 
@@ -39,6 +45,8 @@ L'inférence est écrite à la main dans `src/lib/mlp.ts`, sans bibliothèque de
 
 La seconde partie s'appuie sur une phrase découpée en treize mots (« L' » et « qu' » comptant à part) : « L'animal n'a pas traversé le boulevard parce qu'il était trop fatigué / large ». Seul le chapitre sur l'ordre des mots change de phrase.
 Un interrupteur change le dernier mot et montre comment l'attention de « il » passe de l'animal au boulevard.
+
+![Le graphe d'attention de « il » : l'arc le plus épais mène à « animal » (72,4 %), le second à « fatigué » (17,7 %) ; la planche est volontairement inversée, sombre en thème clair et claire en thème sombre](/images/projects/neuron/attention)
 
 Les chapitres défont la grille d'attention pas à pas :
 
@@ -48,6 +56,8 @@ Les chapitres défont la grille d'attention pas à pas :
 - **Plusieurs têtes** — quatre têtes illustratives lisant la même phrase
 - **Masque causal** — chaque mot ne regarde qu'en arrière : tout ce qui le suit est caché
 - **Couches et coût** — doubler la phrase quadruple le nombre de comparaisons, chiffré sur GPT-3
+
+![La grille d'attention 13 x 13 du modèle jouet : chaque ligne totalise 100 %, et la ligne de « il » (encadrée) concentre son poids sur « animal »](/images/projects/neuron/grid)
 
 Le modèle de cette partie est un modèle jouet dont les poids sont réglés à la main pour rester lisibles. Le texte le précise, de même que le caractère illustratif des têtes.
 
