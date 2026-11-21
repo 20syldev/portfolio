@@ -68,7 +68,7 @@ Le serveur doit gérer les outils : llama.cpp doit être lancé avec `--jinja` (
 
 ## Serveurs MCP {#mcp}
 
-Depuis la 1.3.0, HYOAI est aussi un **client MCP** qui tourne dans le navigateur. Un serveur se déclare dans la liste `mcp.servers` de `config.json` ou s'ajoute depuis l'onglet Outils des réglages, avec un identifiant, une adresse, un nom, un transport et des en-têtes. Deux transports sont gérés, Streamable HTTP et SSE, le mode automatique essayant le premier puis retombant sur le second si le serveur ne connaît pas le premier.
+Depuis la 1.3.0, HYOAI est aussi un **client MCP** qui tourne dans le navigateur. Un serveur se déclare dans la liste `mcp.servers` de `config.json` ou s'ajoute depuis l'onglet Serveurs MCP des réglages, avec un identifiant, une adresse, un nom, un transport et des en-têtes. Deux transports sont gérés, Streamable HTTP et SSE, le mode automatique essayant le premier puis retombant sur le second si le serveur ne connaît pas le premier.
 Seuls les **outils** d'un serveur sont utilisés, ni ses ressources ni ses prompts, et OAuth n'est pas géré : l'authentification passe par des en-têtes statiques, typiquement un jeton Bearer. Comme HYOAI tourne dans le navigateur, ces en-têtes partent du navigateur, et ceux écrits dans `config.json` peuvent être lus par quiconque charge la page.
 
 Chaque serveur est une carte dans les réglages, avec un statut (connecté, authentification, introuvable, pas de réponse, CORS bloqué, réseau local...), un interrupteur, la liste de ses outils et une approbation par outil. Les indications déclarées par le serveur (lecture seule, destructif...) s'affichent en badges, suivis de « déclaré par le serveur, non vérifié », et ne dispensent jamais d'approbation.
