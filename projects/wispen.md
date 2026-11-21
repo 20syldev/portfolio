@@ -18,6 +18,8 @@ L'interface est disponible en français et en anglais, avec un mode clair et un 
 
 L'éditeur couvre le dessin de schémas propres, de la forme à l'export :
 
+![L'éditeur de Wispen avec un schéma de démonstration : formes arrondies, flèches accrochées aux formes, note adhésive, pages multiples et grille](/images/projects/wispen/editor)
+
 - **Formes** — rectangle, ellipse, losange, triangle, hexagone, parallélogramme, cylindre, étoile, bulle, note adhésive, image, texte libre et crayon, avec un arrondi des coins réglable sur les formes à coins
 - **Flèches et lignes** — droites, coudées ou courbes, accrochées aux formes, qu'elles suivent lorsque celles-ci sont déplacées, avec étiquettes et pointes au choix
 - **Texte** — seize polices réparties en cinq familles (sans empattement, avec empattement, manuscrites, à chasse fixe et d'affichage), avec taille, gras, italique, souligné et alignements
@@ -25,10 +27,14 @@ L'éditeur couvre le dessin de schémas propres, de la forme à l'export :
 - **Grille** — à points ou à lignes, avec magnétisme activable, alignement et répartition des éléments
 - **Palette de commandes** — `Ctrl K` (ou `Cmd K` sur macOS) ouvre la palette de commandes, complétée par un menu contextuel et une fenêtre listant les raccourcis clavier
 
+![Le panneau de propriétés d'une forme sélectionnée : couleurs de trait et de fond, épaisseur, style de trait, arrondi des coins, police, taille et mise en forme du texte](/images/projects/wispen/selection)
+
 ## Sauvegarde et exports {#storage}
 
 Chaque modification est enregistrée automatiquement dans **IndexedDB** (via idb-keyval), avec plusieurs documents consultables depuis « Mes documents » : renommage, duplication, suppression et téléchargement.
 Un document peut aussi être enregistré et rouvert comme fichier `.wispen`, un format que l'application déclare comme type de fichier de la PWA.
+
+![« Mes documents » : les documents enregistrés automatiquement dans le navigateur (deux documents de démonstration), avec recherche, ouverture de fichier et actions par document](/images/projects/wispen/documents)
 
 Les exports passent par une boîte de dialogue avec aperçu ; la portée proposée (sélection, page ou document entier) dépend du format :
 
@@ -37,6 +43,8 @@ Les exports passent par une boîte de dialogue avec aperçu ; la portée propos�
 - **PDF** — une page PDF par page exportée (sélection, page active ou document entier), générée avec jsPDF
 - **Excalidraw et draw.io** — Excalidraw s'exporte depuis la page ou la sélection, draw.io depuis la page ou le document entier (un diagramme par page, formes et connecteurs restant modifiables) ; l'import de fichiers `.excalidraw` ouvre un nouveau document
 - **Fichier wispen** — le document complet, à rouvrir et modifier plus tard
+
+![La boîte de dialogue d'export, avec aperçu en direct du schéma, les six formats (PNG, SVG, PDF, fichier wispen, Excalidraw, draw.io), la portée, l'échelle, la marge et le choix du thème du rendu](/images/projects/wispen/export)
 
 ## Un système de plugins {#plugins}
 
