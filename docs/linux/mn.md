@@ -323,7 +323,7 @@ alias ll='ls -lah'
 
 ## mn devient tote {#tote}
 
-mn évolue en [tote](/projet/tote) : les mêmes domaines (connexions, dépôts, alias, fonctions), réécrits en Go. mn reste installable et fonctionne comme avant. Il est en mode maintenance depuis la version 1.3.0 : il ne reçoit plus que des correctifs de régression et de sécurité, sans nouvelle fonctionnalité. Si quelque chose qui fonctionnait dans une version précédente cesse de fonctionner, ou en cas de problème de sécurité, ouvrir une issue sur le dépôt.
+mn évolue en [tote](/help/linux/tote) : les mêmes domaines (connexions, dépôts, alias, fonctions), réécrits en Go. mn reste installable et fonctionne comme avant. Il est en mode maintenance depuis la version 1.3.0 : il ne reçoit plus que des correctifs de régression et de sécurité, sans nouvelle fonctionnalité. Si quelque chose qui fonctionnait dans une version précédente cesse de fonctionner, ou en cas de problème de sécurité, ouvrir une issue sur le dépôt.
 
 ## Prérequis {#prerequisites}
 

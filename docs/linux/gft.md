@@ -234,7 +234,7 @@ Les réponses sont mises en cache localement dans `~/.config/gft/cache/` pour é
 
 gft suit aussi les dépôts renommés ou transférés : une redirection de GitHub est suivie, et le nouveau nom est utilisé (et rapporté dans le champ `repository` du JSON).
 
-Lorsque le CLI `gh` est installé et authentifié, gft lit les données de release depuis l'API GitHub à travers lui ; le JSON a les mêmes clés dans les deux cas. Pour compléter cet outillage, [mn](/help/linux/mn) offre un menu interactif pour gérer vos connexions SSH, repos locaux et alias Bash depuis le terminal. Son successeur [tote](/projet/tote) livre un plugin qui s'appuie sur gft pour gérer les stashes d'un dépôt enregistré et afficher sa dernière release, ses assets et ses notes.
+Lorsque le CLI `gh` est installé et authentifié, gft lit les données de release depuis l'API GitHub à travers lui ; le JSON a les mêmes clés dans les deux cas. Pour compléter cet outillage, [mn](/help/linux/mn) offre un menu interactif pour gérer vos connexions SSH, repos locaux et alias Bash depuis le terminal. Son successeur [tote](/help/linux/tote) livre un plugin qui s'appuie sur gft pour gérer les stashes d'un dépôt enregistré et afficher sa dernière release, ses assets et ses notes.
 
 ## Commandes {#commands}
 

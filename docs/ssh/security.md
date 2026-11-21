@@ -87,7 +87,7 @@ sudo ufw allow 2222/tcp
 sudo sshd -t && sudo systemctl restart ssh
 ```
 
-> **Note :** N'oubliez pas de mettre à jour vos alias dans [~/.ssh/config](/help/ssh/config) si vous changez le port. [mn](/help/linux/mn) et [tote](/projet/tote) n'enregistrent pas le port : leur champ `target` renvoie au bloc `Host` de ce fichier, c'est donc lui qu'il faut modifier.
+> **Note :** N'oubliez pas de mettre à jour vos alias dans [~/.ssh/config](/help/ssh/config) si vous changez le port. [mn](/help/linux/mn) et [tote](/help/linux/tote) n'enregistrent pas le port : leur champ `target` renvoie au bloc `Host` de ce fichier, c'est donc lui qu'il faut modifier.
 
 ## Limiter les utilisateurs autorisés {#allowusers}
 

@@ -21,7 +21,7 @@ ssh -i ~/.ssh/id_ed25519_prod user@192.168.1.10
 
 ### Connexion rapide avec mn ou tote {#mn}
 
-[mn](/help/linux/mn) permet de stocker ses serveurs et de s'y connecter en une touche via le module `mn conn`. [tote](/projet/tote) est son successeur, réécrit en Go, avec ses propres fichiers de données. Les deux outils lancent le vrai `ssh` : ils ne remplacent pas `~/.ssh/config`, ils le complètent.
+[mn](/help/linux/mn) permet de stocker ses serveurs et de s'y connecter en une touche via le module `mn conn`. [tote](/help/linux/tote) est son successeur, réécrit en Go, avec ses propres fichiers de données. Les deux outils lancent le vrai `ssh` : ils ne remplacent pas `~/.ssh/config`, ils le complètent.
 
 ```bash
 # Ouvrir le gestionnaire de connexions
