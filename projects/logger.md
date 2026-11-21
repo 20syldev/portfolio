@@ -27,6 +27,12 @@ Logger.ts est conçu pour être simple à utiliser tout en offrant une grande fl
 - **TTL automatique** : suppression automatique des anciennes entrées avec l'option `maxAge`
 - **Compatible HTTP natif** : loguez directement depuis les objets `req`/`res` de Node.js
 
+![Les quatre thèmes de console intégrés (minimal, colored, detailed, plain) appliqués aux mêmes cinq entrées de démonstration, du plus sobre au plus détaillé](/images/projects/logger/themes)
+
+Le thème `detailed` ajoute le niveau de chaque entrée et fonctionne avec les groupes. L'option `level` écarte les entrées moins importantes, et un format personnalisé permet de composer sa propre ligne :
+
+![Le thème detailed à travers les groupes auth et api, avec une couleur par niveau, puis la même série filtrée par level: "warn" et mise en forme avec un format personnalisé](/images/projects/logger/levels)
+
 ## Installation {#installation}
 
 ```console
@@ -49,3 +55,5 @@ logger.serve(3000);
 ```
 
 Le serveur intégré supporte le filtrage via des paramètres de requête (`?status=200&method=GET&limit=50`) et expose un endpoint `/health` pour le monitoring.
+
+![Le serveur intégré renvoie les logs en JSON, ici filtrés avec level=warn (avertissements et erreurs seulement), et expose un point /health pour le monitoring](/images/projects/logger/serve)
