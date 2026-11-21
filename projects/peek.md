@@ -13,6 +13,8 @@ Peek est une visionneuse Markdown, disponible sur [peek.sylvain.sh](https://peek
 Elle affiche n'importe quel README à partir d'un fichier local, d'un lien ou de texte collé, rendu comme le ferait GitHub, GitLab, Obsidian ou CommonMark.
 Tout s'exécute dans le navigateur : le contenu du document n'est envoyé à aucun serveur.
 
+![Un document de démonstration rendu comme sur GitHub, avec son front matter en tableau, ses alertes, sa liste de tâches, son tableau, son bloc de code, sa formule et le sommaire latéral](/images/projects/peek/rendu)
+
 ## Fonctionnalités {#features}
 
 - **Trois entrées** — déposer un fichier `.md` n'importe où sur la page, en choisir un, ou coller un lien, un fichier ou du texte (`Ctrl V`)
@@ -31,11 +33,15 @@ Le format se choisit dans l'onglet du document et reste mémorisé :
 - **Obsidian** — callouts avec titre et repli, `==surlignage==`, liens wiki, intégrations `![[image]]`, `#tags` et commentaires `%%`
 - **CommonMark** — la norme seule, sans extension
 
+![Un carnet de démonstration affiché avec le format Obsidian : callouts avec titre et repli, surlignage, liens wiki et tags](/images/projects/peek/obsidian)
+
 ## Éditeur {#editor}
 
 La touche `E` ouvre un éditeur : la source à gauche, l'aperçu en direct à droite, qui défilent ensemble selon la ligne source. Sur petit écran, un bouton bascule entre Édition et Aperçu.
 `Ctrl S` enregistre dans le fichier choisi (File System Access API, sous Chromium) ou télécharge une copie `.md` en conservant ses sauts de ligne.
 Les modifications non enregistrées sont gardées comme brouillon dans le navigateur, proposées de nouveau à la réouverture du même document, puis supprimées une fois enregistrées dans le fichier.
+
+![Le mode éditeur : la source Markdown à gauche, l'aperçu en direct à droite et le bouton Enregistrer](/images/projects/peek/editeur)
 
 ## Sécurité et performance {#security}
 
@@ -60,3 +66,5 @@ Le design est piloté uniquement par les tokens de `src/app/appearance/`.
 - `D` et `L` — thème et langue
 
 Les raccourcis à une touche peuvent être désactivés (WCAG 2.1.4).
+
+![La boîte de dialogue des raccourcis clavier (Ctrl /), avec l'interrupteur qui désactive les raccourcis à une touche](/images/projects/peek/raccourcis)
