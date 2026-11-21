@@ -1,6 +1,6 @@
 ---
 title: "Moxon"
-description: "Package Node.js/TypeScript utilisable en bibliothèque ou en serveur REST, avec plus de 40 modules : images, données fictives, utilitaires réseau, cryptographie, temps réel et plus encore."
+description: "Package Node.js/TypeScript utilisable en bibliothèque ou en serveur REST, avec 50 modules : images, données fictives, utilitaires réseau, cryptographie, temps réel et plus encore."
 category: packages
 slug: api
 order: 3
@@ -18,6 +18,9 @@ order: 3
 Le package s'appelait auparavant `@20syldev/api`. La dernière version de cet ancien nom est dépréciée. Pour migrer, exécutez `npm uninstall @20syldev/api && npm install @moxon/api`, puis renommez le package dans vos imports (`@20syldev/api/v5` devient `@moxon/api/v5`, les sous-chemins sont inchangés).
 
 Les versions **v4, v5 et v6** sont servies côte à côte, la **v6** étant la version courante ; les versions v1 à v3 ont été retirées avec la 6.0.0, sortie sous l'ancien nom. Pour les retrouver, installez `@20syldev/api@5.9.0`.
+
+La v6 ajoute `badge`, fait répondre le captcha par un **token signé** par défaut, déplace `levenshtein` en `POST` et fait passer les identifiants de `chat` et `tic_tac_toe` dans le corps de la requête. `hyperplanning` est **déprécié** : il fonctionne toujours, mais la v6 ne le liste plus et il sera retiré dans la 7.0.0.
+
 Le projet inclut plus de **1 000 tests** (unitaires + intégration HTTP) via `node:test` natif.
 
 ## Plugins {#plugins}
@@ -39,7 +42,7 @@ export default plugins;
 
 Chaque plugin est un `Router` Express classique, libre de déclarer ses propres routes et d'utiliser les utilitaires internes du projet. Le dossier compilé `dist/plugins/` est exclu de la distribution npm via `.npmignore`.
 
-C'est ainsi que fonctionne mon instance : un dépôt privé reprend le code du package à l'identique et n'ajoute qu'un dossier `src/plugins/` contenant un plugin `website`, qui sert les métadonnées de mon portfolio. Rien de tout cela n'arrive dans le package que vous installez.
+C'est ainsi que fonctionne mon instance : un dépôt privé reprend le code du package et n'y ajoute qu'un dossier `src/plugins/` contenant un plugin `website` (les métadonnées de mon portfolio et des badges de statut) et un routeur pour le favicon de l'instance, monté directement dans `src/app.ts`. Rien de tout cela n'arrive dans le package que vous installez.
 
 ## Prérequis {#prerequisites}
 
@@ -54,6 +57,36 @@ npm install @moxon/api
 ```
 
 La bibliothèque se charge aussi bien avec `import` qu'avec `require()` (depuis Node.js 22.12).
+
+### Via Docker
+
+Depuis la 6.4.0, une image publique est publiée sur le GitHub Container Registry pour `linux/amd64` et `linux/arm64`. Elle écoute sur le port `3000` et se configure avec les variables de la section [Configuration](#config) :
+
+```bash
+docker run -d --name moxon -p 3000:3000 ghcr.io/moxondev/api:latest
+```
+
+| Tag                 | Contenu                                   |
+| ------------------- | ----------------------------------------- |
+| `6.4.0`, `6.4`, `6` | Une version, jusqu'au mineur et au majeur |
+| `latest`            | La dernière version stable                |
+
+Les variables passent par `-e`, ou par un fichier avec `--env-file`. L'image s'exécute avec l'utilisateur `node`, sans droits root, et n'écrit rien sur le disque : elle démarre donc aussi avec un système de fichiers en lecture seule.
+
+```bash
+docker run -d --name moxon -p 3000:3000 --read-only --tmpfs /tmp \
+    --env-file moxon.env ghcr.io/moxondev/api:latest
+```
+
+```bash
+cat moxon.env
+# CHALLENGE_SECRET=<résultat de openssl rand -hex 32>
+# TRUSTED_PROXIES=uniquelocal
+```
+
+L'image se surveille elle-même : `docker ps` la signale `healthy` dès que `GET /` répond. Pour la construire depuis un clone du dépôt, exécutez `docker build -t moxon-api .`.
+
+Derrière Docker, l'adresse du client vue par le serveur est celle du reverse proxy ou du réseau Docker, pas celle de l'appelant : définissez `TRUSTED_PROXIES` sur le proxy pour que les limites comptent les vrais clients.
 
 ## Utilisation {#usage}
 
@@ -102,7 +135,7 @@ Tous les endpoints publics sont alors disponibles localement, comme sur [api.mox
 
 ### Option 3 : Lire le manifeste des endpoints
 
-Le sous-chemin `@moxon/api/manifest` décrit des endpoints sous forme de données — nom, méthode, chemin, catégorie, paramètres et exemple de requête — plutôt que dans du code :
+Le sous-chemin `@moxon/api/manifest` décrit des endpoints sous forme de données — nom, méthode, chemin, catégorie, première (`since`) et dernière (`until`) version qui les servent lorsqu'elles sont bornées, paramètres et exemple de requête — plutôt que dans du code :
 
 ```js
 import { manifest } from "@moxon/api/manifest";
@@ -110,18 +143,21 @@ import { manifest } from "@moxon/api/manifest";
 const hash = manifest.find((entry) => entry.name === "hash");
 console.log(hash.method, hash.path); // → post /hash
 console.log(Object.keys(hash.params)); // → [ 'text', 'method', 'encoding' ]
+console.log(hash.params.encoding); // → { type: 'string', options: [ 'hex', 'base64' ], default: 'hex' }
 console.log(hash.example); // → { text: 'hello', method: 'sha256' }
 ```
 
 Le chemin est relatif à la version : `/hash` correspond à `POST /v6/hash`. Le type `ManifestEntry` est exporté pour TypeScript.
 
-Ce manifeste est **expérimental** : seuls les endpoints déjà migrés vers une déclaration de données y figurent, soit `hash` pour l'instant, et sa forme peut changer dans une version mineure.
+Un paramètre indique son `type`, ses `options` fixes et sa valeur par défaut (`default`). Il n'est marqué `required` que lorsqu'une requête sans lui est refusée avant même l'exécution de l'endpoint : les autres vérifications restent à la charge de l'endpoint, un paramètre non marqué peut donc rester obligatoire.
+
+Ce manifeste est **expérimental** et sa forme peut changer dans une version mineure. Il liste les 41 endpoints qui répondent en JSON simple et ne gardent aucun état, soit **42 entrées** : `levenshtein` apparaît deux fois, en `GET` jusqu'à la v5 puis en `POST` depuis la v6. Les endpoints qui renvoient une image, gardent un état (`chat`, `tic_tac_toe`, la vérification du captcha et de la preuve de travail) ou décrivent l'API elle-même n'y sont pas encore déclarés.
 
 ## Modules disponibles {#modules}
 
-L'API v6 expose **plus de 40 endpoints**, en `GET` et en `POST`, couvrant la génération d'images, la cryptographie, les données fictives, les utilitaires réseau, les mathématiques et plus encore.
+L'API v6 expose **50 endpoints**, en `GET` et en `POST`, couvrant la génération d'images, la cryptographie, les données fictives, les utilitaires réseau, les mathématiques et plus encore.
 
-La plupart des modules s'importent comme des fonctions, mais `algorithms`, `chart`, `encode`, `matrix`, `text` et `validate` sont exportés en tant qu'**espaces de noms** — on appelle alors l'opération voulue (`matrix.multiply(...)`, `chart.bar(...)`).
+La plupart des modules s'importent comme des fonctions, mais `algorithms`, `chart`, `encode`, `matrix`, `text` et `validate` sont exportés en tant qu'**espaces de noms** — on appelle alors l'opération voulue (`matrix.multiply(...)`, `chart.bar(...)`). `asymmetricAsync` est une variante de `asymmetric` qui génère les paires de clés hors du thread principal.
 
 La liste complète avec paramètres, exemples de requêtes et réponses est disponible sur [moxon.dev](https://moxon.dev) — ou consultez la [page de la documentation](/projet/docs) du portfolio pour en savoir plus sur l'outil.
 
@@ -384,7 +420,7 @@ Ces paliers s'appliquent à **mon instance publique** [api.moxon.dev](https://ap
 | **Pro**      | 4.99€/mois | 6 000          | 120       |
 | **Business** | 9.99€/mois | 10 000         | 200       |
 
-La limite s'applique toujours par adresse IP : le token ne fait que choisir le palier appliqué à cette IP, avec une protection anti-burst propre à chaque palier.
+La limite s'applique toujours par adresse IP : le token ne fait que choisir le palier appliqué à cette IP, avec une protection anti-burst propre à chaque palier. Une adresse IPv6 mappée sur IPv4 compte comme sa forme IPv4 et toute autre adresse IPv6 comme son bloc `/64` : changer d'adresse au sein d'un même `/64` ne remet donc pas le quota à zéro. Tous les blocs `/64` d'un même réseau `/48` se partagent par ailleurs un quota de **4 fois** la limite horaire (sinon `429` « Too many requests from your network. »). Une adresse transmise qui n'est pas une IP valide compte comme le pair connecté, et seules les requêtes que les limites par client laissent passer consomment le plafond global.
 Un plafond global de 50 000 req/heure protège l'instance dans son ensemble. Les réponses exposent les en-têtes `X-RateLimit-Limit`, `X-RateLimit-Remaining` et `X-RateLimit-Reset` (sauf les `401` de token invalide et les `429` de burst ou de plafond global) ; `Retry-After` n'est envoyé qu'avec les `429`.
 Les offres payantes sont détaillées sur la page Tarification de la [documentation](https://moxon.dev).
 
@@ -413,7 +449,7 @@ Trois points demandent de l'attention en production.
 
 - Les compteurs de limites et la liste des tokens déjà utilisés vivent dans la mémoire du processus : chaque instance d'un déploiement multi-instances compte donc séparément, et un même token peut être accepté une fois par instance.
 - Tant que `CHALLENGE_SECRET` est absente, chaque processus invente sa propre clé, si bien que les tokens cessent d'être valides après un redémarrage et sont refusés par les autres instances : définissez-la explicitement dès que plusieurs processus tournent, avec une valeur à forte entropie comme `openssl rand -hex 32`.
-- Sans proxy devant l'instance, définissez `TRUSTED_PROXIES` à une valeur qui n'inclut pas vos clients (par exemple `loopback`), sinon un client peut choisir son adresse IP, et donc son quota, avec l'en-tête `X-Forwarded-For`.
+- Sans proxy devant l'instance, définissez `TRUSTED_PROXIES` à une valeur qui n'inclut pas vos clients (par exemple `loopback`), sinon un client peut choisir son adresse IP, et donc son quota, avec l'en-tête `X-Forwarded-For`. Tant que la variable est absente, le serveur suppose exactement un reverse proxy devant lui et affiche un avertissement au démarrage (hors tests).
 
 ## Tester localement {#local}
 
