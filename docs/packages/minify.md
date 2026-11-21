@@ -33,7 +33,7 @@ const result = await minify(`
     }
 `);
 console.log(result);
-// → "for(let i=0;i<10;i++)console.log(i);"
+// → "for(let i=0;i<10;i++){console.log(i);}"
 ```
 
 ### Minifier un fichier local
@@ -92,8 +92,8 @@ Minifie du code JavaScript et retourne une promesse contenant le code minifié.
 
 **Détection du type d'entrée :**
 
-- Si `input` commence par `http://` ou `https://` → traité comme une URL
 - Si `input` correspond à un chemin de fichier existant → lu depuis le disque
+- Sinon, si `input` commence par `http://` ou `https://` → traité comme une URL
 - Sinon → traité comme du code JavaScript brut
 
 ```js
@@ -112,11 +112,13 @@ Minifie du code JavaScript et enregistre le résultat directement dans un fichie
 | `input`      | `string` | Code JavaScript brut, chemin vers un fichier local, ou URL d'un script |
 | `outputFile` | `string` | Chemin du fichier de sortie                                            |
 
-**Retour :** `Promise<void>`
+**Retour :** `Promise<string>` — le code minifié, une fois le fichier écrit
 
 ```js
-await minifyTo("./src/app.js", "./dist/app.min.js");
+const code = await minifyTo("./src/app.js", "./dist/app.min.js");
 ```
+
+Le dossier de sortie doit déjà exister : le module ne le crée pas.
 
 ## Exemples d'intégration {#examples}
 
@@ -151,13 +153,13 @@ http.createServer(async (req, res) => {
 
 ## Fonctionnement {#internals}
 
-Le module supprime les espaces inutiles, les commentaires et les retours à la ligne pour réduire la taille du code JavaScript. Il fonctionne entièrement en mode asynchrone via les promesses, garantissant des performances optimales même avec de gros fichiers.
+Le module supprime les commentaires de bloc, les commentaires `//` placés sur leur propre ligne, ainsi que les espaces et les retours à la ligne inutiles pour réduire la taille du code JavaScript. Il s'appuie sur de simples remplacements par expressions régulières, sans analyser la syntaxe : les chaînes de caractères ne sont pas protégées, et un commentaire `//` en fin de ligne n'est pas supprimé (il commente alors le code qui suit). Toutes les fonctions retournent des promesses.
 
 Pour les URLs, le module effectue une requête HTTP pour récupérer le contenu du script avant de le minifier. Pour les fichiers locaux, il utilise le système de fichiers Node.js (`fs`).
 
 ## Prérequis {#prerequisites}
 
-- Node.js (>= 18)
+- Node.js avec support des modules ESM
 - Aucune dépendance externe
 
 ## Dépannage {#troubleshooting}
@@ -168,13 +170,24 @@ Pour les URLs, le module effectue une requête HTTP pour récupérer le contenu 
 - S'assurer d'utiliser la syntaxe d'import ESM (`import` et non `require`)
 - Vérifier que `"type": "module"` est défini dans votre `package.json`
 
+### Le résultat est un message d'erreur
+
+- Appeler `minify("")` ou `minifyTo` sans entrée ou sans fichier de sortie ne rejette pas la promesse : elle se résout avec un message commençant par `[minify.js] Error:`
+- Vérifier que les arguments ne sont pas vides avant l'appel
+
 ### Erreur lors de la minification d'un fichier
 
-- Vérifier que le chemin du fichier est correct et que le fichier existe
+- Vérifier que le chemin du fichier est correct et que le fichier existe : un chemin introuvable est traité comme du code JavaScript brut
 - S'assurer que le fichier est accessible en lecture
+
+### Code minifié cassé
+
+- Les chaînes de caractères ne sont pas protégées : les espaces multiples qu'elles contiennent sont altérés
+- Terminer chaque instruction par un `;` et éviter les commentaires `//` en fin de ligne
 
 ### Erreur lors de la minification d'une URL
 
 - Vérifier que l'URL est accessible et retourne du JavaScript valide
-- S'assurer que le serveur distant autorise les requêtes (pas de CORS côté serveur)
+- Un code de statut hors 2xx rejette la promesse avec `HTTP status code: <code>`
+- Une erreur réseau (hôte inconnu, connexion refusée) rejette la promesse avec l'erreur Node.js correspondante
 - Vérifier la connexion internet
