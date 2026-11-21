@@ -19,7 +19,7 @@ Le site présente les deux offres de la gamme :
 
 La mise en ligne du service est annoncée dans un [article sur le blog ZENETYS](https://www.zenetys.com/actu/mise-en-ligne-de-logvault-io/).
 
-![Page d'accueil de LogVault.io, qui présente l'offre SaaS](/images/projects/logvault/home.webp)
+![Page d'accueil de LogVault.io, qui présente l'offre SaaS](/images/projects/logvault/home)
 
 ## Stack {#stack}
 
@@ -38,6 +38,8 @@ Les traductions FR/EN sont gérées par **next-intl**, avec un switch de langue 
 
 ## Fonctionnalités {#features}
 
+![Les fonctionnalités clés de l'offre SaaS, avec l'aperçu du tableau de bord de volumes de logs (données fictives)](/images/projects/logvault/features)
+
 - **Bilingue FR/EN** — switch de langue dynamique via next-intl
 - **Dark mode** intégré
 - **Architecture data-driven** — tout le contenu est configuré dans `data/` et `messages/`, zéro texte en dur dans les composants
@@ -45,6 +47,10 @@ Les traductions FR/EN sont gérées par **next-intl**, avec un switch de langue 
 - **Tableau comparatif** LogVault SaaS vs LogCenter On-Premise
 - **Formulaire de contact** avec sélecteur de sujet et anti-spam
 - **Animation** interactive sur la home
+
+![La page des tarifs, avec les trois formules Essential, Professional et Enterprise](/images/projects/logvault/pricing)
+
+![Le tableau comparatif entre LogVault SaaS et LogCenter On-Premise](/images/projects/logvault/comparatif)
 
 ## Défis {#challenges}
 
