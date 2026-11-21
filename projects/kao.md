@@ -24,6 +24,8 @@ L'éditeur est un film Flash, lu dans le navigateur par [Ruffle](https://ruffle.
 - **Mémoire des réglages** — la taille et le format d'export sont retenus d'une visite à l'autre
 - **Thème clair et sombre** — une interface au style manga, avec des ombres portées décalées de type « comics » qui changent de couleur selon le thème
 
+![L'éditeur de Kao sur la version française du site : la grille des yeux, l'avatar en cours dans l'aperçu et la liste Mes avatars, ici avec deux avatars de démonstration](/images/projects/kao/editor)
+
 ## Un moteur Flash dans le navigateur {#engine}
 
 L'éditeur lui-même est un film Flash, `engine.swf`, écrit en ActionScript 2 et lu par une version de Ruffle hébergée avec le site.
@@ -35,6 +37,8 @@ Le moteur n'a pas de dossier source : le binaire est la source, et il se modifie
 Quand on clique sur **SAVE** dans l'éditeur, le moteur appelle le chargeur par une `LocalConnection`.
 Celui-ci demande à la page l'échelle choisie, redessine l'avatar vectoriel à cette taille avec sa transparence, puis lui renvoie les pixels compressés en zlib.
 Comme `BitmapData.encode()` n'est qu'un stub dans Ruffle, c'est la page qui décode ces pixels (`DecompressionStream`) et encode elle-même l'image dans le format voulu.
+
+![Le résultat d'un export en PNG transparent à 1440 px pour un avatar de démonstration, avec le code .kao à télécharger ou copier pour reprendre l'avatar plus tard](/images/projects/kao/export)
 
 ## Utilisation {#usage}
 
