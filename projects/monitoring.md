@@ -37,7 +37,7 @@ Elle se recharge aussi d'elle-même quand le serveur a redémarré.
 - **Graphe d'activité** — un histogramme minute par minute des états reçus sur les dernières heures, et une horloge
 - **Compteurs de tickets** — des boîtes alimentées par les statistiques du support, dont les seuils passent en avertissement puis en critique, et peuvent clignoter après un délai
 - **Recherche et filtres** — une recherche plein texte, des filtres par état et par action, et des raccourcis par client ; la vue, la recherche et les filtres sont reflétés dans l'URL pour être partagés ou rechargés
-- **Réglages** — hauteur des lignes, désactivation des animations, horloge, notifications, comportement de la barre d'outils, et un thème qui suit la préférence du système
+- **Réglages** — hauteur des lignes, désactivation des animations, horloge, notifications et comportement de la barre d'outils
 - **Mode kiosque** — le paramètre `kiosk=1` active les notifications et désactive les infobulles pour un affichage permanent
 
 L'interface s'adapte aussi aux petits écrans avec des composants dédiés plutôt qu'un simple redimensionnement : les alertes deviennent des **cartes** au lieu de lignes de tableau, la recherche et les filtres passent dans un **tiroir**, et le détail s'ouvre dans une **feuille** qui glisse depuis le bas. La sélection multiple s'y fait par appui long.
