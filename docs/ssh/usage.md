@@ -19,25 +19,60 @@ ssh -p 2222 user@192.168.1.10
 ssh -i ~/.ssh/id_ed25519_prod user@192.168.1.10
 ```
 
-### Connexion rapide avec MN {#mn}
+### Connexion rapide avec mn ou tote {#mn}
 
-[mn](/help/linux/mn) permet de stocker ses serveurs et de s'y connecter en une touche via le module `mn conn` :
+[mn](/help/linux/mn) permet de stocker ses serveurs et de s'y connecter en une touche via le module `mn conn`. [tote](/projet/tote) est son successeur, réécrit en Go, avec ses propres fichiers de données. Les deux outils lancent le vrai `ssh` : ils ne remplacent pas `~/.ssh/config`, ils le complètent.
 
 ```bash
 # Ouvrir le gestionnaire de connexions
 mn conn
+
+# Se connecter sans le menu (nom ou alias)
+mn co prod
+
+# Se connecter avec un autre utilisateur, sans modifier l'entrée
+mn co prod root
 ```
 
-MN stocke les connexions dans `~/.config/mn/data/connexions.dat` au format :
+mn stocke les connexions dans `~/.config/mn/data/connexions.dat`, un enregistrement par ligne, au format :
 
 ```
-label:::ip:::description:::type:::password:::cmd
-prod:::user@192.168.1.10:::Serveur de production:::ssh:::
-staging:::user@192.168.1.20:::Serveur de staging:::ssh:::
-backup:::root@10.0.0.5:::Backup NAS:::custom::::ssh -p 2222 root@10.0.0.5
+name:::via:::target:::user:::aliases:::ip:::desc
+prod:::ssh:::prod-web-01:::deploy:::web,p1:::192.168.1.10:::Serveur web de production
+lab:::xe:::lab.internal::::::lb:::10.0.0.42:::Machine de labo derrière un bastion
 ```
 
-Depuis le menu interactif, sélectionnez un serveur et appuyez sur `Entrée` pour lancer la connexion. Vous pouvez aussi utiliser des commandes personnalisées (type `custom`) pour des connexions avec des options spécifiques.
+| Champ     | Rôle                                                                                                                                                     |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`    | Nom de l'entrée                                                                                                                                          |
+| `via`     | Commande réellement lancée. Vide ou `ssh` : le client `ssh` natif. Sinon une commande, ou un modèle avec `{host}`, `{ip}`, `{name}`, `{user}`, `{user@}` |
+| `target`  | Argument transmis tel quel à `ssh`. Idéalement le nom d'un bloc `Host` de `~/.ssh/config`                                                                |
+| `user`    | Utilisateur par défaut (vide : `ssh_config` décide)                                                                                                      |
+| `aliases` | Alias séparés par des virgules                                                                                                                           |
+| `ip`      | Information seulement, jamais utilisée pour se connecter                                                                                                 |
+| `desc`    | Description libre                                                                                                                                        |
+
+> **Note :** Les anciennes lignes de mn 1.1 (`label:::user@host:::desc:::type:::password:::cmd`) ne sont pas converties par mn 1.3 : elles sont masquées du menu et ignorées par `mn co`. Il n'y a plus de mot de passe stocké, ni de type `custom` : une commande personnalisée se place dans le champ `via`.
+
+Depuis le menu interactif, sélectionnez un serveur et appuyez sur `Entrée` pour lancer la connexion. La touche `/` filtre la liste et `u` change l'utilisateur de connexion.
+
+Avec tote, les mêmes connexions s'ajoutent en ligne de commande et sont enregistrées dans `~/.config/tote/connections.toml` (une table `[[connection]]` par serveur) :
+
+```bash
+# Ajouter une connexion avec deux alias
+tote co add web --target host1.example.org --user admin --alias w,www
+
+# Passer par un bastion
+tote co add jump --target 10.0.0.5 --via 'ssh -t admin@jump.example.org {user@}{host}'
+
+# Se connecter (un préfixe unique du nom ou d'un alias suffit, 2 caractères au minimum par défaut)
+tote co web
+
+# Se connecter avec un autre utilisateur
+tote co web deploy
+```
+
+Sans `via`, tote lance `ssh`, avec `-l user -- target` quand un utilisateur est défini. La commande `via` est découpée sur les espaces et exécutée sans shell : les guillemets sont refusés, donc les options comme `ProxyCommand` se placent dans `~/.ssh/config`.
 
 ## Commandes à distance {#remote-cmd}
 

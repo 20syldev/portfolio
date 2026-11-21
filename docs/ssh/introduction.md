@@ -83,7 +83,7 @@ user@serveur:~$
 - **Déploiement** — Pousser du code vers un serveur de production
 - **Transfert sécurisé** — Copier des fichiers via SCP, SFTP ou [rsync over SSH](/help/rsync/remote)
 - **Git** — Cloner et pousser des dépôts via le [protocole SSH](/help/git/workflow)
-- **Gestion centralisée** — Stocker et organiser ses connexions SSH avec [mn](/help/linux/mn) (`mn conn`)
+- **Gestion centralisée** — Stocker et organiser ses connexions SSH avec [mn](/help/linux/mn) (`mn conn`) ou [tote](/projet/tote) (`tote co`)
 
 ## Pour aller plus loin {#next}
 

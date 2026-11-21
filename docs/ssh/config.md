@@ -201,21 +201,23 @@ ssh -O exit prod
 ssh -O stop prod
 ```
 
-## MN vs ~/.ssh/config {#mn-vs-config}
+## mn, tote et ~/.ssh/config {#mn-vs-config}
 
-[mn](/help/linux/mn) et `~/.ssh/config` gèrent tous deux les connexions SSH, mais de manière complémentaire :
+[mn](/help/linux/mn), [tote](/projet/tote) (son successeur) et `~/.ssh/config` permettent tous de gérer ses connexions SSH, mais de manière complémentaire :
 
-| Critère          | ~/.ssh/config                              | mn conn                                    |
-| ---------------- | ------------------------------------------ | ------------------------------------------ |
-| Interface        | Fichier texte, édition manuelle            | Menu interactif (TUI)                      |
-| Utilisé par      | Tous les outils SSH (ssh, scp, rsync, git) | mn uniquement                              |
-| Stockage         | `~/.ssh/config`                            | `~/.config/mn/data/connexions.dat`         |
-| Options avancées | Toutes les directives SSH                  | Label, IP, description, mot de passe       |
-| Commandes custom | Non                                        | Oui (type `custom`)                        |
-| Recherche rapide | `ssh <alias>` en mémoire                   | Navigation par menu                        |
-| Cas d'usage      | Configuration technique permanente         | Accès rapide interactif, inventaire visuel |
+| Critère          | ~/.ssh/config                              | mn conn                                    | tote co                                                    |
+| ---------------- | ------------------------------------------ | ------------------------------------------ | ---------------------------------------------------------- |
+| Interface        | Fichier texte, édition manuelle            | Menu interactif (TUI)                      | Interface interactive, palette `Ctrl+K`, ligne de commande |
+| Utilisé par      | Tous les outils SSH (ssh, scp, rsync, git) | mn uniquement                              | tote uniquement                                            |
+| Stockage         | `~/.ssh/config`                            | `~/.config/mn/data/connexions.dat`         | `~/.config/tote/connections.toml`                          |
+| Champs           | Toutes les directives SSH                  | name, via, target, user, aliases, ip, desc | name, via, target, user, aliases, ip, desc                 |
+| Commandes custom | Non                                        | Oui (champ `via`, commande ou modèle)      | Oui (option `--via`, commande ou modèle)                   |
+| Recherche rapide | `ssh <alias>` en mémoire                   | Filtre `/`, alias, `mn co <nom>`           | Filtre `/`, alias, préfixe, `tote co <nom>`                |
+| Cas d'usage      | Configuration technique permanente         | Accès rapide interactif, inventaire visuel | Accès rapide interactif ou scripté, inventaire visuel      |
 
-**Recommandation :** Utilisez `~/.ssh/config` pour la configuration technique (clés, ports, options avancées) et [mn](/help/linux/mn) pour naviguer rapidement entre vos serveurs depuis le terminal.
+Le champ `target` d'une connexion mn ou tote est transmis tel quel à `ssh`, qui le compare au nom d'un bloc `Host` de `~/.ssh/config`. L'adresse `ip` n'est jamais utilisée pour se connecter. Les outils se combinent donc au lieu de se concurrencer : le bloc `Host` porte la configuration technique, la connexion mn ou tote donne un nom court, des alias et un accès en une touche.
+
+**Recommandation :** Utilisez `~/.ssh/config` pour la configuration technique (clés, ports, options avancées) et [mn](/help/linux/mn) ou [tote](/projet/tote) pour naviguer rapidement entre vos serveurs depuis le terminal.
 
 ## Pour aller plus loin {#next}
 
