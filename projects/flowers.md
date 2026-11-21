@@ -30,6 +30,12 @@ Flowers est conçu pour être flexible et adaptable à vos besoins.
 
 **Technologies utilisées :** TypeScript, Lucide Icons, Lenis (smooth scroll), next-themes, TanStack Virtual.
 
+![Le moniteur de Flowers : les entrées d'une API de démonstration défilent dans la timeline, avec badges de statut, méthode et niveau détectés automatiquement, puces de filtre, préréglages et statistiques](/images/projects/flowers/monitor)
+
+Un clic sur une entrée ouvre son panneau de détail, où les champs reconnus et les objets imbriqués sont affichés sous forme d'arbre :
+
+![Avec le préréglage Erreurs (4xx et 5xx), un clic sur une entrée ouvre son panneau de détail : champs reconnus et objets imbriqués affichés en arbre coloré (données de démonstration)](/images/projects/flowers/detail)
+
 ## Comment l'utiliser ? {#usage}
 
 L'utilisation est simple et ne nécessite aucune inscription :
@@ -40,3 +46,7 @@ L'utilisation est simple et ne nécessite aucune inscription :
 4. Filtrez, comparez et exportez vos données selon vos besoins
 
 Vous pouvez connecter plusieurs APIs simultanément et sauvegarder vos configurations en tant que presets.
+
+La comparaison de deux entrées affiche ligne par ligne ce qui change, jusque dans les objets imbriqués :
+
+![La comparaison de deux entrées affiche ligne par ligne ce qui change, en rouge et en vert, y compris dans les objets imbriqués : ici la même requête réussie puis en erreur (données de démonstration)](/images/projects/flowers/compare)
