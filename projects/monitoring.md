@@ -46,6 +46,8 @@ L'interface s'adapte aussi aux petits écrans avec des composants dédiés plut�
 
 Chaque alerte peut être **acquittée**, **suivie** ou **désactivée**, individuellement ou par sélection multiple, et recevoir des **commentaires** partagés avec l'équipe. L'utilisateur est identifié par le reverse proxy, et ses actions apparaissent dans les notifications.
 
+![Panneau de détails d'une alerte critique : identité de l'équipement, état et sortie du contrôle, commentaire de l'équipe et boutons pour acquitter, suivre ou désactiver, avec des données fictives](/images/projects/monitoring/detail.webp)
+
 - **Clavier** — flèches pour parcourir les lignes et raccourcis pour les actions ; maintenir `Ctrl` au survol d'une ligne, ou les flèches gauche et droite sur la ligne sélectionnée, révèle les boutons d'action
 - **Partage par courriel** — l'alerte est envoyée, par défaut au support, à un ou plusieurs destinataires de l'entreprise, avec un lien vers la vue filtrée sur cet équipement et cet indicateur ; plusieurs alertes peuvent être groupées dans un seul message
 - **Graphiques et supervision** — depuis une alerte, un clic ouvre le graphe de l'indicateur dans Grafana ou la fiche du service dans Thruk
