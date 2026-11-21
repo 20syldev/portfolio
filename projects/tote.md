@@ -39,6 +39,8 @@ Il n'y a **aucune migration dans le programme** : tote ne lit jamais la configur
 
 ![Liste des connexions, avec la commande SSH exacte affichée avant de se connecter](/images/projects/tote/connections)
 
+![Palette de commandes, ouverte par Ctrl+K, qui cherche dans les connexions, les dépôts, les alias et les fonctions](/images/projects/tote/palette)
+
 ## Intégration au shell {#shell}
 
 Un programme ne peut ni changer le répertoire du shell qui l'a lancé, ni écrire sur son invite. tote le fait avec une petite fonction chargée une fois (`eval "$(tote init bash)"` ou `zsh`) :
@@ -61,6 +63,8 @@ Chaque domaine s'utilise aussi sans l'interface, ce qui rend tote scriptable :
 - `tote update` — cherche une nouvelle version et l'installe après avoir vérifié sa signature ; `--check` sert dans un script (code `10` quand une mise à jour existe)
 - `tote uninstall` — retire tote en gardant les données, sauf avec `--purge`, et `--dry-run` affiche le plan sans rien supprimer
 
+![Résultat de tote doctor, avec ses vérifications et la correction proposée pour chaque avertissement](/images/projects/tote/doctor)
+
 Les codes de sortie sont documentés et gardés compatibles dans toute la ligne 1.x. `ssh` est toujours lancé sous la forme `ssh -l utilisateur -- cible`, si bien qu'une cible ou un utilisateur commençant par `-` n'est jamais lu comme une option.
 
 ## Plugins {#plugins}
@@ -72,6 +76,8 @@ Un plugin ajoute des commandes à la palette et des actions aux lignes d'une lis
 - **Pas de bac à sable** — les programmes listés tournent avec les droits de l'utilisateur, et seules les permissions d'exécution et d'environnement sont appliquées par tote ; les autres sont déclarées, et le texte venu d'un plugin est nettoyé de ses caractères de contrôle avant l'affichage
 - **Désactivation immédiate** — `tote plugin disable` suffit, et `--no-plugins` coupe tout pour une exécution
 - **gft** — le plugin livré dans le binaire s'appuie sur [gft](/projet/gft) et ajoute, sur un dépôt enregistré, la gestion des stashes (lister, afficher, supprimer), puis l'affichage de la dernière release, de ses assets et de ses notes quand le dépôt a un remote GitHub
+
+![Écran de consentement avant l'installation du plugin gft : origine, somme de contrôle, commandes exactes et ce que le plugin pourra faire](/images/projects/tote/consent)
 
 ## Installation et mises à jour signées {#install}
 
