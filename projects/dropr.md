@@ -52,6 +52,8 @@ curl -fsSL https://dropr.sylvain.sh/bash/tote@latest/install.sh | sh
 - [`eslint`](https://dropr.sylvain.sh/config/eslint@latest) — Configuration ESLint (flat config) partagée
 - [`prettier`](https://dropr.sylvain.sh/config/prettier@latest) — Configuration Prettier partagée
 
+![La page d'accueil de dropr.sylvain.sh : les onze paquets servis, rangés par type (bash, config, npm), avec leur dernière version](/images/projects/dropr/packages)
+
 ## Utilisation {#usage}
 
 Chaque fichier est accessible via une URL versionnée de la forme `/<type>/<projet>@<version>/<fichier>` :
@@ -62,6 +64,8 @@ curl https://dropr.sylvain.sh/bash/gft@1.1.0                      # les fichiers
 curl "https://dropr.sylvain.sh/bash/gft@1.1.0?checksums"          # leurs empreintes SHA-256
 curl -OJ https://dropr.sylvain.sh/download/bash/gft@1.1.0         # la version entière, en gft-1.1.0.tar.gz
 ```
+
+![Dropr en ligne de commande sur un dossier de démonstration : vérification avec check, démarrage du serveur, puis les empreintes SHA-256 et l'archive d'une version demandées avec curl (données fictives)](/images/projects/dropr/usage)
 
 **Fonctionnalités principales :**
 
@@ -84,6 +88,10 @@ Avec l'option `"ui": true`, un navigateur reçoit une page là où tout autre cl
 - **Apparence** — un objet `ui` règle une couleur d'accent, un logo et un favicon ; l'accent colore les boutons et l'anneau de focus, et les liens reçoivent la teinte la plus proche qui reste lisible à 4,5:1 sur le thème clair comme sur le sombre
 - **Documentation intégrée** — avec `"ui": { "docs": true }`, l'instance sert les docs de Dropr (présentation, configuration, routes) à `/-/docs`, avec son accent, son logo et son favicon ; le chemin commence par un tiret, que ni un type ni un projet ne peut porter, si bien qu'il ne cache aucun paquet, et ces pages n'ont pas de forme JSON : tout client reçoit la page
 - **Sobriété** — chaque page est un seul document avec son style intégré, sans script ni police, et sa `Content-Security-Policy` ne laisse charger que son propre style, les images d'un README et le lien vers la recherche
+
+![Une version de gft (1.3.0) : ses fichiers avec leur taille, l'archive et les empreintes, puis le début du README rendu par le lecteur Markdown maison](/images/projects/dropr/version)
+
+![Un projet obsolète, ici l'ancien @20syldev/api : l'avis de dépréciation renvoie vers son successeur Moxon, et toutes ses versions restent joignables](/images/projects/dropr/deprecated)
 
 ## Ligne de commande et bibliothèque {#cli}
 
