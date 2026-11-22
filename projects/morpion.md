@@ -31,8 +31,8 @@ Il est dans mon style, avec la réutilisation de certains de mes scripts.
 
 ## Une rapidité de jeu {#speed}
 
-Le site est optimisé pour une rapidité de jeu maximale, vous pouvez donc jouer rapidement et sans latence.
-Les parties en ligne sont gérées en temps réel via mon [API](https://api.sylvain.sh) sur l'endpoint `/latest`, qui stocke les données de chaque partie pendant 1 heure.
+Le site est léger et se charge vite, les parties locales et contre l'IA se jouent sans aucune attente.
+Les parties en ligne passent par mon [API](https://api.sylvain.sh), qui stocke les données de chaque partie pendant 1 heure ; chaque navigateur relit l'état de la partie toutes les deux secondes.
 
 ## Comment jouer en ligne ? {#online}
 
@@ -49,5 +49,5 @@ Pour lancer une partie en ligne :
 Le mode solo propose **trois niveaux de difficulté** pour jouer contre l'ordinateur :
 
 - **Facile** : l'IA joue de manière aléatoire
-- **Moyen** : l'IA bloque vos coups gagnants
+- **Normal** : l'IA joue le meilleur coup quatre fois sur cinq, et un coup au hasard le reste du temps
 - **Difficile** : l'IA utilise une stratégie optimale, quasiment imbattable
