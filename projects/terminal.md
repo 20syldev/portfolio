@@ -29,6 +29,8 @@ Utilisez la touche "Tab" pour compléter automatiquement les commandes et les ch
 Vous pouvez aussi utiliser `>` pour rediriger la sortie vers un fichier.
 La commande `color` règle les couleurs : `color enable` active l'invite colorée sur fond noir, `color disable` la repasse en monochrome, et `color` suivi de deux chiffres hexadécimaux (fond puis texte, comme sous DOS) choisit les couleurs de l'écran ; sans argument, elle rétablit celles par défaut.
 
+![La commande neofetch affiche le logo du navigateur détecté et les informations du système simulé.](/images/projects/terminal/neofetch.webp)
+
 ## Commencer {#start}
 
 Pour commencer, entrez une commande, par exemple **help**, et appuyez sur Entrée.
