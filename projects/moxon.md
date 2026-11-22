@@ -40,6 +40,8 @@ Le package couvre un large spectre de domaines, presque tous les modules étant 
 
 **Génération visuelle** — QR codes, codes-barres, avatars déterministes, captchas, placeholders SVG et graphiques (bar, line, pie, donut).
 
+![Six endpoints qui répondent par une image plutôt que du JSON : QR code, code-barres, avatar déterministe, captcha, graphique en barres et badge, chacun avec la requête qui l'a produit. L'API n'a pas de thème : la version sombre est le même appel avec d'autres paramètres de couleur](/images/projects/moxon/gallery)
+
 **Données fictives** — profils complets, cartes bancaires Luhn-valides, adresses postales pour 5 pays, noms d'utilisateur.
 
 **Utilitaires réseau** — analyse de User-Agent, d'adresses IP (v4/v6), inspection des en-têtes HTTP, calcul de distance GPS (Haversine).
@@ -168,3 +170,5 @@ Ces quotas concernent **mon instance publique** : chez vous, c'est votre serveur
 [api.moxon.dev](https://api.moxon.dev) est **gratuite** avec un quota de **2 000 requêtes par heure** et par adresse IP, sans inscription ni token.
 Des plans avec des limites plus élevées (jusqu'à 10 000 req/heure) sont détaillés sur la page Tarification de la [documentation](https://moxon.dev).
 L'endpoint `GET /auth` permet de vérifier à tout moment le palier associé à un token et les limites qui s'y appliquent.
+
+![Un appel curl sur l'instance publique : la réponse JSON, puis les en-têtes qui annoncent le quota de 2 000 requêtes par heure](/images/projects/moxon/curl)
