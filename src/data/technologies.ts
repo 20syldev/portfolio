@@ -39,6 +39,17 @@ export function isFavoriteTech(name: string): boolean {
     return favoriteTechs.includes(name);
 }
 
+/**
+ * Spells out the symbols of a technology name so that its accessible name stays unique.
+ * Screen readers and audits drop punctuation, which would make "C", "C++" and "C#" identical.
+ *
+ * @param name - Technology name, as written in the tech categories
+ * @returns The name with "+" read as "plus" and "#" as "sharp"
+ */
+export function spokenName(name: string): string {
+    return name.replace(/\+/g, " plus").replace(/#/g, " sharp");
+}
+
 // Categorized tech stack displayed on the /technologies page
 export const techCategories = [
     {
