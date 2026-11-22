@@ -16,9 +16,9 @@ Ce projet permet aux utilisateurs d'exécuter les commandes de base d'un termina
 
 Le terminal supporte **plus de 30 commandes** incluant les utilitaires standards Linux :
 
-- **Navigation** : `ls`, `cd`, `pwd`, `mkdir`, `rmdir`, `tree`
+- **Navigation** : `ls`, `cd`, `pwd`, `mkdir`, `tree`
 - **Fichiers** : `cat`, `echo`, `cp`, `mv`, `rm`, `touch`
-- **Système** : `neofetch`, `clear`, `date`, `history`, `stats`, `whoami`, `exit`
+- **Système** : `neofetch`, `clear`, `date`, `stats`, `whoami`, `exit`
 - **Réseau** : `curl`, `wget`
 - **Avancé** : `nano`, `javascript`, `screenshot`, `sh`, `color`
 - **Utilisateurs** : `adduser`, `userdel`, `usermod`, `passwd`, `su`, `sudo`
@@ -27,6 +27,7 @@ Le terminal supporte **plus de 30 commandes** incluant les utilitaires standards
 Accédez facilement aux commandes précédemment exécutées à l'aide des touches flèche haut et flèche bas.
 Utilisez la touche "Tab" pour compléter automatiquement les commandes et les chemins d'accès aux fichiers.
 Vous pouvez aussi utiliser `>` pour rediriger la sortie vers un fichier.
+La commande `color` règle les couleurs : `color enable` active l'invite colorée sur fond noir, `color disable` la repasse en monochrome, et `color` suivi de deux chiffres hexadécimaux (fond puis texte, comme sous DOS) choisit les couleurs de l'écran ; sans argument, elle rétablit celles par défaut.
 
 ## Commencer {#start}
 
