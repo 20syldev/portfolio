@@ -57,6 +57,9 @@ function Shot({ image, className, eager = false }: ShotProps) {
     );
 }
 
+// Tallest a portrait image may stand in the content, in pixels, so it does not fill the whole page
+const portraitHeight = 720;
+
 interface FigureProps {
     image: ContentImage;
     onOpen: () => void;
@@ -66,6 +69,7 @@ interface FigureProps {
 
 /**
  * Image placed in the content, with its caption. A click opens the full-size view.
+ * A portrait image is narrowed and centred so that it stays no taller than portraitHeight.
  *
  * @param props - Component props
  * @param props.image - Image to show, its alt text serving as caption and zoom label
@@ -75,13 +79,19 @@ interface FigureProps {
  * @returns The figure with its zoom button and caption
  */
 export function Figure({ image, onOpen, className, eager }: FigureProps) {
+    const maxWidth =
+        image.height > image.width
+            ? Math.round((portraitHeight * image.width) / image.height)
+            : undefined;
+
     return (
         <figure className={cn("my-8", className)}>
             <button
                 type="button"
                 onClick={onOpen}
                 aria-label={`Agrandir : ${image.alt}`}
-                className="group relative block w-full cursor-zoom-in overflow-hidden rounded-xl border bg-muted"
+                style={{ maxWidth }}
+                className="group relative mx-auto block w-full cursor-zoom-in overflow-hidden rounded-xl border bg-muted"
             >
                 <Shot image={image} className="h-auto w-full" eager={eager} />
                 <span className="absolute top-3 right-3 rounded-md bg-background/80 p-1.5 opacity-0 backdrop-blur transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
