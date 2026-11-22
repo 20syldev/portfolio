@@ -64,6 +64,10 @@ Le code est découpé par responsabilité — `core` pour l'état, les requêtes
 - **Raccourcis clavier** — `Alt+N` pour un nouveau certificat, `Alt+F` pour la recherche, `Alt+U` et `Alt+L` pour le verrou, `Alt+C` pour changer de CA, `Alt+D` pour télécharger, `Alt+K` pour l'aide, plus la navigation du tableau aux flèches
 - **Bilingue et thèmes** — français et anglais traduits côté client, thème clair ou sombre aligné sur la préférence système puis sur le choix mémorisé
 
+![L'inventaire d'une autorité : statuts valide, expiré, révoqué et désactivé réunis par les filtres, avec les actions de renouvellement, de désactivation et de téléchargement sur chaque ligne](/images/projects/zpki/inventory)
+
+![La fiche d'un certificat : sujet, autorité émettrice, numéro de série, noms alternatifs, dates de validité et téléchargements](/images/projects/zpki/detail)
+
 ## Déploiement {#deploy}
 
 Tout se configure par variables d'environnement, dans un fichier `.env` ou directement dans l'unité systemd : adresse et port d'écoute, répertoire de base des CA, commandes à invoquer, durées d'expiration et proxys de confiance.
