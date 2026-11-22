@@ -32,6 +32,10 @@ L'outil couvre l'ensemble du cycle de construction d'un format :
 - **Linter de portabilité** — des avertissements par pièce et un résumé par format dès qu'une directive n'est pas portable entre C / glibc, Python et Ruby
 - **Formats sauvegardés** — une bibliothèque personnelle en `localStorage` avec renommage, suppression (avec annulation) et import/export JSON
 
+![Un format construit dans le champ texte devient des pièces colorées avec leur valeur en direct, une barre de portabilité résume la compatibilité C, Python et Ruby, et l'aperçu affiche le résultat en français](/images/projects/strftime/builder)
+
+![Un clic sur une pièce ouvre son explication : valeur en direct, plage, compatibilité par dialecte, puis réglages de remplissage, de casse et de largeur minimale](/images/projects/strftime/popover)
+
 ## Le moteur maison {#engine}
 
 Le cœur de strftime est un **moteur `strftime` écrit de zéro en TypeScript** (`src/lib/strftime.ts`).
