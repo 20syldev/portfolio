@@ -50,6 +50,8 @@ L'utilisation du générateur est simple et rapide :
 
 Le timestamp s'adaptera alors automatiquement au fuseau horaire de chaque personne qui le verra dans Discord.
 
+![Le générateur : une date, une heure et un format donnent l'aperçu dans la langue du navigateur et le code à copier dans Discord.](/images/projects/timestamp/generator)
+
 ## Pourquoi utiliser des timestamps ? {#why}
 
 Les timestamps sont particulièrement utiles pour :
