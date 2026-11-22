@@ -1,7 +1,7 @@
 ---
 name: Plugin Draw.io pour YaNa
 description: Plugin Draw.io qui dessine un schéma réseau à partir de l'API YaNa et colore ses switchs selon leur état, pour ZENETYS.
-longDescription: "Plugin JavaScript pour Draw.io (diagrams.net) qui génère un schéma de base d'un réseau à partir de l'API YaNa : switchs, liens entre eux, ports, VLANs, vitesse et duplex. Les équipements sont colorés selon leur état en direct, et ceux que l'on déplace à la main sont laissés en place par la disposition automatique."
+longDescription: "Plugin JavaScript pour Draw.io (diagrams.net) qui génère un schéma de base d'un réseau à partir de l'API YaNa : switchs, liens entre eux, ports, VLANs, vitesse et duplex. Les équipements sont colorés selon leur état en direct, et une disposition automatique organise le graphe."
 tags: ["JavaScript", "Draw.io", "YaNa", "Network"]
 github: "https://github.com/20syldev/drawio-ext"
 work: true
@@ -34,6 +34,8 @@ Chaque équipement devient une boîte portant son nom (sans le domaine) et sa pr
 Les liens ne sont tracés qu'entre switchs connus, avec un seul lien par paire de switchs même si les deux extrémités le déclarent, et leur couleur dépend de la vitesse et du duplex : rouge sous 1 Gbit/s ou pour la valeur de duplex 2, noir sinon.
 Chaque extrémité d'un lien porte une étiquette avec le nom du port. Les VLANs affichés (`Tag` et `Untag`, le VLAN natif étant souligné dans `Untag`) sont ceux du port source du lien.
 
+![Le plugin génère le schéma réseau depuis l'API : chaque port est étiqueté (nom, VLANs taggés et untaggés), les couleurs reflètent l'état des équipements et le lien lent apparaît en rouge. Ici, un zoom sur une partie du schéma d'une entité fictive, avec des données de démonstration](/images/projects/drawio-ext/schema)
+
 ## Des couleurs d'état en direct {#live}
 
 Les couleurs viennent de Live.js. Pour chaque équipement, `yana.js` écrit des attributs `live.property.fillColor` et `live.property.fontColor` dont l'expression appelle la fonction `cState` à partir des données de l'hôte renvoyées par l'API live. Le premier équipement porte la déclaration de cette source de données, partagée ensuite par tous.
@@ -46,14 +48,14 @@ La fonction `cState`, définie dans `PreConfig.js`, associe le code d'état de l
 
 Les adresses des API et l'entité choisie sont enregistrées dans les données de la cellule racine du diagramme, visibles dans « Edit Data », avec des valeurs par défaut qui pointent vers les API de ZENETYS et l'entité `demo`. Un diagramme rouvert reprend donc sa source sans rien ressaisir.
 
-## Un schéma que l'on peut ranger {#layout}
+## Déplacer les équipements {#layout}
 
-Quand on déplace un équipement à la souris, le plugin lui pose l'attribut `yana.moved`. La disposition organique ne touche alors plus à cet équipement, ce qui permet de ranger le schéma à sa façon : **Force Layout** relance la disposition uniquement sur les équipements qui n'ont pas été déplacés. Un déplacement au clavier ne pose pas ce drapeau.
+Quand on déplace un équipement à la souris, le plugin lui pose l'attribut `yana.moved`. L'idée était que **Force Layout** relance la disposition uniquement sur les équipements qui n'ont pas été déplacés, mais ce n'est pas ce qui se passe : la disposition organique de Draw.io (`mxFastOrganicLayout`) reconstruit elle-même sa liste d'éléments à chaque exécution, et ignore donc celle que le plugin lui donne. Un équipement déplacé à la main est replacé comme les autres (vérifié avec Draw.io 24.7.1 et 24.7.17). Un déplacement au clavier ne pose pas ce drapeau.
 **Reset** vide le diagramme.
 
 ## Installation {#install}
 
-Les plugins sont désactivés dans la version navigateur de Draw.io : le README demande **Draw.io v24.7.1 ou plus** et renvoie vers la version de bureau 24.7.17. Le plugin se charge ensuite de l'une des trois manières décrites :
+Les plugins sont désactivés dans la version navigateur de Draw.io : le README renvoie vers la version de bureau 24.7.17. Le plugin fonctionne de la **24.7.1** à la **24.7.17** (les deux testées), mais pas sur la **32.6.10**, où la fonction `addMenuFunction` de la barre d'outils, dont il dépend, n'existe plus ; les versions entre les deux n'ont pas été essayées. Il se charge ensuite de l'une des trois manières décrites :
 
 - **Au démarrage** — en déclarant `yana` dans le registre des plugins depuis `PostConfig.js`, puis en le chargeant avec `App.loadPlugins`
 - **À la demande** — par l'URL, avec `?plugins=1&p=<id>` pour un plugin déjà déclaré dans `App.pluginRegistry`
