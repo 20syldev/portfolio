@@ -10,7 +10,7 @@ work: true
 ## À propos {#about}
 
 Le site de [ZENETYS](https://www.zenetys.com) présente l'entreprise, ses services, ses technologies, son équipe et ses articles, en français et en anglais.
-J'en ai mené la refonte complète : le site public, construit en **grille bento**, et l'**éditeur** qui permet à l'équipe de le faire vivre sans toucher au code. Il remplace l'ancien site WordPress, dont les anciennes adresses sont toutes redirigées.
+J'en ai mené la refonte complète : le site public, construit en **grille bento**, et l'**éditeur** qui permet à l'équipe de le faire vivre sans toucher au code. Il remplace l'ancien site WordPress, dont les anciennes adresses sont redirigées vers leurs équivalents ou, pour certaines, retirées volontairement.
 
 ## Performances {#performance}
 
