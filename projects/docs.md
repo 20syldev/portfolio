@@ -23,6 +23,10 @@ Elle couvre plus de 40 endpoints répartis en catégories, avec de quoi les test
 - **Exemples de code** en **cURL**, **JavaScript**, **Python** et **PHP**, générés dans le panneau Try et le Playground à partir de la requête qui part vraiment, et sur chaque page à partir d'un exemple de la documentation
 - **Copie** en un clic d'un bloc de code, de l'URL de base ou, sur mobile, de la réponse, et « Copier en Markdown » pour reprendre une page entière depuis un ordinateur
 
+![Le panneau Try d'un endpoint : le formulaire construit à partir des paramètres, le cURL généré et la vraie réponse de l'API avec son statut, sa durée et sa taille](/images/projects/docs/try)
+
+![Le Playground avec l'endpoint QR Code : le formulaire à gauche, la requête envoyée pour de vrai et l'image renvoyée par l'API à droite, avec le code correspondant](/images/projects/docs/playground)
+
 **Naviguer :**
 
 - **Palette de recherche** (`Ctrl` + `K` ou `/`) : un index MiniSearch par version et par langue, construit dans le navigateur, avec les filtres `post:` et `get:`, la recherche par route (`/uuid`) ou par code d'erreur HTTP (`429`), les cinq derniers résultats ouverts, une suggestion « vouliez-vous dire » et, sur ordinateur, un aperçu à côté des résultats
@@ -32,6 +36,8 @@ Elle couvre plus de 40 endpoints répartis en catégories, avec de quoi les test
 - **Thème** clair, sombre ou système, sans flash au chargement, avec des raccourcis clavier pour la langue, la version et le thème
 - **Mobile** : un menu en feuille plein écran et une barre « Essayer la requête » qui ouvre le panneau Try dans une feuille
 - **Anciennes adresses** : celles de l'ancien site redirigent vers les nouvelles, et la page 404 propose la recherche et une suggestion
+
+![La palette de recherche (Ctrl + K) avec le filtre get: : endpoints et paramètres regroupés, et l'aperçu de la page à côté des résultats](/images/projects/docs/recherche)
 
 ## Des pages en données {#content}
 
