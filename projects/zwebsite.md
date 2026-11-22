@@ -37,6 +37,10 @@ Ce score ne vient pas d'un site minimaliste : il vient d'un chemin critique qui 
 - **Référencement** — métadonnées Open Graph et Twitter, données structurées JSON-LD sur les pages de détail, `robots.txt` et `security.txt`
 - **Accessibilité** — lien d'évitement, titre `h1` sémantique, carrousels annoncés aux lecteurs d'écran, animations coupées sous `prefers-reduced-motion`, contrastes vérifiés dans l'éditeur de couleurs
 
+![La page d'accueil en grille bento : quatre tuiles de services, un bloc d'actualités et un carrousel Focus, assemblés dans l'éditeur.](/images/projects/zwebsite/bento)
+
+![La recherche plein texte : les pages sont classées avec leur titre en tête, le passage trouvé en dessous et les mots cherchés en surbrillance.](/images/projects/zwebsite/search)
+
 ## Éditeur {#editor}
 
 Le contenu vit dans un backend **Fastify** et **SQLite**, exporté au build. L'éditeur intégré couvre tout le site :
