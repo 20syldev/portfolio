@@ -53,7 +53,7 @@ La passphrase de la CA est le point sensible de l'outil, et tout est construit a
 L'interface a été entièrement refondue : la version Bootstrap historique a laissé place à un front-end **sans framework ni étape de build**, en HTML statique, modules ES natifs et CSS maison.
 Le code est découpé par responsabilité — `core` pour l'état, les requêtes et le thème, `components` pour la table, les modales et les notifications, `features` pour les certificats, les filtres et le verrou, `views` pour chaque modale, `i18n` pour les traductions.
 
-- **Inventaire** — un tableau listant statut, nom commun, numéro de série, type, dates de validité, téléchargements et actions
+- **Inventaire** — un tableau listant statut, nom commun, numéro de série, type, dates de validité, téléchargements et actions ; un clic sur une ligne ouvre la fiche détaillée du certificat
 - **Recherche et filtres** — des filtres valides / expirés / révoqués / désactivés combinables et une recherche, dont l'état est reflété dans l'URL pour être partagé ou rechargé
 - **Création multi-SAN** — nom commun, noms alternatifs `DNS:` et `IP:` ajoutés sous forme de tags avec validation de format, type serveur ou utilisateur, et fenêtre de validité
 - **Renouvellement** — régénération du certificat existant, avec l'option de régénérer aussi la CSR pour prendre en compte de nouveaux SAN
