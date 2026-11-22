@@ -29,6 +29,8 @@ La syntaxe de base est simple :
 gft <user/repo> [tag] [options]
 ```
 
+![Sans option, gft affiche la dernière release d'un dépôt public : tag, liens, archives sources et commandes prêtes à copier, puis propose de télécharger l'archive (ici refusé)](/images/projects/gft/release)
+
 Exemples rapides :
 
 - `gft cli/cli` — Dernière release
@@ -52,6 +54,14 @@ Exemples rapides :
 - `gft stash clean -y` — Tout supprimer sans confirmation
 - `gft update` — Mettre à jour gft
 - `gft delete` — Désinstaller gft
+
+Trois d'entre elles en situation, sur le dépôt casey/just :
+
+![--assets liste les fichiers d'une release, et --detect place en tête celui qui convient à votre système](/images/projects/gft/assets)
+
+![Une plage de tags, et gft liste les releases comprises dans l'intervalle avec le lien de comparaison GitHub](/images/projects/gft/compare)
+
+![Avec --json, la sortie est stable et se branche directement sur jq pour les scripts : ici le nombre d'assets, puis l'empreinte SHA-256 du binaire Linux](/images/projects/gft/json)
 
 ## Fonctionnalités {#features}
 
