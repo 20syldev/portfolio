@@ -30,12 +30,14 @@ Par exemple, un timestamp affiche "31 décembre 2021 à 18:00" pour un utilisate
 L'outil prend en charge tous les formats de timestamp Discord officiels :
 
 - **Heure courte (t)** : 16:20
-- **Heure longue (T)** : 16:20:30
+- **Heure longue (T)** : 16:20:00
 - **Date courte (d)** : 20/04/2021
 - **Date longue (D)** : 20 avril 2021
 - **Date et heure courtes (f)** : 20 avril 2021 à 16:20
 - **Date et heure longues (F)** : mardi 20 avril 2021 à 16:20
 - **Temps relatif (R)** : il y a 2 mois / dans 3 heures
+
+Le sélecteur de l'outil nomme ces formats en anglais (Short Time, Long Date + Short Time, Relative…). Le champ d'heure n'a pas de secondes : le format T les affiche donc toujours à 00. L'aperçu est produit par le navigateur dans sa propre langue, alors que Discord applique celle de chaque lecteur.
 
 ## Comment l'utiliser ? {#usage}
 
