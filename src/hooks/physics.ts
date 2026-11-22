@@ -24,8 +24,8 @@ const defaults = {
     springStiffness: 0.003, // Return speed
     springDamping: 0.08, // Oscillation reduction (0–1)
     bounceFactor: 0.6, // Edge bounce energy (0–1)
-    snapDistance: 60, // Snap-back radius (px)
-    snapThreshold: 5, // Snap-back max speed (px/frame)
+    snapDistance: 60, // Soft-return radius (px)
+    snapThreshold: 5, // Soft-return max speed (px/frame)
 };
 
 const rotation = {
@@ -37,10 +37,12 @@ const rotation = {
     flightStiffness: 0.08, // Pull back to 0°
     flightDamping: 0.92, // Spin decay (0–1)
     flightVelocityCoupling: 0.15, // Velocity-to-tilt
-    // Snap-back
-    snapStiffness: 0.15, // Return spring force
-    snapDamping: 0.85, // Angular damping (0–1)
-    snapFriction: 0.7, // Position damping (0–1)
+};
+
+const softReturn = {
+    // Critically damped spring shared by position and rotation, so both arrive together
+    stiffness: 0.012, // Pull toward the origin
+    damping: 2 * Math.sqrt(0.012), // Friction that removes any overshoot
 };
 
 /**
@@ -244,29 +246,29 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
             animId = requestAnimationFrame(animateLoop);
         };
 
-        const snapLoop = (now: number) => {
+        const softLoop = (now: number) => {
             const t = dt(now);
 
-            vx = (vx + -rotation.snapStiffness * x * t) * Math.pow(rotation.snapFriction, t);
-            vy = (vy + -rotation.snapStiffness * y * t) * Math.pow(rotation.snapFriction, t);
+            vx += (-softReturn.stiffness * x - softReturn.damping * vx) * t;
+            vy += (-softReturn.stiffness * y - softReturn.damping * vy) * t;
             x += vx * t;
             y += vy * t;
 
-            av += -rotation.snapStiffness * angle * t;
-            av *= Math.pow(rotation.snapDamping, t);
+            av += (-softReturn.stiffness * angle - softReturn.damping * av) * t;
             angle += av * t;
 
             if (
                 Math.abs(x) + Math.abs(y) < 0.5 &&
                 Math.abs(vx) + Math.abs(vy) < 0.1 &&
-                Math.abs(angle) < 0.3
+                Math.abs(angle) < 0.3 &&
+                Math.abs(av) < 0.1
             ) {
                 settle();
                 return;
             }
 
             apply();
-            animId = requestAnimationFrame(snapLoop);
+            animId = requestAnimationFrame(softLoop);
         };
 
         const computeVelocity = () => {
@@ -364,7 +366,7 @@ export function useDraggablePhysics(options?: PhysicsOptions) {
 
             lastTime = 0;
             if (dist < c.snapDistance && speed < c.snapThreshold) {
-                animId = requestAnimationFrame(snapLoop);
+                animId = requestAnimationFrame(softLoop);
             } else {
                 animId = requestAnimationFrame(animateLoop);
             }
