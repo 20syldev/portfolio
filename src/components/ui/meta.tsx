@@ -6,7 +6,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import type { Project } from "@/data/projects";
 import { type ProjectStatus } from "@/hooks/status";
 
-type ProjectLike = Pick<Project, "archived" | "paused" | "github" | "npm">;
+type ProjectLike = Pick<Project, "name" | "archived" | "paused" | "github" | "npm">;
 
 interface MetaProps {
     version?: string | null;
@@ -31,6 +31,7 @@ export function Meta({ version, status, project }: MetaProps) {
                 (project?.npm || project?.github ? (
                     <a
                         href={project?.npm ?? `${project.github}/releases/latest`}
+                        aria-label={`Version ${version} de ${project.name}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex"
@@ -49,6 +50,7 @@ export function Meta({ version, status, project }: MetaProps) {
                 status={status ?? null}
                 github={project?.github}
                 npm={project?.npm}
+                name={project?.name}
                 variant="inline"
             />
             <MetaBadges project={project} />

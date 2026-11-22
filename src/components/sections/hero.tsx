@@ -187,7 +187,7 @@ export function Hero() {
                                 >
                                     <a
                                         href={profile.links.github}
-                                        aria-label="GitHub"
+                                        aria-label="Profil GitHub"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >

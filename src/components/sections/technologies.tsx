@@ -10,6 +10,7 @@ import {
     darkInvertHueIcons,
     darkInvertIcons,
     isFavoriteTech,
+    spokenName,
     techCategories,
 } from "@/data/technologies";
 import { useDragScroll } from "@/hooks/scroll";
@@ -44,7 +45,7 @@ function TechIcon({ name, icon, large }: { name: string; icon: string; large?: b
     return (
         <Image
             src={icon}
-            alt={name}
+            alt={spokenName(name)}
             width={size}
             height={size}
             className={`${large ? "w-9 h-9" : "w-6 h-6"} ${filter}`}
@@ -155,7 +156,7 @@ export function Technologies({ preview }: { preview?: boolean }) {
                                                     name={tech.name}
                                                     href={tech.url}
                                                     className={mobileLinkClass}
-                                                    label={tech.name}
+                                                    label={spokenName(tech.name)}
                                                 >
                                                     <TechIcon {...tech} large />
                                                 </FavoriteTip>
@@ -165,7 +166,7 @@ export function Technologies({ preview }: { preview?: boolean }) {
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className={mobileLinkClass}
-                                                    aria-label={tech.name}
+                                                    aria-label={spokenName(tech.name)}
                                                 >
                                                     <TechIcon {...tech} large />
                                                 </a>

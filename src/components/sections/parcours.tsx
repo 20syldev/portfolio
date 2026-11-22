@@ -147,6 +147,7 @@ function ProjectCard({ project }: { project: ParcoursProject }) {
                                     status={status}
                                     github={doc?.github}
                                     npm={doc?.npm}
+                                    name={project.name}
                                     variant="inline"
                                 />
                             )}

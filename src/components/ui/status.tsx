@@ -9,6 +9,7 @@ interface StatusBadgeProps {
     status: ProjectStatus;
     github?: string;
     npm?: string;
+    name?: string;
     variant?: "absolute" | "inline";
 }
 
@@ -37,10 +38,12 @@ const config = {
  * @param props - Component props
  * @param props.status - Project status to display
  * @param props.github - Optional GitHub URL for linking the badge to the latest release
+ * @param props.npm - Optional npm URL, preferred over the GitHub one for the link
+ * @param props.name - Optional project name, added to the accessible name of the link
  * @param props.variant - Display variant: "absolute" for overlay positioning, "inline" for flow (default: "absolute")
  * @returns The rendered status badge, or null if no status
  */
-export function StatusBadge({ status, github, npm, variant = "absolute" }: StatusBadgeProps) {
+export function StatusBadge({ status, github, npm, name, variant = "absolute" }: StatusBadgeProps) {
     if (!status) return null;
 
     const cfg = config[status];
@@ -57,6 +60,7 @@ export function StatusBadge({ status, github, npm, variant = "absolute" }: Statu
     const linked = href ? (
         <a
             href={href}
+            aria-label={name ? `${cfg.label} : ${name}` : undefined}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex"

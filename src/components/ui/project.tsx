@@ -42,7 +42,12 @@ export function ProjectCard({ project, onOpen }: ProjectCardProps) {
         >
             <button onClick={() => onOpen(project)}>
                 {status && (
-                    <StatusBadge status={status} github={project.github} npm={project.npm} />
+                    <StatusBadge
+                        status={status}
+                        github={project.github}
+                        npm={project.npm}
+                        name={project.name}
+                    />
                 )}
 
                 <div className="flex items-center justify-between">
@@ -54,6 +59,7 @@ export function ProjectCard({ project, onOpen }: ProjectCardProps) {
                             href ? (
                                 <a
                                     href={href}
+                                    aria-label={`Version ${version} de ${project.name}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onClick={(e) => e.stopPropagation()}
