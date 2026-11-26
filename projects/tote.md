@@ -1,9 +1,10 @@
 ---
 name: tote
 description: Lanceur en terminal pour connexions SSH, dépôts, alias et fonctions, successeur de mn.
-longDescription: "Successeur de mn réécrit en Go avec Bubble Tea : un lanceur en terminal qui réunit connexions SSH, dépôts Git, alias et fonctions shell dans une interface plein écran avec palette de recherche, thèmes, plugins déclaratifs soumis à consentement, interface en anglais et en français et mises à jour vérifiées par signature minisign. La version 1.0.0 est la première version ; la 1.1.0 ajoute un PPA Ubuntu et des suggestions de valeurs dans les formulaires de plugin."
+longDescription: "Successeur de mn réécrit en Go avec Bubble Tea : un lanceur en terminal qui réunit connexions SSH, dépôts Git, alias et fonctions shell dans une interface plein écran avec palette de recherche, thèmes, plugins déclaratifs soumis à consentement, interface en anglais et en français et mises à jour vérifiées par signature minisign. La version 1.0.0 est la première version ; la 1.1.0 ajoute un PPA Ubuntu et des suggestions de valeurs dans les formulaires de plugin, et la 1.2.0 des champs texte de plusieurs lignes et des listes triées par nom."
 tags: ["Go", "Bubble Tea", "TUI"]
 github: "https://github.com/totecli/tote"
+launchpad: "https://launchpad.net/~totecli/+archive/ubuntu/tote"
 docs: "linux/tote"
 ---
 
@@ -12,7 +13,7 @@ docs: "linux/tote"
 tote (« your terminal tools, in one bag ») rassemble dans une seule interface les outils du quotidien en terminal : connexions SSH, dépôts Git, alias et fonctions shell.
 C'est le successeur de [mn](/projet/mn), réécrit en **Go** avec **Bubble Tea**, et le dépôt vit dans l'organisation GitHub [totecli](https://github.com/totecli/tote).
 
-La **version 1.0.0** est la première version, et la **1.1.0**, publiée le 17 novembre 2026, ajoute le PPA Ubuntu, des suggestions de valeurs dans les formulaires des plugins (`Ctrl+L`) et une palette qui s'adapte à la taille du terminal. Ce qui viendra ensuite est marqué comme prévu dans le README plutôt que promis : les plugins qui embarquent leur propre programme et l'exécution des lignes insérées au niveau du shell.
+La **version 1.0.0** est la première version, la **1.1.0**, publiée le 17 novembre 2026, ajoute le PPA Ubuntu, des suggestions de valeurs dans les formulaires des plugins (`Ctrl+L`) et une palette qui s'adapte à la taille du terminal, et la **1.2.0**, publiée le 24 novembre 2026, ajoute les champs texte de plusieurs lignes dans les formulaires des plugins, des listes triées par nom et l'ouverture de leur liste par `tote repos`, `tote alias` et `tote funcs`. Ce qui viendra ensuite est marqué comme prévu dans le README plutôt que promis : les plugins qui embarquent leur propre programme et l'exécution des lignes insérées au niveau du shell.
 
 Le [guide d'utilisation](/help/linux/tote) détaille l'installation, les touches, la ligne de commande, les plugins, la configuration et la reprise des données de mn.
 
@@ -33,7 +34,7 @@ Il n'y a **aucune migration dans le programme** : tote ne lit jamais la configur
 ## Interface {#interface}
 
 - **Accueil** — un cadre de bienvenue avec le nombre de connexions, de dépôts, d'alias et de fonctions, puis le menu des sections (Connexions, Dépôts, Alias, Fonctions, Plugins, Réglages), accessibles aussi par `1` à `4` (et `5` quand les plugins sont activés), et `,` pour les réglages
-- **Listes filtrables** — les colonnes disparaissent par la droite quand le terminal se réduit, `/` filtre en plaçant en premier les noms qui commencent par le texte, et un panneau affiche la commande que Entrée lancerait (`ssh -l deploy -- staging.example.com`, les options de keepalive n'étant ajoutées qu'au lancement) ou le chemin d'un dépôt, sa branche Git apparaissant sur la ligne d'état
+- **Listes filtrables** — triées par nom sans tenir compte de la casse depuis la 1.2 (le réglage `ui.sort = "file"` rend l'ordre du fichier, qui n'est jamais réécrit), les colonnes disparaissent par la droite quand le terminal se réduit, `/` filtre en plaçant en premier les noms qui commencent par le texte, et un panneau affiche la commande que Entrée lancerait (`ssh -l deploy -- staging.example.com`, les options de keepalive n'étant ajoutées qu'au lancement) ou le chemin d'un dépôt, sa branche Git apparaissant sur la ligne d'état
 - **Palette** — `Ctrl+K` cherche dans tous les enregistrements et quelques actions, avec des préfixes pour restreindre : `c ` connexions, `r ` dépôts, `a ` alias, `d ` fonctions, `>` actions
 - **Souris** — survol, clic, double clic, molette, et un clic sur une touche du pied de page l'actionne ; glisser sélectionne et copie, et `ui.mouse` coupe le tout
 - **Thèmes** — `auto` (selon le fond du terminal), `dark`, `light` ou `mono`, avec des couleurs prévues pour chaque profil (truecolor, 256, 16 couleurs ou aucune) ; `TOTE_COLOR` et `NO_COLOR` sont respectés, et `--ascii` remplace les symboles par de l'ASCII
@@ -60,7 +61,7 @@ Le fichier d'échange est privé (mode 0600), créé dans `$XDG_RUNTIME_DIR`, à
 Chaque domaine s'utilise aussi sans l'interface, ce qui rend tote scriptable :
 
 - `tote co` — lister, ouvrir, ajouter ou supprimer des connexions (`tote co db-primary` se connecte directement et un préfixe unique suffit ; `tote co add --via` enregistre la commande lancée à la place de `ssh` pour cette connexion, par exemple un rebond par un bastion)
-- `tote repos`, `tote alias`, `tote funcs` — la même chose pour les dépôts, les alias et les fonctions
+- `tote repos`, `tote alias`, `tote funcs` — la même chose pour les dépôts, les alias et les fonctions ; depuis la 1.2, sans argument dans un terminal, ils ouvrent leur liste dans l'interface comme `tote co`, et leurs tableaux suivent le tri par nom, alors que `--format tsv` et `--json` gardent l'ordre du fichier
 - `--format table|tsv|json` — chaque liste sort aussi en TSV ou en JSON, dont chaque document commence par `"schema": 1` et ne fait que gagner des champs
 - `tote doctor` — plus de vingt vérifications (version, `PATH`, fichiers, conflits de noms, intégration au shell, `ssh` et `git`, couleurs, presse-papiers, tmux…), presque chaque avertissement donnant sa correction ; `--reset` restaure un terminal cassé
 - `tote update` — cherche une nouvelle version et l'installe après avoir vérifié sa signature ; `--check` sert dans un script (code `10` quand une mise à jour existe)
@@ -78,8 +79,9 @@ Un plugin ajoute des commandes à la palette et des actions aux lignes d'une lis
 - **Intégrité** — un plugin dont les fichiers ont changé après l'accord est refusé, et une release s'installe avec le SHA-256 publié par son auteur
 - **Pas de bac à sable** — les programmes listés tournent avec les droits de l'utilisateur, et seules les permissions d'exécution et d'environnement sont appliquées par tote ; les autres sont déclarées, et le texte venu d'un plugin est nettoyé de ses caractères de contrôle avant l'affichage
 - **Suggestions de valeurs** — depuis la 1.1, un champ texte d'un formulaire de plugin peut proposer des valeurs : le programme qui les liste n'est lancé qu'avec `Ctrl+L`, sa commande est montrée au consentement et on peut toujours saisir une valeur à la main
+- **Champs de plusieurs lignes** — depuis la 1.2, un champ texte peut être une boîte de 2 à 8 lignes où `Entrée` commence une nouvelle ligne et `Ctrl+S` envoie le formulaire ; les lignes arrivent au programme dans un seul argument, un plugin qui en utilise exige tote 1.2 (la 1.1 le liste comme incompatible) et une mise à jour qui rend un champ multiligne redemande l'accord
 - **Désactivation immédiate** — `tote plugin disable` suffit, et `--no-plugins` coupe tout pour une exécution
-- **gft** — le plugin livré dans le binaire s'appuie sur [gft](/projet/gft) et ajoute, sur un dépôt enregistré, la gestion des stashes (lister, afficher, supprimer), puis l'affichage de la dernière release, de ses assets et de ses notes quand le dépôt a un remote GitHub
+- **gft** — le plugin livré dans le binaire s'appuie sur [gft](/projet/gft) et ajoute, sur un dépôt enregistré, la gestion des stashes (lister, afficher, supprimer), puis l'affichage de la dernière release, de ses assets et de ses notes quand le dépôt a un remote GitHub ; la copie livrée avec la 1.2 reste le plugin 1.0.0, la 1.1.0 du plugin vient de son propre dépôt et la mise à jour depuis la copie livrée redemande l'accord
 
 ![Écran de consentement avant l'installation du plugin gft : origine, somme de contrôle, commandes exactes et ce que le plugin pourra faire](/images/projects/tote/consent)
 
