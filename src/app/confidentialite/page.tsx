@@ -25,24 +25,26 @@ export default function ConfidentialitePage() {
 
             <main className="flex-1 container mx-auto max-w-3xl px-4 pt-page pb-12">
                 <div className="mb-8 flex items-center justify-between">
-                    <Link href="/">
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-muted-foreground hover:text-foreground transition-colors"
-                        >
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        asChild
+                        className="text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                        <Link href="/" aria-label="Retour à l'accueil">
                             <ArrowLeft className="h-4 w-4" />
-                        </Button>
-                    </Link>
-                    <Link href="/mentions">
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-muted-foreground hover:text-foreground transition-colors gap-1.5"
-                        >
+                        </Link>
+                    </Button>
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        asChild
+                        className="text-muted-foreground hover:text-foreground transition-colors gap-1.5"
+                    >
+                        <Link href="/mentions" aria-label="Mentions légales">
                             <Scale className="h-4 w-4" />
-                        </Button>
-                    </Link>
+                        </Link>
+                    </Button>
                 </div>
 
                 <div className="mb-12 text-center">

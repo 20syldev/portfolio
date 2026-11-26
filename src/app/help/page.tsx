@@ -81,15 +81,16 @@ export default function HelpPage() {
 
             <main className="flex-1 container mx-auto px-4 pt-page pb-12">
                 <div className="mb-8 flex items-center justify-between">
-                    <Link href="/">
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-muted-foreground hover:text-foreground transition-colors"
-                        >
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        asChild
+                        className="text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                        <Link href="/" aria-label="Retour à l'accueil">
                             <ArrowLeft className="h-4 w-4" />
-                        </Button>
-                    </Link>
+                        </Link>
+                    </Button>
                     <RandomButton />
                 </div>
                 <div className="mb-12 text-center">

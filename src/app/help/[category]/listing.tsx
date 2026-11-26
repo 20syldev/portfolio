@@ -37,15 +37,16 @@ export function Listing({ category, docs, subcategories = [] }: ListingProps) {
 
             <main className="flex-1 container mx-auto px-4 pt-page pb-12">
                 <div className="mb-8 flex items-center justify-between">
-                    <Link href="/help">
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-muted-foreground hover:text-foreground transition-colors"
-                        >
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        asChild
+                        className="text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                        <Link href="/help" aria-label="Retour aux documentations">
                             <ArrowLeft className="h-4 w-4" />
-                        </Button>
-                    </Link>
+                        </Link>
+                    </Button>
                     <RandomButton />
                 </div>
                 <div className="mb-12 text-center">

@@ -41,24 +41,26 @@ export default function ContributionsPage() {
 
             <main className="flex-1 container mx-auto px-4 pt-page pb-12">
                 <div className="mb-8 flex items-center justify-between">
-                    <Link href="/repositories">
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-muted-foreground hover:text-foreground transition-colors"
-                        >
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        asChild
+                        className="text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                        <Link href="/repositories" aria-label="Retour aux dépôts">
                             <ArrowLeft className="h-4 w-4" />
-                        </Button>
-                    </Link>
-                    <Link href="/stats">
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-muted-foreground hover:text-foreground transition-colors"
-                        >
+                        </Link>
+                    </Button>
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        asChild
+                        className="text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                        <Link href="/stats" aria-label="Statistiques">
                             <LineChart className="h-4 w-4" />
-                        </Button>
-                    </Link>
+                        </Link>
+                    </Button>
                 </div>
 
                 <div className="mb-8 text-center">

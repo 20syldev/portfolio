@@ -26,15 +26,16 @@ export default function LabsPage() {
                     <div className="w-full max-w-3xl">
                         {/* Navigation */}
                         <div className="mb-8">
-                            <Link href="/badges">
-                                <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    className="text-muted-foreground hover:text-foreground transition-colors"
-                                >
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                asChild
+                                className="text-muted-foreground hover:text-foreground transition-colors"
+                            >
+                                <Link href="/badges" aria-label="Retour aux badges">
                                     <ArrowLeft className="h-4 w-4" />
-                                </Button>
-                            </Link>
+                                </Link>
+                            </Button>
                         </div>
 
                         {/* Header */}
