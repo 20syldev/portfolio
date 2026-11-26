@@ -123,11 +123,6 @@ export const techCategories = [
                 url: "https://getbootstrap.com",
             },
             { name: "jQuery", icon: "/icons/tech/jquery.svg", url: "https://jquery.com" },
-            {
-                name: "React Native",
-                icon: "/icons/tech/reactnative.svg",
-                url: "https://reactnative.dev",
-            },
         ],
     },
     {

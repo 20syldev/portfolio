@@ -142,7 +142,6 @@ const frameworkOrder = [
     "Bootstrap",
     "Vite.js",
     "Flutter",
-    "React Native",
     "Vuetify",
     "VitePress",
     "jQuery",
