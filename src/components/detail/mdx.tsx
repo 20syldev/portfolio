@@ -186,7 +186,10 @@ export const mdxComponents = {
         const isInline = !className;
         if (isInline) {
             return (
-                <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
+                <code
+                    className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono text-foreground"
+                    {...props}
+                >
                     {children}
                 </code>
             );
