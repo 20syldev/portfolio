@@ -140,6 +140,7 @@ const frameworkOrder = [
     "Vue.js",
     "Tailwind CSS",
     "Bootstrap",
+    "Fastify",
     "Vite.js",
     "Flutter",
     "Vuetify",

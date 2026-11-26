@@ -12,7 +12,7 @@ export const darkInvertIcons = [
 ];
 
 // Icons requiring a hue rotation filter in dark mode
-export const darkInvertHueIcons = ["YAML"];
+export const darkInvertHueIcons = ["YAML", "Lua", "TOML"];
 
 // Favorites of the moment: they get a golden tooltip and a burst of confetti on hover
 export const favoriteTechs = [
@@ -98,6 +98,7 @@ export const techCategories = [
             { name: "Swift", icon: "/icons/tech/swift.svg", url: "https://www.swift.org" },
             { name: "Ruby", icon: "/icons/tech/ruby.svg", url: "https://www.ruby-lang.org" },
             { name: "Perl", icon: "/icons/tech/perl.svg", url: "https://www.perl.org" },
+            { name: "Lua", icon: "/icons/tech/lua.svg", url: "https://www.lua.org" },
         ],
     },
     {
@@ -133,6 +134,7 @@ export const techCategories = [
             { name: "Docker", icon: "/icons/tech/docker.svg", url: "https://www.docker.com" },
             { name: "Nginx", icon: "/icons/tech/nginx.svg", url: "https://nginx.org" },
             { name: "Apache", icon: "/icons/tech/apache.svg", url: "https://httpd.apache.org" },
+            { name: "HAProxy", icon: "/icons/tech/haproxy.svg", url: "https://www.haproxy.org" },
             {
                 name: "Kibana",
                 icon: "/icons/tech/kibana.svg",
@@ -170,6 +172,7 @@ export const techCategories = [
                 url: "https://www.markdownguide.org",
             },
             { name: "YAML", icon: "/icons/tech/yaml.svg", url: "https://yaml.org" },
+            { name: "TOML", icon: "/icons/tech/toml.svg", url: "https://toml.io" },
         ],
     },
     {
