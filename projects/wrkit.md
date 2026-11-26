@@ -5,7 +5,7 @@ longDescription: "Bot Discord de travail générique, hébergé 24h/7j et en cou
 tags: ["Node.js", "Discord.js", "TypeScript"]
 github: "https://github.com/20syldev/WrkIT"
 demo: "https://wrkit.sylvain.sh"
-npm: "https://npmjs.com/wrkit"
+npm: "https://www.npmjs.com/package/wrkit"
 ---
 
 ## À propos {#about}
