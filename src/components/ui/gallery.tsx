@@ -14,6 +14,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
+import { PagerDot } from "@/components/ui/pager";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Certification, CertificationCategory } from "@/data/achievements";
@@ -393,22 +394,22 @@ export function Gallery({
                     </div>
 
                     {/* Dot indicators */}
-                    <div className="flex justify-center gap-1.5 mt-4">
+                    <div className="flex justify-center mt-2">
                         {categories.map((_, index) => (
-                            <button
+                            <PagerDot
                                 key={index}
+                                label={`Catégorie ${index + 1}`}
                                 onClick={() =>
                                     scrollRef.current?.scrollTo({
                                         left: index * (scrollRef.current?.offsetWidth || 0),
                                         behavior: "smooth",
                                     })
                                 }
-                                className={`h-1.5 rounded-full transition-all ${
+                                className={`h-1.5 ${
                                     currentCategory === index
                                         ? "w-4 bg-primary"
                                         : "w-1.5 bg-muted-foreground/30"
                                 }`}
-                                aria-label={`Catégorie ${index + 1}`}
                             />
                         ))}
                     </div>

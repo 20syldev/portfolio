@@ -17,6 +17,7 @@ import { Sparkline } from "@/components/stats/chart";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { badgeRounding, GalleryTooltipContent } from "@/components/ui/gallery";
+import { PagerDot } from "@/components/ui/pager";
 import { Period } from "@/components/ui/period";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -433,16 +434,16 @@ export function Cards() {
             </div>
 
             {/* Mobile/Tablet dots */}
-            <div className="flex justify-center gap-2 lg:hidden">
+            <div className="flex justify-center lg:hidden">
                 {Array.from({ length: count }).map((_, index) => {
                     const isActive = Math.abs(scrollProgress - index) < 0.5;
                     return (
-                        <button
+                        <PagerDot
                             key={index}
+                            label={`Carte ${index + 1}`}
                             onClick={() => scrollToCard(index)}
-                            className={`h-2 rounded-full ${isActive ? "bg-primary" : "bg-muted-foreground/30"}`}
+                            className={`h-2 ${isActive ? "bg-primary" : "bg-muted-foreground/30"}`}
                             style={{ width: getDotWidth(index) }}
-                            aria-label={`Carte ${index + 1}`}
                         />
                     );
                 })}
