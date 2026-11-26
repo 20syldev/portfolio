@@ -4,6 +4,7 @@ description: Outil CLI pour récupérer les infos de releases GitHub sans authen
 longDescription: Outil en ligne de commande léger pour récupérer les informations de releases, lister les assets et télécharger depuis n'importe quel projet GitHub public — sans authentification requise.
 tags: ["Bash", "CLI", "Shell"]
 github: "https://github.com/20syldev/gft"
+launchpad: "https://launchpad.net/~20syldev/+archive/ubuntu/gft"
 docs: "linux/gft"
 ---
 
@@ -20,6 +21,13 @@ curl -fsSL https://dropr.sylvain.sh/bash/gft@latest/install.sh | sh
 ```
 
 Vous pouvez aussi installer manuellement en copiant le script dans `/usr/local/bin/`.
+
+Sur Ubuntu 22.04, 24.04 et 26.04 et leurs dérivées, gft est aussi disponible dans un PPA Launchpad, mis à jour par `apt` comme n'importe quel autre paquet :
+
+```bash
+sudo add-apt-repository ppa:20syldev/gft
+sudo apt install gft
+```
 
 ## Utilisation {#usage}
 
