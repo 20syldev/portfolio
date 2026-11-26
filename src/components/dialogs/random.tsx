@@ -50,6 +50,7 @@ export function RandomButton() {
                 variant="ghost"
                 size="sm"
                 className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Documentation aléatoire"
                 onClick={handleOpen}
             >
                 <Dices className="h-4 w-4" />

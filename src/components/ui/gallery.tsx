@@ -275,15 +275,16 @@ export function Gallery({
             <div className="w-full max-w-7xl">
                 {/* Navigation */}
                 <div className="mb-8 flex justify-between items-center">
-                    <Link href={backHref}>
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-muted-foreground hover:text-foreground transition-colors"
-                        >
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        asChild
+                        className="text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                        <Link href={backHref} aria-label="Retour">
                             <ArrowLeft className="h-4 w-4" />
-                        </Button>
-                    </Link>
+                        </Link>
+                    </Button>
                     {relatedPages && relatedPages.length > 0 && (
                         <>
                             <Button
