@@ -19,6 +19,7 @@ interface ProjectMeta {
     demo?: string;
     article?: string;
     npm?: string;
+    launchpad?: string;
     docs?: string;
     image?: string;
     archived?: boolean;
