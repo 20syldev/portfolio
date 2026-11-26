@@ -82,8 +82,8 @@ const markdownImage = /!\[([^\]]*)\]\((\/[^)\s]+)\)/g;
 const markdownVideo = /\.mp4$/;
 
 /**
- * Resolves one local image: a file under public/, or a base whose `-light.webp` and
- * `-dark.webp` variants both exist; the page then shows the one matching the theme.
+ * Resolves one local image: a file under public/, or a base whose `-light` and `-dark` variants
+ * both exist as WebP or as SVG; the page then shows the one matching the theme.
  * Exits when the file is missing or the image has no alt.
  *
  * @param owner - Page or entry the image belongs to, used in error messages
@@ -93,9 +93,12 @@ const markdownVideo = /\.mp4$/;
  */
 async function resolveImage(owner: string, ref: string, alt: string): Promise<ContentImage> {
     const exists = (file: string) => fs.existsSync(path.join(publicDir, file));
-    const light = `${ref}-light.webp`;
-    const dark = `${ref}-dark.webp`;
-    const paired = exists(light) && exists(dark);
+    const extension = ["webp", "svg"].find(
+        (ext) => exists(`${ref}-light.${ext}`) && exists(`${ref}-dark.${ext}`)
+    );
+    const paired = extension !== undefined;
+    const light = `${ref}-light.${extension}`;
+    const dark = `${ref}-dark.${extension}`;
     const file = paired ? light : ref;
 
     if (!alt || !exists(file)) {
