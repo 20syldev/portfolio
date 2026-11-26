@@ -6,7 +6,7 @@ slug: tote
 order: 4
 ---
 
-> **Version documentée : tote 1.1.0.** tote est le successeur de [mn](/help/linux/mn) : les mêmes domaines (connexions, dépôts, alias, fonctions), réécrits en Go. Les deux outils coexistent ; mn reste installable et fonctionne comme avant. Voir [Reprendre ses données de mn](#from-mn).
+> **Version documentée : tote 1.2.0.** tote est le successeur de [mn](/help/linux/mn) : les mêmes domaines (connexions, dépôts, alias, fonctions), réécrits en Go. Les deux outils coexistent ; mn reste installable et fonctionne comme avant. Voir [Reprendre ses données de mn](#from-mn).
 
 ## Installation {#install}
 
@@ -28,7 +28,7 @@ curl -fsSL https://dropr.sylvain.sh/bash/tote@latest/install.sh | sh
 Pour une version précise :
 
 ```bash
-curl -fsSL https://dropr.sylvain.sh/bash/tote@latest/install.sh | sh -s -- 1.1.0
+curl -fsSL https://dropr.sylvain.sh/bash/tote@latest/install.sh | sh -s -- 1.2.0
 ```
 
 Le script télécharge l'archive de votre système depuis GitHub Releases, compare son SHA-256 au fichier de sommes signé, vérifie la signature minisign quand un vérificateur est disponible (`minisign`, sinon OpenSSL 3), installe tote dans `~/.local/bin` et écrit un reçu d'installation. Il n'utilise jamais `sudo` et ne modifie jamais vos fichiers de démarrage : l'[intégration au shell](#shell) reste à ajouter vous-même.
@@ -70,7 +70,7 @@ go install github.com/totecli/tote/cmd/tote@latest
 
 ```bash
 git clone https://github.com/totecli/tote.git && cd tote
-make build VERSION=1.1.0-local        # writes bin/tote
+make build VERSION=1.2.0-local        # writes bin/tote
 ```
 
 Un tote compilé depuis les sources ou installé par `go install` n'a pas de clé de release : `tote update` refuse d'installer quoi que ce soit (`tote update --check` cherche quand même une release et, dans le dossier bin de Go, affiche la commande `go install`) et [`tote doctor`](#doctor) avertit. C'est normal.
@@ -82,8 +82,8 @@ Chaque release fournit `tote_<version>_checksums.txt` et sa signature minisign. 
 ```bash
 # current: RWTTj50yYWk72oCPtVJZ8hrpENxKKpQHDtQl3l1JkOxauemhwepIFON3
 # next (kept offline): RWS7eI0zAwZGD3nDouKjNMVgt3opeJ9Lf3K3RNRKeNYIV1Hm9L0UirQT
-sha256sum -c tote_1.1.0_checksums.txt --ignore-missing      # macOS: shasum -a 256 -c
-minisign -V -H -P <public key> -m tote_1.1.0_checksums.txt  # reads the .minisig next to it
+sha256sum -c tote_1.2.0_checksums.txt --ignore-missing      # macOS: shasum -a 256 -c
+minisign -V -H -P <public key> -m tote_1.2.0_checksums.txt  # reads the .minisig next to it
 ```
 
 ## Intégration au shell {#shell}
@@ -131,9 +131,9 @@ Un nom est unique parmi les alias, les dépôts et les fonctions, puisque chacun
 
 ## Interface {#usage}
 
-`tote` sans argument, dans un terminal, ouvre l'interface plein écran ; dans un tube ou un script, il affiche l'aide. `tote co` et `tote config` sans argument l'ouvrent sur la liste des connexions et sur les réglages. L'option `--ascii` remplace les symboles par de l'ASCII.
+`tote` sans argument, dans un terminal, ouvre l'interface plein écran ; dans un tube ou un script, il affiche l'aide. `tote co`, `tote repos`, `tote alias` et `tote funcs` sans argument l'ouvrent sur la liste correspondante (depuis la 1.2 pour les trois dernières), et `tote config` sur les réglages. L'option `--ascii` remplace les symboles par de l'ASCII.
 
-L'accueil est un cadre de bienvenue avec le nombre d'enregistrements de chaque sorte et un menu : Connexions, Dépôts, Alias, Fonctions, Plugins, Réglages. Une liste montre une sorte en colonnes qui disparaissent par la droite quand le terminal se réduit, avec une ligne de filtre et un panneau affichant la commande exacte que Entrée lancerait (ou le chemin d'un dépôt et sa branche Git). La palette cherche dans tous les enregistrements depuis n'importe où, les réglages se changent sur place et sont enregistrés aussitôt, l'écran Plugins liste les plugins installés et livrés avec leur état, et `?` liste toutes les touches qui s'appliquent.
+L'accueil est un cadre de bienvenue avec le nombre d'enregistrements de chaque sorte et un menu : Connexions, Dépôts, Alias, Fonctions, Plugins, Réglages. Une liste montre une sorte, triée par nom sans tenir compte de la casse (depuis la 1.2, voir `ui.sort`), en colonnes qui disparaissent par la droite quand le terminal se réduit, avec une ligne de filtre et un panneau affichant la commande exacte que Entrée lancerait (ou le chemin d'un dépôt et sa branche Git). La palette cherche dans tous les enregistrements depuis n'importe où, les réglages se changent sur place et sont enregistrés aussitôt, l'écran Plugins liste les plugins installés et livrés avec leur état, et `?` liste toutes les touches qui s'appliquent.
 
 ### Touches {#keys}
 
@@ -156,6 +156,7 @@ L'accueil est un cadre de bienvenue avec le nombre d'enregistrements de chaque s
 | `Espace`                                     | Plugins                            | Activer ou désactiver le plugin                                                                                            |
 | `a` `s` `i` `d` `c`                          | Plugins                            | Autoriser (consentement), réglages, installer, supprimer, vérifier                                                         |
 | `Ctrl+L`                                     | Champ texte avec suggestions       | Formulaires de plugin (depuis la 1.1) : lister les valeurs que suggère le programme du plugin, puis en choisir une         |
+| `Entrée` `Ctrl+S`                            | Champ texte de plusieurs lignes    | Formulaires de plugin (depuis la 1.2) : `Entrée` commence une nouvelle ligne, `Ctrl+S` envoie le formulaire                |
 | `Échap`                                      | Partout                            | Revenir en arrière, fermer une fenêtre                                                                                     |
 | `q`                                          | Partout                            | Quitter (pas pendant la saisie dans un champ)                                                                              |
 | `Ctrl+C`                                     | Partout                            | Revenir en arrière, ne quitte jamais d'un coup (deux fois sur l'accueil pour quitter)                                      |
@@ -164,6 +165,8 @@ L'accueil est un cadre de bienvenue avec le nombre d'enregistrements de chaque s
 Dans les formulaires, `Tab` passe au champ suivant, `Ctrl+S` enregistre et `Échap` annule. Sur la liste des connexions, `Entrée` après un filtre place le curseur sur la ligne dont le nom ou l'alias est exactement le texte tapé, et un second `Entrée` utilise l'enregistrement.
 
 Sur un champ de formulaire de plugin qui propose des suggestions (`choices_from`, depuis la 1.1), `Ctrl+L` lance le programme qui les liste : rien ne démarre avant cette touche, vous pouvez toujours taper une valeur à la place, et `Échap` arrête le listage en gardant le formulaire. Une boîte de chargement affiche la commande lancée et les secondes écoulées.
+
+Un champ texte de plusieurs lignes (`multiline`, depuis la 1.2) s'affiche comme une boîte : `Entrée` y commence une nouvelle ligne, `Tab` passe toujours au champ suivant et `Ctrl+S` envoie le formulaire.
 
 ### Souris {#mouse}
 
@@ -192,7 +195,7 @@ Les plugins y ajoutent leurs commandes, accessibles par `>` (voir [Plugins](#plu
 
 ## Ligne de commande {#cli}
 
-Chaque domaine s'utilise aussi sans l'interface. `tote help` liste les commandes et `tote help <commande>` affiche l'usage. Les commandes qui listent des enregistrements affichent un tableau dans un terminal et des lignes séparées par des tabulations dans un tube ; `--format table|tsv|json` choisit, et `--json` équivaut à `--format json`. Les colonnes TSV sont positionnelles et une version ultérieure n'en ajoute qu'à la fin ; chaque document JSON commence par `"schema": 1` et ne fait que gagner des champs.
+Chaque domaine s'utilise aussi sans l'interface. `tote help` liste les commandes et `tote help <commande>` affiche l'usage. Les commandes qui listent des enregistrements affichent un tableau dans un terminal et des lignes séparées par des tabulations dans un tube ; `--format table|tsv|json` choisit, et `--json` équivaut à `--format json`. Depuis la 1.2, le tableau suit `ui.sort` (par nom, sauf si le réglage vaut `"file"`), alors que `--format tsv` et `--format json` gardent toujours l'ordre du fichier. Les colonnes TSV sont positionnelles et une version ultérieure n'en ajoute qu'à la fin ; chaque document JSON commence par `"schema": 1` et ne fait que gagner des champs.
 
 Les commandes sont `co` (aussi `connections`), `alias` (`a`), `repos` (`repo`, `r`), `funcs` (`f`), `plugin` (`plugins`), `config`, `doctor`, `update`, `uninstall`, `init`, `version` et `help`. `--no-plugins`, placé avant la commande, coupe tous les plugins pour une exécution (comme `TOTE_NO_PLUGINS=1`).
 
@@ -301,6 +304,8 @@ Avant l'installation d'un plugin, ou quand une mise à jour demande davantage, t
 
 Depuis la 1.1, un plugin peut aussi suggérer des valeurs pour un champ texte avec un programme que vous lancez avec `Ctrl+L` ; sa ligne de commande est montrée au consentement et une mise à jour qui en ajoute une redemande l'accord.
 
+Depuis la 1.2, un champ texte peut aussi tenir sur plusieurs lignes (`multiline = true`, de 2 à 8 lignes affichées, 4 par défaut), pour le corps d'un rappel, une note ou un message. Les lignes arrivent au programme telles qu'elles sont tapées, séparées par des sauts de ligne (visibles sous la forme `\n` dans la commande affichée et dans `plugin check --argv`), et seulement dans un argument de `run`. Un plugin qui en utilise déclare `requires_features = ["field.multiline"]` et `tote = ">=1.2.0, <2"` : tote 1.1 le liste comme incompatible, et une mise à jour qui rend un champ multiligne redemande l'accord.
+
 ### Le plugin gft {#gft}
 
 Le plugin livré avec tote est **gft**. Il est embarqué dans le binaire, listé comme `available` tant qu'il n'est pas installé, et demande le programme [gft](/help/linux/gft) (releases GitHub et stashes Git). Sur un dépôt enregistré qui a un remote GitHub (`Tab` sur la ligne), il ajoute :
@@ -309,6 +314,8 @@ Le plugin livré avec tote est **gft**. Il est embarqué dans le binaire, listé
 - lister, afficher, supprimer un stash, ou tous les supprimer (avec confirmation)
 
 Dans la palette (`>`), il ajoute : afficher une release GitHub, ouvrir sa page, télécharger un asset et installer le binaire d'une release.
+
+La copie livrée avec tote 1.2 reste le plugin gft 1.0.0 ; la 1.1.0 du plugin vient de son propre dépôt, et la mise à jour depuis la copie livrée redemande l'accord.
 
 Pour le lire avant de rien changer :
 
@@ -378,7 +385,7 @@ tote plugin check [<id|dir|archive>] [--strict] [--official] [--argv [--set <fie
 
 Les états sont `enabled`, `disabled`, `needs-consent`, `missing-dependency`, `incompatible`, `broken`, `quarantined` et `available`. La quarantaine coupe un plugin après des échecs ; un plugin déclaratif n'en compte jamais, elle ne se produit donc pas encore, et `tote plugin enable` la lève.
 
-Pour écrire un plugin, consultez le [guide de rédaction](https://github.com/totecli/tote/blob/v1.1.0/docs/plugins/AUTHORING.md) et la [référence de l'API 1](https://github.com/totecli/tote/blob/v1.1.0/docs/plugins/API1.md).
+Pour écrire un plugin, consultez le [guide de rédaction](https://github.com/totecli/tote/blob/v1.2.0/docs/plugins/AUTHORING.md) et la [référence de l'API 1](https://github.com/totecli/tote/blob/v1.2.0/docs/plugins/API1.md).
 
 ## Mises à jour signées {#update}
 
@@ -472,6 +479,7 @@ extra_names = []            # more function names to expose
 [update]
 check = true                # look for a release in the background, at most once a day
 [ui]
+sort = "name"               # "name" (by name, ignoring case) or "file": how lists are shown
 theme = "auto"              # "auto", "dark", "light" or "mono"
 welcome = "box"             # "box", "compact" or "off"
 compact = "auto"            # "auto", "always" or "never"
@@ -506,7 +514,7 @@ Sans `--shell`, la ligne d'intégration est conservée et la commande l'indique.
 
 ## Reprendre ses données de mn {#from-mn}
 
-Le programme n'a aucune commande d'import : tote ne lit jamais la configuration de mn. Un script Bash séparé (bash 4 ou plus), `scripts/import.sh`, copie vos données. Il est dans le dépôt seulement, pas dans les archives ni les paquets : clonez `https://github.com/totecli/tote.git`, ou téléchargez `scripts/import.sh` au tag de votre version (`https://raw.githubusercontent.com/totecli/tote/v1.1.0/scripts/import.sh`). C'est une simulation tant que vous ne passez pas `--apply` :
+Le programme n'a aucune commande d'import : tote ne lit jamais la configuration de mn. Un script Bash séparé (bash 4 ou plus), `scripts/import.sh`, copie vos données. Il est dans le dépôt seulement, pas dans les archives ni les paquets : clonez `https://github.com/totecli/tote.git`, ou téléchargez `scripts/import.sh` au tag de votre version (`https://raw.githubusercontent.com/totecli/tote/v1.2.0/scripts/import.sh`). C'est une simulation tant que vous ne passez pas `--apply` :
 
 ```bash
 bash scripts/import.sh                  # dry run: shows what would be imported, writes nothing
