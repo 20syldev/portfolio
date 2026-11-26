@@ -65,6 +65,7 @@ const tints: ReadonlyArray<readonly [keyword: string, color: string, ink: string
     ["react", "#087ea4", "#fff"],
     ["php", "light-dark(#4f5b93, #777bb3)", ink],
     ["npm", "#cb3837", "#fff"],
+    ["launchpad", "light-dark(#cf4519, #e95420)", ink],
 ];
 
 /**
