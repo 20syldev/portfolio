@@ -33,7 +33,7 @@
 <text x="68.4" y="32.06" textLength="8.4" lengthAdjust="spacingAndGlyphs" fill="#ea93a3" font-weight="bold">n</text>
 <text x="76.80000000000001" y="32.06" textLength="8.4" lengthAdjust="spacingAndGlyphs" fill="#e88eaa" font-weight="bold">u</text>
 <text x="85.2" y="32.06" textLength="8.4" lengthAdjust="spacingAndGlyphs" fill="#e78bb1" font-weight="bold">p</text>
-<text x="102" y="32.06" textLength="50.400000000000006" lengthAdjust="spacingAndGlyphs" fill="#8b8697">v1.3.0</text>
+<text x="102" y="32.06" textLength="50.400000000000006" lengthAdjust="spacingAndGlyphs" fill="#8b8697">v1.4.0</text>
 <text x="169.20000000000002" y="32.06" textLength="8.4" lengthAdjust="spacingAndGlyphs" fill="#8b8697" fill-opacity="0.6">/</text></g>
 <g class="f2"><rect x="26.4" y="27.5" width="8.4" height="9.5" fill="#f0a582"/>
 <rect x="43.2" y="18" width="8.8" height="19" fill="#f0a484"/>
@@ -494,12 +494,12 @@
 <text x="144" y="70.06" textLength="16.8" lengthAdjust="spacingAndGlyphs" fill="#8b8697" fill-opacity="0.6">14</text>
 <text x="169.20000000000002" y="70.06" textLength="8.4" lengthAdjust="spacingAndGlyphs" fill="#8b8697" fill-opacity="0.6">d</text></g></g>
 <g class="f1"><g transform="translate(672 0)"><text x="152.4" y="70.06" textLength="25.200000000000003" lengthAdjust="spacingAndGlyphs" fill="#8b8697">3/5</text></g></g>
-<g class="f0"><text x="26.4" y="89.06" textLength="50.400000000000006" lengthAdjust="spacingAndGlyphs" fill="#8b8697">v1.3.0</text>
+<g class="f0"><text x="26.4" y="89.06" textLength="50.400000000000006" lengthAdjust="spacingAndGlyphs" fill="#8b8697">v1.4.0</text>
 <text x="93.60000000000001" y="89.06" textLength="50.400000000000006" lengthAdjust="spacingAndGlyphs" fill="#8b8697">Claude</text></g>
 <g class="f1"><text x="34.8" y="89.06" textLength="8.4" lengthAdjust="spacingAndGlyphs" fill="#ec6a9c" font-weight="bold">✦</text>
 <text x="76.80000000000001" y="89.06" textLength="25.200000000000003" lengthAdjust="spacingAndGlyphs" fill="#f87171">2.1</text>
 <text x="110.4" y="89.06" textLength="16.8" lengthAdjust="spacingAndGlyphs" fill="#f87171">GB</text></g>
-<g class="f2"><text x="26.4" y="89.06" textLength="50.400000000000006" lengthAdjust="spacingAndGlyphs" fill="#8b8697">v1.3.0</text>
+<g class="f2"><text x="26.4" y="89.06" textLength="50.400000000000006" lengthAdjust="spacingAndGlyphs" fill="#8b8697">v1.4.0</text>
 <text x="93.60000000000001" y="89.06" textLength="50.400000000000006" lengthAdjust="spacingAndGlyphs" fill="#8b8697">Claude</text></g>
 <g class="f0"><g transform="translate(126 0)"><text x="26.4" y="89.06" textLength="33.6" lengthAdjust="spacingAndGlyphs" fill="#8b8697">Code</text>
 <text x="68.4" y="89.06" textLength="67.2" lengthAdjust="spacingAndGlyphs" fill="#8b8697">sessions</text></g></g>
