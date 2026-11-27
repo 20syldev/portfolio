@@ -160,12 +160,27 @@ async function generateProjects(): Promise<void> {
         process.exit(1);
     }
 
-    // Read all project .md files
-    const projectFiles = fs.readdirSync(projectsSource).filter((file) => file.endsWith(".md"));
+    // Read all project .md files, the ones in work/ carry the work flag
+    const projectFiles = [
+        { dir: projectsSource, work: false },
+        { dir: path.join(projectsSource, "work"), work: true },
+    ].flatMap(({ dir, work }) =>
+        fs.existsSync(dir)
+            ? fs
+                  .readdirSync(dir)
+                  .filter((file) => file.endsWith(".md"))
+                  .map((filename) => ({ filename, dir, work }))
+            : []
+    );
 
-    for (const filename of projectFiles) {
+    for (const { filename, dir, work } of projectFiles) {
         const projectId = filename.replace(".md", "");
-        const filePath = path.join(projectsSource, filename);
+        const filePath = path.join(dir, filename);
+
+        if (projects.some((p) => p.id === projectId)) {
+            console.error(`Error: project ${projectId} exists in two folders`);
+            process.exit(1);
+        }
 
         // Read and parse the file with gray-matter
         const fileContent = fs.readFileSync(filePath, "utf-8");
@@ -189,6 +204,7 @@ async function generateProjects(): Promise<void> {
         projects.push({
             id: projectId,
             ...meta,
+            ...(work && { work }),
             ...(images.length > 0 && { images }),
             hasContent,
         } as GeneratedProject);
