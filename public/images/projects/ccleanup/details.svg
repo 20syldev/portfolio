@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 876 207" width="876" height="207" role="img" aria-label="A search with the details of a session">
 <rect width="876" height="207" rx="10" fill="#1c1920"/>
 <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="14" xml:space="preserve">
+<style>g rect{shape-rendering:crispEdges}</style>
 <path d="M34.8 27.5H34.8A4.2 4.2 0 0 0 30.599999999999998 31.7V37" stroke="#8b8697" stroke-width="1.2" fill="none"/>
 <path d="M34.8 27.5H43.199999999999996" stroke="#8b8697" stroke-width="1.2" fill="none"/>
 <text x="51.6" y="32.06" textLength="58.800000000000004" lengthAdjust="spacingAndGlyphs" fill="#8b8697" font-weight="bold">Details</text>

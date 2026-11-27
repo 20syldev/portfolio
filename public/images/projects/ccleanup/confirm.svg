@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 658 245" width="658" height="245" role="img" aria-label="The confirmation box">
 <rect width="658" height="245" rx="10" fill="#1c1920"/>
 <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="14" xml:space="preserve">
+<style>g rect{shape-rendering:crispEdges}</style>
 <path d="M26.4 27.5H26.4A4.2 4.2 0 0 0 22.2 31.7V37" stroke="#fbbf24" stroke-width="1.2" fill="none"/>
 <path d="M26.4 27.5H34.8" stroke="#fbbf24" stroke-width="1.2" fill="none"/>
 <text x="43.2" y="32.06" textLength="50.400000000000006" lengthAdjust="spacingAndGlyphs" fill="#fbbf24" font-weight="bold">Delete</text>
