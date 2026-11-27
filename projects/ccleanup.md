@@ -59,7 +59,7 @@ Les captures sont dessinées à partir de la vraie interface, sur des sessions i
 Les couleurs suivent le terminal : vraies couleurs, 256 ou 16 couleurs, ou aucune. Le fond est demandé au terminal (OSC 11, puis `COLORFGBG`) et un fond clair reçoit une palette plus sombre.
 `CCLEANUP_ASCII=1` dessine l'interface avec des caractères ASCII seulement, `NO_COLOR` et `FORCE_COLOR` coupent ou forcent les couleurs, et `CCLEANUP_LANG=fr|en` choisit la langue, le français par défaut sur un système en français.
 
-## Ce qui est supprimé, et ce qui ne l'est pas {#safety}
+## Ce qui est supprimé {#safety}
 
 Une session est une transcription `<uuid>.jsonl` dans `~/.claude/projects/<projet>/`, plus ce que Claude Code range à côté : le dossier `<uuid>/` (résultats d'outils, sous-agents, workflows), `file-history/<uuid>`, `session-env/<uuid>` et `debug/<uuid>.txt`.
 Son dossier temporaire part aussi : Claude Code y garde le bloc-notes et les images collées de la session, que `claude purge` laisse derrière lui. Tout est supprimé ensemble et les tailles sont additionnées.
