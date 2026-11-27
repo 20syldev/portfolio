@@ -5,7 +5,6 @@ longDescription: Site marketing Next.js bilingue (FR/EN) pour LogVault — une s
 tags: ["Next.js", "TypeScript", "Radix UI", "Logs"]
 demo: "https://logvault.io"
 article: "https://www.zenetys.com/actu/mise-en-ligne-de-logvault-io/"
-work: true
 ---
 
 ## À propos {#about}

@@ -6,7 +6,6 @@ tags: ["Vue.js", "Vuetify", "AutoTable", "JSON"]
 github: "https://github.com/zenetys/ztable"
 demo: "https://tools.zenetys.com/ztable/#/?source=https%3A%2F%2Fcdn.zenetys.com%2Fapi%2Fv1%2Fdata.gouv.navitia.json&path=data&type=generic"
 npm: "https://www.npmjs.com/package/@zenetys/ztable"
-work: true
 ---
 
 ## À propos {#about}

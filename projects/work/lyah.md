@@ -3,7 +3,6 @@ name: Lyah
 description: Application de chat collaboratif où l'on peut interpeller des modèles d'IA internes, par ZENETYS.
 longDescription: "Application de chat collaboratif développée chez ZENETYS : des conversations privées ou publiques en temps réel par WebSocket, des modèles d'IA internes que l'on interpelle depuis le chat et dont la réponse s'affiche en streaming pour tous les membres, et un mode vocal avec mot d'activation. L'interface est en HTML, CSS et JavaScript sans framework, adossée à un serveur Node.js et à PostgreSQL."
 tags: ["Node.js", "WebSocket", "PostgreSQL", "Voice"]
-work: true
 ---
 
 ## À propos {#about}

@@ -4,7 +4,6 @@ description: Plugin Draw.io qui dessine un schéma réseau à partir de l'API Ya
 longDescription: "Plugin JavaScript pour Draw.io (diagrams.net) qui génère un schéma de base d'un réseau à partir de l'API YaNa : switchs, liens entre eux, ports, VLANs, vitesse et duplex. Les équipements sont colorés selon leur état en direct, et une disposition automatique organise le graphe."
 tags: ["JavaScript", "Draw.io", "YaNa", "Network"]
 github: "https://github.com/20syldev/drawio-ext"
-work: true
 ---
 
 ## À propos {#about}

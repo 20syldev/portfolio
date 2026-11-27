@@ -3,7 +3,6 @@ name: Monitoring
 description: Interface et API de supervision adossées à Elasticsearch, par ZENETYS.
 longDescription: "Outil de supervision interne de ZENETYS, recréé de zéro : une API Node.js qui expose en REST les alertes stockées dans Elasticsearch et une interface web en JavaScript natif, sans framework ni build, pour les trier, les acquitter, les suivre, les commenter et les partager, sur ordinateur comme sur mobile."
 tags: ["Node.js", "Elasticsearch", "Alerting", "JS"]
-work: true
 ---
 
 ## À propos {#about}

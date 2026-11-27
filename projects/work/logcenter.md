@@ -4,7 +4,6 @@ description: Plateforme de collecte, d'archivage et de visualisation de logs de 
 longDescription: "Plateforme de gestion de logs publiée par ZENETYS sous licence MIT : scripts de liaison, configurations et exemples autour d'Elasticsearch, Kibana et rsyslog pour collecter, archiver, parser, indexer et visualiser des logs. J'ai contribué à son interface web en Vue.js, qui suit le volume de logs reçu par machine et permet de télécharger les archives."
 tags: ["Vue.js", "Vuetify", "Chart.js", "Elasticsearch"]
 github: "https://github.com/zenetys/logcenter"
-work: true
 ---
 
 ## À propos {#about}

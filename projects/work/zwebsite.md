@@ -4,7 +4,6 @@ description: Refonte du site zenetys.com, en grille bento et bilingue, notée 10
 longDescription: "Refonte complète du site de ZENETYS : un site Next.js 16 statique et bilingue (FR/EN) construit en grille bento, noté 100 sur ordinateur et 99 sur mobile par PageSpeed Insights. Un éditeur intégré, adossé à un backend Fastify et SQLite, gère pages, articles, médias, couleurs et redirections avant leur export au build."
 tags: ["Next.js", "TypeScript", "Fastify", "CMS"]
 demo: "https://www.zenetys.com"
-work: true
 ---
 
 ## À propos {#about}
