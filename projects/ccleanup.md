@@ -80,7 +80,8 @@ ccleanup --install-reminder --every weekly --older-than 14d --notify-above 1G
 ```
 
 Cette commande écrit une unité de service et un minuteur dans `~/.config/systemd/user` et active le minuteur. Chaque semaine, l'outil examine les sessions et envoie une notification de bureau, seulement quand plus de 1 Go peut être libéré.
-`--dry-run` affiche les unités sans rien écrire, `--uninstall-reminder` les retire et `--check` lance à la main ce que le rappel exécute, sans rien supprimer. La notification passe par `notify-send`, et `CCLEANUP_NOTIFY` permet d'utiliser une autre commande.
+`--dry-run` affiche les unités sans rien écrire, `--uninstall-reminder` les retire, ou indique qu'il n'y en a aucune, et `--check` lance à la main ce que le rappel exécute, sans rien supprimer.
+Il n'y a qu'un seul rappel : relancer `--install-reminder` remplace le précédent, avec la nouvelle périodicité et les nouveaux filtres. La notification passe par `notify-send`, et `CCLEANUP_NOTIFY` permet d'utiliser une autre commande.
 
 ## Avis de mise à jour {#update}
 
