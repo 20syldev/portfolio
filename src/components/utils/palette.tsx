@@ -192,7 +192,7 @@ export function Palette({
     onContact: () => void;
     onShortcuts: () => void;
 }) {
-    const { open, setOpen } = useCommand();
+    const { open, setOpen, query, setQuery } = useCommand();
     const [search, setSearch] = React.useState("");
     const [scrolled, setScrolled] = React.useState(false);
     const [hoverPreview, setHoverPreview] = React.useState<HoverPreview>(null);
@@ -205,7 +205,8 @@ export function Palette({
     const getProjectStatus = useStatus();
 
     /**
-     * Clears the search and the hover preview whenever the palette closes, whichever way it closes.
+     * Clears the search, the starting query and the hover preview whenever the palette closes,
+     * whichever way it closes, and opens on the starting query when a page gave one.
      * Also manages scroll readiness to ignore cmdk's initial scrollIntoView calls, enabling scroll
      * detection after a short delay once the dialog opens.
      */
@@ -213,10 +214,12 @@ export function Palette({
         if (!open) {
             setScrolled(false);
             setSearch("");
+            setQuery("");
             setHoverPreview(null);
             scrollReadyRef.current = false;
             return;
         }
+        setSearch(query);
         const timer = setTimeout(() => {
             scrollReadyRef.current = true;
         }, 150);
@@ -224,7 +227,7 @@ export function Palette({
             clearTimeout(timer);
             scrollReadyRef.current = false;
         };
-    }, [open]);
+    }, [open, query, setQuery]);
 
     /**
      * Opens straight in the large two-column layout from tablet width up, so the palette never

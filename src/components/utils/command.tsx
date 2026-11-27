@@ -23,6 +23,8 @@ const Palette = dynamic(loadPalette, { ssr: false });
 const CommandContext = React.createContext<{
     open: boolean;
     setOpen: (open: boolean | ((prev: boolean) => boolean)) => void;
+    query: string;
+    setQuery: (query: string) => void;
 } | null>(null);
 
 /**
@@ -37,10 +39,11 @@ export function useCommand() {
 }
 
 /**
- * Provider for command dialog state
+ * Provider for command dialog state, with the text the palette opens on
  */
 export function CommandProvider({ children }: { children: React.ReactNode }) {
     const [open, setOpen] = React.useState(false);
+    const [query, setQuery] = React.useState("");
 
     const setOpenWrapper = React.useCallback((value: boolean | ((prev: boolean) => boolean)) => {
         if (typeof value === "function") {
@@ -51,7 +54,7 @@ export function CommandProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     return (
-        <CommandContext.Provider value={{ open, setOpen: setOpenWrapper }}>
+        <CommandContext.Provider value={{ open, setOpen: setOpenWrapper, query, setQuery }}>
             {children}
         </CommandContext.Provider>
     );
